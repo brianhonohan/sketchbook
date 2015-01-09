@@ -106,14 +106,34 @@ class ColorDroplet{
    
    void render(){
      noStroke();
-     float colorDegree = degrees(_colorWheelPt.theta) % 360;
-     float saturation = 100; // 100 * norm(_colorWheelPt.r,  0, min(width/2, height/2));
-     fill( color(colorDegree, saturation, 80) );
-     
+     fill( getColor() );
      float diameter =  2 + 40 * norm(_colorWheelPt.r,  0, min(width/2, height/2) );
      ellipse(_colorWheelPt.x(), _colorWheelPt.y(), diameter, diameter);
    }
+   
+   color getColor(){
+     colorMode(HSB, 360, 100, 100);
+     float colorDegree = degrees(_colorWheelPt.theta) % 360;
+     float saturation = 100 *  norm(_colorWheelPt.r,  0, min(width/2, height/2) );
+     return color(colorDegree, saturation, 80);
+   }
 }
+
+// implement color wheel where 
+//   0 deg ==> Red
+// 120 deg ==> Yellow
+// 240 deg ==> Blue 
+// ... with Orange, Green, Purple are evenly spaced between
+class RedYellowBlueDroplet extends ColorDroplet {
+  
+   color getColor(){
+     return 0;
+   }
+}
+
+
+
+
 
 
 class Point {
