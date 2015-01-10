@@ -164,7 +164,7 @@ class RYBWheelPoint extends ColorWheelPoint {
   
   
    color getColor(){
-     colorMode(RGB);
+     colorMode(RGB, 255);
      float degree = degrees(wheelPoint.theta) % 360;
      
      int colorCode = getColorCode( degree );
@@ -196,14 +196,15 @@ class RYBWheelPoint extends ColorWheelPoint {
        case COLOR_BLUE:
            return color(0, 0, 255);
        case COLOR_BLUE_VIOLET:
-           return color(0, 0, 255);
-           
+           r = map(degree, DEG_BLUE + ARC_MAIN_COLORS, DEG_VIOLET - ARC_MAIN_COLORS, 0, 255);
+           return color(r, 0, 255);
+       case COLOR_VIOLET:
+           return color(255, 0, 255);
+       case COLOR_RED_VIOLET:
+           b = map(degree, DEG_VIOLET + ARC_MAIN_COLORS, 360 - ARC_MAIN_COLORS, 255, 0);
+           return color(255, 0, b);
      }
-     
-     
-     float colorDegree = degrees(wheelPoint.theta) % 360;
-     float saturation = 100 *  norm(wheelPoint.r,  0, min(width/2, height/2) );
-     return color(colorDegree, saturation, 80);
+     return color(0);
    }
    
    int getColorCode(float p_nDegree){
@@ -234,6 +235,7 @@ class RYBWheelPoint extends ColorWheelPoint {
         if(p_nDegree < colorBreakPoints[i]){
           break;
         }
+        colorIdx++;
       }
            
       int[] colorCodeBreakPoints = {
