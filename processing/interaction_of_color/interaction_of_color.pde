@@ -6,8 +6,8 @@ ColorWheelPoint dropletPlus240;
 Point mousePt;
 PolarPoint polarPt;
 
-import gifAnimation.*;
-GifMaker gifExport;
+// import gifAnimation.*;
+// GifMaker gifExport;
 boolean exportingFrames = false;
 
 void setup(){
@@ -50,8 +50,8 @@ void draw(){
   renderDroplets();
   
   if(exportingFrames){
-    gifExport.setDelay(1);
-    gifExport.addFrame();
+    // gifExport.setDelay(1);
+    // gifExport.addFrame();
   }
 }
 void mouseDragged(){
@@ -68,27 +68,27 @@ void mouseClicked(){
 }
 
 void mousePressed(){
- if (exportingFrames){
-   stopGifExport();
- }else{
-   startGifExport();
- }
+ // if (exportingFrames){
+ //   stopGifExport();
+ // }else{
+ //   startGifExport();
+ // }
  background(0);
 }
 
 void startGifExport(){
-   gifExport = new GifMaker(this, "export" + millis() + ".gif");
-   gifExport.setRepeat(0);
-   gifExport.setQuality(0);
-   // int delayInMillis = (int)(1000/60.0);
-   gifExport.setDelay( 1 );
+   // gifExport = new GifMaker(this, "export" + millis() + ".gif");
+   // gifExport.setRepeat(0);
+   // gifExport.setQuality(0);
+   // // int delayInMillis = (int)(1000/60.0);
+   // gifExport.setDelay( 1 );
    exportingFrames = true;
 }
 
 void stopGifExport(){
-   if(gifExport != null){
-     gifExport.finish();
-   }
+   // if(gifExport != null){
+   //   gifExport.finish();
+   // }
    exportingFrames = false;
 }
 
