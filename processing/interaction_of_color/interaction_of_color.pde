@@ -1,7 +1,7 @@
 
-ColorDroplet mouseDroplet;
-ColorDroplet dropletPlus120;
-ColorDroplet dropletPlus240;
+ColorWheelPoint mouseDroplet;
+ColorWheelPoint dropletPlus120;
+ColorWheelPoint dropletPlus240;
 
 Point mousePt;
 PolarPoint polarPt;
@@ -20,9 +20,14 @@ void setup(){
   
   frameRate(30);
   
-  mouseDroplet = new ColorDroplet();
-  dropletPlus120 = new ColorDroplet();
-  dropletPlus240 = new ColorDroplet();
+  // mouseDroplet = new HSBWheelPoint();
+  // dropletPlus120 = new HSBWheelPoint();
+  // dropletPlus240 = new HSBWheelPoint();
+  mouseDroplet = new RYBWheelPoint();
+  dropletPlus120 = new RYBWheelPoint();
+  dropletPlus240 = new RYBWheelPoint();
+  
+  
   
   background(0);
 }
@@ -36,11 +41,11 @@ void draw(){
 //  fill( color(0, 0, 0, 15) );
 //  rect(width/2,height/2, width, height);
   
-  mouseDroplet._colorWheelPt.moveToPt( mousePt );
-  dropletPlus120._colorWheelPt.moveToPolarPoint( mouseDroplet._colorWheelPt );
-  dropletPlus120._colorWheelPt.theta += radians(120);
-  dropletPlus240._colorWheelPt.moveToPolarPoint( mouseDroplet._colorWheelPt );
-  dropletPlus240._colorWheelPt.theta += radians(240);
+  mouseDroplet.wheelPoint.moveToPt( mousePt );
+  dropletPlus120.wheelPoint.moveToPolarPoint( mouseDroplet.wheelPoint );
+  dropletPlus120.wheelPoint.theta += radians(120);
+  dropletPlus240.wheelPoint.moveToPolarPoint( mouseDroplet.wheelPoint );
+  dropletPlus240.wheelPoint.theta += radians(240);
   
   renderDroplets();
   
@@ -55,9 +60,9 @@ void mouseDragged(){
 
 void mouseClicked(){
   
-  println("Mouse Droplet: " + degrees(mouseDroplet._colorWheelPt.theta));
-  println("... drop 1: " + degrees(dropletPlus120._colorWheelPt.theta));
-  println("... drop 2: " + degrees(dropletPlus240._colorWheelPt.theta));
+  println("Mouse Droplet: " + degrees(mouseDroplet.wheelPoint.theta));
+  println("... drop 1: " + degrees(dropletPlus120.wheelPoint.theta));
+  println("... drop 2: " + degrees(dropletPlus240.wheelPoint.theta));
   
   renderDroplets();
 }
@@ -97,24 +102,48 @@ void renderDroplets(){
 }
 
 
+   final int COLOR_RED = 0;
+   final int COLOR_RED_ORANGE = 1;
+   final int COLOR_ORANGE = 2;
+   final int COLOR_YELLOW_ORANGE= 3;
+   final int COLOR_YELLOW = 4;
+   final int COLOR_YELLOW_GREEN = 5;
+   final int COLOR_GREEN = 6;
+   final int COLOR_BLUE_GREEN = 7;
+   final int COLOR_BLUE = 8;
+   final int COLOR_BLUE_VIOLET = 9;
+   final int COLOR_VIOLET = 10;
+   final int COLOR_RED_VIOLET = 11;
+
 class ColorDroplet{
-   PolarPoint _colorWheelPt;
+
+}
+
+class ColorWheelPoint{
+   PolarPoint wheelPoint;
+   final ColorDroplet droplet = new ColorDroplet();
    
-   ColorDroplet(){
-     _colorWheelPt = new PolarPoint(width/2,height/2);
+   ColorWheelPoint(){
+     wheelPoint = new PolarPoint(width/2,height/2);
    }
    
    void render(){
      noStroke();
      fill( getColor() );
-     float diameter =  2 + 40 * norm(_colorWheelPt.r,  0, min(width/2, height/2) );
-     ellipse(_colorWheelPt.x(), _colorWheelPt.y(), diameter, diameter);
+     float diameter =  2 + 40 * norm(wheelPoint.r,  0, min(width/2, height/2) );
+     ellipse(wheelPoint.x(), wheelPoint.y(), diameter, diameter);
    }
+   
+   color getColor(){ return 0; }
+}
+   
+class HSBWheelPoint extends ColorWheelPoint{
+   
    
    color getColor(){
      colorMode(HSB, 360, 100, 100);
-     float colorDegree = degrees(_colorWheelPt.theta) % 360;
-     float saturation = 100 *  norm(_colorWheelPt.r,  0, min(width/2, height/2) );
+     float colorDegree = degrees(wheelPoint.theta) % 360;
+     float saturation = 100 *  norm(wheelPoint.r,  0, min(width/2, height/2) );
      return color(colorDegree, saturation, 80);
    }
 }
@@ -124,17 +153,153 @@ class ColorDroplet{
 // 120 deg ==> Yellow
 // 240 deg ==> Blue 
 // ... with Orange, Green, Purple are evenly spaced between
-class RedYellowBlueDroplet extends ColorDroplet {
+class RYBWheelPoint extends ColorWheelPoint {
+  final float ARC_MAIN_COLORS = 5; //  
+  final float DEG_RED = 0;
+  final float DEG_ORANGE = 60;
+  final float DEG_YELLOW = 120; 
+  final float DEG_GREEN = 180; 
+  final float DEG_BLUE = 240; 
+  final float DEG_VIOLET = 300; 
+  
   
    color getColor(){
-     return 0;
+     colorMode(RGB);
+     float degree = degrees(wheelPoint.theta) % 360;
+     
+     int colorCode = getColorCode( degree );
+     float r = 0;
+     float g = 0;
+     float b = 0;
+     switch(colorCode){
+       case COLOR_RED:
+           return color(255, 0, 0);
+       case COLOR_RED_ORANGE:
+           g = map(degree, DEG_RED + ARC_MAIN_COLORS, DEG_ORANGE - ARC_MAIN_COLORS, 0, 128);
+           return color(255, g, 0);
+       case COLOR_ORANGE:
+           return color(255, 128, 0);
+       case COLOR_YELLOW_ORANGE:
+           g = map(degree, DEG_ORANGE + ARC_MAIN_COLORS, DEG_YELLOW - ARC_MAIN_COLORS, 128, 255);
+           return color(255, g, 0);
+       case COLOR_YELLOW:
+           return color(255, 255, 0);
+       case COLOR_YELLOW_GREEN:
+           r = map(degree, DEG_YELLOW + ARC_MAIN_COLORS, DEG_GREEN - ARC_MAIN_COLORS, 255, 128);
+           return color(r, 255, 0);
+       case COLOR_GREEN:
+           return color(0, 255, 0);
+       case COLOR_BLUE_GREEN:
+           g = map(degree, DEG_GREEN + ARC_MAIN_COLORS, DEG_BLUE - ARC_MAIN_COLORS, 255, 0);
+           b = map(degree, DEG_GREEN + ARC_MAIN_COLORS, DEG_BLUE - ARC_MAIN_COLORS, 0, 255);
+           return color(0, g, b);
+       case COLOR_BLUE:
+           return color(0, 0, 255);
+       case COLOR_BLUE_VIOLET:
+           return color(0, 0, 255);
+           
+     }
+     
+     
+     float colorDegree = degrees(wheelPoint.theta) % 360;
+     float saturation = 100 *  norm(wheelPoint.r,  0, min(width/2, height/2) );
+     return color(colorDegree, saturation, 80);
    }
+   
+   int getColorCode(float p_nDegree){
+     p_nDegree = abs(p_nDegree) % 360;
+     
+     float[] colorBreakPoints = {
+              DEG_RED + ARC_MAIN_COLORS
+              , DEG_ORANGE - ARC_MAIN_COLORS
+              , DEG_ORANGE + ARC_MAIN_COLORS
+              
+              , DEG_YELLOW - ARC_MAIN_COLORS
+              , DEG_YELLOW + ARC_MAIN_COLORS
+              
+              , DEG_GREEN - ARC_MAIN_COLORS
+              , DEG_GREEN + ARC_MAIN_COLORS
+              
+              , DEG_BLUE - ARC_MAIN_COLORS
+              , DEG_BLUE + ARC_MAIN_COLORS
+              
+              , DEG_VIOLET - ARC_MAIN_COLORS
+              , DEG_VIOLET + ARC_MAIN_COLORS
+              
+              , 360 - ARC_MAIN_COLORS
+           };
+      
+      int colorIdx = 0;
+      for(int i=0; i<colorBreakPoints.length; i++){
+        if(p_nDegree < colorBreakPoints[i]){
+          break;
+        }
+      }
+           
+      int[] colorCodeBreakPoints = {
+                COLOR_RED
+                , COLOR_RED_ORANGE 
+                , COLOR_ORANGE 
+                , COLOR_YELLOW_ORANGE
+                , COLOR_YELLOW 
+                , COLOR_YELLOW_GREEN
+                , COLOR_GREEN 
+                , COLOR_BLUE_GREEN
+                , COLOR_BLUE
+                , COLOR_BLUE_VIOLET
+                , COLOR_VIOLET 
+                , COLOR_RED_VIOLET
+                , COLOR_RED
+           };
+      return colorCodeBreakPoints[colorIdx];
+   }
+   
+   
+   // boolean isRed(float p_nDegree){
+   //   return between(p_nDegree, (DEG_RED - ARC_MAIN_COLORS), (DEG_RED + ARC_MAIN_COLORS));
+   // }
+   // boolean isRedOrange(float p_nDegree){
+   //   return between(p_nDegree, (DEG_RED + ARC_MAIN_COLORS), (DEG_ORANGE - ARC_MAIN_COLORS));
+   // }
+   // boolean isOrange(float p_nDegree){
+   //   return between(p_nDegree, (DEG_RED + ARC_MAIN_COLORS), (DEG_ORANGE - ARC_MAIN_COLORS));
+   // }
+   // boolean isYellowOrange(float p_nDegree){
+   //   return between(p_nDegree, (DEG_RED + ARC_MAIN_COLORS), (DEG_ORANGE - ARC_MAIN_COLORS));
+   // }
+   // boolean isYellow(float p_nDegree){
+   //   return between(p_nDegree, (DEG_RED + ARC_MAIN_COLORS), (DEG_ORANGE - ARC_MAIN_COLORS));
+   // }
+   // boolean isYellowGreen(float p_nDegree){
+   //   return between(p_nDegree, (DEG_RED + ARC_MAIN_COLORS), (DEG_ORANGE - ARC_MAIN_COLORS));
+   // }
+   // boolean isGreen(float p_nDegree){
+   //   return between(p_nDegree, (DEG_RED + ARC_MAIN_COLORS), (DEG_ORANGE - ARC_MAIN_COLORS));
+   // }
+   // boolean isBlueGreen(float p_nDegree){
+   //   return between(p_nDegree, (DEG_RED + ARC_MAIN_COLORS), (DEG_ORANGE - ARC_MAIN_COLORS));
+   // }
+   // boolean isBlue(float p_nDegree){
+   //   return between(p_nDegree, (DEG_RED + ARC_MAIN_COLORS), (DEG_ORANGE - ARC_MAIN_COLORS));
+   // }
+   // boolean isBlueViolet(float p_nDegree){
+   //   return between(p_nDegree, (DEG_RED + ARC_MAIN_COLORS), (DEG_ORANGE - ARC_MAIN_COLORS));
+   // }
+   // boolean isViolet(float p_nDegree){
+   //   return between(p_nDegree, (DEG_RED + ARC_MAIN_COLORS), (DEG_ORANGE - ARC_MAIN_COLORS));
+   // }
+   // boolean isRedViolet(float p_nDegree){
+   //   return between(p_nDegree, (DEG_VIOLET + ARC_MAIN_COLORS), (DEG_RED-ARC_MAIN_COLORS)+360);
+   // }
 }
 
-
-
-
-
+boolean between(float val, float rangeStart, float rangeEnd){
+  if(rangeEnd > rangeStart){
+    return (rangeStart >= val && val <= rangeEnd);
+  } else {
+    return (rangeEnd >= val && val <= rangeStart);
+  }
+}
 
 class Point {
   float x;
