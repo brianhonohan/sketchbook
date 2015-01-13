@@ -3,12 +3,16 @@ DataSeriesCollection collection;
 DataSeriesViewer viewer;
 
 
+
 // display variables
-float g_nDisplayMargin = 0.0;
+float g_nDisplayMargin = 0.15;
 float xIncrement = 5;
+color bgColor = color(10,10, 50);
+
 
 void setup(){
   size(500, 500);
+  background(bgColor);
   factory = new DataSeriesFactory();
   collection = new DataSeriesCollection();
   
@@ -18,7 +22,6 @@ void setup(){
   bounds.stretchToCoords( 0, 0, 
                            100, 1000 );  
   
-  DataSeries tmpSeries;
   collection.add( factory.createSeries( random(1000,9999), 0.5, bounds, xIncrement) );
   collection.add( factory.createSeries( random(1000,9999), 0.5, bounds, xIncrement) );
   collection.add( factory.createSeries( random(1000,9999), 0.5, bounds, xIncrement) );
@@ -100,10 +103,13 @@ class DataSeriesViewer{
       
     popMatrix();
   }
+  color c1 = color(200, 200, 50);
+  color c2 = color(255, 120, 0);
   
   int colorForSeries(int i, int totalCount){
     //return color(20,  map(i, 0, totalCount-1, 50, 200), map(i, 0, totalCount-1,200, 50));
-     return color(20,  200 - (i / 3.0 * 200), (i / 3.0 * 200)); 
+    //  return color(20,  200 - (i / 3.0 * 200), (i / 3.0 * 200));
+    return lerpColor(c1, c2, (i+1)/(totalCount*1.0));
   }
 }
 
