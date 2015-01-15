@@ -55,7 +55,6 @@ void stopGifExport(){
 }
 
 
-
 class GameOfLife{
   int[][] current;  
   int[][] nextGen;
@@ -69,16 +68,40 @@ class GameOfLife{
   color c1 = color(200, 200, 50);
   color c2 = color(240, 130, 0);
   
+  int[] colors;
+  
   final int COLOR_MODE_STATIC = 0;
   final int COLOR_MODE_LERP = 1;
   final int COLOR_MODE_ARRAY = 2;
   
-  int colorMode = COLOR_MODE_LERP;
+  int colorMode = COLOR_MODE_ARRAY;
   
   GameOfLife(){
     numCols = width / cellWidth;
     numRows = height / cellWidth;
     current = new int[numRows][numCols];
+    
+    // fillColorArray(c1, c2, 20);
+    // fillColorArray( color(50,200,50), color(50,50,200), 20);
+    useSetPallete();
+  }
+  
+  void fillColorArray(color color1, color color2, int numSteps){
+    colors = new int[numSteps];
+    color tmpColor;
+    for(int i=0; i<numSteps; i++){
+      tmpColor = lerpColor(color1, color2, norm(i, 0,(numSteps-1) ));
+      colors[i] = int(tmpColor);
+    }
+  }
+  
+  void useSetPallete(){
+    colors = new int[6];
+    colors[0] = int( color(50,200,50) ); // BUG ... this is ignored
+    colors[1] = int( color(50,200,50) );
+    colors[2] = int( color(255,255,50) );
+    colors[4] = int( color(100,100,50) );
+    colors[5] = int( color(50,50,50) );
   }
   
   void bringLifeAt(int x, int y){
@@ -169,6 +192,10 @@ class GameOfLife{
       for(int j=0; j<numCols; j++){
         if(colorMode == COLOR_MODE_LERP){
           fill( lerpColor(c1, c2, norm(current[i][j], 0,10)) );
+        }else if(colorMode == COLOR_MODE_ARRAY){
+          int colorIdx = constrain(current[i][j], 0, colors.length-1);
+          int colorAsInt = colors[colorIdx];
+          setFillByInt(colorAsInt);
         }
         if(current[i][j] > 0){
           rect( j*cellWidth, i*cellWidth, cellWidth, cellWidth);
@@ -177,3 +204,20 @@ class GameOfLife{
     }
   }
 }
+
+// TODO: Extract this code into common UTIL
+void setFillByInt(int argb){
+// From Processing Documentation on ">> right shift"
+//  int a = (argb >> 24) & 0xFF;
+//  int r = (argb >> 16) & 0xFF;  // Faster way of getting red(argb)
+//  int g = (argb >> 8) & 0xFF;   // Faster way of getting green(argb)
+//  int b = argb & 0xFF;          // Faster way of getting blue(argb)
+//  fill(r, g, b, a);
+  fill(
+        (argb >> 16) & 0xFF, 
+        (argb >> 8) & 0xFF, 
+        argb & 0xFF, 
+        (argb >> 24) & 0xFF
+      );
+}
+
