@@ -11,8 +11,8 @@ void setup(){
   background(bgColor);
   game = new GameOfLife();
   
-  frameRate(5);
-  startGifExport();
+  frameRate(6);
+//  startGifExport();
 }
 
 void draw(){
@@ -20,9 +20,9 @@ void draw(){
   game.draw();
   game.step();
   
-  if(exportingFrames){
-    gifExport.addFrame();
-  }
+//  if(exportingFrames){
+//    gifExport.addFrame();
+//  }
 }
 
 
@@ -57,23 +57,28 @@ void stopGifExport(){
 
 
 class GameOfLife{
-  boolean[][] current;  
-  boolean[][] nextGen;
+  int[][] current;  
+  int[][] nextGen;
   
   // boolean wrapEdges = false; // assumed to be false for now.
   
   int numCols = 0;
   int numRows = 0;
-  int cellWidth = 10;
+  int cellWidth = 20;
   
   color c1 = color(200, 200, 50);
   color c2 = color(240, 130, 0);
   
+  final int COLOR_MODE_STATIC = 0;
+  final int COLOR_MODE_LERP = 1;
+  final int COLOR_MODE_ARRAY = 2;
+  
+  int colorMode = COLOR_MODE_LERP;
+  
   GameOfLife(){
     numCols = width / cellWidth;
     numRows = height / cellWidth;
-    current = new boolean[numRows][numCols];
-//    nextGen = new boolean[numRows][numCols];
+    current = new int[numRows][numCols];
   }
   
   void bringLifeAt(int x, int y){
@@ -81,11 +86,13 @@ class GameOfLife{
     int rowIdx = y / cellWidth;
     int colIdx = x / cellWidth;
     // println("... row("+rowIdx+") colIdx("+colIdx+")");
-    current[rowIdx][colIdx] = true;
+    if(0 == current[rowIdx][colIdx]){
+      current[rowIdx][colIdx] = 1;
+    }
   }
   
   void step(){
-    nextGen = new boolean[numRows][numCols];
+    nextGen = new int[numRows][numCols];
     
     for(int i=0; i<numRows; i++){
       for(int j=0; j<numCols; j++){
@@ -95,17 +102,21 @@ class GameOfLife{
         switch(numSurrounding){
           case 0:
           case 1:
-            nextGen[i][j] = false;
+            nextGen[i][j] = 0;
             break;
           
           case 2:
-            nextGen[i][j] = current[i][j];
+            if(current[i][j] > 0){
+              nextGen[i][j] = current[i][j] + 1;
+            }else{
+              nextGen[i][j] = 0;
+            }
             break;
             
           case 3:
             // either its alive ... and stays alive
             // or its dead, and comes to live by reproduction
-            nextGen[i][j] = true;
+            nextGen[i][j] = current[i][j] + 1;
             break;
           
           case 4:
@@ -113,7 +124,7 @@ class GameOfLife{
           case 6:
           case 7:
           case 8:
-              nextGen[i][j] = false; 
+              nextGen[i][j] = 0; 
               break;
         }
       }
@@ -132,21 +143,21 @@ class GameOfLife{
     boolean rightCol  = col == (numCols-1);
     
     // topleft
-    ret_count += (!firstRow && !leftCol && current[row-1][col-1]) ? 1 : 0;
+    ret_count += (!firstRow && !leftCol && current[row-1][col-1] > 0) ? 1 : 0;
     // topCenter
-    ret_count += (!firstRow && current[row-1][col]) ? 1 : 0;
+    ret_count += (!firstRow && current[row-1][col] > 0) ? 1 : 0;
     // topRIght
-    ret_count += (!firstRow && !rightCol && current[row-1][col+1]) ? 1 : 0;
+    ret_count += (!firstRow && !rightCol && current[row-1][col+1] > 0) ? 1 : 0;
     // midLeft
-    ret_count += (!leftCol && current[row][col-1]) ? 1 : 0;
+    ret_count += (!leftCol && current[row][col-1] > 0) ? 1 : 0;
     // midRight
-    ret_count += (!rightCol && current[row][col+1]) ? 1 : 0;
+    ret_count += (!rightCol && current[row][col+1] > 0) ? 1 : 0;
     // bottomLeft
-    ret_count += (!lastRow && !leftCol && current[row+1][col-1]) ? 1 : 0;
+    ret_count += (!lastRow && !leftCol && current[row+1][col-1] > 0) ? 1 : 0;
     // bottomCenter
-    ret_count += (!lastRow && current[row+1][col]) ? 1 : 0;
+    ret_count += (!lastRow && current[row+1][col] > 0) ? 1 : 0;
     // bottomRight
-    ret_count += (!lastRow && !rightCol && current[row+1][col+1]) ? 1 : 0;
+    ret_count += (!lastRow && !rightCol && current[row+1][col+1] > 0) ? 1 : 0;
     
     return ret_count;
   }
@@ -156,7 +167,10 @@ class GameOfLife{
     fill(c2);
     for(int i=0; i<numRows; i++){
       for(int j=0; j<numCols; j++){
-        if(current[i][j]){
+        if(colorMode == COLOR_MODE_LERP){
+          fill( lerpColor(c1, c2, norm(current[i][j], 0,10)) );
+        }
+        if(current[i][j] > 0){
           rect( j*cellWidth, i*cellWidth, cellWidth, cellWidth);
         }
       }
