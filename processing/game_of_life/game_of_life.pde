@@ -11,7 +11,10 @@ void setup(){
   background(bgColor);
   game = new GameOfLife();
   
-  frameRate(6);
+  GliderGun glider = new GliderGun();
+  glider.applyCellsTo(game.current, 0, 0); 
+  
+  frameRate(20);
 //  startGifExport();
 }
 
@@ -63,7 +66,7 @@ class GameOfLife{
   
   int numCols = 0;
   int numRows = 0;
-  int cellWidth = 20;
+  int cellWidth = 10;
   
   color c1 = color(200, 200, 50);
   color c2 = color(240, 130, 0);
@@ -74,7 +77,7 @@ class GameOfLife{
   final int COLOR_MODE_LERP = 1;
   final int COLOR_MODE_ARRAY = 2;
   
-  int colorMode = COLOR_MODE_ARRAY;
+  int colorMode = COLOR_MODE_LERP;
   
   GameOfLife(){
     numCols = width / cellWidth;
@@ -219,5 +222,104 @@ void setFillByInt(int argb){
         argb & 0xFF, 
         (argb >> 24) & 0xFF
       );
+}
+
+
+// inclusive
+boolean between(int valToCheck, int lowVal, int highVal){
+  return (lowVal <= valToCheck) && (valToCheck <= highVal);
+}
+
+// Abstract class for creating and merging Cellular Automaton
+class Automaton {
+  int[][] cells;
+  int rows;
+  int cols;
+  
+  void initCells(int numRows, int numCols){
+    cells = new int[numRows][numCols];
+//    println("INIT CELLS ... w x h :  " + numRows + " x " + numCols);
+//    println("... src dimension ["+cells.length+"]["+cells[0].length+"]");
+    rows = numRows;
+    cols = numCols;
+  }
+  
+  // note this could be abstracted to a "Merge" 
+  // ... which could take an operand ... SET | ADD | SUB | MULT | DIV | MOD
+  void applyCells(int[][] srcCells, int[][] destCells, int atRow, int atCol){
+//    println("applyCells...");
+//    println("... src dimension ["+srcCells.length+"]["+srcCells[0].length+"]");
+//    println("... dest dimension ["+destCells.length+"]["+destCells[0].length+"]");
+//    println("... adding at: row["+atRow+"] ... col["+atCol+"]");
+    
+    int tmpRowIdx;
+    int tmpColIdx; 
+    
+    for(int i=0; i<srcCells.length; i++){
+      for(int j=0; j<srcCells[i].length; j++){
+        
+        tmpRowIdx = atRow + i;
+        tmpColIdx = atCol + j;
+        if ( between(tmpRowIdx, 0, destCells.length-1) 
+            && between(tmpColIdx, 0, destCells[0].length-1) )
+        {
+          destCells[tmpRowIdx][tmpColIdx] = srcCells[i][j];
+        }else{
+          println("WARNING... Out of range"); 
+        }
+      }
+    }
+  }
+  
+  void applyCellsTo(int[][] destCells, int atRow, int atCol){
+    applyCells(this.cells, destCells, atRow, atCol);
+  }
+  
+  void addBlockAt(int numRows, int numCols, int atRow, int atCol){
+    // println("ADDING BLOCK...");
+    int[][] newCells = new int[numRows][numCols];
+    for(int i=0; i<numRows; i++){
+      for(int j=0; j<numCols; j++){
+          newCells[i][j] = 1;
+      }
+    }
+    this.applyCells(newCells, this.cells, atRow, atCol);
+  }
+}
+
+
+// Implementation of: http://en.wikipedia.org/wiki/Gun_(cellular_automaton)
+class GliderGun extends Automaton{
+  GliderGun(){
+    initCells(11, 38);
+    addBlockAt(2, 2, 5, 1);
+    addBlockAt(2, 2, 3, 35);
+    
+    // right hand side, from right
+    addBlockAt(2,1, 1, 25);
+    addBlockAt(2,1, 6, 25);
+    
+    addBlockAt(1,1, 2, 23);
+    addBlockAt(1,1, 6, 23);
+    addBlockAt(3,2, 3, 21);
+    
+    // left module, from left
+    addBlockAt(3,1, 5, 11);
+    
+    addBlockAt(1,1, 4, 12);
+    addBlockAt(1,1, 8, 12);
+    
+    addBlockAt(1,2, 3, 13);
+    addBlockAt(1,2, 9, 13);
+    
+    addBlockAt(1,1, 6, 15);
+    
+    addBlockAt(1,1, 4, 16);
+    addBlockAt(1,1, 8, 16);
+    
+    addBlockAt(3,1, 5, 17);
+    
+    addBlockAt(1,1, 6, 18);
+  }
 }
 
