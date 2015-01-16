@@ -23,7 +23,7 @@ void setup(){
   size(500, 500);
   
   seqFactory = new SequenceFactory();
-  sequence = seqFactory.generateRandomData(numStates, numTransitions, true);
+  sequence = seqFactory.generateRandomData(numStates, numTransitions, true, 1005);
   sequence.printMatrices();
 }
 
@@ -70,16 +70,16 @@ class EventSequence {
     for(int i=0; i<transMatrices.size(); i++){
       tmpMatrix = transMatrices.get(i);
       println("");
-      println("Trans["+i+"] :");
-      print2DimArrayInt("", tmpMatrix.fluxFromTo, 6);
+      print2DimArrayInt("Trans["+i+"] :", tmpMatrix.fluxFromTo, 6);
     }
   }
 }
 
 class SequenceFactory{
   
-  EventSequence generateRandomData(int numStates, int numTransitions, boolean allowRepeats)
+  EventSequence generateRandomData(int numStates, int numTransitions, boolean allowRepeats, int seed)
   {
+    randomSeed(seed);
     // we add 1 because we treat the first transition as the initial starting point
     EventSequence sequence = new EventSequence(numStates, numTransitions);
     
@@ -91,10 +91,12 @@ class SequenceFactory{
       if(i == 0){
         continue; 
       }
-      tmpMatrix.fluxFromTo[0][i] = int(1000 + max(300 * randomGaussian(), -900)); 
+      tmpMatrix.fluxFromTo[0][i] = int(500 + random(500, 1000));  
       totalsByState[i] = tmpMatrix.fluxFromTo[0][i];
     }
     sequence.setTransition(0, tmpMatrix);
+    print2DimArrayInt("Matrxi: ", tmpMatrix.fluxFromTo, 8);
+    printArrayInt("Tottals: ", totalsByState);
     
     // for the remaining transitions
     // ... TODO: add some new from OUTSIDE ... NOPE ... not in the simple model
@@ -142,6 +144,9 @@ class SequenceFactory{
           totalsByState[to] += tmpMatrix.fluxFromTo[from][to];
         }
       }
+      print2DimArrayInt("Matrxi: ", tmpMatrix.fluxFromTo, 8);
+      printArrayInt("Tottals: ", totalsByState);
+      
     } 
     
     return sequence;
@@ -200,7 +205,9 @@ void printArrayInt(String message, int[] arrayVals){
   println(message);
   int maxIter = min(arrayVals.length, 200);
   for(int i=0; i<maxIter; i++){
-    println("value at i["+i+"]: " + arrayVals[i]);
+    printLeftPadded(""+i, 8, " ");
+    printLeftPadded(""+arrayVals[i], 8, " ");
+    println("");
   }
 }
 
