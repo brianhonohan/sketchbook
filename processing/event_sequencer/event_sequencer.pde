@@ -10,7 +10,7 @@ EventSequence sequence;
 SequenceFactory seqFactory;
 
 int numStates = 4;
-int numTransitions = 2;
+int numTransitions = 3;
 
 //mem
 //donate
@@ -111,8 +111,12 @@ class SequenceFactory{
       tmpMatrix = new TransitionMatrix(numStates);
       
       for(int from=0; from<numStates; from++){
+        if(from == 0){
+          continue; 
+        }
+        
         // determine % of items moving on to another state
-        tmpPercentInFlux = random(10, 60);
+        tmpPercentInFlux = random(0.1, 0.6);
         numInFlux = int(totalsByState[from] * tmpPercentInFlux);
         fluxToOthers = randomGroups(numInFlux, potentialNextSteps);
         
@@ -130,6 +134,14 @@ class SequenceFactory{
         }
       } 
       sequence.setTransition(i, tmpMatrix);
+      
+      // Apply the transitions to the running totals
+      for(int from=0; from<numStates; from++){
+        for(int to=0; to<numStates; to++){
+          totalsByState[from] -= tmpMatrix.fluxFromTo[from][to];
+          totalsByState[to] += tmpMatrix.fluxFromTo[from][to];
+        }
+      }
     } 
     
     return sequence;
