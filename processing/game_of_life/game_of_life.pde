@@ -21,7 +21,9 @@ void setup(){
 void draw(){
   background(bgColor);
   game.draw();
-  game.step();
+  if(mousePressed == false){
+    game.step();
+  }
   
 //  if(exportingFrames){
 //    gifExport.addFrame();
