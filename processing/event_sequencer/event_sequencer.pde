@@ -9,16 +9,10 @@
 
 EventSequence sequence;
 SequenceFactory seqFactory;
+SequenceViewer seqViewer;
 
-int numStates = 4;
-int numTransitions = 3;
-
-//mem
-//donate
-//pledge
-//campaign
-//upload photo?
-
+int numStates = 8;
+int numTransitions = 8;
 
 void setup(){
   size(500, 500);
@@ -26,6 +20,12 @@ void setup(){
   seqFactory = new SequenceFactory();
   sequence = seqFactory.generateRandomData(numStates, numTransitions, true, 1005);
   sequence.printMatrices();
+  
+  seqViewer = new StaticSeqViewer();
+  seqViewer.setPosition(width*0.5, height*0.5);
+  seqViewer.setDimensions(width*0.9, height*0.9);
+  seqViewer.setSequence(sequence);
+  seqViewer.render();
 }
 
 
@@ -238,7 +238,6 @@ void printArrayFloat(String message, float[] arrayVals){
   }
 }
 
-
 // TOEXTRACT: Useful common function
 // Splits a "population" into "n" groups
 int[] randomGroups(int population, int nGroups){
@@ -282,15 +281,42 @@ float[] randomSegments(int nGroups){
     }
   }
   
-  
   return segments;
 }
 
 
-class ViewControler{
+class UIView{
+  float x;
+  float y;
+  float _width;
+  float _height;
+  
+  void setPosition(float xPt, float yPt){
+    this.x = xPt;
+    this.y = yPt;
+  }
+  
+  void setDimensions(float widthVal, float heightVal){
+    this._width = widthVal;
+    this._height = heightVal;
+  }
+  
+  void render(){
+  }
+}
+
+class SequenceViewer extends UIView{
+  EventSequence sequence;
+  
+  void setSequence(EventSequence seq){
+    this.sequence = seq;
+  }
+}
+
+class StaticSeqViewer extends SequenceViewer{
   ArrayList<StateViewer> viewers;
   
-  ViewControler(){
+  StaticSeqViewer(){
     viewers = new ArrayList<StateViewer>();
   }
   
@@ -298,6 +324,11 @@ class ViewControler{
     viewers.add(viewer); 
   }
   void render(){
+    pushMatrix();
+    translate(x, y);
+    
+    
+    popMatrix();
   }
 }
 
@@ -306,7 +337,6 @@ class StateViewer {
   float y;
 }
 
-  
 class Point {
   float x;
   float y;
