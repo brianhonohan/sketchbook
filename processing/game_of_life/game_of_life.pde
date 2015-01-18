@@ -114,6 +114,9 @@ class GameOfLife{
     int rowIdx = y / cellWidth;
     int colIdx = x / cellWidth;
     // println("... row("+rowIdx+") colIdx("+colIdx+")");
+    if( !between(colIdx, 0, numCols-1) || !between(rowIdx, 0, numRows-1)){
+      return;
+    }
     if(0 == current[rowIdx][colIdx]){
       current[rowIdx][colIdx] = 1;
     }
