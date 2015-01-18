@@ -19,7 +19,7 @@ void setup(){
   
   seqFactory = new SequenceFactory();
   sequence = seqFactory.generateRandomData(numStates, numTransitions, true, 1005);
-  sequence.printMatrices();
+  sequence.printTransitions();
   
   seqViewer = new StaticSeqViewer();
   seqViewer.setPosition(width*0.5, height*0.5);
@@ -35,7 +35,7 @@ void setup(){
 // This class represents the overall system and contains 
 //  ItemStates ... List of states an item in the system can exist at.
 //  SequenceSteps ... These are snapshots in time, of the 0th 1st ... Nth snapshot of ItemStates 
-//  TransitionMatrices ... This captures the change of item counts from ItemState to ItemState between two SequenceSteps
+//  StpeTransitions ... This captures the change of item counts from ItemState to ItemState between two SequenceSteps
 //
 // ASCII ART:
 //    --->>> --->>> --->>> PROGRESSION OF TIME --->>> --->>> --->>>
@@ -52,26 +52,26 @@ void setup(){
 class EventSequence {
   ArrayList<ItemState> states;
   ArrayList<SequenceStep> steps;
-  ArrayList<TransitionMatrix> transMatrices;
+  ArrayList<StepTransition> transitions;
   
   EventSequence(){
-    transMatrices = new ArrayList<TransitionMatrix>(numTransitions);
+    transitions = new ArrayList<StepTransition>(numTransitions);
   }
   
   int getTransitionCount(){
-    return (transMatrices == null) ? 0 : transMatrices.size();
+    return (transitions == null) ? 0 : transitions.size();
   }
   
-  void addTransition(TransitionMatrix transMat){
-    transMatrices.add(transMat);
+  void addTransition(StepTransition transMat){
+    transitions.add(transMat);
   }
   
-  void printMatrices(){
-    TransitionMatrix tmpMatrix;
-    for(int i=0; i<transMatrices.size(); i++){
-      tmpMatrix = transMatrices.get(i);
+  void printTransitions(){
+    StepTransition tmpTransition;
+    for(int i=0; i<transitions.size(); i++){
+      tmpTransition = transitions.get(i);
       println("");
-      print2DimArrayInt("Trans["+i+"] :", tmpMatrix.fluxFromTo, 6);
+      print2DimArrayInt("Trans["+i+"] :", tmpTransition.fluxFromTo, 6);
     }
   }
 }
@@ -89,11 +89,11 @@ class SequenceStep {
 
 // This represents the delta between two steps in the overall EventSequence
 // It has 
-class TransitionMatrix{
+class StepTransition{
   // flux[ fromIdx ][ toIdx ]
   int[][] fluxFromTo;
   
-  TransitionMatrix(int numStates){
+  StepTransition(int numStates){
     fluxFromTo = new int[numStates][numStates];
   }
 }
@@ -106,18 +106,18 @@ class SequenceFactory{
     randomSeed(seed);
     
     // first generate the genesis transition, where things only spawn from nothing. (State 0);
-    TransitionMatrix tmpMatrix = new TransitionMatrix(numStates);
+    StepTransition tmpTransition = new StepTransition(numStates);
     int totalsByState[] = new int[numStates];  
     // we'll only transition from state 0
     for(int i=0; i<numStates; i++){
       if(i == 0){
         continue; 
       }
-      tmpMatrix.fluxFromTo[0][i] = int(500 + random(500, 1000));  
-      totalsByState[i] = tmpMatrix.fluxFromTo[0][i];
+      tmpTransition.fluxFromTo[0][i] = int(500 + random(500, 1000));  
+      totalsByState[i] = tmpTransition.fluxFromTo[0][i];
     }
-    sequence.addTransition(tmpMatrix);
-    print2DimArrayInt("Matrxi: ", tmpMatrix.fluxFromTo, 8);
+    sequence.addTransition(tmpTransition);
+    print2DimArrayInt("Matrxi: ", tmpTransition.fluxFromTo, 8);
     printArrayInt("Tottals: ", totalsByState);
     
     // for the remaining transitions
@@ -132,7 +132,7 @@ class SequenceFactory{
     int potentialNextSteps = (allowRepeats) ? numStates : numStates - 1;
     
     for(int i=1; i<numTransitions; i++){
-      tmpMatrix = new TransitionMatrix(numStates);
+      tmpTransition = new StepTransition(numStates);
       
       for(int from=0; from<numStates; from++){
         if(from == 0){
@@ -154,19 +154,19 @@ class SequenceFactory{
               idxInFluxToOthers -= 1;
             }
           }
-          tmpMatrix.fluxFromTo[from][to] = fluxToOthers[idxInFluxToOthers];
+          tmpTransition.fluxFromTo[from][to] = fluxToOthers[idxInFluxToOthers];
         }
       } 
-      sequence.addTransition(tmpMatrix);
+      sequence.addTransition(tmpTransition);
       
       // Apply the transitions to the running totals
       for(int from=0; from<numStates; from++){
         for(int to=0; to<numStates; to++){
-          totalsByState[from] -= tmpMatrix.fluxFromTo[from][to];
-          totalsByState[to] += tmpMatrix.fluxFromTo[from][to];
+          totalsByState[from] -= tmpTransition.fluxFromTo[from][to];
+          totalsByState[to] += tmpTransition.fluxFromTo[from][to];
         }
       }
-      print2DimArrayInt("Matrxi: ", tmpMatrix.fluxFromTo, 8);
+      print2DimArrayInt("Matrxi: ", tmpTransition.fluxFromTo, 8);
       printArrayInt("Tottals: ", totalsByState);
     } 
     
