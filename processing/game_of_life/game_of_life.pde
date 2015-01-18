@@ -1,7 +1,7 @@
 color bgColor = color(10,10, 50);
 GameOfLife game;
 
-
+// Comment these out if you don't have the GifAnimation
 import gifAnimation.*;
 GifMaker gifExport;
 boolean exportingFrames = false;
@@ -10,20 +10,25 @@ void setup(){
   size(500, 500);
   background(bgColor);
   game = new GameOfLife();
-  
-  GliderGun glider = new GliderGun();
-  glider.applyCellsTo(game.current, 0, 0); 
-  
-  frameRate(20);
-//  startGifExport();
+//  GliderGun glider = new GliderGun();
+//  glider.applyCellsTo(game.current, 0, 0); 
+  // game.fillEverOtherRow(false);
+  game.fillAsCheckerBoard(false);
+
+  frameRate(60);
+// startGifExport();
 }
 
 void draw(){
   background(bgColor);
+  
   game.draw();
   if(mousePressed == false){
     game.step();
   }
+  
+  // frameRate(0);
+  // println("frameRate: " + frameRate);
   
 //  if(exportingFrames){
 //    gifExport.addFrame();
@@ -66,9 +71,10 @@ class GameOfLife{
   
   // boolean wrapEdges = false; // assumed to be false for now.
   
+  // FLAG: TODO: Fix Inconsistent naming convention, conflicts with Automaton
   int numCols = 0;
   int numRows = 0;
-  int cellWidth = 10;
+  int cellWidth = 2;
   
   color c1 = color(200, 200, 50);
   color c2 = color(240, 130, 0);
@@ -79,7 +85,7 @@ class GameOfLife{
   final int COLOR_MODE_LERP = 1;
   final int COLOR_MODE_ARRAY = 2;
   
-  int colorMode = COLOR_MODE_LERP;
+  int colorMode = COLOR_MODE_ARRAY;
   
   GameOfLife(){
     numCols = width / cellWidth;
@@ -89,6 +95,29 @@ class GameOfLife{
     // fillColorArray(c1, c2, 20);
     // fillColorArray( color(50,200,50), color(50,50,200), 20);
     useSetPallete();
+  }
+  
+  void fillEverOtherRow(boolean lifeOnOdds){
+    int oddLife = (lifeOnOdds) ? 1 : 0;
+    int evenLife = (lifeOnOdds) ? 0 : 1;
+    
+    for(int i=0; i<numRows; i++){
+      // depending on odd/even numRows ... this may or may not have symetry
+      for(int j=0; j<numCols; j++){
+        current[i][j] = (i%2 == 0) ? evenLife : oddLife;
+      }
+    }
+  }
+  
+  // offset can be 0 or 1
+  void fillAsCheckerBoard(boolean lifeOnOdds){
+    int oddLife = (lifeOnOdds) ? 1 : 0;
+    int evenLife = (lifeOnOdds) ? 0 : 1;
+    for(int i=0; i<numRows; i++){
+      for(int j=0; j<numCols; j++){
+        current[i][j] = ( (j+i%2)%2 == 0) ? evenLife : oddLife;
+      }
+    }
   }
   
   void fillColorArray(color color1, color color2, int numSteps){
@@ -103,8 +132,8 @@ class GameOfLife{
   void useSetPallete(){
     colors = new int[6];
     colors[0] = int( color(50,200,50) ); // BUG ... this is ignored
-    colors[1] = int( color(50,200,50) );
-    colors[2] = int( color(255,255,50) );
+    colors[1] = int( color(50,155,50) );
+    colors[2] = int( color(150,150,50) );
     colors[4] = int( color(100,100,50) );
     colors[5] = int( color(50,50,50) );
   }
@@ -327,4 +356,3 @@ class GliderGun extends Automaton{
     addBlockAt(1,1, 6, 18);
   }
 }
-
