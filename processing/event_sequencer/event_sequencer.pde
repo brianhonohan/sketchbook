@@ -4,7 +4,8 @@
 // ... they can begin on any state
 // ... and for the most part advance to any state
 // ... some states they can only
-// We compress, and synchronize each event so that 
+// We compress, and synchronize each event so that all "units" effectively
+// enter their first state at the same time.
 
 EventSequence sequence;
 SequenceFactory seqFactory;
@@ -28,41 +29,41 @@ void setup(){
 }
 
 
-class TransitionMatrix{
-  
-  // flux[ fromIdx ][ toIdx ]
-  int[][] fluxFromTo;
-  
-  TransitionMatrix(int numStates){
-    fluxFromTo = new int[numStates][numStates];
-  }
-  
-  int getOutfluxFrom(int stateId){
-    
-//    for(int i=0; i<fromTo[].length; i++){
-//      
-//    }
-    return 0;
-  }
-  
-  
-}
 
 
+
+// This class represents the overall system and contains 
+//  ItemStates ... List of states an item in the system can exist at.
+//  SequenceSteps ... These are snapshots in time, of the 0th 1st ... Nth snapshot of ItemStates 
+//  TransitionMatrices ... This captures the change of item counts from ItemState to ItemState between two SequenceSteps
+//
+// ASCII ART:
+//    --->>> --->>> --->>> PROGRESSION OF TIME --->>> --->>> --->>>
+//  Step_0    trans_0   Step_1     trans_1      ...      trans_N   Step_N
+//  =======             =======              ========               =======
+//  State_0  ------->   State_0   --\         State_0      /---->   State_0
+//  State_1   \----->   State_1      \---->   State_1   --/         State_1
+//  State_2  / \        State_2   -\          State_2      /---->   State_2
+//    ...       \         ...       \          ...        /         ...    
+//  State_N      +-->   State_N      +---->   State_N   -/          State_N 
+//
+// Keep in mind that Tranistions are a two dimension array, and more complicated than illustrated.
+// 
 class EventSequence {
-  int numStates;
+  ArrayList<ItemState> states;
+  ArrayList<SequenceStep> steps;
   ArrayList<TransitionMatrix> transMatrices;
   
-  EventSequence(int p_nNumStates, int numTransitions){
-    this.numStates = p_nNumStates;
+  EventSequence(){
     transMatrices = new ArrayList<TransitionMatrix>(numTransitions);
-    for(int i=0; i<numTransitions; i++){
-      transMatrices.add(null);
-    }
   }
   
-  void setTransition(int transIdx, TransitionMatrix transMat){
-    transMatrices.set(transIdx, transMat);
+  int getTransitionCount(){
+    return (transMatrices == null) ? 0 : transMatrices.size();
+  }
+  
+  void addTransition(TransitionMatrix transMat){
+    transMatrices.add(transMat);
   }
   
   void printMatrices(){
@@ -75,13 +76,34 @@ class EventSequence {
   }
 }
 
+
+class ItemState {
+  String name;
+}
+
+// 
+class SequenceStep { 
+}
+
+
+
+// This represents the delta between two steps in the overall EventSequence
+// It has 
+class TransitionMatrix{
+  // flux[ fromIdx ][ toIdx ]
+  int[][] fluxFromTo;
+  
+  TransitionMatrix(int numStates){
+    fluxFromTo = new int[numStates][numStates];
+  }
+}
+
 class SequenceFactory{
   
   EventSequence generateRandomData(int numStates, int numTransitions, boolean allowRepeats, int seed)
   {
+    EventSequence sequence = new EventSequence();
     randomSeed(seed);
-    // we add 1 because we treat the first transition as the initial starting point
-    EventSequence sequence = new EventSequence(numStates, numTransitions);
     
     // first generate the genesis transition, where things only spawn from nothing. (State 0);
     TransitionMatrix tmpMatrix = new TransitionMatrix(numStates);
@@ -94,7 +116,7 @@ class SequenceFactory{
       tmpMatrix.fluxFromTo[0][i] = int(500 + random(500, 1000));  
       totalsByState[i] = tmpMatrix.fluxFromTo[0][i];
     }
-    sequence.setTransition(0, tmpMatrix);
+    sequence.addTransition(tmpMatrix);
     print2DimArrayInt("Matrxi: ", tmpMatrix.fluxFromTo, 8);
     printArrayInt("Tottals: ", totalsByState);
     
@@ -135,7 +157,7 @@ class SequenceFactory{
           tmpMatrix.fluxFromTo[from][to] = fluxToOthers[idxInFluxToOthers];
         }
       } 
-      sequence.setTransition(i, tmpMatrix);
+      sequence.addTransition(tmpMatrix);
       
       // Apply the transitions to the running totals
       for(int from=0; from<numStates; from++){
@@ -146,7 +168,6 @@ class SequenceFactory{
       }
       print2DimArrayInt("Matrxi: ", tmpMatrix.fluxFromTo, 8);
       printArrayInt("Tottals: ", totalsByState);
-      
     } 
     
     return sequence;
@@ -197,8 +218,6 @@ void print2DimArrayInt(String message, int[][] arrayVals, int charsPerCol){
     }
     println("");
   }
-  
-  
 }
 
 void printArrayInt(String message, int[] arrayVals){
