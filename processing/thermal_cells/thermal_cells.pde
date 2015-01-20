@@ -33,6 +33,131 @@ void mouseDragged(){
   }
 }
 
+class AppController{
+  ArrayList<ShorcutKeyInfo> hotkeys;
+  ArrayList<ShorcutKeyInfo> mouseEffects;
+  ArrayList<ShorcutKeyInfo> mouseModifiers;
+  
+  final int APP_STATE_PAUSED = 0;
+  final int APP_STATE_RUNNING = 1; 
+  int state = APP_STATE_RUNNING;
+
+  boolean isHelpShown = false;
+  boolean hasOverlays = false;
+  
+  AppController(){
+    hotkeys = new ArrayList<ShorcutKeyInfo>();
+    mouseEffects = new ArrayList<ShorcutKeyInfo>();
+    mouseModifiers = new ArrayList<ShorcutKeyInfo>();
+    initShortcutInfo();
+  }
+  
+  void initShortcutInfo(){
+    hotkeys.add( new ShorcutKeyInfo("?", "Toggle dislpay of this Shortcut key menu") );
+  }
+  
+  boolean isRunning(){
+    return state == APP_STATE_RUNNING;
+  }
+  
+  void togglePause(){
+    if(isRunning()){
+      state = APP_STATE_PAUSED;
+    }else{
+      state = APP_STATE_RUNNING;
+    }
+  }
+  
+  void toggleHelpDisplay(){
+    togglePause();
+    isHelpShown = !isHelpShown;
+    hasOverlays = isHelpShown;
+  }
+   
+  void displayHelp(){
+    float margin = 0.05;
+    float padding = 0.05;
+    
+    float menuWidth =  width*(1-2*margin) - width*(1-2*margin) * 2 * padding;
+    float menuHeight = height*(1-2*margin) - height*(1-2*margin) * 2 * padding;
+    
+    fill(0, 220);
+    pushMatrix();
+    translate(width * margin, height*margin);
+    rect(0,0, width*(1-2*margin), height*(1-2*margin), 20);
+    
+    pushMatrix();
+    translate(menuWidth * padding, menuHeight * padding);
+    
+    TextStyleWriter txtWriter = new TextStyleWriter();
+    
+    TextStyle headingStyle = new TextStyle();
+    headingStyle.size(20).hue( color(220, 220, 50) );
+    
+    TextStyle comboStyle = new TextStyle();
+    comboStyle.size(14).hue( color(220, 220, 50) ).align(RIGHT);
+    
+    TextStyle infoStyle = new TextStyle();
+    infoStyle.size(14).hue( color(220) );
+    
+    txtWriter.write("Shortcuts", 0, 0, headingStyle);
+    
+    stroke(color(220));
+    line(0, 30, menuWidth, 30);
+    
+    float lineHeight = 20;
+    float maxComboWidth = 90; // TODO: Make this dynamic
+    float currentLineY = 35;
+    ShorcutKeyInfo tmpInfo;
+    
+    // display keys
+    for(int i=0; i<hotkeys.size(); i++){
+      tmpInfo = hotkeys.get(i);
+      txtWriter.write(tmpInfo.keyCombo, maxComboWidth - 5, currentLineY, comboStyle);
+      txtWriter.write(":", maxComboWidth, currentLineY, infoStyle);
+      txtWriter.write(tmpInfo.description, maxComboWidth + 10, currentLineY, infoStyle);
+      currentLineY += lineHeight;
+    }
+    
+    // display mouse effects
+    for(int i=0; i<mouseEffects.size(); i++){
+      tmpInfo = mouseEffects.get(i);
+      txtWriter.write(tmpInfo.keyCombo, maxComboWidth - 5, currentLineY, comboStyle);
+      txtWriter.write(":", maxComboWidth, currentLineY, infoStyle);
+      txtWriter.write(tmpInfo.description, maxComboWidth + 10, currentLineY, infoStyle);
+      currentLineY += lineHeight;
+    }
+    
+    // display mouse modifiers
+    for(int i=0; i<mouseModifiers.size(); i++){
+      tmpInfo = mouseModifiers.get(i);
+      txtWriter.write(tmpInfo.keyCombo, maxComboWidth - 5, currentLineY, comboStyle);
+      txtWriter.write(":", maxComboWidth, currentLineY, infoStyle);
+      txtWriter.write(tmpInfo.description, maxComboWidth + 10, currentLineY, infoStyle);
+      currentLineY += lineHeight;
+    }
+    
+    popMatrix();
+    popMatrix();
+  }
+  
+  void displayOverlays(){
+    if( isHelpShown ){
+      displayHelp();
+    }
+  }
+}
+
+class ShorcutKeyInfo {
+  String keyCombo;
+  String description;
+  
+  ShorcutKeyInfo(String keyInput, String descrip){
+    keyCombo = keyInput;
+    description = descrip;
+  }
+}
+
 
 class TextStyleWriter{
   
