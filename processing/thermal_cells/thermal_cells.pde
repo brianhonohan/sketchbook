@@ -10,7 +10,7 @@ void setup(){
   grid = new GridViewController(0,0,width, height);
   
   app = new ThermalCellApp();
-  frameRate(60);
+  frameRate(30);
   
   // gifExport = new GifMaker(this, "export.gif");
   // gifExport.setRepeat(0); 
@@ -27,7 +27,6 @@ void draw(){
   if(app.hasOverlays){
     app.displayOverlays();
   }
-
   // gifExport.setDelay(1);
   // gifExport.addFrame();
 }
@@ -181,7 +180,7 @@ class ThermalCellApp extends AppController {
   void initShortcutInfo(){
     super.initShortcutInfo(); 
     
-    mouseEffects.add( new ShorcutKeyInfo("Click + Drag", "Adds heat to the system") );
+    mouseEffects.add( new ShorcutKeyInfo("Click + Drag", "Removes heat to the system") );
     mouseModifiers.add( new ShorcutKeyInfo("<Space>", "Inverts the temperature effect.") );
   }
   
@@ -295,10 +294,14 @@ class GridViewController {
   }
   
   void _deltaHeatAt(boolean addingHeat, int globalX, int globalY){
-    int inCol = globalX / (cellWidth+cellSpacing);
-    int inRow = globalY / (cellHeight+cellSpacing);
+    int inCol = (globalX - this._x) / (cellWidth+cellSpacing);
+    int inRow = (globalY - this._y) / (cellHeight+cellSpacing);
     
     int idxOfCell = inCol + inRow * numCols;
+    if (idxOfCell < 0 || idxOfCell > (cells.size() - 1)){
+      return;
+    }
+    
     Cell tmpCell = cells.get(idxOfCell);
     
     float deltaTmp = 300; 
@@ -333,8 +336,7 @@ class GridViewController {
       // tmpCell.temp = 100 * randomGaussian();
       tmpCell.temp = 300 * (noise(tmpCol, tmpRow) - 0.5);
       
-      
-      tmpCellViewer = new CellViewer(tmpCol * effectCellWidth, tmpRow * effectCellHeight, effectCellWidth, effectCellHeight, tmpCell);
+      tmpCellViewer = new CellViewer(tmpCol * effectCellWidth, tmpRow * effectCellHeight, cellWidth, cellHeight, tmpCell);
       
       this.cells.add(tmpCell);
       this.cellViewers.add(tmpCellViewer);
@@ -439,9 +441,8 @@ class CellViewer {
 class Cell {
   float temp;
   float deltaTemp = 0;
-  int index;
   
-  float condFactor = 0.2;
+  float condFactor = 0.10;
   
   void exchangeHeat(Cell otherCell){
     float heatGained = (otherCell.temp - this.temp) *  condFactor;
