@@ -34,6 +34,79 @@ void mouseDragged(){
 }
 
 
+class TextStyleWriter{
+  
+  void write(String message, float x, float y, TextStyle style){
+    style.apply();
+    text(message, x, y);
+  }
+}
+
+// This class captures the styles that text can have
+// IT supposts method chaining, like:
+//    textStyle.size(10).color(200).align(CENTER);
+class TextStyle {
+  // TODO: Support Fonts
+  color _color;
+  float size;
+  int mode = MODEL;
+  int alignX = LEFT;
+  int alignY = TOP;
+  float leading = -1;  // use default of font size
+  
+//  final const int LEFT     = 0;
+//  final const int CENTER   = 1;
+//  final const int RIGHT    = 2;
+//  final const int TOP      = 3;
+//  final const int BOTTOM   = 4;
+//  final const int CENTER   = 5;
+//  final const int BASELINE = 6;
+//  
+  TextStyle size(float newSize){
+    size = newSize;
+    return this;
+  }
+  TextStyle hue(color newColor){
+    _color = newColor;
+    return this;
+  }
+  TextStyle mode(int newMode){
+    mode = newMode;
+    return this;
+  }
+  TextStyle align(int newAlignX){
+    alignX = newAlignX;
+    return this;
+  }
+  TextStyle align(int newAlignX, int newAlignY){
+    alignX = newAlignX;
+    alignY = newAlignY;
+    return this;
+  }
+  
+  void apply(){
+    fill(_color);
+    textSize(size);
+    textMode(mode);
+    textAlign(alignX, alignY);
+    if(leading > 0){
+      textLeading(leading);
+    }
+  }
+  
+  float width(String str){
+    this.apply();
+    return textWidth(str);
+  }
+  float ascent(){
+    this.apply();
+    return textAscent();
+  }
+  float descent(){
+    this.apply();
+    return textDescent();
+  }
+}
 
 class GridViewController {
   ArrayList<Cell> cells;
