@@ -1,4 +1,4 @@
-
+AppController app;
 GridViewController grid;
 
 // import gifAnimation.*;
@@ -9,7 +9,8 @@ void setup(){
   size(500,500);
   grid = new GridViewController(0,0,width, height);
   
-  frameRate(30);
+  app = new ThermalCellApp();
+  frameRate(60);
   
   // gifExport = new GifMaker(this, "export.gif");
   // gifExport.setRepeat(0); 
@@ -17,19 +18,36 @@ void setup(){
 }
 
 void draw(){
-  grid.step();
+  background(180);
+  if(app.isRunning()){
+    grid.step();
+  }
   grid.renderViews();
   
+  if(app.hasOverlays){
+    app.displayOverlays();
+  }
+
   // gifExport.setDelay(1);
   // gifExport.addFrame();
 }
 
 
 void mouseDragged(){
-  if(keyPressed == true){
-    grid.removeHeatAt(mouseX, mouseY);
-  }else{
-    grid.addHeatAt(mouseX, mouseY);
+  if(app.isRunning()){
+    if(keyPressed == true){
+      grid.removeHeatAt(mouseX, mouseY);
+    }else{
+      grid.addHeatAt(mouseX, mouseY);
+    }
+  }
+}
+
+void keyPressed(){
+  switch(key){
+     case 63:   // Question mark
+         app.toggleHelpDisplay();
+         return;
   }
 }
 
@@ -156,6 +174,17 @@ class ShorcutKeyInfo {
     keyCombo = keyInput;
     description = descrip;
   }
+}
+
+class ThermalCellApp extends AppController {
+  
+  void initShortcutInfo(){
+    super.initShortcutInfo(); 
+    
+    mouseEffects.add( new ShorcutKeyInfo("Click + Drag", "Adds heat to the system") );
+    mouseModifiers.add( new ShorcutKeyInfo("<Space>", "Inverts the temperature effect.") );
+  }
+  
 }
 
 
