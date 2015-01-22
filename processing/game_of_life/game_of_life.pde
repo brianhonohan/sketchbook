@@ -10,10 +10,10 @@ void setup(){
   size(500, 500);
   background(bgColor);
   game = new GameOfLife();
-//  GliderGun glider = new GliderGun();
-//  glider.applyCellsTo(game.current, 0, 0); 
-  // game.fillEverOtherRow(false);
-  game.fillAsCheckerBoard(false);
+  GliderGun glider = new GliderGun();
+  glider.applyCellsTo(game.current, 0, 0);
+  // game.fillEverOtherRow(true);  // stable with wrapping (until perturbed), interesting without.
+  // game.fillAsCheckerBoard(true); // Only interesting without wrapping
 
   frameRate(60);
 // startGifExport();
@@ -68,6 +68,8 @@ void stopGifExport(){
 class GameOfLife{
   int[][] current;  
   int[][] nextGen;
+  
+  boolean wrap = true;
   
   // boolean wrapEdges = false; // assumed to be false for now.
   
@@ -143,6 +145,11 @@ class GameOfLife{
     int rowIdx = y / cellWidth;
     int colIdx = x / cellWidth;
     // println("... row("+rowIdx+") colIdx("+colIdx+")");
+    if (wrap){
+      rowIdx = (rowIdx > 0) ? rowIdx % numRows : numRows - abs(rowIdx % numRows);
+      colIdx = (colIdx > 0) ? colIdx % numCols : numCols - abs(colIdx % numCols);
+    }
+    
     if( !between(colIdx, 0, numCols-1) || !between(rowIdx, 0, numRows-1)){
       return;
     }
@@ -202,23 +209,46 @@ class GameOfLife{
     boolean leftCol   = col == 0;
     boolean rightCol  = col == (numCols-1);
     
-    // topleft
-    ret_count += (!firstRow && !leftCol && current[row-1][col-1] > 0) ? 1 : 0;
-    // topCenter
-    ret_count += (!firstRow && current[row-1][col] > 0) ? 1 : 0;
-    // topRIght
-    ret_count += (!firstRow && !rightCol && current[row-1][col+1] > 0) ? 1 : 0;
-    // midLeft
-    ret_count += (!leftCol && current[row][col-1] > 0) ? 1 : 0;
-    // midRight
-    ret_count += (!rightCol && current[row][col+1] > 0) ? 1 : 0;
-    // bottomLeft
-    ret_count += (!lastRow && !leftCol && current[row+1][col-1] > 0) ? 1 : 0;
-    // bottomCenter
-    ret_count += (!lastRow && current[row+1][col] > 0) ? 1 : 0;
-    // bottomRight
-    ret_count += (!lastRow && !rightCol && current[row+1][col+1] > 0) ? 1 : 0;
-    
+    if (!wrap){
+      // topleft
+      ret_count += (!firstRow && !leftCol && current[row-1][col-1] > 0) ? 1 : 0;
+      // topCenter
+      ret_count += (!firstRow && current[row-1][col] > 0) ? 1 : 0;
+      // topRIght
+      ret_count += (!firstRow && !rightCol && current[row-1][col+1] > 0) ? 1 : 0;
+      // midLeft
+      ret_count += (!leftCol && current[row][col-1] > 0) ? 1 : 0;
+      // midRight
+      ret_count += (!rightCol && current[row][col+1] > 0) ? 1 : 0;
+      // bottomLeft
+      ret_count += (!lastRow && !leftCol && current[row+1][col-1] > 0) ? 1 : 0;
+      // bottomCenter
+      ret_count += (!lastRow && current[row+1][col] > 0) ? 1 : 0;
+      // bottomRight
+      ret_count += (!lastRow && !rightCol && current[row+1][col+1] > 0) ? 1 : 0;
+    }else{
+      int colToLeft = (!leftCol) ? col-1 : numCols-1;
+      int colToRight = (!rightCol) ? col+1 : 0;
+      int rowAbove = (!firstRow) ? row-1 : numRows-1;
+      int rowBelow = (!lastRow) ? row+1 : 0;
+
+      // topleft
+      ret_count += (current[rowAbove][colToLeft] > 0) ? 1 : 0;
+      // topCenter
+      ret_count += (current[rowAbove][col] > 0) ? 1 : 0;
+      // topRIght
+      ret_count += (current[rowAbove][colToRight] > 0) ? 1 : 0;
+      // midLeft
+      ret_count += (current[row][colToLeft] > 0) ? 1 : 0;
+      // midRight
+      ret_count += (current[row][colToRight] > 0) ? 1 : 0;
+      // bottomLeft
+      ret_count += (current[rowBelow][colToLeft] > 0) ? 1 : 0;
+      // bottomCenter
+      ret_count += (current[rowBelow][col] > 0) ? 1 : 0;
+      // bottomRight
+      ret_count += (current[rowBelow][colToRight] > 0) ? 1 : 0;
+    }
     return ret_count;
   }
   
