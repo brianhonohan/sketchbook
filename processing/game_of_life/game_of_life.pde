@@ -146,8 +146,8 @@ class GameOfLife{
     int colIdx = x / cellWidth;
     // println("... row("+rowIdx+") colIdx("+colIdx+")");
     if (wrap){
-      rowIdx = (rowIdx > 0) ? rowIdx % numRows : numRows - abs(rowIdx % numRows);
-      colIdx = (colIdx > 0) ? colIdx % numCols : numCols - abs(colIdx % numCols);
+      rowIdx = (rowIdx >= 0) ? rowIdx % numRows : numRows - abs(rowIdx % numRows);
+      colIdx = (colIdx >= 0) ? colIdx % numCols : numCols - abs(colIdx % numCols);
     }
     
     if( !between(colIdx, 0, numCols-1) || !between(rowIdx, 0, numRows-1)){
