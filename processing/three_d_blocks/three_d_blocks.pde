@@ -104,7 +104,7 @@ void keyPressed(){
 }
 
 void applyPressedKeys(){
-  int[] keysListenedTo = {'w', 's', 'a', 'd'};
+  int[] keysListenedTo = {'w', 's', 'a', 'd', ' '};
   int tmpKey;
   for(int i=0; i<keysListenedTo.length; i++){
     tmpKey = keysListenedTo[i];
@@ -131,6 +131,14 @@ void applyKey(int asciiKey){
     case 'd':
             // otherwise we need to move in the direction the camera is pointing
             camView.moveBy(-1,0,0);
+            break;
+    case ' ':
+            // otherwise we need to move in the direction the camera is pointing
+            if(keyboard.isCodedKeyPressed(SHIFT)){
+              camView.moveBy(0,-1,0);
+            }else{
+              camView.moveBy(0,1,0);
+            }
             break;
   }
 }
@@ -201,6 +209,14 @@ class Keyboard {
       return false;
     }
     return pressed[asciiId]; 
+  }
+  boolean isCodedKeyPressed(int keyCodeVal){
+    int idx = getIdxForCodedKey(keyCodeVal);
+    if(codedKeys.length == 0 || !between(idx, 0, codedKeys.length-1)){
+      println("WARNING!   Keyboard.isCodedKeyPressed() ... unknown key: " + keyCodeVal);
+      return false;
+    }
+    return codedKeys[idx]; 
   }
 }
 
