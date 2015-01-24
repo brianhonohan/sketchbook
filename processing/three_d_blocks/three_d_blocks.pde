@@ -115,7 +115,7 @@ void applyPressedKeys(){
 }
 
 void applyKey(int asciiKey){
-  switch(key){
+  switch(asciiKey){
     case 'w':
             // otherwise we need to move in the direction the camera is pointing
             camView.moveBy(0,0,1);
