@@ -47,30 +47,50 @@ void draw(){
   // translate(incr, 0, 0);
   // translate(0, incr, 0);
   // translate(0, 0, incr);
-  // camView.moveBy(0, 0, -1);
+  
+  // camView.rotateBy( radians(1), 0);
+  camView.rotateBy( 0, radians(1));
   camView.apply();
   
+  
+  // HACKING THE DISPLAY OF THESE BLOCKS
   int blockSize = 20;
   int elevAtXZ;
-  int numCols = 10;
-  int numRows = 10;
+  int numCols = 20;
+  int numRows = 40;
+  
+  int xOffset = 0 - numCols / 2 * blockSize;
+  int zOffset = 0 - numRows / 2 * blockSize;
+  
   noStroke();
+  
+  pushMatrix();
+  translate(xOffset, 0, zOffset); 
+  
+  colorMode(HSB, 360, 100, 255);
   for(int x=0; x<numCols; x++){
     pushMatrix();
     translate(x*blockSize, 0, 0);
     
     for(int z=0; z<numRows; z++){
-      translate(0, 0, z*blockSize);
+      translate(0, 0, blockSize);
       
       elevAtXZ = terrain.elevationAt(x,z);
       pushMatrix();
         translate(0, -elevAtXZ, 0);
-        fill(elevAtXZ);
-        box(blockSize);
+        // fill(elevAtXZ);
+        fill( map(x*z, 0, numCols*numRows, 0, 270), 30, elevAtXZ);
+        pushMatrix();
+          
+          // just for fun, let's rotate them.
+          // rotateZ( radians(incr) );
+          box(blockSize);
+        popMatrix();
       popMatrix();
     }
     popMatrix();
   }
+  popMatrix();
     
   draw3dAxis();
   popMatrix();
@@ -115,29 +135,30 @@ void applyPressedKeys(){
 }
 
 void applyKey(int asciiKey){
+  int speed = 2;
   switch(asciiKey){
     case 'w':
             // otherwise we need to move in the direction the camera is pointing
-            camView.moveBy(0,0,1);
+            camView.moveBy(0,0,speed);
             break;
     case 's':
             // otherwise we need to move in the direction the camera is pointing
-            camView.moveBy(0,0,-1);
+            camView.moveBy(0,0,-speed);
             break;
     case 'a':
             // otherwise we need to move in the direction the camera is pointing
-            camView.moveBy(1,0,0);
+            camView.moveBy(speed,0,0);
             break;
     case 'd':
             // otherwise we need to move in the direction the camera is pointing
-            camView.moveBy(-1,0,0);
+            camView.moveBy(-speed,0,0);
             break;
     case ' ':
             // otherwise we need to move in the direction the camera is pointing
             if(keyboard.isCodedKeyPressed(SHIFT)){
-              camView.moveBy(0,-1,0);
+              camView.moveBy(0,-speed,0);
             }else{
-              camView.moveBy(0,1,0);
+              camView.moveBy(0,speed,0);
             }
             break;
   }
@@ -223,7 +244,7 @@ class Keyboard {
 
 void mouseMoved(){
   float deltaMouseX = mouseX - prevMouseX;
-  println("DeltaX : " + deltaMouseX);
+//  println("DeltaX : " + deltaMouseX);
   float horizPanDeg = map( deltaMouseX, -20, 20, -360, 360);
 //  camDir.theta += radians( horizPanDeg );
   
@@ -236,6 +257,7 @@ void mouseMoved(){
 }
 
 void draw3dAxis(){
+  colorMode(RGB, 255);
   int axisLen = 50;
   stroke(255, 0, 0);
   line(0, 0, 0,   axisLen, 0, 0);
@@ -254,7 +276,6 @@ class CameraView {
     location = new Point3D();
     direction = new PolarPoint3D();
     direction.phi = PI/2;
-    
     cachedDir = direction.toPoint();
   }
   
@@ -262,16 +283,23 @@ class CameraView {
     location.moveBy(x, y, z);
   }
   
-  void apply(){
-    translate(location.x, location.y, location.z);
+  void rotateBy(float deltaHeadingRadians, float deltaDeclinationRads){
+    direction.theta += deltaHeadingRadians;
+    direction.phi += deltaDeclinationRads;
+    cachedDir = direction.toPoint();
   }
-//  void apply(){
-//    camera( location.x, location.y, location.z
-//              , location.x + cachedDir.x
-//              , location.y + cachedDir.y
-//              , location.z + cachedDir.z
-//              , 0, 1, 0);
-//  }
+  
+  void apply2(){
+    translate(location.x, location.y, location.z);
+    rotateY(direction.theta); 
+  }
+  void apply(){
+    camera( location.x, location.y, location.z
+              , location.x + 0
+              , location.y + 0
+              , location.z + 100
+              , 0, 1, 0);
+  }
 }
 
 class TerrainViewer {
