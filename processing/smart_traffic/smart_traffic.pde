@@ -9,7 +9,7 @@ void setup(){
   size(displayWidth, displayHeight/2);
   
   road = new Road();
-  testCar = new LinkedCar();
+  testCar = new Car();
   road.addCar(testCar);
   calcSecsPerFrame();
 }
@@ -38,6 +38,7 @@ class Car {
   float speed;
   float accel;
   float length;
+  Driver driver;
   
   Car(){
     x = 0;
@@ -50,11 +51,19 @@ class Car {
     length = 30;  
   }
   
+  void setDriver(Driver p_driver){
+    driver = p_driver;
+  }
+  
   void tick(){
 //    x += speed * secsPerFrame;
     x = min( maxX(), x + speed * secsPerFrame);
     speed += accel * secsPerFrame;
     speed = constrain(speed, 0, road.speedLimit * 1.2 );
+    
+    if(driver !=null) { 
+      driver.brakeOrGas();
+    } 
   }
   
   float distToCar(Car c){
@@ -68,6 +77,7 @@ class Car {
   float maxX(){ return Float.MAX_VALUE; }
   void afterJoinRoad(){}
   void afterLeaveRoad(){}
+  void brakeOrGas() {}
   void debug() {}
   
   // ------------------------
@@ -109,11 +119,6 @@ class Car {
 class LinkedCar extends Car {
   LinkedCar carAhead;
   LinkedCar carBehind;
-
-  void tick(){
-    super.tick();
-    brakeOrGas();
-  }
   
   // This acceleration logic should be refactored out to a
   // composed object, "Driver", which can in turn be sub-classed
@@ -183,10 +188,48 @@ class LinkedCar extends Car {
   }
 }
 
-//class Driver {
-//  Car car;
-//  
-//}
+class Driver {
+  LinkedCar car;
+  
+  Driver(){
+    
+  }
+  
+  void getInCar(Car p_car){
+    car = p_car;
+    car.setDriver(this);
+  }
+  
+  void brakeOrGas(){
+    if (car.carAhead == null){
+//      println("... no Car ahead, stay on target.");
+      println("No Car ahead");
+      car.accel = (road.speedLimit - car.speed) / 8;  // 8 seconds to reach speedlimit
+      return;
+    }
+    float dist = car.distToCar(car.carAhead);
+//    println("... DIST to car ahead: " + dist);
+    if (dist > 3 * length){
+      car.accel += 10; 
+    } else {
+      float speedDiff = car.carAhead.speed - car.speed;
+      if (dist > 2 * length){
+        if (abs(speedDiff) > 5){
+          car.accel += (car.carAhead.speed - car.speed) / frameRate;
+        }
+      }else{
+        if (speedDiff < 0){
+          // going faster than the car ahead
+          float timeToImpactAtCurrentSpeed = dist / abs(speedDiff);
+          car.accel += speedDiff / timeToImpactAtCurrentSpeed;
+        }else{
+          // accel += (carAhead.speed - speed) / frameRate; 
+          car.accel = (road.speedLimit - car.speed) / 8;  // 8 seconds to reach speedlimit 
+        }
+      }
+    }
+  }
+}
 
 // ------------------------------------------------------------------------------------------
 
