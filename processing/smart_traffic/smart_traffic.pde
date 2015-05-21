@@ -193,11 +193,11 @@ class Driver {
     }
     float dist = car.distToCar(car.carAhead);
 //    println("... DIST to car ahead: " + dist);
-    if (dist > 3 * length){
+    if (dist > 3 * car.length){
       car.accel += 10; 
     } else {
       float speedDiff = car.carAhead.speed - car.speed;
-      if (dist > 2 * length){
+      if (dist > 2 * car.length){
         if (abs(speedDiff) > 5){
           car.accel += (car.carAhead.speed - car.speed) / frameRate;
         }
