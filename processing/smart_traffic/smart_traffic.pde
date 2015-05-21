@@ -58,6 +58,9 @@ class CarFactory {
 
 
 class Car {
+  Car carAhead;
+  Car carBehind;
+  
   float x;
   float speed;
   float accel;
@@ -98,12 +101,38 @@ class Car {
     return c.x - (this.x + length);
   }
   
-  float maxX(){ return Float.MAX_VALUE; }
-  void afterJoinRoad(){}
-  void afterLeaveRoad(){}
-  void brakeOrGas() {}
-  void debug() {}
+  void afterJoinRoad(){
+    carAhead = road.getCarAheadOf(this);
+    if(carAhead != null){
+      carAhead.carBehind = this;
+    }
+//    carBehind = road.getCarBehind(this);
+  }
   
+  void afterLeaveRoad(){
+    if (carBehind != null){
+      carBehind.carAhead = null;
+    }
+  }
+  
+  float maxX(){
+    int minSpacing = 5;
+    float maxXPosition = (carAhead == null) ? Float.MAX_VALUE : (carAhead.x - length - minSpacing);
+    // println("... maxX: " + maxXPosition);
+    return maxXPosition;
+  }
+
+  void debug(){
+    println("car: " + this.toString() );
+    if(carAhead != null){
+      println("... car ahead: " + carAhead.toString() );
+    }  
+  }
+  
+  String toString(){
+    return "x["+x+"] s["+speed+"] a["+accel+"]";
+  }
+
   // ------------------------
   void draw(){
     startDraw();
@@ -140,80 +169,11 @@ class Car {
   }
 }
 
-class LinkedCar extends Car {
-  LinkedCar carAhead;
-  LinkedCar carBehind;
-  
-  // This acceleration logic should be refactored out to a
-  // composed object, "Driver", which can in turn be sub-classed
-  // to alter their driving style.
-  void brakeOrGas(){
-    if (carAhead == null){
-//      println("... no Car ahead, stay on target.");
-      println("No Car ahead");
-      accel = (road.speedLimit - speed) / 8;  // 8 seconds to reach speedlimit
-      return;
-    }
-    float dist = distToCar(carAhead);
-//    println("... DIST to car ahead: " + dist);
-    if (dist > 3 * length){
-      accel += 10; 
-    } else {
-      float speedDiff = carAhead.speed - speed;
-      if (dist > 2 * length){
-        if (abs(speedDiff) > 5){
-          accel += (carAhead.speed - speed) / frameRate;
-        }
-      }else{
-        if (speedDiff < 0){
-          // going faster than the car ahead
-          float timeToImpactAtCurrentSpeed = dist / abs(speedDiff);
-          accel += speedDiff / timeToImpactAtCurrentSpeed;
-        }else{
-          // accel += (carAhead.speed - speed) / frameRate; 
-          accel = (road.speedLimit - speed) / 8;  // 8 seconds to reach speedlimit 
-        }
-      }
-    }
-  }
-  
-  void afterJoinRoad(){
-    carAhead = (LinkedCar)road.getCarAheadOf(this);
-    if(carAhead != null){
-      carAhead.carBehind = this;
-    }
-//    carBehind = road.getCarBehind(this);
-  }
-  
-  void afterLeaveRoad(){
-    if (carBehind != null){
-      carBehind.carAhead = null;
-    }
-  }
-  
-  float maxX(){
-    int minSpacing = 5;
-    float maxXPosition = (carAhead == null) ? Float.MAX_VALUE : (carAhead.x - length - minSpacing);
-    // println("... maxX: " + maxXPosition);
-    return maxXPosition;
-  }
-  
-  
-  
-  void debug(){
-    println("car: " + this.toString() );
-    if(carAhead != null){
-      println("... car ahead: " + carAhead.toString() );
-    }  
-  }
-  
-  String toString(){
-    return "x["+x+"] s["+speed+"] a["+accel+"]";
   }
 }
 
 class Driver {
-  LinkedCar car;
+  Car car;
   
   Driver(){
     
