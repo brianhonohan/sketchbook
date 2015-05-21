@@ -1,5 +1,6 @@
 Road road; 
 Car testCar;
+DriverPool driverPool;
 CarFactory carFactory;
 
 int seed;
@@ -11,8 +12,10 @@ float secsPerFrame;
 
 void setup(){
   size(displayWidth, displayHeight/2);
+  strokeWeight(2);
   establishSeed();
   
+  driverPool = new DriverPool();
   carFactory = new CarFactory();
 
   road = new Road();
@@ -44,6 +47,8 @@ void mousePressed(){
 
 void putNewCarOnRoad(){
   Car newCar = carFactory.makeCar();
+  Driver newDriver = driverPool.nextDriver();
+  newDriver.getInCar(newCar);
   
   road.addCar(newCar);
 }
@@ -142,6 +147,7 @@ class Car {
   
   void render(){
     setFillColor();
+    driver.setBorderColor();
     rect(0,0, length,20, 4);
   }
   
@@ -160,7 +166,7 @@ class Car {
 
   void startDraw(){
     pushMatrix();
-    noStroke();
+//    noStroke();
     translate(x, height/2);
   }
   
@@ -169,6 +175,29 @@ class Car {
   }
 }
 
+class DriverPool {
+  int driverCounter = 0;
+  int numDriverTypes = 5;
+  
+  Driver nextDriver(){
+//   int driverType = (int)(floor(random(numDriverTypes));
+    driverCounter++;
+    int driverType = (int)(floor(numDriverTypes * noise(driverCounter)));
+   
+   switch(driverType){
+     case 0:
+       return new TooSlowDriver();
+     case 1:
+       return new SlowAndSteadyDriver();
+     case 2:
+       return new SlightSpeederDriver();
+     case 3:
+       return new ImpatientDriver();
+     case 4:
+       return new ErraticDriver();
+   }
+   println("BUG: ... unknown driverType ... returning default");
+   return new Driver();
   }
 }
 
@@ -176,7 +205,6 @@ class Driver {
   Car car;
   
   Driver(){
-    
   }
   
   void getInCar(Car p_car){
@@ -213,7 +241,46 @@ class Driver {
       }
     }
   }
+  
+  void setBorderColor(){
+    stroke(50);
+  }
 }
+
+class TooSlowDriver extends Driver {
+  void setBorderColor(){
+    stroke(200,200,0);
+  }
+}
+
+class SlowAndSteadyDriver extends Driver {
+  void setBorderColor(){
+    stroke(0,200,200);
+  }
+}
+
+class SlightSpeederDriver extends Driver {
+  void setBorderColor(){
+    stroke(0,150,250);
+  }
+}
+
+class ImpatientDriver extends Driver {
+   void setBorderColor(){
+    stroke(250,100,0);
+  }
+}
+
+class ErraticDriver extends Driver {
+  void setBorderColor(){
+    stroke( 255*noise(frameCount/10.0+1000), 
+              255*noise(frameCount/10.0+10000), 
+              255*noise(frameCount/10.0+100000));
+  }
+}
+
+
+
 
 // ------------------------------------------------------------------------------------------
 
