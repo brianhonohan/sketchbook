@@ -1,5 +1,7 @@
 Road road; 
 Car testCar;
+CarFactory carFactory;
+
 int seed;
 
 //  frameRate => Seconds / frame
@@ -11,9 +13,10 @@ void setup(){
   size(displayWidth, displayHeight/2);
   establishSeed();
   
+  carFactory = new CarFactory();
+
   road = new Road();
-  testCar = new Car();
-  road.addCar(testCar);
+  putNewCarOnRoad();
   calcSecsPerFrame();
 }
 
@@ -36,12 +39,23 @@ void calcSecsPerFrame(){
 
 void mousePressed(){
   road.debugCarAtX( mouseX );
+  putNewCarOnRoad();
+}
+
+void putNewCarOnRoad(){
+  Car newCar = carFactory.makeCar();
   
-  Car newCar = new LinkedCar();
   road.addCar(newCar);
 }
 
 // ------------------------------------------------------------------------------------------
+
+class CarFactory {
+  Car makeCar(){
+    return new Car();  
+  }
+}
+
 
 class Car {
   float x;
