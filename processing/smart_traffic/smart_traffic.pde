@@ -1,5 +1,7 @@
 Road road; 
 Car testCar;
+int seed;
+
 //  frameRate => Seconds / frame
 // secondsPerFrame = 1.0 / frameRate;
 // speed = pixels / second
@@ -7,11 +9,19 @@ float secsPerFrame;
 
 void setup(){
   size(displayWidth, displayHeight/2);
+  establishSeed();
   
   road = new Road();
   testCar = new Car();
   road.addCar(testCar);
   calcSecsPerFrame();
+}
+
+void establishSeed(){
+  seed = (int)random(10000,99999);
+  noiseSeed(seed);
+  randomSeed(seed);
+  println("Random Seed: " + seed);
 }
 
 void draw(){
