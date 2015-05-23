@@ -88,10 +88,17 @@ class Car {
   }
   
   void tick(){
-//    x += speed * secsPerFrame;
-    x = min( maxX(), x + speed * secsPerFrame);
+    float newX =  x + speed * secsPerFrame;
+    if (newX > maxX()) {
+      println("Collision ... ");
+      x = maxX();
+    }else{
+      x = newX;
+    }
+    
     speed += accel * secsPerFrame;
-    speed = constrain(speed, 0, road.speedLimit * 1.2 );
+    // speed = constrain(speed, 0, road.speedLimit * 1.2 );
+    speed = constrain(speed, 0, driver.getComfortableSpeed());
     
     if(driver !=null) { 
       driver.brakeOrGas();
@@ -180,9 +187,9 @@ class DriverPool {
   int numDriverTypes = 5;
   
   Driver nextDriver(){
-//   int driverType = (int)(floor(random(numDriverTypes));
+    int driverType = (int)floor(random(numDriverTypes));
     driverCounter++;
-    int driverType = (int)(floor(numDriverTypes * noise(driverCounter)));
+//    int driverType = (int)(floor(numDriverTypes * noise(driverCounter)));
    
    switch(driverType){
      case 0:
@@ -203,8 +210,28 @@ class DriverPool {
 
 class Driver {
   Car car;
+  float percentOfSpeedlimit;
+  float carLengthToCruise;
+  
+  float _comfortableSpped;
+  
   
   Driver(){
+    initDefaultBehavior();
+    initializeBehavior();
+    
+    calculateFactors();
+  }
+  
+  void initializeBehavior(){}
+    
+  void initDefaultBehavior(){
+    percentOfSpeedlimit = 1.0;
+//    carLengthToCruise 
+  }
+  
+  void calculateFactors(){
+    _comfortableSpped = road.speedLimit * percentOfSpeedlimit;
   }
   
   void getInCar(Car p_car){
@@ -212,24 +239,34 @@ class Driver {
     car.setDriver(this);
   }
   
+  float getComfortableSpeed(){
+    return _comfortableSpped;
+  }
+  
   void brakeOrGas(){
     if (car.carAhead == null){
 //      println("... no Car ahead, stay on target.");
-      println("No Car ahead");
-      car.accel = (road.speedLimit - car.speed) / 8;  // 8 seconds to reach speedlimit
+      car.accel = (getComfortableSpeed() - car.speed) / 8;  // 8 seconds to reach speedlimit
       return;
     }
     float dist = car.distToCar(car.carAhead);
 //    println("... DIST to car ahead: " + dist);
+
+
+    // If I'm too far away ... I can accelerate up to my cruising speed
     if (dist > 3 * car.length){
-      car.accel += 10; 
+      car.accel += 2; 
     } else {
+      // I'm pretty close to the car, I should be concious of collision avoidance
       float speedDiff = car.carAhead.speed - car.speed;
+      
+      // I'm still pretty
       if (dist > 2 * car.length){
         if (abs(speedDiff) > 5){
           car.accel += (car.carAhead.speed - car.speed) / frameRate;
         }
       }else{
+        // I'm really close, I should map match their speed.
         if (speedDiff < 0){
           // going faster than the car ahead
           float timeToImpactAtCurrentSpeed = dist / abs(speedDiff);
@@ -248,18 +285,30 @@ class Driver {
 }
 
 class TooSlowDriver extends Driver {
+  void initializeBehavior(){
+     percentOfSpeedlimit = 0.7;
+  }
+  
   void setBorderColor(){
     stroke(200,200,0);
   }
 }
 
 class SlowAndSteadyDriver extends Driver {
+  void initializeBehavior(){
+     percentOfSpeedlimit = 1.0;
+  }
+  
   void setBorderColor(){
     stroke(0,200,200);
   }
 }
 
 class SlightSpeederDriver extends Driver {
+  void initializeBehavior(){
+     percentOfSpeedlimit = 1.3;
+  }
+  
   void setBorderColor(){
     stroke(0,150,250);
   }
@@ -272,6 +321,11 @@ class ImpatientDriver extends Driver {
 }
 
 class ErraticDriver extends Driver {
+  
+  float getComfortableSpeed(){
+    return road.speedLimit * (0.5 + noise(frameCount/1000.0));
+  }
+  
   void setBorderColor(){
     stroke( 255*noise(frameCount/10.0+1000), 
               255*noise(frameCount/10.0+10000), 
