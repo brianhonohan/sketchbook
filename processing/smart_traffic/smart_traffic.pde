@@ -222,8 +222,8 @@ class DriverPool {
 class Driver {
   Car car;
   float percentOfSpeedlimit;
-  float carLengthToCruise;
   float _comfortableSpeed;
+  float maxAccel;
   
   Driver(){
     initDefaultBehavior();
@@ -236,8 +236,9 @@ class Driver {
     
   void initDefaultBehavior(){
     percentOfSpeedlimit = 1.0;
+    maxAccel = 10;  // ... range 3 => 20 
   }
-  
+
   void calculateFactors(){
     _comfortableSpeed = road.speedLimit * percentOfSpeedlimit;
   }
@@ -251,10 +252,18 @@ class Driver {
     return _comfortableSpeed;
   }
   
+  private void changeAccelBy(float delta){
+    setAccel(car.accel + delta);
+  }
+  
+  private void setAccel(float newAccel){
+    car.accel = constrain(newAccel, maxAccel * -1.0, maxAccel);  
+  }
+  
   void brakeOrGas(){
     if (car.carAhead == null){
 //      println("... no Car ahead, stay on target.");
-      car.accel = (getComfortableSpeed() - car.speed) / 8;  // 8 seconds to reach speedlimit
+      setAccel( (getComfortableSpeed() - car.speed) / 8 );  // 8 seconds to reach speedlimit
       return;
     }
     float dist = car.distToCar(car.carAhead);
@@ -262,7 +271,7 @@ class Driver {
 
     // If I'm too far away ... I can accelerate up to my cruising speed
     if (dist > 3 * car.length){
-      car.accel += 2; 
+      changeAccelBy(2);
     } else {
       // I'm pretty close to the car, I should be concious of collision avoidance
       float speedDiff = car.carAhead.speed - car.speed;
@@ -270,17 +279,17 @@ class Driver {
       // I'm still pretty
       if (dist > 2 * car.length){
         if (abs(speedDiff) > 5){
-          car.accel += (car.carAhead.speed - car.speed) / frameRate;
+          changeAccelBy( (car.carAhead.speed - car.speed) / frameRate );
         }
       }else{
         // I'm really close, I should map match their speed.
         if (speedDiff < 0){
           // going faster than the car ahead
           float timeToImpactAtCurrentSpeed = dist / abs(speedDiff);
-          car.accel += speedDiff / timeToImpactAtCurrentSpeed;
+          changeAccelBy(speedDiff / timeToImpactAtCurrentSpeed);
         }else{
           // accel += (carAhead.speed - speed) / frameRate; 
-          car.accel = (road.speedLimit - car.speed) / 8;  // 8 seconds to reach speedlimit 
+          setAccel( (road.speedLimit - car.speed) / 8 );  // 8 seconds to reach speedlimit 
         }
       }
     }
