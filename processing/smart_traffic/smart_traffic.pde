@@ -187,10 +187,12 @@ class DriverPool {
   int numDriverTypes = 5;
   
   Driver nextDriver(){
-    int driverType = (int)floor(random(numDriverTypes));
+    int driverType = nextDriverEvenDistribution();
     driverCounter++;
-//    int driverType = (int)(floor(numDriverTypes * noise(driverCounter)));
-   
+    return findDriverForType(driverType);
+  }
+  
+  private Driver findDriverForType(int driverType){
    switch(driverType){
      case 0:
        return new TooSlowDriver();
@@ -205,6 +207,15 @@ class DriverPool {
    }
    println("BUG: ... unknown driverType ... returning default");
    return new Driver();
+    
+  }
+  
+  private int nextDriverBySeed(){
+    return (int)(floor(numDriverTypes * noise(driverCounter)));
+  }
+
+  private int nextDriverEvenDistribution(){
+    return (int)floor(random(numDriverTypes));
   }
 }
 
