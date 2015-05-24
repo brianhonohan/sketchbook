@@ -303,6 +303,7 @@ class Driver {
 class TooSlowDriver extends Driver {
   void initializeBehavior(){
      percentOfSpeedlimit = 0.7;
+     maxAccel = 3;
   }
   
   void setBorderColor(){
@@ -313,6 +314,7 @@ class TooSlowDriver extends Driver {
 class SlowAndSteadyDriver extends Driver {
   void initializeBehavior(){
      percentOfSpeedlimit = 1.0;
+     maxAccel = 8;
   }
   
   void setBorderColor(){
@@ -323,6 +325,7 @@ class SlowAndSteadyDriver extends Driver {
 class SlightSpeederDriver extends Driver {
   void initializeBehavior(){
      percentOfSpeedlimit = 1.3;
+     maxAccel = 12;
   }
   
   void setBorderColor(){
@@ -331,6 +334,10 @@ class SlightSpeederDriver extends Driver {
 }
 
 class ImpatientDriver extends Driver {
+  void initializeBehavior(){
+     percentOfSpeedlimit = 1.3;
+     maxAccel = 20;
+  }
    void setBorderColor(){
     stroke(250,100,0);
   }
