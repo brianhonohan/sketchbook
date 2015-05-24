@@ -223,9 +223,7 @@ class Driver {
   Car car;
   float percentOfSpeedlimit;
   float carLengthToCruise;
-  
-  float _comfortableSpped;
-  
+  float _comfortableSpeed;
   
   Driver(){
     initDefaultBehavior();
@@ -238,11 +236,10 @@ class Driver {
     
   void initDefaultBehavior(){
     percentOfSpeedlimit = 1.0;
-//    carLengthToCruise 
   }
   
   void calculateFactors(){
-    _comfortableSpped = road.speedLimit * percentOfSpeedlimit;
+    _comfortableSpeed = road.speedLimit * percentOfSpeedlimit;
   }
   
   void getInCar(Car p_car){
@@ -251,7 +248,7 @@ class Driver {
   }
   
   float getComfortableSpeed(){
-    return _comfortableSpped;
+    return _comfortableSpeed;
   }
   
   void brakeOrGas(){
@@ -262,7 +259,6 @@ class Driver {
     }
     float dist = car.distToCar(car.carAhead);
 //    println("... DIST to car ahead: " + dist);
-
 
     // If I'm too far away ... I can accelerate up to my cruising speed
     if (dist > 3 * car.length){
