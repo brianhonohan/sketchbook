@@ -100,9 +100,6 @@ class Car {
     // speed = constrain(speed, 0, road.speedLimit * 1.2 );
     speed = constrain(speed, 0, driver.getComfortableSpeed());
     
-    if(driver !=null) { 
-      driver.brakeOrGas();
-    } 
   }
   
   float distToCar(Car c){
@@ -230,6 +227,10 @@ class Driver {
     initializeBehavior();
     
     calculateFactors();
+  }
+  
+  void tick(){
+    brakeOrGas(); 
   }
   
   void initializeBehavior(){}
@@ -413,6 +414,11 @@ class Road {
         continue;
       }
       tmpCar.tick();
+    }
+    
+    for(int ii=0; ii < cars.size(); ii++){
+      tmpCar = carAt(ii);
+      tmpCar.driver.tick();
     }
   }
   
