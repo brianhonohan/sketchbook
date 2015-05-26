@@ -27,7 +27,11 @@ void establishSeed(){
   seed = (int)random(10000,99999);
   noiseSeed(seed);
   randomSeed(seed);
-  println("Random Seed: " + seed);
+  debugMsg("Random Seed: " + seed);
+}
+
+void debugMsg(String msg){
+//  println(msg); 
 }
 
 void draw(){
@@ -66,6 +70,7 @@ class Car {
   Car carAhead;
   Car carBehind;
   
+  int id;
   float x;
   float speed;
   float accel;
@@ -88,9 +93,12 @@ class Car {
   }
   
   void tick(){
+    debugMsg("... car str tick" + this);
     float newX =  x + speed * secsPerFrame;
     if (newX > maxX()) {
-      println("Collision ... ");
+      debugMsg("Collision ... ");
+      accel = 0;
+      speed = carAhead.speed;
       x = maxX();
     }else{
       x = newX;
@@ -98,8 +106,12 @@ class Car {
     
     speed += accel * secsPerFrame;
     // speed = constrain(speed, 0, road.speedLimit * 1.2 );
-    speed = constrain(speed, 0, driver.getComfortableSpeed());
+    if (speed > driver.getComfortableSpeed()){
+      speed = driver.getComfortableSpeed();
+      accel = 0;
+    }
     
+    debugMsg("... car end tick" + this);
   }
   
   float distToCar(Car c){
@@ -127,19 +139,19 @@ class Car {
   float maxX(){
     int minSpacing = 5;
     float maxXPosition = (carAhead == null) ? Float.MAX_VALUE : (carAhead.x - length - minSpacing);
-    // println("... maxX: " + maxXPosition);
+    // debugMsg("... maxX: " + maxXPosition);
     return maxXPosition;
   }
 
   void debug(){
-    println("car: " + this.toString() );
+    debugMsg("car: " + this.toString() );
     if(carAhead != null){
-      println("... car ahead: " + carAhead.toString() );
+      debugMsg("... car ahead: " + carAhead.toString() );
     }  
   }
   
   String toString(){
-    return "x["+x+"] s["+speed+"] a["+accel+"]";
+    return "id["+id+"] x["+x+"] s["+speed+"] a["+accel+"]";
   }
 
   // ------------------------
@@ -202,7 +214,7 @@ class DriverPool {
      case 4:
        return new ErraticDriver();
    }
-   println("BUG: ... unknown driverType ... returning default");
+   debugMsg("BUG: ... unknown driverType ... returning default");
    return new Driver();
     
   }
@@ -261,39 +273,51 @@ class Driver {
     car.accel = constrain(newAccel, maxAccel * -1.0, maxAccel);  
   }
   
+//  protected headwayToAccel()
+  
   void brakeOrGas(){
+    debugMsg("... brakeOrGas " + this.car);
     if (car.carAhead == null){
-//      println("... no Car ahead, stay on target.");
+//      debugMsg("... no Car ahead, stay on target.");
       setAccel( (getComfortableSpeed() - car.speed) / 8 );  // 8 seconds to reach speedlimit
+      debugMsg("... lead   set car to: " + this.car);
       return;
     }
     float dist = car.distToCar(car.carAhead);
-//    println("... DIST to car ahead: " + dist);
+    float speedDiff = car.carAhead.speed - car.speed;
+    float timeToImpactAtCurrentSpeed = dist / abs(speedDiff);
+//    debugMsg("... DIST to car ahead: " + dist);
 
     // If I'm too far away ... I can accelerate up to my cruising speed
     if (dist > 3 * car.length){
+      debugMsg("... too far");
       changeAccelBy(2);
     } else {
       // I'm pretty close to the car, I should be concious of collision avoidance
-      float speedDiff = car.carAhead.speed - car.speed;
       
-      // I'm still pretty
       if (dist > 2 * car.length){
+         debugMsg("... kind of close");
+        // I'm still pretty far away, 
         if (abs(speedDiff) > 5){
           changeAccelBy( (car.carAhead.speed - car.speed) / frameRate );
         }
       }else{
+         debugMsg("... really of close, timeToCol["+timeToImpactAtCurrentSpeed+"]" );
         // I'm really close, I should map match their speed.
-        if (speedDiff < 0){
+        if(timeToImpactAtCurrentSpeed < 0){
+          setAccel(0);
+        } else if (speedDiff < 0){
           // going faster than the car ahead
-          float timeToImpactAtCurrentSpeed = dist / abs(speedDiff);
           changeAccelBy(speedDiff / timeToImpactAtCurrentSpeed);
-        }else{
+        } else if (speedDiff == 0){
+          
+        } else{
           // accel += (carAhead.speed - speed) / frameRate; 
           setAccel( (road.speedLimit - car.speed) / 8 );  // 8 seconds to reach speedlimit 
         }
       }
     }
+    debugMsg("... driver set car to: " + this.car);
   }
   
   void setBorderColor(){
@@ -366,15 +390,19 @@ class Road {
   ArrayList<Car> cars;
   float _width;
   float speedLimit;
+  int carsAdded;
   
   Road(){
     _width = displayWidth;
     cars = new ArrayList<Car>(); 
     speedLimit = 30;
+    carsAdded = 0;
   }
   
   void addCar(Car c){
     cars.add(c);
+    c.id = carsAdded++;
+    debugMsg("... Car added : " + c);
     c.afterJoinRoad();
   }
   
@@ -404,6 +432,7 @@ class Road {
   }
   
   void tick(){
+    debugMsg(".............. TICK .......................");
     Car tmpCar;
 
     for(int ii=0; ii < cars.size(); ii++){
@@ -435,10 +464,9 @@ class Road {
   }
   
   void debug(){
-    println("There are " + cars.size() + " on the road");
+    debugMsg("There are " + cars.size() + " on the road");
   }
 }
-
 // ------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------
 
