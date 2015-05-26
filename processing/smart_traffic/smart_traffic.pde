@@ -405,7 +405,12 @@ class Road {
   
   void tick(){
     Car tmpCar;
-    
+
+    for(int ii=0; ii < cars.size(); ii++){
+      tmpCar = carAt(ii);
+      tmpCar.driver.tick();
+    }
+
     for(int ii=0; ii < cars.size(); ii++){
       tmpCar = carAt(ii);
       if(tmpCar.x > _width){
@@ -414,11 +419,6 @@ class Road {
         continue;
       }
       tmpCar.tick();
-    }
-    
-    for(int ii=0; ii < cars.size(); ii++){
-      tmpCar = carAt(ii);
-      tmpCar.driver.tick();
     }
   }
   
