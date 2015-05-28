@@ -2,6 +2,7 @@ Road road;
 Car testCar;
 DriverPool driverPool;
 CarFactory carFactory;
+boolean appPaused;
 
 int seed;
 
@@ -21,6 +22,8 @@ void setup(){
   road = new Road();
   putNewCarOnRoad();
   calcSecsPerFrame();
+
+  appPaused = false;
 }
 
 void establishSeed(){
@@ -36,7 +39,9 @@ void debugMsg(String msg){
 
 void draw(){
   background(180);
-  road.tick();
+  if (!appPaused){
+    road.tick();
+  }
   road.draw();
 }
 
@@ -47,6 +52,16 @@ void calcSecsPerFrame(){
 void mousePressed(){
   road.debugCarAtX( mouseX );
   putNewCarOnRoad();
+}
+
+void keyPressed(){
+  if (key == 'p'){
+    togglePause();
+  } 
+}
+
+void togglePause(){
+  appPaused = !appPaused;
 }
 
 void putNewCarOnRoad(){
