@@ -30,7 +30,7 @@ void establishSeed(){
   seed = (int)random(10000,99999);
   noiseSeed(seed);
   randomSeed(seed);
-  debugMsg("Random Seed: " + seed);
+  println("Random Seed: " + seed);
 }
 
 void debugMsg(String msg){
@@ -111,7 +111,7 @@ class Car {
     debugMsg("... car str tick" + this);
     float newX =  x + speed * secsPerFrame;
     if (newX > maxX()) {
-      debugMsg("Collision ... ");
+      println("Collision ... newX["+newX+"] maxX["+ maxX()+"]");
       accel = 0;
       speed = carAhead.speed;
       x = maxX();
@@ -293,7 +293,7 @@ class Driver {
   void brakeOrGas(){
     debugMsg("... brakeOrGas " + this.car);
     if (car.carAhead == null){
-//      debugMsg("... no Car ahead, stay on target.");
+      // debugMsg("... no Car ahead, stay on target.");
       setAccel( (getComfortableSpeed() - car.speed) / 8 );  // 8 seconds to reach speedlimit
       debugMsg("... lead   set car to: " + this.car);
       return;
@@ -447,7 +447,7 @@ class Road {
   }
   
   void tick(){
-    debugMsg(".............. TICK .......................");
+    println(".............. TICK .......................");
     Car tmpCar;
 
     for(int ii=0; ii < cars.size(); ii++){
