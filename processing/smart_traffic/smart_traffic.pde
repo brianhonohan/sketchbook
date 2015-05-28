@@ -140,6 +140,7 @@ class Car {
   void afterJoinRoad(){
     carAhead = road.getCarAheadOf(this);
     if(carAhead != null){
+      x = min(carAhead.x - length - 3, 0);
       carAhead.carBehind = this;
     }
 //    carBehind = road.getCarBehind(this);
