@@ -28,6 +28,7 @@ void setup(){
 
 void establishSeed(){
   seed = (int)random(10000,99999);
+//  seed = 11124;
   noiseSeed(seed);
   randomSeed(seed);
   println("Random Seed: " + seed);
@@ -153,7 +154,7 @@ class Car {
   }
   
   float maxX(){
-    int minSpacing = 5;
+    int minSpacing = 0;
     float maxXPosition = (carAhead == null) ? Float.MAX_VALUE : (carAhead.x - length - minSpacing);
     // debugMsg("... maxX: " + maxXPosition);
     return maxXPosition;
@@ -248,6 +249,7 @@ class Driver {
   Car car;
   float percentOfSpeedlimit;
   float _comfortableSpeed;
+  float minBufferInSecs;
   float maxAccel;
   
   Driver(){
@@ -266,6 +268,7 @@ class Driver {
   void initDefaultBehavior(){
     percentOfSpeedlimit = 1.0;
     maxAccel = 10;  // ... range 3 => 20 
+    minBufferInSecs = 2;
   }
 
   void calculateFactors(){
@@ -281,6 +284,14 @@ class Driver {
     return _comfortableSpeed;
   }
   
+  float getMinimumSpacing(){
+    // as a function of time
+    // want to establish 2 seconds ... for a safe driver
+    // ...  0.5 for unsafe driver
+    // so amount traveled in: 
+    return car.speed * minBufferInSecs; 
+  }
+  
   private void changeAccelBy(float delta){
     setAccel(car.accel + delta);
   }
@@ -288,9 +299,7 @@ class Driver {
   private void setAccel(float newAccel){
     car.accel = constrain(newAccel, maxAccel * -1.0, maxAccel);  
   }
-  
-//  protected headwayToAccel()
-  
+
   void brakeOrGas(){
     debugMsg("... brakeOrGas " + this.car);
     if (car.carAhead == null){
@@ -301,39 +310,23 @@ class Driver {
     }
     float dist = car.distToCar(car.carAhead);
     float speedDiff = car.carAhead.speed - car.speed;
-    float timeToImpactAtCurrentSpeed = dist / abs(speedDiff);
-//    debugMsg("... DIST to car ahead: " + dist);
-
-    // If I'm too far away ... I can accelerate up to my cruising speed
-    if (dist > 3 * car.length){
-      debugMsg("... too far");
-      changeAccelBy(2);
-    } else {
-      // I'm pretty close to the car, I should be concious of collision avoidance
-      
-      if (dist > 2 * car.length){
-         debugMsg("... kind of close");
-        // I'm still pretty far away, 
-        if (abs(speedDiff) > 5){
-          changeAccelBy( (car.carAhead.speed - car.speed) / frameRate );
-        }
-      }else{
-         debugMsg("... really of close, timeToCol["+timeToImpactAtCurrentSpeed+"]" );
-        // I'm really close, I should map match their speed.
-        if(timeToImpactAtCurrentSpeed < 0){
-          setAccel(0);
-        } else if (speedDiff < 0){
-          // going faster than the car ahead
-          changeAccelBy(speedDiff / timeToImpactAtCurrentSpeed);
-        } else if (speedDiff == 0){
-          
-        } else{
-          // accel += (carAhead.speed - speed) / frameRate; 
-          setAccel( (road.speedLimit - car.speed) / 8 );  // 8 seconds to reach speedlimit 
-        }
-      }
+    float timeToImpactAtCurrentSpeed = MAX_FLOAT;
+    if(speedDiff < 0){
+      timeToImpactAtCurrentSpeed = dist / abs(speedDiff);
     }
-    debugMsg("... driver set car to: " + this.car);
+    // println("... speed["+car.speed+"] dist[" + dist + "] speedDiff["+speedDiff+"] timeToImpact["+timeToImpactAtCurrentSpeed+"] minSpacing["+getMinimumSpacing()+"]");
+
+    if (timeToImpactAtCurrentSpeed <= 0){
+      // println("....... collision, slam on brakes ... match speed");
+      setAccel(speedDiff * 1.2);
+    } else if (dist < getMinimumSpacing()){
+      // println("....... Uncomfortably close ... slow down");
+      changeAccelBy( speedDiff / (timeToImpactAtCurrentSpeed/2) );
+    } else {
+      // println("....... I can accelerate up to my cruising speed");
+      setAccel( (getComfortableSpeed() - car.speed) / 8 );
+    }
+    debugMsg("... driver set car to: " + this.car  + ", timeToImpactAtCurrentSpeed: " + timeToImpactAtCurrentSpeed);
   }
   
   void setBorderColor(){
@@ -345,6 +338,7 @@ class TooSlowDriver extends Driver {
   void initializeBehavior(){
      percentOfSpeedlimit = 0.7;
      maxAccel = 3;
+     minBufferInSecs = 4;
   }
   
   void setBorderColor(){
@@ -367,6 +361,7 @@ class SlightSpeederDriver extends Driver {
   void initializeBehavior(){
      percentOfSpeedlimit = 1.3;
      maxAccel = 12;
+     minBufferInSecs = 1.5;
   }
   
   void setBorderColor(){
@@ -378,6 +373,7 @@ class ImpatientDriver extends Driver {
   void initializeBehavior(){
      percentOfSpeedlimit = 1.3;
      maxAccel = 20;
+     minBufferInSecs = 1;
   }
    void setBorderColor(){
     stroke(250,100,0);
