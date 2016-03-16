@@ -3,7 +3,8 @@ color g_cBackgroundColor = color(0, 100, 150);
 color g_cMainColor = color(255);
 
 void setup(){
-  size(displayWidth/2, displayHeight - 45); // -45 to account for Mac OS X menu bar, and window title bar
+//  size(displayWidth/2, displayHeight - 45); // -45 to account for Mac OS X menu bar, and window title bar
+size(500,500);
   background(g_cBackgroundColor);
 
   float screenMargin = 0.05;
@@ -112,8 +113,8 @@ class NumberVisualizer extends View {
 }
 
 class GridNumberVisualizer extends NumberVisualizer {
-  int boxWidth = 10;
-  int boxMargin = 10;
+  int boxWidth = 8;
+  int boxMargin = 5;
   int maxCols = 0;
 
   void init(){
@@ -157,7 +158,7 @@ class GridNumberVisualizer extends NumberVisualizer {
 class TextNumberVisualizer extends NumberVisualizer {
   void init(){
     textAlign(CENTER, CENTER);
-    textSize(_height * 0.7);
+    textSize(_height * 0.4);
   }
   
   void layerOn(){
