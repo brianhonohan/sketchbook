@@ -1,24 +1,18 @@
 HexLayout hexLayout;
 int randomSeed;
+int g_borderWeight = 2;
 
 void setup() {
-  // size(displayWidth/2, displayHeight-50);
   size(500, 500);
   background(200);
-  // frameRate(3);
   
   initRandom();
-//  setRandomSeed(278827);
-//  setRandomSeed(740596);
-//  setRandomSeed(482424);
-  
   rectMode(CENTER);
   
   hexLayout = new HexLayout();
   hexLayout.x = 0; // 0.1 * width;
   hexLayout.y = 0; // 0.1 * height;
   hexLayout.cellRadius = 15;
-//  hexLayout.numCells = 1000;
   hexLayout._width =  width;
   hexLayout._height = height; // 0.80 * height;
   hexLayout.init();
@@ -28,7 +22,8 @@ void setup() {
   loadPixels();
   noStroke();
   
-//  hexLayout.drawAtRowCol(3, 1);
+  // Draw individual hexagon in the grid
+  // hexLayout.drawAtRowCol(3, 1);
 }
 
 void draw(){
@@ -36,8 +31,8 @@ void draw(){
 //  updatePixels();
 //  GridCoord gC = hexLayout.coordForXY(mouseX,mouseY);
 //  hexLayout.drawAtRowCol(gC.row, gC.col);
-
-  //hexLayout.draw();
+//
+//  hexLayout.draw();
 //  println(frameRate);
 }
 
@@ -50,7 +45,6 @@ void handleClickAt(int x, int y){
   GridCoord gC = hexLayout.coordForXY(x,y);
   hexLayout.drawAtRowCol(gC.row, gC.col);
   noStroke();
-  //fill(0,255,0);
 }
 
 void mouseClicked(){
@@ -163,15 +157,8 @@ class HexLayout {
   
   void calcRows(){
     float lossFactor = (overflow) ? 0 : 0.25*cellHeight;
-//    println("------: ");
-//    println("overflow: " + overflow);
-//    println("lossFactor: " + lossFactor);
-//    println("_height: " + _height);
-//    println("cellHeight: " + cellHeight);
     float preciseRows = (_height - lossFactor)/(0.75 * cellHeight);
-//    println("preciseRows: " + preciseRows);
     numRows = (int)((overflow) ? Math.ceil(preciseRows+0.25) : Math.floor(preciseRows));
-//    println("... actual rows: " + numRows);
   }
   
   // _x and _y are relative to top left corner
@@ -182,21 +169,13 @@ class HexLayout {
     // Use max() treat negative values as spot on (so we don't need to handle negative values)
     float deltaX = max(0, _x - xOffset);
     float deltaY = max(0, _y - yOffset);
-//    println("... cellHeight: " + cellHeight);
-//    println("... offsets: " + xOffset + ", " + yOffset);
-//    println("... delta:   " + deltaX + ", " + deltaY);
     
     float preciseRowsDown = deltaY / (0.75 * cellHeight);
     int numThirdsDown = (int)((preciseRowsDown * 3) % 3); 
     int numFullCellsDown = (int)(floor(preciseRowsDown)); 
-//    println("... preciseRowsDown ... " + preciseRowsDown 
-//                  + ", numFullCellsDown ... " + numFullCellsDown 
-//                  + ", numThirdsDown: " + numThirdsDown);
 
-//    float preciseColsOver = max(0, deltaX - cellWidth/2) / cellWidth;
     float preciseColsOver = deltaX / cellWidth;
     int numColsOver = (int)floor(preciseColsOver);
-//    println("... preciseColsOver: " + preciseColsOver + ", numColsOver ... " + numColsOver);
     
     if (numThirdsDown == 1){
       gridCoord.row = (int) numFullCellsDown;
@@ -206,73 +185,45 @@ class HexLayout {
       int numFullCellsOver = (int)(floor(preciseColsOver));
       
       // NEED TO calcuate the slope ... and value at the X offset 
-      // Alternate: 3-dist comparisons to cetners of 2 cells
-      
+      // Alternate: 3-dist comparisons to cetners of 2 cells      
       float slope = 1 / sqrt(3);
       float fractionalCol = preciseColsOver - numFullCellsOver;
-//      println("... BEFORE fractionalCol : "+  fractionalCol);
       if(numFullCellsDown % 2 == 1){
          fractionalCol = (fractionalCol > 0.5) ? (fractionalCol - 0.5) : (0.5 + fractionalCol);
       }
-//      println("... AFTER fractionalCol : "+  fractionalCol);
-      
-//      stroke(255, 0, 0);
-//      line(0, baseY, width, baseY);
-      
-//      stroke(255,255, 0);
-//      line(0, baseY - protoHex.radius/2, width, baseY-protoHex.radius/2);
-      
       
       if (fractionalCol < 0.5){
-//        println("test against slope up to RIGHT");
         float deltaXFromBase = (cellWidth * fractionalCol);
-//        println("... deltaXFromBase: " + deltaXFromBase);
-        
-//        stroke(255,0,255);
-//        line(cellWidth/2 + cellWidth * numFullCellsOver + deltaXFromBase,0, 
-//            cellWidth/2 + cellWidth * numFullCellsOver + deltaXFromBase, height);
-        
         float deltaYFromBase = deltaXFromBase * slope;
-//        println("... deltaYFromBase: " + deltaYFromBase);
-        
         
         float yEdgeAtX = baseY - deltaYFromBase;
-//        stroke(0, 0, 255);
-//        line(0, yEdgeAtX, width, yEdgeAtX);
-        
-//        println("... baseY: " + baseY + ", yEdgeAtX: " + yEdgeAtX + ", _y ... " + _y);
+
         if(_y > yEdgeAtX){
-//          println("Below the edge...");
+          // below the edge
           gridCoord.row += 1;
           gridCoord.col += (gridCoord.row % 2 == 0) ? 1 : 0;
           
         }else{
-//          println("Above the edge...");
-          // DON'T have to do anything 
+          // Above the edge. DON'T have to do anything 
         }
       }else{
-//        println("test against slope up to LEFT");
+         // test against slope up to LEFT
         numColsOver = (int)round(deltaX / cellWidth);
         gridCoord.col = numColsOver;
         
         float deltaXFromBase = (cellWidth * (1-fractionalCol));
-//        println("... deltaXFromBase: " + deltaXFromBase);
 
         float deltaYFromBase = deltaXFromBase * slope;
-//        println("... deltaYFromBase: " + deltaYFromBase);
         
         float yEdgeAtX = baseY - deltaYFromBase;
         
-//        println("... baseY: " + baseY + ", yEdgeAtX: " + yEdgeAtX + ", _y ... " + _y);
         if(_y > yEdgeAtX){
           // Below the edge
-//          println("Below the edge...");
           gridCoord.row += 1;
           gridCoord.col -= (gridCoord.row % 2 == 1) ? 1 : 0;
           
         }else{
           // Above the edge
-//          println("Above the edge...");
           // DON'T have to do anything 
         }
       }
@@ -286,7 +237,6 @@ class HexLayout {
         numColsOver = (int)round(deltaX / cellWidth);
         gridCoord.col = numColsOver;
       }
-      
     }
     
     return gridCoord;
@@ -296,16 +246,8 @@ class HexLayout {
     pushMatrix();
     translate(x,y);
     
-//    println("Drawing");
-//    println("... width: " + this._width);
-//    println("... cellWidth: " + cellWidth);
-//    println("... numCols: " + numCols);
     stroke(40);
-//    noStroke();
-//    noStroke();
-//    stroke(200);
-//    strokeWeight(120);
-//    strokeWeight(0.01);
+    strokeWeight(g_borderWeight);
       
     float rowOffset = 0;
     int colsInRow;
@@ -319,7 +261,6 @@ class HexLayout {
         drawAtRowCol(row,col, rowOffset);
       }
     }
-    
     popMatrix();
   }
   
@@ -363,7 +304,6 @@ color noisyColor(float offset){
 // DRAWS A HEXAGON ... similar to rect(...)
 void hexagon(float centerX, float centerY, float radius){
   pushMatrix();
-  // translate(centerX, centerY);
   beginShape();
   
   radius += 0.5;  // To avoid antialiasing introducing empty space between cells
