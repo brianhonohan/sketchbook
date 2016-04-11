@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+  margin: 0;
+  background: #222;
+  min-width: 960px;
+}
+
+rect {
+  fill: none;
+  pointer-events: all;
+}
+
+circle {
+  fill: none;
+  /*stroke-width: 1px;*/
+}
+
+</style>
+<body>
+<script src="//d3js.org/d3.v3.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/dat-gui/0.5.1/dat.gui.js"></script>
+<script>
+
+var width = Math.max(400, innerWidth),
+    height = Math.max(400, innerHeight);
+
+var i = 0;
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+svg.append("rect")
+    .attr("width", width)
+    .attr("height", height)
+    .on("ontouchstart" in document ? "touchmove" : "mousemove", particle);
+
+
+var ParticleController = function() {
+  this.radius = 100;
+  this.opacity = 1.0;
+  this.fade_duration = 1500;
+  this.saturation = 1.0;
+  this.lightness = 0.5;
+  this.stroke_width = 1;
+
+  this.addParticle = function(global_scope){
+    var m = d3.mouse(global_scope);
+
+    svg.insert("circle", "rect")
+        .attr("cx", m[0])
+        .attr("cy", m[1])
+        .attr("r", this.radius)
+        .style("stroke",
+            d3.hsl((i = (i + 1) % 360), this.saturation, this.lightness))
+        .style("stroke-width", this.stroke_width)
+        .style("stroke-opacity", this.opacity)
+      .transition()
+        .duration(this.fade_duration)
+        .ease(Math.sqrt)
+        .attr("r", 1)
+        .style("stroke-opacity", 1e-6)
+        .remove();
+
+      d3.event.preventDefault();
+  }
+}
+
+
+var particleMgr = new ParticleController();
+
+function particle() {
+  particleMgr.addParticle(this);
+}
+
+window.onload = function() {
+  var gui = new dat.GUI();
+  gui.add(particleMgr, 'radius', 1, 200);
+  gui.add(particleMgr, 'opacity', 0, 1);
+  gui.add(particleMgr, 'fade_duration', 0, 3000);
+  gui.add(particleMgr, 'stroke_width', 0,10);
+  gui.add(particleMgr, 'saturation', 0, 1);
+  gui.add(particleMgr, 'lightness', 0, 1);
+};
+
+</script>
