@@ -89,6 +89,26 @@ svg.selectAll("circle")
 
 redraw();
 
+
+
+var SystemController = function(){
+  this.ticks_per_second = 1;
+
+  this.tick = function() {
+    console.log("tick");
+  }
+}
+
+var systemController = new SystemController();
+
+
+function tick() {
+  systemController.tick();
+  setTimeout(this.tick, 1.0 / systemController.ticks_per_second * 1000);
+}
+tick();
+
+
 function redraw() {
   path = path
       .data(voronoi(vertices), polygon);
@@ -105,6 +125,11 @@ function redraw() {
 function polygon(d) {
   return "M" + d.join("L") + "Z";
 }
+
+window.onload = function() {
+  var gui = new dat.GUI({ width: 350 });
+  gui.add(systemController, 'ticks_per_second', 0, 30);
+};
 
 </script>
 <div class="writeup">
