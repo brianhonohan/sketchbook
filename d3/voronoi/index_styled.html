@@ -99,8 +99,36 @@ var SystemController = function(){
   }
 }
 
-var systemController = new SystemController();
+var HerdMember = function(){
+  var x;
+  var y;
+}
 
+var Herd = function(){
+  this.members;
+  this.count = 10;
+
+  this.init = function(){
+    console.log("initing the herd");
+    this.members = d3.range(this.count).map(function(d) {
+                      var newMember = new HerdMember();
+                      newMember.x = Math.random() * width;
+                      newMember.y = Math.random() * height;
+                      return newMember;
+                    });
+  }
+
+  this.member_locations = function() {
+    return this.members.map(function(m) {
+      return [m.x, m.y];
+    });
+  }
+
+  this.init();
+}
+
+var systemController = new SystemController();
+var herd = new Herd();
 
 function tick() {
   systemController.tick();
