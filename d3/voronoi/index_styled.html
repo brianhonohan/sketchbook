@@ -33,10 +33,6 @@ path {
   stroke: #222;
 }
 
-path:first-child {
-  fill: yellow !important;
-}
-
 circle {
   fill: #000;
   pointer-events: none;
@@ -76,26 +72,18 @@ var voronoi = d3.geom.voronoi()
 var svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height)
-    .classed("main_svg", true)
-    .on("mousemove", function() { vertices[0] = d3.mouse(this); redraw(); });
+    .classed("main_svg", true);
 
 var path = svg.append("g").selectAll("path");
 
-svg.selectAll("circle")
-    .data(vertices.slice(1))
-  .enter().append("circle")
-    .attr("transform", function(d) { return "translate(" + d + ")"; })
-    .attr("r", 1.5);
-
-redraw();
-
-
-
 var SystemController = function(){
   this.ticks_per_second = 1;
+  this.herd;
 
   this.tick = function() {
     console.log("tick");
+    herd.tick();
+    redraw();
   }
 }
 
@@ -106,16 +94,14 @@ var HerdMember = function(){
 
 var Herd = function(){
   this.members;
-  this.count = 10;
+  this.count = 4;
 
   this.init = function(){
     console.log("initing the herd");
     this.members = d3.range(this.count).map(function(d) {
-                      var newMember = new HerdMember();
-                      newMember.x = Math.random() * width;
-                      newMember.y = Math.random() * height;
-                      return newMember;
+                      return new HerdMember();
                     });
+    this.moveToRandomLocations();
   }
 
   this.member_locations = function() {
@@ -124,11 +110,29 @@ var Herd = function(){
     });
   }
 
+  this.logLocations = function(){
+    for(var i = 0; i < this.count; i++){
+      console.log("member["+i+"] at "+this.members[i].x+", "+this.members[i].y);
+    }
+  }
+
+  this.tick = function(){
+    this.moveToRandomLocations();
+  }
+
+  this.moveToRandomLocations = function() {
+    for(var i = 0; i < this.count; i++){
+      this.members[i].x = Math.random() * width;
+      this.members[i].y = Math.random() * height;
+    }
+  }
+
   this.init();
 }
 
-var systemController = new SystemController();
 var herd = new Herd();
+var systemController = new SystemController();
+systemController.herd = herd;
 
 function tick() {
   systemController.tick();
@@ -136,10 +140,9 @@ function tick() {
 }
 tick();
 
-
 function redraw() {
   path = path
-      .data(voronoi(vertices), polygon);
+      .data(voronoi(herd.member_locations()), polygon);
 
   path.exit().remove();
 
