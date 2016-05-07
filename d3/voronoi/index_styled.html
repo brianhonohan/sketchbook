@@ -145,6 +145,10 @@ var herd = new Herd();
 var systemController = new SystemController();
 systemController.herd = herd;
 
+var circles = svg.selectAll("circle")
+                .data(d3.range(herd.count))
+              .enter().append("circle");
+
 function tick() {
   systemController.tick();
   setTimeout(this.tick, 1.0 / systemController.ticks_per_second * 1000);
@@ -162,6 +166,11 @@ function redraw() {
       .attr("d", polygon);
 
   path.order();
+
+  circles
+    .attr("cx", function(d) { return herd.members[d].x })
+    .attr("cy", function(d) { return herd.members[d].y })
+    .attr("r", 1.5);
 }
 
 function polygon(d) {
