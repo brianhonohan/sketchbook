@@ -88,8 +88,13 @@ var SystemController = function(){
 }
 
 var HerdMember = function(){
-  var x;
-  var y;
+  var x = 0;
+  var y = 0;
+
+  this.move = function(){
+    this.x += Math.random() * 3 - 1.5;
+    this.y += Math.random() * 3 - 1.5;
+  }
 }
 
 var Herd = function(){
@@ -117,13 +122,19 @@ var Herd = function(){
   }
 
   this.tick = function(){
-    this.moveToRandomLocations();
+    this.triggerMovement();
   }
 
   this.moveToRandomLocations = function() {
     for(var i = 0; i < this.count; i++){
       this.members[i].x = Math.random() * width;
       this.members[i].y = Math.random() * height;
+    }
+  }
+
+  this.triggerMovement = function() {
+    for(var i = 0; i < this.count; i++){
+      this.members[i].move();
     }
   }
 
