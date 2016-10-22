@@ -28,11 +28,17 @@ class Sketch
   end
 
   def run
+    beginning_time = Time.now
     while @frameCount < @frame_limit
       tick
     end
-    print_at(" ", 0, height - 3)
-    puts
+    end_time = Time.now
+    ellapsed = end_time - beginning_time
+    true_frame_rate = @frameCount / ellapsed
+
+    summary = "Runtime: #{ellapsed} secs | Framerate: #{true_frame_rate}"
+    fill(self.class.default_bg_color)
+    print_at(summary, 0, height - 3)
     puts
   end
 
