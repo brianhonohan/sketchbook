@@ -1,0 +1,15 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    colorize (0.8.1)
+    tco (0.1.8)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  colorize
+  tco
+
+BUNDLED WITH
+   1.11.2
