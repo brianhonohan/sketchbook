@@ -2,5 +2,11 @@ source 'https://rubygems.org'
 
 ruby '2.3.0'
 
+# control color of output
 gem 'colorize'
 gem 'tco'
+
+# terminal info / cursor control
+gem 'curses'
+gem 'ruby-terminfo'
+

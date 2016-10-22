@@ -2,6 +2,8 @@ GEM
   remote: https://rubygems.org/
   specs:
     colorize (0.8.1)
+    curses (1.0.2)
+    ruby-terminfo (0.1.1)
     tco (0.1.8)
 
 PLATFORMS
@@ -9,6 +11,8 @@ PLATFORMS
 
 DEPENDENCIES
   colorize
+  curses
+  ruby-terminfo
   tco
 
 BUNDLED WITH
