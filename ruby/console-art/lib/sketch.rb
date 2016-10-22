@@ -37,7 +37,7 @@ class Sketch
     true_frame_rate = @frameCount / ellapsed
 
     summary = "Runtime: #{ellapsed} secs | Framerate: #{true_frame_rate}"
-    fill(self.class.default_bg_color)
+    @context = self.class.default_context
     print_at(summary, 0, height - 3)
     puts
   end
@@ -61,7 +61,8 @@ class Sketch
 
   def self.default_context
     {
-      bg: default_bg_color
+      bg: default_bg_color,
+      fg: default_fg_color
     }
   end
 
@@ -72,6 +73,14 @@ class Sketch
 
   def self.default_bg_color
     Color::RGB.by_hex('#333333')
+  end
+
+  def self.default_fg_color
+    Color::RGB.by_hex('#eeeeee')
+  end
+
+  def stroke(color)
+    context[:fg] = color
   end
 
   def fill(color)
@@ -90,6 +99,7 @@ class Sketch
 
   def print_with_tco(string)
     string = string.bg("##{context[:bg].hex}") if context[:bg]
+    string = string.fg("##{context[:fg].hex}") if context[:fg]
     print string
   end
 end
