@@ -24,7 +24,7 @@ class Sketch
   def tick
     draw
     @frameCount += 1
-    sleep(1 / @target_fps)
+    sleep(1 / (@target_fps * 1.20))
   end
 
   def run
