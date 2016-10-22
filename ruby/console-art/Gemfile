@@ -5,8 +5,22 @@ ruby '2.3.0'
 # control color of output
 gem 'colorize'
 gem 'tco'
+# TODO: Consider: https://github.com/sickill/rainbow
+
+# general color mgmt
+gem 'color'
+# gem 'colorist' # https://github.com/mbleigh/colorist
+# gem 'colormath' # https://github.com/threedaymonk/colormath
+# gem 'color-generator' # https://github.com/jpmckinney/color-generator
 
 # terminal info / cursor control
 gem 'curses'
 gem 'ruby-terminfo'
 
+# debugging:
+gem 'awesome_print'
+gem 'byebug'
+gem 'pry'
+gem 'pry-byebug'
+gem 'pry-rescue'
+gem 'pry-stack_explorer'
