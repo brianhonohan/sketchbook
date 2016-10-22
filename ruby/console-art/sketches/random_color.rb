@@ -1,6 +1,11 @@
 require_relative '../lib/sketch.rb'
 
 class RandomColor < Sketch
+  def setup
+    @frame_limit = 5000
+    @target_fps = 100.0
+  end
+
   def draw
     row = rand(0..height-1)
     col = rand(0..width-1)

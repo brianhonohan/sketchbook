@@ -9,6 +9,7 @@ class Sketch
   def initialize
     @target_fps = 30.0
     @frameCount = 0
+    @frame_limit = 100
     @context = self.class.default_context
     @contexts = []
     @contexts << @context
@@ -27,8 +28,7 @@ class Sketch
   end
 
   def run
-    limit = 100
-    while @frameCount < limit
+    while @frameCount < @frame_limit
       tick
     end
     print_at(" ", 0, height - 3)
