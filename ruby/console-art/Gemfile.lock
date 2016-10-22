@@ -1,0 +1,49 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    awesome_print (1.6.1)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
+    byebug (8.2.2)
+    coderay (1.1.1)
+    color (1.8)
+    colorize (0.8.1)
+    curses (1.0.2)
+    debug_inspector (0.0.2)
+    interception (0.5)
+    method_source (0.8.2)
+    pry (0.10.4)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+    pry-byebug (3.3.0)
+      byebug (~> 8.0)
+      pry (~> 0.10)
+    pry-rescue (1.4.2)
+      interception (>= 0.5)
+      pry
+    pry-stack_explorer (0.4.9.2)
+      binding_of_caller (>= 0.7)
+      pry (>= 0.9.11)
+    ruby-terminfo (0.1.1)
+    slop (3.6.0)
+    tco (0.1.8)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  awesome_print
+  byebug
+  color
+  colorize
+  curses
+  pry
+  pry-byebug
+  pry-rescue
+  pry-stack_explorer
+  ruby-terminfo
+  tco
+
+BUNDLED WITH
+   1.11.2
