@@ -13,6 +13,7 @@ class Sketch
     @contexts = []
     @contexts << @context
     fill_background
+    hide_cursor
     setup
   end
 
@@ -30,6 +31,7 @@ class Sketch
     while @frameCount < limit
       tick
     end
+    print_at(" ", 0, height - 3)
     puts
     puts
   end
@@ -40,6 +42,10 @@ class Sketch
 
   def height
     TermInfo.screen_height
+  end
+
+  def hide_cursor
+    TermInfo.control('civis')
   end
 
   def print_at(string, x, y)
