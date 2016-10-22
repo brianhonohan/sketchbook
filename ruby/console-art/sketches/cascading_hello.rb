@@ -6,8 +6,8 @@ class CascadingHello < Sketch
   end
 
   def draw
-    fill_background if frameCount % 50 == 0
-    print_at(@my_string, frameCount % 50, frameCount % 50)
+    fill_background if frameCount % height == 0
+    print_at(@my_string, frameCount % height, frameCount % height)
   end
 end
 
