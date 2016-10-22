@@ -53,8 +53,17 @@ class Sketch
     }
   end
 
+  def color(r, g, b, max: 255)
+    max *= 1.0
+    Color::RGB.from_fraction(r / max, g / max, b / max)
+  end
+
   def self.default_bg_color
     Color::RGB.by_hex('#333333')
+  end
+
+  def fill(color)
+    context[:bg] = color
   end
 
   def fill_background
