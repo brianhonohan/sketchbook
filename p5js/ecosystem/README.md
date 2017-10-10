@@ -13,6 +13,7 @@ The Javascript parses the following URL parameters:
 | scale         | Controls the approximate zoom-scale of the terrain.  | Float     |              | 0.02    |
 | noise.octaves | The `lod` parameter into P5JS's `noiseDetail`        | Integer   | 1-10         | 10      |
 | noise.falloff | The `falloff` parameter into P5JS's `noiseDetail`    | Float   | 0 - 1         | 0.6     |
+| percentWater | The approximate percent of area to cover with water.  | Float   | 0 - 1         | 0.5     |
 
 
 ## Snapshot:

@@ -11,8 +11,12 @@ class Ecosystem {
     return this.settings.scale;
   }
 
+  getPercentWater(){
+    return this.settings.percentWater;
+  }
+
   getDefaultOptions(){
-    return { cellWidth: 5, scale: 0.02 };
+    return { cellWidth: 5, scale: 0.02, percentWater: 0.5};
   }
 
   tick(){

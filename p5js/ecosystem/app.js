@@ -10,6 +10,7 @@ function setup() {
   options = {
     cellWidth: getParameterByName("cellWidth", "", parseInt)
     , scale: getParameterByName("scale", "", Number)
+    , percentWater: getParameterByName("percentWater", "", Number)
   };
   unsetUndefineds(options);
 
