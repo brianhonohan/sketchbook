@@ -11,7 +11,8 @@ class CellViewer {
     this.color2 = color(20,130,190);
     this.midColor = color(255);
     this.color4 = color(20,100,40);
-    this.maxColor = color(180,190,120);
+    this.color5 = color(180,190,120);
+    this.color6 = color(255, 255, 255);
   }
 
   renderOnScale(minElev, midPoint, maxElev){
@@ -21,9 +22,12 @@ class CellViewer {
     if (this.cell.elevation < midPoint){
       normalizedTmp = norm( this.cell.elevation, minElev, midPoint);
       fillColor = lerpColor(this.minColor, this.color2, normalizedTmp);
-    }else{
+    }else if(this.cell.elevation < maxElev){
       normalizedTmp = norm( this.cell.elevation, midPoint, maxElev);
-      fillColor = lerpColor(this.color4, this.maxColor, normalizedTmp);
+      fillColor = lerpColor(this.color4, this.color5, normalizedTmp);
+    } else{
+      normalizedTmp = norm( this.cell.elevation, maxElev, 500);
+      fillColor = lerpColor(this.color5, this.color6, normalizedTmp);
     }
 
     noStroke();

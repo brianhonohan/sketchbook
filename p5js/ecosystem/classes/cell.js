@@ -3,7 +3,7 @@ class Cell {
     this._row = row;
     this._col = col;
     this.scale = ecosystem.getScale();
-    this.elevation = 150 - 300 *
+    this.elevation = 500 - 1000 *
       (
         noise(this.scale * this._row, this.scale * this._col)
         + (ecosystem.getPercentWater() - 0.5)
