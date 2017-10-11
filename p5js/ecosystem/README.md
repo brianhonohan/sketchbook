@@ -14,6 +14,8 @@ The Javascript parses the following URL parameters:
 | noise.octaves | The `lod` parameter into P5JS's `noiseDetail`        | Integer   | 1-10         | 10      |
 | noise.falloff | The `falloff` parameter into P5JS's `noiseDetail`    | Float   | 0 - 1         | 0.6     |
 | percentWater | The approximate percent of area to cover with water.  | Float   | 0 - 1         | 0.5     |
+| erosionRate | The rate of erosion per cycle                        | Float   | 0 - 0.5         | 0     |
+
 
 
 ## Snapshot:

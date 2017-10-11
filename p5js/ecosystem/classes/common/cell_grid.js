@@ -11,6 +11,7 @@ class CellGrid {
     this.cellSpacing = 0;
 
     this.initCells();
+    this.wrap = false;
   }
 
   initCells() {
@@ -23,8 +24,7 @@ class CellGrid {
     // Note, by using 'ceil' we will overstep the bounds of the width/height;
     this.numCols = Math.ceil( (1.0 * this._width)  / effectCellWidth );
     this.numRows = Math.ceil( (1.0 * this._height) / effectCellHeight );
-
-    let numCells = this.numCols * this.numRows;
+    this.numCells = this.numCols * this.numRows;
 
     let tmpCell;
     let tmpCellViewer;
@@ -34,10 +34,10 @@ class CellGrid {
     let tmpX;
     let tmpY;
 
-    for(let i=0; i<numCells; i++){
+    for(let i=0; i<this.numCells; i++){
       tmpCol = i % this.numCols;
       tmpRow = Math.floor(i / this.numCols);
-      tmpCell = this.cellProvider.createCell(tmpRow, tmpCol);
+      tmpCell = this.cellProvider.createCell(tmpRow, tmpCol, i);
 
       tmpX = tmpCol * effectCellWidth;
       tmpY = tmpRow * effectCellHeight;
@@ -49,14 +49,59 @@ class CellGrid {
     }
   }
 
+  neighborsOfIdx(idx){
+    let neighbors = [
+        idx - this.numCols - 1
+      , idx - this.numCols
+      , idx - this.numCols + 1
+
+      , idx - 1
+      // idx itself
+      , idx + 1
+
+      , idx + this.numCols - 1
+      , idx + this.numCols
+      , idx + this.numCols + 1
+    ];
+
+    // if in first row
+    if (idx < this.numCols){
+      neighbors[0] = (this.wrap) ? neighbors[0] + this.numCells : undefined;
+      neighbors[1] = (this.wrap) ? neighbors[1] + this.numCells : undefined;
+      neighbors[2] = (this.wrap) ? neighbors[2] + this.numCells : undefined;
+    }
+
+    // if in left most column
+    if (idx % this.numCols == 0){
+      neighbors[0] = (this.wrap) ? neighbors[0] + this.numCols : undefined;
+      neighbors[3] = (this.wrap) ? neighbors[3] + this.numCols : undefined;
+      neighbors[5] = (this.wrap) ? neighbors[5] + this.numCols : undefined;
+    }
+
+    // if in right most column
+    if (idx % this.numCols == (this.numCols - 1)){
+      neighbors[2] = (this.wrap) ? neighbors[2] - this.numCols : undefined;
+      neighbors[4] = (this.wrap) ? neighbors[4] - this.numCols : undefined;
+      neighbors[7] = (this.wrap) ? neighbors[7] - this.numCols : undefined;
+    }
+
+    // if in bottom row
+    if ((this.numCells - idx) <= this.numCols){
+      neighbors[5] = (this.wrap) ? neighbors[5] - this.numCells : undefined;
+      neighbors[6] = (this.wrap) ? neighbors[6] - this.numCells : undefined;
+      neighbors[7] = (this.wrap) ? neighbors[7] - this.numCells : undefined;
+    }
+    return neighbors;
+  }
+
   cellIndexToRight(idx){
-    let idxRight;
-    if (idx == (this.numCols * this.numRows - 1)){
-      idxRight =  0;
-    } else if (idx % this.numCols == (this.numCols - 1)){
-      idxRight = idx - (this.numCols - 1);
-    }else {
-      idxRight = idx + 1;
+    let idxRight = idx + 1;
+    if (idx % this.numCols == (this.numCols - 1)){
+      if (this.wrap) {
+        idxRight = idx - (this.numCols - 1);
+      }else{
+        idxRight = undefined;
+      }
     }
     return idxRight;
   }
@@ -64,7 +109,11 @@ class CellGrid {
   cellIndexBelow(idx){
     let idxBelow = idx + this.numCols;
     if (idxBelow > (this.numCols * this.numRows - 1)){
-      idxBelow %= this.numCols;
+      if (this.wrap) {
+        idxBelow %= this.numCols;
+      }else{
+        idxRight = undefined;
+      }
     }
     return idxBelow;
   }

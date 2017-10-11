@@ -11,6 +11,7 @@ function setup() {
     cellWidth: getParameterByName("cellWidth", "", parseInt)
     , scale: getParameterByName("scale", "", Number)
     , percentWater: getParameterByName("percentWater", "", Number)
+    , erosionRate: getParameterByName("erosionRate", "", Number)
   };
   unsetUndefineds(options);
 
@@ -28,6 +29,9 @@ function setup() {
 }
 
 function draw() {
+  if (options.erosionRate && options.erosionRate > 0) {
+    ecosystem.tick();
+  }
 }
 
 function logSettings(){
