@@ -1,3 +1,6 @@
 .DS_Store
 
 /ruby/console-art/.byebug_history
+_site
+.sass-cache
+.jekyll-metadata
