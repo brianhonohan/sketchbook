@@ -20,6 +20,6 @@ The Javascript parses the following URL parameters:
 
 ## Snapshot:
 
-![screenshot](docs/screenshot-01.png)
+![screenshot](docs/screenshot-02.png)
 
 
