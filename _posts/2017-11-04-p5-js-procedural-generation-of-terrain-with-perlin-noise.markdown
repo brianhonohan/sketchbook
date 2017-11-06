@@ -125,7 +125,7 @@ if (this.cell.elevation < 0){
 ![Ecosystem]({{ "/p5js/ecosystem/docs/screenshot-02.png" | relative_url }})
 
 [main-source]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/ecosystem
-[live-view]: /p5js/ecosystem/?seed=28918&cellWidth=5&percentWater=0.4
+[live-view]: /sketchbook/p5js/ecosystem/?seed=28918&cellWidth=5&percentWater=0.4
 [wikipedia-perlin]: https://en.wikipedia.org/wiki/Perlin_noise/
 [p5js-home]: https://p5js.org/
 [p5js-ref]: https://p5js.org/reference/
