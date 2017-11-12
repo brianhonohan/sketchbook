@@ -23,9 +23,6 @@ end
 
 And there are some basic methods provided to subclasses:
 
-* `width`  -  
-* `height`  -  
-*  - 
 
 | Method | Description |
 |--------|-------------|
