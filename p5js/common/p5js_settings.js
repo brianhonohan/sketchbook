@@ -1,17 +1,11 @@
 class P5JsSettings {
-  constructor(){
-    this.settings = {};
+  static applySettings(newSettings){
+    randomSeed(this.optionsSet.settings.seed);
+    noiseSeed(this.optionsSet.settings.seed);
+    noiseDetail(this.optionsSet.settings.noise_octaves, this.optionsSet.settings.noise_falloff);
   }
 
-  applySettings(newSettings){
-    Object.assign(this.settings, newSettings);
-
-    randomSeed(this.settings.seed);
-    noiseSeed(this.settings.seed);
-    noiseDetail(this.settings.noise_octaves, this.settings.noise_falloff);
-  }
-  
-  static optionsMetaData() {
+  static optionsMetadata() {
     return [
       { name: "seed", type: "integer", default: Math.round(random(1000))}, 
       { name: "noise_octaves", type: "integer", default: 10}, 
@@ -19,49 +13,14 @@ class P5JsSettings {
     ];
   }
 
-  static defaultSettings(){
-    let defaultValues = {};
-    for (let option of this.optionsMetaData()) {
-      defaultValues[option.name] = option.default;
-    }
-    return defaultValues;
-  }
-
-  static readParamOptions(){
-    let paramOptions = {};
-    for (let option of this.optionsMetaData()) {
-      paramOptions[option.name] = UtilFunctions.getParameterByName(option.name, this.formatterForType(option.type));
-    }
-    return paramOptions;
-  }
-
-  static formatterForType(type){
-    ({
-      "integer" : (parseInt),
-      "float" : (Number),
-      "string" :  null
-    })[type];
-  }
-
-  static init(options = {}){
-    this.instance = new P5JsSettings();
-
-    let paramOptions = this.readParamOptions();
-    UtilFunctions.unsetUndefineds(paramOptions);
-
-    let settingsToApply = {}
-    Object.assign(settingsToApply, this.defaultSettings(), paramOptions);
-    this.instance.applySettings(settingsToApply);
-
+  static init(){
+    this.optionsSet = new OptionsSet(this.optionsMetadata());
+    this.applySettings(this.optionsSet.settings);
     this.logSettings();
-  }
-
-  static currentSettings(){
-    return this.instance.settings;
   }
 
   static logSettings(){
     console.log("P5JS Settings: ");
-    console.log(this.currentSettings());
+    console.log(this.optionsSet.settings);
   }
 }
