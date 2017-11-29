@@ -11,18 +11,20 @@ EventSequence sequence;
 SequenceFactory seqFactory;
 SequenceViewer seqViewer;
 
-int numStates = 8;
-int numTransitions = 8;
+int numStates = 4;
+int numTransitions = 4;
+int randomSeed = 1005;
+boolean allowRepeats = true;
 
 void setup(){
-  size(500, 500);
+  size(500, 750);
   
   seqFactory = new SequenceFactory();
-  sequence = seqFactory.generateRandomData(numStates, numTransitions, true, 1005);
+  sequence = seqFactory.generateRandomData(numStates, numTransitions, allowRepeats, randomSeed);
   sequence.printTransitions();
   
   seqViewer = new StaticSeqViewer();
-  seqViewer.setPosition(width*0.5, height*0.5);
+  seqViewer.setPosition(width*0.05, height*0.05);
   seqViewer.setDimensions(width*0.9, height*0.9);
   seqViewer.setSequence(sequence);
   seqViewer.render();
