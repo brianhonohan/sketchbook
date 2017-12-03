@@ -7,6 +7,16 @@ class LayoutManager {
   Point getNthPosition(int n, int totalCount) {
     return new Point(0, 0); 
   }
+  
+  void layoutViews(ArrayList<? extends UIView> views){
+    int numElements = views.size();
+    UIView tmpView;
+    for (int i = 0; i < numElements; i++) {
+      tmpView = views.get(i);
+      tmpView.setLocationMode(UIView.MODE_CENTER);
+      tmpView.setPosition( this.getNthPosition(i, numElements) );
+    }
+  }
 }
 
 class RadialLayoutManager extends LayoutManager{

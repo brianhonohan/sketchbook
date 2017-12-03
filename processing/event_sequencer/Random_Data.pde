@@ -10,6 +10,7 @@ class SequenceFactory{
     int totalsByState[] = new int[numStates];  
     // we'll only transition from state 0
     for(int i=0; i<numStates; i++){
+      sequence.addState(new ItemState(i, "State " + i ));
       if(i == 0){
         continue; 
       }

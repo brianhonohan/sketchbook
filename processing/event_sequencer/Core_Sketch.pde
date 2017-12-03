@@ -19,12 +19,19 @@ class EventSequence {
   ArrayList<ItemState> states;
   ArrayList<SequenceStep> steps;
   ArrayList<StepTransition> transitions;
-  int numStates;
   
   EventSequence(){
+    states = new ArrayList<ItemState>();
     transitions = new ArrayList<StepTransition>(numTransitions);
   }
   
+  void addState(ItemState newState){
+    states.add(newState);
+  }
+  
+  ItemState getState(int i){
+    return states.get(i);
+  }
   //int getTransitionCount(){
   //  return (transitions == null) ? 0 : transitions.size();
   //}
@@ -34,13 +41,10 @@ class EventSequence {
   }
   
   int getNumStates(){
-    return numStates;
+    return states.size();
   }
   
   void addTransition(StepTransition transMat){
-    if (numStates == 0){
-      numStates = transMat.size();
-    }
     transitions.add(transMat);
   }
   
@@ -55,7 +59,13 @@ class EventSequence {
 }
 
 class ItemState {
+  int id;
   String name;
+  
+  ItemState(int _id, String _name){
+    id = _id;
+    name = _name;
+  }
 }
 
 // 
@@ -117,16 +127,32 @@ class SequenceViewer extends UIView {
 }
 
 class StaticSeqViewer extends SequenceViewer{
-  ArrayList<StateViewer> stateViewer;
+  ArrayList<StateViewer> stateViewers;
   ArrayList<TransitionViewer> transViewers;
   
   StaticSeqViewer(){
-    stateViewer = new ArrayList<StateViewer>();
+    stateViewers = new ArrayList<StateViewer>();
     transViewers = new ArrayList<TransitionViewer>();
   }
   
+  void setSequence(EventSequence seq){
+    super.setSequence(seq);
+    stateViewers.clear();
+    
+    StateViewer stateViewer;
+    for (int i = 0; i < seq.getNumStates(); i++){
+      stateViewer = new StateViewer(seq.getState(i));
+      stateViewers.add(stateViewer);
+    }
+    
+    layoutRadially();
+  }
+  
   void draw(){
-    layoutAsTimeline();
+    // layoutAsTimeline();
+    for (StateViewer tmpView : stateViewers) {
+      tmpView.render();
+    }
   }
 
   void layoutAsTimeline(){
@@ -138,6 +164,16 @@ class StaticSeqViewer extends SequenceViewer{
       transition = transitions.get(i);
       displayTransition(transition, i * 50);
     }
+  }
+  
+  void layoutRadially(){
+    UIView testConstraint = new UIView();
+    int margin = 20;
+    testConstraint.setPosition(margin, margin);
+    testConstraint.setDimensions(this._width-margin*2, this._height-margin*2);
+    
+    LayoutManager layoutMgr = new RadialLayoutManager(testConstraint);
+    layoutMgr.layoutViews(stateViewers);
   }
   
   void displayTransition(StepTransition transition, int offset){
@@ -172,7 +208,15 @@ class TransitionViewer extends UIView {
 }
 
 class StateViewer extends UIView {
+  ItemState state;
+  
+  StateViewer(ItemState _state){
+    state = _state;
+  }
+  
   void draw(){
-    ellipse(x, y, 30, 30);
+    strokeWeight(3);
+    stroke(colorSet.getColorForHash(state.id));
+    ellipse(0, 0, 30, 30);
   }
 }

@@ -20,4 +20,8 @@ class ColorSet {
     }
     return this.colors[i];  
   }
+  
+  color getColorForHash(int hash){
+    return colors[hash % colors.length];
+  }
 }
