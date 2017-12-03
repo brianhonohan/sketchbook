@@ -312,7 +312,7 @@ class TransitionRender {
   void render(StateViewer from, StateViewer to, float dataValue, float visualWeight){
     strokeWeight(visualWeight);
     stroke(colorSet.getColorForHash(to.state.id));
-    lineUtil.drawBezier(from.getPosition(), to.getPosition(), visualWeight);
+    lineUtil.drawBezier(from.getPosition(), to.getPosition(), visualWeight * 15);
   }
 }
 
