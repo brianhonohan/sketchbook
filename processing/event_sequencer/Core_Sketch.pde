@@ -186,7 +186,6 @@ class StaticSeqViewer extends SequenceViewer{
 
     TransitionRender tmpTransRenderer = new TransitionRender();
     int numStates = sequence.getNumStates();
-    int runningY = 0;
     float minStrokeWeight = 1;
     float maxStrokeWeight = 20;
 
@@ -245,10 +244,16 @@ class TransitionViewer extends UIView {
 }
 
 class TransitionRender {
+  LineUtil lineUtil;
+  
+  TransitionRender(){
+    lineUtil = new LineUtil();
+  }
+  
   void render(StateViewer from, StateViewer to, float dataValue, float visualWeight){
     strokeWeight(visualWeight);
     stroke(colorSet.getColorForHash(to.state.id));
-    line(from.x, from.y, to.x, to.y);
+    lineUtil.drawBezier(from.getPosition(), to.getPosition(), visualWeight);
   }
 }
 

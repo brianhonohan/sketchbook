@@ -12,6 +12,10 @@ class Point {
     y = _y;
   }
   
+  Point copy(){
+    return new Point(x, y);
+  }
+  
   PolarPoint toPolarPoint(){
     PolarPoint polarPt = new PolarPoint();
     polarPt.r = sqrt(sq(x) + sq(y));
@@ -21,6 +25,10 @@ class Point {
   
   float distTo(Point otherPt){
     return dist(x, y, otherPt.x, otherPt.y);
+  }
+  
+  Point midPoint(Point otherPt){
+    return new Point((x + otherPt.x)/2, (y + otherPt.y)/2); 
   }
   
   void translateBy(Point translation){
@@ -33,6 +41,10 @@ class Point {
     json.setFloat("x", x);
     json.setFloat("y", y);
     return json;
+  }
+  
+  PVector toPVector(){
+    return new PVector(x, y);
   }
    
   public String toString(){

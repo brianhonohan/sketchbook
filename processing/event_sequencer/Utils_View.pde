@@ -13,6 +13,7 @@ class UIView{
     this.y = yPt;
   }
   void setPosition(Point location){ setPosition(location.x, location.y); }
+  Point getPosition() { return new Point(x, y); }
   
   void setLocationMode(int mode){
     if (mode == MODE_TOP_LEFT || mode == MODE_CENTER) {
@@ -61,4 +62,87 @@ class UIView{
     draw();
     finishRender();
   }
+}
+
+class LineView {
+  PVector position;
+  PVector vector;
+  
+  LineView(Point from, Point to){
+    position = new PVector(from.x, from.y);
+    vector = new PVector(to.x - from.x, to.y - from.y);
+  }
+  
+  LineView(Point from, PVector _vector){
+    position = new PVector(from.x, from.y);
+    vector = new PVector(_vector.x, _vector.y);
+  }
+  public JSONObject toJSON(){
+    JSONObject json = new JSONObject();
+    json.setFloat("x", position.x);
+    json.setFloat("y", position.y);
+    json.setFloat("vector_x", vector.x);
+    json.setFloat("vector_y", vector.y);
+    return json;
+  }
+  
+  String toString(){
+    return this.toJSON().toString();
+  }
+  
+  Point midPoint(){
+    PVector halfMag = vector.copy();
+    halfMag.setMag( vector.mag() / 2 );
+    return new Point(position.x + halfMag.x, position.y + halfMag.y);
+  }
+  
+  LineView perpendicularBisector(){
+    PVector newVector = new PVector(vector.x, vector.y);
+    newVector.normalize();
+    newVector.rotate(HALF_PI);
+    return new LineView(midPoint(), newVector);
+  }
+  
+  void setLength(float scale){
+    vector.setMag(scale);
+  }
+  
+  Point destination(){
+    return new Point(position.x + vector.x, position.y + vector.y);
+  }
+
+  void drawBezier(float bendAmplitude){
+    pushStyle();
+    noFill();
+    PVector from = position;
+    PVector to = destination().toPVector();
+
+    LineView perpBisec = perpendicularBisector();
+    perpBisec.setLength(bendAmplitude);
+    Point perpBisecEndPoint = perpBisec.destination();
+    
+    PVector offsetVector = new PVector(vector.x, vector.y);
+    int magicAmount = 100;
+    offsetVector.setMag(magicAmount);
+    
+    Point secondCtrl = perpBisecEndPoint.copy();
+    secondCtrl.translateBy(new Point(offsetVector.x, offsetVector.y));
+    
+    // Turn the vector to be directed towards the ling origin (rotate by 180 degrees)
+    offsetVector.rotate(PI);
+    Point firstCtrl = perpBisecEndPoint.copy();
+    firstCtrl.translateBy(new Point(offsetVector.x, offsetVector.y));
+    
+    bezier(from.x, from.y, firstCtrl.x, firstCtrl.y, secondCtrl.x, secondCtrl.y, to.x, to.y);
+    popStyle();
+  }
+}
+
+class LineUtil {
+  // bendAmplitude - number of pixels 
+  void drawBezier(Point from, Point to, float bendAmplitude){
+    LineView lineView = new LineView(from, to);
+    lineView.drawBezier(bendAmplitude);
+  }
+  
 }
