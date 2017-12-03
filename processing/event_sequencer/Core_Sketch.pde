@@ -181,7 +181,6 @@ class StaticSeqViewer extends SequenceViewer{
   }
 
   void displayTransition(){
-    println("current index: " + currentTransitionIdx);
     TransitionSet transitionSet = sequence.getTransition(currentTransitionIdx);
 
     TransitionRender tmpTransRenderer = new TransitionRender();

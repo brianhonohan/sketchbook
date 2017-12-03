@@ -113,7 +113,7 @@ float[] randomSegments(int nGroups){
       segments[i] = random(0, pairSum);
       segments[j] = pairSum - segments[i];
       if(segments[j] < 0){
-        println("ALERT neg split ... " + pairSum + ", and other: " +  segments[i]);
+        logger.warn("Negative split ... " + pairSum + ", and other: " +  segments[i]);
       }
     }
   }

@@ -1,4 +1,7 @@
 class Logging {
+  public void debug(String message){
+    println("DEBUG: " + message);
+  }
   public void warn(String message){
     println("WARNING: " + message);
   }

@@ -15,7 +15,7 @@ class ColorSet {
   
   color getColor(int i){
     if (i >= colors.length) {
-      println("Invalid color index");
+      logger.warn("Invalid color index");
       return color(0);
     }
     return this.colors[i];  
