@@ -1,3 +1,9 @@
+class Logging {
+  public void warn(String message){
+    println("WARNING: " + message);
+  }
+}
+
 void printLeftPadded(String message, int numChars, String paddingChar){
   print( strLeftPadded(message, numChars, paddingChar) );
 }

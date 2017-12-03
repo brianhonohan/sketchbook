@@ -11,6 +11,7 @@ EventSequence sequence;
 SequenceFactory seqFactory;
 SequenceViewer seqViewer;
 ColorSet colorSet;
+Logging logger = new Logging();
 
 int numStates = 4;
 int numTransitions = 4;

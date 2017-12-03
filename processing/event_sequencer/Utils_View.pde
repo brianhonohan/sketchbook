@@ -3,6 +3,10 @@ class UIView{
   float y;
   float _width;
   float _height;
+  float locationMode;
+  
+  public static final int MODE_TOP_LEFT = 0;  // default value
+  public static final int MODE_CENTER = 1;
   
   void setPosition(float xPt, float yPt){
     this.x = xPt;
@@ -10,14 +14,26 @@ class UIView{
   }
   void setPosition(Point location){ setPosition(location.x, location.y); }
   
+  void setLocationMode(int mode){
+    if (mode == MODE_TOP_LEFT || mode == MODE_CENTER) {
+      locationMode = mode;
+    }else{
+      logger.warn("Invalid Location mode passed in: [" + mode + "]");
+    }
+  }
+  
   void setDimensions(float widthVal, float heightVal){
     this._width = widthVal;
     this._height = heightVal;
   }
   
-  float centerX(){ return x + _width / 2; }
-  float centerY(){ return y + _height / 2; }
+  float centerX(){ return (locationMode == MODE_CENTER) ? x : x + _width / 2; }
+  float centerY(){ return (locationMode == MODE_CENTER) ? y : y + _height / 2; }
   Point centerPoint() { return new Point(centerX(), centerY()); }
+  
+  float topLeftX(){ return (locationMode == MODE_TOP_LEFT) ? x : x - _width / 2; }
+  float topLeftY(){ return (locationMode == MODE_TOP_LEFT) ? y : y - _height / 2; }
+  Point topLeftPoint() { return new Point(topLeftX(), topLeftY()); }
   
   // This is the method that should be overridden in subclasses.
   void draw() {}
@@ -32,7 +48,7 @@ class UIView{
   
   void startRender(){
     pushMatrix();
-    translate(x, y);
+    translate(topLeftX(), topLeftY()); // TODO: Consider optimization of memoizing the TopLeft corner values 
   }
   
   void finishRender(){

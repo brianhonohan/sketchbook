@@ -41,6 +41,7 @@ class UtilsLayoutSimpleTestDriver {
     int numElements = 10;
     UIView tmpView = new UIView();
     tmpView.setDimensions(10, 10);
+    tmpView.setLocationMode(UIView.MODE_CENTER);
     for (int i = 0; i < numElements; i++) {
       fill(colorSet.getColor(i % 5));
       tmpView.setPosition( layoutMgr.getNthPosition(i, numElements) );
