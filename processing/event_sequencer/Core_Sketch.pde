@@ -154,6 +154,16 @@ class StaticSeqViewer extends SequenceViewer{
       tmpView.render();
     }
   }
+  
+  void layoutRadially(){
+    UIView testConstraint = new UIView();
+    int margin = 20;
+    testConstraint.setPosition(margin, margin);
+    testConstraint.setDimensions(this._width-margin*2, this._height-margin*2);
+    
+    LayoutManager layoutMgr = new RadialLayoutManager(testConstraint);
+    layoutMgr.layoutViews(stateViewers);
+  }
 
   void layoutAsTimeline(){
     ArrayList<StepTransition> transitions = sequence.getTransitions();
@@ -164,16 +174,6 @@ class StaticSeqViewer extends SequenceViewer{
       transition = transitions.get(i);
       displayTransition(transition, i * 50);
     }
-  }
-  
-  void layoutRadially(){
-    UIView testConstraint = new UIView();
-    int margin = 20;
-    testConstraint.setPosition(margin, margin);
-    testConstraint.setDimensions(this._width-margin*2, this._height-margin*2);
-    
-    LayoutManager layoutMgr = new RadialLayoutManager(testConstraint);
-    layoutMgr.layoutViews(stateViewers);
   }
   
   void displayTransition(StepTransition transition, int offset){
