@@ -184,7 +184,7 @@ class StaticSeqViewer extends SequenceViewer{
     for(int from = 0; from < numStates; from++){
       for(int to = 0; to < numStates; to++){
         int fluxValue = transition.fluxFromTo[from][to];
-        float heightOfTrans = scaleYValue(fluxValue);
+        float heightOfTrans = scaleValue(fluxValue, this._height);
         if (heightOfTrans == 0){
           continue;
         }
@@ -198,10 +198,10 @@ class StaticSeqViewer extends SequenceViewer{
       }
     }
   }
-  
-  float scaleYValue(float value){
-    return map(value, 0, this.maxTransCount, 0, this._height);
-  } 
+    
+  float scaleValue(float value, float maxValue){
+    return map(value, 0, this.maxTransCount, 0, maxValue);
+  }
 }
 
 class TransitionViewer extends UIView {
