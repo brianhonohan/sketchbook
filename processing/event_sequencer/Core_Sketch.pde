@@ -18,11 +18,11 @@
 class EventSequence {
   ArrayList<ItemState> states;
   ArrayList<SequenceStep> steps;
-  ArrayList<StepTransition> transitions;
+  ArrayList<TransitionSet> transitions;
   
   EventSequence(){
     states = new ArrayList<ItemState>();
-    transitions = new ArrayList<StepTransition>(numTransitions);
+    transitions = new ArrayList<TransitionSet>(numTransitions);
   }
   
   void addState(ItemState newState){
@@ -36,7 +36,7 @@ class EventSequence {
   //  return (transitions == null) ? 0 : transitions.size();
   //}
   
-  ArrayList<StepTransition> getTransitions(){
+  ArrayList<TransitionSet> getTransitions(){
     return transitions;
   }
   
@@ -44,12 +44,12 @@ class EventSequence {
     return states.size();
   }
   
-  void addTransition(StepTransition transMat){
+  void addTransition(TransitionSet transMat){
     transitions.add(transMat);
   }
   
   void printTransitions(){
-    StepTransition tmpTransition;
+    TransitionSet tmpTransition;
     for(int i=0; i<transitions.size(); i++){
       tmpTransition = transitions.get(i);
       println("");
@@ -74,12 +74,12 @@ class SequenceStep {
 
 // This represents the delta between two steps in the overall EventSequence
 // It has 
-class StepTransition{
+class TransitionSet{
   // flux[ fromIdx ][ toIdx ]
   int[][] fluxFromTo;
   String id;
   
-  StepTransition(String _id, int numStates){
+  TransitionSet(String _id, int numStates){
     id = _id;
     fluxFromTo = new int[numStates][numStates];
   }
@@ -116,10 +116,10 @@ class SequenceViewer extends UIView {
 
   // What is the most number of items in flux across in any one transition
   int getMaxTransitionCount(){
-    ArrayList<StepTransition> transitions = sequence.getTransitions();
+    ArrayList<TransitionSet> transitions = sequence.getTransitions();
     int maxFlux = 0;
     for (int i = 0; i < transitions.size(); i++){
-      StepTransition transition = transitions.get(i);
+      TransitionSet transition = transitions.get(i);
       maxFlux = max(transition.numInFlux(), maxFlux);
     }
     return maxFlux;
@@ -166,17 +166,17 @@ class StaticSeqViewer extends SequenceViewer{
   }
 
   void layoutAsTimeline(){
-    ArrayList<StepTransition> transitions = sequence.getTransitions();
+    ArrayList<TransitionSet> transitions = sequence.getTransitions();
     
     noStroke();
-    StepTransition transition;
+    TransitionSet transition;
     for(int i = 0; i < transitions.size(); i++){
       transition = transitions.get(i);
       displayTransition(transition, i * 50);
     }
   }
   
-  void displayTransition(StepTransition transition, int offset){
+  void displayTransition(TransitionSet transition, int offset){
     TransitionViewer tmpTransViewer = new TransitionViewer();
     int numStates = sequence.getNumStates();
     int runningY = 0;

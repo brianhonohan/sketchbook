@@ -6,7 +6,7 @@ class SequenceFactory{
     randomSeed(seed);
     
     // first generate the genesis transition, where things only spawn from nothing. (State 0);
-    StepTransition tmpTransition = new StepTransition("0", numStates);
+    TransitionSet tmpTransition = new TransitionSet("0", numStates);
     int totalsByState[] = new int[numStates];  
     // we'll only transition from state 0
     for(int i=0; i<numStates; i++){
@@ -33,7 +33,7 @@ class SequenceFactory{
     int potentialNextSteps = (allowRepeats) ? numStates : numStates - 1;
     
     for(int i=1; i<numTransitions; i++){
-      tmpTransition = new StepTransition((i + ""), numStates);
+      tmpTransition = new TransitionSet((i + ""), numStates);
       
       for(int from=0; from<numStates; from++){
         if(from == 0){
