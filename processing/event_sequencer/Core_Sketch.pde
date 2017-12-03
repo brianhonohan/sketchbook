@@ -117,26 +117,35 @@ class SequenceViewer extends UIView {
   EventSequence sequence;
   int maxTransCount;
   int currentTransitionIdx;
+  boolean skipFirstTransition = true;
   
   void setSequence(EventSequence seq){
     this.sequence = seq;
     maxTransCount = this.getMaxTransitionCount();
-    currentTransitionIdx = 0;
+    currentTransitionIdx = firstTransitionIdx();
   }
 
   // What is the most number of items in flux across in any one transition
   int getMaxTransitionCount(){
     ArrayList<TransitionSet> transitions = sequence.getTransitions();
     int maxFlux = 0;
-    for (int i = 0; i < transitions.size(); i++){
+    int startAt = firstTransitionIdx();
+    for (int i = startAt; i < transitions.size(); i++){
       TransitionSet transition = transitions.get(i);
       maxFlux = max(transition.numInFlux(), maxFlux);
     }
     return maxFlux;
   }
+  int firstTransitionIdx(){
+    return (skipFirstTransition) ? 1 : 0;
+  }
+  
+  int numOfTransitions(){
+    return sequence.getNumTransitions() - ((skipFirstTransition) ? 1 : 0);
+  }
   
   void showNextTransition(){
-    currentTransitionIdx = (currentTransitionIdx + 1) % sequence.getNumTransitions();
+    currentTransitionIdx = firstTransitionIdx() + (currentTransitionIdx + 1) % numOfTransitions();
     render();
   }
 }
