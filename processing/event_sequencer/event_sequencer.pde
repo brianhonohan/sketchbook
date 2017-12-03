@@ -35,3 +35,11 @@ void setup(){
   //UtilsLayoutSimpleTestDriver tester = new UtilsLayoutSimpleTestDriver();
   //tester.radialLayout();
 }
+
+void draw(){
+}
+
+void mouseClicked(){
+  background(200);
+  seqViewer.showNextTransition();
+}

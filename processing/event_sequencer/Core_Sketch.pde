@@ -40,8 +40,16 @@ class EventSequence {
     return transitions;
   }
   
+  TransitionSet getTransition(int i){
+    return transitions.get(i);
+  }
+  
   int getNumStates(){
     return states.size();
+  }
+  
+  int getNumTransitions(){
+    return transitions.size();
   }
   
   void addTransition(TransitionSet transMat){
@@ -108,10 +116,12 @@ class TransitionSet{
 class SequenceViewer extends UIView {
   EventSequence sequence;
   int maxTransCount;
+  int currentTransitionIdx;
   
   void setSequence(EventSequence seq){
     this.sequence = seq;
     maxTransCount = this.getMaxTransitionCount();
+    currentTransitionIdx = 0;
   }
 
   // What is the most number of items in flux across in any one transition
@@ -123,6 +133,11 @@ class SequenceViewer extends UIView {
       maxFlux = max(transition.numInFlux(), maxFlux);
     }
     return maxFlux;
+  }
+  
+  void showNextTransition(){
+    currentTransitionIdx = (currentTransitionIdx + 1) % sequence.getNumTransitions();
+    render();
   }
 }
 
@@ -149,7 +164,7 @@ class StaticSeqViewer extends SequenceViewer{
   }
   
   void draw(){
-    // layoutAsTimeline();
+    displayTransition();
     for (StateViewer tmpView : stateViewers) {
       tmpView.render();
     }
@@ -165,6 +180,28 @@ class StaticSeqViewer extends SequenceViewer{
     layoutMgr.layoutViews(stateViewers);
   }
 
+  void displayTransition(){
+    println("current index: " + currentTransitionIdx);
+    TransitionSet transitionSet = sequence.getTransition(currentTransitionIdx);
+
+    TransitionRender tmpTransRenderer = new TransitionRender();
+    int numStates = sequence.getNumStates();
+    int runningY = 0;
+    float minStrokeWeight = 1;
+    float maxStrokeWeight = 20;
+
+    for(int from = 0; from < numStates; from++){
+      for(int to = 0; to < numStates; to++){
+        int fluxValue = transitionSet.fluxFromTo[from][to];
+        if (fluxValue == 0){
+          continue;
+        }
+        float visualWeight =  map(fluxValue, 0, this.maxTransCount, minStrokeWeight, maxStrokeWeight);
+        tmpTransRenderer.render(stateViewers.get(from), stateViewers.get(to), fluxValue, visualWeight);
+      }
+    }
+  }
+  
   void layoutAsTimeline(){
     ArrayList<TransitionSet> transitions = sequence.getTransitions();
     
@@ -205,6 +242,14 @@ class StaticSeqViewer extends SequenceViewer{
 }
 
 class TransitionViewer extends UIView {
+}
+
+class TransitionRender {
+  void render(StateViewer from, StateViewer to, float dataValue, float visualWeight){
+    strokeWeight(visualWeight);
+    stroke(colorSet.getColorForHash(to.state.id));
+    line(from.x, from.y, to.x, to.y);
+  }
 }
 
 class StateViewer extends UIView {
