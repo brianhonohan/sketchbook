@@ -29,5 +29,8 @@ void setup(){
   seqViewer.setPosition(width*0.05, height*0.05);
   seqViewer.setDimensions(width*0.9, height*0.9);
   seqViewer.setSequence(sequence);
-  seqViewer.render();
+  //seqViewer.render();
+  
+  UtilsLayoutSimpleTestDriver tester = new UtilsLayoutSimpleTestDriver();
+  tester.radialLayout();
 }

@@ -8,11 +8,16 @@ class UIView{
     this.x = xPt;
     this.y = yPt;
   }
+  void setPosition(Point location){ setPosition(location.x, location.y); }
   
   void setDimensions(float widthVal, float heightVal){
     this._width = widthVal;
     this._height = heightVal;
   }
+  
+  float centerX(){ return x + _width / 2; }
+  float centerY(){ return y + _height / 2; }
+  Point centerPoint() { return new Point(centerX(), centerY()); }
   
   // This is the method that should be overridden in subclasses.
   void draw() {}

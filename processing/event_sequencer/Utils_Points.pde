@@ -2,6 +2,16 @@ class Point {
   float x;
   float y;
   
+  Point(){
+    x = 0;
+    y = 0;
+  }
+  
+  Point(float _x, float _y){
+    x = _x;
+    y = _y;
+  }
+  
   PolarPoint toPolarPoint(){
     PolarPoint polarPt = new PolarPoint();
     polarPt.r = sqrt(sq(x) + sq(y));
@@ -11,6 +21,11 @@ class Point {
   
   float distTo(Point otherPt){
     return dist(x, y, otherPt.x, otherPt.y);
+  }
+  
+  void translateBy(Point translation){
+    x += translation.x;
+    y += translation.y;
   }
   
   public JSONObject toJSON(){
