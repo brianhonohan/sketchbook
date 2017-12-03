@@ -10,6 +10,7 @@
 EventSequence sequence;
 SequenceFactory seqFactory;
 SequenceViewer seqViewer;
+ColorSet colorSet;
 
 int numStates = 4;
 int numTransitions = 4;
@@ -18,6 +19,7 @@ boolean allowRepeats = true;
 
 void setup(){
   size(500, 750);
+  colorSet = new ColorSet();
   
   seqFactory = new SequenceFactory();
   sequence = seqFactory.generateRandomData(numStates, numTransitions, allowRepeats, randomSeed);

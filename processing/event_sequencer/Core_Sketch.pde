@@ -150,6 +150,7 @@ class StaticSeqViewer extends SequenceViewer{
         }
         println("... FluxVal["+fluxValue+"] ... scaled to["+heightOfTrans+"]");
         tmpTransViewer.setPosition(50, runningY);
+        fill(colorSet.getColor(to));
         tmpTransViewer.setDimensions(10, heightOfTrans);
         tmpTransViewer.renderAsRect();
         

@@ -19,7 +19,7 @@ class UIView{
   
   void renderAsRect(){
     startRender();
-    fill(color(random(100,200),random(100,200),random(100,200)));
+    //fill(color(random(100,200),random(100,200),random(100,200)));
     //println(String.format("...... rect(%.1f,%.1f,%.1f,%.1f) ", x, y, _width, _height));
     rect(0, 0, _width, _height);
     finishRender();
