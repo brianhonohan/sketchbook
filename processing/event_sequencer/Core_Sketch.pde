@@ -131,12 +131,16 @@ class StaticSeqViewer extends SequenceViewer{
 
   void layoutAsTimeline(){
     ArrayList<StepTransition> transitions = sequence.getTransitions();
-    StepTransition transition = transitions.get(0);
+    
     noStroke();
-    displayTransition(transition);
+    StepTransition transition;
+    for(int i = 0; i < transitions.size(); i++){
+      transition = transitions.get(i);
+      displayTransition(transition, i * 50);
+    }
   }
   
-  void displayTransition(StepTransition transition){
+  void displayTransition(StepTransition transition, int offset){
     TransitionViewer tmpTransViewer = new TransitionViewer();
     int numStates = sequence.getNumStates();
     int runningY = 0;
@@ -148,9 +152,9 @@ class StaticSeqViewer extends SequenceViewer{
         if (heightOfTrans == 0){
           continue;
         }
-        println("... FluxVal["+fluxValue+"] ... scaled to["+heightOfTrans+"]");
-        tmpTransViewer.setPosition(50, runningY);
+       
         fill(colorSet.getColor(to));
+        tmpTransViewer.setPosition(50+offset, runningY);
         tmpTransViewer.setDimensions(10, heightOfTrans);
         tmpTransViewer.renderAsRect();
         
