@@ -44,6 +44,17 @@ class EventSequence {
     return transitions.get(i);
   }
   
+  int[] getAmountSequenceForState(int stateIdx){
+    int[] stateAmtSequence = new int[getNumTransitions()];
+    TransitionSet tmpTransition;
+    for (int i = 0; i < getNumTransitions(); i++){
+      tmpTransition = transitions.get(i);
+      int[] deltas = tmpTransition.getNetDeltas();
+      stateAmtSequence[i] = ((i==0) ? 0 : stateAmtSequence[i-1]) + deltas[stateIdx];
+    }
+    return stateAmtSequence;
+  }
+  
   int getNumStates(){
     return states.size();
   }
@@ -106,6 +117,17 @@ class TransitionSet{
     return sum;
   }
   
+  int[] getNetDeltas(){
+    int[] deltas = new int[numStates];
+     for (int from = 0; from < numStates; from++){
+      for (int to = 0; to < numStates; to++){
+        deltas[from] -= fluxFromTo[from][to];
+        deltas[to] += fluxFromTo[from][to];
+      }
+    }
+    return deltas;
+  }
+  
   void print(){
     print2DimArrayInt("Trans["+id+"] :", fluxFromTo, 6);
   }
@@ -115,6 +137,7 @@ class TransitionSet{
 
 class SequenceViewer extends UIView {
   EventSequence sequence;
+  int maxStatePopulation;
   int maxTransCount;
   int currentTransitionIdx;
   boolean skipFirstTransition = true;
@@ -122,6 +145,7 @@ class SequenceViewer extends UIView {
   void setSequence(EventSequence seq){
     this.sequence = seq;
     maxTransCount = this.getMaxTransitionCount();
+    maxStatePopulation = this.calcMaxStatePopulation();
     currentTransitionIdx = firstTransitionIdx();
   }
 
@@ -136,6 +160,23 @@ class SequenceViewer extends UIView {
     }
     return maxFlux;
   }
+  
+  int getMaxStatePopulation(){
+    return maxStatePopulation;
+  }
+    
+  int calcMaxStatePopulation(){
+    int result = 0;
+    int[] tmpAmountSequence; // = new int[sequence.getNumStates()];  
+    for(int i=0; i<numStates; i++){
+      tmpAmountSequence = sequence.getAmountSequenceForState(i);
+      for (int amt : tmpAmountSequence){
+        result = max(result,amt);
+      }
+    }
+    return result;
+  }
+  
   int firstTransitionIdx(){
     return (skipFirstTransition) ? 1 : 0;
   }
@@ -144,8 +185,16 @@ class SequenceViewer extends UIView {
     return sequence.getNumTransitions() - ((skipFirstTransition) ? 1 : 0);
   }
   
+  void setCurrentTransition(int newValue){
+    currentTransitionIdx = newValue;
+  }
+  int getCurrentTransition(){
+    return currentTransitionIdx;
+  }
+  
   void showNextTransition(){
-    currentTransitionIdx = firstTransitionIdx() + (currentTransitionIdx + 1) % numOfTransitions();
+    int nextTransIx = firstTransitionIdx() + (currentTransitionIdx + 1) % numOfTransitions();
+    setCurrentTransition(nextTransIx);
     render();
   }
 }
@@ -165,7 +214,9 @@ class StaticSeqViewer extends SequenceViewer{
     
     StateViewer stateViewer;
     for (int i = 0; i < seq.getNumStates(); i++){
-      stateViewer = new StateViewer(seq.getState(i));
+      stateViewer = new StateViewer(this, seq.getState(i));
+      int[] amtSequence = seq.getAmountSequenceForState(i);
+      stateViewer.setAmountSequence(amtSequence);
       stateViewers.add(stateViewer);
     }
     
@@ -266,15 +317,28 @@ class TransitionRender {
 }
 
 class StateViewer extends UIView {
+  SequenceViewer sequenceViewer;
   ItemState state;
+  int[] amountSequence;
   
-  StateViewer(ItemState _state){
+  StateViewer(SequenceViewer _seqViewer, ItemState _state){
+    sequenceViewer = _seqViewer;
     state = _state;
+  }
+  
+  void setAmountSequence(int[] _amtSequence){
+    amountSequence = _amtSequence;
+  }
+  
+  float getSize(){
+    int newAmount = max(0, amountSequence[sequenceViewer.getCurrentTransition()]);
+    return map(newAmount, 0, sequenceViewer.getMaxStatePopulation(), 20, 60);
   }
   
   void draw(){
     strokeWeight(3);
     stroke(colorSet.getColorForHash(state.id));
-    ellipse(0, 0, 30, 30);
+    float radius = getSize();
+    ellipse(0, 0, radius, radius);
   }
 }
