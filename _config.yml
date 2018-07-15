@@ -20,6 +20,7 @@ baseurl: "/sketchbook" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: brianhonohan
 github_username:  brianhonohan
+flickr_username:  brian-honohan
 
 # Build settings
 markdown: kramdown
