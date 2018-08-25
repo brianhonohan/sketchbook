@@ -8,16 +8,16 @@ function setup() {
   noiseSeed(seed);
 
   options = {
-    cellWidth: UtilFunctions.getParameterByName("cellWidth", "", parseInt)
-    , scale: UtilFunctions.getParameterByName("scale", "", Number)
-    , percentWater: UtilFunctions.getParameterByName("percentWater", "", Number)
-    , erosionRate: UtilFunctions.getParameterByName("erosionRate", "", Number)
+    cellWidth: UtilFunctions.getParameterByName("cellWidth", parseInt)
+    , scale: UtilFunctions.getParameterByName("scale", Number)
+    , percentWater: UtilFunctions.getParameterByName("percentWater",Number)
+    , erosionRate: UtilFunctions.getParameterByName("erosionRate", Number)
   };
   UtilFunctions.unsetUndefineds(options);
 
   noiseOptions = {
-    octaves: UtilFunctions.getParameterByName("noise.octaves", "", parseInt) || 10
-    , falloff: UtilFunctions.getParameterByName("noise.falloff", "", Number) || 0.6
+    octaves: UtilFunctions.getParameterByName("noise.octaves", parseInt) || 10
+    , falloff: UtilFunctions.getParameterByName("noise.falloff", Number) || 0.6
   }
   noiseDetail(noiseOptions.octaves, noiseOptions.falloff);
 
