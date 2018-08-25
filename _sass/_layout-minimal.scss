@@ -1,0 +1,39 @@
+.layout-minimal {
+  
+  .site-header {
+    min-height: 0px;
+
+    .wrapper {
+      max-width: none;
+      margin-left: 0;
+    }
+
+    .site-title {
+      font-size: 16px;
+      line-height: 30px;
+    }
+
+    .site-nav {
+      line-height: 30px;
+
+      @include media-query($on-palm) {
+        top: 1px;
+      }
+
+      .menu-icon {
+        height: 20px;
+
+        @include media-query($on-palm) {
+          padding-top: 5px;
+        }
+      }
+
+    }
+  }
+
+  .page-content {
+    padding: 0;
+  }
+
+
+}
