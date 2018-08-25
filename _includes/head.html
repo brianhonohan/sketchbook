@@ -8,4 +8,7 @@
 
     <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+
+    {% for js in page.js_scripts %}<script src="{{ js }}" charset="utf-8"></script>
+    {% endfor %}
 </head>
