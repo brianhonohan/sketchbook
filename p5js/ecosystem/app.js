@@ -2,7 +2,7 @@ let seed;
 let ecosystem;
 
 function setup() {
-  createCanvas(800, 600);
+  createCanvas(windowWidth, windowHeight-35);
   seed = UtilFunctions.getParameterByName("seed") || Math.round(random(1000));
   randomSeed(seed);
   noiseSeed(seed);
@@ -22,7 +22,7 @@ function setup() {
   noiseDetail(noiseOptions.octaves, noiseOptions.falloff);
 
   logSettings();
-  let rect = new Rect(0, 0, 800, 600);
+  let rect = new Rect(0, 0, width, height);
   ecosystem = new Ecosystem(rect, options);
   frameRate(1);
   ecosystem.tick();
