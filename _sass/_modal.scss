@@ -1,0 +1,12 @@
+.simple-modal {
+  width: 60%;
+}
+
+@media (max-width: 55.625em) {
+  .simple-modal {
+    left: 5%;
+    top: 25%;
+    bottom: 5%;
+    width: 75%;
+  }
+}

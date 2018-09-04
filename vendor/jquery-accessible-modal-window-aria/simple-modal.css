@@ -1,0 +1,141 @@
+ /*  FROM: https://a11y.nicolas-hoffmann.net/modal/  */
+
+/* needed for old browsers */
+dialog {
+  display: block;
+}
+/* removes scroll when modal is opened */
+.no-scroll {
+  overflow: hidden;
+}
+/* overlay covers everything */
+.simple-modal-overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: #fff;
+  opacity: .8;
+  z-index: 666;
+  cursor: pointer;
+}
+/* modal */
+.simple-modal {
+  position: fixed;
+  left: 15%;
+  top: 5%;
+  width: 70%;
+  max-height: 98vh;
+  right: auto;
+  border: 2px solid #000; 
+  background: #fff;
+  z-index: 667;
+  padding: 2em;
+  overflow: auto;
+}
+.simple-modal-close {
+  float: right;
+  background: #933;
+  border-radius: 1em;
+  color: #fff;
+  padding: .25em;
+  text-decoration: none;
+  line-height: 1.2;
+  text-align: center;
+}
+.simple-modal-close:focus,
+.simple-modal-close:hover,
+.simple-modal-close:active {
+  background: #882525;
+}
+.simple-modal-overlay[data-background-click="disabled"] {
+  cursor: auto;
+}
+
+/* it can be easily adapted in media-queries for tablets/mobile */
+
+/* for this example: tablets */
+@media (max-width: 55.625em) {
+
+  .simple-modal {
+    left: 5%;
+    top: 5%;
+    bottom: 5%;
+    width: 90%;
+  }
+  
+}
+
+/* for this example: mobile */
+@media (max-width: 44.375em) {
+
+  .simple-modal {
+    left: 1%;
+    top: 1%;
+    max-width: 98%;
+    bottom: 1%;
+  }
+
+}
+
+
+/* another modal styling example */
+/* tooltip modal for it’s easy button */
+.simple-left-modal-overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: rgba(0, 0, 0, .8);
+  opacity: .8;
+  z-index: 666;
+  cursor: pointer;
+}
+
+.simple-left-modal {
+  left: auto;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  z-index: 667;
+  position: fixed;
+  width: 40em;
+  max-width: 100%;
+  padding: 1em;
+  font-size: 1em;
+  border: 0;
+  overflow: auto;
+  background-color: #fff ;
+  background-image:
+      -webkit-linear-gradient(
+        top,
+        #882525 3em,
+        #f7f7f7 3em
+      );  background-image:
+      linear-gradient(
+        to bottom,
+        #882525 3em,
+        #f7f7f7 3em
+      );
+  background-attachment: local;
+}
+.simple-left-modal-close {
+  position: absolute;
+  top: .25em;
+  right: 0;
+  background: transparent;
+  color: #fff;
+}
+.invisible {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
