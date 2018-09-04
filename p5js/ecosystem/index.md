@@ -5,7 +5,7 @@ categories: p5js
 modal: true
 
 js_scripts:
-- http://localhost:8001/p5.js/0.4.23/p5.js
+- https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.23/p5.js
 - /sketchbook/js/util_functions.js
 - /sketchbook/js/models/rect.js
 - /sketchbook/js/models/cell_grid.js
