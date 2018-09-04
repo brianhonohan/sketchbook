@@ -13,6 +13,12 @@
       </a>
 
       <div class="trigger">
+        {% if page.modal %}
+        <a class="page-link js-modal" href="#" 
+           data-modal-prefix-class="simple"
+           data-modal-content-id="modal-content"
+           data-modal-close-title="Close this window">Info</a>
+        {% endif %}
         <a class="page-link" href="http://brianhonohan.com/about">About Me</a>
         <a class="page-link" href="https://brianhonohan.github.io/sketchbook/">Sketchbook</a>
       </div>

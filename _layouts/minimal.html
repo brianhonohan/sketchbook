@@ -8,9 +8,15 @@
     {%- include header.html -%}
 
     <main class="page-content" aria-label="Content">
-      <div class="wrapper">
-        {{ content }}
-      </div>
+      {% if page.modal %}
+        <div class="wrapper invisible" id="modal-content">
+          {{ content }}
+        </div>
+      {% else %}
+        <div class="wrapper">
+          {{ content }}
+        </div>
+      {% endif %}
     </main>
 
   </body>
