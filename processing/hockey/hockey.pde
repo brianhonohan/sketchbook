@@ -1,8 +1,7 @@
 HockeyRink rink;
 HockeyRinkViewer rinkViewer;
-int scaleFactor = 6;
-int margin = 100;
-
+int scaleFactor = 3;
+int margin = 25;
 
 void setup() {
   size(margin*2 + 200*scaleFactor, margin*2 + 85*scaleFactor);
@@ -139,10 +138,10 @@ class HockeyRinkViewer {
     stroke(_red);
     strokeWeight(max(0.5,  scaleValue(rink._minorLineWidth)));
     
-    float lengthOutsideArc = lengthOutsideArc(rink._cornerRadius, rink._goalLineAt);
-    drawScaledLine(rink._goalLineAt, lengthOutsideArc, rink._goalLineAt, rink._width - lengthOutsideArc);
-    drawScaledLine(rink._length - rink._goalLineAt, lengthOutsideArc, rink._length - rink._goalLineAt, rink._width - lengthOutsideArc);
-    // lengthOutsideArc
+    float calculatedlengthOutsideArc = lengthOutsideArc(rink._cornerRadius, rink._goalLineAt);
+    drawScaledLine(rink._goalLineAt, calculatedlengthOutsideArc, rink._goalLineAt, rink._width - calculatedlengthOutsideArc);
+    drawScaledLine(rink._length - rink._goalLineAt, calculatedlengthOutsideArc, rink._length - rink._goalLineAt, rink._width - calculatedlengthOutsideArc);
+    // calculatedlengthOutsideArc
 //    drawLineAt(rink._goalLineAt);
 //    drawLineAt(rink._length - rink._goalLineAt);
   }
@@ -429,9 +428,7 @@ class HockeyRinkViewer {
       return 0;
     }
     float adjacentSide = radius - chord;
-    float theta = acos(adjacentSide / radius);
-    println("THETE: " + theta);
-    
+    float theta = acos(adjacentSide / radius);    
     float oppositeSide = radius * sin(theta);
     
     if (_useRoundedCorners){
