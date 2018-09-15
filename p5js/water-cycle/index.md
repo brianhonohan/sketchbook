@@ -12,6 +12,7 @@ js_scripts:
 - /sketchbook/js/models/rect.js
 - /sketchbook/js/models/cell_grid.js
 - classes/system.js
+- classes/terrain_2d.js
 - app.js
 
 ---
