@@ -113,18 +113,14 @@ class CellGrid {
 
     let tmpX;
     let tmpY;
-    let tmpRow;
-    let tmpCol;
     let tmpCell;
 
     let cellViewer = new CellViewer();
     for(let i=0; i<this.cells.length; i++){
-      tmpCol = i % this.numCols;
-      tmpRow = Math.floor(i / this.numCols);
-      tmpX = tmpCol * this.effectCellWidth;
-      tmpY = tmpRow * this.effectCellHeight;
-
       tmpCell = this.cells[i];
+      tmpX = tmpCell._col * this.effectCellWidth;
+      tmpY = tmpCell._row * this.effectCellHeight;
+
       cellViewer.renderCell(tmpCell, tmpX, tmpY, 
                               this.cellWidth, this.cellHeight);
     }
