@@ -28,14 +28,14 @@ class Terrain2D {
     this.gBuffer.noStroke();
     this.gBuffer.beginShape(); 
 
-    for (var x = 0; x <= this._width; x += 20) {
-      var y = this._height - 20;
+    for (var x = 0; x <= this._width; x += 2) {
+      var y = this._height - 10;
 
       y -= (  this.zone1Contribution(x)
             + this.zone2Contribution(x) 
             + this.zone3Contribution(x) 
             + this.zone4Contribution(x));
-      y -= noise(x*noiseScale) * 130;
+      y -= noise(x*noiseScale) * 50;
 
       this.gBuffer.vertex(x, y); 
     }
