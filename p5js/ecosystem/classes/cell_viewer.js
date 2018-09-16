@@ -16,6 +16,11 @@ class CellViewer {
   }
 
   renderOnScale(minElev, midPoint, maxElev){
+    this.renderCell(this.cell, this._x, this._y, this._width, this._height, 
+                      minElev, midPoint, maxElev);
+  }
+
+  renderCell(cell, x, y, p_nWidth, p_nHeight, minElev, midPoint, maxElev){
     let fillColor = color(0);
     let normalizedTmp = 0;
 
@@ -32,12 +37,13 @@ class CellViewer {
 
     noStroke();
     fill(fillColor);
-    rect(this._x, this._y, this._width, this._height);
+    rect(x, y, p_nWidth, p_nHeight);
 
     if (this.cell.hasResource()){
       fill(255, 0, 0);
       // ellipseMode(CORNERS);
-      ellipse(this._x + this._width / 2, this._y  + this._height / 2, 2, 2);
+      ellipse(x + p_nWidth / 2, y  + p_nHeight / 2, 2, 2);
     }
   }
+
 }
