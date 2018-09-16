@@ -4,21 +4,29 @@ class Terrain2D {
     this._y = rect._y;
     this._width = rect._width;
     this._height = rect._height;
+
+    this.gBuffer = createGraphics(this._width, this._height);
+    this.render();
   }
 
   draw(){
-    noStroke();
-    fill(170,190,240);
-    rect(this._x, this._x, this._width, this._height);
-    this.drawSlope();
+    image(this.gBuffer, this._x, this._y);
   }
 
-  drawSlope(){
+  render(){
+    this.gBuffer.noStroke();
+    this.gBuffer.fill(170,190,240);
+    this.gBuffer.rect(this._x, this._x, this._width, this._height);
+
+    this.renderSlope();
+  }
+
+  renderSlope(){
     var noiseScale = 0.01;
-    
-    fill(70,75,10);
-    noStroke();
-    beginShape(); 
+
+    this.gBuffer.fill(70,75,10);
+    this.gBuffer.noStroke();
+    this.gBuffer.beginShape(); 
 
     for (var x = 0; x <= this._width; x += 20) {
       var y = this._height - 20;
@@ -29,11 +37,11 @@ class Terrain2D {
             + this.zone4Contribution(x));
       y -= noise(x*noiseScale) * 130;
 
-      vertex(x, y); 
+      this.gBuffer.vertex(x, y); 
     }
-    vertex(this._width, this._height); // down to bottom-right corner
-    vertex(0, this._height);     // over to bottom-left corner
-    endShape(CLOSE);
+    this.gBuffer.vertex(this._width, this._height); // down to bottom-right corner
+    this.gBuffer.vertex(0, this._height);     // over to bottom-left corner
+    this.gBuffer.endShape(CLOSE);
   }
 
   zone1Contribution(x){
