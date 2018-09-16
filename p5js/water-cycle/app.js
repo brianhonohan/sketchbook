@@ -1,6 +1,7 @@
 let seed;
 let system;
 let terrain;
+let weatherGrid;
 
 function setup() {
   createCanvas(windowWidth, windowHeight-35);
@@ -12,6 +13,7 @@ function setup() {
 
   let rect = new Rect(0, 0, width/2, height/2);
   terrain = new Terrain2D(rect);
+  weatherGrid = new CellGrid(rect, WeatherCell, 20);
 }
 
 function draw(){
