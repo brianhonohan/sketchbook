@@ -4,6 +4,7 @@ class Terrain2D {
     this._y = rect._y;
     this._width = rect._width;
     this._height = rect._height;
+    this._colors = this.colorScheme();
 
     this.gBuffer = createGraphics(this._width, this._height);
     this.render();
@@ -15,16 +16,26 @@ class Terrain2D {
 
   render(){
     this.gBuffer.noStroke();
-    this.gBuffer.fill(170,190,240);
+    this.gBuffer.fill(this._colors.sky);
     this.gBuffer.rect(this._x, this._x, this._width, this._height);
 
     this.renderSlope();
   }
 
+  colorScheme(){
+    return {
+      sky: color(157, 220, 252),
+      water: color(52, 127, 207),
+      soil: color(117, 55, 40),
+      sand: color(232, 210, 131),
+      foliage: color(54, 143, 36)
+    };
+  }
+
   renderSlope(){
     var noiseScale = 0.01;
 
-    this.gBuffer.fill(70,75,10);
+    this.gBuffer.fill(this._colors.soil);
     this.gBuffer.noStroke();
     this.gBuffer.beginShape(); 
 
