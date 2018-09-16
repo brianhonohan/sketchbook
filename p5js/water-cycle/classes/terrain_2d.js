@@ -16,9 +16,8 @@ class Terrain2D {
 
   render(){
     this.gBuffer.noStroke();
-    this.gBuffer.fill(this._colors.sky);
-    this.gBuffer.rect(this._x, this._x, this._width, this._height);
-
+    this.renderSky();
+    this.renderSeaLevel();
     this.renderSlope();
   }
 
@@ -30,6 +29,16 @@ class Terrain2D {
       sand: color(232, 210, 131),
       foliage: color(54, 143, 36)
     };
+  }
+
+  renderSky(){
+    this.gBuffer.fill(this._colors.sky);
+    this.gBuffer.rect(this._x, this._y, this._width, this._height);
+  }
+
+  renderSeaLevel(){
+    this.gBuffer.fill(this._colors.water);
+    this.gBuffer.rect(this._x, this._height - 60, this._width, 60);
   }
 
   renderSlope(){
@@ -46,7 +55,7 @@ class Terrain2D {
             + this.zone2Contribution(x) 
             + this.zone3Contribution(x) 
             + this.zone4Contribution(x));
-      y -= noise(x*noiseScale) * 50;
+      y -= noise(x*noiseScale) * 40;
 
       this.gBuffer.vertex(x, y); 
     }
