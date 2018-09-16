@@ -10,44 +10,33 @@ class CellGrid {
     this.cellHeight = cellWidth;
     this.cellSpacing = 0;
 
+    this.effectCellWidth = this.cellWidth + this.cellSpacing;
+    this.effectCellHeight = this.cellHeight + this.cellSpacing;
+
     this.initCells();
     this.wrap = false;
   }
 
   initCells() {
     this.cells = [];
-    this.cellViewers = [];
-
-    let effectCellWidth = this.cellWidth + this.cellSpacing;
-    let effectCellHeight = this.cellHeight + this.cellSpacing;
 
     // Note, by using 'ceil' we will overstep the bounds of the width/height;
-    this.numCols = Math.ceil( (1.0 * this._width)  / effectCellWidth );
-    this.numRows = Math.ceil( (1.0 * this._height) / effectCellHeight );
+    this.numCols = Math.ceil( (1.0 * this._width)  / this.effectCellWidth );
+    this.numRows = Math.ceil( (1.0 * this._height) / this.effectCellHeight );
     this.numCells = this.numCols * this.numRows;
 
-    let tmpCell;
-    let tmpCellViewer;
     let tmpRow;
     let tmpCol;
-
-    let tmpX;
-    let tmpY;
+    let tmpCell;
 
     for(let i=0; i<this.numCells; i++){
       tmpCol = i % this.numCols;
       tmpRow = Math.floor(i / this.numCols);
       tmpCell = this.cellProvider.createCell(tmpRow, tmpCol, i);
-
-      tmpX = tmpCol * effectCellWidth;
-      tmpY = tmpRow * effectCellHeight;
-
-      tmpCellViewer = new CellViewer(tmpX, tmpY, this.cellWidth, this.cellHeight, tmpCell);
-
       this.cells.push(tmpCell);
-      this.cellViewers.push(tmpCellViewer);
     }
   }
+
 
   neighborsOfIdx(idx){
     let neighbors = [
@@ -122,10 +111,18 @@ class CellGrid {
     push();
     translate(this._x, this._y);
 
-    let cellViewer;
-    for(let i=0; i<this.cellViewers.length; i++){
-      cellViewer = this.cellViewers[i];
-      cellViewer.renderOnScale(-300, 0, 300);
+    let tmpX;
+    let tmpY;
+    let tmpCell;
+
+    let cellViewer = new CellViewer();
+    for(let i=0; i<this.cells.length; i++){
+      tmpCell = this.cells[i];
+      tmpX = tmpCell._col * this.effectCellWidth;
+      tmpY = tmpCell._row * this.effectCellHeight;
+
+      cellViewer.renderCell(tmpCell, tmpX, tmpY, 
+                              this.cellWidth, this.cellHeight);
     }
     pop();
   }
