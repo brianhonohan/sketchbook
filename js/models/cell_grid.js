@@ -126,8 +126,7 @@ class CellGrid {
 
       tmpCell = this.cells[i];
       cellViewer.renderCell(tmpCell, tmpX, tmpY, 
-                              this.cellWidth, this.cellHeight, 
-                              -300, 0, 300);
+                              this.cellWidth, this.cellHeight);
     }
     pop();
   }
