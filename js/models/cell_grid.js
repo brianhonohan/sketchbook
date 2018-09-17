@@ -13,6 +13,8 @@ class CellGrid {
     this.effectCellWidth = this.cellWidth + this.cellSpacing;
     this.effectCellHeight = this.cellHeight + this.cellSpacing;
 
+    this.cellViewer = new CellViewer();
+
     this.initCells();
     this.wrap = false;
   }
@@ -115,13 +117,12 @@ class CellGrid {
     let tmpY;
     let tmpCell;
 
-    let cellViewer = new CellViewer();
     for(let i=0; i<this.cells.length; i++){
       tmpCell = this.cells[i];
       tmpX = tmpCell._col * this.effectCellWidth;
       tmpY = tmpCell._row * this.effectCellHeight;
 
-      cellViewer.renderCell(tmpCell, tmpX, tmpY, 
+      this.cellViewer.renderCell(tmpCell, tmpX, tmpY, 
                               this.cellWidth, this.cellHeight);
     }
     pop();
