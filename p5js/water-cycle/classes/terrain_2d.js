@@ -19,6 +19,7 @@ class Terrain2D {
     this.renderSky();
     this.renderSeaLevel();
     this.renderSlope();
+    this.gBuffer.loadPixels();
   }
 
   colorScheme(){
