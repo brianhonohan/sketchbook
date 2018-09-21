@@ -2,7 +2,7 @@ class System {
   constructor(){
     let rect = new Rect(0, 0, width/2, height/2);
     this.terrain = new Terrain2D(rect);
-    this.cellWidth = 2;
+    this.cellWidth = 10;
 
     let weatherPos = new Rect(width/2, 0, width/2, height/2);
     this.weatherGrid = new CellGrid(weatherPos, WeatherCell, this.cellWidth);
@@ -40,6 +40,18 @@ class System {
       tmpCell.air = P5JsUtils.colorsMatch(colorTop, this.terrain._colors.sky);
       tmpCell.water = P5JsUtils.colorsMatch(colorTop, this.terrain._colors.water);
       tmpCell.soil = P5JsUtils.colorsMatch(colorTop, this.terrain._colors.soil);
+
+      if (!tmpCell.air && !tmpCell.water && !tmpCell.soil){
+        var neighborIdx = this.weatherGrid.cellIndexAbove(i);
+        if (neighborIdx == undefined){
+          neighborIdx = this.weatherGrid.cellIndexToLeft(i);
+        }
+
+        var cellAbove = this.weatherGrid.cells[neighborIdx];
+        tmpCell.air = cellAbove.air;
+        tmpCell.water = cellAbove.water;
+        tmpCell.soil = cellAbove.soil;
+      }
     }
   }
 

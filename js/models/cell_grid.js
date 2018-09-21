@@ -97,6 +97,18 @@ class CellGrid {
     return idxRight;
   }
 
+  cellIndexToLeft(idx){
+    let idxLeft = idx - 1;
+    if (idx % this.numCols == 0){
+      if (this.wrap) {
+        idxLeft = idx + (this.numCols - 1);
+      }else{
+        idxLeft = undefined;
+      }
+    }
+    return idxLeft;
+  }
+
   cellIndexBelow(idx){
     let idxBelow = idx + this.numCols;
     if (idxBelow > (this.numCols * this.numRows - 1)){
@@ -107,6 +119,18 @@ class CellGrid {
       }
     }
     return idxBelow;
+  }
+
+  cellIndexAbove(idx){
+    let idxAbove = idx - this.numCols;
+    if (idxAbove < 0){
+      if (this.wrap) {
+        idxAbove = this.numCells - (idx % this.numCols);
+      }else{
+        idxAbove = undefined;
+      }
+    }
+    return idxAbove;
   }
 
   renderViews(){
