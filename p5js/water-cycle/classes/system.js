@@ -57,5 +57,26 @@ class System {
     }
   }
 
+  initWeather(){
+    let tmpCell;
+    let seaLevel; 
 
+    for(let i=0; i<this.weatherGrid.cells.length; i++){
+      tmpCell = this.weatherGrid.cells[i];
+
+
+    }
+  }
+
+  initAirCell(cell){
+    
+  }
+
+  initWaterCell(cell){
+    
+  }
+
+  initSoilCell(cell){
+    
+  }
 }

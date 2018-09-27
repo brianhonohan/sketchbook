@@ -5,6 +5,12 @@ class Terrain2D {
     this._width = rect._width;
     this._height = rect._height;
     this._colors = this.colorScheme();
+    this.seaLevel = 60;
+
+    this.metricDim = {
+      maxAlt: 5000,
+      minAlt: -1000,
+    }
 
     this.gBuffer = createGraphics(this._width, this._height);
     this.render();
@@ -32,6 +38,10 @@ class Terrain2D {
     };
   }
 
+  altitudeAtPixel(pixel){
+    return map(pixel, 0, this._height, this.metricDim.minAlt, this.metricDim.maxAlt);
+  }
+
   renderSky(){
     this.gBuffer.fill(this._colors.sky);
     this.gBuffer.rect(this._x, this._y, this._width, this._height);
@@ -39,7 +49,7 @@ class Terrain2D {
 
   renderSeaLevel(){
     this.gBuffer.fill(this._colors.water);
-    this.gBuffer.rect(this._x, this._height - 60, this._width, 60);
+    this.gBuffer.rect(this._x, this._height - this.seaLevel, this._width, this.seaLevel);
   }
 
   renderSlope(){
