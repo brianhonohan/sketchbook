@@ -1,7 +1,6 @@
 ArrayList<Star> stars; 
 int numStars;
 float warpSpeed;
-float warpTimeFactor;
 
 void setup(){
   size(400, 400);
@@ -14,19 +13,17 @@ void setup(){
 void draw(){
   background(0);
   
-  for(int i=0; i < numStars; i++){
-    Star star = stars.get(i);
-    if (star.x > width || star.x < 0 || star.y > height || star.y < 0){
-      star.x = width / 2 + (randomGaussian() - 0.5) * 20;
-      star.y = height / 2 + (randomGaussian() - 0.5) * 20;
-    }
-  }
+  //for(int i=0; i < numStars; i++){
+  //  Star star = stars.get(i);
+
+  //}
   
   loadPixels();
   for(int i=0; i < numStars; i++){
     Star star = stars.get(i);
     int pixel = floor(star.x) + floor(star.y) * width;
-    pixels[pixel] = color(0, random(255),random(255));
+    //pixels[pixel] = color(0, random(255),random(255));
+    pixels[pixel] = color(255);
     star.tick();
   }
   updatePixels();
@@ -57,6 +54,34 @@ class Star {
     vectorFromCenter.setMag(distance * warpSpeed / frameRate);
     x += vectorFromCenter.x;
     y += vectorFromCenter.y;
+    
+    boolean outsideOfView = (x > (width-1) || x < 0 || y > (height-1) || y < 0);
+    if (warpSpeed > 0 && outsideOfView) {
+      x = width / 2 + (randomGaussian() - 0.5) * 20;
+      y = height / 2 + (randomGaussian() - 0.5) * 20;
+    }
+    
+    if (warpSpeed < 0 && distance < 20){
+      int sideToAppearOn = int(random(4));
+      switch (sideToAppearOn){
+        case 0:   // TOP
+          y = 0;
+          x = random(width);
+          break;
+        case 1:   // RIGHT SIDE
+          y = random(height);
+          x = width - 1;
+          break;
+        case 2:   // BOTTOM SIDE
+          y = height - 1;
+          x = random(width);
+          break;
+        case 3:   // LEFT SIDE
+          y = random(height);
+          x = 0;
+          break;
+      }
+    }
   }
 }
 
@@ -78,10 +103,10 @@ void keyPressed(){
     numStars = 10;
     resetStarField();
   }else if (keyCode == UP){
-    print("increasing warpspeed " + warpSpeed);
+    //print("increasing warpspeed " + warpSpeed);
     warpSpeed += 0.5; 
   }else if (keyCode == DOWN){
-    print("decreasing warpspeed " + warpSpeed);
+    //print("decreasing warpspeed " + warpSpeed);
     warpSpeed -= 0.5; 
   }
 }
