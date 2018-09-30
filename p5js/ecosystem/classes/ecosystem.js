@@ -1,10 +1,10 @@
 class Ecosystem {
-  constructor(p_xSizeAndPos, p_xOptions){
+  constructor(p_xSizeAndPos){
     this.sizeAndPosition = p_xSizeAndPos;
-    this.settings = {}
-    Object.assign(this.settings, this.getDefaultOptions(), p_xOptions);
-    this.determineMagicWaterPercentageFactor();
+    this.optionsSet = new OptionsSet(this.optionsMetadata());
+    this.settings = this.optionsSet.settings;
 
+    this.determineMagicWaterPercentageFactor();
     this.grid = new CellGrid(this.sizeAndPosition, this, this.settings.cellWidth);
   }
 
@@ -50,8 +50,13 @@ class Ecosystem {
     return this.adjustedWaterPercent;
   }
 
-  getDefaultOptions(){
-    return { cellWidth: 5, scale: 0.02, percentWater: 0.5, erosionRate: 0};
+  optionsMetadata() {
+    return [
+      { name: "cellWidth", type: "integer", default: 5}, 
+      { name: "scale", type: "float", default: 0.02}, 
+      { name: "percentWater", type: "float", default: 0.5}, 
+      { name: "erosionRate", type: "float", default: 0.0}
+    ];
   }
 
   erode(){
@@ -139,6 +144,10 @@ class Ecosystem {
   }
 
   tick(){
+    if (this.settings.erosionRate <= 0) {
+      return;
+    }
+
     this.erode();
     this.grid.renderViews();
   }
