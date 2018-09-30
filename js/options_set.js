@@ -26,7 +26,7 @@ class OptionsSet {
   }
 
   formatterForType(type){
-    ({
+    return ({
       "integer" : (parseInt),
       "float" : (Number),
       "string" :  null
