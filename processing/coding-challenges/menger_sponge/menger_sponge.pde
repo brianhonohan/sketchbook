@@ -3,6 +3,7 @@ float cameraYaw;
 float cameraRoll;
 SpongeBlock block;
 int depthCounter;
+boolean rotating;
 
 void setup(){
   size(500, 500, P3D);
@@ -11,8 +12,10 @@ void setup(){
   cameraYaw = PI / 6;
   cameraRoll = PI / 6;
   
+  rotating = true;
   initBlock();
   depthCounter = 0;
+  noStroke();
 }
 
 void initBlock(){
@@ -21,6 +24,7 @@ void initBlock(){
 
 void draw(){
   background(180);
+  lights();
   
   //...and 3D-specific functions, like box()
   translate(width/2, height/2);
@@ -28,6 +32,9 @@ void draw(){
   rotateX(cameraYaw);
   rotateY(cameraRoll);
   
+  if (rotating) {
+    cameraYaw += 0.05;
+  }
   block.render();
 }
 
@@ -50,8 +57,7 @@ class SpongeBlock{
     }else{
       state = FULL;
     }
-    myColor = color(255);
-    //myColor = color(random(255),random(255), random(255));
+    myColor = color(100, 190, 120);
     blocks = new ArrayList<SpongeBlock>();
   }
   
@@ -146,7 +152,6 @@ class SpongeBlock{
   }
 }
 void mousePressed(){
-  println("Framerate: " + frameRate);
   if (depthCounter > 4){
     return; 
   }
@@ -160,6 +165,9 @@ void keyPressed(){
   if (key == 'c') {
     // reset
     initBlock();
+  } else if (key == 'r') {
+    // toggle rotation
+    rotating = !rotating;
   } else if (key == 'w') {
     // zoom in
     cameraZ += 50;
@@ -175,5 +183,4 @@ void keyPressed(){
   } else if (keyCode == LEFT){
     cameraRoll -= PI / 12;
   }
-  println("Framerate: " + frameRate);
 }
