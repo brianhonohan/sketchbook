@@ -33,10 +33,9 @@ function keyPressed() {
 }
 
 
-
 class Snake {
   constructor(row, col) {
-    this.direction = 3; 
+    this.direction = Snake.UP; 
 
     this.bodyLocations = [];
     this.bodyLocations.push(new CellCoord(row + 0, col));
@@ -75,16 +74,16 @@ class Snake {
   nextLocation(){
     let nextLoc;
     switch (this.direction) {
-      case 0:
+      case Snake.UP:
         nextLoc = new CellCoord(this.head.row - 1, this.head.col);
         break;
-      case 1:
+      case Snake.RIGHT:
         nextLoc = new CellCoord(this.head.row, this.head.col + 1);
         break;
-      case 2:
+      case Snake.DOWN:
         nextLoc = new CellCoord(this.head.row + 1, this.head.col);
         break;
-      case 3:
+      case Snake.LEFT:
         nextLoc = new CellCoord(this.head.row, this.head.col - 1);
         break;
     }
