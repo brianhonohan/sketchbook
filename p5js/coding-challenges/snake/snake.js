@@ -11,7 +11,7 @@ function setup() {
   rowCount = Math.floor(height / cellWidth);
   colCount = Math.floor(width / cellWidth);
   
-  world = new World();
+  world = new World(2);
   snake = new Snake(Math.floor(rowCount / 2), Math.floor(colCount/2));
   frameRate(5);
 }
@@ -36,13 +36,12 @@ function keyPressed() {
 }
 
 class World {
-  constructor() {
+  constructor(numApples) {
     this.appleLocations = [];
 
-    this.addRandomApple();
-    this.addRandomApple();
-    this.addRandomApple();
-    this.addRandomApple();
+    for (var i = 0; i < numApples; i++) {
+      this.addRandomApple();
+    }
   }
 
   addRandomApple(){
@@ -63,7 +62,7 @@ class World {
     }
   }
 
-  eatAppleAt(coord){
+  hasAppleAt(coord){
     let tmpCell;
     for (var i = 0; i < this.appleLocations.length; i++) {
       tmpCell = this.appleLocations[i];
@@ -73,6 +72,10 @@ class World {
       }
     }
     return false;
+  }
+
+  outOfApples(){
+    return 0 == this.appleLocations.length;
   }
 }
 
@@ -95,6 +98,7 @@ class Snake {
 
   static get STATE_GAME_OVER()  { return -1; }
   static get STATE_ALIVE()  { return 0; }
+  static get STATE_WON()  { return 1; }
 
   draw(){
     fill(255);
@@ -102,6 +106,10 @@ class Snake {
     if (this.state == Snake.STATE_GAME_OVER) {
       if (frameCount % 2) {
         fill( 255, 255, 0 );
+      }
+    } else if (this.state == Snake.STATE_WON) {
+      if (frameCount % 2) {
+        fill( 0, 255, 0 );
       }
     }
 
@@ -114,7 +122,8 @@ class Snake {
   }
 
   tick(){
-    if (this.state == Snake.STATE_GAME_OVER) {
+    if (this.state == Snake.STATE_GAME_OVER 
+         || this.state == Snake.STATE_WON) {
       return;
     }
 
@@ -127,11 +136,14 @@ class Snake {
       }
     }
 
-    let ateApple = world.eatAppleAt(newHead);
+    let ateApple = world.hasAppleAt(newHead);
     if (!ateApple) {
       let tail = this.bodyLocations.pop();
     }
     
+    if (world.outOfApples()){
+      this.state = Snake.STATE_WON;
+    }
     this.bodyLocations.unshift(newHead);
   }
 
