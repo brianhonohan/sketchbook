@@ -5,7 +5,7 @@ var rowCount;
 var colCount;
 
 function setup() {
-  createCanvas(700, 310);
+  createCanvas(windowWidth, windowHeight-45);
 
   cellWidth = 10;
   rowCount = Math.floor(height / cellWidth);
