@@ -36,6 +36,7 @@ function keyPressed() {
 class Snake {
   constructor(row, col) {
     this.direction = Snake.UP; 
+    this.state = Snake.STATE_ALIVE;
 
     this.bodyLocations = [];
     this.bodyLocations.push(new CellCoord(row + 0, col));
@@ -49,8 +50,17 @@ class Snake {
   static get DOWN()  { return 2; }
   static get LEFT()  { return 3; }
 
+  static get STATE_GAME_OVER()  { return -1; }
+  static get STATE_ALIVE()  { return 0; }
+
   draw(){
     fill(255);
+
+    if (this.state == Snake.STATE_GAME_OVER) {
+      if (frameCount % 2) {
+        fill( 255, 255, 0 );
+      }
+    }
 
     let tmpCell;
     for (var i = 0; i < this.bodyLocations.length; i++) {
@@ -61,10 +71,25 @@ class Snake {
   }
 
   tick(){
-    let tail = this.bodyLocations.pop();
+    if (this.state == Snake.STATE_GAME_OVER) {
+      return;
+    }
 
     let newHead = this.nextLocation();
+    let tmpCell;
+    for (var i = 0; i < this.bodyLocations.length; i++) {
+      tmpCell = this.bodyLocations[i];
+      if (tmpCell.equals(newHead)) {
+        return this.runIntoSelf();
+      }
+    }
+
+    let tail = this.bodyLocations.pop();
     this.bodyLocations.unshift(newHead);
+  }
+
+  runIntoSelf(){
+    this.state = Snake.STATE_GAME_OVER;
   }
 
   go(newDirection){
@@ -107,5 +132,9 @@ class CellCoord {
     this.row = (this.row >= _rowCount) ? 0 : this.row;
     this.col = (this.col < 0) ? _colCount -1 : this.col;
     this.col = (this.col >= _colCount) ? 0 : this.col;
+  }
+
+  equals(otherCell){
+    return (this.row == otherCell.row && this.col == otherCell.col);
   }
 }
