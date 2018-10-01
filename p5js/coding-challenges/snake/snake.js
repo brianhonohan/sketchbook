@@ -11,9 +11,9 @@ function setup() {
   rowCount = Math.floor(height / cellWidth);
   colCount = Math.floor(width / cellWidth);
   
-  world = new World(2);
+  world = new World(20);
   snake = new Snake(Math.floor(rowCount / 2), Math.floor(colCount/2));
-  frameRate(5);
+  frameRate(10);
 }
 
 function draw() {
@@ -83,6 +83,7 @@ class Snake {
   constructor(row, col) {
     this.direction = Snake.UP; 
     this.state = Snake.STATE_ALIVE;
+    this.cellsToGrow = 0;
 
     this.bodyLocations = [];
     this.bodyLocations.push(new CellCoord(row + 0, col));
@@ -98,6 +99,7 @@ class Snake {
 
   static get STATE_GAME_OVER()  { return -1; }
   static get STATE_ALIVE()  { return 0; }
+  static get STATE_GROWING()  { return 2; }
   static get STATE_WON()  { return 1; }
 
   draw(){
@@ -136,11 +138,20 @@ class Snake {
       }
     }
 
-    let ateApple = world.hasAppleAt(newHead);
-    if (!ateApple) {
-      let tail = this.bodyLocations.pop();
+    let foundApple = world.hasAppleAt(newHead);
+    if (foundApple) { 
+      this.eatAnApple();
     }
     
+    if (this.state == Snake.STATE_GROWING) {
+      this.cellsToGrow -= 1;
+      if (this.cellsToGrow == 0){
+        this.state = Snake.STATE_ALIVE;
+      }
+    } else {
+      this.bodyLocations.pop();
+    }
+
     if (world.outOfApples()){
       this.state = Snake.STATE_WON;
     }
@@ -149,6 +160,11 @@ class Snake {
 
   runIntoSelf(){
     this.state = Snake.STATE_GAME_OVER;
+  }
+
+  eatAnApple(){
+    this.cellsToGrow += 5;
+    this.state = Snake.STATE_GROWING;
   }
 
   go(newDirection){
