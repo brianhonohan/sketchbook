@@ -1,4 +1,5 @@
-var cellWidth; 
+var cellWidth;
+var world;
 var snake;
 var rowCount;
 var colCount;
@@ -9,13 +10,15 @@ function setup() {
   cellWidth = 10;
   rowCount = Math.floor(height / cellWidth);
   colCount = Math.floor(width / cellWidth);
-
+  
+  world = new World();
   snake = new Snake(Math.floor(rowCount / 2), Math.floor(colCount/2));
   frameRate(5);
 }
 
 function draw() {
   background(0);
+  world.draw();
   snake.tick();
   snake.draw();
 }
@@ -32,6 +35,46 @@ function keyPressed() {
   }
 }
 
+class World {
+  constructor() {
+    this.appleLocations = [];
+
+    this.addRandomApple();
+    this.addRandomApple();
+    this.addRandomApple();
+    this.addRandomApple();
+  }
+
+  addRandomApple(){
+    this.appleLocations.push(new CellCoord(
+                Math.floor(random() * rowCount), 
+                Math.floor(random() * colCount)
+            ));
+  }
+
+  draw(){
+    fill(255, 0, 0);
+
+    let tmpCell;
+    for (var i = 0; i < this.appleLocations.length; i++) {
+      tmpCell = this.appleLocations[i];
+      rect(tmpCell.col * cellWidth, tmpCell.row * cellWidth, 
+            cellWidth, cellWidth);
+    }
+  }
+
+  eatAppleAt(coord){
+    let tmpCell;
+    for (var i = 0; i < this.appleLocations.length; i++) {
+      tmpCell = this.appleLocations[i];
+      if (tmpCell.equals(coord)) {
+        this.appleLocations.splice(i, 1);
+        return true;
+      }
+    }
+    return false;
+  }
+}
 
 class Snake {
   constructor(row, col) {
@@ -84,7 +127,11 @@ class Snake {
       }
     }
 
-    let tail = this.bodyLocations.pop();
+    let ateApple = world.eatAppleAt(newHead);
+    if (!ateApple) {
+      let tail = this.bodyLocations.pop();
+    }
+    
     this.bodyLocations.unshift(newHead);
   }
 
