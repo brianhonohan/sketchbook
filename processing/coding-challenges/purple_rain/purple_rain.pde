@@ -30,6 +30,18 @@ void addRain(){
    }
 }
 
+void mouseDragged(){
+  RainDrop newDrop = new RainDrop(purple.generatePurple());
+  newDrop.setLocation(mouseX, mouseY);
+  drops.add(newDrop);
+}
+
+void keyPressed(){
+  if (key == 'c'){
+    drops = new ArrayList<RainDrop>();
+  }
+}
+
 class RainDrop {
   PVector pos;
   PVector prev;
@@ -41,6 +53,13 @@ class RainDrop {
     prev = new PVector(pos.x, pos.y);
     speed = new PVector(3 + random(2), 3 + random(2));
     myPurple = purple;
+  }
+  
+  void setLocation(int x, int y){
+    pos.x = x;
+    pos.y = y;
+    prev.x = x;
+    prev.y = y;
   }
   
   void tick(){
