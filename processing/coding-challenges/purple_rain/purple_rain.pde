@@ -6,19 +6,21 @@ void setup(){
   size(600,600);
   noStroke();
 
-  numDrops = 10;
+  numDrops = 100;
   drops = new ArrayList<RainDrop>();
   purple = new PurpleGenerator();
   addRain();
 }
 
 void draw(){
-  background(100, 100, 120, 50);
+  fill(color(100, 100, 120, 40));
+  rect(0, 0, width, height);
   
   RainDrop tmpDrop;
   for (int i = 0; i<drops.size(); i++){
     tmpDrop = drops.get(i);
     tmpDrop.draw();
+    tmpDrop.tick();
   }
 }
 
@@ -30,11 +32,20 @@ void addRain(){
 
 class RainDrop {
   PVector pos;
+  PVector speed;
   color myPurple;
   
   RainDrop(color purple){
     pos = new PVector(random(width), random(height));
+    speed = new PVector(3 + random(2), 3 + random(2));
     myPurple = purple;
+  }
+  
+  void tick(){
+    pos.add(speed);
+    
+    if (pos.x > width) { pos.x = 0; }
+    if (pos.y > height) { pos.y = 0 - random(50); }
   }
   
   void draw(){
