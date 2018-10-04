@@ -150,15 +150,12 @@ class InvasionWave {
       console.log("You won!!");
     }
 
-    const rowMoving = this.rows - 1 - (floor(frameCount / this.framesOfMovementPerRow) % this.rows);
-
-    if (bottomRow == rowMoving){
-      const maxMinX = this.getMaxMinX();
-      if (this.direction == 1 && maxMinX[1] > this.maxAllowedX){
-        this.direction = -1;
-      } else if (this.direction == -1 && maxMinX[0] <= this.minAllowedX){
-        this.direction = 1;
-      }
+    const rowMoving = this.rows - 1 - (floor((frameCount -1) / this.framesOfMovementPerRow) % this.rows);
+    const maxMinX = this.getMaxMinX(rowMoving);
+    if (this.direction == 1 && maxMinX[1] >= this.maxAllowedX){
+      this.direction = -1;
+    } else if (this.direction == -1 && maxMinX[0] <= this.minAllowedX){
+      this.direction = 1;
     }
 
     for (var j = 0; j < this.cols; j++) {
@@ -181,10 +178,13 @@ class InvasionWave {
     return tmpBottomRow;
   }
 
-  getMaxMinX(){
+  getMaxMinX(aboveRow){
     let constraints = [width, 0]; // (min, max)
     let tmpInvader;
     for (var i = 0; i < this.rows; i++) {
+      if (i >= aboveRow){
+        break;
+      }
       for (var j = 0; j < this.cols; j++) {
         tmpInvader = this.invaders[i][j];
         if (tmpInvader.state == Invader.STATE_BLOWN_UP) {
