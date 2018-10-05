@@ -170,13 +170,23 @@ class InvasionWave {
     const rowMoving = this.rows - 1 - (floor((frameCount -1) / this.framesOfMovementPerRow) % this.rows);
     const maxMinX = this.getMaxMinX(rowMoving);
     if (this.direction == 1 && maxMinX[1] >= this.maxAllowedX){
+      this.moveAllDown();
       this.direction = -1;
     } else if (this.direction == -1 && maxMinX[0] <= this.minAllowedX){
+      this.moveAllDown();
       this.direction = 1;
     }
 
     for (var j = 0; j < this.cols; j++) {
       this.invaders[rowMoving][j].move(this.direction);
+    }
+  }
+
+  moveAllDown(){
+    for (var i = 0; i < this.rows; i++) {
+      for (var j = 0; j < this.cols; j++) {
+        this.invaders[i][j].moveDown(Invader.height + InvasionWave.rowSpacing);
+      }
     }
   }
 
@@ -237,6 +247,7 @@ class Invader {
   constructor(x, y){
     this.x = x;
     this.y = y;
+    this.updateColor();
     this.state = Invader.STATE_INVADING;
   }
 
@@ -246,17 +257,33 @@ class Invader {
   static get STATE_INVADING()   { return 0; }
   static get STATE_BLOWN_UP()   { return 1; }
 
+  static get colors() {
+    return [
+      color(200,30,200),
+      color(200, 200, 30)
+    ];
+  }
+
   draw(){
     if (this.state == Invader.STATE_BLOWN_UP){
       return;
     }
     rectMode(CORNER);
     noStroke();
-    fill(200,30,200);
+    fill(this.color);
     rect(this.x, this.y, Invader.width, Invader.height);
   }
 
   move(direction){
     this.x += 1 * direction;
+  }
+
+  updateColor(){
+    this.color = lerpColor(Invader.colors[0], Invader.colors[1], this.y / (height - 120));
+  }
+
+  moveDown(deltaY){
+    this.y += deltaY;
+    this.updateColor();
   }
 }
