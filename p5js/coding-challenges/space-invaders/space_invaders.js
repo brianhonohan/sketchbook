@@ -17,7 +17,6 @@ function setup() {
   bullets = [];
   invasionWave = new InvasionWave(5,6);
   world = new World(4);
-  // frameRate(10);
 }
 
 function draw() {
@@ -224,7 +223,7 @@ class InvasionWave {
   }
 
   draw(){  
-    this.debugMaxMinX();
+    // this.debugMaxMinX();
 
     for (var i = 0; i < this.rows; i++) {
       for (var j = 0; j < this.cols; j++) {
@@ -341,8 +340,8 @@ class Invader {
     this.state = Invader.STATE_INVADING;
   }
 
-  static get width()    { return 30; }
-  static get height()   { return 30; }
+  static get width()    { return 25; }
+  static get height()   { return 20; }
 
   static get STATE_INVADING()   { return 0; }
   static get STATE_BLOWN_UP()   { return 1; }
