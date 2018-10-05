@@ -2,6 +2,7 @@ var spaceship;
 var blockSize;
 var bullets;
 var invasionWave;
+var world;
 
 function setup() {
   createCanvas(400, 400);
@@ -10,7 +11,7 @@ function setup() {
   spaceship = new Spaceship();
   bullets = [];
   invasionWave = new InvasionWave(5,6);
-
+  world = new World(4);
   // frameRate(10);
 }
 
@@ -18,7 +19,7 @@ function draw() {
   background(0);
   spaceship.draw();
 
-  let bulletHitInvader;
+  let bulletHit;
   for (var i = 0; i < bullets.length; i++) {
     bullets[i].draw();
     bullets[i].tick();
@@ -28,12 +29,19 @@ function draw() {
       continue;
     }
 
-    bulletHitInvader = invasionWave.collisionTest(bullets[i]);
-    if (bulletHitInvader) {
+    bulletHit = world.collisionTest(bullets[i]);
+    if (bulletHit) {
       bullets.splice(i, 1);
+      continue;
     }
 
+    bulletHit = invasionWave.collisionTest(bullets[i]);
+    if (bulletHit) {
+      bullets.splice(i, 1);
+    }
   }
+
+  world.draw();
 
   invasionWave.draw();
   invasionWave.tick();
@@ -93,6 +101,62 @@ class Bullet {
 
   tick(){
     this.y -= 10;
+  }
+}
+
+class World {
+  constructor(numBases){
+    this.bases = [];
+    this.numBases = numBases;
+    this.initBases();
+  }
+
+  initBases(){
+    const y = spaceship.y - 50 - LandBase.height / 2;
+    let margins = 40;
+    let dynamicSpacing = (width - 2 * margins - 4 * LandBase.width) / (this.numBases - 1);
+    let tmpX;
+
+    for (var i = 0; i < this.numBases; i++) {
+      tmpX = margins + i * (LandBase.width + dynamicSpacing);
+      this.bases.push(new LandBase(tmpX, y));
+    }
+  }
+
+  draw(){
+    for (var i = 0; i < this.numBases; i++) {
+      this.bases[i].draw();
+    }
+  }
+
+  collisionTest(bullet){
+    let tmpBase;
+    for (var i = 0; i < this.numBases; i++) {
+      tmpBase = this.bases[i];
+      
+      if (xyInRect(bullet.x, bullet.y, 
+            tmpBase.x, tmpBase.y, LandBase.width, LandBase.height))
+      {
+        return true;
+      }
+    }
+  }
+}
+
+class LandBase {
+  constructor(x, y){
+    this.x = x;
+    this.y = y;
+  }
+
+  static get width()      { return 40; }
+  static get height()     { return 25; }
+
+
+  draw(){
+    rectMode(CORNER);
+    fill(200,30,30);
+    rect(this.x, this.y, LandBase.width, LandBase.height);
   }
 }
 
