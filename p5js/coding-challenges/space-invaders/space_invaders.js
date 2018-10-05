@@ -53,12 +53,14 @@ function draw() {
 }
 
 function keyPressed() {
-  if (keyCode === RIGHT_ARROW) {
-    spaceship.move(RIGHT_ARROW);
-  } else if (keyCode === LEFT_ARROW) {
-    spaceship.move(LEFT_ARROW);
-  } else if (keyCode === UP_ARROW) {
-    spaceship.fireBullet();
+  if (invasionWave.state == InvasionWave.STATE_INVADING){
+    if (keyCode === RIGHT_ARROW) {
+      spaceship.move(RIGHT_ARROW);
+    } else if (keyCode === LEFT_ARROW) {
+      spaceship.move(LEFT_ARROW);
+    } else if (keyCode === UP_ARROW) {
+      spaceship.fireBullet();
+    }
   }
 }
 
@@ -172,12 +174,18 @@ class InvasionWave {
   constructor(rows, cols){
     this.rows = rows;
     this.cols = cols;
+    this.state = InvasionWave.STATE_INVADING;
+    this.maxInvasionY = height - 130;
 
     this.direction = 1;
     this.framesOfMovementPerRow = 10;
     this.calcBounds();
     this.initInvaders();
   }
+
+  static get STATE_INVADING()   { return 0; }
+  static get STATE_DESTROYED()   { return 1; }
+  static get STATE_INVADED()   { return 2; }
 
   calcBounds(){
     const range = width - InvasionWave.colSpacing; 
@@ -236,7 +244,17 @@ class InvasionWave {
     let bottomRow = this.bottomRowStillInvading();
 
     if (bottomRow == -1) {
-      console.log("You won!!");
+      this.state = InvasionWave.STATE_DESTROYED;
+      console.log("You won!");
+    }
+
+    if (this.invaders[bottomRow][0].y >= this.maxInvasionY){
+      this.state = InvasionWave.STATE_INVADED;
+      console.log("You lose!");
+    }
+
+    if (this.state != InvasionWave.STATE_INVADING){
+      return;
     }
 
     const rowMoving = this.rows - 1 - (floor((frameCount -1) / this.framesOfMovementPerRow) % this.rows);
