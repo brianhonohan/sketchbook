@@ -1,13 +1,16 @@
 var spaceship;
 var blockSize;
 var bullets;
+var missles;
 var invasionWave;
 var world;
 
 // Difficulty Settings
 var allowedBullets = 1;
+var allowedMissles = 1;
 var invaderSpeed = 2;
 var bulletSpeed = 5;
+var missleSpeed = 3;
 
 function setup() {
   createCanvas(400, 400);
@@ -15,6 +18,7 @@ function setup() {
 
   spaceship = new Spaceship();
   bullets = [];
+  missles = [];
   invasionWave = new InvasionWave(5,6);
   world = new World(4);
 }
@@ -45,6 +49,22 @@ function draw() {
     }
   }
 
+  let missleHit;
+  for (var i = 0; i < missles.length; i++) {
+    missles[i].draw();
+    missles[i].tick();
+
+    if (missles[i].y > height){
+      missles.splice(i, 1);
+      continue;
+    }
+
+    missleHit = spaceship.collisionTest(missles[i]);
+    if (missleHit) {
+      missles.splice(i, 1);
+    }
+  }
+
   world.draw();
 
   invasionWave.draw();
@@ -72,12 +92,14 @@ class Spaceship {
   constructor(){
     this.x = width/2;
     this.y = height - 40;
+    this.width = 30;
+    this.height = 10;
   }
 
   draw(){
     rectMode(CENTER);
     fill(30,200,230);
-    rect(this.x, this.y, 30, 10);
+    rect(this.x, this.y, this.width, this.height);
   }
 
   move(direction){
@@ -93,6 +115,16 @@ class Spaceship {
       return;
     }
     bullets.push(new Bullet(this.x, this.y - 10));
+  }
+
+  collisionTest(missle){
+    let hit = xyInRect(missle.x, missle.y, 
+            this.x - this.width/2, this.y - this.height/2, 
+            this.width, this.height);
+    if (hit) {
+      console.log("hit");
+    }
+    return hit;
   }
 }
 
@@ -110,6 +142,23 @@ class Bullet {
 
   tick(){
     this.y -= bulletSpeed;
+  }
+}
+
+class Missle {
+  constructor(x, y){
+    this.x = x;
+    this.y = y;
+  }
+
+  draw(){
+    rectMode(CENTER);
+    fill(30,200,30);
+    rect(this.x, this.y, 5, 10);
+  }
+
+  tick(){
+    this.y += missleSpeed;
   }
 }
 
@@ -268,6 +317,10 @@ class InvasionWave {
 
     for (var j = 0; j < this.cols; j++) {
       this.invaders[rowMoving][j].move(this.direction);
+
+      if (frameCount % 7 == 0 && missles.length < allowedMissles) {
+        missles.push(new Missle(this.invaders[rowMoving][j].x, this.invaders[rowMoving][j].y));
+      }
     }
   }
 
