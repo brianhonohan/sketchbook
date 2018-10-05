@@ -59,6 +59,12 @@ function draw() {
       continue;
     }
 
+    missleHit = world.collisionTest(missles[i]);
+    if (missleHit) {
+      missles.splice(i, 1);
+      continue;
+    }
+
     missleHit = spaceship.collisionTest(missles[i]);
     if (missleHit) {
       missles.splice(i, 1);
@@ -183,6 +189,9 @@ class World {
 
   draw(){
     for (var i = 0; i < this.numBases; i++) {
+      if (this.bases[i].health <= 0){
+        continue;
+      }
       this.bases[i].draw();
     }
   }
@@ -191,10 +200,14 @@ class World {
     let tmpBase;
     for (var i = 0; i < this.numBases; i++) {
       tmpBase = this.bases[i];
+      if (tmpBase.health <= 0){
+        continue;
+      }
       
       if (xyInRect(bullet.x, bullet.y, 
             tmpBase.x, tmpBase.y, LandBase.width, LandBase.height))
       {
+        tmpBase.getHit();
         return true;
       }
     }
@@ -205,16 +218,33 @@ class LandBase {
   constructor(x, y){
     this.x = x;
     this.y = y;
+    this.health = 100;
+    this.updateColor();
   }
 
   static get width()      { return 40; }
   static get height()     { return 25; }
 
+  static get colors() {
+    return [
+      color(200,30,30),
+      color(0, 0, 0)
+    ];
+  }
 
   draw(){
     rectMode(CORNER);
-    fill(200,30,30);
+    fill(this.color);
     rect(this.x, this.y, LandBase.width, LandBase.height);
+  }
+
+  updateColor(){
+    this.color = lerpColor(LandBase.colors[1], LandBase.colors[0], this.health / 100);
+  }
+
+  getHit(){
+    this.health -= 25;
+    this.updateColor();
   }
 }
 
