@@ -4,6 +4,7 @@ var bullets;
 var allowedBullets = 1;
 var invasionWave;
 var world;
+var invaderSpeed = 2;
 
 function setup() {
   createCanvas(400, 400);
@@ -178,8 +179,8 @@ class InvasionWave {
   calcBounds(){
     const range = width - InvasionWave.colSpacing; 
     const numPotentialCols = floor(range / this.totalColumnWidth());
-    this.minAllowedX = InvasionWave.colSpacing + this.framesOfMovementPerRow;
-    this.maxAllowedX = this.minAllowedX + numPotentialCols * this.totalColumnWidth() - this.framesOfMovementPerRow;
+    this.minAllowedX = InvasionWave.colSpacing + this.framesOfMovementPerRow * invaderSpeed;
+    this.maxAllowedX = this.minAllowedX + numPotentialCols * this.totalColumnWidth() - this.framesOfMovementPerRow * invaderSpeed;
   }
 
   totalColumnWidth(){
@@ -343,7 +344,7 @@ class Invader {
   }
 
   move(direction){
-    this.x += 1 * direction;
+    this.x += 1 * direction * invaderSpeed;
   }
 
   updateColor(){
