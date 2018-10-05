@@ -1,10 +1,13 @@
 var spaceship;
 var blockSize;
 var bullets;
-var allowedBullets = 1;
 var invasionWave;
 var world;
+
+// Difficulty Settings
+var allowedBullets = 1;
 var invaderSpeed = 2;
+var bulletSpeed = 5;
 
 function setup() {
   createCanvas(400, 400);
@@ -105,7 +108,7 @@ class Bullet {
   }
 
   tick(){
-    this.y -= 10;
+    this.y -= bulletSpeed;
   }
 }
 
