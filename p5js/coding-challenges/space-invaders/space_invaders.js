@@ -324,14 +324,12 @@ class InvasionWave {
     if (bottomRow == -1) {
       this.state = InvasionWave.STATE_DESTROYED;
       console.log("You won!");
+      return;
     }
 
     if (this.invaders[bottomRow][0].y >= this.maxInvasionY){
       this.state = InvasionWave.STATE_INVADED;
       console.log("You lose!");
-    }
-
-    if (this.state != InvasionWave.STATE_INVADING){
       return;
     }
 
