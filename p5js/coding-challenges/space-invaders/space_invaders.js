@@ -18,13 +18,25 @@ function draw() {
   background(0);
   spaceship.draw();
 
+  let bulletHitInvader;
   for (var i = 0; i < bullets.length; i++) {
     bullets[i].draw();
     bullets[i].tick();
+
+    if (bullets[i].y < 0){
+      bullets.splice(i, 1);
+      continue;
+    }
+
+    bulletHitInvader = invasionWave.collisionTest(bullets[i]);
+    if (bulletHitInvader) {
+      bullets.splice(i, 1);
+    }
+
   }
 
-  invasionWave.tick();
   invasionWave.draw();
+  invasionWave.tick();
 }
 
 function keyPressed() {
@@ -35,6 +47,11 @@ function keyPressed() {
   } else if (keyCode === UP_ARROW) {
     spaceship.fireBullet();
   }
+}
+
+function xyInRect(x, y, rectX, rectY, rectWidth, rectHeight){
+  return (rectX <= x && x <= (rectX + rectWidth)) &&
+         (rectY <= y && y <= (rectY + rectHeight));
 }
 
 class Spaceship { 
@@ -160,6 +177,24 @@ class InvasionWave {
 
     for (var j = 0; j < this.cols; j++) {
       this.invaders[rowMoving][j].move(this.direction);
+    }
+  }
+
+  collisionTest(bullet){
+    let tmpInvader;
+    for (var i = 0; i < this.rows; i++) {
+      for (var j = 0; j < this.cols; j++) {
+        tmpInvader = this.invaders[i][j];
+        if (tmpInvader.state == Invader.STATE_BLOWN_UP) {
+          continue;
+        }
+        if (xyInRect(bullet.x, bullet.y, 
+              tmpInvader.x, tmpInvader.y, Invader.width, Invader.height))
+        {
+          tmpInvader.state = Invader.STATE_BLOWN_UP;
+          return true;
+        }
+      }
     }
   }
 
