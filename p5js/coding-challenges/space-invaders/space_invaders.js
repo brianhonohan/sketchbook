@@ -1,6 +1,7 @@
 var spaceship;
 var blockSize;
 var bullets;
+var allowedBullets = 1;
 var invasionWave;
 var world;
 
@@ -83,6 +84,9 @@ class Spaceship {
   }
 
   fireBullet(){
+    if (bullets.length >= allowedBullets){
+      return;
+    }
     bullets.push(new Bullet(this.x, this.y - 10));
   }
 }
