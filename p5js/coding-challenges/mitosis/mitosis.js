@@ -181,20 +181,28 @@ class Cell {
   }
 
   debugDrawDivisionAxis(){
-    stroke(0, 255, 0);
+    stroke(50, 200, 50);
     line(this.x, this.y, this.x + this.axisOfSpindles.x, this.y + this.axisOfSpindles.y);
 
-    stroke(255, 0, 0);
+    stroke(180, 70, 70);
     line(this.x, this.y, this.x - this.axisOfSpindles.x, this.y - this.axisOfSpindles.y);
+
+    let ortho = this.axisOfSpindles.copy();
+    ortho.rotate(PI / 2);
+
+    stroke(50, 50, 200);
+    line(this.x, this.y, this.x + ortho.x, this.y + ortho.y);
   }
 
   tickTelophase(){
     // Do Prophase stuff here
+    this.debugDrawDivisionAxis();
     this.nucleusDefinition = this.offsetInCycle / this.durationPerCycle;
   }
 
   tickCytokinesis(){
     // Do Prophase stuff here
+    this.debugDrawDivisionAxis();
 
     if (this.offsetInCycle == 0){
       let firstPoint = this.findMembraneSegmentOrthogonalToDivsion();
