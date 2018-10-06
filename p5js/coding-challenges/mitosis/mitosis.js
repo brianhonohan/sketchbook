@@ -175,6 +175,13 @@ class Cell {
   tickInterphase(){ 
     // Do Interphase stuff here
 
+    if (this.offsetInCycle <= 4){
+      // 4 above is a hack, 
+      // hiding a bug that some cells appear to skip the 
+      // case when this.offsetInCycle == 0
+      this.growMembrane();
+    }
+
     if ((this.offsetInCycle % this.durationPerCycle) == 50) {
       // Copy the Centrosome during an approximation of the S-Cycle
       // https://en.wikipedia.org/wiki/Centrosome#Functions
@@ -183,6 +190,27 @@ class Cell {
 
     if (this.offsetInCycle == (this.durationPerCycle - 1)){
       this.speed = null;
+    }
+  }
+
+  growMembrane(){
+    if (this.membrane.length >= 30) {
+      return;
+    }
+
+    // naive approach,
+    // ... determine N to add
+    // ... then insert a new segment between first existing N segments
+    let numSegmentsToAdd = 30 - this.membrane.length;
+    for (var i = 0; i < numSegmentsToAdd; i++){
+      let idxA = (2*i) % this.membrane.length;
+      let idxB = (2*i + 1) % this.membrane.length;
+      let tmpSegmentA = this.membrane[idxA];
+      let tmpSegmentB = this.membrane[idxB];
+      let abMidPoint = p5.Vector.lerp(tmpSegmentA.pos, tmpSegmentB.pos, 0.5);
+      
+      let tmpSegment = new CellMembraneSegment(abMidPoint.x, abMidPoint.y);
+      this.membrane.splice(idxB, 0, tmpSegment);
     }
   }
 
