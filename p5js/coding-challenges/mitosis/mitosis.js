@@ -13,13 +13,35 @@ function draw(){
   cell.tick();
 }
 
+class CellCycle {
+  static get INTERPHASE()  { return 0; }
+  // static get PREPROPHASE() { return 1; } // Only in Plant Cells
+  static get PROPHASE()  { return 1; }
+  static get PROMETAPHASE()  { return 2; }
+  static get ANAPHASE()  { return 3; }
+  static get TELOPHASE()  { return 4; }
+  static get CYTOKINESIS()  { return 5; } 
+
+  static get STATES(){
+    return [
+      {id: CellCycle.INTERPHASE, name: 'Interphase', next: CellCycle.PROPHASE},
+      {id: CellCycle.PROPHASE, name: 'Prophase', next: CellCycle.PROMETAPHASE},
+      {id: CellCycle.PROMETAPHASE, name: 'Prometaphase', next: CellCycle.ANAPHASE},
+      {id: CellCycle.ANAPHASE, name: 'Anaphase', next: CellCycle.TELOPHASE},
+      {id: CellCycle.TELOPHASE, name: 'Telophase', next: CellCycle.CYTOKINESIS},
+      {id: CellCycle.CYTOKINESIS, name: 'Cytokinesis', next: CellCycle.INTERPHASE}
+    ];
+  }
+}
 
 class Cell {
   constructor(x, y) {
     this.pos = createVector(x, y);
     this.size = 150;
+    this.state = CellCycle.INTERPHASE;
     this.initMembrane();
     this.fluidity = 0.05;
+    this.lifeCount = 0;
   }
 
   get x(){ return this.pos.x; }
@@ -41,6 +63,11 @@ class Cell {
   }
 
   tick(){
+    this.lifeCount++;
+    if (this.lifeCount % 200 == 0){
+      this.triggerLifecyle();
+    }
+
     for (var i = 0; i < this.membrane.length; i++){
       this.membrane[i].tick();
     }
@@ -64,6 +91,12 @@ class Cell {
     stroke(120,90,50);
     strokeWeight(5);
     ellipse(this.x, this.y, 50, 50);
+  }
+
+  triggerLifecyle(){
+    this.state = CellCycle.STATES[this.state].next;
+    console.log("Starting: " + CellCycle.STATES[this.state].name);
+    this.phaseStartedAt = this.lifeCount;
   }
 }
 
