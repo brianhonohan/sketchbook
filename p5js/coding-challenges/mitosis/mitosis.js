@@ -167,6 +167,13 @@ class Cell {
 
     this.furrowPointA.pos.x -= cleavageVectorBtoA.x;
     this.furrowPointA.pos.y -= cleavageVectorBtoA.y;
+
+    if (this.offsetInCycle == (this.durationPerCycle - 1)){
+      this.furrowPointA.stopCleaving();
+      this.furrowPointB.stopCleaving();
+      this.furrowPointA = null;
+      this.furrowPointB = null;
+    }
   }
 
   triggerLifecyle(){
