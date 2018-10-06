@@ -48,6 +48,8 @@ class Cell {
     this.offsetInCycle = 0;
 
     this.nucleusDefinition = 1;
+    this.furrowPointA = null;
+    this.furrowPointB = null;
   }
 
   get x(){ return this.pos.x; }
@@ -146,6 +148,23 @@ class Cell {
 
   tickCytokinesis(){
     // Do Prophase stuff here
+
+    if (this.offsetInCycle == 0){
+      let firstPoint = floor(random(this.membrane.length));
+      let secondPoint = (firstPoint + floor(this.membrane.length/2)) % this.membrane.length;
+      this.furrowPointA = this.membrane[firstPoint];
+      this.furrowPointB = this.membrane[secondPoint];
+      this.furrowPointA.startCleaving();
+      this.furrowPointB.startCleaving();
+    }
+    let cleavageVectorBtoA = createVector(this.furrowPointA.x - this.furrowPointB.x,
+                                      this.furrowPointA.y - this.furrowPointB.y);
+    cleavageVectorBtoA.setMag( 0.5 * cleavageVectorBtoA.mag() / this.durationPerCycle );
+    this.furrowPointB.pos.x += cleavageVectorBtoA.x;
+    this.furrowPointB.pos.y += cleavageVectorBtoA.y;
+
+    this.furrowPointA.pos.x -= cleavageVectorBtoA.x;
+    this.furrowPointA.pos.y -= cleavageVectorBtoA.y;
   }
 
   triggerLifecyle(){
@@ -160,12 +179,18 @@ class CellMembraneSegment {
     this.pos = createVector(x, y);
     this.accel = createVector(0, 0);
     this.speed = createVector(0, 0);
+
+    this.isFurrowPoint = false
   }
 
   get x(){ return this.pos.x; }
   get y(){ return this.pos.y; }
 
   tick(){
+    if (this.isFurrowPoint) {
+      return;
+    }
+
     this.accel.x = cell.fluidity * (randomGaussian(0, 1)) + (0 - this.speed.x) / 2;
     this.accel.y = cell.fluidity * (randomGaussian(0, 1)) + (0 - this.speed.y) / 2;
 
@@ -174,5 +199,15 @@ class CellMembraneSegment {
 
     this.pos.x += this.speed.x;
     this.pos.y += this.speed.y;
+  }
+
+  startCleaving(){
+    this.isFurrowPoint = true;
+    this.accel.setMag(0);
+    this.speed.setMag(0);
+  }
+
+  stopCleaving(){
+    this.isFurrowPoint = false;
   }
 }
