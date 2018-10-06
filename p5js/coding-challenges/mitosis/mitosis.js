@@ -107,6 +107,30 @@ class Cell {
     }
   }
 
+  setMembraneTargets(){
+    if (this.speed == undefined){
+      return;
+    }
+
+    let thetaStep = TWO_PI / this.membrane.length;
+    let tmpSegment;
+    let firstSegment = this.membrane[0];
+    let thetaOffset = p5.Vector.sub(firstSegment.pos, this.pos).heading();
+
+    // anticipated location
+    // this will be where the Cell ends up after 1-cycle of movement
+    // so add the speed * cycleCount to the current pos
+    let restingLoc = p5.Vector.add(this.pos, 
+                                p5.Vector.mult(this.speed, this.durationPerCycle));
+
+    for (var i = 0; i < this.membrane.length; i++){
+      let tmpPoint = createVector(0, 0);
+      tmpPoint.x = restingLoc.x + cos(thetaOffset + thetaStep*i) * this.size/2;
+      tmpPoint.y = restingLoc.y + sin(thetaOffset + thetaStep*i) * this.size/2; 
+      this.membrane[i].setTarget(tmpPoint);
+    }
+  }
+
   tick(){
     this.lifeCount++;
     if (this.lifeCount % this.durationPerCycle == 0){
@@ -175,11 +199,12 @@ class Cell {
   tickInterphase(){ 
     // Do Interphase stuff here
 
-    if (this.offsetInCycle <= 4){
-      // 4 above is a hack, 
+    if (this.offsetInCycle == 2){
+      // 2 above is a hack, 
       // hiding a bug that some cells appear to skip the 
       // case when this.offsetInCycle == 0
       this.growMembrane();
+      this.setMembraneTargets();
     }
 
     if ((this.offsetInCycle % this.durationPerCycle) == 50) {
@@ -397,24 +422,46 @@ class CellMembraneSegment {
 
     this.cellFluidity = 0.05;
     this.isFurrowPoint = false;
+
+    this.targetPos = undefined;
   }
 
   get x(){ return this.pos.x; }
   get y(){ return this.pos.y; }
 
+  setTarget(target){
+    this.targetPos = target;
+  }
+
+  clearTarget(){
+    this.targetPos = undefined;
+  }
+
   tick(){
     if (this.isFurrowPoint) {
       return;
     }
+    if (this.targetPos) {
+      let curDistToTarget = this.pos.dist(this.targetPos);
 
-    this.accel.x = this.cellFluidity * (randomGaussian(0, 1)) + (0 - this.speed.x) / 2;
-    this.accel.y = this.cellFluidity * (randomGaussian(0, 1)) + (0 - this.speed.y) / 2;
+      if (curDistToTarget < 5){
+        this.pos.x = this.targetPos.x;
+        this.pos.y = this.targetPos.y;
+        this.clearTarget();
+      }else{
+        this.pos = p5.Vector.lerp(this.pos, this.targetPos, 1 / (1.2 * 200));
+      }
 
-    this.speed.x += this.accel.x;
-    this.speed.y += this.accel.y;
+    }else {
+      this.accel.x = this.cellFluidity * (randomGaussian(0, 1)) + (0 - this.speed.x) / 2;
+      this.accel.y = this.cellFluidity * (randomGaussian(0, 1)) + (0 - this.speed.y) / 2;
+      
+      this.speed.x += this.accel.x;
+      this.speed.y += this.accel.y;
 
-    this.pos.x += this.speed.x;
-    this.pos.y += this.speed.y;
+      this.pos.x += this.speed.x;
+      this.pos.y += this.speed.y;
+    }
   }
 
   startCleaving(){
