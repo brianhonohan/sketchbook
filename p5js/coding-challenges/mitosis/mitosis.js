@@ -41,8 +41,13 @@ class Cell {
     this.state = CellCycle.INTERPHASE;
     this.initMembrane();
     this.fluidity = 0.05;
+
     this.lifeCount = 0;
+    this.phaseStartedAt = 0;
     this.durationPerCycle = 200;
+    this.offsetInCycle = 0;
+
+    this.nucleusDefinition = 1;
   }
 
   get x(){ return this.pos.x; }
@@ -68,9 +73,32 @@ class Cell {
     if (this.lifeCount % this.durationPerCycle == 0){
       this.triggerLifecyle();
     }
+    this.offsetInCycle = this.lifeCount - this.phaseStartedAt;
 
     for (var i = 0; i < this.membrane.length; i++){
       this.membrane[i].tick();
+    }
+
+    // This could probably be called based on Cycle Name
+    switch (this.state) {
+      case CellCycle.INTERPHASE: 
+        this.tickInterphase();
+        break;
+      case CellCycle.PROPHASE:
+        this.tickProphase();
+        break;
+      case CellCycle.PROMETAPHASE:
+        this.tickPrometaphase();
+        break;
+      case CellCycle.ANAPHASE:
+        this.tickAnaphase();
+        break;
+      case CellCycle.TELOPHASE:
+        this.tickTelophase();
+        break;
+      case CellCycle.CYTOKINESIS:
+        this.tickCytokinesis();
+        break;
     }
   }
 
@@ -88,23 +116,36 @@ class Cell {
   }
 
   drawNucleus(){
-    let alpha = 255 * this.nucleusDefinition();
+    let alpha = 255 * this.nucleusDefinition;
     fill(220, 190, 160, alpha);
     stroke(120,90,50, alpha);
     strokeWeight(5);
     ellipse(this.x, this.y, 50, 50);
   }
 
-  nucleusDefinition(){
-    let offsetInCycle = this.lifeCount - this.phaseStartedAt;
-    switch (this.state) {
-      case CellCycle.INTERPHASE: return 1.0;
-      case CellCycle.PROPHASE: return 1.0;
-      case CellCycle.PROMETAPHASE: return 1 - offsetInCycle / this.durationPerCycle;
-      case CellCycle.ANAPHASE: return 0;
-      case CellCycle.TELOPHASE: return offsetInCycle / this.durationPerCycle;
-      case CellCycle.CYTOKINESIS: return 1;
-    }
+  tickInterphase(){ 
+    // Do Interphase stuff here
+  }
+
+  tickProphase(){ 
+    // Do Prophase stuff here
+  }
+
+  tickPrometaphase(){
+    // Do Prometaphase stuff here
+    this.nucleusDefinition = 1 - this.offsetInCycle / this.durationPerCycle;
+  }
+  tickAnaphase(){
+    // Do Anaphase stuff here
+  }
+
+  tickTelophase(){
+    // Do Prophase stuff here
+    this.nucleusDefinition = this.offsetInCycle / this.durationPerCycle;
+  }
+
+  tickCytokinesis(){
+    // Do Prophase stuff here
   }
 
   triggerLifecyle(){
