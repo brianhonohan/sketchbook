@@ -51,7 +51,7 @@ class CellCycle {
 }
 
 class Cell {
-  constructor(x, y, membrane, nucleus) {
+  constructor(x, y, membrane, nucleus, speed) {
     this.pos = createVector(x, y);
     this.size = 150;
 
@@ -66,6 +66,12 @@ class Cell {
       this.initMembrane();
     }else {
       this.membrane = membrane;
+    }
+
+    if (speed == undefined){
+      this.speed = null;
+    }else {
+      this.speed = speed;
     }
 
     this.lifeCount = 0;
@@ -110,6 +116,14 @@ class Cell {
 
     for (var i = 0; i < this.membrane.length; i++){
       this.membrane[i].tick();
+    }
+
+    if (this.speed != null){
+      this.pos.add(this.speed);
+      for (var i = 0; i < this.membrane.length; i++){
+        this.membrane[i].pos.add(this.speed);
+      }
+      this.nucleus.pos.add(this.speed);
     }
 
     // This could probably be called based on Cycle Name
@@ -165,6 +179,10 @@ class Cell {
       // Copy the Centrosome during an approximation of the S-Cycle
       // https://en.wikipedia.org/wiki/Centrosome#Functions
       this.centrosomeB = new Centrosome();
+    }
+
+    if (this.offsetInCycle == (this.durationPerCycle - 1)){
+      this.speed = null;
     }
   }
 
@@ -268,8 +286,16 @@ class Cell {
         let segsFromStartTo2nd = this.membrane.splice(0, this.secondFurrowIdx + 1);
         splicedMembrane = segmentsToEnd.concat(segsFromStartTo2nd);
       }
+
+      this.speed = createVector(this.axisOfSpindles.x, this.axisOfSpindles.y);
+      this.speed.normalize();
+      this.speed.setMag( 70 / this.durationPerCycle );
+
+      let separationSpeed = p5.Vector.mult(this.speed, -1);
       let newCell = new Cell(this.centrosomeB.x, this.centrosomeB.y, 
-                              splicedMembrane, this.daughterNucleus);
+                              splicedMembrane, this.daughterNucleus,
+                              separationSpeed
+                              );
       cells.push(newCell);
       this.daughterNucleus = null;
       this.pos.x = this.nucleus.x;
