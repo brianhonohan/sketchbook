@@ -12,7 +12,10 @@ function draw(){
 
   for(var i = 0; i < cells.length; i++){
     cells[i].draw();
-    cells[i].tick();
+
+    if (cells.length < 32) {
+      cells[i].tick();
+    }
   }
 
   displayPhase(cells[0]);
