@@ -40,10 +40,15 @@ class CellCycle {
 }
 
 class Cell {
-  constructor(x, y, membrane) {
+  constructor(x, y, membrane, nucleus) {
     this.pos = createVector(x, y);
     this.size = 150;
-    this.nucleusSize = 50;
+
+    if (nucleus == undefined) {
+      this.nucleus = new Nucleus(this.x, this.y, 50, 1);
+    }else{
+      this.nucleus = nucleus;
+    }
     this.state = CellCycle.INTERPHASE;
 
     if (membrane == undefined) {
@@ -57,13 +62,13 @@ class Cell {
     this.durationPerCycle = 200;
     this.offsetInCycle = 0;
 
-    this.nucleusDefinition = 1;
     this.furrowPointA = null;
     this.furrowPointB = null;
 
     this.centrosomeA = new Centrosome(this.pos.x + random(1.5 * this.nucleusSize),
                                      this.pos.y + random(1.5 * this.nucleusSize));
     this.centrosomeB = null;
+    this.daughterNucleus = null;
     this.axisOfSpindles = null;
   }
 
@@ -132,15 +137,14 @@ class Cell {
     }
     endShape(CLOSE);
 
-    this.drawNucleus();
+    this.drawNuclei();
   }
 
-  drawNucleus(){
-    let alpha = 255 * this.nucleusDefinition;
-    fill(220, 190, 160, alpha);
-    stroke(120,90,50, alpha);
-    strokeWeight(5);
-    ellipse(this.x, this.y, this.nucleusSize, this.nucleusSize);
+  drawNuclei(){
+    this.nucleus.draw();
+    if (this.daughterNucleus){
+      this.daughterNucleus.draw();
+    }
   }
 
   tickInterphase(){ 
@@ -159,7 +163,7 @@ class Cell {
 
   tickPrometaphase(){
     // Do Prometaphase stuff here
-    this.nucleusDefinition = 1 - this.offsetInCycle / this.durationPerCycle;
+    this.nucleus.membraneDef = 1 - this.offsetInCycle / this.durationPerCycle;
   }
 
   tickMetaphase(){
@@ -170,7 +174,7 @@ class Cell {
       // and the centrosomes would have moved to these poles
       // ... for now, jump them to these locations
 
-      this.axisOfSpindles = createVector(0.8 * this.size / 2, 0);
+      this.axisOfSpindles = createVector(0.5 * this.size / 2, 0);
       this.axisOfSpindles.rotate(random(0, TWO_PI));
       this.centrosomeA.pos.x = this.x + this.axisOfSpindles.x;
       this.centrosomeA.pos.y = this.y + this.axisOfSpindles.y;
@@ -202,7 +206,17 @@ class Cell {
   tickTelophase(){
     // Do Prophase stuff here
     this.debugDrawDivisionAxis();
-    this.nucleusDefinition = this.offsetInCycle / this.durationPerCycle;
+
+    if (this.offsetInCycle == 0){
+      this.nucleus.size /= 2;
+      this.nucleus.pos.x = this.centrosomeA.x;
+      this.nucleus.pos.y = this.centrosomeA.y;
+
+      this.daughterNucleus = new Nucleus(this.centrosomeB.x, this.centrosomeB.y, 
+                                          this.nucleus.size, 0);
+    }
+    this.nucleus.membraneDef = this.offsetInCycle / this.durationPerCycle;
+    this.daughterNucleus.membraneDef = this.nucleus.membraneDef;
   }
 
   tickCytokinesis(){
@@ -240,14 +254,12 @@ class Cell {
         let segsFromStartTo2nd = this.membrane.splice(0, this.secondFurrowIdx + 1);
         splicedMembrane = segmentsToEnd.concat(segsFromStartTo2nd);
       }
-      let newCell = new Cell(this.centrosomeB.x, this.centrosomeB.y, splicedMembrane);
-      newCell.nucleusSize /= 2;
+      let newCell = new Cell(this.centrosomeB.x, this.centrosomeB.y, 
+                              splicedMembrane, this.daughterNucleus);
       cells.push(newCell);
-
-      this.nucleusSize /= 2;
-      this.pos.x = this.centrosomeA.x;
-      this.pos.y = this.centrosomeA.y;
-
+      this.daughterNucleus = null;
+      this.pos.x = this.nucleus.x;
+      this.pos.y = this.nucleus.y;
       console.log("THIS membrane: " + this.membrane.length);
     }
   }
@@ -278,6 +290,25 @@ class Cell {
     this.state = CellCycle.STATES[this.state].next;
     console.log("Starting: " + CellCycle.STATES[this.state].name);
     this.phaseStartedAt = this.lifeCount;
+  }
+}
+
+class Nucleus {
+  constructor(x, y, size, membraneDef) {
+    this.pos = createVector(x, y);
+    this.size = size;
+    this.membraneDef = membraneDef;
+  }
+
+  get x(){ return this.pos.x; }
+  get y(){ return this.pos.y; }
+
+  draw(){
+    let alpha = 255 * this.membraneDef;
+    fill(220, 190, 160, alpha);
+    stroke(120,90,50, alpha);
+    strokeWeight(5);
+    ellipse(this.x, this.y, this.size, this.size);
   }
 }
 
