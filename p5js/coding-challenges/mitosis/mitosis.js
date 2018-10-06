@@ -42,6 +42,7 @@ class Cell {
     this.initMembrane();
     this.fluidity = 0.05;
     this.lifeCount = 0;
+    this.durationPerCycle = 200;
   }
 
   get x(){ return this.pos.x; }
@@ -64,7 +65,7 @@ class Cell {
 
   tick(){
     this.lifeCount++;
-    if (this.lifeCount % 200 == 0){
+    if (this.lifeCount % this.durationPerCycle == 0){
       this.triggerLifecyle();
     }
 
@@ -87,10 +88,23 @@ class Cell {
   }
 
   drawNucleus(){
-    fill(220, 190, 160);
-    stroke(120,90,50);
+    let alpha = 255 * this.nucleusDefinition();
+    fill(220, 190, 160, alpha);
+    stroke(120,90,50, alpha);
     strokeWeight(5);
     ellipse(this.x, this.y, 50, 50);
+  }
+
+  nucleusDefinition(){
+    let offsetInCycle = this.lifeCount - this.phaseStartedAt;
+    switch (this.state) {
+      case CellCycle.INTERPHASE: return 1.0;
+      case CellCycle.PROPHASE: return 1.0;
+      case CellCycle.PROMETAPHASE: return 1 - offsetInCycle / this.durationPerCycle;
+      case CellCycle.ANAPHASE: return 0;
+      case CellCycle.TELOPHASE: return offsetInCycle / this.durationPerCycle;
+      case CellCycle.CYTOKINESIS: return 1;
+    }
   }
 
   triggerLifecyle(){
