@@ -10,6 +10,7 @@ function draw(){
   background(50);
 
   cell.draw();
+  cell.tick();
 }
 
 
@@ -18,6 +19,7 @@ class Cell {
     this.pos = createVector(x, y);
     this.size = 150;
     this.initMembrane();
+    this.fluidity = 0.05;
   }
 
   get x(){ return this.pos.x; }
@@ -38,6 +40,12 @@ class Cell {
     }
   }
 
+  tick(){
+    for (var i = 0; i < this.membrane.length; i++){
+      this.membrane[i].tick();
+    }
+  }
+
   draw(){
     fill(160, 180, 250);
     stroke(40,100,120);
@@ -53,8 +61,21 @@ class Cell {
 class CellMembraneSegment {
   constructor(x, y) {
     this.pos = createVector(x, y);
+    this.accel = createVector(0, 0);
+    this.speed = createVector(0, 0);
   }
 
   get x(){ return this.pos.x; }
   get y(){ return this.pos.y; }
+
+  tick(){
+    this.accel.x = cell.fluidity * (randomGaussian(0, 1)) + (0 - this.speed.x) / 2;
+    this.accel.y = cell.fluidity * (randomGaussian(0, 1)) + (0 - this.speed.y) / 2;
+
+    this.speed.x += this.accel.x;
+    this.speed.y += this.accel.y;
+
+    this.pos.x += this.speed.x;
+    this.pos.y += this.speed.y;
+  }
 }
