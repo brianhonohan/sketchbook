@@ -21,15 +21,17 @@ class CellCycle {
   // static get PREPROPHASE() { return 1; } // Only in Plant Cells
   static get PROPHASE()  { return 1; }
   static get PROMETAPHASE()  { return 2; }
-  static get ANAPHASE()  { return 3; }
-  static get TELOPHASE()  { return 4; }
-  static get CYTOKINESIS()  { return 5; } 
+  static get METAPHASE()  { return 3; }
+  static get ANAPHASE()  { return 4; }
+  static get TELOPHASE()  { return 5; }
+  static get CYTOKINESIS()  { return 6; } 
 
   static get STATES(){
     return [
       {id: CellCycle.INTERPHASE, name: 'Interphase', next: CellCycle.PROPHASE},
       {id: CellCycle.PROPHASE, name: 'Prophase', next: CellCycle.PROMETAPHASE},
-      {id: CellCycle.PROMETAPHASE, name: 'Prometaphase', next: CellCycle.ANAPHASE},
+      {id: CellCycle.PROMETAPHASE, name: 'Prometaphase', next: CellCycle.METAPHASE},
+      {id: CellCycle.METAPHASE, name: 'Prometaphase', next: CellCycle.ANAPHASE},
       {id: CellCycle.ANAPHASE, name: 'Anaphase', next: CellCycle.TELOPHASE},
       {id: CellCycle.TELOPHASE, name: 'Telophase', next: CellCycle.CYTOKINESIS},
       {id: CellCycle.CYTOKINESIS, name: 'Cytokinesis', next: CellCycle.INTERPHASE}
@@ -94,6 +96,9 @@ class Cell {
       case CellCycle.PROMETAPHASE:
         this.tickPrometaphase();
         break;
+      case CellCycle.METAPHASE:
+        this.tickMetaphase();
+        break;
       case CellCycle.ANAPHASE:
         this.tickAnaphase();
         break;
@@ -139,6 +144,11 @@ class Cell {
     // Do Prometaphase stuff here
     this.nucleusDefinition = 1 - this.offsetInCycle / this.durationPerCycle;
   }
+
+  tickMetaphase(){
+    // Do Metaphase stuff here
+  }
+
   tickAnaphase(){
     // Do Anaphase stuff here
   }
