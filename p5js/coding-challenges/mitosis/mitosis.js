@@ -1,16 +1,19 @@
-var cell;
+var cells;
 
 function setup(){
   createCanvas(windowWidth, windowHeight-45);
 
-  cell = new Cell(width/2, height/2);
+  cells = []
+  cells.push(new Cell(width/2, height/2));
 }
 
 function draw(){
   background(50);
 
-  cell.draw();
-  cell.tick();
+  for(var i = 0; i < cells.length; i++){
+    cells[0].draw();
+    cells[0].tick();
+  }
 }
 
 class CellCycle {
@@ -40,7 +43,6 @@ class Cell {
     this.size = 150;
     this.state = CellCycle.INTERPHASE;
     this.initMembrane();
-    this.fluidity = 0.05;
 
     this.lifeCount = 0;
     this.phaseStartedAt = 0;
@@ -180,6 +182,7 @@ class CellMembraneSegment {
     this.accel = createVector(0, 0);
     this.speed = createVector(0, 0);
 
+    this.cellFluidity = 0.05;
     this.isFurrowPoint = false
   }
 
@@ -191,8 +194,8 @@ class CellMembraneSegment {
       return;
     }
 
-    this.accel.x = cell.fluidity * (randomGaussian(0, 1)) + (0 - this.speed.x) / 2;
-    this.accel.y = cell.fluidity * (randomGaussian(0, 1)) + (0 - this.speed.y) / 2;
+    this.accel.x = this.cellFluidity * (randomGaussian(0, 1)) + (0 - this.speed.x) / 2;
+    this.accel.y = this.cellFluidity * (randomGaussian(0, 1)) + (0 - this.speed.y) / 2;
 
     this.speed.x += this.accel.x;
     this.speed.y += this.accel.y;
