@@ -14,6 +14,17 @@ function draw(){
     cells[i].draw();
     cells[i].tick();
   }
+
+  displayPhase(cells[0]);
+}
+
+function displayPhase(cell){
+  fill(250);
+  noStroke();
+  textSize(40);
+  textFont('Helvetica');
+  let cellState = CellCycle.STATES[cell.state];
+  text(cellState.name, 30, 50);
 }
 
 class CellCycle {
@@ -190,6 +201,9 @@ class Cell {
   }
 
   debugDrawDivisionAxis(){
+    // disable for now.
+    return;
+
     stroke(50, 200, 50);
     line(this.x, this.y, this.x + this.axisOfSpindles.x, this.y + this.axisOfSpindles.y);
 
