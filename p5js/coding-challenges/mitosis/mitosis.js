@@ -222,17 +222,21 @@ class Cell {
   }
 
   findMembraneSegmentOrthogonalToDivsion(){
-    let axisHeading = this.axisOfSpindles.heading() + PI / 2; 
+    let orthoToAxis = this.axisOfSpindles.copy();
+    orthoToAxis.rotate(PI / 2); 
     let curMinAngleDiff = TWO_PI; // bigger than possible
     let idxOfMinDiff = -1;  // essentially not found.
 
-    let tmpHeading;
+    let tmpVector;
     let tmpSegment;
+
     for (var i = 0; i < this.membrane.length; i++){
       tmpSegment = this.membrane[i];
-      tmpHeading = createVector(tmpSegment.x - this.x, tmpSegment.y - this.y).heading();
-      if (abs(axisHeading - tmpHeading) < curMinAngleDiff){
-        curMinAngleDiff = abs(axisHeading - tmpHeading);
+      tmpVector = createVector(tmpSegment.x - this.x, tmpSegment.y - this.y);
+
+      let diff = tmpVector.angleBetween(orthoToAxis);
+      if (diff < curMinAngleDiff){
+        curMinAngleDiff = diff;
         idxOfMinDiff = i;
       }
     }
