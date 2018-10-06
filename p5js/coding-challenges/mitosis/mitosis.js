@@ -11,8 +11,8 @@ function draw(){
   background(50);
 
   for(var i = 0; i < cells.length; i++){
-    cells[0].draw();
-    cells[0].tick();
+    cells[i].draw();
+    cells[i].tick();
   }
 }
 
@@ -40,12 +40,17 @@ class CellCycle {
 }
 
 class Cell {
-  constructor(x, y) {
+  constructor(x, y, membrane) {
     this.pos = createVector(x, y);
     this.size = 150;
     this.nucleusSize = 50;
     this.state = CellCycle.INTERPHASE;
-    this.initMembrane();
+
+    if (membrane == undefined) {
+      this.initMembrane();
+    }else {
+      this.membrane = membrane;
+    }
 
     this.lifeCount = 0;
     this.phaseStartedAt = 0;
@@ -205,10 +210,10 @@ class Cell {
     this.debugDrawDivisionAxis();
 
     if (this.offsetInCycle == 0){
-      let firstPoint = this.findMembraneSegmentOrthogonalToDivsion();
-      let secondPoint = (firstPoint + floor(this.membrane.length/2)) % this.membrane.length;
-      this.furrowPointA = this.membrane[firstPoint];
-      this.furrowPointB = this.membrane[secondPoint];
+      this.firstFurrowIdx = this.findMembraneSegmentOrthogonalToDivsion();
+      this.secondFurrowIdx = (this.firstFurrowIdx + floor(this.membrane.length/2)) % this.membrane.length;
+      this.furrowPointA = this.membrane[this.firstFurrowIdx];
+      this.furrowPointB = this.membrane[this.secondFurrowIdx];
       this.furrowPointA.startCleaving();
       this.furrowPointB.startCleaving();
     }
@@ -226,6 +231,24 @@ class Cell {
       this.furrowPointB.stopCleaving();
       this.furrowPointA = null;
       this.furrowPointB = null;
+
+      let splicedMembrane;
+      if (this.firstFurrowIdx < floor(this.membrane.length / 2)){
+        splicedMembrane = this.membrane.splice(this.firstFurrowIdx, floor(this.membrane.length/2));
+      }else{
+        let segmentsToEnd = this.membrane.splice(this.firstFurrowIdx, this.membrane.length - this.firstFurrowIdx);
+        let segsFromStartTo2nd = this.membrane.splice(0, this.secondFurrowIdx + 1);
+        splicedMembrane = segmentsToEnd.concat(segsFromStartTo2nd);
+      }
+      let newCell = new Cell(this.centrosomeB.x, this.centrosomeB.y, splicedMembrane);
+      newCell.nucleusSize /= 2;
+      cells.push(newCell);
+
+      this.nucleusSize /= 2;
+      this.pos.x = this.centrosomeA.x;
+      this.pos.y = this.centrosomeA.y;
+
+      console.log("THIS membrane: " + this.membrane.length);
     }
   }
 
@@ -262,6 +285,9 @@ class Centrosome {
   constructor(x, y) {
     this.pos = createVector(x, y);
   }
+
+  get x(){ return this.pos.x; }
+  get y(){ return this.pos.y; }
 }
 
 class CellMembraneSegment {
