@@ -55,6 +55,15 @@ class Cell {
       vertex(this.membrane[i].x, this.membrane[i].y);
     }
     endShape(CLOSE);
+
+    this.drawNucleus();
+  }
+
+  drawNucleus(){
+    fill(220, 190, 160);
+    stroke(120,90,50);
+    strokeWeight(5);
+    ellipse(this.x, this.y, 50, 50);
   }
 }
 
