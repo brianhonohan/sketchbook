@@ -31,7 +31,7 @@ class CellCycle {
       {id: CellCycle.INTERPHASE, name: 'Interphase', next: CellCycle.PROPHASE},
       {id: CellCycle.PROPHASE, name: 'Prophase', next: CellCycle.PROMETAPHASE},
       {id: CellCycle.PROMETAPHASE, name: 'Prometaphase', next: CellCycle.METAPHASE},
-      {id: CellCycle.METAPHASE, name: 'Prometaphase', next: CellCycle.ANAPHASE},
+      {id: CellCycle.METAPHASE, name: 'Metaphase', next: CellCycle.ANAPHASE},
       {id: CellCycle.ANAPHASE, name: 'Anaphase', next: CellCycle.TELOPHASE},
       {id: CellCycle.TELOPHASE, name: 'Telophase', next: CellCycle.CYTOKINESIS},
       {id: CellCycle.CYTOKINESIS, name: 'Cytokinesis', next: CellCycle.INTERPHASE}
@@ -43,6 +43,7 @@ class Cell {
   constructor(x, y) {
     this.pos = createVector(x, y);
     this.size = 150;
+    this.nucleusSize = 50;
     this.state = CellCycle.INTERPHASE;
     this.initMembrane();
 
@@ -54,6 +55,11 @@ class Cell {
     this.nucleusDefinition = 1;
     this.furrowPointA = null;
     this.furrowPointB = null;
+
+    this.centrosomeA = new Centrosome(this.pos.x + random(1.5 * this.nucleusSize),
+                                     this.pos.y + random(1.5 * this.nucleusSize));
+    this.centrosomeB = null;
+    this.axisOfSpindles = null;
   }
 
   get x(){ return this.pos.x; }
@@ -129,11 +135,17 @@ class Cell {
     fill(220, 190, 160, alpha);
     stroke(120,90,50, alpha);
     strokeWeight(5);
-    ellipse(this.x, this.y, 50, 50);
+    ellipse(this.x, this.y, this.nucleusSize, this.nucleusSize);
   }
 
   tickInterphase(){ 
     // Do Interphase stuff here
+
+    if ((this.offsetInCycle % this.durationPerCycle) == 50) {
+      // Copy the Centrosome during an approximation of the S-Cycle
+      // https://en.wikipedia.org/wiki/Centrosome#Functions
+      this.centrosomeB = new Centrosome();
+    }
   }
 
   tickProphase(){ 
@@ -147,10 +159,33 @@ class Cell {
 
   tickMetaphase(){
     // Do Metaphase stuff here
+
+    if (this.offsetInCycle == (this.durationPerCycle - 1)){
+      // By this point the poles of the cellular divsion should be established
+      // and the centrosomes would have moved to these poles
+      // ... for now, jump them to these locations
+
+      this.axisOfSpindles = createVector(0.8 * this.size / 2, 0);
+      this.axisOfSpindles.rotate(random(0, TWO_PI));
+      this.centrosomeA.pos.x = this.x + this.axisOfSpindles.x;
+      this.centrosomeA.pos.y = this.y + this.axisOfSpindles.y;
+      this.centrosomeB.pos.x = this.x - this.axisOfSpindles.x;
+      this.centrosomeB.pos.y = this.y - this.axisOfSpindles.y;
+    }
+
   }
 
   tickAnaphase(){
     // Do Anaphase stuff here
+    this.debugDrawDivisionAxis();
+  }
+
+  debugDrawDivisionAxis(){
+    stroke(0, 255, 0);
+    line(this.x, this.y, this.x + this.axisOfSpindles.x, this.y + this.axisOfSpindles.y);
+
+    stroke(255, 0, 0);
+    line(this.x, this.y, this.x - this.axisOfSpindles.x, this.y - this.axisOfSpindles.y);
   }
 
   tickTelophase(){
@@ -162,7 +197,7 @@ class Cell {
     // Do Prophase stuff here
 
     if (this.offsetInCycle == 0){
-      let firstPoint = floor(random(this.membrane.length));
+      let firstPoint = this.findMembraneSegmentOrthogonalToDivsion();
       let secondPoint = (firstPoint + floor(this.membrane.length/2)) % this.membrane.length;
       this.furrowPointA = this.membrane[firstPoint];
       this.furrowPointB = this.membrane[secondPoint];
@@ -186,10 +221,34 @@ class Cell {
     }
   }
 
+  findMembraneSegmentOrthogonalToDivsion(){
+    let axisHeading = this.axisOfSpindles.heading() + PI / 2; 
+    let curMinAngleDiff = TWO_PI; // bigger than possible
+    let idxOfMinDiff = -1;  // essentially not found.
+
+    let tmpHeading;
+    let tmpSegment;
+    for (var i = 0; i < this.membrane.length; i++){
+      tmpSegment = this.membrane[i];
+      tmpHeading = createVector(tmpSegment.x - this.x, tmpSegment.y - this.y).heading();
+      if (abs(axisHeading - tmpHeading) < curMinAngleDiff){
+        curMinAngleDiff = abs(axisHeading - tmpHeading);
+        idxOfMinDiff = i;
+      }
+    }
+    return idxOfMinDiff;
+  }
+
   triggerLifecyle(){
     this.state = CellCycle.STATES[this.state].next;
     console.log("Starting: " + CellCycle.STATES[this.state].name);
     this.phaseStartedAt = this.lifeCount;
+  }
+}
+
+class Centrosome {
+  constructor(x, y) {
+    this.pos = createVector(x, y);
   }
 }
 
