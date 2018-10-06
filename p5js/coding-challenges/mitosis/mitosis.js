@@ -396,7 +396,7 @@ class CellMembraneSegment {
     this.speed = createVector(0, 0);
 
     this.cellFluidity = 0.05;
-    this.isFurrowPoint = false
+    this.isFurrowPoint = false;
   }
 
   get x(){ return this.pos.x; }
