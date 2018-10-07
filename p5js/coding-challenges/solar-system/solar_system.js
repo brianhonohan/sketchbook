@@ -18,6 +18,8 @@ class SolarSystem {
     this.init();
   }
 
+  static get scale_space(){ return 4.5e9 / width; }
+
   init(){
     let numObjects = 10;
     for(var i=0; i<numObjects; i++){
@@ -73,6 +75,7 @@ class MassiveObject {
   }
 
   draw(){
-    ellipse(this.x, this.y, 10, 10);
+    ellipse(this.x / SolarSystem.scale_space, this.y / SolarSystem.scale_space, 
+                10, 10);
   }
 }
