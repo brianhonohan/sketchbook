@@ -20,6 +20,7 @@ class Physics {
 
   // points from Obj1 => Obj2
   static forceDueToG(obj1, obj2){
+    // Gravitational Force: F = G * m1 * m2 / (r * r)
     let r = p5.Vector.sub(obj2.pos, obj1.pos);
     let rSquared = r.magSq();
     let forceMag = Physics.G_ADJUSTED * obj1.mass * obj2.mass / rSquared;
@@ -28,6 +29,10 @@ class Physics {
   }
 
   static orbitalV(ofObject, aroundObj){
+    // From balancing:
+    // Gravitational Force: F = G * m1 * m2 / (r * r)
+    // Centripetial Force: F = m * v * v / r
+    // solving for speed of obj1: v = sqrt( G * m2 / r)
     let r = p5.Vector.sub(aroundObj.pos, ofObject.pos);
     let speed = pow(Physics.G_ADJUSTED * aroundObj.mass / r.mag() , 0.5);
     let v = r.copy();
@@ -37,6 +42,7 @@ class Physics {
   }
 
   static applyForce(object, force){
+    // from F = m * a  ... a = F / m
     object.accel.add( p5.Vector.div(force, object.mass) );
   }
 }
