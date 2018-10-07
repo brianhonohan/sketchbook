@@ -4,6 +4,7 @@ function setup(){
   createCanvas(windowWidth, windowHeight);
 
   system = new SolarSystem();
+  system.init();
 }
 
 function draw(){
@@ -47,14 +48,39 @@ class Physics {
   }
 }
 
+class VectorGenerator2D {
+  static createVector(x, y){ return createVector(x, y); }
+  static randomvector(){ return p5.Vector.random2D(); }
+  
+  static randomWithRange(low, high){ 
+    return createVector(random(low, high), random(low, high));
+  }
+
+  static rotateRandom(vector, minRotation, maxRotation){
+    let randTheta = random(minRotation, maxRotation);
+    vector.rotate(randTheta);
+  }
+}
+
+class Drawing2D {
+  static round(position, radius){
+    ellipse(position.x, position.y, radius, radius);
+  }
+}
+
+
 class SolarSystem {
   constructor() {
     this.objects = [];
-    this.init();
+    this.mode = SolarSystem.MODE_2D;
+    this.vectorGen = VectorGenerator2D;
+    this.drawMode = Drawing2D;
   }
 
   static get scale_space(){ return 4.5e9 / width; }
   static get scale_time(){ return 50.0; }
+
+  static get MODE_2D(){ return 0; }
 
   init(){
     let numObjects = 10;
@@ -70,22 +96,22 @@ class SolarSystem {
   }
 
   generateStar(idx){
-    return new MassiveObject(0, 0, 1.9885e30, color(200,190,40));
+    return new MassiveObject(this.vectorGen.createVector(0), 
+                              1.9885e30, color(200,190,40));
   }
 
   generatePlanet(idx){
     // our solar system is 4.5e9 km along major axis;
     // mecury, perihelion: 46,001,200 km
-    let randLoc = createVector(random(40, 2500) * 1e6, random(40, 2500) * 1e6);
-    let randTheta = random(0, TWO_PI);
-    randLoc.rotate(randTheta);
+    let randLoc = this.vectorGen.randomWithRange(40e6, 2500e6);
+    this.vectorGen.rotateRandom(randLoc, 0, TWO_PI);
 
     // jupiter: 1.8982×1027 or 18,982x1023
     // mercury   3.3011×1023
     let mass = random(3, 10000) * 1e23;
 
     let surfaceColor = color(random(50, 200),random(50, 200),random(50, 200));
-    return new MassiveObject(randLoc.x, randLoc.y, mass, surfaceColor);
+    return new MassiveObject(randLoc, mass, surfaceColor);
   }
 
   setInitialOrbitalVelocities(){
@@ -129,10 +155,10 @@ class SolarSystem {
 }
 
 class MassiveObject {
-  constructor(x, y, mass, color) {
-    this.pos = createVector(x, y);
-    this.accel = createVector(0, 0);
-    this.velocity = createVector(0, 0);
+  constructor(pos, mass, color) {
+    this.pos = pos;
+    this.accel = system.vectorGen.createVector(0);
+    this.velocity = system.vectorGen.createVector(0);
     this.mass = mass; // kg
     this.c = color;
 
@@ -149,7 +175,7 @@ class MassiveObject {
 
   draw(){
     fill(this.c);
-    ellipse(this.x / SolarSystem.scale_space, this.y / SolarSystem.scale_space, 
-                this.scaledRadius, this.scaledRadius);
+    system.drawMode.round(p5.Vector.div(this.pos, SolarSystem.scale_space),
+                      this.scaledRadius);
   }
 }
