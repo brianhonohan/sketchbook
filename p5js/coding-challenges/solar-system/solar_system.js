@@ -39,13 +39,14 @@ class SolarSystem {
   generatePlanet(idx){
     // our solar system is 4.5e9 km along major axis;
     // mecury, perihelion: 46,001,200 km
-    let randX = random(40, 2500) * 1e6; // km
-    let randY = random(40, 2500) * 1e6;
+    let randLoc = createVector(random(40, 2500) * 1e6, random(40, 2500) * 1e6);
+    let randTheta = random(0, TWO_PI);
+    randLoc.rotate(randTheta);
 
     // jupiter: 1.8982×1027 or 18,982x1023
     // mecury   3.3011×1023
     let mass = random(3, 20000) * 1e23;
-    return new MassiveObject(randX, randY, mass);
+    return new MassiveObject(randLoc.x, randLoc.y, mass);
   }
 
   draw(){
