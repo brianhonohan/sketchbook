@@ -16,19 +16,20 @@ class Physics {
 
   // G: 6.67408 × 10-11 m3 kg-1 s-2
   static get G_CONTSTANT(){ return 6.67408e-11; }
+  static get G_ADJUSTED(){ return SolarSystem.scale_time * Physics.G_CONTSTANT; }
 
   // points from Obj1 => Obj2
   static forceDueToG(obj1, obj2){
     let r = p5.Vector.sub(obj2.pos, obj1.pos);
     let rSquared = r.magSq();
-    let forceMag = Physics.G_CONTSTANT * obj1.mass * obj2.mass / rSquared;
+    let forceMag = Physics.G_ADJUSTED * obj1.mass * obj2.mass / rSquared;
     let force = r.setMag(forceMag);
     return force;
   }
 
   static orbitalV(ofObject, aroundObj){
     let r = p5.Vector.sub(aroundObj.pos, ofObject.pos);
-    let speed = pow(Physics.G_CONTSTANT * aroundObj.mass / r.mag() , 0.5);
+    let speed = pow(Physics.G_ADJUSTED * aroundObj.mass / r.mag() , 0.5);
     let v = r.copy();
     v.rotate(HALF_PI);
     v.setMag(speed);
@@ -43,7 +44,7 @@ class SolarSystem {
   }
 
   static get scale_space(){ return 4.5e9 / width; }
-  static get scale_time(){ return 1; }
+  static get scale_time(){ return 50.0; }
 
   init(){
     let numObjects = 10;
@@ -126,8 +127,8 @@ class MassiveObject {
   get y(){ return this.pos.y; }
 
   tick(){
-    this.pos.add(this.velocity.mult(SolarSystem.scale_time));
-    this.velocity.add(this.accel.mult(SolarSystem.scale_time));
+    this.pos.add(this.velocity);
+    this.velocity.add(this.accel);
   }
 
   draw(){
