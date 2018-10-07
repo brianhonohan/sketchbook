@@ -1,11 +1,31 @@
 var system;
 var mode;
+var starTexture;
+var planetTextures = [];
+var textureMgr; 
+
+function preload(){
+  // from: https://www.solarsystemscope.com/textures/
+  starTexture = loadImage('textures/2k_sun.jpg');
+
+  planetTextures[0] = loadImage('textures/2k_mercury.jpg');
+  planetTextures[1] = loadImage('textures/2k_venus_atmosphere.jpg');
+  planetTextures[2] = loadImage('textures/2k_earth_daymap.jpg');
+  planetTextures[3] = loadImage('textures/2k_mars.jpg');
+  planetTextures[4] = loadImage('textures/2k_jupiter.jpg');
+  planetTextures[5] = loadImage('textures/2k_saturn.jpg');
+  planetTextures[6] = loadImage('textures/2k_neptune.jpg');
+  planetTextures[7] = loadImage('textures/2k_uranus.jpg');
+}
 
 function setup(){
   mode = SolarSystem.MODE_3D;
+  textureMgr = new TextureManager();
 
   if (mode == SolarSystem.MODE_3D) {
     createCanvas(windowWidth, windowHeight, WEBGL);
+    textureMgr.starTexture = starTexture;
+    textureMgr.planetTextures = planetTextures;
   } else {
     createCanvas(windowWidth, windowHeight);
   }
@@ -118,6 +138,16 @@ class Drawing3D {
   }
 }
 
+class TextureManager {
+  getStarTexture(){
+    return this.starTexture;
+  }
+
+  getPlanetTexture(idx){
+    return this.planetTextures[idx % this.planetTextures.length];
+  }
+}
+
 class SolarSystem {
   constructor() {
     this.objects = [];
@@ -151,17 +181,21 @@ class SolarSystem {
     for(var i=0; i<numObjects; i++){
 
       if(i == 0){
-        this.objects.push(this.generateStar());
+        this.objects.push(this.generateStar(i));
       }else{
-        this.objects.push(this.generatePlanet());
+        this.objects.push(this.generatePlanet(i));
       }
     }
     this.setInitialOrbitalVelocities();
   }
 
   generateStar(idx){
-    return new MassiveObject(this.vectorGen.createVector(0), 
+    let star = new MassiveObject(this.vectorGen.createVector(0), 
                               1.9885e30, color(200,190,40));
+    if (this.mode == SolarSystem.MODE_3D){
+      star.texture = textureMgr.getStarTexture();
+    }
+    return star;
   }
 
   generatePlanet(idx){
@@ -175,7 +209,12 @@ class SolarSystem {
     let mass = random(3, 10000) * 1e23;
 
     let surfaceColor = color(random(50, 200),random(50, 200),random(50, 200));
-    return new MassiveObject(randLoc, mass, surfaceColor);
+
+    let newObj = new MassiveObject(randLoc, mass, surfaceColor);
+    if (this.mode == SolarSystem.MODE_3D){
+      newObj.texture = textureMgr.getPlanetTexture(idx);
+    }
+    return newObj;
   }
 
   setInitialOrbitalVelocities(){
@@ -227,6 +266,7 @@ class MassiveObject {
     this.velocity = system.vectorGen.createVector(0);
     this.mass = mass; // kg
     this.c = color;
+    this.texture = null;
 
     this.scaledRadius = Math.log10(this.mass);
   }
@@ -241,6 +281,9 @@ class MassiveObject {
 
   draw(){
     fill(this.c);
+    if (this.texture){
+      texture(this.texture );
+    }
     system.drawMode.round(p5.Vector.div(this.pos, SolarSystem.scale_space),
                       this.scaledRadius);
   }
