@@ -1,7 +1,7 @@
 var system;
 
 function setup(){
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(windowWidth, windowHeight, WEBGL);
 
   system = new SolarSystem();
   system.init();
@@ -62,25 +62,79 @@ class VectorGenerator2D {
   }
 }
 
+class VectorGenerator3D {
+  static createVector(x, y, z){ return createVector(x, y, z); }
+  static randomvector(){ return p5.Vector.random3D(); }
+  
+  static randomWithRange(low, high){ 
+    return createVector(random(low, high), 
+                        random(low, high), 
+                        random(low, high));
+  }
+
+  static rotateRandom(vector, minRotation, maxRotation){
+    // First: rotate around z-axis
+    // x' = x cos θ − y sin θ
+    // y' = x sin θ + y cos θ
+    let randTheta = random(minRotation, maxRotation);
+    vector.x = vector.x * cos(randTheta) - vector.y * sin(randTheta);
+    vector.y = vector.x * sin(randTheta) + vector.y * cos(randTheta);
+
+    // Second: rotate around y-axis
+    // Adapted from 2D
+    let randPhi = random(minRotation, maxRotation);
+    vector.x = vector.x * cos(randPhi) - vector.z * sin(randPhi);
+    vector.z = vector.x * sin(randPhi) + vector.z * cos(randPhi);
+
+    // Second: rotate around x-axis
+    // Adapted from 2D
+    let randPsi = random(minRotation, maxRotation);
+    vector.y = vector.y * cos(randPsi) - vector.z * sin(randPsi);
+    vector.z = vector.y * sin(randPsi) + vector.z * cos(randPsi);
+  }
+}
+
+
 class Drawing2D {
   static round(position, radius){
     ellipse(position.x, position.y, radius, radius);
   }
 }
 
+class Drawing3D {
+  static round(position, radius){
+    push();
+    translate(position);
+    sphere(radius);
+    pop();
+  }
+}
 
 class SolarSystem {
   constructor() {
     this.objects = [];
-    this.mode = SolarSystem.MODE_2D;
-    this.vectorGen = VectorGenerator2D;
-    this.drawMode = Drawing2D;
+    this.mode = SolarSystem.MODE_3D;
+    this.initMode();
   }
 
   static get scale_space(){ return 4.5e9 / width; }
   static get scale_time(){ return 50.0; }
 
   static get MODE_2D(){ return 0; }
+  static get MODE_3D(){ return 1; }
+
+  initMode(){
+    switch(this.mode) {
+      case SolarSystem.MODE_2D:
+            this.vectorGen = VectorGenerator2D;
+            this.drawMode = Drawing2D;
+            break;
+      case SolarSystem.MODE_3D:
+            this.vectorGen = VectorGenerator3D;
+            this.drawMode = Drawing3D;
+            break;
+    }
+  }
 
   init(){
     let numObjects = 10;
@@ -145,7 +199,9 @@ class SolarSystem {
 
   draw(){
     push();
-    translate(width/2, height/2);
+    if (this.mode == SolarSystem.MODE_2D){
+      translate(width/2, height/2);
+    }
     noStroke();
     for(var i=0; i < this.objects.length; i++){
       this.objects[i].draw();
