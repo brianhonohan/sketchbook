@@ -35,6 +35,10 @@ class Physics {
     v.setMag(speed);
     return v;
   }
+
+  static applyForce(object, force){
+    object.accel.add( p5.Vector.div(force, object.mass) );
+  }
 }
 
 class SolarSystem {
@@ -87,13 +91,19 @@ class SolarSystem {
   }
 
   tick(){
+    // reset all accelerations to zero
+    // this will allow for inter-object gravity (not just to the Star)
+    for(var i=1; i < this.objects.length; i++){
+      this.objects[i].accel.mult(0);
+    }
+
     // for now, for simplicity
     //  ... keep the star fixed (don't apply any forces to it)
     let star = this.objects[0];
     for(var i=1; i < this.objects.length; i++){
       let obj = this.objects[i];
       let force = Physics.forceDueToG(obj, star);
-      obj.accel = force.copy().div(obj.mass);
+      Physics.applyForce(obj, force);
     }
 
     for(var i=1; i < this.objects.length; i++){
