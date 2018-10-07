@@ -1,9 +1,17 @@
 var system;
+var mode;
 
 function setup(){
-  createCanvas(windowWidth, windowHeight, WEBGL);
+  mode = SolarSystem.MODE_3D;
+
+  if (mode == SolarSystem.MODE_3D) {
+    createCanvas(windowWidth, windowHeight, WEBGL);
+  } else {
+    createCanvas(windowWidth, windowHeight);
+  }
 
   system = new SolarSystem();
+  system.setMode(mode);
   system.init();
 }
 
@@ -113,8 +121,6 @@ class Drawing3D {
 class SolarSystem {
   constructor() {
     this.objects = [];
-    this.mode = SolarSystem.MODE_3D;
-    this.initMode();
   }
 
   static get scale_space(){ return 4.5e9 / width; }
@@ -123,8 +129,8 @@ class SolarSystem {
   static get MODE_2D(){ return 0; }
   static get MODE_3D(){ return 1; }
 
-  initMode(){
-    switch(this.mode) {
+  setMode(mode){
+    switch(mode) {
       case SolarSystem.MODE_2D:
             this.vectorGen = VectorGenerator2D;
             this.drawMode = Drawing2D;
@@ -133,7 +139,11 @@ class SolarSystem {
             this.vectorGen = VectorGenerator3D;
             this.drawMode = Drawing3D;
             break;
+      default:
+            console.log("Invalid mode. Please pass in: SolarSystem.MODE_2D or SolarSystem.MODE_3D");
+            return;
     }
+    this.mode = mode;
   }
 
   init(){
