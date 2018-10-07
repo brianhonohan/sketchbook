@@ -15,8 +15,8 @@ function draw(){
 class Physics {
 
   // G: 6.67408 × 10-11 m3 kg-1 s-2
-  static get G_CONTSTANT(){ return 6.67408e-11; }
-  static get G_ADJUSTED(){ return SolarSystem.scale_time * Physics.G_CONTSTANT; }
+  static get G_CONSTANT(){ return 6.67408e-11; }
+  static get G_ADJUSTED(){ return SolarSystem.scale_time * Physics.G_CONSTANT; }
 
   // points from Obj1 => Obj2
   static forceDueToG(obj1, obj2){
