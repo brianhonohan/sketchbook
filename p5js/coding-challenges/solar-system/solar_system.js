@@ -33,7 +33,7 @@ class SolarSystem {
   }
 
   generateStar(idx){
-    return new MassiveObject(0, 0, 1.9885e30);
+    return new MassiveObject(0, 0, 1.9885e30, color(200,190,40));
   }
 
   generatePlanet(idx){
@@ -46,7 +46,9 @@ class SolarSystem {
     // jupiter: 1.8982×1027 or 18,982x1023
     // mecury   3.3011×1023
     let mass = random(3, 20000) * 1e23;
-    return new MassiveObject(randLoc.x, randLoc.y, mass);
+
+    let surfaceColor = color(random(50, 200),random(50, 200),random(50, 200));
+    return new MassiveObject(randLoc.x, randLoc.y, mass, surfaceColor);
   }
 
   draw(){
@@ -60,11 +62,12 @@ class SolarSystem {
 }
 
 class MassiveObject {
-  constructor(x, y, mass) {
+  constructor(x, y, mass, color) {
     this.pos = createVector(x, y);
     this.accel = createVector(0, 0);
     this.speed = createVector(0, 0);
     this.mass = mass; // kg
+    this.c = color;
   }
 
   get x(){ return this.pos.x; }
@@ -76,6 +79,7 @@ class MassiveObject {
   }
 
   draw(){
+    fill(this.c);
     ellipse(this.x / SolarSystem.scale_space, this.y / SolarSystem.scale_space, 
                 10, 10);
   }
