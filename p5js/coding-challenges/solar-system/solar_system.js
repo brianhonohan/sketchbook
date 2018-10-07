@@ -66,7 +66,7 @@ class MassiveObject {
   constructor(x, y, mass, color) {
     this.pos = createVector(x, y);
     this.accel = createVector(0, 0);
-    this.speed = createVector(0, 0);
+    this.velocity = createVector(0, 0);
     this.mass = mass; // kg
     this.c = color;
 
@@ -78,7 +78,7 @@ class MassiveObject {
 
   tick(){
     this.pos.add(this.speed);
-    this.speed.add(this.accel);
+    this.velocity.add(this.accel);
   }
 
   draw(){
