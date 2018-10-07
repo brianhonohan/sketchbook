@@ -59,7 +59,7 @@ class Cell {
     this.size = 150;
 
     if (nucleus == undefined) {
-      this.nucleus = new Nucleus(this.x, this.y, 50, 1);
+      this.nucleus = new Nucleus(this.x, this.y, Cell.MAX_NUCLEUS_SIZE, 1);
     }else{
       this.nucleus = nucleus;
     }
@@ -94,6 +94,7 @@ class Cell {
 
   get x(){ return this.pos.x; }
   get y(){ return this.pos.y; }
+  static get MAX_NUCLEUS_SIZE(){ return 50; }
 
   initMembrane(){
     this.membrane = [];
@@ -209,6 +210,8 @@ class Cell {
       this.growMembrane();
       this.setMembraneTargets();
     }
+
+    this.nucleus.size = min(this.nucleus.size + 0.2, Cell.MAX_NUCLEUS_SIZE);
 
     if ((this.offsetInCycle % this.durationPerCycle) == 50) {
       // Copy the Centrosome during an approximation of the S-Cycle
