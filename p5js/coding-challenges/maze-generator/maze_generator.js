@@ -39,11 +39,16 @@ class MazeCell {
     this._idx = index;
 
     this.walls = [random(MazeCell.wall_states), random(MazeCell.wall_states)];
+    this.state = random(MazeCell.cell_states);
   }
 
   static get WALL_UNKNOWN(){ return -1; }
   static get WALL_OPEN(){ return 0; }
   static get WALL_SOLID(){ return 1; }
+
+  static get CELL_UNKNOWN(){ return -1; }
+  static get CELL_OPEN(){ return 0; }
+  static get CELL_SOLID(){ return 1; }
 
   get rightWall() {
     return this.walls[0];
@@ -56,12 +61,16 @@ class MazeCell {
   static get wall_states(){
     return [MazeCell.WALL_UNKNOWN, MazeCell.WALL_OPEN, MazeCell.WALL_SOLID];
   }
+
+  static get cell_states(){
+    return [MazeCell.CELL_UNKNOWN, MazeCell.CELL_OPEN, MazeCell.CELL_SOLID];
+  }
 }
 
 // Class name is dictated by CellGrid
 class CellViewer {
   renderCell(tmpCell, tmpX, tmpY, cellWidth, cellHeight){
-    fill(50);
+    fill(this.colorForCellState(tmpCell.state));
     noStroke();
     rect(tmpX, tmpY, cellWidth, cellHeight);
 
@@ -75,6 +84,7 @@ class CellViewer {
   get colors(){
     return {
       unknown: color(80),
+      unknown_line: color(120),
       open: color(100, 180, 100),
       open_line: color(120, 200, 120),
       solid: color(0)
@@ -83,9 +93,17 @@ class CellViewer {
 
   colorForWallState(wallState){
     switch (wallState) {
-      case MazeCell.WALL_UNKNOWN: return this.colors.unknown;
+      case MazeCell.WALL_UNKNOWN: return this.colors.unknown_line;
       case MazeCell.WALL_OPEN:    return this.colors.open_line;
       case MazeCell.WALL_SOLID: return this.colors.solid;
+    }
+  }
+
+  colorForCellState(cellState){
+    switch (cellState) {
+      case MazeCell.CELL_UNKNOWN: return this.colors.unknown;
+      case MazeCell.CELL_OPEN:    return this.colors.open;
+      case MazeCell.CELL_SOLID:   return this.colors.solid;
     }
   }
 }
