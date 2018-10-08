@@ -15,7 +15,7 @@ function draw(){
 
 class Maze {
   constructor(_width, _height) {
-    this.cellWidth = 200;
+    this.cellWidth = 80;
     let mazeWidth = floor(width / this.cellWidth) * this.cellWidth;
     let mazeHeight = floor(height / this.cellWidth) * this.cellWidth;
     this.mazeSize = new Rect(0, 0, mazeWidth, mazeHeight);
@@ -38,8 +38,8 @@ class MazeCell {
     this._col = col;
     this._idx = index;
 
-    this.walls = [random(MazeCell.wall_states), random(MazeCell.wall_states)];
-    this.state = random(MazeCell.cell_states);
+    this.walls = [MazeCell.WALL_UNKNOWN, MazeCell.WALL_UNKNOWN];
+    this.state = MazeCell.CELL_UNKNOWN;
   }
 
   static get WALL_UNKNOWN(){ return -1; }
