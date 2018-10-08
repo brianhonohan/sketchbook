@@ -3,7 +3,8 @@ var maze;
 function setup(){
   createCanvas(windowWidth, windowHeight);
   maze = new Maze(width, height);
-  frameRate(1);
+  frameRate(0.5);
+  strokeWeight(4);
 }
 
 function draw(){
@@ -36,6 +37,24 @@ class MazeCell {
     this._row = row;
     this._col = col;
     this._idx = index;
+
+    this.walls = [random(MazeCell.wall_states), random(MazeCell.wall_states)];
+  }
+
+  static get WALL_UNKNOWN(){ return -1; }
+  static get WALL_OPEN(){ return 0; }
+  static get WALL_SOLID(){ return 1; }
+
+  get rightWall() {
+    return this.walls[0];
+  }
+
+  get bottomWall() {
+    return this.walls[1];
+  }
+
+  static get wall_states(){
+    return [MazeCell.WALL_UNKNOWN, MazeCell.WALL_OPEN, MazeCell.WALL_SOLID];
   }
 }
 
@@ -43,6 +62,30 @@ class MazeCell {
 class CellViewer {
   renderCell(tmpCell, tmpX, tmpY, cellWidth, cellHeight){
     fill(50);
+    noStroke();
     rect(tmpX, tmpY, cellWidth, cellHeight);
+
+    stroke(this.colorForWallState(tmpCell.rightWall));
+    line(tmpX + cellWidth, tmpY, tmpX + cellWidth, tmpY + cellHeight);
+
+    stroke(this.colorForWallState(tmpCell.bottomWall));
+    line(tmpX, tmpY + cellHeight, tmpX + cellWidth, tmpY + cellHeight);
+  }
+
+  get colors(){
+    return {
+      unknown: color(80),
+      open: color(100, 180, 100),
+      open_line: color(120, 200, 120),
+      solid: color(0)
+    };
+  }
+
+  colorForWallState(wallState){
+    switch (wallState) {
+      case MazeCell.WALL_UNKNOWN: return this.colors.unknown;
+      case MazeCell.WALL_OPEN:    return this.colors.open_line;
+      case MazeCell.WALL_SOLID: return this.colors.solid;
+    }
   }
 }
