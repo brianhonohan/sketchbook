@@ -96,7 +96,9 @@ class MazeGenerator {
   }
 
   moveToCell(cell){
-    this.visitedCells.push(cell);
+    if (this.cell != undefined){
+      this.visitedCells.push(this.cell);  
+    }
     this.cell = cell;
     this.cell.state = MazeCell.CELL_OPEN;
   }
@@ -105,9 +107,7 @@ class MazeGenerator {
     let unknownWalls = this.cell.unknownWalls;
 
     if (unknownWalls == undefined || unknownWalls.length == 0){
-      // don't know how to handle this yet.
-      console.log("stuck in dead-end");
-      this.state = MazeGenerator.STATE_STUCK;
+      this.stepBackwards();
       return;
     }
 
@@ -137,6 +137,16 @@ class MazeGenerator {
 
     this.cell.openWall(selectedWall); 
     this.walkInDirection(selectedWall);
+  }
+
+  stepBackwards(){
+    if (this.visitedCells.length == 0){
+      console.log("stuck, painted into a corner");
+      this.state = MazeGenerator.STATE_STUCK;
+      return;
+    }
+
+    this.cell = this.visitedCells.pop();
   }
 
   canWalkInDirection(direction){
