@@ -148,7 +148,7 @@ class MazeGenerator {
       case 1:
         return this.cell.cellToRight;
       case 2:
-        return this.cell.cellToRight;
+        return this.cell.cellBelow;
       case 3:
         return this.cell.cellToLeft;
     }
