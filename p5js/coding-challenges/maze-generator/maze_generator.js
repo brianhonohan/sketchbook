@@ -138,19 +138,19 @@ class MazeGenerator {
   }
 
   walkInDirection(direction){
+    this.moveToCell(this.cellForDirection(direction));
+  }
+
+  cellForDirection(direction){
     switch(direction) {
       case 0:
-        this.moveToCell(this.cell.cellAbove);
-        break;
+        return this.cell.cellAbove;
       case 1:
-        this.moveToCell(this.cell.cellToRight);
-        break;
+        return this.cell.cellToRight;
       case 2:
-        this.moveToCell(this.cell.cellBelow);
-        break;
+        return this.cell.cellToRight;
       case 3:
-        this.moveToCell(this.cell.cellToLeft);
-        break;
+        return this.cell.cellToLeft;
     }
   }
 
