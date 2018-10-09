@@ -115,10 +115,19 @@ class MazeGenerator {
     if (unknownWalls.length == 1){
       console.log("... only one choice");
       selectedWall = unknownWalls[0];
+      if (!this.canWalkInDirection(selectedWall)){
+        this.cell.closeWall(selectedWall);
+        return;
+      }
     }else{
       let randomSelection = floor(random(unknownWalls.length));
       selectedWall = unknownWalls[randomSelection];
       console.log("selected wall: " + selectedWall);
+
+      if (!this.canWalkInDirection(selectedWall)){
+        this.cell.closeWall(selectedWall);
+        return;
+      }
 
       let nextIdx = (randomSelection+1) % unknownWalls.length;
       let wallToClose = unknownWalls[nextIdx];
@@ -130,11 +139,14 @@ class MazeGenerator {
     this.walkInDirection(selectedWall);
   }
 
-  ensureCanWalkInDirection(){
+  canWalkInDirection(direction){
     // before walking/opening doors, should check that next Cell is not 
     // in the visitedCells (should not loop back)
     // ... if it is:
     // close the selected Wall, and choose another wall
+    let potentialCell = this.cellForDirection(direction);
+    let alreadyVisited = this.visitedCells.includes(potentialCell);
+    return !alreadyVisited;
   }
 
   walkInDirection(direction){
