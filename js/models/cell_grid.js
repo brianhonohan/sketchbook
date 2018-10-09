@@ -99,6 +99,10 @@ class CellGrid {
     return neighbors;
   }
 
+  cellToRight(idx){
+    return this.cells[this.cellIndexToRight(idx)];
+  }
+
   cellIndexToRight(idx){
     let idxRight = idx + 1;
     if (idx % this.numCols == (this.numCols - 1)){
@@ -109,6 +113,10 @@ class CellGrid {
       }
     }
     return idxRight;
+  }
+
+  cellToLeft(idx){
+    return this.cells[this.cellIndexToLeft(idx)];
   }
 
   cellIndexToLeft(idx){
@@ -123,6 +131,10 @@ class CellGrid {
     return idxLeft;
   }
 
+  cellBelow(idx){
+    return this.cells[this.cellIndexBelow(idx)];
+  }
+
   cellIndexBelow(idx){
     let idxBelow = idx + this.numCols;
     if (idxBelow > (this.numCols * this.numRows - 1)){
@@ -133,6 +145,10 @@ class CellGrid {
       }
     }
     return idxBelow;
+  }
+
+  cellAbove(idx){
+    return this.cells[this.cellIndexAbove(idx)];
   }
 
   cellIndexAbove(idx){

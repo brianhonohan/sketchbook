@@ -4,7 +4,7 @@ var mazeGenerator;
 function setup(){
   createCanvas(windowWidth, windowHeight);
   maze = new Maze(width, height);
-  frameRate(0.5);
+  frameRate(10);
   strokeWeight(4);
 
   let startingCell = maze.startingCell();
@@ -14,9 +14,12 @@ function setup(){
 function draw(){
   background(0);
 
-  mazeGenerator.tick();
   maze.draw();
   mazeGenerator.draw();
+}
+
+function mousePressed(){
+  mazeGenerator.tick();
 }
 
 class Maze {
@@ -28,19 +31,32 @@ class Maze {
     this.grid = new CellGrid(this.mazeSize, this, this.cellWidth);
     this.grid.initCells();
 
-    this.startingCell().state = MazeCell.CELL_OPEN;
+    // this.startingCell().state = MazeCell.CELL_OPEN;
+    // this.targetCell().state = MazeCell.CELL_OPEN;
   }
 
   startingCell(){
     return this.grid.cells[this.grid.numCols + 1];
   }
 
+  targetCell(){
+    return this.grid.cells[this.numCells - this.grid.numCols - 1];
+  }
+
   createCell(tmpRow, tmpCol, i){
-    let cell = new MazeCell(tmpRow, tmpCol, i);
+    let cell = new MazeCell(tmpRow, tmpCol, i, this);
 
     if (this.grid.isEdgeRowCol(tmpRow, tmpCol)) {
       // effectively make walls around the overall grid
       cell.state = MazeCell.CELL_SOLID;
+      cell.bottomWall = MazeCell.WALL_SOLID;
+      cell.rightWall = MazeCell.WALL_SOLID;
+    }
+    if (tmpRow == this.grid.numRows-2){
+      cell.bottomWall = MazeCell.WALL_SOLID;
+    }
+    if (tmpCol == this.grid.numCols-2){
+      cell.rightWall = MazeCell.WALL_SOLID;
     }
     return cell;
   }
@@ -51,10 +67,17 @@ class Maze {
 }
 
 class MazeGenerator {
-  constructor(maze, cell){
+  constructor(maze, cell, targetCell){
     this.maze = maze;
-    this.cell = cell;
+    this.visitedCells = [];
+    this.moveToCell(cell);
+    this.targetCell = targetCell;
+    this.state = MazeGenerator.STATE_GENERATING;
   }
+
+  static get STATE_GENERATING(){ return 0; }
+  static get STATE_STUCK(){ return -1; }
+
 
   get x(){ 
     return this.maze.cellWidth/2 + this.cell._col * this.maze.cellWidth;
@@ -64,7 +87,71 @@ class MazeGenerator {
   }
 
   tick(){
-    
+    if (this.cell == this.maze.targetCell()){
+      console.log("Got to the end!");
+      return;
+    }
+
+    this.exploreCell();
+  }
+
+  moveToCell(cell){
+    this.visitedCells.push(cell);
+    this.cell = cell;
+    this.cell.state = MazeCell.CELL_OPEN;
+  }
+
+  exploreCell(){
+    let unknownWalls = this.cell.unknownWalls;
+
+    if (unknownWalls == undefined || unknownWalls.length == 0){
+      // don't know how to handle this yet.
+      console.log("stuck in dead-end");
+      this.state = MazeGenerator.STATE_STUCK;
+      return;
+    }
+
+    let selectedWall;
+    if (unknownWalls.length == 1){
+      console.log("... only one choice");
+      selectedWall = unknownWalls[0];
+    }else{
+      let randomSelection = floor(random(unknownWalls.length));
+      selectedWall = unknownWalls[randomSelection];
+      console.log("selected wall: " + selectedWall);
+
+      let nextIdx = (randomSelection+1) % unknownWalls.length;
+      let wallToClose = unknownWalls[nextIdx];
+      console.log("Wall to close: " + wallToClose);
+      this.cell.closeWall(wallToClose);
+    }
+
+    this.cell.openWall(selectedWall); 
+    this.walkInDirection(selectedWall);
+  }
+
+  ensureCanWalkInDirection(){
+    // before walking/opening doors, should check that next Cell is not 
+    // in the visitedCells (should not loop back)
+    // ... if it is:
+    // close the selected Wall, and choose another wall
+  }
+
+  walkInDirection(direction){
+    switch(direction) {
+      case 0:
+        this.moveToCell(this.cell.cellAbove);
+        break;
+      case 1:
+        this.moveToCell(this.cell.cellToRight);
+        break;
+      case 2:
+        this.moveToCell(this.cell.cellBelow);
+        break;
+      case 3:
+        this.moveToCell(this.cell.cellToLeft);
+        break;
+    }
   }
 
   draw(){
@@ -76,15 +163,23 @@ class MazeGenerator {
 }
 
 class MazeCell {
-  constructor(row, col, index){
+  constructor(row, col, index, maze){
     // variable names are dictated by CellGrid
     this._row = row;
     this._col = col;
     this._idx = index;
 
-    this.walls = [MazeCell.WALL_UNKNOWN, MazeCell.WALL_UNKNOWN];
+    this.maze = maze;
+    this.grid = maze.grid;
+    this.rightWall = MazeCell.WALL_UNKNOWN;
+    this.bottomWall = MazeCell.WALL_UNKNOWN;
     this.state = MazeCell.CELL_UNKNOWN;
   }
+
+  get cellAbove() { return this.grid.cellAbove(this._idx); }
+  get cellToRight() { return this.grid.cellToRight(this._idx); }
+  get cellBelow() { return this.grid.cellBelow(this._idx); }
+  get cellToLeft() { return this.grid.cellToLeft(this._idx); }
 
   static get WALL_UNKNOWN(){ return -1; }
   static get WALL_OPEN(){ return 0; }
@@ -93,13 +188,83 @@ class MazeCell {
   static get CELL_UNKNOWN(){ return -1; }
   static get CELL_OPEN(){ return 0; }
   static get CELL_SOLID(){ return 1; }
+  
+  static get REJECTED(){ return -2; }
 
-  get rightWall() {
-    return this.walls[0];
+  get leftWall() {
+    let idxToLeft = this.grid.cellIndexToLeft(this._idx);
+    if (idxToLeft == undefined){
+      return MazeCell.WALL_SOLID;
+    }
+
+    let cell =  this.grid.cells[idxToLeft];
+    if (cell.state == MazeCell.CELL_SOLID){
+      return MazeCell.WALL_SOLID;
+    }else{
+      return cell.rightWall;
+    }
   }
 
-  get bottomWall() {
-    return this.walls[1];
+  get topWall() {
+    let idxToAbove = this.grid.cellIndexAbove(this._idx);
+    if (idxToAbove == undefined){
+      return MazeCell.WALL_SOLID;
+    }
+
+    let cell =  this.grid.cells[idxToAbove];
+    if (cell.state == MazeCell.CELL_SOLID){
+      return MazeCell.WALL_SOLID;
+    }else{
+      return cell.bottomWall;
+    }
+  }
+
+  openWall(wallIdx){
+    switch(wallIdx) {
+      case 0:
+        this.cellAbove.bottomWall = MazeCell.WALL_OPEN;
+        break;
+      case 1:
+        this.rightWall = MazeCell.WALL_OPEN;
+        break;
+      case 2:
+        this.bottomWall = MazeCell.WALL_OPEN;
+        break;
+      case 3:
+        this.cellToLeft.rightWall = MazeCell.WALL_OPEN;
+        break;
+    }
+  }
+
+  closeWall(wallIdx){
+    switch(wallIdx) {
+      case 0:
+        this.cellAbove.bottomWall = MazeCell.WALL_SOLID;
+        break;
+      case 1:
+        this.rightWall = MazeCell.WALL_SOLID;
+        break;
+      case 2:
+        this.bottomWall = MazeCell.WALL_SOLID;
+        break;
+      case 3:
+        this.cellToLeft.rightWall = MazeCell.WALL_SOLID;
+        break;
+    }
+  }
+
+  get walls(){ return [this.topWall, this.rightWall, this.bottomWall, this.leftWall]; }
+
+  get unknownWalls(){ 
+    return this.walls.map( (wall, i) => { 
+        return (wall == MazeCell.WALL_UNKNOWN) ? i : MazeCell.REJECTED;
+      }).filter( (idx) => {return idx != MazeCell.REJECTED; });
+  }
+
+  get openWalls(){ 
+    return this.walls.map( (wall, i) => { 
+        return (wall == MazeCell.WALL_OPEN) ? i : MazeCell.REJECTED;
+      }).filter( (idx) => {return idx != MazeCell.REJECTED; });
   }
 
   static get wall_states(){
