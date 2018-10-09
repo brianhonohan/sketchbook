@@ -1,16 +1,22 @@
 var maze;
+var mazeGenerator;
 
 function setup(){
   createCanvas(windowWidth, windowHeight);
   maze = new Maze(width, height);
   frameRate(0.5);
   strokeWeight(4);
+
+  let startingCell = maze.startingCell();
+  mazeGenerator = new MazeGenerator(maze, startingCell);
 }
 
 function draw(){
   background(0);
 
+  mazeGenerator.tick();
   maze.draw();
+  mazeGenerator.draw();
 }
 
 class Maze {
@@ -21,6 +27,12 @@ class Maze {
     this.mazeSize = new Rect(0, 0, mazeWidth, mazeHeight);
     this.grid = new CellGrid(this.mazeSize, this, this.cellWidth);
     this.grid.initCells();
+
+    this.startingCell().state = MazeCell.CELL_OPEN;
+  }
+
+  startingCell(){
+    return this.grid.cells[this.grid.numCols + 1];
   }
 
   createCell(tmpRow, tmpCol, i){
@@ -35,6 +47,31 @@ class Maze {
 
   draw(){
     this.grid.renderViews();
+  }
+}
+
+class MazeGenerator {
+  constructor(maze, cell){
+    this.maze = maze;
+    this.cell = cell;
+  }
+
+  get x(){ 
+    return this.maze.cellWidth/2 + this.cell._col * this.maze.cellWidth;
+  }
+  get y(){ 
+    return this.maze.cellWidth/2 + this.cell._row * this.maze.cellWidth;
+  }
+
+  tick(){
+    
+  }
+
+  draw(){
+    fill(200, 200, 50);
+    noStroke();
+    let cellWidth = maze.cellWidth;
+    ellipse(this.x, this.y, 0.5 * cellWidth, 0.5 * cellWidth);
   }
 }
 
