@@ -15,17 +15,16 @@ class CellGrid {
 
     this.cellViewer = new CellViewer();
 
-    this.initCells();
     this.wrap = false;
-  }
-
-  initCells() {
-    this.cells = [];
 
     // Note, by using 'ceil' we will overstep the bounds of the width/height;
     this.numCols = Math.ceil( (1.0 * this._width)  / this.effectCellWidth );
     this.numRows = Math.ceil( (1.0 * this._height) / this.effectCellHeight );
     this.numCells = this.numCols * this.numRows;
+  }
+
+  initCells() {
+    this.cells = [];
 
     let tmpRow;
     let tmpCol;
@@ -39,6 +38,21 @@ class CellGrid {
     }
   }
 
+  isEdgeRowCol(tmpRow, tmpCol){
+    let isEdgeCell = tmpRow == 0 || tmpCol == 0;
+    isEdgeCell |= tmpCol == (this.numCols-1);
+    isEdgeCell |= tmpRow == (this.numRows-1);
+    return isEdgeCell;
+  }
+
+  isEdgeIdx(idx){
+    let rowCol = this.rowColForIdx(idx);
+    return this.isEdgeCell(rowCol.row, rowCol.col);
+  }
+
+  rowColForIdx(idx){
+    return {row: floor(idx / this.numRows), col: idx % this.numCols};
+  }
 
   neighborsOfIdx(idx){
     let neighbors = [

@@ -15,15 +15,22 @@ function draw(){
 
 class Maze {
   constructor(_width, _height) {
-    this.cellWidth = 80;
+    this.cellWidth = 40;
     let mazeWidth = floor(width / this.cellWidth) * this.cellWidth;
     let mazeHeight = floor(height / this.cellWidth) * this.cellWidth;
     this.mazeSize = new Rect(0, 0, mazeWidth, mazeHeight);
     this.grid = new CellGrid(this.mazeSize, this, this.cellWidth);
+    this.grid.initCells();
   }
 
   createCell(tmpRow, tmpCol, i){
-    return new MazeCell(tmpRow, tmpCol, i);
+    let cell = new MazeCell(tmpRow, tmpCol, i);
+
+    if (this.grid.isEdgeRowCol(tmpRow, tmpCol)) {
+      // effectively make walls around the overall grid
+      cell.state = MazeCell.CELL_SOLID;
+    }
+    return cell;
   }
 
   draw(){
