@@ -88,7 +88,7 @@ class MazeGenerator {
 
   tick(){
     if (this.cell == this.maze.targetCell()){
-      console.log("Got to the end!");
+      // console.log("Got to the end!");
       return;
     }
 
@@ -113,7 +113,7 @@ class MazeGenerator {
 
     let selectedWall;
     if (unknownWalls.length == 1){
-      console.log("... only one choice");
+      // console.log("... only one choice");
       selectedWall = unknownWalls[0];
       if (!this.canWalkInDirection(selectedWall)){
         this.cell.closeWall(selectedWall);
@@ -122,7 +122,7 @@ class MazeGenerator {
     }else{
       let randomSelection = floor(random(unknownWalls.length));
       selectedWall = unknownWalls[randomSelection];
-      console.log("selected wall: " + selectedWall);
+      // console.log("selected wall: " + selectedWall);
 
       if (!this.canWalkInDirection(selectedWall)){
         this.cell.closeWall(selectedWall);
@@ -144,7 +144,7 @@ class MazeGenerator {
 
   stepBackwards(){
     if (this.visitedCells.length == 0){
-      console.log("stuck, painted into a corner");
+      // console.log("stuck, painted into a corner");
       this.state = MazeGenerator.STATE_STUCK;
       return;
     }
