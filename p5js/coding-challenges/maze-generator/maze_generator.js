@@ -4,7 +4,7 @@ var mazeGenerator;
 function setup(){
   createCanvas(windowWidth, windowHeight);
   maze = new Maze(width, height);
-  frameRate(10);
+  frameRate(30);
   strokeWeight(4);
 
   let startingCell = maze.startingCell();
@@ -13,7 +13,7 @@ function setup(){
 
 function draw(){
   background(0);
-
+  mazeGenerator.tick();
   maze.draw();
   mazeGenerator.draw();
 }
@@ -129,10 +129,13 @@ class MazeGenerator {
         return;
       }
 
-      let nextIdx = (randomSelection+1) % unknownWalls.length;
-      let wallToClose = unknownWalls[nextIdx];
-      console.log("Wall to close: " + wallToClose);
-      this.cell.closeWall(wallToClose);
+      let randomClose = floor(random(5));
+      if (randomClose == 0) {
+        let nextIdx = (randomSelection+1) % unknownWalls.length;
+        let wallToClose = unknownWalls[nextIdx];
+        // console.log("Wall to close: " + wallToClose);
+        this.cell.closeWall(wallToClose);
+      }
     }
 
     this.cell.openWall(selectedWall); 
