@@ -6,6 +6,7 @@ class Ecosystem {
 
     this.determineMagicWaterPercentageFactor();
     this.grid = new CellGrid(this.sizeAndPosition, this, this.settings.cellWidth);
+    this.grid.initCells();
   }
 
   getScale(){
@@ -149,6 +150,9 @@ class Ecosystem {
     }
 
     this.erode();
+  }
+
+  draw(){
     this.grid.renderViews();
   }
 

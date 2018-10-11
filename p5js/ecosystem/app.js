@@ -10,11 +10,11 @@ function setup() {
 
   logSettings();
   frameRate(1);
-  ecosystem.tick();
 }
 
 function draw() {
   ecosystem.tick();
+  ecosystem.draw();
 }
 
 function logSettings(){
