@@ -67,6 +67,7 @@ Some things I would do if I pick this back up:
 * Implement scoring.
 * Fix the issue that the invaders shoot missles from any row / column.
 * Add the Mystery Ship which hovers above the invaders.
+* Explore Touch Screen interactivity to allow for playing on a smart phone / tablet.
 * Implement levels, maybe exploring the [p5js.SceneManager](https://github.com/mveteanu/p5.SceneManager) with increasing difficultly. There are some config parameters that control the difficulty, that would faciliate this:
 
 {% highlight javascript %}
@@ -86,7 +87,7 @@ var missleSpeed = 3;
 [coding-train]: https://thecodingtrain.com/
 [ct-challenge-5]: https://www.youtube.com/watch?v=biN3v3ef-Y0&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=5
 [source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/space-invaders/
-[live-view]: /sketchbook/p5js/coding-challenges/space-invaders/
+[live-view]: /sketchbook/p5js/coding-challenges/space-invaders/live-view.html
 [screenshot]: /sketchbook/p5js/coding-challenges/space-invaders/screenshot.png
 [wiki-space-invaders]: https://en.wikipedia.org/wiki/Space_Invaders
 [classic-gaming]: http://www.classicgaming.cc/classics/space-invaders/
