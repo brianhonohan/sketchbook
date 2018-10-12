@@ -5,13 +5,14 @@ var cameraPitch = 0;
 var cameraRoll = 0;
 var cameraYaw = 0;
 var generatedTerrain;
+var terrain;
 
 function setup(){
   createCanvas(windowWidth, windowHeight, WEBGL);
 
   terrain = new Terrain();
-  cameraLoc = createVector(0, 100, 0);
-  cameraPitch = - PI / 6;
+  cameraLoc = createVector(0, 0, 0);
+  cameraPitch = PI / 3;
 
   stroke(255);
   // draw();
@@ -26,43 +27,48 @@ function draw(){
   let baseColor = color(30, 90, 30);
   let maxColor = color(230, 240, 230);
 
-  let cellSize = 80;
-  let renderDepth = 30;
-  let renderWidth = 4 * (width / cellSize);
+  let cellSize = 20;
+  let renderDepth = 120;
+  let renderWidth = 2 * (width / cellSize);
   console.log("Render Width: "+ renderWidth);
 
   generatedTerrain = [];
 
   // Build Terrain
-  for (var z = 0; z < renderDepth; z++){
+  for (var y = 0; y < renderDepth; y++){
     generatedTerrain.push([]);
     for (var x = 0; x < renderWidth; x++){
       let xScaled = ((x - renderWidth/2) * cellSize) + cameraLoc.x;
-      let zScaled = (z * cellSize) + cameraLoc.z;
-      let heightAtLoc = terrain.elevationAt(xScaled, zScaled);
-      generatedTerrain[z][x] = heightAtLoc;
+      let yScaled = (y * cellSize) + cameraLoc.y;
+      let heightAtLoc = terrain.elevationAt(xScaled, yScaled);
+      generatedTerrain[y][x] = heightAtLoc;
     }
   }
-  
+
   // translate(width/2, height/2);
-  translate(cameraLoc.x, cameraLoc.y, cameraLoc.z);
+  // translate(cameraLoc.x, cameraLoc.y, cameraLoc.z);
   rotateX(cameraPitch);
 
+  // x => left-right
+  // y => forward-back
+  // z => up-down
+  translate(0, -2000, 0);
+  
   // Render mesh for Terrain
   noFill();    
-  for (var z = 0; z < renderDepth-1; z++){
+  for (var y = 0; y < renderDepth-1; y++){
     beginShape(TRIANGLE_STRIP);
     for (var x = 0; x < renderWidth; x++){
       let xScaled = ((x - renderWidth/2)* cellSize) + cameraLoc.x;
-      let zScaled = (z * cellSize) + cameraLoc.z;
+      let yScaled = (y * cellSize) + 0;
 
-      let nextScaledZ = zScaled + cellSize;
-      vertex(xScaled, generatedTerrain[z][x], zScaled);
-      vertex(xScaled, generatedTerrain[z+1][x], nextScaledZ);
+      let nextScaledY = yScaled + cellSize;
+      vertex(xScaled, yScaled, generatedTerrain[y][x]);
+      vertex(xScaled, nextScaledY, generatedTerrain[y+1][x]);
     }
     endShape();
   }
-  cameraLoc.z -= cellSize;
+  cameraLoc.y -= cellSize;
 }
 
 
@@ -75,3 +81,4 @@ class Terrain {
     return 100 * noise(x * this.noiseScale, z * this.noiseScale);
   }
 }
+
