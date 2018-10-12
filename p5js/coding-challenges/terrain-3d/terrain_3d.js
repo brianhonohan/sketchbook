@@ -4,6 +4,7 @@ var cameraLoc;
 var cameraPitch = 0;
 var cameraRoll = 0;
 var cameraYaw = 0;
+var generatedTerrain;
 
 function setup(){
   createCanvas(windowWidth, windowHeight, WEBGL);
@@ -13,6 +14,10 @@ function setup(){
   cameraPitch = - PI / 6;
 
   stroke(255);
+  // draw();
+  // noLoop();
+  // frameRate(0.005);
+  frameRate(5);
 }
 
 function draw(){
@@ -21,20 +26,21 @@ function draw(){
   let baseColor = color(30, 90, 30);
   let maxColor = color(230, 240, 230);
 
-  let cellSize = 10;
-  let renderDepth = 20;
-  let renderWidth = 2 * (width / cellSize);
+  let cellSize = 80;
+  let renderDepth = 30;
+  let renderWidth = 4 * (width / cellSize);
+  console.log("Render Width: "+ renderWidth);
 
-  let generatedTerrain = [];
+  generatedTerrain = [];
 
   // Build Terrain
-  for (var x = 0; x < renderWidth; x++){
-    generatedTerrain[x] = [];
-    for (var z = 0; z < renderDepth; z++){
-      let xScaled = (x * cellSize) + cameraLoc.x;
+  for (var z = 0; z < renderDepth; z++){
+    generatedTerrain.push([]);
+    for (var x = 0; x < renderWidth; x++){
+      let xScaled = ((x - renderWidth/2) * cellSize) + cameraLoc.x;
       let zScaled = (z * cellSize) + cameraLoc.z;
       let heightAtLoc = terrain.elevationAt(xScaled, zScaled);
-      generatedTerrain[x][z] = heightAtLoc;
+      generatedTerrain[z][x] = heightAtLoc;
     }
   }
   
@@ -44,20 +50,19 @@ function draw(){
 
   // Render mesh for Terrain
   noFill();    
-  beginShape(TRIANGLE_STRIP);
-  for (var x = 0; x < renderWidth; x++){
-    generatedTerrain[x] = [];
-    for (var z = 0; z < renderDepth-1; z++){
-      let xScaled = (x * cellSize) + cameraLoc.x;
+  for (var z = 0; z < renderDepth-1; z++){
+    beginShape(TRIANGLE_STRIP);
+    for (var x = 0; x < renderWidth; x++){
+      let xScaled = ((x - renderWidth/2)* cellSize) + cameraLoc.x;
       let zScaled = (z * cellSize) + cameraLoc.z;
 
       let nextScaledZ = zScaled + cellSize;
-      vertex(xScaled, generatedTerrain[x][z], zScaled);
-      vertex(xScaled, generatedTerrain[x][z+1], nextScaledZ);
+      vertex(xScaled, generatedTerrain[z][x], zScaled);
+      vertex(xScaled, generatedTerrain[z+1][x], nextScaledZ);
     }
+    endShape();
   }
-  endShape();
-  cameraLoc.z += 10;
+  cameraLoc.z -= cellSize;
 }
 
 
