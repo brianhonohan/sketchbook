@@ -1,11 +1,18 @@
-var terrain;
 var cameraLoc;
 
+// From: https://en.wikipedia.org/wiki/Aircraft_principal_axes
+var cameraPitch = 0;
+var cameraRoll = 0;
+var cameraYaw = 0;
+
 function setup(){
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(windowWidth, windowHeight, WEBGL);
 
   terrain = new Terrain();
-  cameraLoc = createVector(0, 0, 0);
+  cameraLoc = createVector(0, 100, 0);
+  cameraPitch = - PI / 6;
+
+  stroke(255);
 }
 
 function draw(){
@@ -15,15 +22,42 @@ function draw(){
   let maxColor = color(230, 240, 230);
 
   let cellSize = 10;
-  noStroke();
-  for (var x = 0; x < width; x += cellSize){
-    for (var z = 0; z < height; z += cellSize){
-      let heightAtLoc = terrain.elevationAt(cameraLoc.x + x, cameraLoc.z + z);
-      fill( lerpColor(baseColor, maxColor, heightAtLoc) );
-      rect(x, z, cellSize, cellSize);
+  let renderDepth = 20;
+  let renderWidth = 2 * (width / cellSize);
+
+  let generatedTerrain = [];
+
+  // Build Terrain
+  for (var x = 0; x < renderWidth; x++){
+    generatedTerrain[x] = [];
+    for (var z = 0; z < renderDepth; z++){
+      let xScaled = (x * cellSize) + cameraLoc.x;
+      let zScaled = (z * cellSize) + cameraLoc.z;
+      let heightAtLoc = terrain.elevationAt(xScaled, zScaled);
+      generatedTerrain[x][z] = heightAtLoc;
     }
   }
-  cameraLoc.z -= 10;
+  
+  // translate(width/2, height/2);
+  translate(cameraLoc.x, cameraLoc.y, cameraLoc.z);
+  rotateX(cameraPitch);
+
+  // Render mesh for Terrain
+  noFill();    
+  beginShape(TRIANGLE_STRIP);
+  for (var x = 0; x < renderWidth; x++){
+    generatedTerrain[x] = [];
+    for (var z = 0; z < renderDepth-1; z++){
+      let xScaled = (x * cellSize) + cameraLoc.x;
+      let zScaled = (z * cellSize) + cameraLoc.z;
+
+      let nextScaledZ = zScaled + cellSize;
+      vertex(xScaled, generatedTerrain[x][z], zScaled);
+      vertex(xScaled, generatedTerrain[x][z+1], nextScaledZ);
+    }
+  }
+  endShape();
+  cameraLoc.z += 10;
 }
 
 
@@ -33,6 +67,6 @@ class Terrain {
   }
 
   elevationAt(x, z){
-    return noise(x * this.noiseScale, z * this.noiseScale);
+    return 100 * noise(x * this.noiseScale, z * this.noiseScale);
   }
 }
