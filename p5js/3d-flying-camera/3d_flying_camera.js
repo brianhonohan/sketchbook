@@ -33,21 +33,46 @@ class CameraController {
     this.cam = cam;
   }
 
+  moveForward(){
+    this.cam.move(0, 0, -10);
+  }
+
+  moveBack(){
+    this.cam.move(0, 0, 10);
+  }
+
+  moveLeft(){
+    this.cam.move(-10, 0, 0);
+  }
+
+  moveRight(){
+    this.cam.move(0, 0, 10);
+  }
+
+  moveUp(){
+    this.cam.move(0, 10, 0);
+  }
+
+  moveDown(){
+    this.cam.move(0, -10, 0);
+  }
+
   handleKeyPressed(){
     let downcaseKey = key.toLowerCase();
+
     if (downcaseKey === 'd' || keyCode === RIGHT_ARROW) {
-      this.cam.move(10, 0, 10);
+      this.moveRight();
     } else if (downcaseKey === 'a' || keyCode === LEFT_ARROW) {
-      this.cam.move(-10, 0, 0);
+      this.moveLeft();
     } else if (downcaseKey === 'w' || keyCode === UP_ARROW) {
-      this.cam.move(0, 0, -10);
+      this.moveForward();
     } else if (downcaseKey === 's' || keyCode === DOWN_ARROW) {
-      this.cam.move(0, 0, 10);
+      this.moveBack();
     } else if (downcaseKey === ' '){
       if (keyIsDown(SHIFT)){
-        this.cam.move(0, -10, 0);
+        this.moveUp();
       }else{
-        this.cam.move(0, 10, 0);
+        this.moveDown();
       }
     }
   }
