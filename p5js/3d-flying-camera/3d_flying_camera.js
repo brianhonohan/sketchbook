@@ -46,7 +46,7 @@ class CameraController {
   }
 
   moveRight(){
-    this.cam.move(0, 0, 10);
+    this.cam.move(10, 0, 0);
   }
 
   moveUp(){
