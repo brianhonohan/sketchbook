@@ -39,37 +39,46 @@ class Coord3D {
     this.red = color(200, 50, 50);
     this.green = color(50, 200, 50);
     this.blue = color(50, 50, 200);
+
+    this.origin = createVector(0, 0, 0);
+    this.axisLength = 100;
   }
+
+  get x_axis_end() { return createVector(this.axisLength, 0, 0); }
+  get y_axis_end() { return createVector(0, this.axisLength, 0); }
+  get z_axis_end() { return createVector(0, 0, this.axisLength); }
 
   drawXAxis(){
     stroke(this.red);
-    line(0, 0, 0, 100, 0, 0);
+    this.lineFromTo(this.origin, this.x_axis_end);
 
     fill(this.red);
-    push();
-    translate(100, 0, 0);
-    box(10);
-    pop();
+    this.boxAt(this.x_axis_end);
   }
 
   drawYAxis(){
     stroke(this.green);
-    line(0, 0, 0, 0, 100, 0);
+    this.lineFromTo(this.origin, this.y_axis_end);
 
     fill(this.green);
-    push();
-    translate(0, 100, 0);
-    box(10);
-    pop();
+    this.boxAt(this.y_axis_end);
   }
 
   drawZAxis(){
     stroke(this.blue);
-    line(0, 0, 0, 0, 0, 100);
+    this.lineFromTo(this.origin, this.z_axis_end);
 
     fill(this.blue);
+    this.boxAt(this.z_axis_end);
+  }
+
+  lineFromTo(v1, v2){
+    line(v1.x, v1.y, v1.y, v2.x, v2.y, v2.z);
+  }
+
+  boxAt(v1){
     push();
-    translate(0, 0, 100);
+    translate(v1.x, v1.y, v1.z);
     box(10);
     pop();
   }
