@@ -8,6 +8,7 @@ function setup(){
   coord3d = new Coord3D();
   cam = createCamera();
   cameraController = new CameraController(cam);
+  debugMode();
 }
 
 function draw(){
@@ -74,6 +75,7 @@ class CameraController {
 
   panForMouse(){
     if (this.mouseIZminX <= mouseX && mouseX <= this.mouseIZmaxX){
+      this.cam.pan( (pmouseX - mouseX) / this.mouseInactiveZone * 0.05 );
       return;
     }
 
@@ -88,6 +90,7 @@ class CameraController {
 
   tiltForMouse(){
     if (this.mouseIZminY <= mouseY && mouseY <= this.mouseIZmaxY){
+      this.cam.tilt( (mouseY - pmouseY) / this.mouseInactiveZone * 0.05 );
       return;
     }
 
