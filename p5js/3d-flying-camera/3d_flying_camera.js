@@ -1,9 +1,13 @@
 var coord3d;
+var cam;
+var cameraController;
 
 function setup(){
   createCanvas(windowWidth, windowHeight, WEBGL);
 
   coord3d = new Coord3D();
+  cam = createCamera();
+  cameraController = new CameraController(cam);
 }
 
 function draw(){
@@ -14,6 +18,34 @@ function draw(){
   coord3d.drawYAxis();
 }
 
+function keyPressed(){
+  cameraController.handleKeyPressed();
+  console.log("keyPressed:  " + key);
+}
+
+
+function keyTyped() {
+  console.log("keyTyped:  " + key);
+}
+
+class CameraController {
+  constructor(cam) {
+    this.cam = cam;
+  }
+
+  handleKeyPressed(){
+    let downcaseKey = key.toLowerCase();
+    if (downcaseKey === 'd' || keyCode === RIGHT_ARROW) {
+      this.cam.move(10, 0, 10);
+    } else if (downcaseKey === 'a' || keyCode === LEFT_ARROW) {
+      this.cam.move(-10, 0, 0);
+    } else if (downcaseKey === 'w' || keyCode === UP_ARROW) {
+      this.cam.move(0, 0, -10);
+    } else if (downcaseKey === 's' || keyCode === DOWN_ARROW) {
+      this.cam.move(0, 0, 10);
+    }
+  }
+}
 
 class Coord3D {
   constructor(){
