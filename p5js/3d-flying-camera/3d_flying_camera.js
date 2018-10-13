@@ -3,7 +3,7 @@ var cam;
 var cameraController;
 
 function setup(){
-  createCanvas(windowWidth, windowHeight, WEBGL);
+  createCanvas(windowWidth, windowHeight-50, WEBGL);
 
   coord3d = new Coord3D();
   cam = createCamera();
@@ -43,6 +43,12 @@ class CameraController {
       this.cam.move(0, 0, -10);
     } else if (downcaseKey === 's' || keyCode === DOWN_ARROW) {
       this.cam.move(0, 0, 10);
+    } else if (downcaseKey === ' '){
+      if (keyIsDown(SHIFT)){
+        this.cam.move(0, -10, 0);
+      }else{
+        this.cam.move(0, 10, 0);
+      }
     }
   }
 }
