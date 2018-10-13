@@ -31,7 +31,7 @@ class CameraController {
 
     
     this.centerX = width / 2;
-    this.centerY = width / 2;
+    this.centerY = height / 2;
 
     this.mouseInactiveZone = 50;
 
