@@ -27,9 +27,26 @@ class CameraController {
     this.keyS = 83;
     this.keyD = 68;
     this.keySpace = 32;
+
+    
+    this.centerX = width / 2;
+    this.centerY = width / 2;
+
+    this.mouseInactiveZone = 50;
+
+    this.mouseIZminX = this.centerX - this.mouseInactiveZone;
+    this.mouseIZmaxX = this.centerX + this.mouseInactiveZone;
+    this.mouseIZminY = this.centerY - this.mouseInactiveZone;
+    this.mouseIZmaxY = this.centerY + this.mouseInactiveZone;
+
+    this.panRange = this.centerX - this.mouseInactiveZone;
+    this.tiltRange = this.centerY - this.mouseInactiveZone;
   }
 
   tick(){
+    this.panForMouse();
+    this.tiltForMouse();
+
     if (keyIsDown(this.keyW) || keyIsDown(UP_ARROW)){
       this.moveForward();
     }
@@ -53,6 +70,34 @@ class CameraController {
         this.moveDown();
       }
     }
+  }
+
+  panForMouse(){
+    if (this.mouseIZminX <= mouseX && mouseX <= this.mouseIZmaxX){
+      return;
+    }
+
+    let panTheta = 0;
+    if (mouseX < this.centerX){
+      panTheta = (this.mouseIZminX - mouseX) / this.panRange * 0.05;
+    }else {
+      panTheta = (this.mouseIZmaxX - mouseX) / this.panRange * 0.05;
+    }
+    this.cam.pan(panTheta);
+  }
+
+  tiltForMouse(){
+    if (this.mouseIZminY <= mouseY && mouseY <= this.mouseIZmaxY){
+      return;
+    }
+
+    let tiltTheta = 0;
+    if (mouseY < this.centerY){
+      tiltTheta = (mouseY - this.mouseIZminY) / this.tiltRange * 0.05;
+    }else {
+      tiltTheta = (mouseY - this.mouseIZmaxY) / this.tiltRange * 0.05;
+    }
+    this.cam.tilt(tiltTheta);
   }
 
   moveForward(){
