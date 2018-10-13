@@ -16,7 +16,7 @@ function setup(){
   cameraPitch = PI / 3;
 
   cellSize = map(width, 300, 3000, 20, 100);
-  stroke(255);
+  stroke(50, 200, 50);
   // draw();
   // noLoop();
   // frameRate(0.005);
