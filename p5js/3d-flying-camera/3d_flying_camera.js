@@ -74,13 +74,10 @@ class CameraController {
   }
 
   panForMouse(){
-    if (this.mouseIZminX <= mouseX && mouseX <= this.mouseIZmaxX){
-      this.cam.pan( (pmouseX - mouseX) / this.mouseInactiveZone * 0.05 );
-      return;
-    }
-
     let panTheta = 0;
-    if (mouseX < this.centerX){
+    if (this.mouseIZminX <= mouseX && mouseX <= this.mouseIZmaxX){
+      panTheta = (pmouseX - mouseX) / this.mouseInactiveZone * 0.05;
+    } else if (mouseX < this.centerX){
       panTheta = (this.mouseIZminX - mouseX) / this.panRange * 0.05;
     }else {
       panTheta = (this.mouseIZmaxX - mouseX) / this.panRange * 0.05;
@@ -89,13 +86,10 @@ class CameraController {
   }
 
   tiltForMouse(){
-    if (this.mouseIZminY <= mouseY && mouseY <= this.mouseIZmaxY){
-      this.cam.tilt( (mouseY - pmouseY) / this.mouseInactiveZone * 0.05 );
-      return;
-    }
-
     let tiltTheta = 0;
-    if (mouseY < this.centerY){
+    if (this.mouseIZminY <= mouseY && mouseY <= this.mouseIZmaxY){
+      tiltTheta = (mouseY - pmouseY) / this.mouseInactiveZone * 0.05;
+    }else if (mouseY < this.centerY){
       tiltTheta = (mouseY - this.mouseIZminY) / this.tiltRange * 0.05;
     }else {
       tiltTheta = (mouseY - this.mouseIZmaxY) / this.tiltRange * 0.05;
