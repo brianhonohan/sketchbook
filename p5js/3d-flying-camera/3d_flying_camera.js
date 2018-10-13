@@ -12,25 +12,47 @@ function setup(){
 
 function draw(){
   background(45);
+  cameraController.tick();
 
   coord3d.drawZAxis();
   coord3d.drawXAxis();
   coord3d.drawYAxis();
 }
 
-function keyPressed(){
-  cameraController.handleKeyPressed();
-  console.log("keyPressed:  " + key);
-}
-
-
-function keyTyped() {
-  console.log("keyTyped:  " + key);
-}
-
 class CameraController {
   constructor(cam) {
     this.cam = cam;
+    this.keyW = 87;
+    this.keyA = 65;
+    this.keyS = 83;
+    this.keyD = 68;
+    this.keySpace = 32;
+  }
+
+  tick(){
+    if (keyIsDown(this.keyW) || keyIsDown(UP_ARROW)){
+      this.moveForward();
+    }
+
+    if (keyIsDown(this.keyS) || keyIsDown(DOWN_ARROW)){
+      this.moveBack();
+    }
+
+    if (keyIsDown(this.keyD) || keyIsDown(RIGHT_ARROW)){
+      this.moveRight();
+    }
+
+    if (keyIsDown(this.keyA) || keyIsDown(LEFT_ARROW)){
+      this.moveLeft();
+    }
+
+    if (keyIsDown(this.keySpace)){
+      if (keyIsDown(SHIFT)){
+        this.moveUp();
+      }else{
+        this.moveDown();
+      }
+    }
   }
 
   moveForward(){
@@ -55,26 +77,6 @@ class CameraController {
 
   moveDown(){
     this.cam.move(0, -10, 0);
-  }
-
-  handleKeyPressed(){
-    let downcaseKey = key.toLowerCase();
-
-    if (downcaseKey === 'd' || keyCode === RIGHT_ARROW) {
-      this.moveRight();
-    } else if (downcaseKey === 'a' || keyCode === LEFT_ARROW) {
-      this.moveLeft();
-    } else if (downcaseKey === 'w' || keyCode === UP_ARROW) {
-      this.moveForward();
-    } else if (downcaseKey === 's' || keyCode === DOWN_ARROW) {
-      this.moveBack();
-    } else if (downcaseKey === ' '){
-      if (keyIsDown(SHIFT)){
-        this.moveUp();
-      }else{
-        this.moveDown();
-      }
-    }
   }
 }
 
