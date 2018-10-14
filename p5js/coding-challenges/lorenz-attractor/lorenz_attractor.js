@@ -4,6 +4,7 @@ var cameraController;
 var lsViewer;
 var currentPoint;
 
+var gui;
 var systemParams = {
   rho: 28,
   sigma: 10,
@@ -12,6 +13,11 @@ var systemParams = {
 
 function setup(){
   createCanvas(windowWidth, windowHeight, WEBGL);
+
+  gui = new dat.gui.GUI();
+  gui.add(systemParams, "rho").min(1).max(50).step(0.1);
+  gui.add(systemParams, "sigma").min(1).max(30).step(0.1);
+  gui.add(systemParams, "beta").min(1).max(30).step(0.1);
 
   lorenzSystem = new LorenzSystem(systemParams);
   lsViewer = new LorenzSystemViewer();
@@ -23,7 +29,7 @@ function setup(){
 
 function draw(){
   background(45);
-  cameraController.tick();
+  // cameraController.tick();
   scale(6);
   currentPoint = lsViewer.computePoints(lorenzSystem, currentPoint, 1);
   lsViewer.render();
