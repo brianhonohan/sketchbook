@@ -15,6 +15,10 @@ class PhotoCategorizer {
           // transitionStart: this.handleTransitionStart,
           // transitionEnd: this.handleTransitionEnd
         },
+      virtual: {
+        slides: this.getSlides(),
+        renderSlide: this.handleRenderSlide
+      }
       };
   }
 
@@ -37,7 +41,20 @@ class PhotoCategorizer {
   log(message){
     console.log(message);
   }
+
+  loadSlides(){
+    this.slides = ['Slide 1', 'Slide 2', 'Slide 3', 'Slide 4', 'Slide 5'];
+  }
+
+  getSlides(){
+    return this.slides;
+  }
+
+  handleRenderSlide(slide, index){
+    return `<div class="swiper-slide">${slide}</div>`;
+  }
 }
 
 var categorizer = new PhotoCategorizer();
+categorizer.loadSlides();
 categorizer.initSwiper();
