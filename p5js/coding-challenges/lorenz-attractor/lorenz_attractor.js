@@ -19,7 +19,8 @@ function draw(){
   background(45);
   cameraController.tick();
   scale(6);
-  currentPoint = lsViewer.renderStartingAt(lorenzSystem, currentPoint, 600);
+  currentPoint = lsViewer.computePoints(lorenzSystem, currentPoint, 1);
+  lsViewer.render();
 }
 
 class LorenzSystem {
@@ -52,25 +53,31 @@ class LorenzSystem {
 
 class LorenzSystemViewer {
   constructor(){
-    this.timeStep = 0.005;
+    this.timeStep = 0.01;
+    this.computedPoints = [];
   }
 
-  renderStartingAt(system, loc, numIterations){
+  computePoints(system, loc, numIterations){
     let nextPoint;
-    let pointToReturn;
     for (var i = 0; i < numIterations; i++){
       nextPoint = system.nextLocation(loc, this.timeStep);
-
-      if (i == 10) {
-        pointToReturn = nextPoint;
-      }
-      stroke(85+ i%255, 170+ i%255, 255 + i%255);
-      line(loc.x, loc.y, loc.z, nextPoint.x, nextPoint.y, nextPoint.z);
-
+      this.computedPoints.push(nextPoint);
+      
       // console.log(`x: ${loc.x}, y: ${loc.y}, z: ${loc.z}`)
       loc = nextPoint;
     }
 
-    return pointToReturn;
+    return loc;
+  }
+
+  render(){
+    let loc = this.computedPoints[0];
+
+    for (var i = 0; i < (this.computedPoints.length-1); i++){
+      stroke(85+ i%255, 170+ i%255, 255 + i%255);
+      let nextPoint = this.computedPoints[i+1];
+      line(loc.x, loc.y, loc.z, nextPoint.x, nextPoint.y, nextPoint.z);
+      loc = nextPoint;
+    }
   }
 }
