@@ -35,6 +35,12 @@ function draw(){
   lsViewer.render();
 }
 
+function keyTyped(){
+  if (key === 'c'){
+    lsViewer.clearPoints();
+  }
+}
+
 class LorenzSystem {
   constructor(config){
     this.config = config;
@@ -78,6 +84,10 @@ class LorenzSystemViewer {
     }
 
     return loc;
+  }
+
+  clearPoints(){
+    this.computedPoints = [];
   }
 
   render(){
