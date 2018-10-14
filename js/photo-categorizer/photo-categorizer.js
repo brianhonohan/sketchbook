@@ -66,7 +66,6 @@ class PhotoCategorizer {
   }
 
   initialSlides(){
-    console.log("initialSlides");
     let slideSet = [this.slides[0]];
 
     for (var i = 0; i < this.slideRenderBuffer; i++){
@@ -146,12 +145,11 @@ class PhotoCategorizer {
   }
 
   categorize(idx, category){
-    console.log(`Categorizing index: ${idx} as category: ${category}`);
+    this.log(`Categorizing index: ${idx} as category: ${category}`);
     this.slides[idx].category = category;
   }
 
   handleRenderSlide(slide, index){
-    console.log("rendering: " + index);
     return `<div class="swiper-slide">${slide.data}</div>`;
   }
 
