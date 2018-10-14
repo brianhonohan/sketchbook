@@ -2,7 +2,11 @@ class PhotoCategorizer {
   constructor(){
     this.slideRenderBuffer = 2; // Render the next 2 slides
     this.currentIdx = 0;
+    this.state = -1;
   }
+
+  static get STATE_DONE() { return 0; }
+  static get STATE_CATEGORIZING() { return 1; }
 
   static get DIRECTION_LEFT() { return -1; }
   static get DIRECTION_RIGHT() { return 1; }
@@ -10,6 +14,7 @@ class PhotoCategorizer {
   initSwiper(){
     this.swiper = new Swiper ('.swiper-container', this.swiperConfig());
     this.initKeyboardEventHandling();
+    this.state = PhotoCategorizer.STATE_CATEGORIZING;
   }
 
   swiperConfig(){
@@ -71,12 +76,33 @@ class PhotoCategorizer {
     document.addEventListener('keydown', (event) => {
       const keyName = event.key;
 
+      if (categorizer.isDoneCategorizing()){
+        return;
+      }
+
+      if (categorizer.isReviewingLastSlide()){
+        if ('ArrowRight' === keyName){
+          categorizer.handleSwipe(PhotoCategorizer.DIRECTION_RIGHT);
+        }else if ('ArrowLeft' === keyName){
+          categorizer.handleSwipe(PhotoCategorizer.DIRECTION_LEFT);
+        }
+        return;
+      }
+
       if ('ArrowRight' === keyName){
-        categorizer.swiper.slidePrev(200, true);
+        categorizer.swiper.slidePrev(0, true);
       }else if ('ArrowLeft' === keyName){
-        categorizer.swiper.slideNext(200, true);
+        categorizer.swiper.slideNext(0, true);
       }
     }, false);
+  }
+
+  isReviewingLastSlide(){
+    return this.currentIdx === (this.slides.length - 1);
+  }
+
+  isDoneCategorizing(){
+    return this.state === PhotoCategorizer.STATE_DONE;
   }
 
   loadSlides(){
@@ -123,12 +149,15 @@ class PhotoCategorizer {
     }else if (direction === PhotoCategorizer.DIRECTION_RIGHT){
       this.handleSwipeRight();
     }
-    if (this.currentIdx < this.slides.length - 1){
+    if (this.currentIdx < (this.slides.length - 1)){
       this.currentIdx++;
+      this.prependAppendSlides();
     } else {
+      this.state = PhotoCategorizer.STATE_DONE;
+      this.log('Calling swiper.destroy()');
+      this.swiper.destroy();
       this.generateCsvDownload();
     }
-    this.prependAppendSlides();
   }
 
   handleSwipeLeft(){
