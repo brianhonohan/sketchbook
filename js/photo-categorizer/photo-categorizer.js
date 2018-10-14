@@ -15,6 +15,8 @@ class PhotoCategorizer {
     return {
       initialSlide: this.slideRenderBuffer,
       runCallbacksOnInit: false,
+      centeredSlides: true,
+      spaceBetween: 200,
       on: {
           // slideChangeTransitionStart: this.handleSlideChangeTransitionStart,
           // slideChangeTransitionEnd: this.handleSlideChangeTransitionEnd,
@@ -61,7 +63,28 @@ class PhotoCategorizer {
   }
 
   loadSlides(){
-    this.slides = ['Slide 1', 'Slide 2', 'Slide 3', 'Slide 4', 'Slide 5'];
+    // this.slides = ['Slide 1', 'Slide 2', 'Slide 3', 'Slide 4', 'Slide 5'];
+
+    this.slides = 
+    [
+      'https://s3.amazonaws.com/bh-sketchbook/example_assets/img/1024x680/5061656647_b43a036fcf_b.jpg',
+      'https://s3.amazonaws.com/bh-sketchbook/example_assets/img/1024x680/5062270236_c8aefa384e_b.jpg',
+      'https://s3.amazonaws.com/bh-sketchbook/example_assets/img/1024x680/5062273734_ecde1073a8_b.jpg',
+      'https://s3.amazonaws.com/bh-sketchbook/example_assets/img/1024x680/5062277690_176ee62a66_b.jpg',
+      'https://s3.amazonaws.com/bh-sketchbook/example_assets/img/1024x680/5061685435_72d1ccf097_b.jpg',
+      'https://s3.amazonaws.com/bh-sketchbook/example_assets/img/1024x680/5062294084_3e3f393e25_b.jpg',
+      'https://s3.amazonaws.com/bh-sketchbook/example_assets/img/1024x680/5061739999_849d373f7b_b.jpg',
+      'https://s3.amazonaws.com/bh-sketchbook/example_assets/img/1024x680/5062351896_6c0c5578e2_b.jpg',
+      'https://s3.amazonaws.com/bh-sketchbook/example_assets/img/1024x680/5061686071_866574b64d_b.jpg',
+      'https://s3.amazonaws.com/bh-sketchbook/example_assets/img/1024x680/5065290952_36992c5d99_b.jpg',
+      'https://s3.amazonaws.com/bh-sketchbook/example_assets/img/1024x680/5064690245_ecf3f4040a_b.jpg',
+      'https://s3.amazonaws.com/bh-sketchbook/example_assets/img/1024x680/5088556614_bf4a3f887e_b.jpg',
+      'https://s3.amazonaws.com/bh-sketchbook/example_assets/img/1024x680/5087960663_b02899b9f3_b.jpg',
+      'https://s3.amazonaws.com/bh-sketchbook/example_assets/img/1024x680/5134492242_af9124a5d5_b.jpg',
+      'https://s3.amazonaws.com/bh-sketchbook/example_assets/img/1024x680/5191388365_caece5e94c_b.jpg',
+      'https://s3.amazonaws.com/bh-sketchbook/example_assets/img/1024x680/5189862360_c4bc774a0e_b.jpg',
+      'https://s3.amazonaws.com/bh-sketchbook/example_assets/img/1024x680/5191627133_b99018b6ea_b.jpg'
+    ];
     this.slides = this.slides.map((sl) => { return {data: sl, category: null}; });
   }
 
@@ -150,7 +173,8 @@ class PhotoCategorizer {
   }
 
   handleRenderSlide(slide, index){
-    return `<div class="swiper-slide">${slide.data}</div>`;
+    // return `<div class="swiper-slide">${slide.data}</div>`;
+    return `<div class="swiper-slide"><img src="${slide.data}" /></div>`;
   }
 
   generateCsvDownload(){
