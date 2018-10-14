@@ -9,6 +9,7 @@ class PhotoCategorizer {
 
   initSwiper(){
     this.swiper = new Swiper ('.swiper-container', this.swiperConfig());
+    this.initKeyboardEventHandling();
   }
 
   swiperConfig(){
@@ -60,6 +61,22 @@ class PhotoCategorizer {
 
   log(message){
     console.log(message);
+  }
+
+  initKeyboardEventHandling(){
+    // in lieu of: Swiper Keyboard: https://idangero.us/swiper/api/#keyboard
+    // because pressing right, means you've effectively swiped left
+    // and I think that will get confusing.
+
+    document.addEventListener('keydown', (event) => {
+      const keyName = event.key;
+
+      if ('ArrowRight' === keyName){
+        categorizer.swiper.slidePrev(200, true);
+      }else if ('ArrowLeft' === keyName){
+        categorizer.swiper.slideNext(200, true);
+      }
+    }, false);
   }
 
   loadSlides(){
