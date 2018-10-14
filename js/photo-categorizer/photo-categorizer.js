@@ -86,6 +86,8 @@ class PhotoCategorizer {
     }
     if (this.currentIdx < this.slides.length - 1){
       this.currentIdx++;
+    } else {
+      this.generateCsvDownload();
     }
     this.prependAppendSlides();
   }
@@ -151,6 +153,24 @@ class PhotoCategorizer {
   handleRenderSlide(slide, index){
     console.log("rendering: " + index);
     return `<div class="swiper-slide">${slide.data}</div>`;
+  }
+
+  generateCsvDownload(){
+    // from: https://stackoverflow.com/a/14966131
+    // and: https://stackoverflow.com/a/18849208
+    var lineArray = [];
+    this.slides.forEach(function (slide, index) {
+        var line = `${slide.data},${slide.category}`;
+        lineArray.push(index == 0 ? "data:text/csv;charset=utf-8," + line : line);
+    });
+    var csvContent = lineArray.join("\n");
+
+    var encodedUri = encodeURI(csvContent);
+    var link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "my_data.csv");
+    link.innerHTML = "Download CSV";
+    document.body.appendChild(link); // Required for FF
   }
 }
 
