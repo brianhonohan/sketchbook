@@ -87,6 +87,7 @@ class PhotoCategorizer {
     if (this.currentIdx < this.slides.length - 1){
       this.currentIdx++;
     }
+    this.prependAppendSlides();
   }
 
   handleSwipeLeft(){
@@ -120,6 +121,18 @@ class PhotoCategorizer {
     this.swiper.removeSlide(this.swiper.previousIndex);
 
     this.swiper.update();
+  }
+
+  prependAppendSlides(){
+    if (this.currentIdx < (this.slides.length - this.slideRenderBuffer)){
+      let slideToAddIdx = this.currentIdx + this.slideRenderBuffer;
+      let slideToAdd = this.slides[slideToAddIdx];
+      let renderedSlide = this.handleRenderSlide(slideToAdd, slideToAddIdx);
+
+      this.swiper.prependSlide(renderedSlide);
+      this.swiper.appendSlide(renderedSlide);
+      this.swiper.virtual.update();
+    }
   }
 
   getCategoryFor(direction){
