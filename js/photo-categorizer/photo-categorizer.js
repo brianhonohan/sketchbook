@@ -1,10 +1,15 @@
 class PhotoCategorizer {
+  constructor(){
+    this.slideRenderBuffer = 2; // Render the next 2 slides
+  }
+
   initSwiper(){
     this.swiper = new Swiper ('.swiper-container', this.swiperConfig());
   }
 
   swiperConfig(){
     return {
+      initialSlide: this.slideRenderBuffer,
       on: {
           // slideChangeTransitionStart: this.handleSlideChangeTransitionStart,
           // slideChangeTransitionEnd: this.handleSlideChangeTransitionEnd,
@@ -16,8 +21,10 @@ class PhotoCategorizer {
           // transitionEnd: this.handleTransitionEnd
         },
       virtual: {
-        slides: this.getSlides(),
-        renderSlide: this.handleRenderSlide
+        slides: this.initialSlides(),
+        renderSlide: this.handleRenderSlide,
+        addSlidesBefore: this.slideRenderBuffer,
+        addSlidesAfter: this.slideRenderBuffer,
       }
       };
   }
@@ -46,11 +53,20 @@ class PhotoCategorizer {
     this.slides = ['Slide 1', 'Slide 2', 'Slide 3', 'Slide 4', 'Slide 5'];
   }
 
-  getSlides(){
-    return this.slides;
+  initialSlides(){
+    console.log("initialSlides");
+    let slideSet = [this.slides[0]];
+
+    for (var i = 0; i < this.slideRenderBuffer; i++){
+      slideSet.push(this.slides[i + 1]);
+      slideSet.unshift(this.slides[i + 1]);
+    }
+
+    return slideSet;
   }
 
   handleRenderSlide(slide, index){
+    console.log("rendering: " + index);
     return `<div class="swiper-slide">${slide}</div>`;
   }
 }
