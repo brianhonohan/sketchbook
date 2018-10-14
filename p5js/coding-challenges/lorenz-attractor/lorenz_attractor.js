@@ -71,6 +71,10 @@ class LorenzSystemViewer {
   }
 
   render(){
+    this.renderAsShape();
+  }
+
+  renderAsLines(){
     let loc = this.computedPoints[0];
 
     for (var i = 0; i < (this.computedPoints.length-1); i++){
@@ -79,5 +83,18 @@ class LorenzSystemViewer {
       line(loc.x, loc.y, loc.z, nextPoint.x, nextPoint.y, nextPoint.z);
       loc = nextPoint;
     }
+  }
+
+  renderAsShape(){
+    let loc;
+    stroke(50, 200, 50);
+
+    noFill();
+    beginShape()
+    for (var i = 0; i < this.computedPoints.length; i++){
+      loc = this.computedPoints[i];
+      vertex(loc.x, loc.y, loc.z);
+    }
+    endShape();
   }
 }
