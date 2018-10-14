@@ -4,10 +4,16 @@ var cameraController;
 var lsViewer;
 var currentPoint;
 
+var systemParams = {
+  rho: 28,
+  sigma: 10,
+  beta: 8/3.0
+};
+
 function setup(){
   createCanvas(windowWidth, windowHeight, WEBGL);
 
-  lorenzSystem = new LorenzSystem(28, 10, 8/3.0);
+  lorenzSystem = new LorenzSystem(systemParams);
   lsViewer = new LorenzSystemViewer();
 
   cam = createCamera();
@@ -24,22 +30,20 @@ function draw(){
 }
 
 class LorenzSystem {
-  constructor(rho, sigma, beta){
-    this.rho = rho;
-    this.sigma = sigma;
-    this.beta = beta;
+  constructor(config){
+    this.config = config;
   }
 
   dx_dt (loc){
-    return this.sigma * (loc.y - loc.x);
+    return this.config.sigma * (loc.y - loc.x);
   }
 
   dy_dt (loc){
-    return loc.x * (this.rho - loc.z) - loc.y;
+    return loc.x * (this.config.rho - loc.z) - loc.y;
   }
 
   dz_dt (loc){
-    return loc.x * loc.y - this.beta * loc.z;
+    return loc.x * loc.y - this.config.beta * loc.z;
   }
 
   nextLocation(loc, timeStep){
