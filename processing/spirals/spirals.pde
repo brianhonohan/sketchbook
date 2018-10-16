@@ -5,8 +5,8 @@ Point mouse;
 PolarPoint polarMouse;
 Spiral spiral;
 
-import gifAnimation.*;
-GifMaker gifExport;
+//import gifAnimation.*;
+//GifMaker gifExport;
 boolean exportingFrames = false;
 
 float ptStepPercent = 0.03;  // percent of difference to move to target
@@ -38,7 +38,7 @@ void draw(){
   
   if(exportingFrames){
 //    gifExport.setDelay();
-    gifExport.addFrame();
+    //gifExport.addFrame();
     //saveFrame("spirals-######.png");
   }
   
@@ -69,7 +69,7 @@ void mouseMoved(){
   // int numPoints = (int) ( 500 * norm(mouseY*mouseX, 0, width*height) );
   
   float degrees = ( 360 * norm(mouseY*mouseX, 0, width*height) );
-  float degress = degrees(polarMouse.theta);
+  float degress = polarMouse.theta * 180 / PI;
   if (keyPressed == true){
     degrees = 137.508;
   }
@@ -91,19 +91,19 @@ void mousePressed_disabled(){
 }
 
 void startGifExport(){
-   gifExport = new GifMaker(this, "export" + millis() + ".gif");
-   gifExport.setRepeat(0);
-   gifExport.setQuality(2);
-   int delayInMillis = (int)(1000/60.0);
-   gifExport.setDelay( delayInMillis );
-   exportingFrames = true;
+   //gifExport = new GifMaker(this, "export" + millis() + ".gif");
+   //gifExport.setRepeat(0);
+   //gifExport.setQuality(2);
+   //int delayInMillis = (int)(1000/60.0);
+   //gifExport.setDelay( delayInMillis );
+   //exportingFrames = true;
 }
 
 void stopGifExport(){
-   if(gifExport != null){
-     gifExport.finish();
-   }
-   exportingFrames = false;
+   //if(gifExport != null){
+   //  gifExport.finish();
+   //}
+   //exportingFrames = false;
 }
 
 void draw_DISABLED(){
@@ -656,4 +656,3 @@ class TextStyle {
     return textDescent();
   }
 }
-
