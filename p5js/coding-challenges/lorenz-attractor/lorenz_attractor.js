@@ -29,7 +29,7 @@ function setup(){
 
 function draw(){
   background(45);
-  // cameraController.tick();
+  cameraController.tick();
   scale(6);
   currentPoint = lsViewer.computePoints(lorenzSystem, currentPoint, 1);
   lsViewer.render();
