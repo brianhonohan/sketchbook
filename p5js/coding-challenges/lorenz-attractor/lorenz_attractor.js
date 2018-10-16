@@ -113,6 +113,15 @@ class LorenzSystemViewer {
     beginShape()
     for (var i = 0; i < this.computedPoints.length; i++){
       loc = this.computedPoints[i];
+
+
+      if (i % 10 === 0){
+        vertex(loc.x, loc.y, loc.z);
+        endShape();
+        stroke(150+ i%80, 100 +i%80, 50 + i%150);
+        beginShape();
+      }
+
       vertex(loc.x, loc.y, loc.z);
     }
     endShape();
