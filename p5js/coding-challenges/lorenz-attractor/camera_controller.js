@@ -23,31 +23,40 @@ class CameraController {
   }
 
   tick(){
-    this.panForMouse();
-    this.tiltForMouse();
+    let keyObserved = false;
 
     if (keyIsDown(this.keyW) || keyIsDown(UP_ARROW)){
+      keyObserved = true;
       this.moveForward();
     }
 
     if (keyIsDown(this.keyS) || keyIsDown(DOWN_ARROW)){
+      keyObserved = true;
       this.moveBack();
     }
 
     if (keyIsDown(this.keyD) || keyIsDown(RIGHT_ARROW)){
+      keyObserved = true;
       this.moveRight();
     }
 
     if (keyIsDown(this.keyA) || keyIsDown(LEFT_ARROW)){
+      keyObserved = true;
       this.moveLeft();
     }
 
     if (keyIsDown(this.keySpace)){
+      keyObserved = true;
       if (keyIsDown(SHIFT)){
         this.moveUp();
       }else{
         this.moveDown();
       }
+    }
+
+    if (keyObserved){
+      this.panForMouse();
+      this.tiltForMouse();
     }
   }
 
