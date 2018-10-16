@@ -69,7 +69,7 @@ void mouseMoved(){
   // int numPoints = (int) ( 500 * norm(mouseY*mouseX, 0, width*height) );
   
   float degrees = ( 360 * norm(mouseY*mouseX, 0, width*height) );
-  float degress = degrees(polarMouse.theta);
+  float degress = polarMouse.theta * 180 / PI;
   if (keyPressed == true){
     degrees = 137.508;
   }
