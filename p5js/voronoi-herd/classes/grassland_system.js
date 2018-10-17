@@ -6,7 +6,7 @@ class GrasslandSystem {
   }
 
   tick(){
-
+    this.herd.tick();
   }
 
   draw(){

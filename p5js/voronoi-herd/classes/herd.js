@@ -5,6 +5,14 @@ class Herd {
     this.params = params;
     this.herdCount = this.params.herd_count;
     this.initHerd();
+
+    voronoiSiteFlag(false);
+  }
+
+  tick(){
+    voronoiClearSites();
+    voronoiSites( this.members.map((el) => [el.x, el.y] ));
+    voronoi(width, height, false);
   }
 
   initHerd(){
@@ -19,6 +27,8 @@ class Herd {
   }
 
   draw(){
+    voronoiCellStroke( color(150, 200, 150) );
+    voronoiDraw(0, 0, false, false);
     this.members.forEach((m) => m.draw());
   }
 }
