@@ -1,6 +1,7 @@
 class Herd {
-  constructor(){
-    this.herdCount = 30;
+  constructor(params){
+    this.params = params;
+    this.herdCount = this.params.herd_count;
     this.initHerd();
   }
 

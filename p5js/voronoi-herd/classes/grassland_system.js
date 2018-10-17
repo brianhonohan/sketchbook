@@ -1,6 +1,7 @@
 class GrasslandSystem {
-  constructor(){
-    this.herd = new Herd();
+  constructor(params){
+    this.params = params;
+    this.herd = new Herd(params);
     this.predator = new Predator(random(width), random(height));
   }
 
