@@ -3,6 +3,7 @@ class GrasslandSystem {
     this.params = params;
     this.herd = new Herd(params);
     this.predator = new Predator(random(width), random(height));
+    this.herd.noticePredator(this.predator);
   }
 
   tick(){

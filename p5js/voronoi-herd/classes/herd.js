@@ -9,10 +9,23 @@ class Herd {
     voronoiSiteFlag(false);
   }
 
+  noticePredator(predator){
+    this.predator = predator;
+  }
+  
   tick(){
     voronoiClearSites();
     voronoiSites( this.members.map((el) => [el.x, el.y] ));
     voronoi(width, height, false);
+
+    const closestCell = voronoiGetSite( this.predator.x, this.predator.y, false);
+    const diagram = voronoiGetDiagram();
+    const voronoiCell = diagram.cells[closestCell];
+    const closestMember = this.members.find( (el) => 
+                            voronoiCell.site.x == el.x 
+                            && voronoiCell.site.y == el.y );
+
+    closestMember.state = HerdMember.STATE_AVOIDING_PREDATOR;
   }
 
   initHerd(){
