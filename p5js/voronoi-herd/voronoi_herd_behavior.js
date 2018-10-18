@@ -8,6 +8,7 @@ var guiHerdCount;
 
 function setup(){
   createCanvas(windowWidth, windowHeight-35);
+  P5JsSettings.init();
 
   gui = new dat.gui.GUI();
   guiHerdCount = gui.add(systemParams, "herd_count").min(5).max(50).step(1);
