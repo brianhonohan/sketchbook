@@ -21,11 +21,14 @@ class Herd {
     const closestCell = voronoiGetSite( this.predator.x, this.predator.y, false);
     const diagram = voronoiGetDiagram();
     const voronoiCell = diagram.cells[closestCell];
-    const closestMember = this.members.find( (el) => 
-                            voronoiCell.site.x == el.x 
-                            && voronoiCell.site.y == el.y );
+    const closestMember = this.memberForCell(voronoiCell);
 
     closestMember.state = HerdMember.STATE_AVOIDING_PREDATOR;
+  }
+
+  memberForCell(cell){
+    return this.members.find( (el) => cell.site.x == el.x 
+                                   && cell.site.y == el.y );
   }
 
   initHerd(){
