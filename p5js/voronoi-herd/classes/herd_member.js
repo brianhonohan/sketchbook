@@ -10,6 +10,10 @@ class HerdMember {
   static get STATE_GRAZING() { return 0; }
   static get STATE_AVOIDING_PREDATOR() { return 1; }
 
+  avoidPredator(){
+    this.state = HerdMember.STATE_AVOIDING_PREDATOR;
+  }
+
   static colorForState(state) { 
     return ({
       0: color(50, 200, 50),
