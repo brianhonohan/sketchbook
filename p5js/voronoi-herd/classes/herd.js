@@ -19,16 +19,19 @@ class Herd {
     voronoi(width, height, false);
 
     const closestCellId = voronoiGetSite( this.predator.x, this.predator.y, false);
-    const diagram = voronoiGetDiagram();
-    const voronoiCell = diagram.cells[closestCellId];
+    this.diagram = voronoiGetDiagram();
+    const voronoiCell = this.diagram.cells[closestCellId];
     const closestMember = this.memberForCell(voronoiCell);
 
     closestMember.avoidPredator();
 
-    const otherNeighboringCells = voronoiNeighbors(closestCellId);
-    otherNeighboringCells.map(el => diagram.cells[el])
-                         .map(el => this.memberForCell(el))
-                         .forEach(el => el.avoidPredator());
+    this.neighborMembers(closestCellId).forEach(el => el.avoidPredator());
+  }
+
+  neighborMembers(cellId){
+    const otherNeighboringCells = voronoiNeighbors(cellId);
+    return otherNeighboringCells.map(el => this.diagram.cells[el])
+                                .map(el => this.memberForCell(el));
   }
 
   memberForCell(cell){
