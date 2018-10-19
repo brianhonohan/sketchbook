@@ -1,9 +1,14 @@
 class HerdMember {
-  constructor(x, y){
-    this.x = x;
-    this.y = y;
+  constructor(x, y, herd){
+    this.herd = herd;
+    this.loc = createVector(x, y);
+    this.velocity = createVector(0, 0);
+    this.accel = createVector(0, 0);
     this.state = HerdMember.STATE_GRAZING;
   }
+
+  get x(){ return this.loc.x; }
+  get y(){ return this.loc.y; }
 
   get color(){ return HerdMember.colorForState(this.state); }
 
@@ -12,6 +17,16 @@ class HerdMember {
 
   avoidPredator(){
     this.state = HerdMember.STATE_AVOIDING_PREDATOR;
+  }
+
+  updateBehavior(neighbors){
+    this.accel.add(this.herd.flocking.calcAccel(this, neighbors));
+  }
+
+  applyBehavior(){
+    this.velocity.add(this.accel);
+    this.loc.add(this.velocity);
+    this.accel.mult(0);
   }
 
   static colorForState(state) { 

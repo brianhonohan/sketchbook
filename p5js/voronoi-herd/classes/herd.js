@@ -1,9 +1,12 @@
+var myMap;
+
 class Herd {
   constructor(params){
     this.startingX = random(width);
     this.startingY = random(height);
     this.params = params;
     this.herdCount = this.params.herd_count;
+    this.flocking = new Flocking();
     this.initHerd();
 
     voronoiSiteFlag(false);
@@ -26,6 +29,8 @@ class Herd {
     closestMember.avoidPredator();
 
     this.neighborMembers(closestCellId).forEach(el => el.avoidPredator());
+    this.membersUpdateBehavior();
+    this.members.forEach(el => el.applyBehavior());
   }
 
   neighborMembers(cellId){
@@ -39,6 +44,11 @@ class Herd {
                                    && cell.site.y == el.y );
   }
 
+  membersUpdateBehavior(){
+    this.diagram.cells.map((el,i) => ({m: this.memberForCell(el), n: this.neighborMembers(i) }) )
+                      .forEach(el => el.m.updateBehavior(el.n));
+  }
+
   initHerd(){
     this.members = Array(this.herdCount).fill()
                     .map((_, i) => this.spawnRandomMember() );
@@ -47,7 +57,9 @@ class Herd {
   spawnRandomMember(){
     let approxSpacing = map(this.herdCount, 0, 100, 30, 300);
     return new HerdMember( constrain(randomGaussian(this.startingX, approxSpacing), 0, width),
-                           constrain(randomGaussian(this.startingY, approxSpacing), 0, height));
+                           constrain(randomGaussian(this.startingY, approxSpacing), 0, height),
+                           this
+                         );
   }
 
   draw(){
