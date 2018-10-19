@@ -31,4 +31,4 @@ Source code: ([View on Github][source-code])
 [wiki-phyllotaxis]: https://en.wikipedia.org/wiki/Phyllotaxis
 [wiki-golden-angle]: https://en.wikipedia.org/wiki/Golden_angle
 [wiki-fermat-spiral]: https://en.wikipedia.org/wiki/Fermat%27s_spiral
-[source-code]: https://github.com/brianhonohan/sketchbook/blob/master/processing/coding-challenges/spirals/spirals.pde
+[source-code]: https://github.com/brianhonohan/sketchbook/blob/master/processing/spirals/spirals.pde
