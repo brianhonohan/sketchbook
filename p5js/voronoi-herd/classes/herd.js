@@ -67,7 +67,9 @@ class Herd {
 
   draw(){
     voronoiCellStroke( color(150, 200, 150) );
-    voronoiDraw(0, 0, false, false);
+    if (this.params.drawVoronoi){
+      voronoiDraw(0, 0, false, false);
+    }
     this.members.forEach((m) => m.draw());
   }
 }

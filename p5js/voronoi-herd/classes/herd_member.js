@@ -16,7 +16,7 @@ class HerdMember {
 
   static get STATE_GRAZING() { return 0; }
   static get STATE_AVOIDING_PREDATOR() { return 1; }
-  static get size() { return 10; }
+  static get size() { return systemParams.memberSize; } // WARNING: External dependency
 
   isGrazing(){ return this.state === HerdMember.STATE_GRAZING; }
   isAvoiding(){ return this.state === HerdMember.STATE_AVOIDING_PREDATOR; }
