@@ -5,6 +5,7 @@ var systemParams = {
   herd_count: 30,
   memberSize: 5,
   drawVoronoi: true,
+  wrapEdges: false,
 
   flocking: {
     maxSpeed: 0.5,
@@ -21,6 +22,7 @@ function setup(){
   guiHerdCount = gui.add(systemParams, "herd_count").min(5).max(50).step(1);
   gui.add(systemParams, "memberSize").min(1).max(30).step(1);
   gui.add(systemParams, "drawVoronoi");
+  gui.add(systemParams, "wrapEdges");
 
   let flocking = gui.addFolder('Flocking');
   flocking.add(systemParams.flocking, 'maxSpeed').min(0.25).max(5).step(0.25);

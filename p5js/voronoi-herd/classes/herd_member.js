@@ -57,19 +57,21 @@ class HerdMember {
   }
 
   borders(){
-    // wraps - but assumes bounds is width/height (of canvas) 
-    // this.radius = HerdMember.size;
-    // if (this.x < -this.radius) this.loc.x = width+this.radius;
-    // if (this.y < -this.radius) this.loc.y = height+this.radius;
-    // if (this.x > width+this.radius) this.loc.x = -this.radius;
-    // if (this.y > height+this.radius) this.loc.y = -this.radius;
-
-    // soft bounce off walls
-    // should be a 'steering' force
-    if (! this.herd.grassland.bounds.contains(this)){
-      this.velocity.mult(-0.5);
-      this.loc.x = constrain(this.loc.x, HerdMember.size, width - HerdMember.size);
-      this.loc.y = constrain(this.loc.y, HerdMember.size, height - HerdMember.size);      
+    if (this.herd.params.wrapEdges){
+      // wraps - but assumes bounds is width/height (of canvas) 
+      this.radius = HerdMember.size / 2;
+      if (this.x < -this.radius) this.loc.x = width+this.radius;
+      if (this.y < -this.radius) this.loc.y = height+this.radius;
+      if (this.x > width+this.radius) this.loc.x = -this.radius;
+      if (this.y > height+this.radius) this.loc.y = -this.radius;
+    }else {
+      // soft bounce off walls
+      // should be a 'steering' force
+      if (! this.herd.grassland.bounds.contains(this)){
+        this.velocity.mult(-0.5);
+        this.loc.x = constrain(this.loc.x, HerdMember.size, width - HerdMember.size);
+        this.loc.y = constrain(this.loc.y, HerdMember.size, height - HerdMember.size);      
+      }
     }
   }
 
