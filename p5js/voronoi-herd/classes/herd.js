@@ -22,6 +22,8 @@ class Herd {
     voronoiSites( this.members.map((el) => [el.x, el.y] ));
     voronoi(width, height, false);
 
+    this.members.forEach(el => el.returnToGrazing());
+
     const closestCellId = voronoiGetSite( this.predator.x, this.predator.y, false);
     this.diagram = voronoiGetDiagram();
     const voronoiCell = this.diagram.cells[closestCellId];

@@ -42,7 +42,8 @@ class Flocking {
   // neighboringBoids - array of other Boids nearby that will influence the boid
   //
   // Assumes that the neighbors are close-enough; does not filter
-  calcAccel(boid, neighboringBoids){
+  calcAccel(boid, neighboringBoids, weights){
+    let configWeights = weights || this.config;
     const accel = createVector(0, 0);
     if (neighboringBoids.length === 0){
       return accel;
@@ -54,9 +55,9 @@ class Flocking {
     let accelToAlign    = this.align(boid, neighboringBoids);
     let accelToCohesive = this.cohesion(boid, neighboringBoids);
 
-    accelToSeperate.mult(this.config.separationFactor);
-    accelToAlign.mult(this.config.alignFactor);
-    accelToCohesive.mult(this.config.cohesionFactor);
+    accelToSeperate.mult(configWeights.separationFactor);
+    accelToAlign.mult(configWeights.alignFactor);
+    accelToCohesive.mult(configWeights.cohesionFactor);
 
     accel.add(accelToSeperate);
     accel.add(accelToAlign);

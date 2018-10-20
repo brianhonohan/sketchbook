@@ -18,12 +18,42 @@ class HerdMember {
   static get STATE_AVOIDING_PREDATOR() { return 1; }
   static get size() { return 10; }
 
+  isGrazing(){ return this.state === HerdMember.STATE_GRAZING; }
+  isAvoiding(){ return this.state === HerdMember.STATE_AVOIDING_PREDATOR; }
+
   avoidPredator(){
     this.state = HerdMember.STATE_AVOIDING_PREDATOR;
   }
 
+  returnToGrazing(){
+    this.state = HerdMember.STATE_GRAZING;
+  }
+
   updateBehavior(neighbors){
-    this.accel.add(this.herd.flocking.calcAccel(this, neighbors));
+    let weights;
+    if (this.state === HerdMember.STATE_AVOIDING_PREDATOR){
+      weights = this.avoidingFlockingWeights();
+    }else {
+      weights = this.grazingFlockingWeights();
+    }
+
+    this.accel.add(this.herd.flocking.calcAccel(this, neighbors, weights));
+  }
+
+  grazingFlockingWeights(){
+    return {
+      separationFactor: 2,
+      alignFactor: 1.0,
+      cohesionFactor: 1.0,
+    };
+  }
+
+  avoidingFlockingWeights(){
+    return {
+      separationFactor: 1.0,
+      alignFactor: 0.0,
+      cohesionFactor: 2.0,
+    };
   }
 
   borders(){
