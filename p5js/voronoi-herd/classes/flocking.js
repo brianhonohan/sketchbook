@@ -11,19 +11,31 @@
 // https://en.wikipedia.org/wiki/Boids
 
 class Flocking {
-  constructor(){
-    this.separationFactor = 1.5;
-    this.alignFactor = 1.0;
-    this.cohesionFactor = 1.0;
-    this.desiredSeparation = 25;
-
-    this.maxSpeed = 3;
-    this.maxForce = 0.05;
-
+  constructor(config){
+    this.config = this.ensureSettingsPresent(config);
     this.zeroVector = createVector();
   }
 
   static get zeroVector() { }
+
+  defaultSettings(){
+    return {
+      separationFactor: 1.5,
+      alignFactor: 1.0,
+      cohesionFactor: 1.0,
+      desiredSeparation: 25,
+      maxSpeed: 3,
+      maxForce: 0.05
+    };
+  }
+
+  ensureSettingsPresent(config){
+    config = config || {};
+    const defaultsWithSpecified = {};
+    Object.assign(defaultsWithSpecified, this.defaultSettings(), config);
+    Object.assign(config, defaultsWithSpecified);
+    return config;
+  }
 
   // Params:
   // boid - the object that we're getting the Flocking acceleration for
@@ -42,9 +54,9 @@ class Flocking {
     let accelToAlign    = this.align(boid, neighboringBoids);
     let accelToCohesive = this.cohesion(boid, neighboringBoids);
 
-    accelToSeperate.mult(this.separationFactor);
-    accelToAlign.mult(this.alignFactor);
-    accelToCohesive.mult(this.cohesionFactor);
+    accelToSeperate.mult(this.config.separationFactor);
+    accelToAlign.mult(this.config.alignFactor);
+    accelToCohesive.mult(this.config.cohesionFactor);
 
     accel.add(accelToSeperate);
     accel.add(accelToAlign);
@@ -69,7 +81,7 @@ class Flocking {
       let other = neighboringBoids[i];
 
       let dist = distances[i];
-      if (dist > this.desiredSeparation){
+      if (dist > this.config.desiredSeparation){
         continue;
       }
 
@@ -93,9 +105,9 @@ class Flocking {
     }
 
     steer.normalize();
-    steer.mult(this.maxSpeed);
+    steer.mult(this.config.maxSpeed);
     steer.sub(boid.velocity);
-    steer.limit(this.maxForce);
+    steer.limit(this.config.maxForce);
 
     return steer;
   }
@@ -109,10 +121,10 @@ class Flocking {
     }
     avgVelocity.div(neighboringBoids.length);
     avgVelocity.normalize();
-    avgVelocity.mult(this.maxSpeed);
+    avgVelocity.mult(this.config.maxSpeed);
 
     const steer = p5.Vector.sub(avgVelocity, boid.velocity);
-    steer.limit(this.maxForce);
+    steer.limit(this.config.maxForce);
     return steer;
   }
 
@@ -132,10 +144,10 @@ class Flocking {
     let desired = p5.Vector.sub(target, boid.loc);
 
     desired.normalize();
-    desired.mult(this.maxSpeed);
+    desired.mult(this.config.maxSpeed);
 
     let steer = p5.Vector.sub(desired, boid.velocity);
-    steer.limit(this.maxForce);
+    steer.limit(this.config.maxForce);
     return steer;
   }
 }

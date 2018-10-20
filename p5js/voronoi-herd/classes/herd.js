@@ -7,7 +7,7 @@ class Herd {
     this.params = params;
     this.grassland = grassland;
     this.herdCount = this.params.herd_count;
-    this.flocking = new Flocking();
+    this.flocking = new Flocking(params.flocking);
     this.initHerd();
 
     voronoiSiteFlag(false);

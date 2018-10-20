@@ -3,6 +3,11 @@ var grassland;
 var gui;
 var systemParams = {
   herd_count: 30,
+
+  flocking: {
+    maxSpeed: 0.5,
+    desiredSeparation: 25
+  }
 };
 var guiHerdCount;
 
@@ -12,6 +17,11 @@ function setup(){
 
   gui = new dat.gui.GUI();
   guiHerdCount = gui.add(systemParams, "herd_count").min(5).max(50).step(1);
+
+  let flocking = gui.addFolder('Flocking');
+  flocking.add(systemParams.flocking, 'maxSpeed').min(0.25).max(5).step(0.25);
+  flocking.add(systemParams.flocking, 'desiredSeparation').min(10).max(120).step(5);
+
   addGuiListeners();
 
   initSystem();
