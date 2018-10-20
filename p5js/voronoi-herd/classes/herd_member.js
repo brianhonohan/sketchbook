@@ -40,6 +40,7 @@ class HerdMember {
     }
 
     this.accel.add(this.herd.flocking.calcAccel(this, neighbors, weights));
+    if (!this.herd.params.wrapEdges){ this.accel.add(this.steerFromBorders()); }
   }
 
   grazingFlockingWeights(){
@@ -58,6 +59,25 @@ class HerdMember {
     };
   }
 
+  steerFromBorders(){
+    const steer = createVector(0, 0);
+    const threshold = 100;
+    const maxForce = 2;
+
+    const minDistToEdgeX = min((this.x - this.herd.grassland.bounds.minX), 
+                               (this.herd.grassland.bounds.maxX - this.x));
+    if (minDistToEdgeX < threshold) {
+      steer.x = -1 * this.velocity.x * map(threshold - minDistToEdgeX, 0, threshold, 0, maxForce);
+    }
+
+    const minDistToEdgeY = min((this.y - this.herd.grassland.bounds.minY), 
+                               (this.herd.grassland.bounds.maxY - this.y));
+    if (minDistToEdgeY < threshold) {
+      steer.y = -1 * this.velocity.y * map(threshold - minDistToEdgeY, 0, threshold, 0, maxForce);
+    }
+    return steer;
+  }
+
   borders(){
     if (this.herd.params.wrapEdges){
       // wraps - but assumes bounds is width/height (of canvas) 
@@ -68,7 +88,6 @@ class HerdMember {
       if (this.y > height+this.radius) this.loc.y = -this.radius;
     }else {
       // soft bounce off walls
-      // should be a 'steering' force
       if (! this.herd.grassland.bounds.contains(this)){
         this.velocity.mult(-0.5);
         this.loc.x = constrain(this.loc.x, HerdMember.size, width - HerdMember.size);
