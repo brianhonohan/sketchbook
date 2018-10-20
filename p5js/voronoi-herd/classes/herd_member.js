@@ -9,8 +9,10 @@ class HerdMember {
 
   get x(){ return this.loc.x; }
   get y(){ return this.loc.y; }
-  get maxX(){ return this.loc.x + HerdMember.size; }
-  get maxY(){ return this.loc.y + HerdMember.size; }
+  get minX(){ return this.loc.x - HerdMember.size/1; }
+  get minY(){ return this.loc.y - HerdMember.size/1; }
+  get maxX(){ return this.loc.x + HerdMember.size/1; }
+  get maxY(){ return this.loc.y + HerdMember.size/1; }
 
   get color(){ return HerdMember.colorForState(this.state); }
 
@@ -92,6 +94,7 @@ class HerdMember {
   draw(){
     fill(this.color);
     noStroke();
+    ellipseMode(CENTER);
     ellipse(this.x, this.y, HerdMember.size, HerdMember.size);
   }
 }
