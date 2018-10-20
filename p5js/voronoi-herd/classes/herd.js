@@ -1,10 +1,11 @@
 var myMap;
 
 class Herd {
-  constructor(params){
+  constructor(params, grassland){
     this.startingX = random(width);
     this.startingY = random(height);
     this.params = params;
+    this.grassland = grassland;
     this.herdCount = this.params.herd_count;
     this.flocking = new Flocking();
     this.initHerd();
