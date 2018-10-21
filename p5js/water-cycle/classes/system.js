@@ -6,7 +6,7 @@ class System {
 
     let weatherPos = new Rect(width/2, 0, width/2, height/2);
     this.weatherGrid = new CellGrid(weatherPos, WeatherCell, this.cellWidth);
-
+    this.weatherGrid.initCells();
     this.initCellsViaTerrain();
   }
 
