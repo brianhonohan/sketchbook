@@ -5,6 +5,7 @@ class HerdMember {
     this.velocity = createVector(0, 0);
     this.accel = createVector(0, 0);
     this.state = HerdMember.STATE_GRAZING;
+    this.fear = 0;
   }
 
   get x(){ return this.loc.x; }
@@ -14,7 +15,11 @@ class HerdMember {
   get maxX(){ return this.loc.x + HerdMember.size/1; }
   get maxY(){ return this.loc.y + HerdMember.size/1; }
 
-  get color(){ return HerdMember.colorForState(this.state); }
+  get color(){ 
+    return lerpColor(HerdMember.colorForState(HerdMember.STATE_GRAZING),
+                     HerdMember.colorForState(HerdMember.STATE_AVOIDING_PREDATOR),
+                     this.fear);
+  }
 
   static get STATE_GRAZING() { return 0; }
   static get STATE_AVOIDING_PREDATOR() { return 1; }
@@ -24,10 +29,12 @@ class HerdMember {
   isAvoiding(){ return this.state === HerdMember.STATE_AVOIDING_PREDATOR; }
 
   avoidPredator(){
+    this.fear = constrain((this.fear + 0.03), 0, 1);
     this.state = HerdMember.STATE_AVOIDING_PREDATOR;
   }
 
   returnToGrazing(){
+    this.fear = constrain((this.fear - 0.015), 0, 1);
     this.state = HerdMember.STATE_GRAZING;
   }
 

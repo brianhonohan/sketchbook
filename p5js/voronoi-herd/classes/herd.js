@@ -27,15 +27,25 @@ class Herd {
     const voronoiCell = this.diagram.cells[closestCellId];
     const closestMember = this.memberForCell(voronoiCell);
 
-    closestMember.avoidPredator();
+    let fearRange = 200;
+    const distToPredator = p5.Vector.dist(this.predator.loc, closestMember.loc);
+    if (distToPredator < fearRange){
+      closestMember.avoidPredator();
+    }else { 
+      closestMember.returnToGrazing();
+    }
 
-    const membersCloseToPredator = this.neighborMembers(closestCellId);
+    let membersCloseToPredator = this.neighborMembers(closestCellId);
+    let countBefore = membersCloseToPredator.length;
+    membersCloseToPredator = membersCloseToPredator.filter(el => {
+      let dist = p5.Vector.dist(this.predator.loc, el.loc);
+      return (dist < fearRange)
+    });
     membersCloseToPredator.forEach(el => el.avoidPredator());
     const others = this.members.filter(el => !membersCloseToPredator.includes(el) 
                                               && el != closestMember);
     others.forEach(el => el.returnToGrazing());
 
-    this.neighborMembers(closestCellId).forEach(el => el.avoidPredator());
     this.membersUpdateBehavior();
     this.members.forEach(el => el.applyBehavior());
   }
