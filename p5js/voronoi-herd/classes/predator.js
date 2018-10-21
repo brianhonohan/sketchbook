@@ -1,8 +1,10 @@
 class Predator {
   constructor(x, y){
-    this.x = x;
-    this.y = y;
+    this.loc = createVector(x, y);
   }
+
+  get x(){ return this.loc.x; }
+  get y(){ return this.loc.y; }
 
   draw(){
     fill(200, 200, 50);

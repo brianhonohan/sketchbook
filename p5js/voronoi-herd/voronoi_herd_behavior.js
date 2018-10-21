@@ -48,3 +48,8 @@ function addGuiListeners(){
     initSystem();
   });
 }
+
+function mouseDragged(){
+  grassland.herd.predator.loc = createVector(constrain(mouseX, 0, width),
+                                             constrain(mouseY, 0, height));
+}
