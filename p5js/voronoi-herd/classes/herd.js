@@ -22,14 +22,18 @@ class Herd {
     voronoiSites( this.members.map((el) => [el.x, el.y] ));
     voronoi(width, height, false);
 
-    this.members.forEach(el => el.returnToGrazing());
-
     const closestCellId = voronoiGetSite( this.predator.x, this.predator.y, false);
     this.diagram = voronoiGetDiagram();
     const voronoiCell = this.diagram.cells[closestCellId];
     const closestMember = this.memberForCell(voronoiCell);
 
     closestMember.avoidPredator();
+
+    const membersCloseToPredator = this.neighborMembers(closestCellId);
+    membersCloseToPredator.forEach(el => el.avoidPredator());
+    const others = this.members.filter(el => !membersCloseToPredator.includes(el) 
+                                              && el != closestMember);
+    others.forEach(el => el.returnToGrazing());
 
     this.neighborMembers(closestCellId).forEach(el => el.avoidPredator());
     this.membersUpdateBehavior();
