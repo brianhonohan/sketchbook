@@ -7,6 +7,9 @@ class Cell {
     this._idx = index;
     this.system = system;
     this.grid = this.system.grid;
+
+    this.a = random(1);
+    this.b = random(1);
   }
 
   get cellAbove() { return this.grid.cellAbove(this._idx); }
