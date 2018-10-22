@@ -47,11 +47,11 @@ class CellGrid {
 
   isEdgeIdx(idx){
     let rowCol = this.rowColForIdx(idx);
-    return this.isEdgeCell(rowCol.row, rowCol.col);
+    return this.isEdgeRowCol(rowCol.row, rowCol.col);
   }
 
   rowColForIdx(idx){
-    return {row: floor(idx / this.numRows), col: idx % this.numCols};
+    return {row: floor(idx / this.numCols), col: idx % this.numCols};
   }
 
   idxForRowCol(row, col){
