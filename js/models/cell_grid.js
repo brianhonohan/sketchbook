@@ -1,5 +1,5 @@
 class CellGrid {
-  constructor (rect, cellProvider, cellWidth){
+  constructor (rect, cellProvider, cellWidth, cellViewer){
     this._x = rect._x;
     this._y = rect._y;
     this._width = rect._width;
@@ -13,7 +13,7 @@ class CellGrid {
     this.effectCellWidth = this.cellWidth + this.cellSpacing;
     this.effectCellHeight = this.cellHeight + this.cellSpacing;
 
-    this.cellViewer = new CellViewer();
+    this.cellViewer = cellViewer || new CellViewer();
 
     this.wrap = false;
 

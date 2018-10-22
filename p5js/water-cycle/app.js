@@ -3,7 +3,8 @@ let system;
 
 function setup() {
   pixelDensity(1);
-  createCanvas(windowWidth, windowHeight-35);
+  // constrains on width are due to odd bug.
+  createCanvas(max(340, min(790,window.innerWidth)), windowHeight-35);
   P5JsSettings.init();
 
   system = new System();
