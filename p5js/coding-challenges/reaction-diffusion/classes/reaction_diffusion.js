@@ -17,13 +17,13 @@ class ReactionDiffusion {
 
   calcNextA(cell, neighbors){
     return cell.a + (this.dA * this.laplaceA(cell, neighbors) 
-                    - Math.pow(cell.a * cell.b, 2)
+                    - (cell.a * cell.b * cell.b)
                     + this.feedRate * ( 1 - cell.a)) * this.dt;
   }
 
   calcNextB(cell, neighbors){
     return cell.b + (this.dB * this.laplaceB(cell, neighbors) 
-                    + Math.pow(cell.a * cell.b, 2)
+                    + (cell.a * cell.b * cell.b)
                     - (this.killRate + this.feedRate) * cell.b) * this.dt;
   }
 
@@ -36,7 +36,7 @@ class ReactionDiffusion {
 
   laplaceB(cell, neighbors){
     let weights = this.laplaceWeights();
-    return neighbors.map((el, i) => el.a * weights[i])
+    return neighbors.map((el, i) => el.b * weights[i])
                     .reduce((sum, el) => sum + el)
                     - cell.b;
   }
