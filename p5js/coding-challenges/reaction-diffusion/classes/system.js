@@ -4,6 +4,7 @@ class System {
     this.optionsSet = new OptionsSet(this.optionsMetadata());
     this.settings = this.optionsSet.settings;
 
+    this.reactionDiff = new ReactionDiffusion();
     this.cellViewer = new CellViewer();
     this.grid = new CellGrid(this.sizeAndPosition, 
                              this, 
@@ -11,6 +12,7 @@ class System {
                              this.cellViewer
                              );
     this.grid.initCells();
+    noStroke();
   }
 
   // Return a list of Options, specific to this sketch,
@@ -32,7 +34,32 @@ class System {
 
   tick(){
     console.log("tock");
+
+    let defaultCell = {a: 0, b: 0};
+
+    for(let i=0; i<this.grid.cells.length; i++){
+      let tmpCell = this.grid.cells[i];
+
+      let neighbors = this.grid.neighborsOfIdx(i);
+      neighbors = neighbors.map(el => {
+        if (el) { 
+          return this.grid.cells[el];
+        }else {
+          return defaultCell;
+        }
+      });
+      this.reactionDiff.calcReaction(tmpCell, neighbors);
+    }
+
+    // apply diffusion
+    for(let i=0; i<this.grid.cells.length; i++){
+      let tmpCell = this.grid.cells[i];
+      tmpCell.a = tmpCell.nextA;
+      tmpCell.b = tmpCell.nextB;
+    }
   }
+
+
 
   render(){
     background(0);
