@@ -41,11 +41,12 @@ class System {
   }
 
   tick(){
-    console.log("tock");
-
-    let defaultCell = {a: 0, b: 0};
+    let defaultCell = {a: 1, b: 0};
 
     for(let i=0; i<this.grid.cells.length; i++){
+      if (this.grid.isEdgeIdx(i)){
+        continue;
+      }
       let tmpCell = this.grid.cells[i];
 
       let neighbors = this.grid.neighborsOfIdx(i);
@@ -61,6 +62,10 @@ class System {
 
     // apply diffusion
     for(let i=0; i<this.grid.cells.length; i++){
+      if (this.grid.isEdgeIdx(i)){
+        continue;
+      }
+
       let tmpCell = this.grid.cells[i];
       tmpCell.a = tmpCell.nextA;
       tmpCell.b = tmpCell.nextB;
