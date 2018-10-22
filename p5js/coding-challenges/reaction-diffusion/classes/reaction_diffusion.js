@@ -16,27 +16,29 @@ class ReactionDiffusion {
   }
 
   calcNextA(cell, neighbors){
-    return cell.a + (this.dA * this.laplaceA(neighbors) 
+    return cell.a + (this.dA * this.laplaceA(cell, neighbors) 
                     - Math.pow(cell.a * cell.b, 2)
                     + this.feedRate * ( 1 - cell.a)) * this.dt;
   }
 
   calcNextB(cell, neighbors){
-    return cell.b + (this.dB * this.laplaceB(neighbors) 
+    return cell.b + (this.dB * this.laplaceB(cell, neighbors) 
                     + Math.pow(cell.a * cell.b, 2)
                     - (this.killRate + this.feedRate) * cell.b) * this.dt;
   }
 
-  laplaceA(neighbors){
+  laplaceA(cell, neighbors){
     let weights = this.laplaceWeights();
     return neighbors.map((el, i) => el.a * weights[i])
-                    .reduce((sum, el) => sum + el);
+                    .reduce((sum, el) => sum + el)
+                    - cell.a;
   }
 
-  laplaceB(neighbors){
+  laplaceB(cell, neighbors){
     let weights = this.laplaceWeights();
     return neighbors.map((el, i) => el.a * weights[i])
-                    .reduce((sum, el) => sum + el);
+                    .reduce((sum, el) => sum + el)
+                    - cell.b;
   }
 
   laplaceWeights(){
@@ -59,9 +61,9 @@ class ReactionDiffusion {
   optionsMetadata(){
     return [
       { name: "diffRateA", type: "integer", default: 1}, 
-      { name: "diffRateB", type: "integer", default: 1}, 
-      { name: "killRate", type: "integer", default: 0.2}, 
-      { name: "feedRate", type: "float", default: 0.5}, 
+      { name: "diffRateB", type: "integer", default: 0.5}, 
+      { name: "killRate", type: "integer", default: 0.062}, 
+      { name: "feedRate", type: "float", default: 0.055}, 
       { name: "dt", type: "float", default: 0.05},
     ];
   }

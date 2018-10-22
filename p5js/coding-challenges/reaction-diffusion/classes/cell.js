@@ -8,7 +8,7 @@ class Cell {
     this.system = system;
     this.grid = this.system.grid;
 
-    this.a = 0; //random(1);
+    this.a = 1; //random(1);
     this.b = 0; //random(1);
     this.nextA = 0;
     this.nextB = 0;

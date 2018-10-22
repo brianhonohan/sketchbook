@@ -16,3 +16,7 @@ function draw(){
   system.tick();
   system.render();
 }
+
+function mouseDragged(){
+  system.addBAt(mouseX, mouseY);
+}

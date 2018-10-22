@@ -54,6 +54,20 @@ class CellGrid {
     return {row: floor(idx / this.numRows), col: idx % this.numCols};
   }
 
+  idxForRowCol(row, col){
+    return row * this.numCols + col;
+  }
+
+  cellForXY(x, y){
+    return this.cells[ this.idxForXY(x, y) ];
+  }
+
+  idxForXY(x, y){
+    let col = floor(x / this.cellWidth);
+    let row = floor(y / this.cellWidth);
+    return this.idxForRowCol(row, col);
+  }
+
   neighborsOfIdx(idx){
     let neighbors = [
         idx - this.numCols - 1
