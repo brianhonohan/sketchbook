@@ -47,11 +47,25 @@ class CellGrid {
 
   isEdgeIdx(idx){
     let rowCol = this.rowColForIdx(idx);
-    return this.isEdgeCell(rowCol.row, rowCol.col);
+    return this.isEdgeRowCol(rowCol.row, rowCol.col);
   }
 
   rowColForIdx(idx){
-    return {row: floor(idx / this.numRows), col: idx % this.numCols};
+    return {row: floor(idx / this.numCols), col: idx % this.numCols};
+  }
+
+  idxForRowCol(row, col){
+    return row * this.numCols + col;
+  }
+
+  cellForXY(x, y){
+    return this.cells[ this.idxForXY(x, y) ];
+  }
+
+  idxForXY(x, y){
+    let col = floor(x / this.cellWidth);
+    let row = floor(y / this.cellWidth);
+    return this.idxForRowCol(row, col);
   }
 
   neighborsOfIdx(idx){
