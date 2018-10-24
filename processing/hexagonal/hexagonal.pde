@@ -16,7 +16,7 @@ void setup() {
   hexLayout._width =  width;
   hexLayout._height = height; // 0.80 * height;
   hexLayout.init();
-  println("INITIALIZED ... numCells: " + hexLayout.numCells);
+  // println("INITIALIZED ... numCells: " + hexLayout.numCells);
 
   hexLayout.draw();
   loadPixels();
@@ -82,7 +82,7 @@ void keyPressed(){
 void initRandom(){
    randomSeed = (int)random(0, 1000000);
    setRandomSeed(randomSeed);
-   println("Seed: " + randomSeed);
+   // println("Seed: " + randomSeed);
 }
 void setRandomSeed(int seed){
    noiseSeed(seed);
@@ -163,7 +163,7 @@ class HexLayout {
   
   // _x and _y are relative to top left corner
   GridCoord coordForXY(float _x, float _y){
-    println("coordForXY: " + _x + ", " + _y);
+    // println("coordForXY: " + _x + ", " + _y);
     GridCoord gridCoord = new GridCoord();
 
     // Use max() treat negative values as spot on (so we don't need to handle negative values)
