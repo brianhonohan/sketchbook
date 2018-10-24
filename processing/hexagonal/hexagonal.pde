@@ -1,5 +1,5 @@
 HexLayout hexLayout;
-int randomSeed;
+int initialSeed;
 int g_borderWeight = 2;
 
 void setup() {
@@ -80,8 +80,8 @@ void keyPressed(){
 }
 
 void initRandom(){
-   randomSeed = (int)random(0, 1000000);
-   setRandomSeed(randomSeed);
+   initialSeed = (int)random(0, 1000000);
+   setRandomSeed(initialSeed);
    // println("Seed: " + randomSeed);
 }
 void setRandomSeed(int seed){
@@ -249,16 +249,16 @@ class HexLayout {
     stroke(40);
     strokeWeight(g_borderWeight);
       
-    float rowOffset = 0;
+    float tmpRowOffset = 0;
     int colsInRow;
     
     for(int row=0; row < numRows; row++){
-      rowOffset = rowOffset(row);
+      tmpRowOffset = rowOffset(row);
       colsInRow = numCols + (colFactor * (row % 2));
 
       for(int col=0; col < colsInRow; col++){
         fill(noisyColor(0.004*(row*col)));
-        drawAtRowCol(row,col, rowOffset);
+        drawAtRowCol(row,col, tmpRowOffset);
       }
     }
     popMatrix();
