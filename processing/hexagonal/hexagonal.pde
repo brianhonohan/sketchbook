@@ -1,5 +1,5 @@
 HexLayout hexLayout;
-int randomSeed;
+int initialSeed;
 int g_borderWeight = 2;
 
 void setup() {
@@ -16,7 +16,7 @@ void setup() {
   hexLayout._width =  width;
   hexLayout._height = height; // 0.80 * height;
   hexLayout.init();
-  println("INITIALIZED ... numCells: " + hexLayout.numCells);
+  // println("INITIALIZED ... numCells: " + hexLayout.numCells);
 
   hexLayout.draw();
   loadPixels();
@@ -80,9 +80,9 @@ void keyPressed(){
 }
 
 void initRandom(){
-   randomSeed = (int)random(0, 1000000);
-   setRandomSeed(randomSeed);
-   println("Seed: " + randomSeed);
+   initialSeed = (int)random(0, 1000000);
+   setRandomSeed(initialSeed);
+   // println("Seed: " + randomSeed);
 }
 void setRandomSeed(int seed){
    noiseSeed(seed);
@@ -163,7 +163,7 @@ class HexLayout {
   
   // _x and _y are relative to top left corner
   GridCoord coordForXY(float _x, float _y){
-    println("coordForXY: " + _x + ", " + _y);
+    // println("coordForXY: " + _x + ", " + _y);
     GridCoord gridCoord = new GridCoord();
 
     // Use max() treat negative values as spot on (so we don't need to handle negative values)
@@ -249,16 +249,16 @@ class HexLayout {
     stroke(40);
     strokeWeight(g_borderWeight);
       
-    float rowOffset = 0;
+    float tmpRowOffset = 0;
     int colsInRow;
     
     for(int row=0; row < numRows; row++){
-      rowOffset = rowOffset(row);
+      tmpRowOffset = rowOffset(row);
       colsInRow = numCols + (colFactor * (row % 2));
 
       for(int col=0; col < colsInRow; col++){
         fill(noisyColor(0.004*(row*col)));
-        drawAtRowCol(row,col, rowOffset);
+        drawAtRowCol(row,col, tmpRowOffset);
       }
     }
     popMatrix();
