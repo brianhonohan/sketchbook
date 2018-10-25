@@ -1,19 +1,27 @@
 var tree;
+var branchCounter;
 
 function setup(){
   createCanvas(windowWidth, windowHeight);
 
   tree = new FractalTree();
-  stroke(200);
-  drawTree();
+
+  colorMode(HSB);
+  branchCounter = 0;
+  stroke(250);
+
+  drawTree(tree.x, tree.y);
 }
 
-function drawTree(){
+function drawTree(x, y){
   background(50);
-
   push();
-  translate(tree.x, tree.y);
+  translate(x, y);
   rotate(PI);
   tree.draw(0);
   pop();
+}
+
+function mousePressed(){
+  drawTree(mouseX, mouseY);
 }
