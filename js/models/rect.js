@@ -12,6 +12,8 @@ class Rect {
   get minY(){ return this._y; }
   get maxX(){ return this._x + this._width; }
   get maxY(){ return this._y + this._height; }
+  get centerX(){ return this._x + this._width / 2; }
+  get centerY(){ return this._y + this._height / 2; }
 
   contains(otherRect){
     return this.minX < otherRect.minX && this.maxX > otherRect.maxX

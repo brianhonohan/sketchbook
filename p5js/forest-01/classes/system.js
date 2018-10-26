@@ -1,17 +1,18 @@
 class System {
   constructor(p_xSizeAndPos){
-    this.sizeAndPosition = p_xSizeAndPos;
+    this.area = p_xSizeAndPos;
     this.optionsSet = new OptionsSet(this.optionsMetadata());
     this.settings = this.optionsSet.settings;
 
+    this.forest = new Forest(this.area);
+
     this.cellViewer = new CellViewer();
-    this.grid = new CellGrid(this.sizeAndPosition, 
+    this.grid = new CellGrid(this.area, 
                              this, 
                              this.settings.cellWidth,
                              this.cellViewer
                              );
     this.grid.initCells();
-    noLoop();
   }
 
   optionsMetadata(){
@@ -25,11 +26,13 @@ class System {
   }
 
   tick(){
+    this.forest.tick();
     console.log("tock");
   }
 
   render(){
     background(0);
     this.grid.renderViews();
+    this.forest.draw();
   }
 }
