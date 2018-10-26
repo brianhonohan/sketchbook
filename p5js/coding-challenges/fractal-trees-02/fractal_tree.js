@@ -1,11 +1,18 @@
 class FractalTree {
-  constructor(){
+  constructor(config){
     this.x = width / 2;
     this.y = height * 0.8;
-    this.maxSteps = 8;
-    this.branches = 2;
-    this.baseLength = 0.25 * min(width, height);
+    this.config = config;
   }
+
+  get maxSteps() { return this.config.maxSteps; }
+  get branches() { return this.config.branches; }
+  get baseLength() { return this.config.baseLengthFactor * min(width, height); }
+  get likelihoodOfBranch() { return this.config.likelihoodOfBranch; }
+  get branchAngleRange() { return this.config.branchAngleRange; }
+  get angleVariance() { return this.config.angleVariance; }
+
+
 
   draw(step){
     if (step == this.maxSteps){
@@ -19,9 +26,9 @@ class FractalTree {
     let branchLength = map(step, 0, this.maxSteps, this.baseLength, 0);
     branchLength *= random(0.25, .625);
 
-    let angleRange = PI * 2 / 3 * random(0.8, 1.2);
+    let angleRange = this.branchAngleRange * random(0.8, 1.2);
     let angleBetweenBranches = angleRange / (branchCount - 1);
-    angleBetweenBranches += random(-PI / 8, PI / 8);
+    angleBetweenBranches += randomGaussian() * this.angleVariance;
 
     push();   
     line(0, 0, 0, branchLength); 
@@ -29,7 +36,7 @@ class FractalTree {
     rotate(angleRange / 2);
 
     for (var i = 0; i < branchCount; i++){
-      if (random() < 0.9){
+      if (random() < this.likelihoodOfBranch){
         this.draw(step+1);  
       }
       rotate(-angleBetweenBranches);
