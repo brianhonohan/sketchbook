@@ -15,6 +15,8 @@ class System {
     this.grid.initCells();
   }
 
+  static get YEARS_PER_TICK(){ return 0.1; }
+
   optionsMetadata(){
     return [
       { name: "cellWidth", type: "integer", default: 50},

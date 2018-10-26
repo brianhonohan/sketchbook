@@ -5,11 +5,11 @@ class Tree {
     this.age = age;
   }
 
-  static get MAX_AGE() { return 2000; }
+  static get MAX_AGE() { return 200; } // in years
   static get MAX_SHADOW_RADIUS() { return 100; }
 
   tick(){
-    this.age += 1;
+    this.age += System.YEARS_PER_TICK;
   }
 
   draw(){
@@ -25,12 +25,12 @@ class Tree {
 
   shadowRadius(){
     let shadowFactor = 0;
-    if (this.age < 400) {
-      shadowFactor = map(this.age, 0, 400, 0, 0.2);
-    } else if (this.age < 1500) {
-      shadowFactor = map(this.age, 400, 1500, 0.2, 1);
+    if (this.age < 4) {
+      shadowFactor = map(this.age, 0, 40, 0, 0.2);
+    } else if (this.age < 150) {
+      shadowFactor = map(this.age, 40, 150, 0.2, 1);
     } else {
-      shadowFactor = map(this.age, 1500, Tree.MAX_AGE, 1, 0.8);
+      shadowFactor = map(this.age, 150, Tree.MAX_AGE, 1, 0.8);
     }
     return shadowFactor * Tree.MAX_SHADOW_RADIUS;
   }
