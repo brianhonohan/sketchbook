@@ -7,6 +7,7 @@ class Tree {
 
   static get MAX_AGE() { return 200; } // in years
   static get MAX_SHADOW_RADIUS() { return 100; }
+  static get AGE_TO_MAKE_SEEDS() { return 40; }
 
   tick(){
     this.age += System.YEARS_PER_TICK;

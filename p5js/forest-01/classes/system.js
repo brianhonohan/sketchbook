@@ -4,7 +4,7 @@ class System {
     this.optionsSet = new OptionsSet(this.optionsMetadata());
     this.settings = this.optionsSet.settings;
 
-    this.forest = new Forest(this.area);
+    this.forest = new Forest(this.area, this);
 
     this.cellViewer = new CellViewer();
     this.grid = new CellGrid(this.area, 
