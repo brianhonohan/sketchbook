@@ -13,6 +13,7 @@ class System {
                              this.cellViewer
                              );
     this.grid.initCells();
+    this.seasonalTime = new SeasonalTime(System.YEARS_PER_TICK);
   }
 
   static get YEARS_PER_TICK(){ return 0.1; }
@@ -28,8 +29,8 @@ class System {
   }
 
   tick(){
+    this.seasonalTime.tick();
     this.forest.tick();
-    console.log("tock");
   }
 
   render(){
