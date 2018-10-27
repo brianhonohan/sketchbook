@@ -27,9 +27,9 @@ class Tree {
   shadowRadius(){
     let shadowFactor = 0;
     if (this.age < 4) {
-      shadowFactor = map(this.age, 0, 40, 0, 0.2);
+      shadowFactor = map(this.age, 0, 4, 0, 0.2);
     } else if (this.age < 150) {
-      shadowFactor = map(this.age, 40, 150, 0.2, 1);
+      shadowFactor = map(this.age, 4, 150, 0.2, 1);
     } else {
       shadowFactor = map(this.age, 150, Tree.MAX_AGE, 1, 0.8);
     }
