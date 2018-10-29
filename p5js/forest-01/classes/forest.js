@@ -1,0 +1,61 @@
+class Forest {
+  constructor(area, system){
+    this.area = area;
+    this.ecosystem = system;
+    this.trees = [];
+    this.sproutTree(this.centerX, this.centerY);
+
+    this.prevSeason = undefined;
+  }
+
+  get centerX() { return this.area.centerX; }
+  get centerY() { return this.area.centerY; }
+
+  sproutTree(x, y){
+    this.trees.push( new Tree(x, y, 0) );
+  }
+
+  tick(){
+    this.trees.forEach((t) => t.tick());
+
+    this.trees = this.trees.filter(t => t.age < Tree.MAX_AGE);
+
+    this.triggerSeasonalBehavior();
+  }
+
+  triggerSeasonalBehavior(){
+    let currentSeason = this.ecosystem.seasonalTime.season;
+    if (currentSeason == SeasonalTime.SPRING){
+      if(this.prevSeason == SeasonalTime.WINTER){
+        this.tickStartOfSpringBehavior();
+      }
+    }
+
+    this.prevSeason = currentSeason;
+  }
+
+  tickStartOfSpringBehavior(){
+    this.trees.filter(t => t.age > Tree.AGE_TO_MAKE_SEEDS)
+              .map(t => this.seedsForTree(t))
+              .flat()
+              .forEach(s => this.sproutTree(s.x, s.y));
+  }
+
+  seedsForTree(tree){
+    let seedLocations = [];
+    let numSeeds = 1;
+    let stdDevDropDistance = 20;
+    for (var i=0; i<numSeeds; i++){
+      seedLocations.push(
+          {  x: randomGaussian(tree.x, stdDevDropDistance)
+           , y: randomGaussian(tree.y, stdDevDropDistance)
+          }
+        );
+    }
+    return seedLocations;
+  }
+
+  draw(){
+    this.trees.forEach((t) => t.draw());
+  }
+}
