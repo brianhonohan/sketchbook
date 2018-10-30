@@ -16,12 +16,14 @@ class Forest {
   }
 
   tick(){
-    this.trees.forEach((t) => t.tick());
-
-    this.trees = this.trees.filter(t => t.age < Tree.MAX_AGE);
+    this.trees.forEach(t => t.tick());
+    this.lossDueToMaxAge();
     this.lossDueToForaging();
-
     this.triggerSeasonalBehavior();
+  }
+
+  lossDueToMaxAge(){
+    this.trees = this.trees.filter(t => t.age < Tree.MAX_AGE);
   }
 
   lossDueToForaging(){
