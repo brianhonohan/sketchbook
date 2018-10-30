@@ -19,8 +19,23 @@ class Forest {
     this.trees.forEach((t) => t.tick());
 
     this.trees = this.trees.filter(t => t.age < Tree.MAX_AGE);
+    this.lossDueToForaging();
 
     this.triggerSeasonalBehavior();
+  }
+
+  lossDueToForaging(){
+    const durationSusceptibleToForaging = 10;
+    const durationInTicks = durationSusceptibleToForaging / System.YEARS_PER_TICK;
+    const pOfDeathDueToForaging = 0.9; // function of herbivores in area
+    const pOfSurvivalDespiteForaging = 1 - pOfDeathDueToForaging;
+    const pSurvivalInGivenTick = Math.pow(pOfSurvivalDespiteForaging, 1 / durationInTicks);
+
+    this.trees = this.trees.filter(t => {
+      let treeIsOldEnough = t.age > durationSusceptibleToForaging;
+      let treeAvoidedForaging = (Math.random() < pSurvivalInGivenTick);
+      return treeIsOldEnough || treeAvoidedForaging;
+    });
   }
 
   triggerSeasonalBehavior(){
