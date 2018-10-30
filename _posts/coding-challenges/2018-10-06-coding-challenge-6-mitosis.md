@@ -43,7 +43,7 @@ Overall, this felt more like creating a timed animation than simulating a natura
 
 ### Next Steps
 
-* Re-model the movement of the membrane based on natuarl forces; and allow it contract / grow during Cytokinesis.
+* Re-model the movement of the membrane based on natural forces; and allow it contract / grow during Cytokinesis.
 * Model the phases of mitosis involving chromosome condensing and movement via the centrosomes.
 * Explore what it would look like to model the internal chemical signals that advance the cell through the stages of its life.
 * Explore interactivity to engage the user more.

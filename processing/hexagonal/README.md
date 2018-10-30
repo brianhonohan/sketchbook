@@ -25,7 +25,7 @@ Mouse:
 
 ## Links: 
 
-* [Live View](https://brianhonohan.com/sketchbook/processing/2016/03/14/processing-hexagonal-layout.html)
+* [Live View](https://brianhonohan.com/sketchbook/processing/2016/03/15/processing-hexagonal-layout.html)
 * [Source on Github](https://github.com/brianhonohan/sketchbook/tree/master/processing/hexagonal)
 
 [source-code]: https://github.com/brianhonohan/sketchbook/tree/master/processing/hexagonal

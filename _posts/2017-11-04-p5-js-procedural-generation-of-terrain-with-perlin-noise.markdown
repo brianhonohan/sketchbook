@@ -61,7 +61,7 @@ In this sketch, this is acheived with the following:
 this.elevation = 500 - 1000 * noise(this._row, this._col);
 {% endhighlight %}
 
-Note: This could also be acheived via the function `lerp()`, but that will be saved for another post.
+Note: This could also be achieved via the function `lerp()`, but that will be saved for another post.
 
 One challenge of using `X` and `Y` pixel values as input is that stepping from 1 pixel to another is a bit big of a jump, and the `noise()` function 
 
@@ -100,7 +100,7 @@ Since we want to have 3 different color transitions, we need to establish 3 diff
 {% highlight javascript %}
 | Elevation Range  | Starting Color            | Ending Color    |
 |------------------|---------------------------|-----------------|
-| -300 to 0        | Deep Blue                 | Turqoise Blue   |
+| -300 to 0        | Deep Blue                 | Turquoise Blue  |
 | 0 to 300         | Deep Green                | Pale Yellow     |
 | 300 to 500       | Pale Yellow               | White           |
 {% endhighlight %}
@@ -120,7 +120,7 @@ if (this.cell.elevation < 0){
 }
 {% endhighlight %}
 
-### Resulting ouptut
+### Resulting output
 
 ![Ecosystem]({{ "/p5js/ecosystem/docs/screenshot-02.png" | relative_url }})
 

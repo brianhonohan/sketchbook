@@ -18,7 +18,7 @@ The intent of this sketch was to:
 - Explore what it would take to render a layout of hexagons and detect mouse clicks
 - It is built with [Processing][processing-home].
 
-After developing this, I came across this post [Hexagonal Grid Reference][redblobgames-hexagons] from Amit Patel, which has a wonderful collection of resources for working with hexagons.
+After developing this, I came across this post: [Hexagonal Grid Reference][redblobgames-hexagons] from Amit Patel, which has a wonderful collection of resources for working with hexagons.
 
 I would like to explore that list (and other resources) and revisit my approach here.
 
