@@ -12,7 +12,7 @@ This is a [p5.js][p5js-home] sketch inspired by the [Coding Train's][coding-trai
 
 ### Controls
 
--  `LEFT` / `RIGHT` to move the laser base (blue rectange at bottome) left or right.
+-  `LEFT` / `RIGHT` to move the laser base (blue rectangle at bottom) left or right.
 -  `UP` - to fire a laser beam at the income invaders.
 
 
@@ -62,13 +62,13 @@ Also, I don't like how I had to pre-calculate the `minAllowedX` / `maxAllowedX` 
 
 Some things I would do if I pick this back up:
 
-* Implement the concept of being hit by incoming missles and limit the number of ships you have as a player.
+* Implement the concept of being hit by incoming missiles and limit the number of ships you have as a player.
 * Add sound (I haven't worked to much with sound in Processing/p5.js yet).
 * Implement scoring.
-* Fix the issue that the invaders shoot missles from any row / column.
+* Fix the issue that the invaders shoot missiles from any row / column.
 * Add the Mystery Ship which hovers above the invaders.
 * Explore Touch Screen interactivity to allow for playing on a smart phone / tablet.
-* Implement levels, maybe exploring the [p5js.SceneManager](https://github.com/mveteanu/p5.SceneManager) with increasing difficultly. There are some config parameters that control the difficulty, that would faciliate this:
+* Implement levels, maybe exploring the [p5js.SceneManager](https://github.com/mveteanu/p5.SceneManager) with increasing difficultly. There are some config parameters that control the difficulty, that would facilitate this:
 
 {% highlight javascript %}
 // Difficulty Settings
