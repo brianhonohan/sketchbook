@@ -6,6 +6,8 @@ class Tree {
   }
 
   static get MAX_AGE() { return 200; } // in years
+  static get YEARS_AS_SAPLING() { return 4; }
+  static get YEARS_AS_MATURE() { return 140; }
   static get MAX_SHADOW_RADIUS() { return 100; }
   static get AGE_TO_MAKE_SEEDS() { return 40; }
 
@@ -26,12 +28,12 @@ class Tree {
 
   shadowRadius(){
     let shadowFactor = 0;
-    if (this.age < 4) {
-      shadowFactor = map(this.age, 0, 4, 0, 0.2);
-    } else if (this.age < 150) {
-      shadowFactor = map(this.age, 4, 150, 0.2, 1);
+    if (this.age < Tree.YEARS_AS_SAPLING) {
+      shadowFactor = map(this.age, 0, Tree.YEARS_AS_SAPLING, 0, 0.2);
+    } else if (this.age < Tree.YEARS_AS_MATURE) {
+      shadowFactor = map(this.age, Tree.YEARS_AS_SAPLING, Tree.YEARS_AS_MATURE, 0.2, 1);
     } else {
-      shadowFactor = map(this.age, 150, Tree.MAX_AGE, 1, 0.8);
+      shadowFactor = map(this.age, Tree.YEARS_AS_MATURE, Tree.MAX_AGE, 1, 0.8);
     }
     return shadowFactor * Tree.MAX_SHADOW_RADIUS;
   }
