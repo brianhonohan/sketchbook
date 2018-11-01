@@ -1,5 +1,6 @@
 class Tree {
-  constructor(x, y, age){
+  constructor(x, y, age, id){
+    this.id = id;
     this.x = x;
     this.y = y;
     this.age = age;

@@ -3,6 +3,7 @@ class Forest {
     this.area = area;
     this.ecosystem = system;
     this.trees = [];
+    this.treeCounter = 0;
     this.sproutTree(this.centerX, this.centerY);
 
     this.prevSeason = undefined;
@@ -12,7 +13,7 @@ class Forest {
   get centerY() { return this.area.centerY; }
 
   sproutTree(x, y){
-    this.trees.push( new Tree(x, y, 0) );
+    this.trees.push( new Tree(x, y, 0, this.treeCounter++) );
   }
 
   tick(){
