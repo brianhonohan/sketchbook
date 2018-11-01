@@ -17,10 +17,15 @@ class Forest {
   }
 
   tick(){
-    this.trees.forEach(t => t.tick());
+    this.trees.forEach(t => t.tick( this.resourcesForTree(t) ));
+    this.lossDueToCompetition();
     this.lossDueToMaxAge();
     this.lossDueToForaging();
     this.triggerSeasonalBehavior();
+  }
+
+  lossDueToCompetition(){
+    this.trees = this.trees.filter(t => t.fullness > 0);
   }
 
   lossDueToMaxAge(){
@@ -39,6 +44,51 @@ class Forest {
       let treeAvoidedForaging = (Math.random() < pSurvivalInGivenTick);
       return treeIsOldEnough || treeAvoidedForaging;
     });
+  }
+
+  resourcesForTree(tree){
+    return this.trees.filter(t => t != tree)
+                     .map(otherTree => this.resourcesClaimedByTree(otherTree, tree))
+                     .reduce((remainder, val) => remainder - val, 1);
+  }
+
+  resourcesClaimedByTree(claimingTree, losingTree){
+    const dist = claimingTree.distFrom(losingTree);
+    const claimersRadius = claimingTree.shadowRadius();
+    const losersRadius = losingTree.shadowRadius();
+
+    if (dist > (claimersRadius + losersRadius)){
+      return 0;
+    }
+
+    // The area of the smaller circle, overlapping with the larger one,
+    // represents the contested resources.
+    const widthOfOverlap = (claimersRadius + losersRadius) - dist;
+    const smallerRadius  = Math.min(claimersRadius, losersRadius);
+    const largerRadius   = Math.max(claimersRadius, losersRadius);
+
+    let approxPcntOfSmallerArea;
+    if ( (dist + smallerRadius) < largerRadius){
+      // smaller is completely in the 'resourceShadow' of the larger
+      approxPcntOfSmallerArea = 1.0;
+    } else if (dist > largerRadius){
+      // smaller is centered outside the resourceShadow of larger
+      approxPcntOfSmallerArea = 0.8 * widthOfOverlap / (2 * smallerRadius);
+    } else {
+      // smaller is partially inside the resourceShadow
+      approxPcntOfSmallerArea = 1.2 * widthOfOverlap / (2 * smallerRadius);
+    }
+
+    const rootCompFactor = 0.5;
+    const sunlightLossFactor = (losingTree.height < claimingTree.height) ? 0.5 : 0;
+    const combinedLossFactor = (rootCompFactor + sunlightLossFactor);
+
+    // % Resource Loss = (% of Smaller Overlapping x Area of Smaller) / Area of Larger x Weighting Factors 
+    
+    // ratio of areas of 2 circles is the ratio of their Radii squared; PI cancels out
+    const areaRatioOfLoser = smallerRadius * smallerRadius / (losersRadius * losersRadius);
+    const pcntResourcesLoss = approxPcntOfSmallerArea * areaRatioOfLoser * combinedLossFactor;
+    return pcntResourcesLoss;
   }
 
   triggerSeasonalBehavior(){
