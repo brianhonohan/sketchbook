@@ -38,7 +38,7 @@ class Tree {
     if (this.age < Tree.YEARS_AS_SAPLING) {
       return Tree.IDEALIZED_GROWTH_WHILE_SAPLING;
     }else if (this.age < (Tree.YEARS_AS_SAPLING + Tree.YEARS_AS_MATURE)) {
-      return Tree.IDEALIZED_GROWTH_WHILE_SAPLING;
+      return Tree.IDEALIZED_GROWTH_WHILE_MATURE;
     }else {
       return 0;
     }
