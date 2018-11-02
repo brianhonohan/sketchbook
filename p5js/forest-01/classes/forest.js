@@ -23,6 +23,7 @@ class Forest {
     this.lossDueToMaxAge();
     this.lossDueToForaging();
     this.triggerSeasonalBehavior();
+    this.lossDueToOutOfBounds();
   }
 
   lossDueToCompetition(){
@@ -45,6 +46,10 @@ class Forest {
       let treeAvoidedForaging = (Math.random() < pSurvivalInGivenTick);
       return treeIsOldEnough || treeAvoidedForaging;
     });
+  }
+
+  lossDueToOutOfBounds(){
+    this.trees = this.trees.filter(t => this.area.containsXY(t.x, t.y));
   }
 
   resourcesForTree(tree){

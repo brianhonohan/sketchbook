@@ -19,4 +19,9 @@ class Rect {
     return this.minX < otherRect.minX && this.maxX > otherRect.maxX
             && this.minY < otherRect.minY && this.maxY > otherRect.maxY;
   }
+
+  containsXY(x, y){ 
+    return this.minX <= x && x < this.maxX 
+           && this.minY <= y && y < this.maxY;
+  }
 }
