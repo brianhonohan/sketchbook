@@ -1,11 +1,15 @@
 class System {
-  constructor(p_xSizeAndPos){
+  constructor(p_xSizeAndPos, params){
     this.area = p_xSizeAndPos;
+    this.params = params;
     this.optionsSet = new OptionsSet(this.optionsMetadata());
     this.settings = this.optionsSet.settings;
 
-    this.forest = new Forest(this.area, this);
+    this.init();
+  }
 
+  init(){
+    this.forest = new Forest(this.area, this);
     this.cellViewer = new CellViewer();
     this.grid = new CellGrid(this.area, 
                              this, 

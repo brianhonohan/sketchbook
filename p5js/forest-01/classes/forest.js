@@ -2,6 +2,7 @@ class Forest {
   constructor(area, system){
     this.area = area;
     this.ecosystem = system;
+    this.params = system.params;
     this.trees = [];
     this.treeCounter = 0;
     this.sproutTree(this.centerX, this.centerY);
@@ -35,7 +36,7 @@ class Forest {
   lossDueToForaging(){
     const durationSusceptibleToForaging = 10;
     const durationInTicks = durationSusceptibleToForaging / System.YEARS_PER_TICK;
-    const pOfDeathDueToForaging = 0.9; // function of herbivores in area
+    const pOfDeathDueToForaging = this.params.foraging_rate; // function of herbivores in area
     const pOfSurvivalDespiteForaging = 1 - pOfDeathDueToForaging;
     const pSurvivalInGivenTick = Math.pow(pOfSurvivalDespiteForaging, 1 / durationInTicks);
 
@@ -111,8 +112,8 @@ class Forest {
 
   seedsForTree(tree){
     let seedLocations = [];
-    let numSeeds = 1;
-    let stdDevDropDistance = 20;
+    let numSeeds = this.params.seeds_per_tree;
+    let stdDevDropDistance = this.params.seed_drop_dist;
     for (var i=0; i<numSeeds; i++){
       seedLocations.push(
           {  x: randomGaussian(tree.x, stdDevDropDistance)
