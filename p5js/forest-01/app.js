@@ -39,6 +39,8 @@ function keyPressed() {
   if (key === 'c'){
     P5JsSettings.init();
     system.init();
+  } else if (key === 't'){
+    system.forest.sproutTree(mouseX, mouseY);
   }
 }
 
