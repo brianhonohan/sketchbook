@@ -43,8 +43,7 @@ class System {
   }
 
   render(){
-    background(0);
-    this.grid.renderViews();
+    background(255);
     this.forest.draw();
   }
 }
