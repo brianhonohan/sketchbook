@@ -5,6 +5,7 @@ var systemParams = {
   foraging_rate: 0.6,
   seeds_per_tree: 2,
   seed_drop_dist: 70,
+  paused: false,
   tree: {
     max_age: 200,
     years_as_sapling: 4,
@@ -21,6 +22,7 @@ function setup() {
   gui.add(systemParams, 'foraging_rate').min(0.1).max(0.9).step(0.05);
   gui.add(systemParams, 'seeds_per_tree').min(1).max(20).step(1);
   gui.add(systemParams, 'seed_drop_dist').min(1).max(150).step(10);
+  gui.add(systemParams, "paused");
 
   let treeCfg = gui.addFolder('Tree Attributes');
   treeCfg.add(systemParams.tree, 'max_age').min(20).max(500).step(5);

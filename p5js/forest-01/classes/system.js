@@ -8,6 +8,10 @@ class System {
     this.init();
   }
 
+  toggleRunning(){
+    this.params.paused = !this.params.paused;
+  }
+
   init(){
     this.forest = new Forest(this.area, this);
     this.cellViewer = new CellViewer();
@@ -33,6 +37,7 @@ class System {
   }
 
   tick(){
+    if (this.params.paused == true) { return; }
     this.seasonalTime.tick();
     this.forest.tick();
   }
