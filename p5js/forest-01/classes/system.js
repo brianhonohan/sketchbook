@@ -1,11 +1,19 @@
 class System {
-  constructor(p_xSizeAndPos){
+  constructor(p_xSizeAndPos, params){
     this.area = p_xSizeAndPos;
+    this.params = params;
     this.optionsSet = new OptionsSet(this.optionsMetadata());
     this.settings = this.optionsSet.settings;
 
-    this.forest = new Forest(this.area, this);
+    this.init();
+  }
 
+  toggleRunning(){
+    this.params.paused = !this.params.paused;
+  }
+
+  init(){
+    this.forest = new Forest(this.area, this);
     this.cellViewer = new CellViewer();
     this.grid = new CellGrid(this.area, 
                              this, 
@@ -29,13 +37,13 @@ class System {
   }
 
   tick(){
+    if (this.params.paused == true) { return; }
     this.seasonalTime.tick();
     this.forest.tick();
   }
 
   render(){
-    background(0);
-    this.grid.renderViews();
+    background(255);
     this.forest.draw();
   }
 }
