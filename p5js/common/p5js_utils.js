@@ -14,4 +14,24 @@ class P5JsUtils {
              && c1.levels[2] == c2.levels[2]
              && alpha(c1) == alpha(c2);
   }
+
+  static drawSolidBoundary(fromX, fromY, toX, toY){
+    line(fromX, fromY, toX, toY);
+
+    push();
+    translate(fromX, fromY);
+    if (fromY != toY){
+      // rotate ... but currently assumes a horizontal line
+    }
+
+    const dashWidth = 20;
+    const numDashes = Math.floor((toX - fromX) / dashWidth);
+    let curX = 0;
+    let curY = 0 + dashWidth;
+    for (var i = 0; i<numDashes; i++){
+      line (curX, curY, curX + dashWidth, 0);
+      curX += dashWidth;
+    }
+    pop();
+  }
 }
