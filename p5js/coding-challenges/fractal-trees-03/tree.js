@@ -4,8 +4,8 @@ class Tree {
     this.y = y;
 
     this.segments = [];
-    this.segments.push(new ApicalMeristem(true, this.x, this.y, this));
-    this.segments.push(new ApicalMeristem(false, this.x, this.y, this));
+    this.segments.push(new ApicalMeristem(-PI/2));
+    this.segments.push(new ApicalMeristem(PI/2));
   }
 
   tick(){
@@ -13,6 +13,9 @@ class Tree {
   }
 
   draw(){
+    push();
+    translate(this.x, this.y);
     this.segments.forEach(s => s.draw());
+    pop();
   }
 }

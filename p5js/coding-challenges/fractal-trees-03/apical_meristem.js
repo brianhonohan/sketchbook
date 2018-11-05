@@ -1,18 +1,17 @@
 class ApicalMeristem {
-  constructor(isRoot, x, y, tree){
-    this.x = x;
-    this.y = y;
-    this.tree = tree;
-
-    this.generalDirection = (isRoot) ? 1 : -1;
-    this.segment = createVector(0.0, 0.1 * this.generalDirection);
+  constructor(attachAngle){
+    this.attachAngle = attachAngle;
+    this.length = 0;
   }
 
   tick(){
-    this.segment.y += this.generalDirection;
+    this.length += 0.1;
   }
 
   draw(){
-    line(this.x, this.y, this.x+this.segment.x, this.y+this.segment.y);
+    push();
+    rotate(this.attachAngle);
+    line(0, 0, this.length, 0);
+    pop();
   }
 }
