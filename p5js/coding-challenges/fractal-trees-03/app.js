@@ -1,13 +1,17 @@
+var tree;
 var groundLevel;
 
 function setup(){
   createCanvas(windowWidth, windowHeight);
 
   groundLevel = height * 0.6;
+  tree = new Tree(width/2, groundLevel);
 }  
 
 function draw(){
   background(50);
+  tree.tick();
+  tree.draw();
   drawGround(groundLevel);
 }
 
