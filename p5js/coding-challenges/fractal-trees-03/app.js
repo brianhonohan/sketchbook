@@ -4,8 +4,8 @@ var groundLevel;
 function setup(){
   createCanvas(windowWidth, windowHeight);
 
-  groundLevel = height * 0.6;
-  tree = new Tree(width/2, groundLevel);
+  groundLevel = floor(height * 0.6);
+  tree = new Tree( floor(width/2), groundLevel);
 }  
 
 function draw(){
