@@ -4,11 +4,16 @@ class Tree {
     this.y = y;
 
     this.segments = [];
-    this.segments.push(new ApicalMeristem(-PI/2));
-    this.segments.push(new ApicalMeristem(PI/2));
+    this.segments.push(new TreeSegment(-PI/2));
+    this.segments.push(new TreeSegment(PI/2));
+
+    this.apicalMeristems = [];
+    this.apicalMeristems.push( new ApicalMeristem(this.segments[0]) );
+    this.apicalMeristems.push( new ApicalMeristem(this.segments[1]) );
   }
 
   tick(){
+    this.apicalMeristems.forEach(s => s.tick());
     this.segments.forEach(s => s.tick());
   }
 

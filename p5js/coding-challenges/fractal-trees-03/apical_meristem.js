@@ -1,17 +1,19 @@
 class ApicalMeristem {
-  constructor(attachAngle){
-    this.attachAngle = attachAngle;
-    this.length = 0;
+  constructor(segment){
+    this.segment = segment;
+
+    this.segment.attachAM(this);
   }
 
   tick(){
-    this.length += 0.1;
+    this.segment.lengthen(0.1);
+
+    // todo: spawn buds
+    // transmit auxin
   }
 
   draw(){
-    push();
-    rotate(this.attachAngle);
-    line(0, 0, this.length, 0);
-    pop();
+    fill(40, 230, 40);
+    ellipse(0, 0, 5, 5);
   }
 }
