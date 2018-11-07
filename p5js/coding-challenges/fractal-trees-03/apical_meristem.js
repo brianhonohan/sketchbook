@@ -1,7 +1,11 @@
 class ApicalMeristem {
   constructor(segment){
-    this.segment = segment;
+    this.segment = null;
+    this.attachToSegment(segment);
+  }
 
+  attachToSegment(segment){
+    this.segment = segment;
     this.segment.attachAM(this);
   }
 
