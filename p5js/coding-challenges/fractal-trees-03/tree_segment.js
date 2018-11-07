@@ -1,10 +1,13 @@
 class TreeSegment {
-  constructor(attachAngle){
+  constructor(attachAngle, parent){
     this.attachAngle = attachAngle;
     this.length = 0;
     this.width = 0.25;
     this.apicalMeristem = null;
     this.childSegments = null;
+
+    this.parent = parent;
+    this.parent.addChildSegment(this);
   }
 
   static get MAX_LENGTH() { return 20; } // Purely in terms of data modeling
@@ -13,31 +16,25 @@ class TreeSegment {
     this.apicalMeristem = apicalMeristem;
   }
 
+  disassociateFromAM(){
+    this.apicalMeristem = null;
+  }
+
+  addChildSegment(segment){
+    if (this.childSegments === null){
+      this.childSegments = [];
+    }
+    this.childSegments.push(segment);
+  }
+
   lengthen(delta){
     this.length += delta;
   }
 
   tick(){
-    if (this.length > TreeSegment.MAX_LENGTH){
-      this.length = TreeSegment.MAX_LENGTH;
-      this.refineDataModel();
-    }
-
     if (this.childSegments) {
       this.childSegments.forEach(cS => cS.tick());
     }
-  }
-
-  refineDataModel(){
-    if (this.childSegments === null){
-      this.childSegments = [];
-    }
-    const childSeg = new TreeSegment(0);
-    if (this.apicalMeristem){
-      this.apicalMeristem.attachToSegment(childSeg);
-      this.apicalMeristem = null;
-    }
-    this.childSegments.push(childSeg);
   }
 
   draw(){
