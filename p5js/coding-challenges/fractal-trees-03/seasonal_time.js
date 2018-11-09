@@ -2,10 +2,12 @@ class SeasonalTime {
   constructor(yearsPerTick){
     this.years = 0;
     this.yearsPerTick = yearsPerTick;
+    this.season = SeasonalTime.SPRING;
   }
 
   tick(){
     this.years += this.yearsPerTick;
+    this.season = Math.floor(this.years % 1 / 0.25);
   }
 
   static get SPRING(){ return 0; }
@@ -15,20 +17,5 @@ class SeasonalTime {
 
   get year(){
     return Math.floor(this.years);
-  }
-
-  // Only makes sense when yearsPerTick is less than 1
-  get season(){
-    let yearOffset = this.years % 1;
-
-    if (yearOffset < 0.25){
-      return SeasonalTime.SPRING;
-    } else if (yearOffset < 0.5){
-      return SeasonalTime.SUMMER;
-    } else if (yearOffset < 0.75){
-      return SeasonalTime.FALL;
-    } else {
-      return SeasonalTime.WINTER;
-    }
   }
 }
