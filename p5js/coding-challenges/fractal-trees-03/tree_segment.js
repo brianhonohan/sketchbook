@@ -35,11 +35,13 @@ class TreeSegment {
     if (this.childSegments) {
       this.childSegments.forEach(cS => cS.tick());
     }
+    this.width += 0.005;
   }
 
   draw(){
     push();
     rotate(this.attachAngle);
+    strokeWeight(this.width);
     line(0, 0, this.length, 0);
     
     translate(this.length, 0);

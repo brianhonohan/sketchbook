@@ -30,6 +30,7 @@ class ApicalMeristem {
   }
 
   draw(){
+    noStroke();
     fill(40, 230, 40);
     ellipse(0, 0, 5, 5);
   }
