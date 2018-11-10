@@ -23,10 +23,14 @@ class ApicalMeristem {
     this.segment.lengthen(0.1);
 
     if (this.segment.length > TreeSegment.MAX_LENGTH){
-      const childSeg = new TreeSegment(0, this.segment);
-      this.segment.attachToSegment
-      this.attachToSegment(childSeg);
+      this.startNewSegment();
     }
+  }
+
+  startNewSegment(){
+    const childSeg = new TreeSegment(0, this.segment);
+    this.segment.attachToSegment
+    this.attachToSegment(childSeg);
   }
 
   draw(){
