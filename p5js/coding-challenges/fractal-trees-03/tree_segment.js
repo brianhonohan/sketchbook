@@ -8,6 +8,7 @@ class TreeSegment {
 
     this.parent = parent;
     this.parent.addChildSegment(this);
+    this.leaves = [];
   }
 
   static get MAX_LENGTH() { return 20; } // Purely in terms of data modeling
@@ -18,6 +19,10 @@ class TreeSegment {
 
   disassociateFromAM(){
     this.apicalMeristem = null;
+  }
+
+  attachLeaf(leaf){
+    this.leaves.push(leaf);
   }
 
   addChildSegment(segment){
@@ -48,6 +53,8 @@ class TreeSegment {
     if (this.apicalMeristem) {
       this.apicalMeristem.draw();
     }
+
+    this.leaves.forEach(leaf => leaf.draw());
 
     if (this.childSegments) {
       this.childSegments.forEach(cS => cS.draw());

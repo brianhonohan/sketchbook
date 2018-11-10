@@ -2,6 +2,7 @@ class ApicalMeristem {
   constructor(segment){
     this.segment = null;
     this.attachToSegment(segment);
+    this.attachDir = 1;
   }
 
   attachToSegment(segment){
@@ -14,6 +15,12 @@ class ApicalMeristem {
 
   tick(){
     this.extendSegment();
+
+    if (frameCount % 200 == 0){
+      this.segment.attachLeaf(new Leaf(PI/4 * this.attachDir));
+      this.attachDir  *= -1;
+      this.startNewSegment();
+    }
 
     // todo: spawn buds
     // transmit auxin
