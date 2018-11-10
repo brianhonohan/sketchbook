@@ -3,7 +3,7 @@ class ApicalMeristem {
     this.segment = null;
     this.attachToSegment(segment);
     this.attachDir = 1;
-    this.attachAngle = PI / 4;
+    this.attachAngle = PI / 8;
   }
 
   attachToSegment(segment){
@@ -34,7 +34,7 @@ class ApicalMeristem {
   }
 
   extendSegment(){
-    this.segment.lengthen(0.1);
+    this.segment.lengthen(.2);
 
     if (this.segment.length > TreeSegment.MAX_LENGTH){
       this.startNewSegment();
@@ -42,7 +42,8 @@ class ApicalMeristem {
   }
 
   startNewSegment(){
-    const childSeg = new TreeSegment(0, this.segment);
+    let angleRange = 0.2 * random(0.8, 1.2) * this.attachDir;
+    const childSeg = new TreeSegment(angleRange, this.segment);
     this.segment.attachToSegment
     this.attachToSegment(childSeg);
   }
