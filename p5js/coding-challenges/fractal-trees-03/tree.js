@@ -8,8 +8,8 @@ class Tree {
     let firstRoot = new TreeSegment(PI/2, this);
 
     this.apicalMeristems = [];
-    this.apicalMeristems.push( new ApicalMeristem(firstShoot) );
-    this.apicalMeristems.push( new ApicalMeristem(firstRoot) );
+    this.apicalMeristems.push( new ShootApicalMeristem(firstShoot) );
+    this.apicalMeristems.push( new RootApicalMeristem(firstRoot) );
   }
 
   addChildSegment(segment){

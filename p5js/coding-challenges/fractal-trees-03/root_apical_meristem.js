@@ -1,0 +1,2 @@
+class RootApicalMeristem extends ApicalMeristem {
+}
