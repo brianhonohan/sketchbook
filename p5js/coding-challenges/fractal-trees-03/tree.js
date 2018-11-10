@@ -12,6 +12,10 @@ class Tree {
     this.apicalMeristems.push( new RootApicalMeristem(firstRoot) );
   }
 
+  addApicalMeristem(apicalMeristem){
+    this.apicalMeristems.push(apicalMeristem);
+  }
+
   addChildSegment(segment){
     this.segments.push(segment);
   }

@@ -1,11 +1,10 @@
 class ShootApicalMeristem extends ApicalMeristem {
-  tick(){
-    if (frameCount % 200 == 0){
-      this.segment.attachLeaf(new Leaf(PI/4 * this.attachDir));
-      this.attachDir  *= -1;
-      this.startNewSegment();
-    }
+  addBranch(){
+    this.segment.attachLeaf(new Leaf(PI/4 * this.attachDir));
+    super.addBranch();
+  }
 
-    super.tick();
+  meristemOfSameType(segment){
+    return new ShootApicalMeristem(segment);
   }
 }

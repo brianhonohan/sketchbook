@@ -3,6 +3,7 @@ class ApicalMeristem {
     this.segment = null;
     this.attachToSegment(segment);
     this.attachDir = 1;
+    this.attachAngle = PI / 4;
   }
 
   attachToSegment(segment){
@@ -14,10 +15,22 @@ class ApicalMeristem {
   }
 
   tick(){
+    if (frameCount % 200 == 0){
+      this.addBranch();
+      this.startNewSegment();
+    }
+
     this.extendSegment();
 
     // todo: spawn buds
     // transmit auxin
+  }
+
+  addBranch(){
+    let branch = new TreeSegment(this.attachAngle * this.attachDir, this.segment);
+    let meristem = this.meristemOfSameType(branch);
+    tree.addApicalMeristem(meristem);
+    this.attachDir *= -1;
   }
 
   extendSegment(){
@@ -36,7 +49,7 @@ class ApicalMeristem {
 
   draw(){
     noStroke();
-    fill(40, 230, 40);
+    fill(160, 230, 80);
     ellipse(0, 0, 5, 5);
   }
 }
