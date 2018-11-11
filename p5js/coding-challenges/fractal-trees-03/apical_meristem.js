@@ -20,10 +20,11 @@ class ApicalMeristem {
       this.startNewSegment();
     }
 
-    this.extendSegment();
-
-    // todo:
-    // transmit auxin
+    // this.extendSegment();
+    this.transmitAuxin();
+    if (this.segment.length > TreeSegment.MAX_LENGTH){
+      this.startNewSegment();
+    }
   }
 
   addBranch(){
@@ -33,12 +34,12 @@ class ApicalMeristem {
     this.attachDir *= -1;
   }
 
+  transmitAuxin(){
+    this.segment.receiveAuxin(1);
+  }
+
   extendSegment(){
     this.segment.lengthen(.2);
-
-    if (this.segment.length > TreeSegment.MAX_LENGTH){
-      this.startNewSegment();
-    }
   }
 
   startNewSegment(){

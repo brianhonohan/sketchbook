@@ -20,6 +20,10 @@ class Tree {
     this.segments.push(segment);
   }
 
+  receiveAuxin(auxin){
+    // do nothing
+  }
+
   tick(){
     this.apicalMeristems.forEach(s => s.tick());
     this.segments.forEach(s => s.tick());
