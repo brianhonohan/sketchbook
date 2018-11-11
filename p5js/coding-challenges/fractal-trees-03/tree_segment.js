@@ -9,6 +9,7 @@ class TreeSegment {
     this.parent = parent;
     this.parent.addChildSegment(this);
     this.leaves = [];
+    this.bud = null;
   }
 
   static get MAX_LENGTH() { return 20; } // Purely in terms of data modeling
@@ -37,6 +38,9 @@ class TreeSegment {
   }
 
   tick(){
+    if (this.bud) { 
+      this.bud.tick();
+    }
     if (this.childSegments) {
       this.childSegments.forEach(cS => cS.tick());
     }
@@ -46,6 +50,7 @@ class TreeSegment {
   draw(){
     push();
     rotate(this.attachAngle);
+    stroke(255);
     strokeWeight(this.width);
     line(0, 0, this.length, 0);
     
@@ -55,6 +60,9 @@ class TreeSegment {
     }
 
     this.leaves.forEach(leaf => leaf.draw());
+    if (this.bud) { 
+      this.bud.draw();
+    }
 
     if (this.childSegments) {
       this.childSegments.forEach(cS => cS.draw());

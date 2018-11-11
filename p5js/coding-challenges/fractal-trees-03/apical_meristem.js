@@ -22,7 +22,7 @@ class ApicalMeristem {
 
     this.extendSegment();
 
-    // todo: spawn buds
+    // todo:
     // transmit auxin
   }
 
