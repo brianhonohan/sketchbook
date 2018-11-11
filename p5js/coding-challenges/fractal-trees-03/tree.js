@@ -30,9 +30,6 @@ class Tree {
   }
 
   draw(){
-    push();
-    translate(this.x, this.y);
     this.segments.forEach(s => s.draw());
-    pop();
   }
 }
