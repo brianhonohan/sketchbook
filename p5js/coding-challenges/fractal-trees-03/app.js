@@ -5,7 +5,7 @@ var visualScale;
 var log10 = Math.log(10);
 
 function setup(){
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(windowWidth, windowHeight-40);
 
   visualScale = 1;
   groundLevel = floor(height * 0.6);
