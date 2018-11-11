@@ -6,7 +6,7 @@ class AxillaryBud {
   }
 
   tick(){
-    if (this.counter > 100){
+    if (this.segment.auxinLevel < 0.1){
       this.startShoot();
     }
     this.counter++;
