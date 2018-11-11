@@ -10,6 +10,11 @@ class RootApicalMeristem extends ApicalMeristem {
   static get DIRECTION_RIGHT(){ return 2; }
 
   addBranch(){
+    let chanceNoBranch = random();
+    if (chanceNoBranch < 0.4){
+      return;
+    }
+
     let branch = new TreeSegment(this.attachAngle * this.attachDir, this.segment);
     let meristem = this.meristemOfSameType(branch);
 
