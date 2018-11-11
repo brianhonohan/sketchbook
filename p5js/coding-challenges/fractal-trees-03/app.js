@@ -2,6 +2,7 @@ var tree;
 var groundLevel;
 var seasonalTime;
 var visualScale;
+var log10 = Math.log(10);
 
 function setup(){
   createCanvas(windowWidth, windowHeight);
@@ -37,4 +38,11 @@ function keyPressed() {
   } else if (key === '='){
     visualScale += 0.2;
   }
+}
+
+function mouseWheel(event){
+  let zoomDelta = 0.1 * Math.sign(event.delta + 0.001) 
+                      * Math.log( abs(event.delta) )
+                      / log10;
+  visualScale = Math.max(0.1, visualScale + zoomDelta);
 }
