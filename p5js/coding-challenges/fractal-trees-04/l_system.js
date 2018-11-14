@@ -1,13 +1,12 @@
 class LSystem {
-  constructor(axiom, rule){
-    this.axiom = axiom;
-    this.rule = rule;
-    this.currentStr = this.axiom;
+  constructor(params){
+    this.params = params;
+    this.currentStr = params.axiom;
     this.instructions = this.currentStr.split('');
   }
 
   step(){
-    this.currentStr = this.currentStr.replace(/F/g, this.rule);
+    this.currentStr = this.currentStr.replace(/F/g, this.params.rule);
     this.instructions = this.currentStr.split('');
     return this.currentStr;
   }

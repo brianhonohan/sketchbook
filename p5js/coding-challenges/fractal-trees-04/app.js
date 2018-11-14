@@ -3,13 +3,22 @@ var systemViewer;
 var visualScale;
 var log10 = Math.log(10);
 
+var params = {
+  axiom: 'F',
+  rule: 'FF[+F][-F+F]F'
+}
+
 function setup(){
   createCanvas(windowWidth, windowHeight-40);
-  system = new LSystem('F', 'FF[+F][-F+F]F');
-  systemViewer = new LSystemViewer();
-
   visualScale = 1;
 
+  gui = new dat.gui.GUI();
+  guiAxiom = gui.add(params, "axiom");
+  gui.add(params, "rule");
+  addGuiListeners();
+
+  system = new LSystem(params);
+  systemViewer = new LSystemViewer();
   stroke(255);
 }  
 
@@ -21,6 +30,12 @@ function draw(){
   scale(visualScale);
   systemViewer.draw(system);
   pop();
+}
+
+function addGuiListeners(){
+  guiAxiom.onFinishChange(function(value) {
+    system = new LSystem(params);
+  });
 }
 
 function keyPressed(){
