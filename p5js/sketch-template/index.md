@@ -19,3 +19,5 @@ js_scripts:
 
 ---
 
+{% include_relative README.md %}
+
