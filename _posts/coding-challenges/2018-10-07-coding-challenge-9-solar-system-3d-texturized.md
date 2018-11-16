@@ -18,7 +18,7 @@ Key learnings:
 
 ## Sample Textures:
 
-Textures were downloaded from [solarsystemscope.com][solar-system-textures] which provides the iamges free of charge for use in 3D models like this sketch.
+Textures were downloaded from [solarsystemscope.com][solar-system-textures] which provides the images free of charge for use in 3D models like this sketch.
 
 [![texture-sample-sun][texture-sun]{:class="img-thumbnail"}][live-view]
 [![texture-sample-earth][texture-earth]{:class="img-thumbnail"}][live-view]
