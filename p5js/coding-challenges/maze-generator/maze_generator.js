@@ -217,31 +217,11 @@ class MazeCell {
   static get REJECTED(){ return -2; }
 
   get leftWall() {
-    let idxToLeft = this.grid.cellIndexToLeft(this._idx);
-    if (idxToLeft == undefined){
-      return MazeCell.WALL_SOLID;
-    }
-
-    let cell =  this.grid.cells[idxToLeft];
-    if (cell.state == MazeCell.CELL_SOLID){
-      return MazeCell.WALL_SOLID;
-    }else{
-      return cell.rightWall;
-    }
+    return this.cellToLeft.rightWall;
   }
 
   get topWall() {
-    let idxToAbove = this.grid.cellIndexAbove(this._idx);
-    if (idxToAbove == undefined){
-      return MazeCell.WALL_SOLID;
-    }
-
-    let cell =  this.grid.cells[idxToAbove];
-    if (cell.state == MazeCell.CELL_SOLID){
-      return MazeCell.WALL_SOLID;
-    }else{
-      return cell.bottomWall;
-    }
+    return this.cellAbove.bottomWall;
   }
 
   openWall(wallIdx){
