@@ -1,20 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>P5.JS - Maze Generator</title>
+---
+layout: minimal
+title:  "P5.JS - Maze Generator"
+categories: p5js
+modal: true
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js" charset="utf-8"></script>
-    <script src="/sketchbook/js/models/rect.js" charset="utf-8"></script>
-    <script src="/sketchbook/js/models/cell_grid.js" charset="utf-8"></script>
-    <script src="maze_generator.js" charset="utf-8"></script>
+js_scripts:
+- https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js
+- /sketchbook/js/models/rect.js
+- /sketchbook/js/models/cell_grid.js
+- maze_generator.js
 
-<style>
-body {
-  margin: 0;
-  font-family: Sans-Serif;
-}
-</style>
-</head>
-<body>
-</body>
-</html>
+---
+
+{% include_relative README.md %}
