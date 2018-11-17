@@ -216,18 +216,16 @@ class MazeCell {
   
   static get REJECTED(){ return -2; }
 
-  get leftWall() {
-    return this.cellToLeft.rightWall;
-  }
+  get leftWall() { return this.cellToLeft.rightWall; }
+  set leftWall(state) { this.cellToLeft.rightWall = state; }
 
-  get topWall() {
-    return this.cellAbove.bottomWall;
-  }
+  get topWall() { return this.cellAbove.bottomWall; }
+  set topWall(state) { this.cellAbove.bottomWall = state; }
 
   openWall(wallIdx){
     switch(wallIdx) {
       case 0:
-        this.cellAbove.bottomWall = MazeCell.WALL_OPEN;
+        this.topWall = MazeCell.WALL_OPEN;
         break;
       case 1:
         this.rightWall = MazeCell.WALL_OPEN;
@@ -236,7 +234,7 @@ class MazeCell {
         this.bottomWall = MazeCell.WALL_OPEN;
         break;
       case 3:
-        this.cellToLeft.rightWall = MazeCell.WALL_OPEN;
+        this.leftWall = MazeCell.WALL_OPEN;
         break;
     }
   }
@@ -244,7 +242,7 @@ class MazeCell {
   closeWall(wallIdx){
     switch(wallIdx) {
       case 0:
-        this.cellAbove.bottomWall = MazeCell.WALL_SOLID;
+        this.topWall = MazeCell.WALL_SOLID;
         break;
       case 1:
         this.rightWall = MazeCell.WALL_SOLID;
@@ -253,7 +251,7 @@ class MazeCell {
         this.bottomWall = MazeCell.WALL_SOLID;
         break;
       case 3:
-        this.cellToLeft.rightWall = MazeCell.WALL_SOLID;
+        this.leftWall = MazeCell.WALL_SOLID;
         break;
     }
   }
