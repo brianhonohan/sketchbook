@@ -1,9 +1,11 @@
 class RootSegment {
   constructor(x, y, parent){
-    this.x = x;
-    this.y = y;
+    this.pos = createVector(x, y);
     this.parent = parent;
   }
+
+  get x(){ return this.pos.x; }
+  get y(){ return this.pos.y; }
 
   static setStyle(){
     stroke(230);
