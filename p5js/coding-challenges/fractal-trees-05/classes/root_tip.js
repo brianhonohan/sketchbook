@@ -2,7 +2,7 @@ class RootTip {
   constructor(x, y, parent, primaryDirection, plant){
     this.pos = createVector(x, y);
     this.parent = parent;
-    this.primaryDirection = primaryDirection;
+    this.direction = primaryDirection;
     this.plant = plant;
   }
 
@@ -21,7 +21,7 @@ class RootTip {
     if (this.length() > 50) {
       this.startNewSegment();
     }
-    this.pos.add(this.primaryDirection);
+    this.pos.add(this.direction);
   }
 
   startNewSegment(){
