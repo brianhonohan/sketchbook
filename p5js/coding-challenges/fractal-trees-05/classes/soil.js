@@ -8,8 +8,14 @@ class Soil {
       let pos = createVector(random(this.area.width), random(this.area.height));
       this.nutrients.push(new Nutrient(pos));
     }
+
+    this.plants = [];
+    this.plant(new Plant( floor(this.area.width / 2), 0));
   }
 
+  plant(newPlant){
+    this.plants.push(newPlant);
+  }
 
   draw(){
     push();
@@ -18,6 +24,8 @@ class Soil {
     Nutrient.setStyles();
     this.nutrients.forEach(n => n.draw());
 
+
+    this.plants.forEach(p => p.draw());
     pop();
   }
 }
