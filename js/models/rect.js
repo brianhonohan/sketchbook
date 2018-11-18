@@ -8,6 +8,8 @@ class Rect {
 
   get x(){ return this._x; }
   get y(){ return this._y; }
+  get width(){ return this._width; }
+  get height(){ return this._height; }
   get minX(){ return this._x; }
   get minY(){ return this._y; }
   get maxX(){ return this._x + this._width; }

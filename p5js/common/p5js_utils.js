@@ -34,4 +34,8 @@ class P5JsUtils {
     }
     pop();
   }
+
+  static drawRect(rectObj){
+    rect(rectObj.x, rectObj.y, rectObj.width, rectObj.height);
+  }
 }
