@@ -15,6 +15,7 @@ function draw(){
   background(50);
   drawGround(groundLevel);
 
+  soil.tick();
   soil.draw();
 }
 

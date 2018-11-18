@@ -17,6 +17,10 @@ class Soil {
     this.plants.push(newPlant);
   }
 
+  tick(){
+    this.plants.forEach(p => p.tick());
+  }
+
   draw(){
     push();
     translate(this.area.x, this.area.y);

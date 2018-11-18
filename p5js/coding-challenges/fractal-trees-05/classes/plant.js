@@ -9,9 +9,14 @@ class Plant {
     let firstSegment = new RootSegment(this.x, this.y + 10, this);
     this.segments.push(firstSegment);
 
+    let downward = createVector(0, 1);
+    let firstTip = new RootTip(this.x, this.y + 20, firstSegment, downward);
 
-    let firstTip = new RootTip(this.x, this.y + 20, firstSegment);
     this.tips.push(firstTip);
+  }
+
+  tick(){
+    this.tips.forEach(t => t.tick());
   }
 
   draw(){
