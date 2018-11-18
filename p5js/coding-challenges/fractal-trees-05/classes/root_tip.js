@@ -1,7 +1,7 @@
 class RootTip {
-  constructor(x, y, growingSegment, primaryDirection, plant){
+  constructor(x, y, parent, primaryDirection, plant){
     this.pos = createVector(x, y);
-    this.growingSegment = growingSegment;
+    this.parent = parent;
     this.primaryDirection = primaryDirection;
     this.plant = plant;
   }
@@ -10,7 +10,7 @@ class RootTip {
   get y(){ return this.pos.y; }
 
   length(){
-    return p5.Vector.mag( p5.Vector.sub(this.pos, this.growingSegment.pos) );
+    return p5.Vector.mag( p5.Vector.sub(this.pos, this.parent.pos) );
   }
 
   tick(){
@@ -25,8 +25,8 @@ class RootTip {
   }
 
   startNewSegment(){
-    let rootSeg = new RootSegment(this.x, this.y, this.growingSegment);
-    this.growingSegment = rootSeg;
+    let rootSeg = new RootSegment(this.x, this.y, this.parent);
+    this.parent = rootSeg;
     this.plant.addRootSegment(rootSeg);
   }
 
@@ -35,6 +35,6 @@ class RootTip {
   }
 
   draw(){
-    line(this.growingSegment.x, this.growingSegment.y, this.x, this.y);
+    line(this.parent.x, this.parent.y, this.x, this.y);
   }
 }
