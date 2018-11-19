@@ -22,6 +22,20 @@ class Rect {
             && this.minY < otherRect.minY && this.maxY > otherRect.maxY;
   }
 
+  expandToIncludeRect(otherRect){
+    let maxX = this.maxX;
+    let maxY = this.maxY;
+
+    this._x = Math.min(this._x, otherRect._x);
+    this._y = Math.min(this._y, otherRect._y);
+
+    maxX = Math.max(maxX, otherRect.maxX);
+    maxY = Math.max(maxY, otherRect.maxY);
+
+    this._width  = maxX - this._x;
+    this._height = maxY - this._y;
+  }
+
   containsXY(x, y){ 
     return this.minX <= x && x < this.maxX 
            && this.minY <= y && y < this.maxY;

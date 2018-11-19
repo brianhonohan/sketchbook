@@ -5,9 +5,10 @@ class Plant {
 
     this.segments = [];
     this.tips = [];
+    this.detectionArea = new Rect(this.x, this.y, 0, 0);
 
     let firstSegment = new RootSegment(this.x, this.y + 10, this);
-    this.segments.push(firstSegment);
+    this.addRootSegment(firstSegment);
 
     let downward = createVector(0, 1);
     let firstTip = new RootTip(this.x, this.y + 20, firstSegment, downward, this);
@@ -17,6 +18,7 @@ class Plant {
 
   addRootSegment(segment){
     this.segments.push(segment);
+    this.detectionArea.expandToIncludeRect(segment.detectionArea);
   }
 
   tick(){
@@ -24,6 +26,9 @@ class Plant {
   }
 
   draw(){
+    fill(50,200,50,80);
+    P5JsUtils.drawRect(this.detectionArea);
+
     RootSegment.setStyle();
     this.segments.forEach(s => s.draw());
     

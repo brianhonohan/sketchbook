@@ -17,8 +17,8 @@ class RootSegment {
   }
 
   draw(){
-    fill(50,200,50,80);
-    P5JsUtils.drawRect(this.detectionArea);
+    // fill(50,200,50,80);
+    // P5JsUtils.drawRect(this.detectionArea);
     line(this.parent.x, this.parent.y, this.x, this.y);
   }
 }
