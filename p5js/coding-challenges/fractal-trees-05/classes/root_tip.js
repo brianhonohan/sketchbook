@@ -18,7 +18,7 @@ class RootTip {
       return;
     }
 
-    if (this.length() > 50) {
+    if (this.length() > 25) {
       this.startNewSegment();
     }
     this.pos.add(this.direction);
