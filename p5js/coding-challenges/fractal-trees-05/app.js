@@ -1,8 +1,9 @@
 var groundLevel;
 var soil;
+var canvas;
 
 function setup() {
-  createCanvas(windowWidth, windowHeight-35);
+  canvas = createCanvas(500, 500);
   P5JsSettings.init();
 
   groundLevel = floor(height * 0.1);
@@ -22,4 +23,10 @@ function draw(){
 function drawGround(y){
   stroke(230);
   P5JsUtils.drawSolidBoundary(0.1 * width, y, 0.9 * width, y);
+}
+
+function keyTyped(){
+  if (key == 'p'){
+    saveCanvas(canvas, 'screenshot', 'png');
+  }
 }
