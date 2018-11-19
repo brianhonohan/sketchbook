@@ -3,17 +3,14 @@ class RootSegment {
     this.pos = createVector(x, y);
     this.parent = parent;
     this.nutrientDectionRange = 50;
+    this.detectionArea = new Rect(this.x - this.nutrientDectionRange / 2, 
+                                  this.y - this.nutrientDectionRange / 2,
+                                  this.nutrientDectionRange,
+                                  this.nutrientDectionRange);
   }
 
   get x(){ return this.pos.x; }
   get y(){ return this.pos.y; }
-
-  detectionArea(){
-    return new Rect(this.x - this.nutrientDectionRange / 2, 
-                    this.y - this.nutrientDectionRange / 2,
-                    this.nutrientDectionRange,
-                    this.nutrientDectionRange);
-  }
 
   static setStyle(){
     stroke(230);
@@ -21,7 +18,7 @@ class RootSegment {
 
   draw(){
     fill(50,200,50,80);
-    P5JsUtils.drawRect(this.detectionArea());
+    P5JsUtils.drawRect(this.detectionArea);
     line(this.parent.x, this.parent.y, this.x, this.y);
   }
 }
