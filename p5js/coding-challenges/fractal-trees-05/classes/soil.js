@@ -18,7 +18,48 @@ class Soil {
   }
 
   tick(){
+    this.transmitNutrients();
     this.plants.forEach(p => p.tick());
+  }
+
+  transmitNutrients(){
+    if (this.nutrients.length == 0){
+      return;
+    }
+
+    let nearbyNutrients = this.nutrients.filter(n => {
+      return this.plants.some(p => p.detectionArea.containsXY(n.x, n.y));
+    });
+
+    let allSegments = this.plants.map(p => p.segments).flat();
+
+    let nutrientsWithSeg = nearbyNutrients.map(n => {
+      return {
+        nutrient: n,
+        segments: allSegments.filter(seg => seg.detectionArea.containsXY(n.x, n.y))
+      };
+    });
+    nutrientsWithSeg = nutrientsWithSeg.filter(nSeg => nSeg.segments.length > 0);
+
+    nutrientsWithSeg.forEach(nSeg => {
+      let closest = 10000000000000000; // intentially very large number
+      let idxOfClosest = null;
+      for(var i = 0; i < nSeg.segments.length; i++){
+        let segment = nSeg.segments[i];
+        let dist = p5.Vector.dist(nSeg.nutrient.pos, segment.pos);
+        if (dist < segment.nutrientDectionRange && dist < closest){
+          idxOfClosest = i;
+          closest = dist;
+        }
+      }
+
+      if (idxOfClosest == null){
+        return;
+      }
+
+      let closestSeg = nSeg.segments[idxOfClosest];
+      closestSeg.addTargetNutrient(nSeg.nutrient);
+    });
   }
 
   draw(){
