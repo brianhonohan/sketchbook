@@ -1,7 +1,8 @@
 class RootSegment {
-  constructor(x, y, parent){
+  constructor(x, y, parent, plant){
     this.pos = createVector(x, y);
     this.parent = parent;
+    this.plant = plant;
     this.nutrientDectionRange = 50;
     this.detectionArea = new Rect(this.x - this.nutrientDectionRange / 2, 
                                   this.y - this.nutrientDectionRange / 2,
@@ -15,6 +16,24 @@ class RootSegment {
 
   addTargetNutrient(nutrient){
     this.targetNutrients.push(nutrient);
+  }
+
+  tick(){
+    if (this.targetNutrients.length == 0){
+      return;
+    }
+
+    let totalPos = createVector(0, 0);
+    let vectorAdder = function(total, n) { total.add(n.pos); return total; };
+    this.targetNutrients.reduce(vectorAdder, totalPos);
+
+    let avgPos = p5.Vector.div(totalPos, this.targetNutrients.length);
+    this.addBranch(avgPos);
+  }
+
+  addBranch(atPos){
+    let rootSeg = new RootSegment(atPos.x, atPos.y, this, this.plant);
+    this.plant.addRootSegment(rootSeg);
   }
 
   static setStyle(){

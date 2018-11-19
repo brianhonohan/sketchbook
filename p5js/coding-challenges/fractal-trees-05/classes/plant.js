@@ -7,7 +7,7 @@ class Plant {
     this.tips = [];
     this.detectionArea = new Rect(this.x, this.y, 0, 0);
 
-    let firstSegment = new RootSegment(this.x, this.y + 10, this);
+    let firstSegment = new RootSegment(this.x, this.y + 10, this, this);
     this.addRootSegment(firstSegment);
 
     let downward = createVector(0, 1);
@@ -22,6 +22,7 @@ class Plant {
   }
 
   tick(){
+    this.segments.forEach(s => s.tick());
     this.tips.forEach(t => t.tick());
   }
 

@@ -25,7 +25,7 @@ class RootTip {
   }
 
   startNewSegment(){
-    let rootSeg = new RootSegment(this.x, this.y, this.parent);
+    let rootSeg = new RootSegment(this.x, this.y, this.parent, this.plant);
     this.parent = rootSeg;
     this.plant.addRootSegment(rootSeg);
   }

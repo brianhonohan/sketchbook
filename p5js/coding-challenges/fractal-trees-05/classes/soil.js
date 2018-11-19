@@ -59,7 +59,22 @@ class Soil {
 
       let closestSeg = nSeg.segments[idxOfClosest];
       closestSeg.addTargetNutrient(nSeg.nutrient);
+
+      if (closest < 10){
+        this.depleteNutrient(nSeg.nutrient);
+      }
     });
+  }
+
+  depleteNutrient(nutrient){
+    for (var i = 0; i < this.nutrients.length; i++){
+      if (this.nutrients[i] != nutrient){
+        continue;
+      }
+
+      this.nutrients.splice(i, 1);
+      break;
+    }
   }
 
   draw(){
