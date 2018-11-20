@@ -7,7 +7,8 @@ var params = {
   num_nutrients: 200,
   draw_plant_areas: true,
   draw_segment_areas: false,
-  detection_range: 50
+  detection_range: 50,
+  num_plants: 1
 };
 var guiNumNutrients;
 
@@ -20,6 +21,7 @@ function setup() {
   gui.add(params, "draw_plant_areas");
   gui.add(params, "draw_segment_areas");
   guiDetectionRange= gui.add(params, "detection_range").min(10).max(505).step(10);
+  guiNumPlants= gui.add(params, "num_plants").min(1).max(20).step(1);
   addGuiListeners();
 
   groundLevel = floor(height * 0.1);
@@ -57,6 +59,9 @@ function addGuiListeners(){
     initSystem();
   });
   guiDetectionRange.onFinishChange(function(value) {
+    initSystem();
+  });
+  guiNumPlants.onFinishChange(function(value) {
     initSystem();
   });
 }

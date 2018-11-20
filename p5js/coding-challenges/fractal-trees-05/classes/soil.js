@@ -10,7 +10,12 @@ class Soil {
     }
 
     this.plants = [];
-    this.plant(new Plant( floor(this.area.width / 2), 0, this.params));
+    let spacing = this.area.width / (1 + this.params.num_plants);
+    for (var i = 0; i< this.params.num_plants; i++){
+      let xPos = floor(spacing * (i + 1));
+      let newPlant = new Plant(xPos, 0, this.params);
+      this.plant(newPlant);
+    }
   }
 
   plant(newPlant){
