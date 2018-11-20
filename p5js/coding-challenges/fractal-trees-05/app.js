@@ -4,22 +4,22 @@ var canvas;
 
 var gui;
 var params = {
-  num_nutrients: 200,
-  draw_plant_areas: true,
+  num_nutrients: 1500,
+  draw_plant_areas: false,
   draw_segment_areas: false,
-  grow_root_tips: true,
+  grow_root_tips: false,
   detection_range: 50,
-  num_plants: 1,
-  random_colors_per_plant: false
+  num_plants: 9,
+  random_colors_per_plant: true
 };
 var guiNumNutrients;
 
 function setup() {
-  canvas = createCanvas(500, 500);
+  canvas = createCanvas(windowWidth, windowHeight-40);
   P5JsSettings.init();
 
   gui = new dat.gui.GUI();
-  guiNumNutrients = gui.add(params, "num_nutrients").min(50).max(2000).step(50);
+  guiNumNutrients = gui.add(params, "num_nutrients").min(50).max(4000).step(50);
   gui.add(params, "draw_plant_areas");
   gui.add(params, "draw_segment_areas");
   gui.add(params, "grow_root_tips");
