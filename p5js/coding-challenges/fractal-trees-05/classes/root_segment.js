@@ -3,7 +3,7 @@ class RootSegment {
     this.pos = createVector(x, y);
     this.parent = parent;
     this.plant = plant;
-    this.nutrientDectionRange = 50;
+    this.nutrientDectionRange = this.plant.params.detection_range;
     this.detectionArea = new Rect(this.x - this.nutrientDectionRange / 2, 
                                   this.y - this.nutrientDectionRange / 2,
                                   this.nutrientDectionRange,
