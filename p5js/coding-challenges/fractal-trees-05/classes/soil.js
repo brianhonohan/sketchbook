@@ -1,10 +1,10 @@
 class Soil {
-  constructor(sizeAndPos){
+  constructor(sizeAndPos, params){
     this.area = sizeAndPos;
+    this.params = params;
 
     this.nutrients = [];
-    this.numNutrients = 200;
-    for (var i = 0; i< this.numNutrients; i++){
+    for (var i = 0; i< this.params.num_nutrients; i++){
       let pos = createVector(random(this.area.width), random(this.area.height));
       this.nutrients.push(new Nutrient(pos));
     }
@@ -83,7 +83,6 @@ class Soil {
 
     Nutrient.setStyles();
     this.nutrients.forEach(n => n.draw());
-
 
     this.plants.forEach(p => p.draw());
     pop();
