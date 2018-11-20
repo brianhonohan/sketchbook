@@ -32,7 +32,10 @@ class RootSegment {
     this.targetNutrients.reduce(vectorAdder, totalPos);
 
     let avgPos = p5.Vector.div(totalPos, this.targetNutrients.length);
-    this.addBranch(avgPos);
+
+    if (abs(avgPos.x - this.x) > 1 || abs(avgPos.y - this.y) > 1){
+      this.addBranch(avgPos);
+    }
   }
 
   addBranch(atPos){
