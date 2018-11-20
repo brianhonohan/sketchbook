@@ -14,6 +14,10 @@ class RootTip {
   }
 
   tick(){
+    if (this.plant.params.grow_root_tips == false){
+      return;
+    }
+
     if (this.y > height * 0.8){
       return;
     }

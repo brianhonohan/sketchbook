@@ -7,6 +7,7 @@ var params = {
   num_nutrients: 200,
   draw_plant_areas: true,
   draw_segment_areas: false,
+  grow_root_tips: true,
   detection_range: 50,
   num_plants: 1
 };
@@ -20,6 +21,7 @@ function setup() {
   guiNumNutrients = gui.add(params, "num_nutrients").min(50).max(2000).step(50);
   gui.add(params, "draw_plant_areas");
   gui.add(params, "draw_segment_areas");
+  gui.add(params, "grow_root_tips");
   guiDetectionRange= gui.add(params, "detection_range").min(10).max(505).step(10);
   guiNumPlants= gui.add(params, "num_plants").min(1).max(20).step(1);
   addGuiListeners();
