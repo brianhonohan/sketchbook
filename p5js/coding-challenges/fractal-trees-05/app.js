@@ -9,7 +9,8 @@ var params = {
   draw_segment_areas: false,
   grow_root_tips: true,
   detection_range: 50,
-  num_plants: 1
+  num_plants: 1,
+  random_colors_per_plant: false
 };
 var guiNumNutrients;
 
@@ -24,6 +25,7 @@ function setup() {
   gui.add(params, "grow_root_tips");
   guiDetectionRange= gui.add(params, "detection_range").min(10).max(505).step(10);
   guiNumPlants= gui.add(params, "num_plants").min(1).max(20).step(1);
+  gui.add(params, "random_colors_per_plant");
   addGuiListeners();
 
   groundLevel = floor(height * 0.1);

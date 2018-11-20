@@ -9,6 +9,10 @@ class RootSegment {
                                   this.nutrientDectionRange,
                                   this.nutrientDectionRange);
     this.targetNutrients = [];
+    this.fillColor = color(red(this.plant.fillColor),
+                           green(this.plant.fillColor),
+                           blue(this.plant.fillColor),
+                           20);
   }
 
   get x(){ return this.pos.x; }
@@ -43,11 +47,19 @@ class RootSegment {
   draw(){
     if (this.plant.params.draw_segment_areas){
       noStroke();
-      fill(50,200,50,20);
+      if (this.plant.params.random_colors_per_plant){
+        fill(this.fillColor);
+      }else{
+        fill(50,200,50,20);
+      }
       P5JsUtils.drawRect(this.detectionArea);
     }
 
-    stroke(230);
+    if (this.plant.params.random_colors_per_plant){
+      stroke(this.plant.color);
+    }else{
+      stroke(230);
+    }
     line(this.parent.x, this.parent.y, this.x, this.y);
 
     stroke(50, 220, 240);

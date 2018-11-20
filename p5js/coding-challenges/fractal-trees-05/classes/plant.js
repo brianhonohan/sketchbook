@@ -8,6 +8,10 @@ class Plant {
     this.tips = [];
     this.detectionArea = new Rect(this.x, this.y, 0, 0);
 
+    // Only used if: params.random_colors_per_plant == true
+    this.color = color(random(50, 220), random(50, 220), random(50, 220));
+    this.fillColor = color(red(this.color), green(this.color), blue(this.color), 80);
+
     let firstSegment = new RootSegment(this.x, this.y + 10, this, this);
     this.addRootSegment(firstSegment);
 
@@ -30,11 +34,14 @@ class Plant {
   draw(){
     if (this.params.draw_plant_areas){
       noStroke();
-      fill(200,200,50,80);
+      if (this.params.random_colors_per_plant){
+        fill(this.fillColor);
+      }else{
+        fill(200,200,50,80);
+      }
       P5JsUtils.drawRect(this.detectionArea);
     }
 
-    RootSegment.setStyle();
     this.segments.forEach(s => s.draw());
     
     RootTip.setStyle();
