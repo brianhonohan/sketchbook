@@ -41,8 +41,12 @@ class RootSegment {
   }
 
   draw(){
-    // fill(50,200,50,80);
-    // P5JsUtils.drawRect(this.detectionArea);
+    if (this.plant.params.draw_segment_areas){
+      noStroke();
+      fill(50,200,50,20);
+      P5JsUtils.drawRect(this.detectionArea);
+    }
+
     stroke(230);
     line(this.parent.x, this.parent.y, this.x, this.y);
 

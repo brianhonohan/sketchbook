@@ -10,7 +10,7 @@ class Soil {
     }
 
     this.plants = [];
-    this.plant(new Plant( floor(this.area.width / 2), 0));
+    this.plant(new Plant( floor(this.area.width / 2), 0, this.params));
   }
 
   plant(newPlant){

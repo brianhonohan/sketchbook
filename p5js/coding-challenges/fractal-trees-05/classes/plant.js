@@ -1,7 +1,8 @@
 class Plant {
-  constructor(x, y){
+  constructor(x, y, params){
     this.x = x;
     this.y = y;
+    this.params = params;
 
     this.segments = [];
     this.tips = [];
@@ -27,8 +28,11 @@ class Plant {
   }
 
   draw(){
-    fill(50,200,50,80);
-    P5JsUtils.drawRect(this.detectionArea);
+    if (this.params.draw_plant_areas){
+      noStroke();
+      fill(200,200,50,80);
+      P5JsUtils.drawRect(this.detectionArea);
+    }
 
     RootSegment.setStyle();
     this.segments.forEach(s => s.draw());

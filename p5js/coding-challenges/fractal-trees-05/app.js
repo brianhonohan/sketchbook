@@ -4,7 +4,9 @@ var canvas;
 
 var gui;
 var params = {
-  num_nutrients: 200
+  num_nutrients: 200,
+  draw_plant_areas: true,
+  draw_segment_areas: false
 };
 var guiNumNutrients;
 
@@ -14,6 +16,8 @@ function setup() {
 
   gui = new dat.gui.GUI();
   guiNumNutrients = gui.add(params, "num_nutrients").min(50).max(2000).step(50);
+  gui.add(params, "draw_plant_areas");
+  gui.add(params, "draw_segment_areas");
   addGuiListeners();
 
   groundLevel = floor(height * 0.1);
