@@ -8,6 +8,8 @@ class Rect {
 
   get x(){ return this._x; }
   get y(){ return this._y; }
+  get width(){ return this._width; }
+  get height(){ return this._height; }
   get minX(){ return this._x; }
   get minY(){ return this._y; }
   get maxX(){ return this._x + this._width; }
@@ -18,6 +20,20 @@ class Rect {
   contains(otherRect){
     return this.minX < otherRect.minX && this.maxX > otherRect.maxX
             && this.minY < otherRect.minY && this.maxY > otherRect.maxY;
+  }
+
+  expandToIncludeRect(otherRect){
+    let maxX = this.maxX;
+    let maxY = this.maxY;
+
+    this._x = Math.min(this._x, otherRect._x);
+    this._y = Math.min(this._y, otherRect._y);
+
+    maxX = Math.max(maxX, otherRect.maxX);
+    maxY = Math.max(maxY, otherRect.maxY);
+
+    this._width  = maxX - this._x;
+    this._height = maxY - this._y;
   }
 
   containsXY(x, y){ 
