@@ -3,14 +3,14 @@
 
 This is a [p5.js][p5js-home] sketch inspired by the [Coding Train's][coding-train] [Coding Challenge #17][ct-challenge-17]  on implmementing the 'Space Colonization' tree growth algorithm, as outlined on [AlgorithmBotany.com][algo-botany-space-colonization].
 
-The gist of it is to imagine the end result of a tree's growth, in terms of lcoation of the leaves ... and allow the branches to grow into that space.
+The gist of it is to imagine the end result of a tree's growth, in terms of location of the leaves ... and allow the branches to grow into those spaces.
 
 This was intended to mimic how roots would grow (and compete) over nutrients in the soil. In reality, plants roots don't detect nutrients and so they don't grow toward them.
 
 From [CropNutrition.com][cropnutrition-how-plants-absorb]
 > Since roots have no special radar, sonar or other device to detect nutrients around the corner or in deeper soil layers, they instead depend on, essentially, the nutrients coming to them.
 
-Some plants do exhibit [Hydrotroism][wikipedia-hydrotropism] in root growth, meaning they grow towards more humid areas.
+Some plants do exhibit [Hydrotropism][wikipedia-hydrotropism] in root growth, meaning they grow towards more humid areas.
 
 ## Controls
 
@@ -20,7 +20,7 @@ Keyboard:
 
 # References:
 * [AlgorithmBotany.com - Space Colonization][algo-botany-space-colonization]
-* [p5.js - `saveCanvas()`][p5js-saveCanvas] Allows to save screenshot of current state.
+* [p5.js - `saveCanvas()`][p5js-saveCanvas] Allows saving a screenshot of current state.
 * [CropNutrition.com - How Plants Absorb Nutrients][cropnutrition-how-plants-absorb]
 * [Wikipedia - Hydrotropism][wikipedia-hydrotropism]
 
