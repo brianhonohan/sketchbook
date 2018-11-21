@@ -16,7 +16,6 @@ var guiNumNutrients;
 
 function setup() {
   canvas = createCanvas(windowWidth, windowHeight-40);
-  P5JsSettings.init();
 
   gui = new dat.gui.GUI();
   guiNumNutrients = gui.add(params, "num_nutrients").min(50).max(4000).step(50);
