@@ -1,8 +1,8 @@
 class RiverSegment {
-  constructor(start, end, river){
-    this.start = start; 
+  constructor(end, parent){
     this.end = end;
-    this.river = river;
+    this.parent = parent; 
+    this.start = parent.end;
   }
 
   draw(){

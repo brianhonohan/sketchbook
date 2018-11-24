@@ -1,11 +1,11 @@
 class River {
   constructor(start, end, floodPlain){
-    this.start = start;
+    this.source = new RiverSource(start);
     this.end = end;
     this.plain = floodPlain;
 
     this.segments = [];
-    this.segments.push( new RiverSegment(start, end) );
+    this.segments.push( new RiverSegment(end, this.source) );
   }
 
   draw(){
