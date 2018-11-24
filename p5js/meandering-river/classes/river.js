@@ -47,12 +47,12 @@ class River {
     this.end = parent.end;
   }
 
-  draw(){
-    noStroke();
-    fill(200, 200, 50);
-    ellipseMode(CENTER);
-    ellipse(this.x, this.y, 10, 10);
+  smooth(){
+    
+  }
 
+  draw(){
+    this.source.draw();
     this.segments.forEach(s => s.draw());
 
     noStroke();
