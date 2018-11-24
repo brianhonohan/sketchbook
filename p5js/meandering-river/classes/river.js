@@ -3,9 +3,10 @@ class River {
     this.source = new RiverSource(start);
     this.end = end;
     this.plain = floodPlain;
+    this.params = params;
 
     this.segments = [];
-    this.numStartingSegments = 8;
+    this.numStartingSegments = this.params.num_segments;
     this.initWithSinuousSegments();
   }
 
@@ -25,8 +26,8 @@ class River {
   }
 
   initWithSinuousSegments(){
-    let amplitude = 50;
-    let frequency = 3;
+    let amplitude = this.params.wave_amplitude;
+    let frequency = this.params.wave_frequency;
     
     let length = this.end.x - this.x;
 
