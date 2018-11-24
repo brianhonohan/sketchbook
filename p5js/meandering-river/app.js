@@ -1,10 +1,11 @@
 var system;
 
 function setup() {
-  createCanvas(windowWidth, windowHeight-35);
+  createCanvas(500, 500);
   P5JsSettings.init();
 
-  let rect = new Rect(0, 0, width, height);
+  var rect = new Rect(0.1 * width, 0.1 * height, 
+                            0.8 * width, 0.8 * height);
   system = new System(rect);
 }
 
@@ -13,3 +14,4 @@ function draw(){
   system.tick();
   system.draw();
 }
+ 
