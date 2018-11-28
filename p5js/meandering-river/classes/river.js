@@ -13,6 +13,8 @@ class River {
   get x(){ return this.source.pos.x; }
   get y(){ return this.source.pos.y; }
 
+  get mouth(){ return this.segments[this.segments.length - 1].end; }
+
   initSegments(){
     if (this.numStartingSegments == 1){
       this.initWithOneSegment();
@@ -22,7 +24,7 @@ class River {
   }
 
   initWithOneSegment(){
-    this.segments.push( new RiverSegment(this.end, this.source) );
+    this.segments.push( new RiverSegment(this.end.copy(), this.source) );
   }
 
   initWithSinuousSegments(){
@@ -44,7 +46,6 @@ class River {
       this.segments.push(segment);
       parent = segment;
     }
-    this.end = parent.end;
   }
 
   smooth(){
@@ -58,6 +59,6 @@ class River {
     noStroke();
     fill(200, 200, 50);
     ellipseMode(CENTER);
-    ellipse(this.end.x, this.end.y, 10, 10);
+    ellipse(this.mouth.x, this.mouth.y, 10, 10);
   }
 }
