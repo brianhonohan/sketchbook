@@ -8,6 +8,7 @@ class River {
     this.segments = [];
     this.numStartingSegments = this.params.num_segments;
     this.initWithSinuousSegments();
+    this.smooth();
   }
 
   get x(){ return this.source.pos.x; }
@@ -49,7 +50,56 @@ class River {
   }
 
   smooth(){
-    
+    const curveTolerance = 0.2;
+    for (var i = (this.segments.length-1); i > 0; i--){
+      let segment = this.segments[i];
+      let parent = segment.parent;
+
+      let segmentVector = segment.vectorFromParent();
+      let parentVector = segment.parent.vectorFromParent();
+      let deltaHeading = segmentVector.angleBetween(parentVector);
+
+      if (abs(deltaHeading) < curveTolerance) {
+        continue;
+      }
+
+      // store some values that will be modified
+      let origParentLength = parentVector.mag();
+      let vertex = parent.end.copy();
+      let segmentEnd = segment.end.copy();
+
+      // step 1: halve the parent segment
+      parent.halve();
+
+      // step 2: shorten the segment, and have it prep for broader curve
+      let thetaOne = deltaHeading * 0.25;
+      let newSegmentLength =  0.25 * origParentLength * Math.cos(thetaOne);
+      let tmpVector = parentVector.copy().setMag(newSegmentLength);
+      let curvature = 1; // need dynamic calc
+      tmpVector.rotate(thetaOne * curvature * -1);
+      segment.end = parent.end.copy().add(tmpVector);
+
+      // step 3: add 3 new segments curving back to original point
+      tmpVector.rotate(thetaOne * curvature * 2);
+      let seg2 = new RiverSegment(vertex, segment);
+      this.segments.push(seg2);
+
+      tmpVector.rotate(thetaOne * curvature * 2);
+      let pos3 = vertex.copy().add(tmpVector);
+      let seg3 = new RiverSegment(pos3, seg2);
+      this.segments.push(seg3);
+
+      tmpVector.rotate(thetaOne * curvature);
+      let pos4 = vertex.copy().add(segmentVector.mult(0.5));
+      let seg4 = new RiverSegment(pos4, seg3);
+      this.segments.push(seg4);
+
+      // step 4: add 1 final segment, connecting to the original segment End
+      let seg5 = new RiverSegment(segmentEnd, seg4);
+      this.segments.push(seg5);
+
+      // break;
+    }
   }
 
   draw(){

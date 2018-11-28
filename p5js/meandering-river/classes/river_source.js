@@ -9,6 +9,13 @@ class RiverSource {
     this._heading = newHeading;
     this.directionalVector = createVector(20, 0).rotate(newHeading);
   }
+
+  vectorFromParent(){
+    return this.directionalVector;
+  }
+
+  halve(){
+    return;
   }
 
   get x(){ return this.pos.x; }
