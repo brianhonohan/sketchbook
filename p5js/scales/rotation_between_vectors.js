@@ -135,7 +135,7 @@ function rotationBetweenVectors(v1, v2){
 }
 
 function mapHeadingToZeroToTwoPI(heading){
-  return (heading > 0) ? heading : (TWO_PI + heading);
+  return (heading >= 0) ? heading : (TWO_PI + heading);
 }
 
 function keyTyped(){
