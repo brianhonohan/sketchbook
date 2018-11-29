@@ -66,7 +66,7 @@ function drawTableOfVectors(){
       const secondHeading = headings[j];
 
       push();
-      let xMid = startX + (1 + i) * colWidth;
+      let xMid = startX + (1.25 + i) * colWidth;
       let yMid = startY + (1 + j) * rowHeight;
       translate(xMid, yMid);
       drawHeadings(firstHeading, secondHeading, 7, colWidth, rowHeight);
@@ -101,12 +101,21 @@ function drawRotation(v1, v2, cellWidth, cellHeight){
   let rotation = rotationBetweenVectors(v1, v2);
 
   let color1 = color(240, 100, 100);
+  let neutral = color(240);
   let color2 = color(100, 100, 240);
 
-  let mappedRotation = map(rotation, - PI, PI, 0, 1);
-  let rotColor = lerpColor(color1, color2, mappedRotation);
+  if (rotation < 0){
+    signedColor = color1;
+  }else{
+    signedColor = color2;
+  }
 
+  let mappedRotation = map(abs(rotation), 0, PI, 0, 1);
+  let rotColor = lerpColor(neutral, signedColor, mappedRotation);
+
+  noStroke();
   fill(rotColor);
+  rectMode(CENTER);
   rect(0, 0, cellWidth, cellHeight);
 }
 
