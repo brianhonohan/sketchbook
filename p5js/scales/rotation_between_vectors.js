@@ -1,4 +1,5 @@
 var headings;
+var drawMode;
 
 function setup(){
   createCanvas(windowWidth, windowHeight);
@@ -22,6 +23,7 @@ function setup(){
     , 1.99
   ];
 
+  drawMode = 'DRAW_VECTORS';
   drawTableOfVectors();
 }
 
@@ -67,20 +69,72 @@ function drawTableOfVectors(){
       let xMid = startX + (1 + i) * colWidth;
       let yMid = startY + (1 + j) * rowHeight;
       translate(xMid, yMid);
-      drawTwoVectors(firstHeading, secondHeading, 7);
+      drawHeadings(firstHeading, secondHeading, 7, colWidth, rowHeight);
       pop();
     }
   }
 }
 
-function drawTwoVectors(h1, h2, len){
+function drawHeadings(h1, h2, len, cellWidth, cellHeight){
   let v1 = createVector(len, 0);
   v1.rotate(h1 * PI);
-  stroke(100, 100, 240);
-  line(0, 0, v1.x, v1.y);
 
   let v2 =  createVector(len, 0);
   v2.rotate(h2 * PI);
+
+  if (drawMode == 'DENOTE_ROTATION') {
+    drawRotation(v1, v2, cellWidth, cellHeight);
+  } else {
+    drawTwoVectors(v1, v2, len);
+  }
+}
+
+function drawTwoVectors(v1, v2, len){
+  stroke(100, 100, 240);
+  line(0, 0, v1.x, v1.y);
+
   stroke(240, 100, 100);
   line(v1.x, v1.y, v1.x + v2.x, v1.y + v2.y);
+}
+
+function drawRotation(v1, v2, cellWidth, cellHeight){
+  let rotation = rotationBetweenVectors(v1, v2);
+
+  let color1 = color(240, 100, 100);
+  let color2 = color(100, 100, 240);
+
+  let mappedRotation = map(rotation, - PI, PI, 0, 1);
+  let rotColor = lerpColor(color1, color2, mappedRotation);
+
+  fill(rotColor);
+  rect(0, 0, cellWidth, cellHeight);
+}
+
+function rotationBetweenVectors(v1, v2){
+  let h1 = v1.heading();
+  let h2 = v2.heading();
+
+  let h1Mapped = mapHeadingToZeroToTwoPI(h1);
+  let h2Mapped = mapHeadingToZeroToTwoPI(h2);
+
+  if (h1Mapped > (3 * HALF_PI) && h2Mapped < HALF_PI){
+    h2Mapped += TWO_PI;
+  } else if (h2Mapped > (3 * HALF_PI) && h1Mapped < HALF_PI){
+    h1Mapped += TWO_PI;
+  }
+  return h2Mapped - h1Mapped;;
+}
+
+function mapHeadingToZeroToTwoPI(heading){
+  return (heading > 0) ? heading : (TWO_PI + heading);
+}
+
+function keyTyped(){
+  if (key == 'r') {
+    drawMode = 'DENOTE_ROTATION';
+    drawTableOfVectors();
+  } else if (key == 'v') {
+    drawMode = 'DRAW_VECTORS';
+    drawTableOfVectors();
+  }
 }
