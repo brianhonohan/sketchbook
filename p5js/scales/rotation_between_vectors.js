@@ -36,9 +36,9 @@ function drawTableOfVectors(){
   let usableX = (1 - 2 * margin) * width;
   let usableY = (1 - 2 * margin) * height;
 
-  let colWidth  = usableX / (headings.length + 1);
-  let rowHeight = usableY / (headings.length + 1);
-  let vectorLength = floor( min(colWidth, rowHeight) / 2.5 );
+  let colWidth  = ceil(usableX / (headings.length + 1));
+  let rowHeight = ceil(usableY / (headings.length + 1));
+  let vectorLength = floor( min(colWidth, rowHeight) / 3 );
 
   fill(240);
   // textAlign(CENTER);
@@ -69,7 +69,7 @@ function drawTableOfVectors(){
       let xMid = startX + (1.25 + i) * colWidth;
       let yMid = startY + (1 + j) * rowHeight;
       translate(xMid, yMid);
-      drawHeadings(firstHeading, secondHeading, 7, colWidth, rowHeight);
+      drawHeadings(firstHeading, secondHeading, vectorLength, colWidth, rowHeight);
       pop();
     }
   }
@@ -113,7 +113,8 @@ function drawRotation(v1, v2, cellWidth, cellHeight){
   let mappedRotation = map(abs(rotation), 0, PI, 0, 1);
   let rotColor = lerpColor(neutral, signedColor, mappedRotation);
 
-  noStroke();
+  // noStroke();
+  stroke(50);
   fill(rotColor);
   rectMode(CENTER);
   rect(0, 0, cellWidth, cellHeight);
