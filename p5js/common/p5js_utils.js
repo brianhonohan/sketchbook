@@ -38,4 +38,10 @@ class P5JsUtils {
   static drawRect(rectObj){
     rect(rectObj.x, rectObj.y, rectObj.width, rectObj.height);
   }
+
+  static rotationBetweenVectors(v1, v2){
+    let h1 = v1.heading();
+    let h2 = v2.copy().rotate(-h1);
+    return h2.heading();
+  }
 }

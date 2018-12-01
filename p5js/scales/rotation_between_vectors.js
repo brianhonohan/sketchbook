@@ -122,21 +122,8 @@ function drawRotation(v1, v2, cellWidth, cellHeight){
 
 function rotationBetweenVectors(v1, v2){
   let h1 = v1.heading();
-  let h2 = v2.heading();
-
-  let h1Mapped = mapHeadingToZeroToTwoPI(h1);
-  let h2Mapped = mapHeadingToZeroToTwoPI(h2);
-
-  if (h1Mapped > (3 * HALF_PI) && h2Mapped < HALF_PI){
-    h2Mapped += TWO_PI;
-  } else if (h2Mapped > (3 * HALF_PI) && h1Mapped < HALF_PI){
-    h1Mapped += TWO_PI;
-  }
-  return h2Mapped - h1Mapped;;
-}
-
-function mapHeadingToZeroToTwoPI(heading){
-  return (heading >= 0) ? heading : (TWO_PI + heading);
+  let h2 = v2.copy().rotate(-h1);
+  return h2.heading();
 }
 
 function keyTyped(){
