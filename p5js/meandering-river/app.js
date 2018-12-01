@@ -1,4 +1,5 @@
 var system;
+var canvas;
 
 var gui;
 var params = {
@@ -9,7 +10,7 @@ var params = {
 var guiNumSegments, guiWaveAmplitude, guiWaveFrequency;
 
 function setup() {
-  createCanvas(500, 500);
+  canvas = createCanvas(500, 500);
   P5JsSettings.init();
 
   gui = new dat.gui.GUI();
@@ -47,6 +48,12 @@ function addGuiListeners(){
   guiWaveFrequency.onFinishChange(function(value) {
     initSystem();
   });
+}
+
+function keyTyped(){
+  if (key == 'p'){
+    saveCanvas(canvas, 'screenshot', 'png');
+  }
 }
 
 
