@@ -43,12 +43,12 @@ void redrawBackground(){
 
 void mouseDragged(){
   
-  for (int i = 0; i < 5; i++){
-    for (int j = 0; j < 5; j++){
+  for (int i = 0; i < 10; i++){
+    for (int j = 0; j < 10; j++){
       Particle p = new Particle();
-      p.colorVal = color((i * 8) % 255, 200, 255);
-      p.pos.x = mouseX + i * 10;
-      p.pos.y = mouseY + j * 10;
+      p.colorVal = color((i * 4) % 255, 190, 230);
+      p.pos.x = mouseX + i * 2;
+      p.pos.y = mouseY + j * 2;
       particles.add(p);
     }
   }
@@ -61,6 +61,10 @@ void keyPressed(){
   } if (key == 'f'){
     fill(180, 180, 180, 80);
     rect(0, 0, width, height);
+  }
+  
+  if (key == 'p'){
+     saveFrame("screenshot-######.png");
   }
 }
 
