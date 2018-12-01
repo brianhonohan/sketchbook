@@ -104,7 +104,12 @@ class River {
 
   draw(){
     this.source.draw();
-    this.segments.forEach(s => s.draw());
+    let hue = 0;
+    this.segments.forEach(s => {
+      stroke(hue % 255, 65, 90);
+      hue += 10;
+      s.draw();
+    });
 
     noStroke();
     fill(60, 75, 78);
