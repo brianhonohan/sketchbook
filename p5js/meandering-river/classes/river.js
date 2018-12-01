@@ -80,23 +80,26 @@ class River {
       segment.end = parent.end.copy().add(tmpVector);
 
       // step 3: add 3 new segments curving back to original point
+      let newSegments = [];
       tmpVector.rotate(thetaOne * curvature * 2);
       let seg2 = new RiverSegment(vertex, segment);
-      this.segments.push(seg2);
+      newSegments.push(seg2);
 
       tmpVector.rotate(thetaOne * curvature * 2);
       let pos3 = vertex.copy().add(tmpVector);
       let seg3 = new RiverSegment(pos3, seg2);
-      this.segments.push(seg3);
+      newSegments.push(seg3);
 
       tmpVector.rotate(thetaOne * curvature);
       let pos4 = vertex.copy().add(segmentVector.mult(0.5));
       let seg4 = new RiverSegment(pos4, seg3);
-      this.segments.push(seg4);
+      newSegments.push(seg4);
 
       // step 4: add 1 final segment, connecting to the original segment End
       let seg5 = new RiverSegment(segmentEnd, seg4);
-      this.segments.push(seg5);
+      newSegments.push(seg5);
+
+      this.segments.splice(i + 1, 0, ...newSegments);
 
       // break;
     }
