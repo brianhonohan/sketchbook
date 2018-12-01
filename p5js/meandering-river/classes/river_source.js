@@ -25,11 +25,11 @@ class RiverSource {
 
   draw(){
     noStroke();
-    fill(200, 200, 50);
+    fill(60, 75, 78);
     ellipseMode(CENTER);
     ellipse(this.x, this.y, 10, 10);
 
-    stroke(200, 200, 50);
+    stroke(60, 75, 78);
     P5JsUtils.drawArrow(this.pos, p5.Vector.add(this.pos, this.directionalVector) );
   }
 }

@@ -15,7 +15,7 @@ class RiverSegment {
   }
 
   draw(){
-    stroke(80, 120, 230);
+    stroke(224, 65, 90);
     line(this.start.x, this.start.y, this.end.x, this.end.y);
   }
 }

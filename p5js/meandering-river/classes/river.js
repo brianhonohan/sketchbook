@@ -107,7 +107,7 @@ class River {
     this.segments.forEach(s => s.draw());
 
     noStroke();
-    fill(200, 200, 50);
+    fill(60, 75, 78);
     ellipseMode(CENTER);
     ellipse(this.mouth.x, this.mouth.y, 10, 10);
   }

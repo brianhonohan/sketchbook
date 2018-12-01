@@ -13,7 +13,6 @@ class System {
   }
 
   draw(){
-    background(50);
     this.river.draw();
   }
 }

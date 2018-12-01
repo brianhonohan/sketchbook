@@ -18,13 +18,14 @@ function setup() {
   guiWaveFrequency = gui.add(params, "wave_frequency").min(0.5).max(5).step(0.25);
   addGuiListeners();
   
+  colorMode(HSB);
   initSystem();
   frameRate(1);
   noLoop();
 }
 
 function draw(){
-  background(50);
+  background(0, 0, 20);
   system.tick();
   system.draw();
 }
