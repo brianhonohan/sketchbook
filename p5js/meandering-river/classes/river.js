@@ -57,9 +57,9 @@ class River {
 
       let segmentVector = segment.vectorFromParent();
       let parentVector = segment.parent.vectorFromParent();
-      let deltaHeading = segmentVector.angleBetween(parentVector);
+      let rotation = P5JsUtils.rotationBetweenVectors(parentVector, segmentVector);
 
-      if (abs(deltaHeading) < curveTolerance) {
+      if (abs(rotation) < curveTolerance) {
         continue;
       }
 
@@ -72,10 +72,10 @@ class River {
       parent.halve();
 
       // step 2: shorten the segment, and have it prep for broader curve
-      let thetaOne = deltaHeading * 0.25;
+      let thetaOne = abs(rotation * 0.25);
       let newSegmentLength =  0.25 * origParentLength * Math.cos(thetaOne);
       let tmpVector = parentVector.copy().setMag(newSegmentLength);
-      let curvature = 1; // need dynamic calc
+      let curvature = Math.sign(rotation);
       tmpVector.rotate(thetaOne * curvature * -1);
       segment.end = parent.end.copy().add(tmpVector);
 
