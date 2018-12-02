@@ -103,6 +103,10 @@ class River {
       let seg5 = new RiverSegment(segmentEnd, seg4, this.nextId);
       newSegments.push(seg5);
 
+      if (i < (this.segments.length-1)){
+        this.segments[i+1].parent = seg5;
+      }
+
       this.segments.splice(i + 1, 0, ...newSegments);
 
       // break;
