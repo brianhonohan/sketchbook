@@ -4,6 +4,7 @@ class River {
     this.end = end;
     this.plain = floodPlain;
     this.params = params;
+    this.maxId = 0;
 
     this.segments = [];
     this.numStartingSegments = this.params.num_segments;
@@ -25,7 +26,7 @@ class River {
   }
 
   initWithOneSegment(){
-    this.segments.push( new RiverSegment(this.end.copy(), this.source) );
+    this.segments.push( new RiverSegment(this.end.copy(), this.source, this.nextId) );
   }
 
   initWithSinuousSegments(){
@@ -43,7 +44,7 @@ class River {
       let x = this.x + i * xIncrement;
       let y = this.y + amplitude * sin(frequency * thetaPerX * (x - xOffset));
       let pos = createVector(x, y);
-      let segment = new RiverSegment(pos, parent);
+      let segment = new RiverSegment(pos, parent, this.nextId);
       this.segments.push(segment);
       parent = segment;
     }
@@ -83,23 +84,23 @@ class River {
       // step 3: add 3 new segments curving back to original point
       let newSegments = [];
       tmpVector.rotate(thetaOne * curvature * 2);
-      let seg2 = new RiverSegment(vertex, segment);
+      let seg2 = new RiverSegment(vertex, segment, this.nextId);
       newSegments.push(seg2);
 
       newSegmentLength =  0.25 * origSegmentLength * Math.cos(thetaOne);
       tmpVector.setMag(newSegmentLength);
       tmpVector.rotate(thetaOne * curvature * 2);
       let pos3 = vertex.copy().add(tmpVector);
-      let seg3 = new RiverSegment(pos3, seg2);
+      let seg3 = new RiverSegment(pos3, seg2, this.nextId);
       newSegments.push(seg3);
 
       tmpVector.rotate(thetaOne * curvature);
       let pos4 = vertex.copy().add(segmentVector.mult(0.5));
-      let seg4 = new RiverSegment(pos4, seg3);
+      let seg4 = new RiverSegment(pos4, seg3, this.nextId);
       newSegments.push(seg4);
 
       // step 4: add 1 final segment, connecting to the original segment End
-      let seg5 = new RiverSegment(segmentEnd, seg4);
+      let seg5 = new RiverSegment(segmentEnd, seg4, this.nextId);
       newSegments.push(seg5);
 
       this.segments.splice(i + 1, 0, ...newSegments);
@@ -107,6 +108,8 @@ class River {
       // break;
     }
   }
+
+  get nextId() { return this.maxId++;  }
 
   draw(){
     this.source.draw();
