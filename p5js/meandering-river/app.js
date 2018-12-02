@@ -6,7 +6,8 @@ var params = {
   num_segments: 5,
   wave_amplitude: 50,
   wave_frequency: 3,
-  source_heading: 0
+  source_heading: 0,
+  smooth_curves: true,
 };
 var guiNumSegments, guiWaveAmplitude, guiWaveFrequency;
 
@@ -15,16 +16,16 @@ function setup() {
   P5JsSettings.init();
 
   gui = new dat.gui.GUI();
-  guiNumSegments = gui.add(params, "num_segments").min(1).max(200).step(1);
+  guiNumSegments = gui.add(params, "num_segments").min(1).max(100).step(1);
   guiWaveAmplitude = gui.add(params, "wave_amplitude").min(-200).max(200).step(10);
   guiWaveFrequency = gui.add(params, "wave_frequency").min(0.5).max(5).step(0.25);
   guiSourceHeading = gui.add(params, "source_heading").min(-0.75 * HALF_PI).max(0.75 * HALF_PI).step(0.01);
+  guiSmoothCurves = gui.add(params, "smooth_curves");
   addGuiListeners();
   
   colorMode(HSB);
   initSystem();
   frameRate(1);
-  noLoop();
 }
 
 function draw(){
@@ -51,6 +52,7 @@ function addGuiListeners(){
     initSystem();
   });
   guiSourceHeading.onFinishChange(_ =>  initSystem());
+  guiSmoothCurves.onFinishChange(_ => initSystem());
 }
 
 function keyTyped(){

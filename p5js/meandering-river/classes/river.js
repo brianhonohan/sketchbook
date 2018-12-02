@@ -9,7 +9,9 @@ class River {
     this.segments = [];
     this.numStartingSegments = this.params.num_segments;
     this.initWithSinuousSegments();
-    this.smooth();
+    if (this.params.smooth_curves){
+      this.smooth();
+    }
   }
 
   get x(){ return this.source.pos.x; }
