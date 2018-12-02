@@ -65,6 +65,7 @@ class River {
 
       // store some values that will be modified
       let origParentLength = parentVector.mag();
+      let origSegmentLength = segmentVector.mag();
       let vertex = parent.end.copy();
       let segmentEnd = segment.end.copy();
 
@@ -85,6 +86,8 @@ class River {
       let seg2 = new RiverSegment(vertex, segment);
       newSegments.push(seg2);
 
+      newSegmentLength =  0.25 * origSegmentLength * Math.cos(thetaOne);
+      tmpVector.setMag(newSegmentLength);
       tmpVector.rotate(thetaOne * curvature * 2);
       let pos3 = vertex.copy().add(tmpVector);
       let seg3 = new RiverSegment(pos3, seg2);
