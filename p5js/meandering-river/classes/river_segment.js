@@ -2,9 +2,10 @@ class RiverSegment {
   constructor(end, parent, id){
     this.end = end;
     this.parent = parent; 
-    this.start = parent.end;
     this.id = id;
   }
+
+  get start() { return this.parent.end; }
 
   vectorFromParent(){
     return createVector(this.end.x - this.start.x, this.end.y - this.start.y);
