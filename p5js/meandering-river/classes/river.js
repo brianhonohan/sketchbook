@@ -41,8 +41,17 @@ class River {
     let parent = this.source;
 
     for (var i = 1; i <= this.numStartingSegments; i++){
-      let x = this.x + i * xIncrement;
-      let y = this.y + amplitude * sin(frequency * thetaPerX * (x - xOffset));
+      let x, y;
+      if (i == 1){
+        // Ensure first segment flows smoothly from the heading of the RiverSource
+        let sourceHeadingVec = this.source.vectorFromParent().copy();
+        sourceHeadingVec.setMag(xIncrement);
+        x = this.x + sourceHeadingVec.x;
+        y = this.y + sourceHeadingVec.y;
+      } else {
+        x = this.x + i * xIncrement;
+        y = this.y + amplitude * sin(frequency * thetaPerX * (x - xOffset));
+      }
       let pos = createVector(x, y);
       let segment = new RiverSegment(pos, parent, this.nextId);
       this.segments.push(segment);
