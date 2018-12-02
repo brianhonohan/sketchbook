@@ -3,6 +3,7 @@ class RiverSource {
     this.pos = pos;
     this.directionalVector = null;
     this.heading = heading;
+    this.id = 'source';
   }
 
   set heading(newHeading){

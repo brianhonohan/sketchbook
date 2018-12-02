@@ -62,6 +62,7 @@ class River {
   smooth(){
     const curveTolerance = 0.2;
     for (var i = (this.segments.length-1); i > 0; i--){
+      // this.debugSegments(`smoothing index: ${i}`);
       let segment = this.segments[i];
       let parent = segment.parent;
 
@@ -116,10 +117,19 @@ class River {
         this.segments[i+1].parent = seg5;
       }
 
+      // this.debugSegments(`DONE smoothing index: ${i}`);
       this.segments.splice(i + 1, 0, ...newSegments);
 
       // break;
     }
+  }
+
+  debugSegments(message){
+    console.log(message);
+    console.log('Segment ids:');
+    console.log(this.segments.map(s => s.id));
+    console.log('parent ids:');
+    console.log(this.segments.map(s => s.parent.id));
   }
 
   get nextId() { return this.maxId++;  }
