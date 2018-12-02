@@ -1,9 +1,9 @@
 class River {
   constructor(start, end, floodPlain){
-    this.source = new RiverSource(start, 0);
+    this.params = params;
+    this.source = new RiverSource(start, this.params.source_heading);
     this.end = end;
     this.plain = floodPlain;
-    this.params = params;
     this.maxId = 0;
 
     this.segments = [];

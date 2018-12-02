@@ -5,7 +5,8 @@ var gui;
 var params = {
   num_segments: 5,
   wave_amplitude: 50,
-  wave_frequency: 3
+  wave_frequency: 3,
+  source_heading: 0
 };
 var guiNumSegments, guiWaveAmplitude, guiWaveFrequency;
 
@@ -17,6 +18,7 @@ function setup() {
   guiNumSegments = gui.add(params, "num_segments").min(1).max(200).step(1);
   guiWaveAmplitude = gui.add(params, "wave_amplitude").min(-200).max(200).step(10);
   guiWaveFrequency = gui.add(params, "wave_frequency").min(0.5).max(5).step(0.25);
+  guiSourceHeading = gui.add(params, "source_heading").min(-0.75 * HALF_PI).max(0.75 * HALF_PI).step(0.01);
   addGuiListeners();
   
   colorMode(HSB);
@@ -48,6 +50,7 @@ function addGuiListeners(){
   guiWaveFrequency.onFinishChange(function(value) {
     initSystem();
   });
+  guiSourceHeading.onFinishChange(_ =>  initSystem());
 }
 
 function keyTyped(){
