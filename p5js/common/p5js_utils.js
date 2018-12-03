@@ -44,4 +44,13 @@ class P5JsUtils {
     let h2 = v2.copy().rotate(-h1);
     return h2.heading();
   }
+
+  static drawArrow(from, to){
+    line(from.x, from.y, to.x, to.y);
+
+    let segmentVector = createVector(to.x - from.x, to.y - from.y);
+    let arrowVector = segmentVector.copy().setMag(8).rotate(0.1 * PI);
+
+    line(to.x, to.y, to.x - arrowVector.x, to.y - arrowVector.y);
+  }
 }

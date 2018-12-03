@@ -6,3 +6,5 @@ _site
 .jekyll-metadata
 tmp/*
 **/build-tmp/*
+
+*_todo.js
