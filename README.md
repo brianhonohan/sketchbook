@@ -15,6 +15,22 @@ Collection of sketches using the [p5.js][p5js] Javascript library.
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/thermal-cells/screenshot-01.png" alt="thermal-cells" width="150px" />][link-p5js-thermal-cells]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/voronoi-herd/screenshot-01.png" alt="voronoi-herd" width="150px" />][link-p5js-voronoi-herd]
 
+## p5.js - Coding Challenges
+Collection of sketches using the [p5.js][p5js] Javascript library inspired by the [Coding Train's][coding-train] [Coding Challenges][coding-train-cc].
+
+[<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/coding-challenges/fractal-trees-01/screenshot-01.png" alt="fractal-trees-01" width="150px" />][link-p5js-cc-fractal-trees-01]
+[<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/coding-challenges/fractal-trees-02/screenshot-01.png" alt="fractal-trees-02" width="150px" />][link-p5js-cc-fractal-trees-02]
+[<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/coding-challenges/fractal-trees-03/screenshot-01.png" alt="fractal-trees-03" width="150px" />][link-p5js-cc-fractal-trees-03]
+[<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/coding-challenges/fractal-trees-04/screenshot-01.png" alt="fractal-trees-04" width="150px" />][link-p5js-cc-fractal-trees-04]
+[<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/coding-challenges/fractal-trees-05/screenshot-01.png" alt="fractal-trees-05" width="150px" />][link-p5js-cc-fractal-trees-05]
+[<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/coding-challenges/maze-generator/screenshot-01.png" alt="maze-generator" width="150px" />][link-p5js-cc-maze-generator]
+[<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/coding-challenges/mitosis/screenshot-07.png" alt="mitosis" width="150px" />][link-p5js-cc-mitosis]
+[<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/coding-challenges/snake/screenshot-01.png" alt="snake" width="150px" />][link-p5js-cc-snake]
+[<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/coding-challenges/solar-system/screenshot-01.png" alt="solar-system" width="150px" />][link-p5js-cc-solar-system]
+[<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/coding-challenges/solar-system-3d/screenshot-01.png" alt="solar-system-3d" width="150px" />][link-p5js-cc-solar-system-3d]
+[<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/coding-challenges/solar-system-3d-texturized/screenshot-01.png" alt="solar-system-3d-texturized" width="150px" />][link-p5js-cc-solar-system-3d-texturized]
+[<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/coding-challenges/space-invaders/screenshot.png" alt="space-invaders" width="150px" />][link-p5js-cc-space-invaders]
+
 ## Processing
 Collection of sketches using the [Processing (P3)][processing] environment.
 
@@ -38,6 +54,8 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 
 [p5js]: https://p5js.org/
 [processing]: https://processing.org/
+[coding-train]: https://www.youtube.com/channel/UCvjgXvBlbQiydffZU7m1_aw
+[coding-train-cc]: https://www.youtube.com/watch?v=17WoOqgXsRM&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=1
 
 [link-p5js-ecosystem]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/ecosystem/
 [link-p5js-forest-01]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/forest-01/
@@ -46,6 +64,19 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-p5js-meandering-river]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/meandering-river/
 [link-p5js-thermal-cells]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/thermal-cells/
 [link-p5js-voronoi-herd]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/voronoi-herd/
+
+[link-p5js-cc-fractal-trees-01]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/fractal-trees-01/
+[link-p5js-cc-fractal-trees-02]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/fractal-trees-02/
+[link-p5js-cc-fractal-trees-03]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/fractal-trees-03/
+[link-p5js-cc-fractal-trees-04]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/fractal-trees-04/
+[link-p5js-cc-fractal-trees-05]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/fractal-trees-05/
+[link-p5js-cc-maze-generator]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/maze-generator/
+[link-p5js-cc-mitosis]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/mitosis/
+[link-p5js-cc-snake]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/snake/
+[link-p5js-cc-solar-system]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/solar-system/
+[link-p5js-cc-solar-system-3d]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/solar-system-3d/
+[link-p5js-cc-solar-system-3d-texturized]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/solar-system-3d-texturized/
+[link-p5js-cc-space-invaders]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/space-invaders/
 
 [link-attractors]: https://github.com/brianhonohan/sketchbook/tree/master/processing/attractors
 [link-dodgeball]: https://github.com/brianhonohan/sketchbook/tree/master/processing/dodgeball
