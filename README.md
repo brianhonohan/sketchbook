@@ -11,6 +11,7 @@ Collection of sketches using the [p5.js][p5js] Javascript library.
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/forest-01/screenshot-01.png" alt="forest-01" width="150px" />][link-p5js-forest-01]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/hello_world/screenshot-01.png" alt="hello_world" width="150px" />][link-p5js-hello_world]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/josef-albers-homage-to-a-square/screenshot-01.png" alt="homage-to-a-square" width="150px" />][link-p5js-josef-albers-homage-to-a-square]
+[<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/meandering-river/screenshot-01.png" alt="meandering-river" width="150px" />][link-p5js-meandering-river]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/thermal-cells/screenshot-01.png" alt="thermal-cells" width="150px" />][link-p5js-thermal-cells]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/voronoi-herd/screenshot-01.png" alt="voronoi-herd" width="150px" />][link-p5js-voronoi-herd]
 
@@ -42,6 +43,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-p5js-forest-01]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/forest-01/
 [link-p5js-hello_world]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/hello_world/
 [link-p5js-josef-albers-homage-to-a-square]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/josef-albers-homage-to-a-square/
+[link-p5js-meandering-river]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/meandering-river/
 [link-p5js-thermal-cells]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/thermal-cells/
 [link-p5js-voronoi-herd]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/voronoi-herd/
 
