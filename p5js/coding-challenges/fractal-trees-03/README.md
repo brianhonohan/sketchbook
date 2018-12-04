@@ -50,4 +50,4 @@ Mouse:
 [wikipedia-axillary-bud]: https://en.wikipedia.org/wiki/Axillary_bud
 [wikipedia-gravitropism]: https://en.wikipedia.org/wiki/Gravitropism
 [wikipedia-gravitropism-inroots]: https://en.wikipedia.org/wiki/Gravitropism#In_the_root
-[screenshot]: ./screenshot.png
+[screenshot]: ./screenshot-01.png
