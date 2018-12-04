@@ -33,7 +33,7 @@ function setup(){
 }
 
 function drawTree(x, y){
-  background(50);
+  background(20);
   push();
   translate(x, y);
   rotate(PI);
