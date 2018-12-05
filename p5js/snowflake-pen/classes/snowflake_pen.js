@@ -3,8 +3,8 @@ class SnowflakePen {
     this.x = x;
     this.y = y;
     this.slope = Math.tan(2 * Math.PI / 12);
-    this.prevX = null;
-    this.prevY = null;
+    this.prevPos = createVector(0, 0);
+    this.penWasDown = false;
   }
 
   isPointInFirstSegment(x, y){
@@ -16,14 +16,14 @@ class SnowflakePen {
 
   draw(){
     if (mouseIsPressed && this.isPointInFirstSegment(mouseX, mouseY)){
-      if (this.prevX){
-        line(this.prevX, this.prevY, mouseX, mouseY);
+      if (this.penWasDown){
+        line(this.prevPos.x, this.prevPos.y, mouseX, mouseY);
       }
-      this.prevX = mouseX;
-      this.prevY = mouseY;
+      this.penWasDown = true;
+      this.prevPos.x = mouseX;
+      this.prevPos.y = mouseY;
     }else{
-      this.prevX = null;
-      this.prevY = null;
+      this.penWasDown = false;
     }
   }
 }
