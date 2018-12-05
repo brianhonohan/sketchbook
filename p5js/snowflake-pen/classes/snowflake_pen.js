@@ -8,6 +8,7 @@ class SnowflakePen {
     this.rotationPerSlice = 2 * Math.PI / this.numSlices;
     this.halfRotation = this.rotationPerSlice / 2;
     this.slope = Math.tan(this.halfRotation);
+    this.sliceBisector = new Line(this.slope, 0);
   }
 
   isPointInFirstSegment(x, y){
@@ -19,6 +20,8 @@ class SnowflakePen {
 
   drawRepeatedly(newX, newY){
     let penLocation = createVector(this.x - newX, this.y - newY);
+    let reflectedPenLoc = this.sliceBisector.reflectPoint(penLocation);
+    let reflectedPrevLoc = this.sliceBisector.reflectPoint(this.prevPos);
 
     for(var i = 0; i < this.numSlices; i++){
       line(this.prevPos.x, this.prevPos.y, penLocation.x, penLocation.y);
@@ -28,6 +31,16 @@ class SnowflakePen {
     }
 
     this.prevPos.rotate(this.rotationPerSlice);
+
+    let reflectedPenVector = createVector(reflectedPenLoc.x, reflectedPenLoc.y);
+    let reflectedPrevector = createVector(reflectedPrevLoc.x, reflectedPrevLoc.y);
+
+    for(var i = 0; i < this.numSlices; i++){
+      line(reflectedPrevector.x, reflectedPrevector.y, reflectedPenVector.x, reflectedPenVector.y);
+
+      reflectedPenVector.rotate(this.rotationPerSlice);
+      reflectedPrevector.rotate(this.rotationPerSlice);
+    }
   }
 
   draw(){
