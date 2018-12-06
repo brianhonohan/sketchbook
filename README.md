@@ -3,6 +3,11 @@ sketchbook
 
 Collection of personal coding projects. They may or may not grow into individual projects.
 
+## Latest 
+
+A p5.js sketch to draw snowflakes:
+
+[<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/snowflake-pen/screenshot-01.png" alt="snowflake-pen" width="150px" />][link-p5js-snowflake-pen]
 
 ## p5.js
 Collection of sketches using the [p5.js][p5js] Javascript library.
@@ -12,6 +17,7 @@ Collection of sketches using the [p5.js][p5js] Javascript library.
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/hello_world/screenshot-01.png" alt="hello_world" width="150px" />][link-p5js-hello_world]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/josef-albers-homage-to-a-square/screenshot-01.png" alt="homage-to-a-square" width="150px" />][link-p5js-josef-albers-homage-to-a-square]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/meandering-river/screenshot-01.png" alt="meandering-river" width="150px" />][link-p5js-meandering-river]
+[<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/snowflake-pen/screenshot-01.png" alt="snowflake-pen" width="150px" />][link-p5js-snowflake-pen]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/thermal-cells/screenshot-01.png" alt="thermal-cells" width="150px" />][link-p5js-thermal-cells]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/voronoi-herd/screenshot-01.png" alt="voronoi-herd" width="150px" />][link-p5js-voronoi-herd]
 
@@ -62,6 +68,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-p5js-hello_world]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/hello_world/
 [link-p5js-josef-albers-homage-to-a-square]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/josef-albers-homage-to-a-square/
 [link-p5js-meandering-river]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/meandering-river/
+[link-p5js-snowflake-pen]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/snowflake-pen/
 [link-p5js-thermal-cells]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/thermal-cells/
 [link-p5js-voronoi-herd]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/voronoi-herd/
 
