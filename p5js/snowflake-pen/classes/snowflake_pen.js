@@ -19,7 +19,7 @@ class SnowflakePen {
   }
 
   drawRepeatedly(newX, newY){
-    let penLocation = createVector(this.x - newX, this.y - newY);
+    let penLocation = createVector(newX - this.x, newY - this.y);
     let reflectedPenLoc = this.sliceBisector.reflectPoint(penLocation);
     let reflectedPrevLoc = this.sliceBisector.reflectPoint(this.prevPos);
 
@@ -52,8 +52,8 @@ class SnowflakePen {
         this.drawRepeatedly(mouseX, mouseY);
       }
       this.penWasDown = true;
-      this.prevPos.x = this.x - mouseX;
-      this.prevPos.y = this.y - mouseY;
+      this.prevPos.x = mouseX - this.x;
+      this.prevPos.y = mouseY - this.y;
     }else{
       this.penWasDown = false;
     }
