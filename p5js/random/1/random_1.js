@@ -1,9 +1,11 @@
 var canvas;
 var currentShape;
 var shapes;
+var drawModeMgr;
 
 function setup(){
   canvas = createCanvas(500, 500);
+  drawModeMgr = new DrawModeManager();
   colorMode(HSB);
 
   ellipseMode(CENTER);
@@ -17,8 +19,42 @@ function draw(){
 }
 
 function keyTyped(){
-  if (key == 'p'){
-    saveCanvas(canvas, 'screenshot', 'png');
+  switch(key) {
+    case 'p':
+      saveCanvas(canvas, 'screenshot', 'png');
+      break;
+    case 'f':
+      drawModeMgr.toggleFill();
+      break;
+    default:
+      // do nothing
+  }
+}
+
+class DrawModeManager {
+  constructor(){
+    this.defaultFill = color(50, 100, 100, 100);
+    this.fill(this.defaultFill);
+  }
+
+  toggleFill(){
+
+    if (this.fillMode) {
+      this.noFill();
+    } else {
+      this.fill(this.fillColor);
+    };
+  }
+
+  fill(colorVal){
+    this.fillMode = true;
+    this.fillColor = colorVal;
+    fill(colorVal);
+  }
+
+  noFill(){
+    this.fillMode = false;
+    noFill();
   }
 }
 
