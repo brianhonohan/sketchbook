@@ -26,6 +26,9 @@ function keyTyped(){
     case 'f':
       drawModeMgr.toggleFill();
       break;
+    case 's':
+      drawModeMgr.toggleStroke();
+      break;
     default:
       // do nothing
   }
@@ -35,6 +38,11 @@ class DrawModeManager {
   constructor(){
     this.defaultFill = color(50, 100, 100, 100);
     this.fill(this.defaultFill);
+
+    this.strokeColor = null;
+    this.defaultStroke = color(150, 30, 30, 100);
+    this.strokeEnabled = false;
+    this.stroke(this.defaultStroke)
   }
 
   toggleFill(){
@@ -55,6 +63,21 @@ class DrawModeManager {
   noFill(){
     this.fillMode = false;
     noFill();
+  }
+
+  toggleStroke(){
+    this.strokeEnabled ? this.noStroke() : this.stroke(this.strokeColor);
+  }
+
+  stroke(colorVal){
+    this.strokeEnabled = true;
+    this.strokeColor = colorVal;
+    stroke(colorVal);
+  }
+
+  noStroke(){
+    this.strokeEnabled = false;
+    noStroke();
   }
 }
 
