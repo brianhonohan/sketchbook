@@ -35,12 +35,23 @@ function keyTyped(){
 }
 
 function mousePressed(){
-  currentShape = new Circle(mouseX, mouseY);
-  shapes.push(currentShape);
+  // currentShape = new Circle(mouseX, mouseY);
+  // shapes.push(currentShape);
 }
 
 function mouseDragged(){
-  currentShape.size = dist(currentShape.x, currentShape.y, mouseX, mouseY);
+  // currentShape.size = dist(currentShape.x, currentShape.y, mouseX, mouseY);
+
+  let avgX = (mouseX + pmouseX) / 2;
+  let avgY = (mouseY + pmouseY) / 2;
+
+  let newCircle = new Circle(avgX, avgY);
+  newCircle.size = sqrt( sq(mouseX - pmouseX) + sq(mouseY - pmouseY));
+
+  let hue =  newCircle.size / (200) * 255;
+  let brightness =  mouseX / width * 255;
+  newCircle.color = color(hue, 200,brightness, 24);
+  shapes.push(newCircle);
 }
 
 function mouseRelease(){
@@ -51,12 +62,14 @@ class Circle {
   constructor(x, y){
     this.pos = createVector(x, y);
     this.size = 1;
+    this.color = color(50, 100, 100, 50);
   }
 
   get x(){ return this.pos.x; }
   get y(){ return this.pos.y; }
 
   draw(){
+    fill(this.color);
     ellipse(this.x, this.y, this.size*2, this.size*2);
   }
 }
