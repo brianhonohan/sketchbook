@@ -47,7 +47,7 @@ class Soil {
     nutrientsWithSeg = nutrientsWithSeg.filter(nSeg => nSeg.segments.length > 0);
 
     nutrientsWithSeg.forEach(nSeg => {
-      let closest = 10000000000000000; // intentially very large number
+      let closest = Number.POSITIVE_INFINITY; // intentially very large number
       let idxOfClosest = null;
       for(var i = 0; i < nSeg.segments.length; i++){
         let segment = nSeg.segments[i];
