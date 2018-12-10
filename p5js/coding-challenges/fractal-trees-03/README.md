@@ -35,7 +35,7 @@ Mouse:
 
 ## Screenshot:
 
-![screenshot](./screenshot.png)
+![screenshot][screenshot]
 
 
 [p5js-home]: http://p5js.org/
