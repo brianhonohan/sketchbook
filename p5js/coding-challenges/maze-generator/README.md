@@ -2,9 +2,9 @@
 
 This is a [p5.js][p5js-home] sketch inspired by the [Coding Train's][coding-train] [Coding Challenge #10][ct-challenge-10] (and [part 2][ct-challenge-10-p2], [part 3][ct-challenge-10-p3], [part 4][ct-challenge-10-p4]) on generating a maze.
 
-I leaned on some concepts from my CS degree, and implemente a depth-first algorithm, similar to this [recursive-backtracker][wikipedia-recursive-backtracker] noted on Wikipedia.
+I leaned on some concepts from my CS degree, and implemented a depth-first algorithm, similar to this [recursive-backtracker][wikipedia-recursive-backtracker] noted on Wikipedia.
 
-Additionally, this makes use of the common [`CellGrid`][code-cell-grid] class which I created to faciliate navigating a 2D array, and getting neighbors of a particular index.
+Additionally, this makes use of the common [`CellGrid`][code-cell-grid] class which I created to facilitate navigating a 2D array, and getting neighbors of a particular index.
 
 An interesting implementation note is the treatment of the outer edges. The first and last rows of the 2D Array, as well as the leftmost and rightmost columns are [treated as "SOLID"][code-solid-edges], and thus appear as black squares in the visual drawing. This allowed the code to not worry about `undefined` neighbors and treat everything as a `MazeCell`.
 

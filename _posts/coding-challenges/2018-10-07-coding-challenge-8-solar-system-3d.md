@@ -14,8 +14,8 @@ It builds on the simpler [2D implementation][sketch-solar-system].
 In fact, it was implemented mostly via:
 
   * [Refactor](https://github.com/brianhonohan/sketchbook/pull/34/commits/024b4a570bc71e9a18f463f607be809091d59a6d) away direct knowledge of 2D nature of the system.
-  * [Add 3D Support](https://github.com/brianhonohan/sketchbook/pull/34/commits/79916f2c36b26e769f282b1cc1876cda2eaf4bd3) as via an alterate renderer and vector generator.
-    - Benefitting from the fact that [p5.js Vector][p5js-vector] easily supports both 2D and 3D vectors.  
+  * [Add 3D Support](https://github.com/brianhonohan/sketchbook/pull/34/commits/79916f2c36b26e769f282b1cc1876cda2eaf4bd3) as via an alternate renderer and vector generator.
+    - Benefiting from the fact that [p5.js Vector][p5js-vector] easily supports both 2D and 3D vectors.  
 
 Following the principle put forth by [Kent Beck][twitter-beck-quote]:
 
