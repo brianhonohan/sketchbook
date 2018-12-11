@@ -6,11 +6,11 @@ function setup(){
   particles = [];
 
   colorMode(HSB);
-
+  background(20);
 }
 
 function draw(){
-  background(20);
+  // background(20);
 
   stroke(frameCount % 255, 200, 200, 100);
   particles.forEach(p => p.tick());
