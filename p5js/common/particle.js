@@ -4,7 +4,19 @@ class Particle {
     this.vel    = createVector(0, 0);
     this.accel  = createVector(0, 0);
 
-    this.bound_mode = Particle.BOUNDARY_MODE_BOUNCE;
+    this.boundaryMode = Particle.BOUNDARY_MODE_WRAP;
+  }
+
+  set boundaryMode(mode){
+    this._boundaryMode = mode;
+    switch(this._boundaryMode) {
+      case Particle.BOUNDARY_MODE_WRAP:
+        this.boundaryBehavior = BoundaryWrapper;
+        break;
+      case Particle.BOUNDARY_MODE_BOUNCE:
+        this.boundaryBehavior = BoundaryBouncer;
+        break;
+    }
   }
 
   static get BOUNDARY_MODE_WRAP() { return 0; }
@@ -42,43 +54,11 @@ class Particle {
   }
 
   hitXBoundary(){
-    switch(this.bound_mode) {
-      case Particle.BOUNDARY_MODE_WRAP:
-        this.wrapX();
-        break;
-      case Particle.BOUNDARY_MODE_BOUNCE:
-        this.bounceX();
-        break;
-    }
+    this.boundaryBehavior.hitXBoundary(this);
   }
 
   hitYBoundary(){
-    switch(this.bound_mode) {
-      case Particle.BOUNDARY_MODE_WRAP:
-        this.wrapY();
-        break;
-      case Particle.BOUNDARY_MODE_BOUNCE:
-        this.bounceY();
-        break;
-    }
-  }
-
-  bounceX(){
-    this.vel.x *= -1;
-    this.pos.x = (this.x < 0) ? Math.abs(this.x) : width  - (this.x  - width);
-  }
-
-  bounceY(){
-    this.vel.y *= -1;
-    this.pos.y = (this.y < 0) ? Math.abs(this.y) : height  - (this.y  - height);
-  }
-
-  wrapX(){
-    this.pos.x = (this.pos.x + width) % width;
-  }
-
-  wrapY(){
-    this.pos.y = (this.pos.y + height) % height;
+    this.boundaryBehavior.hitYBoundary(this);
   }
 
   draw(){
