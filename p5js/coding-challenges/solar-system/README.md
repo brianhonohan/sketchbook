@@ -10,7 +10,7 @@ F = G * m1 * m2 / (r * r)
 
 Additionally, it uses values for Mass and Radii based on actual values for the masses of the planets in our solar system.
 
-And, after randomly placing the masses, it determines what their approxiamte orbital velocity based by determing the speed that would generate a [Centripetal Force][wikipedia-centripetal] equal to the gravitational force at that distance.
+And, after randomly placing the masses, it determines what their approximate orbital velocity based by determining the speed that would generate a [Centripetal Force][wikipedia-centripetal] equal to the gravitational force at that distance.
 
 Caveat: The objects only experience the gravitational attraction of the "sun" at the center; which in turn does not experience any gravitational force. This allows for a stable system, but lacks the interplay of forces in a true [n-body simulation][wikipedia-n-body-sim].
 

@@ -31,7 +31,7 @@ static forceDueToG(obj1, obj2){
 
 Additionally, it uses values for Mass and Radii based on actual values for the masses of the planets in our solar system.
 
-And, after randomly placing the masses, it determines what their approxiamte orbital velocity based by determing the speed that would generate a [Centripetal Force][wikipedia-centripetal] equal to the gravitational force at that distance.
+And, after randomly placing the masses, it determines what their approximate orbital velocity based by determining the speed that would generate a [Centripetal Force][wikipedia-centripetal] equal to the gravitational force at that distance.
 
 {% highlight javascript %}
 static orbitalV(ofObject, aroundObj){

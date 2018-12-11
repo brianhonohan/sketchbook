@@ -55,7 +55,7 @@ That means if we want to translate that elevation above and below sea-level, we 
 * Multiple it by some sort of factor
 * Translate that `0.0 to 1.0` range into values ranging from `-500 to 500`
 
-In this sketch, this is acheived with the following:
+In this sketch, this is achieved with the following:
 
 {% highlight javascript %}
 this.elevation = 500 - 1000 * noise(this._row, this._col);
