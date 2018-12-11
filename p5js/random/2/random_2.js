@@ -85,6 +85,7 @@ function keyTyped(){
 
 function mouseReleased(){
   let particle = new Particle(mouseX, mouseY);
-  particle.vel = createVector(random(-1, 1), random(-1, 1));
+  particle.boundaryMode = Particle.BOUNDARY_MODE_BOUNCE;
+  particle.vel = createVector(random(-2, 2), random(-2, 2));
   particles.push(particle);
 }
