@@ -61,13 +61,7 @@ class GridViewController {
   }
 
   _deltaHeatAt(addingHeat, globalX, globalY){
-    let inCol = (globalX - this._x) / (this.cellWidth + this.cellSpacing);
-    let inRow = (globalY - this._y) / (this.cellHeight + this.cellSpacing);
-
-    inCol = Math.floor(inCol);
-    inRow = Math.floor(inRow);
-
-    let idxOfCell = Math.floor(inCol + inRow * this.numCols);
+    let idxOfCell = this.getIdxForXY(globalX, globalY);
 
     if (idxOfCell < 0 || idxOfCell > (this.cells.length - 1)){
       return;
@@ -80,6 +74,17 @@ class GridViewController {
       deltaTmp *= -1;
     }
     tmpCell.temp = constrain( tmpCell.temp + deltaTmp, -300, 300);
+  }
+
+  getIdxForXY(globalX, globalY){
+    let inCol = (globalX - this._x) / (this.cellWidth + this.cellSpacing);
+    let inRow = (globalY - this._y) / (this.cellHeight + this.cellSpacing);
+
+    inCol = Math.floor(inCol);
+    inRow = Math.floor(inRow);
+
+    let idxOfCell = Math.floor(inCol + inRow * this.numCols);
+    return idxOfCell;
   }
 
   step(){
