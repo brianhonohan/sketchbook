@@ -13,6 +13,12 @@ class CellViewer {
   }
 
   renderOnScale(minTemp, midPoint, maxTemp){
+    this.setFillColorForTemp(minTemp, midPoint, maxTemp);
+    noStroke();
+    rect(this._x, this._y, this._width, this._height);
+  }
+
+  setFillColorForTemp(minTemp, midPoint, maxTemp){
     let fillColor = color(0);
     let normalizedTmp = 0;
 
@@ -24,8 +30,6 @@ class CellViewer {
       fillColor = lerpColor(this.midColor, this.maxColor, normalizedTmp);
     }
 
-    noStroke();
     fill(fillColor);
-    rect(this._x, this._y, this._width, this._height);
   }
 }
