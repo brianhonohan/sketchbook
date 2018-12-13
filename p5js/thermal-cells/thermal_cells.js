@@ -12,7 +12,10 @@ function draw() {
 }
 
 function mouseDragged(){
-  if(keyIsPressed == true){
+  if(keyIsDown(87)){  // 'W'.charCodeAt(0)
+    console.log(`W is pressed`);
+    grid.addWallAt(mouseX, mouseY);
+  }else if(keyIsPressed == true){
     grid.removeHeatAt(mouseX, mouseY);
   }else{
     grid.addHeatAt(mouseX, mouseY);

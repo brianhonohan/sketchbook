@@ -51,6 +51,16 @@ class GridViewController {
     }
   }
 
+  addWallAt(globalX, globalY){
+    let idxOfCell = this.getIdxForXY(globalX, globalY);
+
+    if (idxOfCell < 0 || idxOfCell > (this.cells.length - 1)){
+      return;
+    }
+
+    let tmpCell = this.cells[idxOfCell];
+    tmpCell.isWall = true;
+  }
 
   addHeatAt(globalX, globalY){
     this._deltaHeatAt(true, globalX, globalY);

@@ -6,6 +6,9 @@ class Cell {
   }
 
   exchangeHeat(otherCell){
+    if (this.isWall || otherCell.isWall){
+      return true;
+    }
     let heatGained = (otherCell.temp - this.temp) *  this.condFactor;
     this.deltaTemp += heatGained;
     otherCell.deltaTemp -= heatGained;

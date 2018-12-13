@@ -13,7 +13,11 @@ class CellViewer {
   }
 
   renderOnScale(minTemp, midPoint, maxTemp){
-    this.setFillColorForTemp(minTemp, midPoint, maxTemp);
+    if (this.cell.isWall){
+      fill(50);
+    } else {
+      this.setFillColorForTemp(minTemp, midPoint, maxTemp);
+    }
     noStroke();
     rect(this._x, this._y, this._width, this._height);
   }
