@@ -14,8 +14,11 @@ function draw() {
 
 function mouseDragged(){
   if(keyIsDown(87)){  // 'W'.charCodeAt(0)
-    console.log(`W is pressed`);
     grid.addWallAt(mouseX, mouseY);
+  }else if(keyIsDown(65)){  // 'A'.charCodeAt(0)
+    grid.addSourceAt(mouseX, mouseY);
+  }else if(keyIsDown(83)){  // 'S'.charCodeAt(0)
+    grid.addSinkAt(mouseX, mouseY);
   }else if(keyIsPressed == true){
     grid.removeHeatAt(mouseX, mouseY);
   }else{
