@@ -1,8 +1,9 @@
 let grid;
+var canvas;
 
 function setup() {
-  createCanvas(400, 400);
-  grid = new GridViewController(0, 0, 400, 400);
+  var canvas = createCanvas(500, 500);
+  grid = new GridViewController(0, 0, width, height);
   frameRate(30);
 }
 
@@ -19,5 +20,13 @@ function mouseDragged(){
     grid.removeHeatAt(mouseX, mouseY);
   }else{
     grid.addHeatAt(mouseX, mouseY);
+  }
+}
+
+function keyTyped(){
+  switch(key) {
+    case 'p':
+      saveCanvas(canvas, 'screenshot', 'png');
+      break;
   }
 }
