@@ -15,6 +15,8 @@ function draw() {
 function mouseDragged(){
   if(keyIsDown(87)){  // 'W'.charCodeAt(0)
     grid.addWallAt(mouseX, mouseY);
+  }else if(keyIsDown(81)){  // 'Q'.charCodeAt(0)
+    grid.removeWallAt(mouseX, mouseY);
   }else if(keyIsDown(65)){  // 'A'.charCodeAt(0)
     grid.addSourceAt(mouseX, mouseY);
   }else if(keyIsDown(83)){  // 'S'.charCodeAt(0)

@@ -62,6 +62,17 @@ class GridViewController {
     tmpCell.isWall = true;
   }
 
+  removeWallAt(globalX, globalY){
+    let idxOfCell = this.getIdxForXY(globalX, globalY);
+
+    if (idxOfCell < 0 || idxOfCell > (this.cells.length - 1)){
+      return;
+    }
+
+    let tmpCell = this.cells[idxOfCell];
+    tmpCell.isWall = false;
+  }
+
   addSinkAt(globalX, globalY){
     let idxOfCell = this.getIdxForXY(globalX, globalY);
 
