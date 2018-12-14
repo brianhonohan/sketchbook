@@ -28,8 +28,11 @@ class RootSegment {
     }
 
     let totalPos = createVector(0, 0);
-    let vectorAdder = function(total, n) { total.add(n.pos); return total; };
-    this.targetNutrients.reduce(vectorAdder, totalPos);
+    let randomModifier = function(vector, delta) { vector.mult(random(1-delta, 1+delta)); return vector; }
+    let vectorAdder = function(total, vector) { total.add(vector); return total; };
+    this.targetNutrients
+        .map(nutrient => randomModifier(nutrient.pos.copy(), 0.008))
+        .reduce(vectorAdder, totalPos);
 
     let avgPos = p5.Vector.div(totalPos, this.targetNutrients.length);
 
