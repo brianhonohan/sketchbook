@@ -52,46 +52,26 @@ class GridViewController {
   }
 
   addWallAt(globalX, globalY){
-    let idxOfCell = this.getIdxForXY(globalX, globalY);
-
-    if (idxOfCell < 0 || idxOfCell > (this.cells.length - 1)){
-      return;
-    }
-
-    let tmpCell = this.cells[idxOfCell];
+    let tmpCell = this.cellForXY(globalX, globalY);
+    if (!tmpCell) { return; }
     tmpCell.isWall = true;
   }
 
   removeWallAt(globalX, globalY){
-    let idxOfCell = this.getIdxForXY(globalX, globalY);
-
-    if (idxOfCell < 0 || idxOfCell > (this.cells.length - 1)){
-      return;
-    }
-
-    let tmpCell = this.cells[idxOfCell];
+    let tmpCell = this.cellForXY(globalX, globalY);
+    if (!tmpCell) { return; }
     tmpCell.isWall = false;
   }
 
   addSinkAt(globalX, globalY){
-    let idxOfCell = this.getIdxForXY(globalX, globalY);
-
-    if (idxOfCell < 0 || idxOfCell > (this.cells.length - 1)){
-      return;
-    }
-
-    let tmpCell = this.cells[idxOfCell];
+    let tmpCell = this.cellForXY(globalX, globalY);
+    if (!tmpCell) { return; }
     tmpCell.isSink = true;
   }
 
   addSourceAt(globalX, globalY){
-    let idxOfCell = this.getIdxForXY(globalX, globalY);
-
-    if (idxOfCell < 0 || idxOfCell > (this.cells.length - 1)){
-      return;
-    }
-
-    let tmpCell = this.cells[idxOfCell];
+    let tmpCell = this.cellForXY(globalX, globalY);
+    if (!tmpCell) { return; }
     tmpCell.isSource = true;
   }
 
@@ -104,13 +84,8 @@ class GridViewController {
   }
 
   _deltaHeatAt(addingHeat, globalX, globalY){
-    let idxOfCell = this.getIdxForXY(globalX, globalY);
-
-    if (idxOfCell < 0 || idxOfCell > (this.cells.length - 1)){
-      return;
-    }
-
-    let tmpCell = this.cells[idxOfCell];
+    let tmpCell = this.cellForXY(globalX, globalY);
+    if (!tmpCell) { return; }
 
     let deltaTmp = 300;
     if (addingHeat == false){
@@ -128,6 +103,17 @@ class GridViewController {
 
     let idxOfCell = Math.floor(inCol + inRow * this.numCols);
     return idxOfCell;
+  }
+  
+  cellForXY(globalX, globalY){
+    let idxOfCell = this.getIdxForXY(globalX, globalY);
+
+    if (idxOfCell < 0 || idxOfCell > (this.cells.length - 1)){
+      return;
+    }
+
+    let tmpCell = this.cells[idxOfCell];
+    return tmpCell;
   }
 
   step(){
