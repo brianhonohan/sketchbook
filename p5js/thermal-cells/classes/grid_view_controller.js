@@ -54,25 +54,25 @@ class GridViewController {
   addWallAt(globalX, globalY){
     let tmpCell = this.cellForXY(globalX, globalY);
     if (!tmpCell) { return; }
-    tmpCell.isWall = true;
+    tmpCell.mode = Cell.MODE_WALL;
   }
 
   removeWallAt(globalX, globalY){
     let tmpCell = this.cellForXY(globalX, globalY);
     if (!tmpCell) { return; }
-    tmpCell.isWall = false;
+    tmpCell.mode = Cell.MODE_AIR;
   }
 
   addSinkAt(globalX, globalY){
     let tmpCell = this.cellForXY(globalX, globalY);
     if (!tmpCell) { return; }
-    tmpCell.isSink = true;
+    tmpCell.mode = Cell.MODE_SINK;
   }
 
   addSourceAt(globalX, globalY){
     let tmpCell = this.cellForXY(globalX, globalY);
     if (!tmpCell) { return; }
-    tmpCell.isSource = true;
+    tmpCell.mode = Cell.MODE_SOURCE;
   }
 
   addHeatAt(globalX, globalY){
@@ -104,7 +104,7 @@ class GridViewController {
     let idxOfCell = Math.floor(inCol + inRow * this.numCols);
     return idxOfCell;
   }
-  
+
   cellForXY(globalX, globalY){
     let idxOfCell = this.getIdxForXY(globalX, globalY);
 

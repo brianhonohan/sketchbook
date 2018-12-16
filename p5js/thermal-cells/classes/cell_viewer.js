@@ -13,7 +13,7 @@ class CellViewer {
   }
 
   renderOnScale(minTemp, midPoint, maxTemp){
-    if (this.cell.isWall){
+    if (this.cell.mode == Cell.MODE_WALL){
       fill(50);
     } else {
       this.setFillColorForTemp(minTemp, midPoint, maxTemp);
