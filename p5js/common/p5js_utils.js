@@ -19,8 +19,9 @@ class P5JsUtils {
              && alpha(c1) == alpha(c2);
   }
 
-  static drawSolidBoundary(fromX, fromY, toX, toY){
+  static drawSolidBoundary(fromX, fromY, toX, toY, options = {}){
     line(fromX, fromY, toX, toY);
+    const dashesAbove = options['dashes_above'] === true;
 
     push();
     translate(fromX, fromY);
@@ -31,9 +32,11 @@ class P5JsUtils {
     const dashWidth = 20;
     const numDashes = Math.floor((toX - fromX) / dashWidth);
     let curX = 0;
-    let curY = 0 + dashWidth;
+    let startY  = dashesAbove ? 0 : dashWidth;
+    let endY    = dashesAbove ? - dashWidth : 0;
+
     for (var i = 0; i<numDashes; i++){
-      line (curX, curY, curX + dashWidth, 0);
+      line (curX, startY, curX + dashWidth, endY);
       curX += dashWidth;
     }
     pop();
