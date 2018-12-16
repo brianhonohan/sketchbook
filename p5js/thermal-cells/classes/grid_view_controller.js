@@ -51,6 +51,29 @@ class GridViewController {
     }
   }
 
+  addWallAt(globalX, globalY){
+    let tmpCell = this.cellForXY(globalX, globalY);
+    if (!tmpCell) { return; }
+    tmpCell.mode = Cell.MODE_WALL;
+  }
+
+  removeWallAt(globalX, globalY){
+    let tmpCell = this.cellForXY(globalX, globalY);
+    if (!tmpCell) { return; }
+    tmpCell.mode = Cell.MODE_AIR;
+  }
+
+  addSinkAt(globalX, globalY){
+    let tmpCell = this.cellForXY(globalX, globalY);
+    if (!tmpCell) { return; }
+    tmpCell.mode = Cell.MODE_SINK;
+  }
+
+  addSourceAt(globalX, globalY){
+    let tmpCell = this.cellForXY(globalX, globalY);
+    if (!tmpCell) { return; }
+    tmpCell.mode = Cell.MODE_SOURCE;
+  }
 
   addHeatAt(globalX, globalY){
     this._deltaHeatAt(true, globalX, globalY);
@@ -61,6 +84,17 @@ class GridViewController {
   }
 
   _deltaHeatAt(addingHeat, globalX, globalY){
+    let tmpCell = this.cellForXY(globalX, globalY);
+    if (!tmpCell) { return; }
+
+    let deltaTmp = 300;
+    if (addingHeat == false){
+      deltaTmp *= -1;
+    }
+    tmpCell.temp = constrain( tmpCell.temp + deltaTmp, -300, 300);
+  }
+
+  getIdxForXY(globalX, globalY){
     let inCol = (globalX - this._x) / (this.cellWidth + this.cellSpacing);
     let inRow = (globalY - this._y) / (this.cellHeight + this.cellSpacing);
 
@@ -68,18 +102,18 @@ class GridViewController {
     inRow = Math.floor(inRow);
 
     let idxOfCell = Math.floor(inCol + inRow * this.numCols);
+    return idxOfCell;
+  }
+
+  cellForXY(globalX, globalY){
+    let idxOfCell = this.getIdxForXY(globalX, globalY);
 
     if (idxOfCell < 0 || idxOfCell > (this.cells.length - 1)){
       return;
     }
 
     let tmpCell = this.cells[idxOfCell];
-
-    let deltaTmp = 300;
-    if (addingHeat == false){
-      deltaTmp *= -1;
-    }
-    tmpCell.temp = constrain( tmpCell.temp + deltaTmp, -300, 300);
+    return tmpCell;
   }
 
   step(){
