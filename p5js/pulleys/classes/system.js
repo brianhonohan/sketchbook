@@ -16,7 +16,16 @@ class System {
     // console.log("tock");
   }
 
+  debugArea(){
+    noStroke();
+    fill(150, 150, 30, 50);
+    rectMode(CORNER);
+    P5JsUtils.drawRect(this.area);
+  }
+
   draw(){
+    // this.debugArea();
+
     push();
     translate(this.x, this.y);
     this.pulley.draw();
