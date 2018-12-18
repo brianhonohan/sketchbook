@@ -1,7 +1,10 @@
 class System {
   constructor(p_xSizeAndPos){
     this.area = p_xSizeAndPos;
-    this.pulley = new Pulley(this.area.centerX, 20);
+    this.pulley = new Pulley(this.area.width/2, 20);
+    this.mass = new MassiveObject(this.area.width/2+ 10, 
+                                  this.area.height - 10,
+                                  100);
   }
 
   get x() { return this.area.x; }
@@ -29,6 +32,7 @@ class System {
     push();
     translate(this.x, this.y);
     this.pulley.draw();
+    this.mass.draw();
 
     // draw rope, tangent to the pulley
     stroke(0, 255, 0);
