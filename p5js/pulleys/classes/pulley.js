@@ -17,9 +17,12 @@ class Pulley {
     return {x: point.x + vec.x, y: point.y + vec.y};
   }
 
+  containsXY(x, y){
+    return  dist(x, y, this.x, this.y) < this.radius;
+  }
+
   draw(){
-    const distToMouse = dist(system.mouseX, system.mouseY, this.x, this.y);
-    if (distToMouse < this.radius){
+    if (this.containsXY(system.mouseX, system.mouseY)){
       fill(200, 200, 50);
     }else{
       noFill();
