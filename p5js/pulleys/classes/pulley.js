@@ -18,7 +18,13 @@ class Pulley {
   }
 
   draw(){
-    noFill();
+    const distToMouse = dist(system.mouseX, system.mouseY, this.x, this.y);
+    if (distToMouse < this.radius){
+      fill(200, 200, 50);
+    }else{
+      noFill();
+    }
+
     strokeWeight(2);
     ellipseMode(CENTER);
     ellipse(this.x, this.y, this.radius * 2, this.radius * 2);

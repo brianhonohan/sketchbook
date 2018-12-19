@@ -10,6 +10,9 @@ class System {
   get x() { return this.area.x; }
   get y() { return this.area.y; }
 
+  get mouseX() { return mouseX - this.x; }
+  get mouseY() { return mouseY - this.y; }
+
   optionsMetadata(){
     return [
     ];
@@ -37,7 +40,7 @@ class System {
     // draw rope, tangent to the pulley
     stroke(0, 255, 0);
     strokeWeight(1);
-    let mouseLoc = {x: mouseX - 0.1 * width, y: mouseY - 0.1 * height};
+    let mouseLoc = {x: system.mouseX, y: system.mouseY};
     let clockwiseWrap = mouseIsPressed;
     let tangPt = this.pulley.tangentPoint(mouseLoc, clockwiseWrap);
     line(mouseLoc.x, mouseLoc.y, tangPt.x, tangPt.y);
