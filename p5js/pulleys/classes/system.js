@@ -1,11 +1,13 @@
 class System {
   constructor(p_xSizeAndPos){
     this.area = p_xSizeAndPos;
-    this.pulley = new Pulley(this.area.width/2, 20);
-    this.mass = new MassiveObject(this.area.width/2+ 10, 
+    this.objects = [];
+
+    this.addObject(new Pulley(this.area.width/2, 20));
+    this.addObject(new MassiveObject(this.area.width/2+ 10, 
                                   this.area.height - 10,
-                                  100);
-    this.winch = new Winch(this.area.width * 0.1, this.area.height - 30);
+                                  100));
+    this.addObject(new Winch(this.area.width * 0.1, this.area.height - 30));
   }
 
   get x() { return this.area.x; }
@@ -17,6 +19,10 @@ class System {
   optionsMetadata(){
     return [
     ];
+  }
+
+  addObject(object){
+    this.objects.push(object);
   }
 
   tick(){
@@ -35,16 +41,14 @@ class System {
 
     push();
     translate(this.x, this.y);
-    this.pulley.draw();
-    this.mass.draw();
-    this.winch.draw();
+    this.objects.forEach(obj => obj.draw());
 
     // draw rope, tangent to the pulley
     stroke(colorScheme.rope);
     strokeWeight(1);
     let mouseLoc = {x: system.mouseX, y: system.mouseY};
     let clockwiseWrap = mouseIsPressed;
-    let tangPt = this.pulley.tangentPoint(mouseLoc, clockwiseWrap);
+    let tangPt = this.objects[0].tangentPoint(mouseLoc, clockwiseWrap);
     line(mouseLoc.x, mouseLoc.y, tangPt.x, tangPt.y);
 
     pop();
