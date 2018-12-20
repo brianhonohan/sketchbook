@@ -5,7 +5,7 @@ class MassiveObject extends Particle {
   }
 
   applyForce(force){
-    this.accel.add(force.copy().div(this.masss));
+    this.accel.add(force.copy().div(this.mass));
   }
 
   containsXY(x, y){
