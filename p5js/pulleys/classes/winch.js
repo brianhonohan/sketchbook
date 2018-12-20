@@ -26,7 +26,7 @@ class Winch {
 
   draw(){
     strokeWeight(2);
-    fill(50);
+    fill(colorScheme.background);
 
     // draw base
     const tan30 = 0.57735026919;
@@ -39,7 +39,7 @@ class Winch {
     ellipse(this.x, this.y, this.radius * 4, this.radius * 4);
 
     if (this.containsXY(system.mouseX, system.mouseY)){
-      fill(200, 200, 50);
+      fill(colorScheme.hover);
     }else{
       noFill();
     }

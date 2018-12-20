@@ -23,7 +23,7 @@ class Pulley {
 
   draw(){
     if (this.containsXY(system.mouseX, system.mouseY)){
-      fill(200, 200, 50);
+      fill(colorScheme.hover);
     }else{
       noFill();
     }

@@ -19,9 +19,9 @@ class MassiveObject extends Particle {
     strokeWeight(2);
 
     if (this.containsXY(system.mouseX, system.mouseY)){
-      fill(200, 200, 50);
+      fill(colorScheme.hover);
     } else {
-      fill(50, 50, 200);
+      fill(colorScheme.object);
     }
     rect(this.x, this.y, 20, 20);
   }

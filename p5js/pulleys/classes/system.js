@@ -40,7 +40,7 @@ class System {
     this.winch.draw();
 
     // draw rope, tangent to the pulley
-    stroke(0, 255, 0);
+    stroke(colorScheme.rope);
     strokeWeight(1);
     let mouseLoc = {x: system.mouseX, y: system.mouseY};
     let clockwiseWrap = mouseIsPressed;
