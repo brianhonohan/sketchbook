@@ -5,6 +5,7 @@ class System {
     this.mass = new MassiveObject(this.area.width/2+ 10, 
                                   this.area.height - 10,
                                   100);
+    this.winch = new Winch(this.area.width * 0.1, this.area.height - 30);
   }
 
   get x() { return this.area.x; }
@@ -36,6 +37,7 @@ class System {
     translate(this.x, this.y);
     this.pulley.draw();
     this.mass.draw();
+    this.winch.draw();
 
     // draw rope, tangent to the pulley
     stroke(0, 255, 0);
