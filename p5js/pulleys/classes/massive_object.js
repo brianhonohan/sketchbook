@@ -4,6 +4,10 @@ class MassiveObject extends Particle {
     this.mass = mass;
   }
 
+  ropeTieOffPoint(from){
+    return createVector(this.x, this.y - 10);
+  }
+
   applyForce(force){
     this.accel.add(force.copy().div(this.mass));
   }

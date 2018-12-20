@@ -9,6 +9,10 @@ class Winch {
   get x() { return this.pos.x; }
   get y() { return this.pos.y; }
 
+  ropeTieOffPoint(from){
+    return this.tangentPoint(from);
+  }
+
   // Warning: Duplicate of Pully.tangentPoint()
   tangentPoint(point, clockwiseWrap = true){
     const vec = createVector(this.x - point.x, this.y - point.y);

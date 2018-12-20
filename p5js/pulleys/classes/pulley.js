@@ -6,6 +6,10 @@ class Pulley {
 
   get x() { return this.pos.x; }
   get y() { return this.pos.y; }
+  
+  ropeTieOffPoint(){
+    return null;
+  }
 
   tangentPoint(point, clockwiseWrap = true){
     const vec = createVector(this.x - point.x, this.y - point.y);

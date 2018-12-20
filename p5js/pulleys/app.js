@@ -41,6 +41,10 @@ function keyTyped(){
   }
 }
 
+function mouseClicked(){
+  system.handleMouseClicked();
+}
+
 function drawGround(y){
   stroke(colorScheme.line);
   P5JsUtils.drawSolidBoundary(width * margin, y, width * (1 - margin), y);

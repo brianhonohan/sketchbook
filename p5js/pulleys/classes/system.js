@@ -8,6 +8,7 @@ class System {
                                   this.area.height - 10,
                                   100));
     this.addObject(new Winch(this.area.width * 0.1, this.area.height - 30));
+    this.newRope = null;
   }
 
   get x() { return this.area.x; }
@@ -36,6 +37,25 @@ class System {
     P5JsUtils.drawRect(this.area);
   }
 
+  handleMouseClicked(){
+    const clickedObj = this.objects.find(obj => obj.containsXY(this.mouseX, this.mouseY));
+    if (!clickedObj){
+      return;
+    }
+
+    let mouseLoc = {x: system.mouseX, y: system.mouseY};
+    if (clickedObj.ropeTieOffPoint(mouseLoc)){
+      if (this.newRope){
+        this.newRope.tieTo(clickedObj);
+        this.addObject(this.newRope);
+        this.newRope = null;
+      } else {
+        this.newRope = new Rope();
+        this.newRope.tieTo(clickedObj);
+      }
+    }
+  }
+
   draw(){
     // this.debugArea();
 
@@ -43,13 +63,9 @@ class System {
     translate(this.x, this.y);
     this.objects.forEach(obj => obj.draw());
 
-    // draw rope, tangent to the pulley
-    stroke(colorScheme.rope);
-    strokeWeight(1);
-    let mouseLoc = {x: system.mouseX, y: system.mouseY};
-    let clockwiseWrap = mouseIsPressed;
-    let tangPt = this.objects[0].tangentPoint(mouseLoc, clockwiseWrap);
-    line(mouseLoc.x, mouseLoc.y, tangPt.x, tangPt.y);
+    if (this.newRope){
+      this.newRope.draw();
+    }
 
     pop();
   }
