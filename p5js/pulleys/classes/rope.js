@@ -15,6 +15,10 @@ class Rope {
     }
   }
 
+  containsXY(x, y){
+    return false;
+  }
+
   draw(){
     stroke(colorScheme.rope);
     strokeWeight(1);
