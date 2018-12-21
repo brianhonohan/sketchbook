@@ -20,7 +20,15 @@ class Rope {
     strokeWeight(1);
 
     let mouseLoc = {x: system.mouseX, y: system.mouseY};
-    let startTieOff = this.startObj.ropeTieOffPoint(mouseLoc);
-    line(startTieOff.x, startTieOff.y, system.mouseX, system.mouseY);
+    let nextPoint;
+
+    if (this.endObj) {
+      nextPoint = this.endObj.ropeTieOffPoint(this.startObj);
+    } else {
+      nextPoint = mouseLoc;
+    }
+    let startTieOff = this.startObj.ropeTieOffPoint(nextPoint);
+
+    line(startTieOff.x, startTieOff.y, nextPoint.x, nextPoint.y);
   }
 }
