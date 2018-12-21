@@ -8,6 +8,10 @@ class MassiveObject extends Particle {
     return createVector(this.x, this.y - 10);
   }
 
+  isPulley(){
+    return false;
+  }
+
   applyForce(force){
     this.accel.add(force.copy().div(this.mass));
   }

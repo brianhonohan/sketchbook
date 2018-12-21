@@ -53,6 +53,10 @@ class System {
         this.newRope = new Rope();
         this.newRope.tieTo(clickedObj);
       }
+    }else if (clickedObj.isPulley()){
+      if (this.newRope){
+        this.newRope.wrapAround(clickedObj);
+      }
     }
   }
 

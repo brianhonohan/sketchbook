@@ -2,6 +2,7 @@ class Rope {
   constructor(){
     this.startObj = null;
     this.endObj   = null;
+    this.pulleys = [];
   }
 
   tieTo(object){
@@ -19,6 +20,10 @@ class Rope {
     return false;
   }
 
+  wrapAround(pulley){
+    this.pulleys.push(pulley);
+  }
+
   draw(){
     stroke(colorScheme.rope);
     strokeWeight(1);
@@ -26,7 +31,9 @@ class Rope {
     let mouseLoc = {x: system.mouseX, y: system.mouseY};
     let nextPoint;
 
-    if (this.endObj) {
+    if (this.pulleys.length > 0){
+      // TOOD: Need a method to determine a tangentLine between two circles
+    } else if (this.endObj) {
       nextPoint = this.endObj.ropeTieOffPoint(this.startObj);
     } else {
       nextPoint = mouseLoc;

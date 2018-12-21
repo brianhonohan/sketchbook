@@ -11,6 +11,10 @@ class Pulley {
     return null;
   }
 
+  isPulley(){
+    return true;
+  }
+
   tangentPoint(point, clockwiseWrap = true){
     const vec = createVector(this.x - point.x, this.y - point.y);
     const dist = vec.mag();

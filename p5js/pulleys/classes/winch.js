@@ -13,6 +13,10 @@ class Winch {
     return this.tangentPoint(from);
   }
 
+  isPulley(){
+    return false;
+  }
+
   // Warning: Duplicate of Pully.tangentPoint()
   tangentPoint(point, clockwiseWrap = true){
     const vec = createVector(this.x - point.x, this.y - point.y);
