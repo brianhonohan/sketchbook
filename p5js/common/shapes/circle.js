@@ -25,26 +25,28 @@ class Circle {
     return createVector(point.x - this.x, point.y - this.y);
   }
 
-  static get TANGENT_MODE_POS_TO_POS() { return 0; }
-  // static get TANGENT_MODE_POS_TO_NEG() { return 1; }
-  // static get TANGENT_MODE_NEG_TO_NEG() { return 2; }
-  static get TANGENT_MODE_NEG_TO_POS() { return 3; }
+  static get TANGENT_MODE_POS_TO_POS() { return 1; }
+  static get TANGENT_MODE_POS_TO_NEG() { return -1; }
+  static get TANGENT_MODE_NEG_TO_POS() { return -2; }
+  static get TANGENT_MODE_NEG_TO_NEG() { return 2; }
 
   tangentToCircle(other, mode = Circle.TANGENT_MODE_POS_TO_POS){
     const bigger  = (this.radius >= other.radius) ? this : other;
     const smaller = (this.radius >= other.radius) ? other : this;
 
-    const innerRadius = bigger.radius - smaller.radius; 
+    const modifier = Math.sign(mode);
+    const innerRadius = bigger.radius - (smaller.radius * modifier);
     const innerCircle = new Circle(bigger.x, bigger.y, innerRadius);
 
-    const wrap = (mode == Circle.TANGENT_MODE_POS_TO_POS);
+    const wrap = (mode == Circle.TANGENT_MODE_POS_TO_POS 
+                    || mode == Circle.TANGENT_MODE_NEG_TO_POS);
     const tangentPtOnInner = innerCircle.tangentPoint(smaller, wrap);
     const radialLine = innerCircle.radialVector(tangentPtOnInner);
     radialLine.setMag(smaller.radius);
 
     const tangentSegment = new LineSegment(smaller.x, smaller.y, 
                                   tangentPtOnInner.x, tangentPtOnInner.y);
-    tangentSegment.translate(radialLine.x, radialLine.y);
+    tangentSegment.translate(modifier * radialLine.x, modifier * radialLine.y);
     return tangentSegment;
   }
 
