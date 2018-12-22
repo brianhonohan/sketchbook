@@ -13,4 +13,7 @@ function draw(){
 
   circle1.draw();
   circle2.draw();
+
+  const tangentPt = circle1.tangentPoint(P5JsUtils.mousePoint);
+  line(mouseX, mouseY, tangentPt.x, tangentPt.y);
 }

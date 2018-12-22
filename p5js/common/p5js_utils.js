@@ -8,6 +8,10 @@ class P5JsUtils {
               pixels[baseIdx + 3]);
   }
 
+  static get mousePoint(){
+    return {x: mouseX, y: mouseY};
+  }
+
   static colorsMatch(c1, c2){
     return      c1.levels[0] == c2.levels[0]
              && c1.levels[1] == c2.levels[1]
