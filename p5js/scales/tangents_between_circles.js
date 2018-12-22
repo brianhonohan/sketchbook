@@ -11,6 +11,9 @@ function setup(){
 function draw(){
   background(50);
 
+  circle1.pos.x = mouseX;
+  circle1.pos.y = mouseY;
+
   circle1.draw();
   circle2.draw();
 
