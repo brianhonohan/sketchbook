@@ -25,14 +25,20 @@ class Circle {
     return createVector(point.x - this.x, point.y - this.y);
   }
 
-  tangentToCircle(other){
+  static get TANGENT_MODE_POS_TO_POS() { return 0; }
+  // static get TANGENT_MODE_POS_TO_NEG() { return 1; }
+  // static get TANGENT_MODE_NEG_TO_NEG() { return 2; }
+  static get TANGENT_MODE_NEG_TO_POS() { return 3; }
+
+  tangentToCircle(other, mode = Circle.TANGENT_MODE_POS_TO_POS){
     const bigger  = (this.radius >= other.radius) ? this : other;
     const smaller = (this.radius >= other.radius) ? other : this;
 
     const innerRadius = bigger.radius - smaller.radius; 
     const innerCircle = new Circle(bigger.x, bigger.y, innerRadius);
 
-    const tangentPtOnInner = innerCircle.tangentPoint(smaller);
+    const wrap = (mode == Circle.TANGENT_MODE_POS_TO_POS);
+    const tangentPtOnInner = innerCircle.tangentPoint(smaller, wrap);
     const radialLine = innerCircle.radialVector(tangentPtOnInner);
     radialLine.setMag(smaller.radius);
 

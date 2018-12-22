@@ -17,6 +17,6 @@ function draw(){
   // const tangentPt = circle1.tangentPoint(P5JsUtils.mousePoint);
   // line(mouseX, mouseY, tangentPt.x, tangentPt.y);
 
-  const lineSeg = circle1.tangentToCircle(circle2);
+  const lineSeg = circle1.tangentToCircle(circle2, Circle.TANGENT_MODE_NEG_TO_POS);
   lineSeg.draw();
 }
