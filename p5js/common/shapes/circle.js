@@ -21,6 +21,27 @@ class Circle {
     return {x: point.x + vec.x, y: point.y + vec.y};
   }
 
+  radialVector(point){
+    return createVector(point.x - this.x, point.y - this.y);
+  }
+
+  tangentToCircle(other){
+    const bigger  = (this.radius >= other.radius) ? this : other;
+    const smaller = (this.radius >= other.radius) ? other : this;
+
+    const innerRadius = bigger.radius - smaller.radius; 
+    const innerCircle = new Circle(bigger.x, bigger.y, innerRadius);
+
+    const tangentPtOnInner = innerCircle.tangentPoint(smaller);
+    const radialLine = innerCircle.radialVector(tangentPtOnInner);
+    radialLine.setMag(smaller.radius);
+
+    const tangentSegment = new LineSegment(smaller.x, smaller.y, 
+                                  tangentPtOnInner.x, tangentPtOnInner.y);
+    tangentSegment.translate(radialLine.x, radialLine.y);
+    return tangentSegment;
+  }
+
   draw(){
     stroke(230);
     noFill();
