@@ -38,11 +38,23 @@ class Circle {
     const virtualRadius = bigger.radius - (smaller.radius * modifier);
     const virtualCircle = new Circle(bigger.x, bigger.y, virtualRadius);
 
+    stroke(50, 200, 40);
+    virtualCircle.draw();
+
     const wrap = (mode == Circle.TANGENT_MODE_POS_TO_POS 
                     || mode == Circle.TANGENT_MODE_NEG_TO_POS);
     const tangentPtOnVirtual = virtualCircle.tangentPoint(smaller, wrap);
+
+    stroke(200, 200, 40);
+    line(smaller.x, smaller.y, tangentPtOnVirtual.x, tangentPtOnVirtual.y);
+
     const radialLine = virtualCircle.radialVector(tangentPtOnVirtual);
     radialLine.setMag(smaller.radius);
+
+    let debugRadialSegment = new LineSegment(smaller.x, smaller.y,
+                                             radialLine.x+smaller.x, radialLine.y+smaller.y);
+    stroke(40, 200, 200);
+    debugRadialSegment.draw();
 
     const tangentSegment = new LineSegment(smaller.x, smaller.y, 
                                   tangentPtOnVirtual.x, tangentPtOnVirtual.y);
@@ -51,12 +63,6 @@ class Circle {
   }
 
   draw(){
-    stroke(230);
-    noFill();
-
-    point(this.x, this.y);
-
-    strokeWeight(2);
     ellipseMode(CENTER);
     ellipse(this.x, this.y, this.radius * 2, this.radius * 2);
   }

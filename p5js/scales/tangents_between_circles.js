@@ -1,9 +1,10 @@
+var canvas;
 var circle1;
 var circle2;
 var tangentMode;
 
 function setup(){
-  createCanvas(500, 500);
+  canvas = createCanvas(500, 500);
 
   circle1 = new Circle(100, height/2,  75);
   circle2 = new Circle(325, height/2, 125);
@@ -13,16 +14,17 @@ function setup(){
 function draw(){
   background(50);
 
-  circle1.pos.x = mouseX;
-  circle1.pos.y = mouseY;
+  // circle1.pos.x = mouseX;
+  // circle1.pos.y = mouseY;
 
+  noFill();
+  stroke(230);
+  strokeWeight(2);
   circle1.draw();
   circle2.draw();
 
-  // const tangentPt = circle1.tangentPoint(P5JsUtils.mousePoint);
-  // line(mouseX, mouseY, tangentPt.x, tangentPt.y);
-
   const lineSeg = circle1.tangentToCircle(circle2, tangentMode);
+  stroke(230);
   lineSeg.draw();
 }
 
@@ -39,6 +41,9 @@ function keyTyped(){
       break;
     case '4':
       setTangentMode(3);
+      break;
+    case 'p':
+      saveCanvas(canvas, 'screenshot', 'png');
       break;
   }
 }
