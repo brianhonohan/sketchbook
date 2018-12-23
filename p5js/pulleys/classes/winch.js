@@ -1,6 +1,7 @@
 class Winch {
   constructor(x, y){
     this.circle = new Circle(x, y, 10);
+    this.anchor = new AnchorPoint(this.x, this.y, this.height);
   }
 
   get height() { return this.radius * 3; }
@@ -31,11 +32,7 @@ class Winch {
     fill(colorScheme.background);
 
     // draw base
-    const tan30 = 0.57735026919;
-    const xDelta = this.height * tan30;
-    triangle(this.x - xDelta, this.y + this.height,
-              this.x, this.y,
-              this.x + xDelta, this.y + this.height);
+    this.anchor.draw();
 
     // draw outer ring
     ellipse(this.x, this.y, this.radius * 4, this.radius * 4);
