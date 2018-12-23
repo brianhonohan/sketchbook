@@ -8,6 +8,10 @@ class Circle {
   get x() { return this.pos.x; }
   get y() { return this.pos.y; }
 
+  containsXY(x, y){
+    return  dist(x, y, this.x, this.y) < this.radius;
+  }
+
   tangentPoint(point, clockwiseWrap = true){
     const vec = createVector(this.x - point.x, this.y - point.y);
     const dist = vec.mag();
@@ -32,6 +36,14 @@ class Circle {
   static get TANGENT_MODE_NEG_TO_NEG() { return 2; }
 
   tangentToCircle(other, mode = Circle.TANGENT_MODE_POS_TO_POS){
+    const wrap = (mode == Circle.TANGENT_MODE_POS_TO_POS 
+                    || mode == Circle.TANGENT_MODE_NEG_TO_POS);
+    if (other.radius == undefined || other.radius == 0){
+      const tangentPt = this.tangentPoint(other, wrap);
+      return new LineSegment(other.x, other.y, 
+                                  tangentPt.x, tangentPt.y);
+    }
+
     const bigger  = (this.radius >= other.radius) ? this : other;
     const smaller = (this.radius >= other.radius) ? other : this;
 
@@ -39,8 +51,6 @@ class Circle {
     const virtualRadius = bigger.radius - (smaller.radius * modifier);
     const virtualCircle = new Circle(bigger.x, bigger.y, virtualRadius);
 
-    const wrap = (mode == Circle.TANGENT_MODE_POS_TO_POS 
-                    || mode == Circle.TANGENT_MODE_NEG_TO_POS);
     const tangentPtOnVirtual = virtualCircle.tangentPoint(smaller, wrap);
     const radialLine = virtualCircle.radialVector(tangentPtOnVirtual);
     radialLine.setMag(smaller.radius);

@@ -13,6 +13,9 @@ class LineSegment {
     this.endY   += y;
   }
 
+  get start(){ return {x: this.startX, y: this.startY }; }
+  get end()  { return {x: this.endX,   y: this.endY }; }
+
   draw(){
     line(this.startX, this.startY, this.endX, this.endY);
   }
