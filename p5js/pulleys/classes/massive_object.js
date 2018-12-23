@@ -4,7 +4,9 @@ class MassiveObject extends Particle {
     this.mass = mass;
   }
 
-  ropeTieOffPoint(from){
+  hasTieOffPoint(){ return true; }
+
+  ropeAttachmentPoint(from){
     return createVector(this.x, this.y - 10);
   }
 

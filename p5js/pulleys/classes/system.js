@@ -44,7 +44,7 @@ class System {
     }
 
     let mouseLoc = {x: system.mouseX, y: system.mouseY};
-    if (clickedObj.ropeTieOffPoint(mouseLoc)){
+    if (clickedObj.hasTieOffPoint()){
       if (this.newRope){
         this.newRope.tieTo(clickedObj);
         this.addObject(this.newRope);

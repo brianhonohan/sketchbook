@@ -10,11 +10,11 @@ class RopeSegment {
     let nextPoint;
 
     if (this.endObj) {
-      nextPoint = this.endObj.ropeTieOffPoint(this.startObj);
+      nextPoint = this.endObj.ropeAttachmentPoint(this.startObj);
     } else {
       nextPoint = mouseLoc;
     }
-    let startTieOff = this.startObj.ropeTieOffPoint(nextPoint);
+    let startTieOff = this.startObj.ropeAttachmentPoint(nextPoint);
 
     line(startTieOff.x, startTieOff.y, nextPoint.x, nextPoint.y);
   }
