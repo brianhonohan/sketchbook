@@ -22,6 +22,7 @@ class Pulley {
 
     const rotationAngle = clockwiseWrap ? -1 * theta : theta;
     vec.rotate(rotationAngle);
+    vec.setMag(dist * Math.cos(theta));
     return {x: point.x + vec.x, y: point.y + vec.y};
   }
 
