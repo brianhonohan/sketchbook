@@ -9,7 +9,7 @@ class RopeSegment {
     if (this.endObj) {
       return this.endObj.ropeAttachmentPoint(this.startObj);
     }else{
-      return {x: system.mouseX, y: system.mouseY};
+      return system.mousePt;
     }
   }
 

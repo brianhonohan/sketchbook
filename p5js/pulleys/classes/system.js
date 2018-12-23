@@ -16,6 +16,7 @@ class System {
 
   get mouseX() { return mouseX - this.x; }
   get mouseY() { return mouseY - this.y; }
+  get mousePt() { return {x: system.mouseX, y: system.mouseY}; }
 
   optionsMetadata(){
     return [
