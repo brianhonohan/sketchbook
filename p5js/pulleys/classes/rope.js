@@ -2,7 +2,6 @@ class Rope {
   constructor(){
     this.startObj = null;
     this.endObj   = null;
-    this.pulleys = [];
     this.segments = [];
   }
 
@@ -26,7 +25,14 @@ class Rope {
   }
 
   wrapAround(pulley){
-    this.pulleys.push(pulley);
+    if (this.activeSegment == undefined){
+      console.log(`ERROR: Rope was wrapped around a Pulley unexpectedly.`);
+      return;
+    }
+    this.activeSegment.endObj = pulley;
+
+    this.activeSegment = new RopeSegment(this, pulley);
+    this.segments.push(this.activeSegment);
   }
 
   draw(){
