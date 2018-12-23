@@ -35,17 +35,17 @@ class Circle {
     const smaller = (this.radius >= other.radius) ? other : this;
 
     const modifier = Math.sign(mode);
-    const innerRadius = bigger.radius - (smaller.radius * modifier);
-    const innerCircle = new Circle(bigger.x, bigger.y, innerRadius);
+    const virtualRadius = bigger.radius - (smaller.radius * modifier);
+    const virtualCircle = new Circle(bigger.x, bigger.y, virtualRadius);
 
     const wrap = (mode == Circle.TANGENT_MODE_POS_TO_POS 
                     || mode == Circle.TANGENT_MODE_NEG_TO_POS);
-    const tangentPtOnInner = innerCircle.tangentPoint(smaller, wrap);
-    const radialLine = innerCircle.radialVector(tangentPtOnInner);
+    const tangentPtOnVirtual = virtualCircle.tangentPoint(smaller, wrap);
+    const radialLine = virtualCircle.radialVector(tangentPtOnVirtual);
     radialLine.setMag(smaller.radius);
 
     const tangentSegment = new LineSegment(smaller.x, smaller.y, 
-                                  tangentPtOnInner.x, tangentPtOnInner.y);
+                                  tangentPtOnVirtual.x, tangentPtOnVirtual.y);
     tangentSegment.translate(modifier * radialLine.x, modifier * radialLine.y);
     return tangentSegment;
   }
