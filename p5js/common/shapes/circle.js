@@ -8,6 +8,10 @@ class Circle {
   get x() { return this.pos.x; }
   get y() { return this.pos.y; }
 
+  containsXY(x, y){
+    return  dist(x, y, this.x, this.y) < this.radius;
+  }
+
   tangentPoint(point, clockwiseWrap = true){
     const vec = createVector(this.x - point.x, this.y - point.y);
     const dist = vec.mag();

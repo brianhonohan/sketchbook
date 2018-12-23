@@ -1,13 +1,13 @@
 class Winch {
   constructor(x, y){
-    this.pos = createVector(x, y);
-    this.radius = 10;
+    this.circle = new Circle(x, y, 10);
   }
 
   get height() { return this.radius * 3; }
 
-  get x() { return this.pos.x; }
-  get y() { return this.pos.y; }
+  get x() { return this.circle.x; }
+  get y() { return this.circle.y; }
+  get radius() { return this.circle.radius; }
 
   ropeTieOffPoint(from){
     return this.tangentPoint(from);
@@ -17,21 +17,11 @@ class Winch {
     return false;
   }
 
-  // Warning: Duplicate of Pully.tangentPoint()
-  tangentPoint(point, clockwiseWrap = true){
-    const vec = createVector(this.x - point.x, this.y - point.y);
-    const dist = vec.mag();
-    const theta = Math.asin(this.radius / dist);
-
-    const rotationAngle = clockwiseWrap ? -1 * theta : theta;
-    vec.rotate(rotationAngle);
-    vec.setMag(dist * Math.cos(theta));
-    return {x: point.x + vec.x, y: point.y + vec.y};
+  tangentPoint(point, clockwiseWrap){ 
+    return this.circle.tangentPoint(point, clockwiseWrap);
   }
 
-  containsXY(x, y){
-    return  dist(x, y, this.x, this.y) < this.radius;
-  }
+  containsXY(x, y){ return this.circle.containsXY(x, y); }
 
   draw(){
     strokeWeight(2);
@@ -52,8 +42,6 @@ class Winch {
     }else{
       noFill();
     }
-
-    ellipseMode(CENTER);
-    ellipse(this.x, this.y, this.radius * 2, this.radius * 2);
+    this.circle.draw();
   }
 }
