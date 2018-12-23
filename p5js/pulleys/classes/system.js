@@ -3,7 +3,11 @@ class System {
     this.area = p_xSizeAndPos;
     this.objects = [];
 
-    this.addObject(new Pulley(this.area.width/2, 20));
+    let pulley = new Pulley(this.area.width/2, 20);
+    let pulleyAnchor = new AnchorPoint(pulley.x, pulley.y, 
+                                      20, P5JsUtils.UP);
+    pulley.anchorAt(pulleyAnchor);
+    this.addObject(pulley);
     this.addObject(new MassiveObject(this.area.width/2+ 10, 
                                   this.area.height - 10,
                                   100));

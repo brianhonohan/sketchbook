@@ -7,6 +7,10 @@ class Pulley {
   get y() { return this.circle.y; }
   get radius() { return this.circle.radius; }
 
+  anchorAt(anchor){
+    this.anchor = anchor;
+  }
+
   hasTieOffPoint(){ return false; }
 
   ropeAttachmentPoint(from){
@@ -33,5 +37,11 @@ class Pulley {
 
     strokeWeight(2);
     this.circle.draw();
+
+    if (this.anchor){ 
+      fill(230);
+      noStroke();
+      this.anchor.draw();
+    }
   }
 }

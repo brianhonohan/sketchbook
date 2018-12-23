@@ -1,4 +1,9 @@
 class P5JsUtils {
+  static get UP(){    return 0; }
+  static get RIGHT(){ return 1; }
+  static get DOWN(){  return 2; }
+  static get LEFT(){  return 3; }
+
   static colorAt(x, y, width){
     let baseIdx = (round(x) + round(y) * width) * 4;
     return color(
