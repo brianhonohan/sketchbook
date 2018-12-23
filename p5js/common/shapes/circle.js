@@ -2,6 +2,7 @@ class Circle {
   constructor(x, y, radius){
     this.pos = createVector(x, y);
     this.radius = radius;
+    this.debugMode = false;
   }
 
   get x() { return this.pos.x; }
@@ -38,28 +39,33 @@ class Circle {
     const virtualRadius = bigger.radius - (smaller.radius * modifier);
     const virtualCircle = new Circle(bigger.x, bigger.y, virtualRadius);
 
-    stroke(50, 200, 40);
-    virtualCircle.draw();
-
     const wrap = (mode == Circle.TANGENT_MODE_POS_TO_POS 
                     || mode == Circle.TANGENT_MODE_NEG_TO_POS);
     const tangentPtOnVirtual = virtualCircle.tangentPoint(smaller, wrap);
-
-    stroke(200, 200, 40);
-    line(smaller.x, smaller.y, tangentPtOnVirtual.x, tangentPtOnVirtual.y);
-
     const radialLine = virtualCircle.radialVector(tangentPtOnVirtual);
     radialLine.setMag(smaller.radius);
 
-    let debugRadialSegment = new LineSegment(smaller.x, smaller.y,
-                                             radialLine.x+smaller.x, radialLine.y+smaller.y);
-    stroke(40, 200, 200);
-    debugRadialSegment.draw();
+    if (this.debugMode) {
+      this.debugHelperObjects(virtualCircle, smaller, tangentPtOnVirtual, radialLine);  
+    }
 
     const tangentSegment = new LineSegment(smaller.x, smaller.y, 
                                   tangentPtOnVirtual.x, tangentPtOnVirtual.y);
     tangentSegment.translate(modifier * radialLine.x, modifier * radialLine.y);
     return tangentSegment;
+  }
+
+  debugHelperObjects(virtualCircle, smaller, tangentPtOnVirtual, radialLine){
+    stroke(50, 200, 40);
+    virtualCircle.draw();
+
+    stroke(200, 200, 40);
+    line(smaller.x, smaller.y, tangentPtOnVirtual.x, tangentPtOnVirtual.y);
+
+    let debugRadialSegment = new LineSegment(smaller.x, smaller.y,
+                                             radialLine.x+smaller.x, radialLine.y+smaller.y);
+    stroke(40, 200, 200);
+    debugRadialSegment.draw();
   }
 
   draw(){
