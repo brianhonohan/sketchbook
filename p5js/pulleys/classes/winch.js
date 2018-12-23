@@ -10,7 +10,8 @@ class Winch {
   get radius() { return this.circle.radius; }
 
   ropeTieOffPoint(from){
-    return this.tangentPoint(from);
+    let lineSeg = this.circle.tangentToCircle(from);
+    return lineSeg.end;
   }
 
   isPulley(){
