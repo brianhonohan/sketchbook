@@ -1,8 +1,18 @@
 class RopeSegment {
-  constructor(rope, start, end){
+  constructor(rope){
     this.rope = rope;
-    this.startObj = start;
-    this.endObj   = end;
+    this.startObj = null;
+    this.endObj   = null;
+  }
+
+  startAt(object){
+    this.startObj = object;
+    object.attachRopeSegment(this);
+  }
+
+  endAt(object){
+    this.endObj = object;
+    object.attachRopeSegment(this);
   }
 
   endPt(){

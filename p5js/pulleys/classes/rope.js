@@ -7,13 +7,14 @@ class Rope {
 
   startAt(object){
     this.startObj = object;
-    this.activeSegment = new RopeSegment(this, object);
+    this.activeSegment = new RopeSegment(this);
+    this.activeSegment.startAt(object);
     this.segments.push(this.activeSegment);
   }
 
   endAt(object){
     this.endObj = object;
-    this.activeSegment.endObj = object;
+    this.activeSegment.endAt(object);
     this.activeSegment = null;
   }
 
@@ -22,9 +23,9 @@ class Rope {
   }
 
   wrapAround(pulley){
-    this.activeSegment.endObj = pulley;
-
-    this.activeSegment = new RopeSegment(this, pulley);
+    this.activeSegment.endAt(pulley);
+    this.activeSegment = new RopeSegment(this);
+    this.activeSegment.startAt(pulley);
     this.segments.push(this.activeSegment);
   }
 

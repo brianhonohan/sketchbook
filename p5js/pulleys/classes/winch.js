@@ -2,6 +2,7 @@ class Winch {
   constructor(x, y){
     this.circle = new Circle(x, y, 10);
     this.anchor = new AnchorPoint(this.x, this.y, this.height);
+    this.ropeSegment = null;
   }
 
   get height() { return this.radius * 3; }
@@ -15,6 +16,10 @@ class Winch {
   ropeAttachmentPoint(from){
     let lineSeg = this.circle.tangentToCircle(from);
     return lineSeg.end;
+  }
+
+  attachRopeSegment(ropeSegment){
+    this.ropeSegment = ropeSegment;
   }
 
   isPulley(){

@@ -1,6 +1,8 @@
 class Pulley {
   constructor(x, y, radius = 10){
     this.circle = new Circle(x, y, 10);
+    this.ropeSegment1 = null;
+    this.ropeSegment2 = null;
   }
 
   get x() { return this.circle.x; }
@@ -16,6 +18,14 @@ class Pulley {
   ropeAttachmentPoint(from){
     let lineSeg = this.circle.tangentToCircle(from);
     return lineSeg.end;
+  }
+
+  attachRopeSegment(ropeSegment){
+    if (this.ropeSegment1 == null){
+      this.ropeSegment1 = ropeSegment;
+    }else if (this.ropeSegment2 == null){
+      this.ropeSegment2 = ropeSegment;
+    }
   }
 
   isPulley(){

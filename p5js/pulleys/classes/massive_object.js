@@ -2,12 +2,17 @@ class MassiveObject extends Particle {
   constructor(x, y, mass = 10){
     super(x, y);
     this.mass = mass;
+    this.ropeSegment = null;
   }
 
   hasTieOffPoint(){ return true; }
 
   ropeAttachmentPoint(from){
     return createVector(this.x, this.y - 10);
+  }
+
+  attachRopeSegment(ropeSegment){
+    this.ropeSegment = ropeSegment;
   }
 
   isPulley(){
