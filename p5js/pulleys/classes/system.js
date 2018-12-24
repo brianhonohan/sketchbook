@@ -51,12 +51,12 @@ class System {
     let mouseLoc = {x: system.mouseX, y: system.mouseY};
     if (clickedObj.hasTieOffPoint()){
       if (this.newRope){
-        this.newRope.tieTo(clickedObj);
+        this.newRope.endAt(clickedObj);
         this.addObject(this.newRope);
         this.newRope = null;
       } else {
         this.newRope = new Rope();
-        this.newRope.tieTo(clickedObj);
+        this.newRope.startAt(clickedObj);
       }
     }else if (clickedObj.isPulley()){
       if (this.newRope){
