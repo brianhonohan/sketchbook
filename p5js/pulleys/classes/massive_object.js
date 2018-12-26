@@ -3,7 +3,13 @@ class MassiveObject extends Particle {
     super(x, y);
     this.mass = mass;
     this.ropeSegment = null;
+    this.halfWidth = 10;
   }
+
+  get minX(){ return this.pos.x - this.halfWidth; }
+  get maxX(){ return this.pos.x + this.halfWidth; }
+  get minY(){ return this.pos.y - this.halfWidth; }
+  get maxY(){ return this.pos.y + this.halfWidth; }
 
   hasTieOffPoint(){ return true; }
 
@@ -26,6 +32,11 @@ class MassiveObject extends Particle {
   containsXY(x, y){
     return (this.x - 10) <= x && x < (this.x + 10) 
            &&  (this.y - 10) <= y && y < (this.y + 10);
+  }
+
+  tick(){
+    this.applyForce(createVector(0, 9.80665));
+    super.tick();
   }
 
   draw(){

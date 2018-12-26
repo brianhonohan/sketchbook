@@ -1,6 +1,7 @@
 class System {
   constructor(p_xSizeAndPos){
     this.area = p_xSizeAndPos;
+    this.localArea = this.area.localRect();
     this.objects = [];
     this.objectsWithPreTick   = [];
     this.objectsWithTick      = [];
@@ -11,9 +12,13 @@ class System {
                                       20, P5JsUtils.UP);
     pulley.anchorAt(pulleyAnchor);
     this.addObject(pulley);
-    this.addObject(new MassiveObject(this.area.width/2+ 10, 
-                                  this.area.height - 10,
-                                  100));
+
+    let mass = new MassiveObject(this.area.width/2+ 10, 
+                                  this.area.height - 100,
+                                  100);
+    mass.setBounds(this.localArea); 
+    mass.boundaryBehavior = ShapeBouncer;
+    this.addObject(mass);
     this.addObject(new Winch(this.area.width * 0.1, this.area.height - 30));
     this.newRope = null;
   }
