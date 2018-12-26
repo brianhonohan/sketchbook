@@ -2,6 +2,9 @@ class System {
   constructor(p_xSizeAndPos){
     this.area = p_xSizeAndPos;
     this.objects = [];
+    this.objectsWithPreTick   = [];
+    this.objectsWithTick      = [];
+    this.objectsWithPostTick  = [];
 
     let pulley = new Pulley(this.area.width/2, 20);
     let pulleyAnchor = new AnchorPoint(pulley.x, pulley.y, 
@@ -29,10 +32,16 @@ class System {
 
   addObject(object){
     this.objects.push(object);
+
+    if(typeof object.preTick === 'function')  { this.objectsWithPreTick.push(object); }
+    if(typeof object.tick === 'function')     { this.objectsWithTick.push(object); }
+    if(typeof object.postTick === 'function') { this.objectsWithPostTick.push(object); }
   }
 
   tick(){
-    // console.log("tock");
+    this.objectsWithPreTick.forEach(obj => obj.preTick());
+    this.objectsWithTick.forEach(obj => obj.tick());
+    this.objectsWithPostTick.forEach(obj => obj.postTick());
   }
 
   debugArea(){
