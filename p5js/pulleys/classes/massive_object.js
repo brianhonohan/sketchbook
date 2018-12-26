@@ -26,7 +26,7 @@ class MassiveObject extends Particle {
   }
 
   applyForce(force){
-    this.accel.add(force.copy().div(this.mass));
+    Physics.applyForce(this, force);
   }
 
   containsXY(x, y){
@@ -35,7 +35,7 @@ class MassiveObject extends Particle {
   }
 
   tick(){
-    this.applyForce(createVector(0, 9.80665));
+    this.accel.add(system.physics.accelDueToGravity);
     super.tick();
   }
 

@@ -6,6 +6,7 @@ class System {
     this.objectsWithPreTick   = [];
     this.objectsWithTick      = [];
     this.objectsWithPostTick  = [];
+    this.physics = new Physics();
 
     let pulley = new Pulley(this.area.width/2, 20);
     let pulleyAnchor = new AnchorPoint(pulley.x, pulley.y, 
