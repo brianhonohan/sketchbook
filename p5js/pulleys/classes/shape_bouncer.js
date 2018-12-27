@@ -9,7 +9,8 @@ class ShapeBouncer {
   }
 
   static hitYBoundary(obj){
-    obj.vel.y *= -1;
+    const coeffOfRestitution = (obj.coeffOfRestitution || 0.8);
+    obj.vel.y *= -1 * coeffOfRestitution;
     if (obj.minY < obj.bounds.minY) {
       obj.pos.y = obj.bounds.minY + obj.halfWidth + (obj.minY - obj.bounds.minY);
     } else {

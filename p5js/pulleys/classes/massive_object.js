@@ -4,6 +4,7 @@ class MassiveObject extends Particle {
     this.mass = mass;
     this.ropeSegment = null;
     this.halfWidth = 10;
+    this.coeffOfRestitution = 0.3; // with concrete
   }
 
   get minX(){ return this.pos.x - this.halfWidth; }
