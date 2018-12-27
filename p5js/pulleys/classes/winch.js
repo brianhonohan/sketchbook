@@ -3,6 +3,7 @@ class Winch {
     this.circle = new Circle(x, y, 10);
     this.anchor = new AnchorPoint(this.x, this.y, this.height);
     this.ropeSegment = null;
+    this.torque = 98; // magic number 98.5 - 109
   }
 
   get height() { return this.radius * 3; }
@@ -31,6 +32,19 @@ class Winch {
   }
 
   containsXY(x, y){ return this.circle.containsXY(x, y); }
+
+  preTick(){
+    if (!this.ropeSegment){
+      return;
+    }
+
+    if (this.torque == 0){
+      return;
+    }
+
+    const pullingForce = this.torque / this.radius;
+    this.ropeSegment.addTension(pullingForce, this);
+  }
 
   draw(){
     strokeWeight(2);

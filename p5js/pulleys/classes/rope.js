@@ -3,6 +3,7 @@ class Rope {
     this.startObj = null;
     this.endObj   = null;
     this.segments = [];
+    this.tension = 0;
   }
 
   startAt(object){
@@ -27,6 +28,14 @@ class Rope {
     this.activeSegment = new RopeSegment(this);
     this.activeSegment.startAt(pulley);
     this.segments.push(this.activeSegment);
+  }
+
+  addTension(tension){
+    this.tension += tension;
+  }
+
+  postTick(){
+    this.tension = 0;
   }
 
   draw(){

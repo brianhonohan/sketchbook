@@ -35,8 +35,28 @@ class MassiveObject extends Particle {
            &&  (this.y - 10) <= y && y < (this.y + 10);
   }
 
+  preTick(){
+    if (!this.ropeSegment){
+      return;
+    }
+
+    this.ropeSegment.addTension(this.weight().mag(), this);
+  }
+
+  weight(){
+    // could be computed once, but thinking that timescale may be 
+    // changed, and thus accelDueToGravity value would change.
+    return system.physics.accelDueToGravity.copy().mult(this.mass);
+  }
+
   tick(){
     this.accel.add(system.physics.accelDueToGravity);
+    if (this.ropeSegment){
+      const tensionForce = this.ropeSegment.tensionOn(this);
+      tensionForce.x = 0; // Hack for simplicity for now.
+      this.applyForce(tensionForce);
+    }
+
     super.tick();
   }
 
