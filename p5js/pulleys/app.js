@@ -38,6 +38,9 @@ function keyTyped(){
     case 'p':
       saveCanvas(canvas, 'screenshot', 'png');
       break;
+    case '0':
+      P5JsUtils.toggleLoop();
+      break;
   }
 }
 

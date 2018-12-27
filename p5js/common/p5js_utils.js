@@ -1,3 +1,8 @@
+const p5js_utils = 
+{
+  isPaused: false
+};
+
 class P5JsUtils {
   static get UP(){    return 0; }
   static get RIGHT(){ return 1; }
@@ -22,6 +27,16 @@ class P5JsUtils {
              && c1.levels[1] == c2.levels[1]
              && c1.levels[2] == c2.levels[2]
              && alpha(c1) == alpha(c2);
+  }
+
+  static toggleLoop(){
+    if (p5js_utils.isPaused){
+      loop();
+      p5js_utils.isPaused = false;
+    }else{
+      noLoop();
+      p5js_utils.isPaused = true;
+    }
   }
 
   static drawSolidBoundary(fromX, fromY, toX, toY, options = {}){
