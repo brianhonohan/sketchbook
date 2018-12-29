@@ -15,6 +15,10 @@ class Pulley {
 
   hasTieOffPoint(){ return false; }
 
+  hasRope(){
+    return this.ropeSegment1 != null;
+  }
+
   ropeAttachmentPoint(from){
     let lineSeg = this.circle.tangentToCircle(from);
     return lineSeg.end;

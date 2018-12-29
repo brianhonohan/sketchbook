@@ -28,6 +28,9 @@ class Rope {
   }
 
   wrapAround(pulley){
+    if (pulley.hasRope()){
+      return;
+    }
     this.activeSegment.endAt(pulley);
     this.activeSegment = new RopeSegment(this);
     this.activeSegment.startAt(pulley);
