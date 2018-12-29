@@ -24,6 +24,12 @@ class MassiveObject extends Particle {
     this.ropeSegment = ropeSegment;
   }
 
+  detachRopeSegment(ropeSegment){
+    if (ropeSegment == this.ropeSegment){
+      this.ropeSegment = null;
+    }
+  }
+
   isPulley(){
     return false;
   }

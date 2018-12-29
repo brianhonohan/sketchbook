@@ -15,6 +15,15 @@ class RopeSegment {
     object.attachRopeSegment(this);
   }
 
+  detach(){
+    if (this.startObj) {
+      this.startObj.detachRopeSegment(this);
+    }
+    if (this.endObj) {
+      this.endObj.detachRopeSegment(this);
+    }
+  }
+
   endPt(){
     if (this.endObj) {
       return this.endObj.ropeAttachmentPoint(this.startObj);

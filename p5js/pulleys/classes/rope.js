@@ -19,6 +19,10 @@ class Rope {
     this.activeSegment = null;
   }
 
+  detach(){
+    this.segments.forEach(seg => seg.detach());
+  }
+
   containsXY(x, y){
     return false;
   }

@@ -80,6 +80,13 @@ class System {
     }
   }
 
+  handleEscapeKey(){
+    if (this.newRope){
+      this.newRope.detach();
+      this.newRope = null;
+    }
+  }
+
   draw(){
     // this.debugArea();
 

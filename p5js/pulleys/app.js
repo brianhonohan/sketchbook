@@ -44,6 +44,12 @@ function keyTyped(){
   }
 }
 
+function keyPressed(){
+  if (keyCode === ESCAPE){
+    system.handleEscapeKey();
+  }
+}
+
 function mouseClicked(){
   system.handleMouseClicked();
 }

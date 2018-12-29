@@ -28,6 +28,14 @@ class Pulley {
     }
   }
 
+  detachRopeSegment(ropeSegment){
+    if (this.ropeSegment1 == ropeSegment){
+      this.ropeSegment1 = null;
+    }else if (this.ropeSegment2 == ropeSegment){
+      this.ropeSegment2 = null;
+    }
+  }
+
   isPulley(){
     return true;
   }
