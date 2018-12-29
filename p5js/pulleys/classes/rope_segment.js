@@ -16,9 +16,18 @@ class RopeSegment {
   }
 
   detach(){
+    this.detachStart();
+    this.detachEnd();
+  }
+
+  detachStart(){
     if (this.startObj) {
       this.startObj.detachRopeSegment(this);
     }
+  }
+
+  detachEnd(){
+    console.log(`detaching end`);
     if (this.endObj) {
       this.endObj.detachRopeSegment(this);
     }
