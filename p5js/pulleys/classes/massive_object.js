@@ -12,7 +12,9 @@ class MassiveObject extends Particle {
   get minY(){ return this.pos.y - this.halfWidth; }
   get maxY(){ return this.pos.y + this.halfWidth; }
 
-  hasTieOffPoint(){ return true; }
+  hasTieOffPoint(){ 
+    return !this.ropeSegment;
+  }
 
   ropeAttachmentPoint(from){
     return createVector(this.x, this.y - 10);

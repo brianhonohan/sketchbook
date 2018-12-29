@@ -12,7 +12,9 @@ class Winch {
   get y() { return this.circle.y; }
   get radius() { return this.circle.radius; }
 
-  hasTieOffPoint(){ return true; }
+  hasTieOffPoint(){ 
+    return !this.ropeSegment;
+  }
 
   ropeAttachmentPoint(from){
     let lineSeg = this.circle.tangentToCircle(from);
