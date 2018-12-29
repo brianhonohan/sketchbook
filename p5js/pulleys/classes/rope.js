@@ -27,6 +27,14 @@ class Rope {
     return false;
   }
 
+  wrapOrUnwrap(pulley){
+    if (this.previousObject() == pulley){
+      this.unwrapAround(pulley);
+    } else {
+      this.wrapAround(pulley);
+    }
+  }
+
   wrapAround(pulley){
     if (pulley.hasRope()){
       return;
@@ -35,6 +43,17 @@ class Rope {
     this.activeSegment = new RopeSegment(this);
     this.activeSegment.startAt(pulley);
     this.segments.push(this.activeSegment);
+  }
+
+  unwrapAround(pulley){
+    pulley.detachRopeSegment(this);
+    let x = this.segments.pop();
+    this.activeSegment = this.segments[this.segments.length - 1];
+    this.activeSegment.detachEnd();
+  }
+
+  previousObject(){
+    return this.activeSegment.startObj;
   }
 
   addTension(tension){

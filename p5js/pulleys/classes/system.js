@@ -75,7 +75,7 @@ class System {
       }
     }else if (clickedObj.isPulley()){
       if (this.newRope){
-        this.newRope.wrapAround(clickedObj);
+        this.newRope.wrapOrUnwrap(clickedObj);
       }
     }
   }
