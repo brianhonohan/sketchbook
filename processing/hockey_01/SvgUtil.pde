@@ -1,3 +1,6 @@
+// Requires: import processing.svg.*;
+// See: https://processing.org/reference/libraries/svg/index.html
+
 class SvgUtil {
   boolean capturing = false;
   
