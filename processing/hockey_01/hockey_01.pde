@@ -21,11 +21,16 @@ void draw(){
   }
 
   rinkViewer.drawRink(rink);
+  debugFrameRate();
   
   if (record) {
     endRecord();
     record = false;
   }
+}
+
+void debugFrameRate(){
+  text(frameRate, 10, 10);
 }
 
 void mousePressed() {
