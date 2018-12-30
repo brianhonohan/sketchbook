@@ -4,6 +4,7 @@ int scaleFactor = 3;
 int margin = 25;
 import processing.svg.*;
 boolean record;
+SvgUtil svgUtil;
 
 void setup() {
   size(640, 320);
@@ -12,21 +13,17 @@ void setup() {
   rinkViewer._x = margin;
   rinkViewer._y = margin;
   rinkViewer._scale = scaleFactor;
+  
+  svgUtil = new SvgUtil();
 }
 
 void draw(){
   background(180);
-  if (record) {
-    beginRecord(SVG, "frame-####.svg");
-  }
-
+  svgUtil.handleDrawStart();
   rinkViewer.drawRink(rink);
   debugFrameRate();
   
-  if (record) {
-    endRecord();
-    record = false;
-  }
+  svgUtil.handleDrawFinish();
 }
 
 void debugFrameRate(){
@@ -34,5 +31,5 @@ void debugFrameRate(){
 }
 
 void mousePressed() {
-  record = true;
+  svgUtil.captureNextDraw();
 }
