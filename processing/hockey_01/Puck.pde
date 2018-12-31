@@ -10,7 +10,7 @@ class Puck {
     vel = new PVector();
     acc = new PVector();
     colorVal = color(50);
-    radius = 50;
+    radius = 2.5;
   }
   
   void applyForce(PVector force){
@@ -20,6 +20,10 @@ class Puck {
   void moveTo(int x, int y){
     this.pos.x = x;
     this.pos.y = y;
+  }
+  
+  boolean containsXY(int x, int y){
+    return dist(this.pos.x, this.pos.y, x, y) < this.radius;
   }
   
   boolean isOutOfBounds(){
@@ -36,7 +40,12 @@ class Puck {
   }
   
   void draw(){
-    fill(colorVal);
+    if (puck.containsXY(mouseX, mouseY)){
+      // println("mouse over puck: " + frameCount);
+      fill(100, 230, 100);
+    }else{
+      fill(colorVal);
+    }
     noStroke();
     ellipse(pos.x, pos.y, this.radius * 2, this.radius * 2);
   }
