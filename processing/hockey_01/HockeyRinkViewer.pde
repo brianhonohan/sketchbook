@@ -24,9 +24,7 @@ class HockeyRinkViewer {
   }
   
   void drawRink(HockeyRink rink){
-    pushMatrix();
     strokeCap(SQUARE);
-    translate(_x, _y);
     drawIce();
     drawGoalCreases();
     drawGoaLines();
@@ -38,7 +36,6 @@ class HockeyRinkViewer {
     drawNeutralZoneDots();
     drawEndZoneDots();
     drawGoalieTrapZones();
-    popMatrix();
   }
   
   void drawIce(){
