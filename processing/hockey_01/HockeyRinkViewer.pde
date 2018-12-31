@@ -8,12 +8,21 @@ class HockeyRinkViewer {
   float _scale;
   boolean _useRoundedCorners;
   
+  // support local coordinate system
+  PVector mousePos;
+  
   HockeyRinkViewer(){
     _x = 0;
     _y = 0;
+    mousePos = new PVector();
     _scale = 0;
     _useRoundedCorners = false;
     initColors();
+  }
+  
+  void update(){
+    this.mousePos.x = mouseX - this._x;
+    this.mousePos.y = mouseY - this._y;
   }
   
   void initColors(){

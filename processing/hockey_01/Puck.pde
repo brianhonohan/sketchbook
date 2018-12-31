@@ -4,13 +4,18 @@ class Puck {
   PVector acc;
   color colorVal;
   float radius;
-  
+  HockeyRinkViewer viewer;
+
   Puck(){
     pos = new PVector();
     vel = new PVector();
     acc = new PVector();
     colorVal = color(50);
     radius = 2.5;
+  }
+  
+  void setRinkViewer(HockeyRinkViewer view){
+    this.viewer = view;
   }
   
   void applyForce(PVector force){
@@ -22,7 +27,7 @@ class Puck {
     this.pos.y = y;
   }
   
-  boolean containsXY(int x, int y){
+  boolean containsXY(float x, float y){
     return dist(this.pos.x, this.pos.y, x, y) < this.radius;
   }
   
@@ -40,7 +45,7 @@ class Puck {
   }
   
   void draw(){
-    if (puck.containsXY(mouseX, mouseY)){
+    if (this.containsXY(viewer.mousePos.x, viewer.mousePos.y)){
       // println("mouse over puck: " + frameCount);
       fill(100, 230, 100);
     }else{

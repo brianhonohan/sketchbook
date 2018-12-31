@@ -13,19 +13,20 @@ void setup() {
   rinkViewer._scale = scaleFactor;
   
   puck = new Puck();
+  puck.setRinkViewer(rinkViewer);
   puck.moveTo(width/2, height/2);
 }
 
 void draw(){
   background(180);
+  rinkViewer.update();
+  puck.update();
 
   pushMatrix();
-  translate(margin, margin);
+  translate(rinkViewer._x, rinkViewer._y);
   rinkViewer.drawRink(rink);
-  popMatrix();
-  
-  puck.update();
   puck.draw();
+  popMatrix();
   
   debugFrameRate();
 }
