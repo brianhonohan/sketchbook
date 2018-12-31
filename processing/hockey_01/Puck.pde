@@ -3,12 +3,14 @@ class Puck {
   PVector vel;
   PVector acc;
   color colorVal;
+  float radius;
   
   Puck(){
     pos = new PVector();
     vel = new PVector();
     acc = new PVector();
     colorVal = color(50);
+    radius = 50;
   }
   
   void applyForce(PVector force){
@@ -36,6 +38,6 @@ class Puck {
   void draw(){
     fill(colorVal);
     noStroke();
-    ellipse(pos.x, pos.y, 5, 5);
+    ellipse(pos.x, pos.y, this.radius * 2, this.radius * 2);
   }
 }
