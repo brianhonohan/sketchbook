@@ -1,18 +1,21 @@
 class Puck {
-  PVector pos;
+  Circle circle;
+  PVector prevPos;
   PVector vel;
   PVector acc;
   color colorVal;
-  float radius;
   HockeyRinkViewer viewer;
 
   Puck(){
-    pos = new PVector();
+    circle = new Circle(0, 0, 2.5);
+    prevPos = new PVector();
     vel = new PVector();
     acc = new PVector();
     colorVal = color(50);
-    radius = 2.5;
   }
+
+  float x() { return this.circle.pos.x; }
+  float y() { return this.circle.pos.y; }
   
   void setRinkViewer(HockeyRinkViewer view){
     this.viewer = view;
@@ -21,37 +24,37 @@ class Puck {
   void applyForce(PVector force){
     acc.add(force);
   }
-  
-  void moveTo(int x, int y){
-    this.pos.x = x;
-    this.pos.y = y;
+
+  void moveTo(float x, float y){
+    this.circle.pos.x = x;
+    this.circle.pos.y = y;
   }
-  
+
   boolean containsXY(float x, float y){
-    return dist(this.pos.x, this.pos.y, x, y) < this.radius;
-  }
-  
+    return this.circle.containsXY(x, y);
+  }  
+
   boolean isOutOfBounds(){
-    return this.pos.x < 0 
-        || this.pos.x > width
-        || this.pos.y < 0
-        || this.pos.y > height;
+    return this.circle.pos.x < 0 
+        || this.circle.pos.x > width
+        || this.circle.pos.y < 0
+        || this.circle.pos.y > height;
   }
 
   void update(){
-    pos.add(vel);
+    this.moveTo(this.x() + this.vel.x, this.y() + this.vel.y);
     vel.add(acc);
     acc.setMag(0);
   }
   
   void draw(){
-    if (this.containsXY(viewer.mousePos.x, viewer.mousePos.y)){
+    if (this.circle.containsXY(viewer.mousePos.x, viewer.mousePos.y)){
       // println("mouse over puck: " + frameCount);
       fill(100, 230, 100);
     }else{
       fill(colorVal);
     }
     noStroke();
-    ellipse(pos.x, pos.y, this.radius * 2, this.radius * 2);
+    this.circle.draw();
   }
 }
