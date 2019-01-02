@@ -46,6 +46,11 @@ class Rect {
            && this.minY() <= y && y < this.maxY();
   }
   
+  String toString(){
+    return "Rect ... x: " + int(this._x) + " y: " + int(_y) 
+         + ", WxH " + _width + " x " + _height; 
+  }
+  
   void draw(){
     rectMode(CORNER);
     rect(this._x, this._y, this._width, this._height);
