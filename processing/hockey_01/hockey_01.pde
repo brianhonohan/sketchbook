@@ -50,3 +50,8 @@ void mouseReleased(){
     stick.releaseWindUp();
   }
 }
+void keyPressed(){
+  if (key == 'p'){
+     saveFrame("screenshot-######.png");
+  }
+}
