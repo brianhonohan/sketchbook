@@ -45,6 +45,8 @@ class HockeyRinkViewer {
     drawNeutralZoneDots();
     drawEndZoneDots();
     drawGoalieTrapZones();
+    
+    //debugOpenAreas();
   }
   
   void drawIce(){
@@ -376,5 +378,20 @@ class HockeyRinkViewer {
     } else {
       return radius - oppositeSide; 
     }
+  }
+  
+  void debugOpenAreas(){
+    pushMatrix();
+    scale(_scale);
+    noStroke();
+    fill(100, 250, 100, 50);
+    rink.mainOpenSpace.draw();
+    
+    fill(220, 220, 100, 50);
+    rink.westEndOpenSpace.draw();
+    
+    fill(220, 220, 100, 50);
+    rink.eastEndOpenSpace.draw();
+    popMatrix();
   }
 }

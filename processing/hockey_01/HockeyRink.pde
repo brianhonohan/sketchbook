@@ -19,6 +19,9 @@ class HockeyRink {
   float _creaseWidth;
   float _creaseLength;
   float _creaseSemiArcDepth;
+  Rect mainOpenSpace;
+  Rect westEndOpenSpace;
+  Rect eastEndOpenSpace;
   
   HockeyRink(){
     restoreDefaults(); 
@@ -49,5 +52,12 @@ class HockeyRink {
     _creaseWidth = 8;
     _creaseLength = 6.5;
     _creaseSemiArcDepth = 1.5;
+    
+    mainOpenSpace = new Rect(this._cornerRadius, 0,
+                             this._length - 2 * this._cornerRadius, this._width);
+    westEndOpenSpace = new Rect(0, this._cornerRadius,
+                                this._cornerRadius, this._width - 2 * this._cornerRadius);
+    eastEndOpenSpace = new Rect(this._length - this._cornerRadius, this._cornerRadius,
+                                this._cornerRadius, this._width - 2 * this._cornerRadius);
   }
 }
