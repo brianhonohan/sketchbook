@@ -64,4 +64,32 @@ class HockeyRink {
   PVector centerFaceoffSpot(){
     return new PVector(this._length / 2, this._width / 2);
   }
+  
+  public static final int CONSTRAINT_UNKNOWN    = -1;
+  public static final int CONSTRAINT_NONE       = 0;
+  
+  void constrainMovement(PVector from, Circle to, PVector vel){
+    // if the 'to' location is allowed, don't affect the velocity
+    int violation = this.constraintViolated(from, to);
+
+    switch (violation){
+      case HockeyRink.CONSTRAINT_NONE:
+        return;
+      case HockeyRink.CONSTRAINT_UNKNOWN:
+        return;
+    }
+  }
+  
+  int constraintViolated(PVector from, Circle obj){
+    if (this.isInSimpleOpenSpace(obj)){
+      return CONSTRAINT_NONE;
+    }
+    return CONSTRAINT_UNKNOWN;
+  }
+
+  boolean isInSimpleOpenSpace(Circle obj){
+    return this.mainOpenSpace.contains(obj)
+        || this.westEndOpenSpace.contains(obj)
+        || this.eastEndOpenSpace.contains(obj);
+  }
 }

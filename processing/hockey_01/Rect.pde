@@ -27,6 +27,11 @@ class Rect {
             && this.minY() < otherRect.minY() && this.maxY() > otherRect.maxY();
   }
 
+  boolean contains(Circle circle){
+    return this.minX() < circle.minX() && this.maxX() > circle.maxX()
+            && this.minY() < circle.minY() && this.maxY() > circle.maxY();
+  }
+
   void expandToIncludeRect(Rect otherRect){
     float maxX = this.maxX();
     float maxY = this.maxY();

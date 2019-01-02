@@ -3,6 +3,7 @@ class Puck {
   PVector prevPos;
   PVector vel;
   PVector acc;
+  HockeyRink rink;
 
   Puck(){
     circle = new Circle(0, 0, 1); // Effectively 2' wide puck
@@ -14,6 +15,10 @@ class Puck {
   float x() { return this.circle.pos.x; }
   float y() { return this.circle.pos.y; }
 
+  void setRink(HockeyRink rink) {
+    this.rink = rink;
+  }
+
   void applyForce(PVector force){
     acc.add(force);
   }
@@ -23,6 +28,9 @@ class Puck {
   }
 
   void moveTo(float x, float y) {
+    prevPos.x = this.x();
+    prevPos.y = this.y();
+    rink.constrainMovement(prevPos, this.circle, this.vel);
     this.circle.pos.x = x;
     this.circle.pos.y = y;
   }
