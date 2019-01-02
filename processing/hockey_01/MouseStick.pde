@@ -25,8 +25,8 @@ class MouseStick {
     if (!this.isWindingUp()){
       return;
     }
-
-    PVector impulseVector = new PVector(puck.x() - viewer.mousePos.x, puck.y() - viewer.mousePos.y);
+    PVector mouseInRink = viewer.mousePosInRink();
+    PVector impulseVector = new PVector(puck.x() - mouseInRink.x, puck.y() - mouseInRink.y);
     float impulseFactor = 0.02;
     float impulseMag = impulseVector.mag() * impulseFactor;
     impulseVector.setMag(impulseMag);
@@ -41,6 +41,7 @@ class MouseStick {
     
     strokeWeight(3);
     stroke(100, 200, 100);
-    line(viewer.mousePos.x, viewer.mousePos.y, puck.x(), puck.y());
+    PVector mouseInRink = viewer.mousePosInRink();
+    line(mouseInRink.x, mouseInRink.y, puck.x(), puck.y());
   }
 }

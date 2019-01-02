@@ -60,4 +60,8 @@ class HockeyRink {
     eastEndOpenSpace = new Rect(this._length - this._cornerRadius, this._cornerRadius,
                                 this._cornerRadius, this._width - 2 * this._cornerRadius);
   }
+  
+  PVector centerFaceoffSpot(){
+    return new PVector(this._length / 2, this._width / 2);
+  }
 }

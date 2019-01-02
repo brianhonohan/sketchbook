@@ -25,6 +25,10 @@ class HockeyRinkViewer {
     this.mousePos.y = mouseY - this._y;
   }
   
+  PVector mousePosInRink(){
+    return new PVector(this.mousePos.x / this._scale, this.mousePos.y / this._scale);
+  }
+  
   void initColors(){
     _red = color(210,50,50);
     _blue = color(50,50,180);

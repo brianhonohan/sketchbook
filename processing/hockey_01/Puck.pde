@@ -3,29 +3,26 @@ class Puck {
   PVector prevPos;
   PVector vel;
   PVector acc;
-  color colorVal;
-  HockeyRinkViewer viewer;
 
   Puck(){
-    circle = new Circle(0, 0, 2.5);
+    circle = new Circle(0, 0, 1); // Effectively 2' wide puck
     prevPos = new PVector();
     vel = new PVector();
     acc = new PVector();
-    colorVal = color(50);
   }
 
   float x() { return this.circle.pos.x; }
   float y() { return this.circle.pos.y; }
-  
-  void setRinkViewer(HockeyRinkViewer view){
-    this.viewer = view;
-  }
-  
+
   void applyForce(PVector force){
     acc.add(force);
   }
 
-  void moveTo(float x, float y){
+  void moveTo(PVector newPos){
+    this.moveTo(newPos.x, newPos.y);
+  }
+
+  void moveTo(float x, float y) {
     this.circle.pos.x = x;
     this.circle.pos.y = y;
   }
@@ -45,16 +42,5 @@ class Puck {
     this.moveTo(this.x() + this.vel.x, this.y() + this.vel.y);
     vel.add(acc);
     acc.setMag(0);
-  }
-  
-  void draw(){
-    if (this.circle.containsXY(viewer.mousePos.x, viewer.mousePos.y)){
-      // println("mouse over puck: " + frameCount);
-      fill(100, 230, 100);
-    }else{
-      fill(colorVal);
-    }
-    noStroke();
-    this.circle.draw();
   }
 }

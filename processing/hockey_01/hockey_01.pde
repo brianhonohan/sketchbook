@@ -3,6 +3,7 @@ HockeyRinkViewer rinkViewer;
 int scaleFactor = 3;
 int margin = 25;
 Puck puck;
+PuckViewer puckViewer;
 MouseStick stick;
 
 void setup() {
@@ -17,8 +18,10 @@ void setup() {
   stick.setRinkViewer(rinkViewer);
   
   puck = new Puck();
-  puck.setRinkViewer(rinkViewer);
-  puck.moveTo(width/2, height/2);
+  puck.setRink(rink);
+  puck.moveTo(rink.centerFaceoffSpot());
+  puckViewer = new PuckViewer(puck);
+  puckViewer.setRinkViewer(rinkViewer);
 }
 
 void draw(){
@@ -29,7 +32,7 @@ void draw(){
   pushMatrix();
   translate(rinkViewer._x, rinkViewer._y);
   rinkViewer.drawRink(rink);
-  puck.draw();
+  puckViewer.draw();
   popMatrix();
   
   debugFrameRate();
@@ -40,7 +43,7 @@ void debugFrameRate(){
 }
 
 void mousePressed(){
-  if (puck.containsXY(rinkViewer.mousePos.x, rinkViewer.mousePos.y)){
+  if (puckViewer.containsXY(rinkViewer.mousePos.x, rinkViewer.mousePos.y)){
     stick.startWindUp();
   }
 }
