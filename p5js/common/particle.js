@@ -19,24 +19,42 @@ class Particle {
     }
   }
 
+  setDefaultBounds(){
+    // TODO: Replace with Rect and refactor collision checks
+    this.bounds = {
+      minX: 0,
+      maxY: 0,
+      minX: width,
+      maxY: height 
+    };
+  }
+
+  setBounds(rect){
+    this.bounds = rect;
+  }
+
   static get BOUNDARY_MODE_WRAP() { return 0; }
   static get BOUNDARY_MODE_BOUNCE() { return 1; }
 
   get x(){ return this.pos.x; }
   get y(){ return this.pos.y; }
+  get minX(){ return this.pos.x; }
+  get maxX(){ return this.pos.x; }
+  get minY(){ return this.pos.y; }
+  get maxY(){ return this.pos.y; }
 
   applyForce(force){
     this.accel.add(force);
   }
 
   isOutOfYBounds(){
-    return this.pos.y < 0
-        || this.pos.y > height;
+    return this.minY < this.bounds.minY
+        || this.maxY > this.bounds.maxY;
   }
 
   isOutOfXBounds(){
-    return this.pos.x < 0 
-        || this.pos.x > width;
+    return this.minX < this.bounds.minX 
+        || this.maxX > this.bounds.maxX;
   }
 
   tick(){

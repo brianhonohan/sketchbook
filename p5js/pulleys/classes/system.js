@@ -1,16 +1,25 @@
 class System {
   constructor(p_xSizeAndPos){
     this.area = p_xSizeAndPos;
+    this.localArea = this.area.localRect();
     this.objects = [];
+    this.objectsWithPreTick   = [];
+    this.objectsWithTick      = [];
+    this.objectsWithPostTick  = [];
+    this.physics = new Physics();
 
     let pulley = new Pulley(this.area.width/2, 20);
     let pulleyAnchor = new AnchorPoint(pulley.x, pulley.y, 
                                       20, P5JsUtils.UP);
     pulley.anchorAt(pulleyAnchor);
     this.addObject(pulley);
-    this.addObject(new MassiveObject(this.area.width/2+ 10, 
-                                  this.area.height - 10,
-                                  100));
+
+    let mass = new MassiveObject(this.area.width/2+ 10, 
+                                  this.area.height - 100,
+                                  100);
+    mass.setBounds(this.localArea); 
+    mass.boundaryBehavior = ShapeBouncer;
+    this.addObject(mass);
     this.addObject(new Winch(this.area.width * 0.1, this.area.height - 30));
     this.newRope = null;
   }
@@ -29,10 +38,16 @@ class System {
 
   addObject(object){
     this.objects.push(object);
+
+    if(typeof object.preTick === 'function')  { this.objectsWithPreTick.push(object); }
+    if(typeof object.tick === 'function')     { this.objectsWithTick.push(object); }
+    if(typeof object.postTick === 'function') { this.objectsWithPostTick.push(object); }
   }
 
   tick(){
-    // console.log("tock");
+    this.objectsWithPreTick.forEach(obj => obj.preTick());
+    this.objectsWithTick.forEach(obj => obj.tick());
+    this.objectsWithPostTick.forEach(obj => obj.postTick());
   }
 
   debugArea(){
@@ -51,17 +66,24 @@ class System {
     let mouseLoc = {x: system.mouseX, y: system.mouseY};
     if (clickedObj.hasTieOffPoint()){
       if (this.newRope){
-        this.newRope.tieTo(clickedObj);
+        this.newRope.endAt(clickedObj);
         this.addObject(this.newRope);
         this.newRope = null;
       } else {
         this.newRope = new Rope();
-        this.newRope.tieTo(clickedObj);
+        this.newRope.startAt(clickedObj);
       }
     }else if (clickedObj.isPulley()){
       if (this.newRope){
-        this.newRope.wrapAround(clickedObj);
+        this.newRope.wrapOrUnwrap(clickedObj);
       }
+    }
+  }
+
+  handleEscapeKey(){
+    if (this.newRope){
+      this.newRope.detach();
+      this.newRope = null;
     }
   }
 

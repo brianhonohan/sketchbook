@@ -2,6 +2,8 @@ class Winch {
   constructor(x, y){
     this.circle = new Circle(x, y, 10);
     this.anchor = new AnchorPoint(this.x, this.y, this.height);
+    this.ropeSegment = null;
+    this.torque = 98; // magic number 98.5 - 109
   }
 
   get height() { return this.radius * 3; }
@@ -10,11 +12,23 @@ class Winch {
   get y() { return this.circle.y; }
   get radius() { return this.circle.radius; }
 
-  hasTieOffPoint(){ return true; }
+  hasTieOffPoint(){ 
+    return !this.ropeSegment;
+  }
 
   ropeAttachmentPoint(from){
     let lineSeg = this.circle.tangentToCircle(from);
     return lineSeg.end;
+  }
+
+  attachRopeSegment(ropeSegment){
+    this.ropeSegment = ropeSegment;
+  }
+
+  detachRopeSegment(ropeSegment){
+    if (ropeSegment == this.ropeSegment){
+      this.ropeSegment = null;
+    }
   }
 
   isPulley(){
@@ -26,6 +40,19 @@ class Winch {
   }
 
   containsXY(x, y){ return this.circle.containsXY(x, y); }
+
+  preTick(){
+    if (!this.ropeSegment){
+      return;
+    }
+
+    if (this.torque == 0){
+      return;
+    }
+
+    const pullingForce = this.torque / this.radius;
+    this.ropeSegment.addTension(pullingForce, this);
+  }
 
   draw(){
     strokeWeight(2);
