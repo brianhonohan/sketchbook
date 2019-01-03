@@ -1,4 +1,4 @@
-class Circle {
+class Circle implements Shape {
   PVector pos;
   float radius;
 

@@ -1,4 +1,4 @@
-class Rect {
+class Rect implements Shape {
   float _x;
   float _y;
   float _width;
@@ -22,14 +22,9 @@ class Rect {
   float centerX(){ return this._x + this._width / 2; }
   float centerY(){ return this._y + this._height / 2; }
 
-  boolean contains(Rect otherRect){
-    return this.minX() < otherRect.minX() && this.maxX() > otherRect.maxX()
-            && this.minY() < otherRect.minY() && this.maxY() > otherRect.maxY();
-  }
-
-  boolean contains(Circle circle){
-    return this.minX() < circle.minX() && this.maxX() > circle.maxX()
-            && this.minY() < circle.minY() && this.maxY() > circle.maxY();
+  boolean contains(Shape other){
+    return this.minX() < other.minX() && this.maxX() > other.maxX()
+            && this.minY() < other.minY() && this.maxY() > other.maxY();
   }
 
   void expandToIncludeRect(Rect otherRect){
