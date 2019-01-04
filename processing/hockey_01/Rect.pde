@@ -13,6 +13,12 @@ class Rect implements Shape {
 
   float x(){ return this._x; }
   float y(){ return this._y; }
+  
+  void move(float x, float y) { 
+    this._x += x;
+    this._y += y; 
+  }
+
   float width(){ return this._width; }
   float height(){ return this._height; }
   float minX(){ return this._x; }

@@ -9,6 +9,10 @@ class Circle implements Shape {
 
   float x() { return this.pos.x; }
   float y() { return this.pos.y; }
+  void move(float x, float y) { 
+    this.pos.x += x;
+    this.pos.y += y; 
+  }
   float minX(){ return this.pos.x - this.radius; }
   float minY(){ return this.pos.y - this.radius; }
   float maxX(){ return this.pos.x + this.radius; }
