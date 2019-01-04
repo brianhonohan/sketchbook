@@ -67,6 +67,12 @@ class HockeyRink {
   
   public static final int CONSTRAINT_UNKNOWN    = -1;
   public static final int CONSTRAINT_NONE       = 0;
+  public static final int CONSTRAINT_END_BOARD  = 1;
+  public static final int CONSTRAINT_SIDE_BOARD = 2;
+  public static final int CONSTRAINT_NW_CORNER  = 3;
+  public static final int CONSTRAINT_NE_CORNER  = 4;
+  public static final int CONSTRAINT_SE_CORNER  = 5;
+  public static final int CONSTRAINT_SW_CORNER  = 6;
   
   void constrainMovement(PVector from, Shape to, PVector vel){
     // if the 'to' location is allowed, don't affect the velocity
@@ -74,6 +80,10 @@ class HockeyRink {
 
     switch (violation){
       case HockeyRink.CONSTRAINT_NONE:
+        return;
+      case HockeyRink.CONSTRAINT_END_BOARD:
+        vel.x *= -1;
+        to.move(vel.x, vel.y);
         return;
       case HockeyRink.CONSTRAINT_UNKNOWN:
         return;
@@ -84,6 +94,25 @@ class HockeyRink {
     if (this.isInSimpleOpenSpace(obj)){
       return CONSTRAINT_NONE;
     }
+    
+    if (obj.minX() < this.westEndOpenSpace.minX()){
+      if (obj.minY() < this.westEndOpenSpace.minY()){
+        return HockeyRink.CONSTRAINT_NW_CORNER;
+      } else if (obj.maxY() > this.westEndOpenSpace.maxY()){
+        return HockeyRink.CONSTRAINT_SW_CORNER;
+      } else {
+        return HockeyRink.CONSTRAINT_END_BOARD;
+      }
+    } else if (obj.maxX() > this.eastEndOpenSpace.maxX()){
+      if (obj.minY() < this.eastEndOpenSpace.minY()){
+        return HockeyRink.CONSTRAINT_NE_CORNER;
+      } else if (obj.maxY() > this.eastEndOpenSpace.maxY()){
+        return HockeyRink.CONSTRAINT_SE_CORNER;
+      } else {
+        return HockeyRink.CONSTRAINT_END_BOARD;
+      } 
+    }
+
     return CONSTRAINT_UNKNOWN;
   }
 

@@ -30,9 +30,9 @@ class Puck {
   void moveTo(float x, float y) {
     prevPos.x = this.x();
     prevPos.y = this.y();
-    rink.constrainMovement(prevPos, this.circle, this.vel);
     this.circle.pos.x = x;
     this.circle.pos.y = y;
+    rink.constrainMovement(prevPos, this.circle, this.vel);
   }
 
   boolean containsXY(float x, float y){
