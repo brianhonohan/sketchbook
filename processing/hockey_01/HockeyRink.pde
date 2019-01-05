@@ -67,23 +67,32 @@ class HockeyRink {
   
   public static final int CONSTRAINT_UNKNOWN    = -1;
   public static final int CONSTRAINT_NONE       = 0;
-  public static final int CONSTRAINT_END_BOARD  = 1;
-  public static final int CONSTRAINT_SIDE_BOARD = 2;
+  public static final int CONSTRAINT_W_BOARD    = 1;
+  public static final int CONSTRAINT_E_BOARD    = 2;
   public static final int CONSTRAINT_NW_CORNER  = 3;
   public static final int CONSTRAINT_NE_CORNER  = 4;
   public static final int CONSTRAINT_SE_CORNER  = 5;
   public static final int CONSTRAINT_SW_CORNER  = 6;
+  public static final int CONSTRAINT_N_BOARD    = 7;
+  public static final int CONSTRAINT_S_BOARD    = 8;
   
   void constrainMovement(PVector from, Shape to, PVector vel){
     // if the 'to' location is allowed, don't affect the velocity
     int violation = this.constraintViolated(from, to);
+    float deltaX;
 
     switch (violation){
       case HockeyRink.CONSTRAINT_NONE:
         return;
-      case HockeyRink.CONSTRAINT_END_BOARD:
+      case HockeyRink.CONSTRAINT_W_BOARD:
         vel.x *= -1;
-        to.move(vel.x, vel.y);
+        deltaX = 2 * (this.westEndOpenSpace.minX() - to.minX());
+        to.move(deltaX, 0);
+        return;
+      case HockeyRink.CONSTRAINT_E_BOARD:
+        vel.x *= -1;
+        deltaX = 2 * (this.eastEndOpenSpace.maxX() - to.maxX());
+        to.move(deltaX, 0);
         return;
       case HockeyRink.CONSTRAINT_UNKNOWN:
         return;
@@ -101,7 +110,7 @@ class HockeyRink {
       } else if (obj.maxY() > this.westEndOpenSpace.maxY()){
         return HockeyRink.CONSTRAINT_SW_CORNER;
       } else {
-        return HockeyRink.CONSTRAINT_END_BOARD;
+        return HockeyRink.CONSTRAINT_W_BOARD;
       }
     } else if (obj.maxX() > this.eastEndOpenSpace.maxX()){
       if (obj.minY() < this.eastEndOpenSpace.minY()){
@@ -109,7 +118,7 @@ class HockeyRink {
       } else if (obj.maxY() > this.eastEndOpenSpace.maxY()){
         return HockeyRink.CONSTRAINT_SE_CORNER;
       } else {
-        return HockeyRink.CONSTRAINT_END_BOARD;
+        return HockeyRink.CONSTRAINT_E_BOARD;
       } 
     }
 
