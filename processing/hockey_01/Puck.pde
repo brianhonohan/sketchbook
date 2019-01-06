@@ -45,8 +45,14 @@ class Puck {
         || this.circle.pos.y < 0
         || this.circle.pos.y > height;
   }
+  
+  float getFrictionEffect(){
+    // this could be a function both the Puck temperature and Rink smoothness
+    return 0.997;
+  }
 
   void update(){
+    vel.mult(this.getFrictionEffect());
     this.moveTo(this.x() + this.vel.x, this.y() + this.vel.y);
     vel.add(acc);
     acc.setMag(0);
