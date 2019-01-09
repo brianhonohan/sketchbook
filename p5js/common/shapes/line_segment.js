@@ -6,6 +6,18 @@ class LineSegment {
     this.endY   = y2;
   }
 
+  dx() { return this.endX - this.startX; }
+  dy() { return this.endY - this.startY; }
+  slope() { return this.dy() / this.dx(); }
+
+  getLine(){
+    let slope = this.slope();
+
+    let line = new Line(slope);
+    line.offset = this.startY + slope * (0 - this.startX);
+    return line;
+  }
+
   translate(x, y){
     this.startX += x;
     this.startY += y;
