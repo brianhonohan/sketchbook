@@ -17,6 +17,10 @@ function draw(){
   strokeWeight(2);
   circle.draw();
 
+  lineSeg.drawDraggablePoints();
+
+  stroke(230);
+  strokeWeight(2);
   lineSeg.draw();
 }
 
@@ -26,4 +30,16 @@ function keyTyped(){
       saveCanvas(canvas, 'screenshot', 'png');
       break;
   }
+}
+
+function mousePressed(){
+  lineSeg.handleMousePressed();
+}
+
+function mouseDragged(){
+  lineSeg.handleMouseDragged();
+}
+
+function mouseReleased(){
+  lineSeg.handleMouseReleased();
 }
