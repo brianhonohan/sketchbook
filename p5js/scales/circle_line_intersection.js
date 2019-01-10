@@ -53,6 +53,10 @@ function mouseReleased(){
 function highlightIntersectionPoints(){
   const points = geomCircleLine.intersectionPoints();
 
+  if (points.length == 0){
+    return;
+  }
+
   fill(200, 100, 100);
   ellipse(points[0].x, points[0].y, 10, 10);
   ellipse(points[1].x, points[1].y, 10, 10);

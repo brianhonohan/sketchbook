@@ -39,6 +39,11 @@ class CircleLineIntersection {
     this.quadratic = new QuadraticEquation(this.helperA, this.helperB, this.helperC);
 
     const smallRoot = this.quadratic.root(-1);
+
+    if (smallRoot == QuadraticEquation.IMAGINARY){
+      return [];
+    }
+
     const largeRoot = this.quadratic.root(1);
 
     const yOfSmallRoot = this.line.valueAt(smallRoot);
