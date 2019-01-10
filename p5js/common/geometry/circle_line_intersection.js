@@ -40,6 +40,8 @@ class CircleLineIntersection {
 
     if (slope == Infinity || slope == -Infinity){
       return this.calcForVerticalLine();
+    } else if (slope == 0){
+      return this.calcForHorizontalLine();
     }
 
     return this.calcForNonInfiniteSlope();
@@ -47,6 +49,10 @@ class CircleLineIntersection {
 
   calcForVerticalLine(){
     return this.circle.pointsAtX(this.line.xOffset);
+  }
+
+  calcForHorizontalLine(){
+    return this.circle.pointsAtY(this.line.offset);
   }
 
   calcForNonInfiniteSlope(){

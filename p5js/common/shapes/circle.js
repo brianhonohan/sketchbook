@@ -9,6 +9,8 @@ class Circle {
   get y() { return this.pos.y; }
   get minX() { return this.pos.x - this.radius; }
   get maxX() { return this.pos.x + this.radius; }
+  get minY() { return this.pos.y - this.radius; }
+  get maxY() { return this.pos.y + this.radius; }
 
   pointsAtX(x) {
     if (x < this.minX || x > this.maxX) {
@@ -22,6 +24,20 @@ class Circle {
     const dy = Math.pow(rSquared - dx*dx, 0.5);
 
     return [{x: x, y: this.y + dy}, {x: x, y: this.y - dy}];
+  }
+
+  pointsAtY(y) {
+    if (y < this.minY || y > this.maxY) {
+      return [];
+    }
+
+    // dx^2 + dy^2 = r^2
+    // dx = (r^2 - dy^2) ^ 0.5
+    const dy = this.y - y;
+    const rSquared = Math.pow(this.radius, 2);
+    const dx = Math.pow(rSquared - dy*dy, 0.5);
+
+    return [{x: this.x + dx, y: y}, {x: this.x - dx, y: y}];
   }
 
   containsXY(x, y){
