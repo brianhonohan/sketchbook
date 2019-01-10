@@ -12,6 +12,11 @@ class LineSegment {
 
   getLine(){
     let slope = this.slope();
+    if (slope == Infinity || slope == -Infinity){
+      return new VerticalLine(this.startX);
+    } else if (slope == 0){
+      return new HorizontalLine(this.startY);
+    }
 
     let line = new Line(slope);
     line.offset = this.startY + slope * (0 - this.startX);

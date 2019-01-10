@@ -28,3 +28,46 @@ class Line {
     return new Line(-1 / this.slope, undefined);
   }
 }
+
+// Special Cases below - to avoid divide-by-zero cases.
+
+class VerticalLine {
+  constructor(xOffset){
+    this.slope = Infinity;
+    this.offset = undefined;
+    this.xOffset = xOffset;
+  }
+
+  valueAt(x){ return undefined; }
+
+  reflectPoint(point){
+    let reflectedPoint = {x: point.x, y: point.y};
+    reflectedPoint.x = this.xOffset - (point.x - this.xOffset);
+    return reflectedPoint;
+  }
+
+  perpendicularBisector(){
+    return new HorizontalLine(0, undefined);
+  }
+}
+
+
+class HorizontalLine {
+  constructor(yOffset){
+    this.slope = 0;
+    this.offset = yOffset;
+  }
+
+  valueAt(x){ return this.offset; }
+
+  reflectPoint(point){
+    let reflectedPoint = {x: point.x, y: point.y};
+    reflectedPoint.y = this.offset - (point.y - this.offset);
+    return reflectedPoint;
+  }
+
+  perpendicularBisector(){
+    return new VerticalLine(undefined);
+  }
+}
+
