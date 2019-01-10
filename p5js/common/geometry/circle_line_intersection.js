@@ -36,6 +36,20 @@ class CircleLineIntersection {
   }
 
   intersectionPoints(){
+    let slope = this.line.slope;
+
+    if (slope == Infinity || slope == -Infinity){
+      return this.calcForVerticalLine();
+    }
+
+    return this.calcForNonInfiniteSlope();
+  }
+
+  calcForVerticalLine(){
+    return this.circle.pointsAtX(this.line.xOffset);
+  }
+
+  calcForNonInfiniteSlope(){
     this.quadratic = new QuadraticEquation(this.helperA, this.helperB, this.helperC);
 
     const smallRoot = this.quadratic.root(-1);
