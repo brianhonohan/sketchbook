@@ -3,6 +3,10 @@ class LineSegment {
   float startY;
   float endX;
   float endY;
+  
+  // for Mouse Interactions
+  boolean draggingStart;
+  boolean draggingEnd;
 
   LineSegment(float x1, float y1, float x2, float y2){
     this.startX = x1;
@@ -26,5 +30,50 @@ class LineSegment {
     Line line = new Line(slope);
     line.offset = this.startY + slope * (0 - this.startX);
     return line;
+  }
+  
+  boolean isMouseOverPoint(float x, float y){
+    return dist(x, y, mouseX, mouseY) < 10;
+  }
+
+  void handleMousePressed(){
+    this.draggingStart = this.isMouseOverPoint(this.startX, this.startY);
+    this.draggingEnd = !this.draggingStart && this.isMouseOverPoint(this.endX, this.endY);
+  }
+
+  void handleMouseDragged(){
+    if (this.draggingStart){
+      this.startX = mouseX;
+      this.startY = mouseY;
+    }
+
+    if (this.draggingEnd){
+      this.endX = mouseX;
+      this.endY = mouseY;
+    }
+  }
+
+  void handleMouseReleased(){
+    this.draggingStart = false;
+    this.draggingEnd = false;
+  }
+
+  void draw(){
+    line(this.startX, this.startY, this.endX, this.endY);
+  }
+
+  void drawDraggablePoints(){
+    this.drawPointAt(this.startX, this.startY);
+    this.drawPointAt(this.endX, this.endY);
+  }
+
+  void drawPointAt(float x, float y){
+    if (this.isMouseOverPoint(x, y)){
+      fill(200, 200, 100);
+    }else {
+      fill(100, 200, 100);
+    }
+    noStroke();
+    ellipse(x, y, 10, 10);
   }
 }
