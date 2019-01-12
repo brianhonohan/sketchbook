@@ -115,18 +115,26 @@ class HockeyRink {
       return CONSTRAINT_NONE;
     }
     
+    LineSegment trajectory = new LineSegment(from.x, from.y, obj.x(), obj.y());
+
     if (obj.minX() < this.westEndOpenSpace.minX()){
-      if (obj.minY() < this.westEndOpenSpace.minY()){
+      float deltaX = (this.westEndOpenSpace.minX() - from.x);
+      float yAtViolation = from.y + trajectory.slope() * deltaX;
+      
+      if (yAtViolation < this.westEndOpenSpace.minY()){
         return HockeyRink.CONSTRAINT_NW_CORNER;
-      } else if (obj.maxY() > this.westEndOpenSpace.maxY()){
+      } else if (yAtViolation > this.westEndOpenSpace.maxY()){
         return HockeyRink.CONSTRAINT_SW_CORNER;
       } else {
         return HockeyRink.CONSTRAINT_W_BOARD;
       }
     } else if (obj.maxX() > this.eastEndOpenSpace.maxX()){
-      if (obj.minY() < this.eastEndOpenSpace.minY()){
+      float deltaX = (this.eastEndOpenSpace.maxX() - from.x);
+      float yAtViolation = from.y + trajectory.slope() * deltaX;
+
+      if (yAtViolation < this.eastEndOpenSpace.minY()){
         return HockeyRink.CONSTRAINT_NE_CORNER;
-      } else if (obj.maxY() > this.eastEndOpenSpace.maxY()){
+      } else if (yAtViolation > this.eastEndOpenSpace.maxY()){
         return HockeyRink.CONSTRAINT_SE_CORNER;
       } else {
         return HockeyRink.CONSTRAINT_E_BOARD;
