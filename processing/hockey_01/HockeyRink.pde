@@ -142,17 +142,23 @@ class HockeyRink {
     }
 
     if (obj.minY() < this.mainOpenSpace.minY()){
-      if (obj.minX() < this.mainOpenSpace.minX()){
+      float deltaY = (this.mainOpenSpace.minY() - from.y);
+      float xAtViolation = from.x + deltaY / trajectory.slope();
+
+      if (xAtViolation < this.mainOpenSpace.minX()){
         return HockeyRink.CONSTRAINT_NW_CORNER;
-      } else if (obj.maxX() > this.mainOpenSpace.maxX()){
-        return HockeyRink.CONSTRAINT_SW_CORNER;
+      } else if (xAtViolation > this.mainOpenSpace.maxX()){
+        return HockeyRink.CONSTRAINT_NE_CORNER;
       } else {
         return HockeyRink.CONSTRAINT_N_BOARD;
       }
     } else if (obj.maxY() > this.mainOpenSpace.maxY()){
-      if (obj.minX() < this.mainOpenSpace.minX()){
-        return HockeyRink.CONSTRAINT_NE_CORNER;
-      } else if (obj.maxX() > this.mainOpenSpace.maxX()){
+      float deltaY = (this.mainOpenSpace.maxY() - from.y);
+      float xAtViolation = from.x + deltaY / trajectory.slope();
+      
+      if (xAtViolation < this.mainOpenSpace.minX()){
+        return HockeyRink.CONSTRAINT_SW_CORNER;
+      } else if (xAtViolation > this.mainOpenSpace.maxX()){
         return HockeyRink.CONSTRAINT_SE_CORNER;
       } else {
         return HockeyRink.CONSTRAINT_S_BOARD;
