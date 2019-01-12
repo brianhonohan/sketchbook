@@ -23,6 +23,10 @@ class HockeyRink {
   Rect secondaryOpenSpace;
   Rect westEndOpenSpace;
   Rect eastEndOpenSpace;
+  Circle nwCorner;
+  Circle neCorner;
+  Circle seCorner;
+  Circle swCorner;
   
   HockeyRink(){
     restoreDefaults(); 
@@ -62,6 +66,11 @@ class HockeyRink {
                                 this._cornerRadius, this._width - 2 * this._cornerRadius);
     eastEndOpenSpace = new Rect(this._length - this._cornerRadius, this._cornerRadius,
                                 this._cornerRadius, this._width - 2 * this._cornerRadius);
+                                
+    nwCorner = new Circle(this._cornerRadius, this._cornerRadius, this._cornerRadius);
+    neCorner = new Circle(this._length - this._cornerRadius, this._cornerRadius, this._cornerRadius);
+    seCorner = new Circle(this._length - this._cornerRadius, this._width - this._cornerRadius, this._cornerRadius);
+    swCorner = new Circle(this._cornerRadius, this._width - this._cornerRadius, this._cornerRadius);
   }
   
   PVector centerFaceoffSpot(){

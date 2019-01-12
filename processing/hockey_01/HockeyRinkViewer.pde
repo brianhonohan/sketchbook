@@ -399,6 +399,12 @@ class HockeyRinkViewer {
     
     fill(220, 100, 100, 100);
     rink.secondaryOpenSpace.draw();
+    
+    fill(220, 100, 220, 100);
+    rink.nwCorner.draw();
+    rink.neCorner.draw();
+    rink.seCorner.draw();
+    rink.swCorner.draw();
     popMatrix();
   }
 }
