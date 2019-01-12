@@ -58,6 +58,11 @@ class Circle implements Shape {
     return  dist(x, y, this.pos.x, this.pos.y) < this.radius;
   }
 
+  boolean contains(Circle other){
+    float distToOther = dist(other.x(), other.y(), this.x(), this.y());
+    return (distToOther + other.radius) < this.radius;
+  }
+
   void draw(){
     ellipseMode(CENTER);
     ellipse(this.pos.x, this.pos.y, this.radius * 2, this.radius * 2);

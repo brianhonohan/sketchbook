@@ -176,6 +176,32 @@ class HockeyRink {
         return HockeyRink.CONSTRAINT_S_BOARD;
       } 
     }
+    
+    // In a corner, may nore may not have hit the corner board
+    Circle cornerToCheck;
+    int constraintIfViolation;
+    
+    if (obj.minX() < this.mainOpenSpace.minX()){
+      if (obj.minY() < westEndOpenSpace.minY()){
+        cornerToCheck = this.nwCorner;
+        constraintIfViolation = HockeyRink.CONSTRAINT_NW_CORNER;
+      } else {
+        cornerToCheck = this.swCorner;
+        constraintIfViolation = HockeyRink.CONSTRAINT_SW_CORNER;
+      }
+    } else {
+      if (obj.minY() < eastEndOpenSpace.minY()){
+        cornerToCheck = this.neCorner;
+        constraintIfViolation = HockeyRink.CONSTRAINT_NE_CORNER;
+      } else {
+        cornerToCheck = this.seCorner;
+        constraintIfViolation = HockeyRink.CONSTRAINT_SE_CORNER;
+      }
+    }
+
+    if (!cornerToCheck.contains((Circle)obj)){
+      return constraintIfViolation;
+    }
 
     return CONSTRAINT_UNKNOWN;
   }
