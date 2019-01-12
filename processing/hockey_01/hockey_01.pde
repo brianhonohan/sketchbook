@@ -66,8 +66,12 @@ void displayMockTrajectory(){
   
   float puckX = transformXToRinkX(lineSeg.endX);
   float puckY = transformYToRinkY(lineSeg.endY);
-  testingPuck.moveTo(puckX, puckY);
+  testingPuck.circle.pos.x = puckX;
+  testingPuck.circle.pos.y = puckY;
   ellipse(lineSeg.endX, lineSeg.endY, 10, 10);
+  
+  int violation = rink.constraintViolated(testingPuckStart, testingPuck.circle);
+  text("Violation: " + violation, 100, 10);
 }
 
 float transformXToRinkX(float x){
