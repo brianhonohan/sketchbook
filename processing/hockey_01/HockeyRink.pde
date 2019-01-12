@@ -20,6 +20,7 @@ class HockeyRink {
   float _creaseLength;
   float _creaseSemiArcDepth;
   Rect mainOpenSpace;
+  Rect secondaryOpenSpace;
   Rect westEndOpenSpace;
   Rect eastEndOpenSpace;
   
@@ -55,6 +56,8 @@ class HockeyRink {
     
     mainOpenSpace = new Rect(this._cornerRadius, 0,
                              this._length - 2 * this._cornerRadius, this._width);
+    float xSecondaryArea = (float)(this._cornerRadius - Math.pow(this._cornerRadius * this._cornerRadius / 2, 0.5));
+    secondaryOpenSpace = new Rect(xSecondaryArea, xSecondaryArea, this._length - 2*xSecondaryArea, this._width - 2*xSecondaryArea);
     westEndOpenSpace = new Rect(0, this._cornerRadius,
                                 this._cornerRadius, this._width - 2 * this._cornerRadius);
     eastEndOpenSpace = new Rect(this._length - this._cornerRadius, this._cornerRadius,
@@ -170,6 +173,7 @@ class HockeyRink {
 
   boolean isInSimpleOpenSpace(Shape obj){
     return this.mainOpenSpace.contains(obj)
+        || this.secondaryOpenSpace.contains(obj)
         || this.westEndOpenSpace.contains(obj)
         || this.eastEndOpenSpace.contains(obj);
   }

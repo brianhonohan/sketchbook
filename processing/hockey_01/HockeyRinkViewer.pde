@@ -50,7 +50,7 @@ class HockeyRinkViewer {
     drawEndZoneDots();
     drawGoalieTrapZones();
 
-    //debugOpenAreas();
+    debugOpenAreas();
   }
 
   void drawIce() {
@@ -388,14 +388,17 @@ class HockeyRinkViewer {
     pushMatrix();
     scale(_scale);
     noStroke();
-    fill(100, 250, 100, 50);
+    fill(100, 250, 100, 100);
     rink.mainOpenSpace.draw();
 
-    fill(220, 220, 100, 50);
+    fill(220, 220, 100, 100);
     rink.westEndOpenSpace.draw();
 
-    fill(220, 220, 100, 50);
+    fill(220, 220, 100, 100);
     rink.eastEndOpenSpace.draw();
+    
+    fill(220, 100, 100, 100);
+    rink.secondaryOpenSpace.draw();
     popMatrix();
   }
 }
