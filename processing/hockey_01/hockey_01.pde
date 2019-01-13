@@ -72,6 +72,9 @@ void displayMockTrajectory(){
   
   int violation = rink.constraintViolated(testingPuckStart, testingPuck.circle);
   text("Violation: " + violation, 100, 10);
+  
+  PVector dummyVec = new PVector();
+  rink.constrainMovement(testingPuckStart, testingPuck.circle, dummyVec);
 }
 
 float transformXToRinkX(float x){

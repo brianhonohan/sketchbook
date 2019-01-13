@@ -32,6 +32,8 @@ class HockeyRink {
   Rect seRect;
   Rect swRect;
   
+  boolean debuggingCornerCollision;
+  
   HockeyRink(){
     restoreDefaults(); 
   }
@@ -80,6 +82,8 @@ class HockeyRink {
     neRect = new Rect(this._length - this._cornerRadius, 0,  this._cornerRadius, this._cornerRadius);
     seRect = new Rect(this._length - this._cornerRadius, this._width - this._cornerRadius,  this._cornerRadius, this._cornerRadius);
     swRect = new Rect(0, this._width - this._cornerRadius,  this._cornerRadius, this._cornerRadius);
+    
+    debuggingCornerCollision = true;
   }
   
   PVector centerFaceoffSpot(){
@@ -234,14 +238,20 @@ class HockeyRink {
     
     CircleLineIntersection intersectionCalc = new CircleLineIntersection(corner, trajAsLine);
     PVector[] points = intersectionCalc.intersectionPoints();
+    
+    this.startDebuggingCornerCollision();
+    this.debugCollisionRects(tracjectoryBounds, cornerRect);
+    
     PVector intersectionPt = null;
     for (int i = 0; i < points.length; i++){
       PVector tmpPoint = points[i];
+      debugCornerCollisionPoint(tmpPoint);
       if (cornerRect.containsPoint(tmpPoint) && tracjectoryBounds.containsPoint(tmpPoint)){
         intersectionPt = tmpPoint;
         break;
       }
     }
+    finishDebuggingCornerCollision();
     
     if (intersectionPt == null){
       println("ERROR in finding intersection point"); 
@@ -266,5 +276,37 @@ class HockeyRink {
         || this.secondaryOpenSpace.contains(obj)
         || this.westEndOpenSpace.contains(obj)
         || this.eastEndOpenSpace.contains(obj);
+  }
+  
+  void startDebuggingCornerCollision(){
+    if (debuggingCornerCollision == false){
+      return;
+    }
+    pushMatrix();
+    translate(rinkViewer._x, rinkViewer._y);
+    scale(rinkViewer._scale);
+  }
+
+  void debugCollisionRects(Rect tracjectoryBounds, Rect cornerRect){
+    fill(50, 200, 200, 100);
+    cornerRect.draw();
+    
+    fill(200, 200, 50, 100);
+    tracjectoryBounds.draw();
+  }
+
+  void debugCornerCollisionPoint(PVector point){
+    if (debuggingCornerCollision == false){
+      return;
+    }
+    fill(200, 50, 200);
+    ellipse(point.x, point.y, 3, 3);
+  }
+
+  void finishDebuggingCornerCollision(){
+    if (debuggingCornerCollision == false){
+      return;
+    }
+    popMatrix();
   }
 }
