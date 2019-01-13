@@ -51,6 +51,11 @@ class Rect implements Shape {
     return this.minX() <= x && x < this.maxX() 
            && this.minY() <= y && y < this.maxY();
   }
+
+  boolean containsPoint(PVector point){ 
+    return this.minX() <= point.x && point.x < this.maxX() 
+           && this.minY() <= point.y && point.y < this.maxY();
+  }
   
   String toString(){
     return "Rect ... x: " + int(this._x) + " y: " + int(_y) 
@@ -61,4 +66,13 @@ class Rect implements Shape {
     rectMode(CORNER);
     rect(this._x, this._y, this._width, this._height);
   }
+}
+
+// in leiu of a Rect.fromCorners(c1, c2) static method (because of inner-class nature of Processing files)
+Rect rectFromCorners(float x1, float y1, float x2, float y2){
+  float x = min(x1, x2);
+  float y = min(y1, y2);
+  float rWidth = abs(x1 - x2);
+  float rHeight = abs(y1 - y2);
+  return new Rect(x, y, rWidth, rHeight);
 }

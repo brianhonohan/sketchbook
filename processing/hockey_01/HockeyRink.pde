@@ -27,6 +27,10 @@ class HockeyRink {
   Circle neCorner;
   Circle seCorner;
   Circle swCorner;
+  Rect nwRect;
+  Rect neRect;
+  Rect seRect;
+  Rect swRect;
   
   HockeyRink(){
     restoreDefaults(); 
@@ -71,6 +75,11 @@ class HockeyRink {
     neCorner = new Circle(this._length - this._cornerRadius, this._cornerRadius, this._cornerRadius);
     seCorner = new Circle(this._length - this._cornerRadius, this._width - this._cornerRadius, this._cornerRadius);
     swCorner = new Circle(this._cornerRadius, this._width - this._cornerRadius, this._cornerRadius);
+    
+    nwRect = new Rect(0, 0,  this._cornerRadius, this._cornerRadius);
+    neRect = new Rect(this._length - this._cornerRadius, 0,  this._cornerRadius, this._cornerRadius);
+    seRect = new Rect(this._length - this._cornerRadius, this._width - this._cornerRadius,  this._cornerRadius, this._cornerRadius);
+    swRect = new Rect(0, this._width - this._cornerRadius,  this._cornerRadius, this._cornerRadius);
   }
   
   PVector centerFaceoffSpot(){
@@ -88,7 +97,7 @@ class HockeyRink {
   public static final int CONSTRAINT_N_BOARD    = 7;
   public static final int CONSTRAINT_S_BOARD    = 8;
   
-  void constrainMovement(PVector from, Shape to, PVector vel){
+  void constrainMovement(PVector from, Circle to, PVector vel){
     // if the 'to' location is allowed, don't affect the velocity
     int violation = this.constraintViolated(from, to);
     float deltaX;
@@ -116,6 +125,18 @@ class HockeyRink {
         vel.y *= -1;
         deltaY = 2 * (this.mainOpenSpace.maxY() - to.maxY());
         to.move(0, deltaY);
+        return;
+      case HockeyRink.CONSTRAINT_NW_CORNER:
+        this.bounceOffCorner(from, to, vel, this.nwCorner, this.nwRect);
+        return;
+      case HockeyRink.CONSTRAINT_NE_CORNER:
+        this.bounceOffCorner(from, to, vel, this.neCorner, this.neRect);
+        return;
+      case HockeyRink.CONSTRAINT_SE_CORNER:
+        this.bounceOffCorner(from, to, vel, this.seCorner, this.seRect);
+        return;
+      case HockeyRink.CONSTRAINT_SW_CORNER:
+        this.bounceOffCorner(from, to, vel, this.swCorner, this.swRect);
         return;
       case HockeyRink.CONSTRAINT_UNKNOWN:
         return;
@@ -204,6 +225,40 @@ class HockeyRink {
     }
 
     return CONSTRAINT_NONE;
+  }
+  
+  void bounceOffCorner(PVector from, Circle to, PVector vel, Circle corner, Rect cornerRect){
+    LineSegment trajectory = new LineSegment(from.x, from.y, to.x(), to.y());
+    Line trajAsLine = trajectory.getLine();
+    Rect tracjectoryBounds = rectFromCorners(from.x, from.y, to.x(), to.y());
+    
+    CircleLineIntersection intersectionCalc = new CircleLineIntersection(corner, trajAsLine);
+    PVector[] points = intersectionCalc.intersectionPoints();
+    PVector intersectionPt = null;
+    for (int i = 0; i < points.length; i++){
+      PVector tmpPoint = points[i];
+      if (cornerRect.containsPoint(tmpPoint) && tracjectoryBounds.containsPoint(tmpPoint)){
+        intersectionPt = tmpPoint;
+        break;
+      }
+    }
+    
+    if (intersectionPt == null){
+      println("ERROR in finding intersection point"); 
+      return;
+    }
+
+    PVector vecInterPtFrom   = new PVector(from.x - intersectionPt.x, from.y - intersectionPt.y);
+    PVector vecInterPtCenter = new PVector(to.x() - intersectionPt.x, to.y() - intersectionPt.y);
+    float betaAngle = PVector.angleBetween(vecInterPtCenter, vecInterPtFrom);
+    
+    PVector reboundTraj = new PVector(intersectionPt.x - to.x(), intersectionPt.y - to.y());
+    reboundTraj.rotate(PI - 2 * betaAngle);
+    to.pos.x = intersectionPt.x + reboundTraj.x;
+    to.pos.y = intersectionPt.y + reboundTraj.y;
+    
+    reboundTraj.setMag(vel.mag());
+    vel.set(reboundTraj.x, reboundTraj.y);
   }
 
   boolean isInSimpleOpenSpace(Shape obj){
