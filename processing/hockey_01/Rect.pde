@@ -33,15 +33,15 @@ class Rect implements Shape {
             && this.minY() < other.minY() && this.maxY() > other.maxY();
   }
 
-  void expandToIncludeRect(Rect otherRect){
+  void expandToInclude(Shape otherShape){
     float maxX = this.maxX();
     float maxY = this.maxY();
 
-    this._x = min(this._x, otherRect._x);
-    this._y = min(this._y, otherRect._y);
+    this._x = min(this._x, otherShape.minX());
+    this._y = min(this._y, otherShape.minY());
 
-    maxX = max(maxX, otherRect.maxX());
-    maxY = max(maxY, otherRect.maxY());
+    maxX = max(maxX, otherShape.maxX());
+    maxY = max(maxY, otherShape.maxY());
 
     this._width  = maxX - this._x;
     this._height = maxY - this._y;
