@@ -51,6 +51,7 @@ void draw(){
 }
 
 void debugFrameRate(){
+  fill(0);
   text(frameRate, 10, 10);
 }
 
@@ -106,5 +107,7 @@ void mouseDragged(){
 void keyPressed(){
   if (key == 'p'){
      saveFrame("screenshot-######.png");
+  } else if (key == 's') {
+    puck.vel.mult(0);
   }
 }
