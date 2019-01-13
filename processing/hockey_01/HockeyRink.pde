@@ -203,7 +203,7 @@ class HockeyRink {
       return constraintIfViolation;
     }
 
-    return CONSTRAINT_UNKNOWN;
+    return CONSTRAINT_NONE;
   }
 
   boolean isInSimpleOpenSpace(Shape obj){
