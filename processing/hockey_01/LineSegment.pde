@@ -32,6 +32,10 @@ class LineSegment {
     return line;
   }
   
+  PVector getVector(){
+    return new PVector(this.dx(), this.dy());
+  }
+  
   boolean isMouseOverPoint(float x, float y){
     return dist(x, y, mouseX, mouseY) < 10;
   }

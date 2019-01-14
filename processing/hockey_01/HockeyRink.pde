@@ -289,6 +289,7 @@ class HockeyRink {
   }
 
   void debugCollisionRects(Rect tracjectoryBounds, Rect cornerRect){
+    noStroke();
     fill(50, 200, 200, 100);
     cornerRect.draw();
     
@@ -300,6 +301,7 @@ class HockeyRink {
     if (debuggingCornerCollision == false){
       return;
     }
+    noStroke();
     fill(200, 50, 200);
     ellipse(point.x, point.y, 3, 3);
   }

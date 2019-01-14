@@ -59,8 +59,6 @@ void displayMockTrajectory(){
   stroke(50, 200, 50);
   strokeWeight(4);
   lineSeg.draw();
-  noStroke();
-  fill(30);
   
   testingPuckStart.x = transformXToRinkX(lineSeg.startX);
   testingPuckStart.y = transformYToRinkY(lineSeg.startY);
@@ -69,13 +67,29 @@ void displayMockTrajectory(){
   float puckY = transformYToRinkY(lineSeg.endY);
   testingPuck.circle.pos.x = puckX;
   testingPuck.circle.pos.y = puckY;
-  ellipse(lineSeg.endX, lineSeg.endY, 10, 10);
   
   int violation = rink.constraintViolated(testingPuckStart, testingPuck.circle);
   text("Violation: " + violation, 100, 10);
   
-  PVector dummyVec = new PVector();
-  rink.constrainMovement(testingPuckStart, testingPuck.circle, dummyVec);
+  PVector dummyVel = lineSeg.getVector();
+  dummyVel.setMag(20);
+  rink.constrainMovement(testingPuckStart, testingPuck.circle, dummyVel);
+  
+  float scaledX = transformRinkXToX(testingPuck.x());
+  float scaledY = transformRinkYToY(testingPuck.y());
+  
+  if (scaledX != lineSeg.endX || scaledY != lineSeg.endY){
+    noStroke();
+    fill(255, 150, 100);
+    ellipse(lineSeg.endX, lineSeg.endY, 10, 10);
+  }
+  
+  noStroke();
+  fill(30);
+  ellipse(scaledX, scaledY, 10, 10);
+  
+  stroke(255, 150, 100);
+  line(scaledX, scaledY, scaledX + dummyVel.x, scaledY + dummyVel.y);
 }
 
 float transformXToRinkX(float x){
@@ -84,6 +98,14 @@ float transformXToRinkX(float x){
 
 float transformYToRinkY(float y){
   return (y - rinkViewer._y) / rinkViewer._scale;
+}
+
+float transformRinkXToX(float x){
+  return rinkViewer._x + x * rinkViewer._scale;
+}
+
+float transformRinkYToY(float y){
+  return rinkViewer._y + y * rinkViewer._scale;
 }
 
 void mousePressed(){
