@@ -29,8 +29,8 @@ class Rect implements Shape {
   float centerY(){ return this._y + this._height / 2; }
 
   boolean contains(Shape other){
-    return this.minX() < other.minX() && this.maxX() > other.maxX()
-            && this.minY() < other.minY() && this.maxY() > other.maxY();
+    return this.minX() <= other.minX() && this.maxX() >= other.maxX()
+            && this.minY() <= other.minY() && this.maxY() >= other.maxY();
   }
 
   void expandToInclude(Shape otherShape){
@@ -48,13 +48,12 @@ class Rect implements Shape {
   }
 
   boolean containsXY(float x, float y){ 
-    return this.minX() <= x && x < this.maxX() 
-           && this.minY() <= y && y < this.maxY();
+    return this.minX() <= x && x <= this.maxX() 
+           && this.minY() <= y && y <= this.maxY();
   }
 
   boolean containsPoint(PVector point){ 
-    return this.minX() <= point.x && point.x < this.maxX() 
-           && this.minY() <= point.y && point.y < this.maxY();
+    return this.containsXY(point.x, point.y);
   }
   
   String toString(){
