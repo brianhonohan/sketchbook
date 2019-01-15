@@ -246,18 +246,19 @@ class HockeyRink {
     PVector intersectionPt = null;
     for (int i = 0; i < points.length; i++){
       PVector tmpPoint = points[i];
-      debugCornerCollisionPoint(tmpPoint);
       if (cornerRect.containsPoint(tmpPoint) && tracjectoryBounds.containsPoint(tmpPoint)){
         intersectionPt = tmpPoint;
         break;
       }
     }
-    finishDebuggingCornerCollision();
     
     if (intersectionPt == null){
       println("ERROR in finding intersection point"); 
+      finishDebuggingCornerCollision();
       return;
     }
+    debugCornerCollisionPoint(intersectionPt);
+    finishDebuggingCornerCollision();
 
     PVector vecInterPtFrom   = new PVector(from.x - intersectionPt.x, from.y - intersectionPt.y);
     PVector vecInterPtCenter = new PVector(to.x() - intersectionPt.x, to.y() - intersectionPt.y);
