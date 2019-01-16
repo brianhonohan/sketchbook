@@ -50,7 +50,7 @@ class HockeyRinkViewer {
     drawEndZoneDots();
     drawGoalieTrapZones();
 
-    debugOpenAreas();
+    //debugOpenAreas();
   }
 
   void drawIce() {

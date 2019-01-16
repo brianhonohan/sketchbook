@@ -52,7 +52,7 @@ void draw(){
 
 void debugFrameRate(){
   fill(0);
-  text(frameRate, 10, 10);
+  text(frameRate, 10, 15);
 }
 
 void displayMockTrajectory(){
@@ -69,7 +69,7 @@ void displayMockTrajectory(){
   testingPuck.circle.pos.y = puckY;
   
   int violation = rink.constraintViolated(testingPuckStart, testingPuck.circle);
-  text("Violation: " + violation, 100, 10);
+  text("Violation: " + violation, 100, 15);
   
   PVector dummyVel = lineSeg.getVector();
   dummyVel.setMag(20);
