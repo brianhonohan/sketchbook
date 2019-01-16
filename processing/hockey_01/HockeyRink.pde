@@ -261,7 +261,7 @@ class HockeyRink {
     finishDebuggingCornerCollision();
 
     PVector vecInterPtFrom   = new PVector(from.x - intersectionPt.x, from.y - intersectionPt.y);
-    PVector vecInterPtCenter = new PVector(to.x() - intersectionPt.x, to.y() - intersectionPt.y);
+    PVector vecInterPtCenter = new PVector(corner.x() - intersectionPt.x, corner.y() - intersectionPt.y);
     float betaAngle = this.rotationBetweenVectors(vecInterPtCenter, vecInterPtFrom);
     
     PVector reboundTraj = new PVector(intersectionPt.x - to.x(), intersectionPt.y - to.y());
