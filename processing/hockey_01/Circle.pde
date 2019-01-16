@@ -6,6 +6,10 @@ class Circle implements Shape {
     this.pos = new PVector(x, y);
     this.radius = radius;
   }
+  
+  Circle copy(){
+    return new Circle(this.pos.x, this.pos.y, this.radius); 
+  }
 
   float x() { return this.pos.x; }
   float y() { return this.pos.y; }

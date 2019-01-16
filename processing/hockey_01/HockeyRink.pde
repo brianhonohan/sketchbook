@@ -237,7 +237,9 @@ class HockeyRink {
     Rect tracjectoryBounds = rectFromCorners(from.x, from.y, to.x(), to.y());
     tracjectoryBounds.expandToInclude(to);
 
-    CircleLineIntersection intersectionCalc = new CircleLineIntersection(corner, trajAsLine);
+    Circle trimmedCircle = corner.copy();
+    trimmedCircle.radius -= to.radius;
+    CircleLineIntersection intersectionCalc = new CircleLineIntersection(trimmedCircle, trajAsLine);
     PVector[] points = intersectionCalc.intersectionPoints();
     
     this.startDebuggingCornerCollision();
