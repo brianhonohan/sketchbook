@@ -262,7 +262,7 @@ class HockeyRink {
 
     PVector vecInterPtFrom   = new PVector(from.x - intersectionPt.x, from.y - intersectionPt.y);
     PVector vecInterPtCenter = new PVector(to.x() - intersectionPt.x, to.y() - intersectionPt.y);
-    float betaAngle = PVector.angleBetween(vecInterPtCenter, vecInterPtFrom);
+    float betaAngle = this.rotationBetweenVectors(vecInterPtCenter, vecInterPtFrom);
     
     PVector reboundTraj = new PVector(intersectionPt.x - to.x(), intersectionPt.y - to.y());
     reboundTraj.rotate(PI - 2 * betaAngle);
@@ -271,6 +271,12 @@ class HockeyRink {
     
     reboundTraj.setMag(vel.mag());
     vel.set(reboundTraj.x, reboundTraj.y);
+  }
+  
+  float rotationBetweenVectors(PVector v1, PVector v2){
+    float h1 = v1.heading();
+    PVector h2 = v2.copy().rotate(-h1);
+    return h2.heading();
   }
 
   boolean isInSimpleOpenSpace(Shape obj){
