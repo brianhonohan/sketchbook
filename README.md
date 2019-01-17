@@ -5,9 +5,9 @@ Collection of personal coding projects. They may or may not grow into individual
 
 ## Latest 
 
-A p5.js sketch to draw snowflakes:
+A Processing sketch to determine Hockey Rink constraints:
 
-[<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/snowflake-pen/screenshot-01.png" alt="snowflake-pen" width="150px" />][link-p5js-snowflake-pen]
+[<img src="https://github.com/brianhonohan/sketchbook/raw/master/processing/hockey_01/screenshot-01.png" alt="hockey_01" width="150px" />][link-hockey_01]
 
 ## p5.js
 Collection of sketches using the [p5.js][p5js] Javascript library.
@@ -47,6 +47,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/processing/game_of_life/screenshot-01.png" alt="game_of_life" width="150px" />][link-game_of_life]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/processing/hexagonal/screenshot-01.png" alt="hexagonal" width="150px" />][link-hexagonal]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/processing/hockey/screenshot-01.png" alt="hockey" width="150px" />][link-hockey]
+[<img src="https://github.com/brianhonohan/sketchbook/raw/master/processing/hockey_01/screenshot-01.png" alt="hockey_01" width="150px" />][link-hockey_01]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/processing/interaction_of_color/screenshot-01.png" alt="interaction_of_color" width="150px" />][link-interaction_of_color]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/processing/keyviz/screenshot-01.png" alt="keyviz" width="150px" />][link-keyviz]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/processing/network/screenshot-01.png" alt="network" width="150px" />][link-network]
@@ -92,6 +93,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-game_of_life]: https://github.com/brianhonohan/sketchbook/tree/master/processing/game_of_life
 [link-hexagonal]: https://github.com/brianhonohan/sketchbook/tree/master/processing/hexagonal
 [link-hockey]: https://github.com/brianhonohan/sketchbook/tree/master/processing/hockey
+[link-hockey_01]: https://github.com/brianhonohan/sketchbook/tree/master/processing/hockey_01
 [link-interaction_of_color]: https://github.com/brianhonohan/sketchbook/tree/master/processing/interaction_of_color
 [link-keyviz]: https://github.com/brianhonohan/sketchbook/tree/master/processing/keyviz
 [link-network]: https://github.com/brianhonohan/sketchbook/tree/master/processing/network
