@@ -3,6 +3,9 @@ class System {
     this.sizeAndPosition = p_xSizeAndPos;
     this.optionsSet = new OptionsSet(this.optionsMetadata());
     this.settings = this.optionsSet.settings;
+
+    let rectSize = new Rect(0,40,300,120);
+    this.keyboard = new Keyboard(rectSize);
   }
 
   // Return a list of Options, specific to this sketch,
