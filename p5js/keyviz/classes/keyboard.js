@@ -2,6 +2,7 @@ class Keyboard{
   constructor(p_xSizeAndPos){
     this.sizeAndPosition = p_xSizeAndPos;
     this.margin = 2;
+    this.colorId = P5JsUtils.COLOR_ID_GREEN;
 
     // Set up calculated values
     this.keyWidth = 0;
@@ -75,7 +76,7 @@ class Keyboard{
     push();
     translate(this.x, this.y);
     const pt = this.getPointForKey(keyCode);
-    fill(0,200,0);
+    fill( P5JsUtils.getRandomColorByID(this.colorId) );
     rect(pt.x, pt.y, this.keyWidthForCode(keyCode), this.keyHeight );
     pop();
   }
