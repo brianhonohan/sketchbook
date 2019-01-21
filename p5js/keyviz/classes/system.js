@@ -6,6 +6,9 @@ class System {
 
     let rectSize = new Rect(0,40,300,120);
     this.keyboard = new Keyboard(rectSize);
+
+    let panelSize = new Rect(300,50,200,220);
+    this.controlPanel = new KeyvizControlPanel(panelSize);
   }
 
   // Return a list of Options, specific to this sketch,
@@ -21,9 +24,18 @@ class System {
     ];
   }
 
+  handleMousePressed(){
+    this.controlPanel.handleMousePressed();
+  }
+
+  handleMouseReleased(){
+    this.controlPanel.handleMouseReleased();
+  }
+
   tick(){
   }
 
-  render(){
+  draw(){
+    this.controlPanel.draw();
   }
 }

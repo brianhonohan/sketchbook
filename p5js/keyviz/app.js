@@ -14,9 +14,17 @@ function draw(){
   fill(0, 50);
   rect(0, 0, width, height);
   system.tick();
-  system.render();
+  system.draw();
 }
 
 function keyTyped(){
   system.keyboard.showPressedKey(key.charCodeAt(0));
+}
+
+function mousePressed(){
+  system.handleMousePressed();
+}
+
+function mouseReleased(){
+  system.handleMouseReleased();
 }
