@@ -1,9 +1,10 @@
 class Button{
-  constructor(id, label, x, y, width){
+  constructor(id, label, x, y, width, callback){
     this.id = id;
     this.label = label;
     this.sizeAndPos = new Rect(x, y, width, 24);
     this.state = Button.STATE_UNPRESSED;
+    this.callback = callback;
 
     this.margin = 5;
     this._color = color(120);
@@ -47,7 +48,11 @@ class Button{
     pop();
   }
   
-  releaseButton(){
+  releaseButton(x, y){
+    if (this.isHit(x, y) && this.callback){
+      this.callback.call();
+    }
+
     this.state = Button.STATE_UNPRESSED;
   }
   

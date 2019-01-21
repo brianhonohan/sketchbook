@@ -16,7 +16,7 @@ class UISet {
   }
 
   handleMouseReleased(){
-    this.uiElements.forEach((el) => el.releaseButton());
+    this.uiElements.forEach((el) => el.releaseButton(mouseX, mouseY));
   }
 
   draw(){
