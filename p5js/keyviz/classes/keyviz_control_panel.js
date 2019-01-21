@@ -18,7 +18,8 @@ class KeyvizControlPanel {
     buttonConfigs.forEach(btnConfig => {
       let newButton = new Button(btnConfig.id, 
                                  btnConfig.label, 
-                                 this.x, buttonYPos, buttonWidth);
+                                 this.x, buttonYPos, buttonWidth,
+                                 btnConfig.callback);
       this.uiSet.add(newButton);
       buttonYPos += 50;
     });
@@ -31,10 +32,10 @@ class KeyvizControlPanel {
 
   configForButtons(){
     return [
-      {id: KeyvizControlPanel.BTN_START_RECORDING, label: 'Start Recording'},
-      {id: KeyvizControlPanel.BTN_STOP_RECORDING, label: 'Stop Recording'},
-      {id: KeyvizControlPanel.BTN_REPLAY_RECORDING, label: 'Replay Recording'},
-      {id: KeyvizControlPanel.BTN_STOP_REPLAY, label: 'Stop Replay'}
+      {id: KeyvizControlPanel.BTN_START_RECORDING, label: 'Start Recording', callback: this.handleStartRecording},
+      {id: KeyvizControlPanel.BTN_STOP_RECORDING, label: 'Stop Recording', callback: this.handleStopRecording},
+      {id: KeyvizControlPanel.BTN_REPLAY_RECORDING, label: 'Replay Recording', callback: this.handleReplayRecording},
+      {id: KeyvizControlPanel.BTN_STOP_REPLAY, label: 'Stop Replay', callback: this.handleStopReplay}
     ];
   }
 
@@ -44,6 +45,23 @@ class KeyvizControlPanel {
 
   handleMouseReleased(){
     this.uiSet.handleMouseReleased();
+  }
+
+  handleStartRecording(){
+    console.log("Called on panel: handleStartRecording");
+    
+  }
+
+  handleStopRecording(){
+    console.log("Called on panel: handleStopRecording");
+  }
+
+  handleReplayRecording(){
+    console.log("Called on panel: handleReplayRecording");
+  }
+
+  handleStopReplay(){
+    console.log("Called on panel: handleStopReplay");
   }
 
   draw(){
