@@ -24,6 +24,10 @@ class System {
     ];
   }
 
+  handleKeyTyped(){
+    this.keyboard.showPressedKey(key.charCodeAt(0));
+  }
+
   handleMousePressed(){
     this.controlPanel.handleMousePressed();
   }

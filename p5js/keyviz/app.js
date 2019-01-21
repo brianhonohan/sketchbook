@@ -18,7 +18,7 @@ function draw(){
 }
 
 function keyTyped(){
-  system.keyboard.showPressedKey(key.charCodeAt(0));
+  system.handleKeyTyped();
 }
 
 function mousePressed(){
