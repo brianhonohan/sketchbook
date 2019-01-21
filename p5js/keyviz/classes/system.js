@@ -7,8 +7,12 @@ class System {
     let rectSize = new Rect(0,40,300,120);
     this.keyboard = new Keyboard(rectSize);
 
+    this.recorder = new KeyRecorder();
+
     let panelSize = new Rect(300,50,200,220);
     this.controlPanel = new KeyvizControlPanel(panelSize);
+
+    this.controlPanel.recorder = this.recorder;
   }
 
   // Return a list of Options, specific to this sketch,
@@ -25,7 +29,11 @@ class System {
   }
 
   handleKeyTyped(){
-    this.keyboard.showPressedKey(key.charCodeAt(0));
+    let keyCode = key.charCodeAt(0);
+    this.keyboard.showPressedKey(keyCode);
+    if (this.recorder.isRecording) {
+      this.recorder.recordKeyPress(keyCode)
+    }
   }
 
   handleMousePressed(){

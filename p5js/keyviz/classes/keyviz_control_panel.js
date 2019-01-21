@@ -3,6 +3,8 @@ class KeyvizControlPanel {
     this.sizeAndPos = sizeAndPos;
     this.uiSet = new UISet();
     this.initButtons();
+
+    this.recorder = null;
   }
 
   get x() { return this.sizeAndPos.x; }
@@ -48,11 +50,15 @@ class KeyvizControlPanel {
   }
 
   handleStartRecording(){
-    console.log("Called on panel: handleStartRecording, " + this);
+    if (this.recorder){
+      this.recorder.startRecording();
+    }
   }
 
   handleStopRecording(){
-    console.log("Called on panel: handleStopRecording");
+    if (this.recorder){
+      this.recorder.stopRecording();
+    }
   }
 
   handleReplayRecording(){
