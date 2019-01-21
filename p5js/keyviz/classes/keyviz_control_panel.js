@@ -19,7 +19,7 @@ class KeyvizControlPanel {
       let newButton = new Button(btnConfig.id, 
                                  btnConfig.label, 
                                  this.x, buttonYPos, buttonWidth,
-                                 btnConfig.callback);
+                                 btnConfig.callback, this);
       this.uiSet.add(newButton);
       buttonYPos += 50;
     });
@@ -48,8 +48,7 @@ class KeyvizControlPanel {
   }
 
   handleStartRecording(){
-    console.log("Called on panel: handleStartRecording");
-    
+    console.log("Called on panel: handleStartRecording, " + this);
   }
 
   handleStopRecording(){
