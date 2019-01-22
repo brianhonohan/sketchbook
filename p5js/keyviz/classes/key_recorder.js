@@ -14,18 +14,16 @@ class KeyRecorder {
   }
 
   startRecording(){
-    console.log('recoder startRecording');
     this.isRecording = true;
   }
 
   stopRecording(){
-    console.log('recoder stopRecording');
     this.isRecording = false;
   }
   
   recordKeyPress(keycode){
     let currentMillis = millis(); //-timeOffset;
-    console.log("Recording key["+keycode+"] at time["+currentMillis+"]");
+    // console.log("Recording key["+keycode+"] at time["+currentMillis+"]");
     if (this.firstRecordingAt == 0){
       this.firstRecordingAt = currentMillis;
     }
