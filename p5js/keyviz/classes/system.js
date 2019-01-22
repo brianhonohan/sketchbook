@@ -4,15 +4,15 @@ class System {
     this.optionsSet = new OptionsSet(this.optionsMetadata());
     this.settings = this.optionsSet.settings;
 
-    let rectSize = new Rect(0,40,300,120);
+    let rectSize = new Rect(20,40,290,120);
     this.keyboard = new Keyboard(rectSize);
 
     this.recorder = new KeyRecorder();
 
-    let panelSize = new Rect(300,50,200,220);
+    let panelSize = new Rect(340,50,200,220);
     this.controlPanel = new KeyvizControlPanel(panelSize);
 
-    let playbackRectSize = new Rect(0,220,300,120);
+    let playbackRectSize = new Rect(20,220,290,120);
     this.playbackKeyboard = new Keyboard(playbackRectSize);
     this.playbackKeyboard.colorId = P5JsUtils.COLOR_ID_RED;
 
