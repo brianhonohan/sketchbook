@@ -29,6 +29,46 @@ class P5JsUtils {
              && alpha(c1) == alpha(c2);
   }
 
+
+  static get COLOR_ID_RED(){ return 0; }
+  static get COLOR_ID_GREEN(){ return 1; }
+  static get COLOR_ID_BLUE(){ return 2; }
+
+  static getRandomColorByID(colorId){
+    switch(colorId) {
+      case P5JsUtils.COLOR_ID_RED:    return P5JsUtils.getRandomRed();
+      case P5JsUtils.COLOR_ID_GREEN:  return P5JsUtils.getRandomGreen();
+      case P5JsUtils.COLOR_ID_BLUE:   return P5JsUtils.getRandomBlue();
+      default: return P5JsUtils.getRandomColor();
+    }
+  }
+
+  static getRandomRed(){
+    return P5JsUtils.getRandomColor(155, 255, 1, 0, 0);
+  }
+  static getRandomGreen(){
+    return P5JsUtils.getRandomColor(155, 255, 0, 1, 0);
+  }
+  static getRandomBlue(){
+    return P5JsUtils.getRandomColor(155, 255, 0, 0, 1);
+  }
+
+  static getRandomColor(minVal, maxVal, redFactor, greenFactor, blueFactor){
+    minVal = minVal || 150;
+    maxVal = maxVal || 255;
+    redFactor = redFactor || random();
+    greenFactor = greenFactor || random();
+    blueFactor = blueFactor || random();
+
+    let baseVal = random(minVal, maxVal);
+    let secondaryVal = baseVal * (0.1 + random(0, 0.5));
+
+    let redLvl   = baseVal * redFactor + secondaryVal * (1 - redFactor);
+    let greenLvl = baseVal * greenFactor + secondaryVal * (1 - greenFactor);
+    let blueLvl  = baseVal * blueFactor + secondaryVal * (1 - blueFactor);
+    return color(redLvl, greenLvl, blueLvl);
+  }
+
   static toggleLoop(){
     if (p5js_utils.isPaused){
       loop();
