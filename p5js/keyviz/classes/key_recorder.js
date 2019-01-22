@@ -7,10 +7,10 @@ class KeyRecorder {
   }
 
   getEvent(index){
-    if (index < 0 || index > (keyPresses.length - 1)){
+    if (index < 0 || index > (this.keyPresses.length - 1)){
       return null; 
     }
-    return keyPresses[index];
+    return this.keyPresses[index];
   }
 
   startRecording(){
@@ -30,7 +30,7 @@ class KeyRecorder {
       this.firstRecordingAt = currentMillis;
     }
     this.latestRecordingAt = max(this.latestRecordingAt, currentMillis);
-    this.keyPresses.push(keycode);
+    this.keyPresses.push( new KeyEvent(keycode, currentMillis) );
   }
   
   getFirstRecordingTime(){

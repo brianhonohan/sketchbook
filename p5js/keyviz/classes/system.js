@@ -12,7 +12,14 @@ class System {
     let panelSize = new Rect(300,50,200,220);
     this.controlPanel = new KeyvizControlPanel(panelSize);
 
+    let playbackRectSize = new Rect(0,220,300,120);
+    this.playbackKeyboard = new Keyboard(playbackRectSize);
+    this.playbackKeyboard.colorId = P5JsUtils.COLOR_ID_RED;
+
+    this.player = new KeyRecordingPlayer(this.recorder, this.playbackKeyboard);
+
     this.controlPanel.recorder = this.recorder;
+    this.controlPanel.player = this.player;
   }
 
   // Return a list of Options, specific to this sketch,
@@ -49,5 +56,9 @@ class System {
 
   draw(){
     this.controlPanel.draw();
+
+    if (this.player.isPlaying()) { 
+      this.player.stepFrame(); 
+    } 
   }
 }

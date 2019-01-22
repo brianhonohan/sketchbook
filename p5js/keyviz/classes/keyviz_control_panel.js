@@ -5,6 +5,7 @@ class KeyvizControlPanel {
     this.initButtons();
 
     this.recorder = null;
+    this.player = null;
   }
 
   get x() { return this.sizeAndPos.x; }
@@ -62,11 +63,15 @@ class KeyvizControlPanel {
   }
 
   handleReplayRecording(){
-    console.log("Called on panel: handleReplayRecording");
+    if (this.player){
+      this.player.playFromBeginning();
+    }
   }
 
   handleStopReplay(){
-    console.log("Called on panel: handleStopReplay");
+    if (this.player){
+      this.player.pausePlaying();
+    }
   }
 
   draw(){
