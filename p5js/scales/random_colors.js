@@ -1,11 +1,11 @@
 var canvas;
+var colorId;
 
 function setup(){
   canvas = createCanvas(500, 500);
-}
-
-function draw(){
+  colorId = P5JsUtils.COLOR_ID_GREEN;
   background(50);
+  drawColorTiles();
 }
 
 function keyTyped(){
@@ -13,5 +13,32 @@ function keyTyped(){
     case 'p':
       saveCanvas(canvas, 'screenshot', 'png');
       break;
+    case 'r':
+      colorId = P5JsUtils.COLOR_ID_RED;
+      drawColorTiles();
+      break;
+    case 'g':
+      colorId = P5JsUtils.COLOR_ID_GREEN;
+      drawColorTiles();
+      break;
+    case 'b':
+      colorId = P5JsUtils.COLOR_ID_BLUE;
+      drawColorTiles();
+      break;
+  }
+}
+
+function drawColorTiles(){
+  let cellWidth = 20;
+  let margin = 20;
+  let numRows = (width  - 2 * margin) / cellWidth;
+  let numCols = (height - 2 * margin) / cellWidth;
+
+  noStroke();
+  for (let i = 0; i < numCols; i++){
+    for (let j = 0; j < numRows; j++){
+      fill(P5JsUtils.getRandomColorByID(colorId));
+      rect(margin + i * cellWidth, margin + j * cellWidth, cellWidth, cellWidth);
+    }
   }
 }
