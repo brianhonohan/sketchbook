@@ -33,12 +33,18 @@ class P5JsUtils {
   static get COLOR_ID_RED(){ return 0; }
   static get COLOR_ID_GREEN(){ return 1; }
   static get COLOR_ID_BLUE(){ return 2; }
+  static get COLOR_ID_ORANGE(){ return 3; }
+  static get COLOR_ID_YELLOW(){ return 4; }
+  static get COLOR_ID_VIOLET(){ return 5; }
 
   static getRandomColorByID(colorId){
     switch(colorId) {
       case P5JsUtils.COLOR_ID_RED:    return P5JsUtils.getRandomRed();
       case P5JsUtils.COLOR_ID_GREEN:  return P5JsUtils.getRandomGreen();
       case P5JsUtils.COLOR_ID_BLUE:   return P5JsUtils.getRandomBlue();
+      case P5JsUtils.COLOR_ID_ORANGE: return P5JsUtils.getRandomOrange();
+      case P5JsUtils.COLOR_ID_YELLOW: return P5JsUtils.getRandomYellow();
+      case P5JsUtils.COLOR_ID_VIOLET: return P5JsUtils.getRandomViolet();
       default: return P5JsUtils.getRandomColor();
     }
   }
@@ -51,6 +57,15 @@ class P5JsUtils {
   }
   static getRandomBlue(){
     return P5JsUtils.getRandomColor(155, 255, 0, 0, 1);
+  }
+  static getRandomOrange(){
+    return P5JsUtils.getRandomColor(155, 255, 1, 0.5, 0);
+  }
+  static getRandomYellow(){
+    return P5JsUtils.getRandomColor(155, 255, 1, 1, 0);
+  }
+  static getRandomViolet(){
+    return P5JsUtils.getRandomColor(155, 255, 1, 0, 1);
   }
 
   static getRandomColor(minVal, maxVal, redFactor, greenFactor, blueFactor){

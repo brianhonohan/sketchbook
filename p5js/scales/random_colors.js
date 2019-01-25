@@ -17,12 +17,24 @@ function keyTyped(){
       colorId = P5JsUtils.COLOR_ID_RED;
       drawColorTiles();
       break;
+    case 'o':
+      colorId = P5JsUtils.COLOR_ID_ORANGE;
+      drawColorTiles();
+      break;
+    case 'y':
+      colorId = P5JsUtils.COLOR_ID_YELLOW;
+      drawColorTiles();
+      break;
     case 'g':
       colorId = P5JsUtils.COLOR_ID_GREEN;
       drawColorTiles();
       break;
     case 'b':
       colorId = P5JsUtils.COLOR_ID_BLUE;
+      drawColorTiles();
+      break;
+    case 'v':
+      colorId = P5JsUtils.COLOR_ID_VIOLET;
       drawColorTiles();
       break;
   }
