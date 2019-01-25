@@ -1,10 +1,12 @@
 var canvas;
 var colorId;
+var mode;
 
 function setup(){
   canvas = createCanvas(500, 500);
   colorId = P5JsUtils.COLOR_ID_GREEN;
   background(50);
+  mode = 'random';
   drawColorTiles();
 }
 
@@ -37,6 +39,18 @@ function keyTyped(){
       colorId = P5JsUtils.COLOR_ID_VIOLET;
       drawColorTiles();
       break;
+    case 'm':
+      toggleMode();
+      drawColorTiles();
+      break;
+  }
+}
+
+function toggleMode(){
+  if (mode == 'random') {
+    mode = 'scales';
+  } else {
+    mode = 'random';
   }
 }
 
@@ -49,8 +63,14 @@ function drawColorTiles(){
   noStroke();
   for (let i = 0; i < numCols; i++){
     for (let j = 0; j < numRows; j++){
-      fill(P5JsUtils.getRandomColorByID(colorId));
+      fillColorFor(j, i);
       rect(margin + i * cellWidth, margin + j * cellWidth, cellWidth, cellWidth);
     }
+  }
+}
+
+function fillColorFor(row, col){
+  if (mode == 'random') {
+    fill(P5JsUtils.getRandomColorByID(colorId));
   }
 }
