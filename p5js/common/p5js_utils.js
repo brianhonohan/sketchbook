@@ -1,4 +1,4 @@
-const p5js_utils = 
+const p5js_utils =
 {
   isPaused: false
 };
@@ -12,7 +12,7 @@ class P5JsUtils {
   static colorAt(x, y, width){
     let baseIdx = (round(x) + round(y) * width) * 4;
     return color(
-              pixels[baseIdx + 0], 
+              pixels[baseIdx + 0],
               pixels[baseIdx + 1],
               pixels[baseIdx + 2],
               pixels[baseIdx + 3]);
