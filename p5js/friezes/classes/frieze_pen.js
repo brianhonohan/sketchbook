@@ -22,12 +22,7 @@ class FriezePen {
     this.pos.set(mouseX, mouseY);
     this.prevPos.set(pmouseX, pmouseY);
 
-    for (var i = 0; i < this.numCols; i++){
-      line(this.prevPos.x, this.prevPos.y, this.pos.x, this.pos.y);
-
-      this.pos.x += this.width;
-      this.prevPos.x += this.width;
-    }
+    this.drawTranslations();
     this.drawHorizReflection();
   }
 
@@ -37,7 +32,10 @@ class FriezePen {
 
     this.pos.y += 2 * (this.area.maxY - this.pos.y);
     this.prevPos.y += 2 * (this.area.maxY - this.prevPos.y);
+    this.drawTranslations();
+  }
 
+  drawTranslations(){
     for (var i = 0; i < this.numCols; i++){
       line(this.prevPos.x, this.prevPos.y, this.pos.x, this.pos.y);
 
