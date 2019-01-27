@@ -22,8 +22,28 @@ class FriezePen {
     this.pos.set(mouseX, mouseY);
     this.prevPos.set(pmouseX, pmouseY);
 
-    this.drawTranslations();
-    this.drawHorizReflection();
+    // this.drawTranslations();
+    // this.drawHorizReflection();
+    this.drawVerticalRelectionTranslations();
+  }
+
+  drawVerticalRelectionTranslations(){
+    this.pos.set(mouseX, mouseY);
+    this.prevPos.set(pmouseX, pmouseY);
+
+    let xToReflectOver = this.area.maxX;
+
+    for (var i = 0; i < this.numCols; i++){
+      line(this.prevPos.x, this.prevPos.y, this.pos.x, this.pos.y);
+
+      this.applyVerticalReflection(xToReflectOver);
+      xToReflectOver += this.width;
+    }
+  }
+
+  applyVerticalReflection(aboutX){
+    this.pos.x += 2 * (aboutX - this.pos.x);
+    this.prevPos.x += 2 * (aboutX - this.prevPos.x);
   }
 
   drawHorizReflection(){
