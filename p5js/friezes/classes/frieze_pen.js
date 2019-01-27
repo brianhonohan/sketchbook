@@ -18,9 +18,13 @@ class FriezePen {
     return numCols;
   }
 
-  drawRepeatedly(){
+  resetPen(){
     this.pos.set(mouseX, mouseY);
     this.prevPos.set(pmouseX, pmouseY);
+  }
+
+  drawRepeatedly(){
+    this.resetPen();
 
     this.drawTranslations();
     // this.drawHorizReflection();
@@ -28,8 +32,7 @@ class FriezePen {
   }
 
   drawVerticalRelectionTranslations(){
-    this.pos.set(mouseX, mouseY);
-    this.prevPos.set(pmouseX, pmouseY);
+    this.resetPen();
 
     let xToReflectOver = this.area.maxX;
 
@@ -52,8 +55,7 @@ class FriezePen {
   }
 
   drawHorizReflection(){
-    this.pos.set(mouseX, mouseY);
-    this.prevPos.set(pmouseX, pmouseY);
+    this.resetPen();
 
     this.pos.y += 2 * (this.area.maxY - this.pos.y);
     this.prevPos.y += 2 * (this.area.maxY - this.prevPos.y);
