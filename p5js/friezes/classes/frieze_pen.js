@@ -5,12 +5,15 @@ class FriezePen {
 
     this.pos = createVector(0, 0);
     this.prevPos = createVector(0, 0);
+    this.transforms = [FriezePen.TRANSFORM_TRANSLATION];
   }
 
   get x(){ return this.area.x; }
   get y(){ return this.area.y; }
   get width(){ return this.area.width; }
   get height(){ return this.area.height; }
+
+  static get TRANSFORM_TRANSLATION() { return 't'; }
 
   calcNumTilesWide(){
     const allowedWidth = width - 2 * this.x;
@@ -29,6 +32,18 @@ class FriezePen {
     this.drawTranslations();
     // this.drawHorizReflection();
     // this.drawVerticalRelectionTranslations();
+  }
+
+  applyTransforms(){
+    this.transforms.forEach(t => this.applyTransform(t));
+  }
+
+  applyTransform(transformId){
+    switch(transformId){
+      case FriezePen.TRANSFORM_TRANSLATION: 
+        this.applyTranslation();
+        return;
+    }
   }
 
   drawVerticalRelectionTranslations(){
@@ -65,8 +80,7 @@ class FriezePen {
   drawTranslations(){
     for (var i = 0; i < this.numCols; i++){
       line(this.prevPos.x, this.prevPos.y, this.pos.x, this.pos.y);
-
-      this.applyTranslation();
+      this.applyTransforms();
     }
   }
 
