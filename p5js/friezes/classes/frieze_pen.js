@@ -1,11 +1,13 @@
 class FriezePen {
   constructor(sizeAndPos){
     this.area = sizeAndPos;
+    this.currentTile = sizeAndPos.copy();
     this.numCols = this.calcNumTilesWide();
 
     this.pos = createVector(0, 0);
     this.prevPos = createVector(0, 0);
-    this.transforms = [FriezePen.TRANSFORM_TRANSLATION];
+    this.transforms = [FriezePen.TRANSFORM_VERTICAL_FLIP, 
+                       FriezePen.TRANSFORM_TRANSLATION];
   }
 
   get x(){ return this.area.x; }
@@ -14,6 +16,7 @@ class FriezePen {
   get height(){ return this.area.height; }
 
   static get TRANSFORM_TRANSLATION() { return 't'; }
+  static get TRANSFORM_VERTICAL_FLIP() { return 'v'; }
 
   calcNumTilesWide(){
     const allowedWidth = width - 2 * this.x;
@@ -22,6 +25,7 @@ class FriezePen {
   }
 
   resetPen(){
+    this.currentTile = this.area.copy();
     this.pos.set(mouseX, mouseY);
     this.prevPos.set(pmouseX, pmouseY);
   }
@@ -32,6 +36,7 @@ class FriezePen {
     this.drawTranslations();
     this.drawHorizReflection();
     // this.drawVerticalRelectionTranslations();
+    this.resetPen();
   }
 
   applyTransforms(){
@@ -43,20 +48,14 @@ class FriezePen {
       case FriezePen.TRANSFORM_TRANSLATION: 
         this.applyTranslation();
         return;
+      case FriezePen.TRANSFORM_VERTICAL_FLIP: 
+        this.applyVerticalFlip();
+        return;
     }
   }
 
-  drawVerticalRelectionTranslations(){
-    this.resetPen();
-
-    let xToReflectOver = this.area.maxX;
-
-    for (var i = 0; i < this.numCols; i++){
-      line(this.prevPos.x, this.prevPos.y, this.pos.x, this.pos.y);
-
-      this.applyVerticalReflection(xToReflectOver);
-      xToReflectOver += this.width;
-    }
+  applyVerticalFlip(){
+    this.applyVerticalReflection(this.currentTile.centerX);
   }
 
   applyVerticalReflection(aboutX){
@@ -70,6 +69,7 @@ class FriezePen {
   }
 
   applyTranslation(){
+    this.currentTile.move(this.width, 0);
     this.pos.x += this.width;
     this.prevPos.x += this.width;
   }
