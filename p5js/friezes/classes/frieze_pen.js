@@ -30,7 +30,7 @@ class FriezePen {
     this.resetPen();
 
     this.drawTranslations();
-    // this.drawHorizReflection();
+    this.drawHorizReflection();
     // this.drawVerticalRelectionTranslations();
   }
 
@@ -64,6 +64,11 @@ class FriezePen {
     this.prevPos.x += 2 * (aboutX - this.prevPos.x);
   }
 
+  applyHorizontalReflection(aboutY){
+    this.pos.y += 2 * (aboutY - this.pos.y);
+    this.prevPos.y += 2 * (aboutY - this.prevPos.y);
+  }
+
   applyTranslation(){
     this.pos.x += this.width;
     this.prevPos.x += this.width;
@@ -72,8 +77,7 @@ class FriezePen {
   drawHorizReflection(){
     this.resetPen();
 
-    this.pos.y += 2 * (this.area.maxY - this.pos.y);
-    this.prevPos.y += 2 * (this.area.maxY - this.prevPos.y);
+    this.applyHorizontalReflection(this.area.maxY);
     this.drawTranslations();
   }
 
