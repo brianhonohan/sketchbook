@@ -6,7 +6,9 @@ class FriezePen {
 
     this.pos = createVector(0, 0);
     this.prevPos = createVector(0, 0);
-    this.transforms = [FriezePen.TRANSFORM_VERTICAL_FLIP, 
+    this.transforms = [
+                       FriezePen.TRANSFORM_VERTICAL_FLIP,
+                       FriezePen.TRANSFORM_HORIZONTAL_FLIP,
                        FriezePen.TRANSFORM_TRANSLATION];
   }
 
@@ -17,6 +19,7 @@ class FriezePen {
 
   static get TRANSFORM_TRANSLATION() { return 't'; }
   static get TRANSFORM_VERTICAL_FLIP() { return 'v'; }
+  static get TRANSFORM_HORIZONTAL_FLIP() { return 'h'; }
 
   calcNumTilesWide(){
     const allowedWidth = width - 2 * this.x;
@@ -51,6 +54,9 @@ class FriezePen {
       case FriezePen.TRANSFORM_VERTICAL_FLIP: 
         this.applyVerticalFlip();
         return;
+      case FriezePen.TRANSFORM_HORIZONTAL_FLIP: 
+        this.applyHorizontalFlip();
+        return;
     }
   }
 
@@ -61,6 +67,10 @@ class FriezePen {
   applyVerticalReflection(aboutX){
     this.pos.x += 2 * (aboutX - this.pos.x);
     this.prevPos.x += 2 * (aboutX - this.prevPos.x);
+  }
+
+  applyHorizontalFlip(){
+    this.applyHorizontalReflection(this.currentTile.centerY);
   }
 
   applyHorizontalReflection(aboutY){
