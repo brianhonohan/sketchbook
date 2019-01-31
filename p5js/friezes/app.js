@@ -1,15 +1,20 @@
 var canvas;
 var drawableArea;
 var friezePen;
+var optionsSet;
+var settings;
 
 function setup() {
   canvas = createCanvas(500, 500);
   P5JsSettings.init();
 
-  drawableArea = new Rect(50, 150, 100, 100);
+  optionsSet = new OptionsSet(optionsMetadata());
+  settings = optionsSet.settings;
+
+  drawableArea = new Rect(50, 150, settings.tileWidth, settings.tileHeight);
   friezePen = new FriezePen(drawableArea);
-  friezePen.setTransform('vt');
-  friezePen.shouldDrawHorizReflection = false;
+  friezePen.setTransform(settings.transform);
+  friezePen.shouldDrawHorizReflection = (settings.horizReflect == 1);
   drawBackground();
 }
 
@@ -33,4 +38,13 @@ function keyTyped(){
       drawBackground();
       break;
   }
+}
+
+function optionsMetadata(){
+  return [
+    { name: "tileWidth", type: "integer", default: 50},
+    { name: "tileHeight", type: "integer", default: 50},
+    { name: "transform", type: "string", default: 'vht'},
+    { name: "horizReflect", type: "integer", default: '1'},
+  ];
 }
