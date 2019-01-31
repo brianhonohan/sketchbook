@@ -88,6 +88,7 @@ class FriezePen {
     this.resetPen();
 
     this.applyHorizontalReflection(this.area.maxY);
+    this.currentTile.move(0, this.height);
     this.drawTranslations();
   }
 
