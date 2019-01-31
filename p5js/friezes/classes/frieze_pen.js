@@ -10,6 +10,7 @@ class FriezePen {
                        FriezePen.TRANSFORM_VERTICAL_FLIP,
                        FriezePen.TRANSFORM_HORIZONTAL_FLIP,
                        FriezePen.TRANSFORM_TRANSLATION];
+    this.shouldDrawHorizReflection = true;
   }
 
   get x(){ return this.area.x; }
@@ -50,7 +51,9 @@ class FriezePen {
     this.resetPen();
 
     this.drawTranslations();
-    this.drawHorizReflection();
+    if (this.shouldDrawHorizReflection) {
+      this.drawHorizReflection();
+    }
     // this.drawVerticalRelectionTranslations();
     this.resetPen();
   }
