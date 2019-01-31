@@ -8,6 +8,7 @@ function setup() {
 
   drawableArea = new Rect(50, 150, 100, 100);
   friezePen = new FriezePen(drawableArea);
+  friezePen.setTransform('vt');
   drawBackground();
 }
 

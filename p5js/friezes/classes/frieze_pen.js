@@ -21,6 +21,19 @@ class FriezePen {
   static get TRANSFORM_VERTICAL_FLIP() { return 'v'; }
   static get TRANSFORM_HORIZONTAL_FLIP() { return 'h'; }
 
+  static get VALID_TRANSFORMS() {
+    return [
+            FriezePen.TRANSFORM_VERTICAL_FLIP,
+            FriezePen.TRANSFORM_HORIZONTAL_FLIP,
+            FriezePen.TRANSFORM_TRANSLATION
+           ];
+  }
+
+  setTransform(transformAsStr){
+    this.transforms = transformAsStr.split('');
+    this.transforms.filter(t => FriezePen.VALID_TRANSFORMS.includes(t));
+  }
+
   calcNumTilesWide(){
     const allowedWidth = width - 2 * this.x;
     const numCols = Math.floor(allowedWidth / this.width);
