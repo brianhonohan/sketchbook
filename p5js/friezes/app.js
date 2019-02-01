@@ -11,6 +11,7 @@ function setup() {
   optionsSet = new OptionsSet(optionsMetadata());
   settings = optionsSet.settings;
 
+  strokeWeight(settings.strokeWeight);
   drawableArea = new Rect(50, 150, settings.tileWidth, settings.tileHeight);
   friezePen = new FriezePen(drawableArea);
   friezePen.setTransform(settings.transform);
@@ -46,5 +47,6 @@ function optionsMetadata(){
     { name: "tileHeight", type: "integer", default: 50},
     { name: "transform", type: "string", default: 'vht'},
     { name: "horizReflect", type: "integer", default: '1'},
+    { name: "strokeWeight", type: "float", default: '2'},
   ];
 }
