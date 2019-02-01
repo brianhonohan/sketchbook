@@ -5,14 +5,16 @@ var optionsSet;
 var settings;
 
 function setup() {
-  canvas = createCanvas(500, 500);
+  createCanvas(windowWidth, windowHeight-35);
   P5JsSettings.init();
 
   optionsSet = new OptionsSet(optionsMetadata());
   settings = optionsSet.settings;
 
   strokeWeight(settings.strokeWeight);
-  drawableArea = new Rect(50, 150, settings.tileWidth, settings.tileHeight);
+  const numRows = (settings.horizReflect == 1) ? 2 : 1;
+  const yMargin = height / 2 - settings.tileHeight / 2 * numRows;
+  drawableArea = new Rect(50, yMargin, settings.tileWidth, settings.tileHeight);
   friezePen = new FriezePen(drawableArea);
   friezePen.setTransform(settings.transform);
   friezePen.shouldDrawHorizReflection = (settings.horizReflect == 1);
