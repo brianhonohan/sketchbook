@@ -17,6 +17,15 @@ class Rect {
   get centerX(){ return this._x + this._width / 2; }
   get centerY(){ return this._y + this._height / 2; }
 
+  move(x, y){
+    this._x += x;
+    this._y += y;
+  }
+
+  copy(){
+    return new Rect(this._x, this._y, this._width, this._height);
+  }
+
   localRect(){
     return new Rect(0, 0, this.width, this.height);
   }
