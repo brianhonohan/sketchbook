@@ -3,7 +3,7 @@ int numStars;
 float warpSpeed;
 
 void setup(){
-  size(400, 400);
+  size(500, 500);
   
   warpSpeed = 2;
   numStars = 10;
@@ -11,7 +11,9 @@ void setup(){
 }
 
 void draw(){
-  background(0);
+  //background(0);
+  fill(0, 40);
+  rect(0, 0, width, height);
   
   //for(int i=0; i < numStars; i++){
   //  Star star = stars.get(i);

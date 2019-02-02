@@ -3,6 +3,7 @@ layout: post
 title:  "Processing - Hexagonal Layout"
 date:   2016-03-14 23:00:00 -0400
 categories: processing
+thumbnail: /sketchbook/processing/hexagonal/screenshot-01.png
 
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.6.6/processing.js
