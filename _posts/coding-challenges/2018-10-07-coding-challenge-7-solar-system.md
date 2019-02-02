@@ -2,7 +2,7 @@
 title:  "Coding Challenge #7 - Solar System"
 date:   2018-10-07 14:00:00 -0400
 categories: [p5js, coding-challenges]
-
+thumbnail: /sketchbook/p5js/coding-challenges/solar-system/screenshot-01.png
 ---
 
 This is a [p5.js][p5js-home] sketch inspired by the [Coding Train's][coding-train] [Coding Challenge #7][ct-challenge-7] of creating a Solar System.

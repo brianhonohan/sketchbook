@@ -2,6 +2,7 @@
 title:  "Coding Challenge #9 - Add textures to 3D Solar System"
 date:   2018-10-07 20:00:00 -0400
 categories: [p5js, coding-challenges]
+thumbnail: /sketchbook/p5js/coding-challenges/solar-system-3d-texturized/screenshot-01.png
 
 ---
 

@@ -3,6 +3,7 @@ layout: post
 title:  "Coding Challenge #1 - Starfield"
 date:   2018-09-26 21:00:00 -0400
 categories: [processing, coding-challenges]
+thumbnail: /sketchbook/processing/coding-challenges/starfield/screenshot-01.png
 
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.6.6/processing.js

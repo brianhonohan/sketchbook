@@ -3,6 +3,7 @@ layout: post
 title:  "Coding Challenge #4 - Purple Rain"
 date:   2018-10-02 11:00:00 -0400
 categories: [processing, coding-challenges]
+thumbnail: /sketchbook/processing/coding-challenges/purple_rain/screenshot-01.png
 
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.6.6/processing.js

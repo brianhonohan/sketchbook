@@ -2,6 +2,7 @@
 title:  "Coding Challenge #10 - Maze Generator"
 date:   2018-10-09 21:00:00 -0400
 categories: [p5js, coding-challenges]
+thumbnail: /sketchbook/p5js/coding-challenges/maze-generator/screenshot-01.png
 
 ---
 

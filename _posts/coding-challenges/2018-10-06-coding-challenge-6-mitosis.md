@@ -2,6 +2,7 @@
 title:  "Coding Challenge #6 - Mitosis"
 date:   2018-10-06 8:00:00 -0400
 categories: [p5js, coding-challenges]
+thumbnail: /sketchbook/p5js/coding-challenges/mitosis/screenshot-01.png
 
 ---
 

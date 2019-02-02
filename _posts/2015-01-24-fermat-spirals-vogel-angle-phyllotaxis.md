@@ -3,6 +3,7 @@ layout: post
 title:  "Processing - Exploring Fermat's Spiral and Vogel's Model using the Golden Angle"
 date:   2015-01-24 12:00:00 -0400
 categories: [processing]
+thumbnail: /sketchbook/processing/spirals/screenshot-01.png
 
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.6.6/processing.js
