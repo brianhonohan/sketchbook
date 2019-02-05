@@ -5,7 +5,8 @@ function setup() {
   createCanvas(500, 500);
   P5JsSettings.init();
 
-  rectToDrag = new Rect(50, 50, 200, 200);
+  rectToDrag = new Rectangle(50, 50, 200, 200);
+  rectToDrag.dragEnabled = true;
 }
 
 function draw(){
@@ -13,5 +14,5 @@ function draw(){
 
   fill(80);
   noStroke();
-  P5JsUtils.drawRect(rectToDrag);
+  rectToDrag.draw();
 }
