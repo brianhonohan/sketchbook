@@ -71,9 +71,9 @@ class P5JsUtils {
   static getRandomColor(minVal, maxVal, redFactor, greenFactor, blueFactor){
     minVal = minVal || 150;
     maxVal = maxVal || 255;
-    redFactor = redFactor || random();
-    greenFactor = greenFactor || random();
-    blueFactor = blueFactor || random();
+    if (redFactor == undefined) { redFactor = random(); }
+    if (greenFactor == undefined) { greenFactor = random(); }
+    if (blueFactor == undefined) { blueFactor = random(); }
 
     let baseVal = random(minVal, maxVal);
     let secondaryVal = baseVal * (0.1 + random(0, 0.5));
