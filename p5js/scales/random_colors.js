@@ -10,6 +10,10 @@ function setup(){
   drawColorTiles();
 }
 
+function mousePressed(){
+  console.log(get(mouseX, mouseY));
+}
+
 function keyTyped(){
   switch (key) {
     case 'p':
