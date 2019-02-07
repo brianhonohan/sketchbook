@@ -11,17 +11,18 @@ function setup() {
 
   rectToDrag = new Rectangle(50, 50, 200, 200);
   rectToDrag.dragEnabled = true;
+  rectToDrag.fillColor = color(80);
   shapes.push(rectToDrag);
 
   anotherRectToDrag = new Rectangle(200, 200, 200, 200);
   anotherRectToDrag.dragEnabled = true;
+  anotherRectToDrag.fillColor = color(120);
   shapes.push(anotherRectToDrag);
 }
 
 function draw(){
   background(50);
 
-  fill(80);
   noStroke();
 
   shapes.forEach(s => s.draw());

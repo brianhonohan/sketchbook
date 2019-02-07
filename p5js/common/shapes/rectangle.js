@@ -5,6 +5,7 @@ class Rectangle extends Rect {
     this.computePoints();
     this.dragEnabled = false;
     this.isDragged = false;
+    this.fillColor = color(80);
   }
 
   initPoints(){
@@ -85,6 +86,7 @@ class Rectangle extends Rect {
   }
 
   draw(){
+    fill(this.fillColor);
     rect(this.x, this.y, this.width, this.height);
 
     if (this.dragEnabled) {
