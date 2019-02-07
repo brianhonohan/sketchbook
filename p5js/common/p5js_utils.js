@@ -1,4 +1,4 @@
-const p5js_utils = 
+const p5js_utils =
 {
   isPaused: false
 };
@@ -12,7 +12,7 @@ class P5JsUtils {
   static colorAt(x, y, width){
     let baseIdx = (round(x) + round(y) * width) * 4;
     return color(
-              pixels[baseIdx + 0], 
+              pixels[baseIdx + 0],
               pixels[baseIdx + 1],
               pixels[baseIdx + 2],
               pixels[baseIdx + 3]);
@@ -33,12 +33,18 @@ class P5JsUtils {
   static get COLOR_ID_RED(){ return 0; }
   static get COLOR_ID_GREEN(){ return 1; }
   static get COLOR_ID_BLUE(){ return 2; }
+  static get COLOR_ID_ORANGE(){ return 3; }
+  static get COLOR_ID_YELLOW(){ return 4; }
+  static get COLOR_ID_VIOLET(){ return 5; }
 
   static getRandomColorByID(colorId){
     switch(colorId) {
       case P5JsUtils.COLOR_ID_RED:    return P5JsUtils.getRandomRed();
       case P5JsUtils.COLOR_ID_GREEN:  return P5JsUtils.getRandomGreen();
       case P5JsUtils.COLOR_ID_BLUE:   return P5JsUtils.getRandomBlue();
+      case P5JsUtils.COLOR_ID_ORANGE: return P5JsUtils.getRandomOrange();
+      case P5JsUtils.COLOR_ID_YELLOW: return P5JsUtils.getRandomYellow();
+      case P5JsUtils.COLOR_ID_VIOLET: return P5JsUtils.getRandomViolet();
       default: return P5JsUtils.getRandomColor();
     }
   }
@@ -52,13 +58,22 @@ class P5JsUtils {
   static getRandomBlue(){
     return P5JsUtils.getRandomColor(155, 255, 0, 0, 1);
   }
+  static getRandomOrange(){
+    return P5JsUtils.getRandomColor(155, 255, 1, 0.5, 0);
+  }
+  static getRandomYellow(){
+    return P5JsUtils.getRandomColor(155, 255, 1, 1, 0);
+  }
+  static getRandomViolet(){
+    return P5JsUtils.getRandomColor(155, 255, 1, 0, 1);
+  }
 
   static getRandomColor(minVal, maxVal, redFactor, greenFactor, blueFactor){
     minVal = minVal || 150;
     maxVal = maxVal || 255;
-    redFactor = redFactor || random();
-    greenFactor = greenFactor || random();
-    blueFactor = blueFactor || random();
+    if (redFactor == undefined) { redFactor = random(); }
+    if (greenFactor == undefined) { greenFactor = random(); }
+    if (blueFactor == undefined) { blueFactor = random(); }
 
     let baseVal = random(minVal, maxVal);
     let secondaryVal = baseVal * (0.1 + random(0, 0.5));
