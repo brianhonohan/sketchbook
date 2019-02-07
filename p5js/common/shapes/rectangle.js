@@ -26,6 +26,26 @@ class Rectangle extends Rect {
     this.bottomLeft.set(this.minX, this.maxY);
   }
 
+  handleMousePressed(){
+    const pointPressed = this.points.find(p => p.containsXY(mouseX, mouseY));
+
+    if (pointPressed){
+      pointPressed.isBeingDragged = true;
+    }
+  }
+
+  handleMouseDragged(){
+    const pointDragged = this.points.find(p => p.isBeingDragged);
+
+    if (pointDragged) {
+      pointDragged.set(mouseX, mouseY);
+    }
+  }
+
+  handleMouseReleased(){
+    this.points.forEach(p => { p.isBeingDragged = false; });
+  }
+
   draw(){
     rect(this.x, this.y, this.width, this.height);
 

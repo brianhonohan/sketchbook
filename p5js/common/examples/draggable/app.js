@@ -16,3 +16,15 @@ function draw(){
   noStroke();
   rectToDrag.draw();
 }
+
+function mousePressed(){
+  rectToDrag.handleMousePressed();
+}
+
+function mouseDragged(){
+  rectToDrag.handleMouseDragged();
+}
+
+function mouseReleased(){
+  rectToDrag.handleMouseReleased();
+}
