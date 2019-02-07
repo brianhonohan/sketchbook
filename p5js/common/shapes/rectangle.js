@@ -26,6 +26,21 @@ class Rectangle extends Rect {
     this.bottomLeft.set(this.minX, this.maxY);
   }
 
+  computePosAndSize(){
+    const allX = this.points.map(p => p.x);
+    const allY = this.points.map(p => p.y);
+
+    const minX = Math.min(...allX);
+    const minY = Math.min(...allY);
+    const maxX = Math.max(...allX);
+    const maxY = Math.max(...allY);
+
+    this._x = minX;
+    this._y = minY;
+    this._width = maxX - minX;
+    this._height = maxY - minY;
+  }
+
   handleMousePressed(){
     const pointPressed = this.points.find(p => p.containsXY(mouseX, mouseY));
 
@@ -39,6 +54,24 @@ class Rectangle extends Rect {
 
     if (pointDragged) {
       pointDragged.set(mouseX, mouseY);
+
+      if (this.topLeft == pointDragged) {
+        this.bottomLeft.x = pointDragged.x;
+        this.topRight.y = pointDragged.y;
+
+      } else if (this.topRight == pointDragged) {
+        this.bottomRight.x = pointDragged.x;
+        this.topLeft.y = pointDragged.y;
+
+      } else if (this.bottomRight == pointDragged) {
+        this.topRight.x = pointDragged.x;
+        this.bottomLeft.y = pointDragged.y;
+
+      } else if (this.bottomLeft == pointDragged) {
+        this.topLeft.x = pointDragged.x;
+        this.bottomRight.y = pointDragged.y;
+      }
+      this.computePosAndSize();
     }
   }
 
