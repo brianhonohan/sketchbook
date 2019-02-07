@@ -4,6 +4,7 @@ class Rectangle extends Rect {
     this.initPoints();
     this.computePoints();
     this.dragEnabled = false;
+    this.isDragged = false;
   }
 
   initPoints(){
@@ -46,7 +47,10 @@ class Rectangle extends Rect {
 
     if (pointPressed){
       pointPressed.isBeingDragged = true;
+      this.isDragged = true;
+      return true;
     }
+    return false;
   }
 
   handleMouseDragged(){
@@ -77,6 +81,7 @@ class Rectangle extends Rect {
 
   handleMouseReleased(){
     this.points.forEach(p => { p.isBeingDragged = false; });
+    this.isDragged = false;
   }
 
   draw(){
