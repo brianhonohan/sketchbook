@@ -3,6 +3,14 @@ class Circle {
     this.pos = createVector(x, y);
     this.radius = radius;
     this.debugMode = false;
+    this.dragEnabled = false;
+    this.isDragged = false;
+
+    this.fillColor = undefined;
+    this.dragPos = new Point(0, 0);
+    this.dragPos.pos = this.pos; 
+    this.dragSize = new Point(this.x + this.radius, this.y);
+    this.points = [this.dragPos, this.dragSize];
   }
 
   get x() { return this.pos.x; }
@@ -38,6 +46,39 @@ class Circle {
     const dx = Math.pow(rSquared - dy*dy, 0.5);
 
     return [{x: this.x + dx, y: y}, {x: this.x - dx, y: y}];
+  }
+
+  handleMousePressed(){
+    const pointPressed = this.points.find(p => p.containsXY(mouseX, mouseY));
+
+    if (pointPressed){
+      pointPressed.isBeingDragged = true;
+      this.isDragged = true;
+      return true;
+    }
+    return false;
+  }
+
+  handleMouseDragged(){
+    const pointDragged = this.points.find(p => p.isBeingDragged);
+
+    if (pointDragged) {
+      if (this.dragSize == pointDragged) {
+        pointDragged.x = mouseX;
+        this.radius = dist(pointDragged.x, pointDragged.y, this.x, this.y);
+
+      } else if (this.dragPos == pointDragged) {
+        pointDragged.set(mouseX, mouseY);
+        this.dragSize.y = pointDragged.y;
+        this.dragSize.x = pointDragged.x + this.radius;
+      }
+    }
+  }
+
+  handleMouseReleased(){
+    this.points.forEach(p => { p.isBeingDragged = false; });
+    this.isDragged = false;
+
   }
 
   containsXY(x, y){
@@ -111,7 +152,29 @@ class Circle {
   }
 
   draw(){
+    if (this.fillColor){
+      fill(this.fillColor);
+    }
     ellipseMode(CENTER);
     ellipse(this.x, this.y, this.radius * 2, this.radius * 2);
+
+    if (this.dragEnabled) {
+      this.drawDraggablePoints();
+    }
+  }
+
+  drawDraggablePoints(){
+    this.drawPoint(this.dragPos);
+    this.drawPoint(this.dragSize);
+  }
+
+  drawPoint(point){
+    if (point.containsXY(mouseX, mouseY)){
+      fill(200, 200, 100);
+    }else {
+      fill(100, 200, 100);
+    }
+    noStroke();
+    ellipse(point.x, point.y, point.radius, point.radius);
   }
 }
