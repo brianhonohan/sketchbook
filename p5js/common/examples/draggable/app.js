@@ -1,6 +1,7 @@
 var system;
 var rectToDrag;
 var anotherRectToDrag;
+var circle;
 var shapes;
 
 function setup() {
@@ -18,6 +19,11 @@ function setup() {
   anotherRectToDrag.dragEnabled = true;
   anotherRectToDrag.fillColor = color(120);
   shapes.push(anotherRectToDrag);
+
+  circle = new Circle(100, 300, 50);
+  circle.dragEnabled = true;
+  circle.fillColor = color(150);
+  shapes.push(circle);
 }
 
 function draw(){
