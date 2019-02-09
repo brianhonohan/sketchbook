@@ -7,13 +7,14 @@ Collection of personal coding projects. They may or may not grow into individual
 
 A p5.js sketch that allows you to draw a Frieze..
 
-[<img src="./p5js/friezes/screenshot-01.png" alt="friezes" width="150px" />][link-p5js-friezes]
+[<img src="./p5js/common/examples/draggable/screenshot-01.png" alt="p5js-draggable" width="150px" />][link-p5js-draggable]
 
 ## p5.js
 Collection of sketches using the [p5.js][p5js] Javascript library.
 
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/ecosystem/screenshot-01.png" alt="ecosystem" width="150px" />][link-p5js-ecosystem]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/forest-01/screenshot-01.png" alt="forest-01" width="150px" />][link-p5js-forest-01]
+[<img src="./p5js/common/examples/draggable/screenshot-01.png" alt="draggable" width="150px" />][link-p5js-draggable]
 [<img src="./p5js/friezes/screenshot-01.png" alt="friezes" width="150px" />][link-p5js-friezes]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/hello_world/screenshot-01.png" alt="hello_world" width="150px" />][link-p5js-hello_world]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/josef-albers-homage-to-a-square/screenshot-01.png" alt="homage-to-a-square" width="150px" />][link-p5js-josef-albers-homage-to-a-square]
@@ -68,6 +69,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 
 [link-p5js-ecosystem]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/ecosystem/
 [link-p5js-forest-01]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/forest-01/
+[link-p5js-draggable]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/draggable/
 [link-p5js-friezes]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/friezes/
 [link-p5js-hello_world]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/hello_world/
 [link-p5js-josef-albers-homage-to-a-square]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/josef-albers-homage-to-a-square/
