@@ -2,6 +2,7 @@ var system;
 var rectToDrag;
 var anotherRectToDrag;
 var circle;
+var triangleToDrag;
 var shapes;
 
 function setup() {
@@ -24,6 +25,11 @@ function setup() {
   circle.dragEnabled = true;
   circle.fillColor = color(150);
   shapes.push(circle);
+
+  triangleToDrag = new Triangle(300, 50,  400, 50, 350, 100);
+  triangleToDrag.dragEnabled = true;
+  triangleToDrag.fillColor = color(180);
+  shapes.push(triangleToDrag);
 }
 
 function draw(){
