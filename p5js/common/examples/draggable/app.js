@@ -3,6 +3,7 @@ var rectToDrag;
 var anotherRectToDrag;
 var circle;
 var triangleToDrag;
+var lineSeg;
 var shapes;
 
 function setup() {
@@ -30,6 +31,11 @@ function setup() {
   triangleToDrag.dragEnabled = true;
   triangleToDrag.fillColor = color(180);
   shapes.push(triangleToDrag);
+
+  lineSeg = new LineSegment(50, 450, 150, 350);
+  lineSeg.dragEnabled = true;
+  lineSeg.strokeColor = color(230);
+  shapes.push(lineSeg);
 }
 
 function draw(){
@@ -38,6 +44,7 @@ function draw(){
   noStroke();
 
   shapes.forEach(s => s.draw());
+  lineSeg.drawDraggablePoints();
 }
 
 function mousePressed(){

@@ -4,6 +4,10 @@ class LineSegment {
     this.startY = y1;
     this.endX   = x2;
     this.endY   = y2;
+
+    this.dragEnabled = false;
+    this.isDragged = true;
+    this.strokeColor = undefined;
   }
 
   dx() { return this.endX - this.startX; }
@@ -40,6 +44,9 @@ class LineSegment {
   handleMousePressed(){
     this.draggingStart = this.isMouseOverPoint(this.startX, this.startY);
     this.draggingEnd = !this.draggingStart && this.isMouseOverPoint(this.endX, this.endY);
+
+    this.isDragged = this.draggingStart || this.draggingEnd;
+    return this.isDragged;
   }
 
   handleMouseDragged(){
@@ -60,6 +67,9 @@ class LineSegment {
   }
 
   draw(){
+    if (this.strokeColor) {
+      stroke(this.strokeColor);
+    }
     line(this.startX, this.startY, this.endX, this.endY);
   }
 
