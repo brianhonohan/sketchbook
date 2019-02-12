@@ -7,6 +7,8 @@ function setup() {
 
   let fullCanvas = new Rect(0, 0, width, height);
   quadtree = new Quadtree(fullCanvas, 5);
+
+  addRandomPoints();
 }
 
 function draw(){
@@ -27,6 +29,13 @@ function keyTyped(){
 
 function mousePressed(){
   quadtree.add({x: mouseX, y: mouseY});
+}
+
+function addRandomPoints(){
+  for (let i = 0; i < 500; i++){
+     quadtree.add({x: randomGaussian(width/2, width/4),
+                   y: randomGaussian(height/2, height/4)});
+  }
 }
 
 function drawQuadtree(qt){
