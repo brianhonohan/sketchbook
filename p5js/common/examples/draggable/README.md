@@ -22,6 +22,6 @@ Mouse
 ![screenshot][screenshot-01]
 
 [p5js-home]: http://p5js.org/
-[source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/mitosis/
-[live-view]: https://brianhonohan.com/sketchbook/p5js/coding-challenges/mitosis/live-view.html
+[source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/draggable/
+[live-view]: https://brianhonohan.com/sketchbook/p5js/common/examples/draggable/
 [screenshot-01]: ./screenshot-01.png
