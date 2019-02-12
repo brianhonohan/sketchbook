@@ -27,6 +27,14 @@ class Quadtree {
     return this.add(obj);
   }
 
+  find(inRect){
+    if (this.expanded) {
+      return this.quadrants.map(q => q.find(inRect)).flat();
+    } else {
+      return this.objects.filter(obj => inRect.containsXY(obj.x, obj.y));
+    }
+  }
+
   expand(){
     const halfW  = this.area.width / 2;
     const halfH = this.area.height / 2;

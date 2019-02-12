@@ -15,6 +15,8 @@ function draw(){
   noFill();
   stroke(0, 230, 0);
   drawQuadtree(quadtree);
+
+  highlightAroundMouse();
 }
 
 function keyTyped(){
@@ -38,4 +40,22 @@ function drawQuadtree(qt){
     strokeWeight(0.5);
     rect(qt.area.x, qt.area.y, qt.area.width, qt.area.height);
   }
+}
+
+function highlightAroundMouse(){
+  const areaWidth = 100;
+  const areaAroundMouse = new Rect(mouseX - areaWidth / 2,
+                                   mouseY - areaWidth / 2,
+                                   areaWidth,
+                                   areaWidth
+                                  );
+  stroke(240, 50, 50);
+  rect(areaAroundMouse.x, areaAroundMouse.y, areaAroundMouse.width, areaAroundMouse.height);
+
+  const nearbyObjs = quadtree.find(areaAroundMouse);
+
+  strokeWeight(2);
+  stroke(230, 230, 0);
+
+  nearbyObjs.forEach(obj => point(obj.x, obj.y) );
 }
