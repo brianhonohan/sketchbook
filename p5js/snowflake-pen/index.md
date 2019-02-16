@@ -1,6 +1,6 @@
 ---
 layout: minimal
-title:  "P5.JS - Forest Simulation"
+title:  "P5.JS - Snowflake Pen"
 categories: p5js
 modal: true
 
@@ -11,14 +11,8 @@ js_scripts:
 - /sketchbook/p5js/common/p5js_utils.js
 - /sketchbook/js/util_functions.js
 - /sketchbook/js/options_set.js
-- /sketchbook/js/models/rect.js
-- /sketchbook/js/models/cell_grid.js
-- classes/cell.js
-- classes/cell_viewer.js
-- classes/system.js
-- classes/tree.js
-- classes/forest.js
-- classes/seasonal_time.js
+- /sketchbook/js/models/line.js
+- classes/snowflake_pen.js
 - app.js
 
 ---

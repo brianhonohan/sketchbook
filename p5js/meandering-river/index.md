@@ -1,6 +1,6 @@
 ---
 layout: minimal
-title:  "P5.JS - Forest Simulation"
+title:  "P5.JS - Meandering River"
 categories: p5js
 modal: true
 
@@ -12,13 +12,10 @@ js_scripts:
 - /sketchbook/js/util_functions.js
 - /sketchbook/js/options_set.js
 - /sketchbook/js/models/rect.js
-- /sketchbook/js/models/cell_grid.js
-- classes/cell.js
-- classes/cell_viewer.js
+- classes/river_source.js
+- classes/river_segment.js
+- classes/river.js
 - classes/system.js
-- classes/tree.js
-- classes/forest.js
-- classes/seasonal_time.js
 - app.js
 
 ---
