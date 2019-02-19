@@ -1,6 +1,6 @@
 ## Overview
 
-This is a [p5.js][p5js-home] sketch sketch which explores the idea that the movement pattern of animals in a herd in response to a predator can be modeled using a Voronoi diagram, whereby any given animal will ensure there is another animal is between it and the predator.
+This is a [p5.js][p5js-home] sketch which explores the idea that the movement pattern of animals in a herd in response to a predator can be modeled using a Voronoi diagram, whereby any given animal will ensure there is another animal is between it and the predator.
 
 This was primarily inspired by John D. Barrow's chapter on herding.
 
