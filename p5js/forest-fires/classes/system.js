@@ -3,6 +3,7 @@ class System {
     this.sizeAndPosition = p_xSizeAndPos;
     this.optionsSet = new OptionsSet(this.optionsMetadata());
     this.settings = this.optionsSet.settings;
+    this.scale =  this.settings.scale;
 
     this.cellViewer = new CellViewer();
     this.grid = new CellGrid(this.sizeAndPosition, 
@@ -11,6 +12,7 @@ class System {
                              this.cellViewer
                              );
     this.grid.initCells();
+
   }
 
   // Return a list of Options, specific to this sketch,
@@ -21,13 +23,37 @@ class System {
   optionsMetadata(){
     return [
       { name: "cellWidth", type: "integer", default: 50}, 
-      // { name: "varname2", type: "string", default: 'Lorem Ipsum'}, 
+      { name: "scale", type: "float", default: 0.02}, 
       // { name: "varname3", type: "float", default: 0.6}
     ];
   }
 
   createCell(tmpRow, tmpCol, i){
-    return new Cell(tmpRow, tmpCol, i, this);
+    const tmpCell = new Cell(tmpRow, tmpCol, i, this);
+    tmpCell.terrainType = this.terrainTypeForPos(tmpRow, tmpCol)
+    return tmpCell;
+  }
+
+  static get TERRAIN_SOIL(){ return 0; }
+  static get TERRAIN_WATER(){ return 1; }
+  static get TERRAIN_FOLLIAGE(){ return 2; }
+
+  terrainTypeForPos(x, y){
+    const waterOrLand = noise(this.scale * x, this.scale * y);
+
+    if (waterOrLand < 0.5){
+      return System.TERRAIN_WATER;
+
+    } else {
+      const largeOffset = 100000;
+      const landOrFolliage = noise(this.scale * (x + largeOffset),
+                                   this.scale * (y + largeOffset));
+      if (landOrFolliage < 0.6) {
+        return System.TERRAIN_SOIL;
+      } else {
+        return System.TERRAIN_FOLLIAGE;
+      }
+    }
   }
 
   tick(){
@@ -36,6 +62,7 @@ class System {
 
   render(){
     background(0);
+    noStroke();
     this.grid.renderViews();
   }
 }

@@ -7,6 +7,7 @@ class Cell {
     this._idx = index;
     this.system = system;
     this.grid = this.system.grid;
+    this.terrainType = undefined;
   }
 
   get cellAbove() { return this.grid.cellAbove(this._idx); }
