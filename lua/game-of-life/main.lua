@@ -35,8 +35,8 @@ function drawGrid(grid)
   local cell
 
   for i = 1,grid.numCells do
-    row = math.floor( (i-1) / grid.numCols )
-    col = (i-1) % grid.numCols
+    row = rowForIdx(grid, i)
+    col = colForIdx(grid, i)
     cell = grid.data[i]
 
     if (cell) then
@@ -49,4 +49,12 @@ function drawGrid(grid)
     y = row * cellWidth
     love.graphics.rectangle('fill', x, y, cellWidth, cellWidth)
   end
+end
+
+function rowForIdx(grid, idx)
+  return math.floor( (idx-1) / grid.numCols )
+end
+
+function colForIdx(grid, idx)
+  return (idx-1) % grid.numCols
 end
