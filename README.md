@@ -7,7 +7,7 @@ Collection of personal coding projects. They may or may not grow into individual
 
 A LÖVE sketch to test out the framework, learn Lua a bit.
 
-[<img src=".love2d/game-of-life/screenshot-01.png" alt="love2d-game-of-life" width="150px" />][link-love2d-game-of-life]
+[<img src="./love2d/game-of-life/screenshot-01.png" alt="love2d-game-of-life" width="150px" />][link-love2d-game-of-life]
 
 
 ## LÖVE
