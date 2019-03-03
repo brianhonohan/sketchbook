@@ -3,11 +3,17 @@ sketchbook
 
 Collection of personal coding projects. They may or may not grow into individual projects.
 
-## Latest 
+## Latest
 
-A p5.js sketch that demonstrates a Quadtree data structure.
+A LÖVE sketch to test out the framework, learn Lua a bit.
 
-[<img src="./p5js/common/examples/quadtree/screenshot-01.png" alt="p5js-quadtree" width="150px" />][link-p5js-quadtree]
+[<img src=".love2d/game-of-life/screenshot-01.png" alt="love2d-game-of-life" width="150px" />][link-love2d-game-of-life]
+
+
+## LÖVE
+Collection of sketches using the [LÖVE][love2d] environment.
+
+[<img src="https://github.com/brianhonohan/sketchbook/raw/master/love2d/game-of-life/screenshot-01.png" alt="game-of-life" width="150px" />][link-love2d-game-of-life]
 
 ## p5.js
 Collection of sketches using the [p5.js][p5js] Javascript library.
@@ -63,10 +69,13 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/processing/thermal_cells/screenshot-01.png" alt="thermal_cells" width="150px" />][link-thermal_cells]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/processing/three_d_blocks/screenshot-01.png" alt="three_d_blocks" width="150px" />][link-three_d_blocks]
 
+[love2d]: https://love2d.org/
 [p5js]: https://p5js.org/
 [processing]: https://processing.org/
 [coding-train]: https://www.youtube.com/channel/UCvjgXvBlbQiydffZU7m1_aw
 [coding-train-cc]: https://www.youtube.com/watch?v=17WoOqgXsRM&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=1
+
+[link-love2d-game-of-life]: https://github.com/brianhonohan/sketchbook/tree/master/lua/game-of-life
 
 [link-p5js-ecosystem]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/ecosystem/
 [link-p5js-forest-01]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/forest-01/
