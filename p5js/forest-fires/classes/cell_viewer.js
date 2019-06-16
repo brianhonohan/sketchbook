@@ -15,9 +15,9 @@ class CellViewer {
       soil: color(117, 55, 40),
       sand: color(232, 210, 131),
       foliage: color(54, 143, 36),
-      burning: color(230, 100, 50),
+      burning: color(255,181,36),
       engulfed: color(245, 50, 50),
-      smoldering: color(70, 60, 40),
+      smoldering: color(230, 100, 50),
       burnt: color(50, 50, 50)
     };
   }

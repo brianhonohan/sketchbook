@@ -34,11 +34,16 @@ class Cell {
       }
     } else if (this.terrainType == System.TERRAIN_ENGULFED){
       this.fuelAmount -= 1;
-    }
+      if (this.fuelAmount < 0){
+        this.terrainType = System.TERRAIN_SMOLDERING;
+      }
+    } else if (this.terrainType == System.TERRAIN_SMOLDERING){
+      this.fireIntensity -= 0.05;
 
-    if (this.fuelAmount < 0){
-      this.terrainType = System.TERRAIN_BURNT;
-    } 
+      if (this.fireIntensity < 0){
+        this.terrainType = System.TERRAIN_BURNT;
+      }
+    }
   }
 
   get cellAbove() { return this.grid.cellAbove(this._idx); }
