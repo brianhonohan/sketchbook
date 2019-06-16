@@ -1,4 +1,5 @@
 var system;
+var ui;
 
 function setup() {
   createCanvas(windowWidth, windowHeight-35);
@@ -6,6 +7,7 @@ function setup() {
 
   let rect = new Rect(0, 0, width, height);
   system = new System(rect);
+  ui = new UserInterface(system);
 }
 
 function draw(){
@@ -15,7 +17,5 @@ function draw(){
 }
 
 function keyTyped(){
-  if (key === 'l'){
-    system.lightningStrike();
-  }
+  ui.keyTyped(key);
 }
