@@ -31,12 +31,19 @@ class System {
   createCell(tmpRow, tmpCol, i){
     const tmpCell = new Cell(tmpRow, tmpCol, i, this);
     tmpCell.terrainType = this.terrainTypeForPos(tmpRow, tmpCol)
+    if (tmpCell.terrainType == System.TERRAIN_FOLLIAGE){
+      tmpCell.fuelAmount = 100;
+    }
     return tmpCell;
   }
 
   static get TERRAIN_SOIL(){ return 0; }
   static get TERRAIN_WATER(){ return 1; }
   static get TERRAIN_FOLLIAGE(){ return 2; }
+  static get TERRAIN_BURNING(){ return 3; }
+  static get TERRAIN_ENGULFED(){ return 4; }
+  static get TERRAIN_SMOLDERING(){ return 5; }
+  static get TERRAIN_BURNT(){ return 6; }
 
   terrainTypeForPos(x, y){
     const waterOrLand = noise(this.scale * x, this.scale * y);
@@ -56,12 +63,19 @@ class System {
     }
   }
 
+  lightningStrike(){
+    let firstFolliage = this.grid.cells.find(c => c.terrainType == System.TERRAIN_FOLLIAGE);
+    if (firstFolliage) {
+      firstFolliage.startBurning();
+    }
+  }
+
   tick(){
     // console.log("tock");
+    this.grid.cells.forEach(cell => cell.tick());
   }
 
   render(){
-    background(0);
     noStroke();
     this.grid.renderViews();
   }

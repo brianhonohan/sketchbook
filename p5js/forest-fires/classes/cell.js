@@ -8,6 +8,29 @@ class Cell {
     this.system = system;
     this.grid = this.system.grid;
     this.terrainType = undefined;
+    this.fuelAmount = 0;
+    this.fireIntensity = 0;
+  }
+
+  startBurning(){
+    this.terrainType = System.TERRAIN_BURNING;
+  }
+
+  tick(){
+    if (this.terrainType == System.TERRAIN_BURNING){
+      this.fuelAmount -= 0.3;
+      this.fireIntensity += 0.3;
+
+      if (this.fireIntensity > 20){
+        this.terrainType = System.TERRAIN_ENGULFED;
+      }
+    } else if (this.terrainType == System.TERRAIN_ENGULFED){
+      this.fuelAmount -= 1;
+    }
+
+    if (this.fuelAmount < 0){
+      this.terrainType = System.TERRAIN_BURNT;
+    } 
   }
 
   get cellAbove() { return this.grid.cellAbove(this._idx); }

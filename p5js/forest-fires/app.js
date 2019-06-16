@@ -13,3 +13,9 @@ function draw(){
   system.tick();
   system.render();
 }
+
+function keyTyped(){
+  if (key === 'l'){
+    system.lightningStrike();
+  }
+}
