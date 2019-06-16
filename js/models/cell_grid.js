@@ -113,8 +113,16 @@ class CellGrid {
     return neighbors;
   }
 
+  cellNeighborsOfIdx(idx){
+    return this.neighborsOfIdx(idx).map(this.cellAtIdx, this);
+  }
+
+  cellAtIdx(idx){
+    return this.cells[idx]; 
+  }
+
   cellToRight(idx){
-    return this.cells[this.cellIndexToRight(idx)];
+    return this.cellAtIdx(this.cellIndexToRight(idx));
   }
 
   cellIndexToRight(idx){
@@ -130,7 +138,7 @@ class CellGrid {
   }
 
   cellToLeft(idx){
-    return this.cells[this.cellIndexToLeft(idx)];
+    return this.cellAtIdx(this.cellIndexToLeft(idx));
   }
 
   cellIndexToLeft(idx){
@@ -146,7 +154,7 @@ class CellGrid {
   }
 
   cellBelow(idx){
-    return this.cells[this.cellIndexBelow(idx)];
+    return this.cellAtIdx(this.cellIndexBelow(idx));
   }
 
   cellIndexBelow(idx){
@@ -162,7 +170,7 @@ class CellGrid {
   }
 
   cellAbove(idx){
-    return this.cells[this.cellIndexAbove(idx)];
+    return this.cellAtIdx(this.cellIndexAbove(idx));
   }
 
   cellIndexAbove(idx){

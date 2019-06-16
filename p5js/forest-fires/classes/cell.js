@@ -8,12 +8,20 @@ class Cell {
     this.system = system;
     this.grid = this.system.grid;
     this.terrainType = undefined;
+    this.nextFrameType = undefined;
     this.fuelAmount = 0;
     this.fireIntensity = 0;
   }
 
   startBurning(){
     this.terrainType = System.TERRAIN_BURNING;
+  }
+
+  isBurning(){
+    return [
+      System.TERRAIN_BURNING,
+      System.TERRAIN_ENGULFED
+    ].includes(this.terrainType); 
   }
 
   tick(){

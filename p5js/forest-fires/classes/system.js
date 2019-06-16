@@ -5,6 +5,8 @@ class System {
     this.settings = this.optionsSet.settings;
     this.scale =  this.settings.scale;
 
+    this.initFireRisks();
+    this.fireRiskThreshold = 0.1;
     this.cellViewer = new CellViewer();
     this.grid = new CellGrid(this.sizeAndPosition, 
                              this, 
@@ -13,6 +15,7 @@ class System {
                              );
     this.grid.initCells();
 
+    this.firePropagationMatrix = System.BASE_INFLUENCE_MATRIX;
   }
 
   // Return a list of Options, specific to this sketch,
@@ -45,6 +48,33 @@ class System {
   static get TERRAIN_SMOLDERING(){ return 5; }
   static get TERRAIN_BURNT(){ return 6; }
 
+  static get BASE_INFLUENCE_MATRIX(){ 
+    return [
+        0.02,
+        0.05,
+        0.02,
+
+        0.05,
+        // cell
+        0.05,
+
+        0.02,
+        0.05,
+        0.02
+      ];
+  }
+
+  initFireRisks(){
+    this.terrainFireRisks = [];
+    this.terrainFireRisks[System.TERRAIN_SOIL]       = 0;
+    this.terrainFireRisks[System.TERRAIN_WATER]      = -0.1;
+    this.terrainFireRisks[System.TERRAIN_FOLLIAGE]   = 0;
+    this.terrainFireRisks[System.TERRAIN_BURNING]    = 1.0;
+    this.terrainFireRisks[System.TERRAIN_ENGULFED]   = 1.5;
+    this.terrainFireRisks[System.TERRAIN_SMOLDERING] = 0.3;
+    this.terrainFireRisks[System.TERRAIN_BURNT]      = 0.05;
+  }
+
   terrainTypeForPos(x, y){
     const waterOrLand = noise(this.scale * x, this.scale * y);
 
@@ -72,7 +102,44 @@ class System {
 
   tick(){
     // console.log("tock");
+    this.assignNextTypes();
     this.grid.cells.forEach(cell => cell.tick());
+    this.calcNextCellTypes();
+  }
+
+  assignNextTypes(){
+    this.grid.cells.filter(c => c.nextFrameType != undefined)
+                   .forEach((c) => {
+                      c.terrainType = c.nextFrameType;
+                      c.nextFrameType = undefined;
+                    });
+  }
+
+  calcNextCellTypes(){
+    this.grid.cells.filter(c => !c.isBurning() && c.fuelAmount > 0)
+                   .forEach(c => this.setNextTypeForCell(c));
+  }
+
+  setNextTypeForCell(cell){
+    if(this.fireRiskFromNeighbors(cell) > this.fireRiskThreshold){
+      cell.nextFrameType = System.TERRAIN_BURNING;
+    }
+  }
+
+  fireRiskFromNeighbors(cell){
+    const neighbors = this.grid.cellNeighborsOfIdx(cell._idx);
+
+    return  neighbors.map(this.fireRisk, this)
+                     .reduce((total, riskFactor) => total + riskFactor, 0);
+  }
+
+  fireRisk(cell, neighborIdx){
+    if (cell == undefined) {
+      return 0;
+    }
+
+    return this.terrainFireRisks[cell.terrainType]
+              * this.firePropagationMatrix[neighborIdx];
   }
 
   render(){
