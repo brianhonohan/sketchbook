@@ -97,6 +97,15 @@ class System {
     }
   }
 
+  knockDownAt(x, y){
+    const cell = this.grid.cellForXY(x, y);
+    if (!cell.isBurning()){
+      return;
+    }
+    cell.fireIntensity = 0;
+    cell.terrainType = System.TERRAIN_SMOLDERING;
+  }
+
   fireBreakAt(x, y){
     const cell = this.grid.cellForXY(x, y);
 

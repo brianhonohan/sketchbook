@@ -5,11 +5,13 @@ class UserInterface {
   }
 
   static get TOOL_FIRE_BREAK(){ return 1; }
+  static get TOOL_KNOCK_DOWN(){ return 2; }
 
   keyTyped(key){
     switch (key) {
       case 'l': this.triggerLightning(); break;
       case 'f': this.setTool(UserInterface.TOOL_FIRE_BREAK); break;
+      case 'k': this.setTool(UserInterface.TOOL_KNOCK_DOWN); break;
     }
   }
 
@@ -24,6 +26,9 @@ class UserInterface {
     switch (this.tool) {
       case UserInterface.TOOL_FIRE_BREAK:
         this.system.fireBreakAt(systemX, systemY);
+        break;
+      case UserInterface.TOOL_KNOCK_DOWN:
+        this.system.knockDownAt(systemX, systemY);
         break;
     }
   }
