@@ -41,7 +41,11 @@ class Cell {
       this.fireIntensity -= 0.05;
 
       if (this.fireIntensity < 0){
-        this.terrainType = System.TERRAIN_BURNT;
+        if (this.fuelAmount > 0){
+          this.terrainType = System.TERRAIN_PARTIAL_BURN;
+        } else {
+          this.terrainType = System.TERRAIN_BURNT;
+        }
       }
     }
   }

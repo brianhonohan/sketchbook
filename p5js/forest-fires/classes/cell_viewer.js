@@ -18,7 +18,8 @@ class CellViewer {
       burning: color(255,181,36),
       engulfed: color(245, 50, 50),
       smoldering: color(230, 100, 50),
-      burnt: color(50, 50, 50)
+      burnt: color(50, 50, 50),
+      partial_burn: color(70, 70, 70)
     };
   }
 
@@ -31,5 +32,6 @@ class CellViewer {
     this.colorLookup[System.TERRAIN_ENGULFED] = this._colors.engulfed;
     this.colorLookup[System.TERRAIN_SMOLDERING] = this._colors.smoldering;
     this.colorLookup[System.TERRAIN_BURNT] = this._colors.burnt;
+    this.colorLookup[System.TERRAIN_PARTIAL_BURN] = this._colors.partial_burn;
   }
 }

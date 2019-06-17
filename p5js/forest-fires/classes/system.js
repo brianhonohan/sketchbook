@@ -51,6 +51,7 @@ class System {
   static get TERRAIN_ENGULFED(){ return 4; }
   static get TERRAIN_SMOLDERING(){ return 5; }
   static get TERRAIN_BURNT(){ return 6; }
+  static get TERRAIN_PARTIAL_BURN(){ return 7; }
 
   static get BASE_INFLUENCE_MATRIX(){ 
     return [
@@ -77,6 +78,7 @@ class System {
     this.terrainFireRisks[System.TERRAIN_ENGULFED]   = 1.5;
     this.terrainFireRisks[System.TERRAIN_SMOLDERING] = 0.3;
     this.terrainFireRisks[System.TERRAIN_BURNT]      = 0.05;
+    this.terrainFireRisks[System.TERRAIN_PARTIAL_BURN] = 0;
   }
 
   terrainTypeForPos(x, y){
