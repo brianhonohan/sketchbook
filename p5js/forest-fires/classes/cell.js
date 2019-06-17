@@ -4,6 +4,7 @@ class Cell {
     this._row = row;
     this._col = col;
 
+    this._needsRender = true;
     this._idx = index;
     this.system = system;
     this.grid = this.system.grid;
@@ -14,7 +15,7 @@ class Cell {
   }
 
   startBurning(){
-    this.terrainType = System.TERRAIN_BURNING;
+    this.setType(System.TERRAIN_BURNING);
   }
 
   isBurning(){
@@ -24,27 +25,32 @@ class Cell {
     ].includes(this.terrainType); 
   }
 
+  setType(type){
+    this.terrainType = type;
+    this._needsRender = true;
+  }
+
   tick(){
     if (this.terrainType == System.TERRAIN_BURNING){
       this.fuelAmount -= 0.3;
       this.fireIntensity += 0.3;
 
       if (this.fireIntensity > 20){
-        this.terrainType = System.TERRAIN_ENGULFED;
+        this.setType(System.TERRAIN_ENGULFED);
       }
     } else if (this.terrainType == System.TERRAIN_ENGULFED){
       this.fuelAmount -= 1;
       if (this.fuelAmount < 0){
-        this.terrainType = System.TERRAIN_SMOLDERING;
+        this.setType(System.TERRAIN_SMOLDERING);
       }
     } else if (this.terrainType == System.TERRAIN_SMOLDERING){
       this.fireIntensity -= 0.05;
 
       if (this.fireIntensity < 0){
         if (this.fuelAmount > 0){
-          this.terrainType = System.TERRAIN_PARTIAL_BURN;
+          this.setType(System.TERRAIN_PARTIAL_BURN);
         } else {
-          this.terrainType = System.TERRAIN_BURNT;
+          this.setType(System.TERRAIN_BURNT);
         }
       }
     }

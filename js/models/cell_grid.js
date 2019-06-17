@@ -203,4 +203,24 @@ class CellGrid {
     }
     pop();
   }
+
+  renderViewsAsNeeded(){
+    push();
+    translate(this._x, this._y);
+
+    let tmpX;
+    let tmpY;
+
+    // console.log(`about to draw: ${this.cells.filter(cell => cell._needsRender).length} cells`);
+    this.cells.filter(cell => cell._needsRender)
+              .forEach((cell) => {
+                tmpX = cell._col * this.effectCellWidth;
+                tmpY = cell._row * this.effectCellHeight;
+
+                this.cellViewer.renderCell(cell, tmpX, tmpY, 
+                              this.cellWidth, this.cellHeight);
+                cell._needsRender = false;
+              });
+    pop();
+  }
 }

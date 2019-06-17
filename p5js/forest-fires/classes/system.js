@@ -33,7 +33,7 @@ class System {
 
   createCell(tmpRow, tmpCol, i){
     const tmpCell = new Cell(tmpRow, tmpCol, i, this);
-    tmpCell.terrainType = this.terrainTypeForPos(tmpRow, tmpCol)
+    tmpCell.setType(this.terrainTypeForPos(tmpRow, tmpCol));
     if (tmpCell.terrainType == System.TERRAIN_FOLLIAGE){
       tmpCell.fuelAmount = 100;
     }
@@ -105,14 +105,14 @@ class System {
       return;
     }
     cell.fireIntensity = 0;
-    cell.terrainType = System.TERRAIN_SMOLDERING;
+    cell.setType(System.TERRAIN_SMOLDERING);
   }
 
   fireBreakAt(x, y){
     const cell = this.grid.cellForXY(x, y);
 
     if (!cell.isBurning() && cell.terrainType == System.TERRAIN_FOLLIAGE){
-      cell.terrainType = System.TERRAIN_SOIL;
+      cell.setType(System.TERRAIN_SOIL);
       cell.fuelAmount = 0;
     }
   }
@@ -136,7 +136,7 @@ class System {
   assignNextTypes(){
     this.grid.cells.filter(c => c.nextFrameType != undefined)
                    .forEach((c) => {
-                      c.terrainType = c.nextFrameType;
+                      c.setType(c.nextFrameType);
                       c.nextFrameType = undefined;
                     });
   }
@@ -170,6 +170,7 @@ class System {
 
   render(){
     noStroke();
-    this.grid.renderViews();
+    // this.grid.renderViews();
+    this.grid.renderViewsAsNeeded();
   }
 }
