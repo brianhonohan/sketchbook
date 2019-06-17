@@ -205,15 +205,18 @@ class CellGrid {
   }
 
   renderViewsAsNeeded(){
+    const cellsToRender = this.cells.filter(cell => cell._needsRender);
+    if (cellsToRender.length == 0){
+      return;
+    }
+
     push();
     translate(this._x, this._y);
 
     let tmpX;
     let tmpY;
 
-    // console.log(`about to draw: ${this.cells.filter(cell => cell._needsRender).length} cells`);
-    this.cells.filter(cell => cell._needsRender)
-              .forEach((cell) => {
+    cellsToRender.forEach((cell) => {
                 tmpX = cell._col * this.effectCellWidth;
                 tmpY = cell._row * this.effectCellHeight;
 
