@@ -5,9 +5,9 @@ Collection of personal coding projects. They may or may not grow into individual
 
 ## Latest
 
-A LÖVE sketch to test out the framework, learn Lua a bit.
+A p5.js sketch, modeling some basic aspects of forest fires.
 
-[<img src="./love2d/game-of-life/screenshot-01.png" alt="love2d-game-of-life" width="150px" />][link-love2d-game-of-life]
+[<img src="./p5js/forest-fires/screenshot-01.png" alt="p5js-forest-fires" width="150px" />][link-p5js-forest-fires]
 
 
 ## LÖVE
@@ -20,6 +20,7 @@ Collection of sketches using the [p5.js][p5js] Javascript library.
 
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/ecosystem/screenshot-01.png" alt="ecosystem" width="150px" />][link-p5js-ecosystem]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/forest-01/screenshot-01.png" alt="forest-01" width="150px" />][link-p5js-forest-01]
+[<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/forest-fires/screenshot-01.png" alt="forest-01" width="150px" />][link-p5js-forest-fires]
 [<img src="./p5js/common/examples/draggable/screenshot-01.png" alt="draggable" width="150px" />][link-p5js-draggable]
 [<img src="./p5js/friezes/screenshot-01.png" alt="friezes" width="150px" />][link-p5js-friezes]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/hello_world/screenshot-01.png" alt="hello_world" width="150px" />][link-p5js-hello_world]
@@ -79,6 +80,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 
 [link-p5js-ecosystem]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/ecosystem/
 [link-p5js-forest-01]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/forest-01/
+[link-p5js-forest-fires]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/forest-fires/
 [link-p5js-draggable]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/draggable/
 [link-p5js-friezes]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/friezes/
 [link-p5js-hello_world]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/hello_world/

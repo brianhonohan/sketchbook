@@ -25,7 +25,7 @@ class System {
   // supported types: integer, float, string
   optionsMetadata(){
     return [
-      { name: "cellWidth", type: "integer", default: 50}, 
+      { name: "cellWidth", type: "integer", default: 20}, 
       { name: "scale", type: "float", default: 0.02}, 
       // { name: "varname3", type: "float", default: 0.6}
     ];

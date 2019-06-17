@@ -1,8 +1,9 @@
+var canvas;
 var system;
 var ui;
 
 function setup() {
-  createCanvas(windowWidth, windowHeight-35);
+  canvas = createCanvas(windowWidth, windowHeight-35);
   P5JsSettings.init();
 
   let rect = new Rect(0, 0, width, height);
@@ -18,6 +19,11 @@ function draw(){
 }
 
 function keyTyped(){
+  switch (key) {
+    case 'p':
+      saveCanvas(canvas, 'screenshot', 'png');
+      break;
+  }
   ui.keyTyped(key);
 }
 
