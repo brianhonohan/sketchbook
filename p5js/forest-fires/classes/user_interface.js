@@ -10,6 +10,7 @@ class UserInterface {
   keyTyped(key){
     switch (key) {
       case 'l': this.triggerLightning(); break;
+      case 'L': this.setTool(UserInterface.TOOL_LIGHTNING); break;
       case 'f': this.setTool(UserInterface.TOOL_FIRE_BREAK); break;
       case 'k': this.setTool(UserInterface.TOOL_KNOCK_DOWN); break;
     }
@@ -29,6 +30,9 @@ class UserInterface {
         break;
       case UserInterface.TOOL_KNOCK_DOWN:
         this.system.knockDownAt(systemX, systemY);
+        break;
+      case UserInterface.TOOL_LIGHTNING:
+        this.system.lightningAt(systemX, systemY);
         break;
     }
   }

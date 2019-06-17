@@ -117,6 +117,14 @@ class System {
     }
   }
 
+  lightningAt(x, y){
+    const cell = this.grid.cellForXY(x, y);
+
+    if (!cell.isBurning() && cell.fuelAmount > 0){
+      cell.startBurning();
+    }
+  }
+
   lightningStrike(){
     let firstFolliage = this.grid.cells.find(c => c.terrainType == System.TERRAIN_FOLLIAGE);
     if (firstFolliage) {
