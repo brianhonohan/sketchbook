@@ -19,3 +19,7 @@ function draw(){
 function keyTyped(){
   ui.keyTyped(key);
 }
+
+function mousePressed(){
+  ui.mousePressed(mouseX, mouseY);
+}

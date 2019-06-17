@@ -40,6 +40,10 @@ class System {
     return tmpCell;
   }
 
+  get x(){ return this.sizeAndPosition.x; }
+  get y(){ return this.sizeAndPosition.y; }
+  containsXY(x, y){ return this.sizeAndPosition.containsXY(x, y); }
+
   static get TERRAIN_SOIL(){ return 0; }
   static get TERRAIN_WATER(){ return 1; }
   static get TERRAIN_FOLLIAGE(){ return 2; }
@@ -90,6 +94,15 @@ class System {
       } else {
         return System.TERRAIN_FOLLIAGE;
       }
+    }
+  }
+
+  fireBreakAt(x, y){
+    const cell = this.grid.cellForXY(x, y);
+
+    if (!cell.isBurning() && cell.terrainType == System.TERRAIN_FOLLIAGE){
+      cell.terrainType = System.TERRAIN_SOIL;
+      cell.fuelAmount = 0;
     }
   }
 
