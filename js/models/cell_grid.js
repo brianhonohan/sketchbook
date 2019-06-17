@@ -113,8 +113,16 @@ class CellGrid {
     return neighbors;
   }
 
+  cellNeighborsOfIdx(idx){
+    return this.neighborsOfIdx(idx).map(this.cellAtIdx, this);
+  }
+
+  cellAtIdx(idx){
+    return this.cells[idx]; 
+  }
+
   cellToRight(idx){
-    return this.cells[this.cellIndexToRight(idx)];
+    return this.cellAtIdx(this.cellIndexToRight(idx));
   }
 
   cellIndexToRight(idx){
@@ -130,7 +138,7 @@ class CellGrid {
   }
 
   cellToLeft(idx){
-    return this.cells[this.cellIndexToLeft(idx)];
+    return this.cellAtIdx(this.cellIndexToLeft(idx));
   }
 
   cellIndexToLeft(idx){
@@ -146,7 +154,7 @@ class CellGrid {
   }
 
   cellBelow(idx){
-    return this.cells[this.cellIndexBelow(idx)];
+    return this.cellAtIdx(this.cellIndexBelow(idx));
   }
 
   cellIndexBelow(idx){
@@ -162,7 +170,7 @@ class CellGrid {
   }
 
   cellAbove(idx){
-    return this.cells[this.cellIndexAbove(idx)];
+    return this.cellAtIdx(this.cellIndexAbove(idx));
   }
 
   cellIndexAbove(idx){
@@ -185,6 +193,9 @@ class CellGrid {
     let tmpY;
     let tmpCell;
 
+    if (this.cellViewer.isPixelRenderer){
+      loadPixels();
+    }
     for(let i=0; i<this.cells.length; i++){
       tmpCell = this.cells[i];
       tmpX = tmpCell._col * this.effectCellWidth;
@@ -192,6 +203,41 @@ class CellGrid {
 
       this.cellViewer.renderCell(tmpCell, tmpX, tmpY, 
                               this.cellWidth, this.cellHeight);
+    }
+
+    if (this.cellViewer.isPixelRenderer){
+      updatePixels();
+    }
+    pop();
+  }
+
+  renderViewsAsNeeded(){
+    const cellsToRender = this.cells.filter(cell => cell._needsRender);
+    if (cellsToRender.length == 0){
+      return;
+    }
+
+    push();
+    translate(this._x, this._y);
+
+    let tmpX;
+    let tmpY;
+
+    if (this.cellViewer.isPixelRenderer){
+      loadPixels();
+    }
+
+    cellsToRender.forEach((cell) => {
+                tmpX = cell._col * this.effectCellWidth;
+                tmpY = cell._row * this.effectCellHeight;
+
+                this.cellViewer.renderCell(cell, tmpX, tmpY, 
+                              this.cellWidth, this.cellHeight);
+                cell._needsRender = false;
+              });
+
+    if (this.cellViewer.isPixelRenderer){
+      updatePixels();
     }
     pop();
   }
