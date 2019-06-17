@@ -124,9 +124,11 @@ class System {
 
   tick(){
     // console.log("tock");
-    this.assignNextTypes();
+    if (frameCount % 5 == 0) {
+      this.calcNextCellTypes();
+      this.assignNextTypes();
+    }
     this.grid.cells.forEach(cell => cell.tick());
-    this.calcNextCellTypes();
   }
 
   assignNextTypes(){
