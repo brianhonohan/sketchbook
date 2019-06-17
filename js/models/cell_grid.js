@@ -193,6 +193,9 @@ class CellGrid {
     let tmpY;
     let tmpCell;
 
+    if (this.cellViewer.isPixelRenderer){
+      loadPixels();
+    }
     for(let i=0; i<this.cells.length; i++){
       tmpCell = this.cells[i];
       tmpX = tmpCell._col * this.effectCellWidth;
@@ -200,6 +203,10 @@ class CellGrid {
 
       this.cellViewer.renderCell(tmpCell, tmpX, tmpY, 
                               this.cellWidth, this.cellHeight);
+    }
+
+    if (this.cellViewer.isPixelRenderer){
+      updatePixels();
     }
     pop();
   }
@@ -216,6 +223,10 @@ class CellGrid {
     let tmpX;
     let tmpY;
 
+    if (this.cellViewer.isPixelRenderer){
+      loadPixels();
+    }
+
     cellsToRender.forEach((cell) => {
                 tmpX = cell._col * this.effectCellWidth;
                 tmpY = cell._row * this.effectCellHeight;
@@ -224,6 +235,10 @@ class CellGrid {
                               this.cellWidth, this.cellHeight);
                 cell._needsRender = false;
               });
+
+    if (this.cellViewer.isPixelRenderer){
+      updatePixels();
+    }
     pop();
   }
 }

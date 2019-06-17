@@ -170,7 +170,6 @@ class System {
 
   render(){
     noStroke();
-    // this.grid.renderViews();
     this.grid.renderViewsAsNeeded();
   }
 }
