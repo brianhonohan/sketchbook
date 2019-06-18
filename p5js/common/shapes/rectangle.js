@@ -4,6 +4,8 @@ class Rectangle extends Rect {
     this.initPoints();
     this.computePoints();
     this.dragEnabled = false;
+    this.dragArea = this;
+    this.dragOffset = undefined;
     this.isDragged = false;
     this.fillColor = color(80);
   }
@@ -50,6 +52,13 @@ class Rectangle extends Rect {
       pointPressed.isBeingDragged = true;
       this.isDragged = true;
       return true;
+    } else {
+      const dragAreaPressed = this.dragArea.containsXY(mouseX, mouseY);
+      if (dragAreaPressed){
+        this.isDragged = true;
+        this.dragOffset = new Point(mouseX - this.x, mouseY - this.y);
+        return true;
+      }
     }
     return false;
   }
@@ -77,6 +86,10 @@ class Rectangle extends Rect {
         this.bottomRight.y = pointDragged.y;
       }
       this.computePosAndSize();
+    } else {
+      this._x = mouseX - this.dragOffset.x;
+      this._y = mouseY - this.dragOffset.y;
+      this.computePoints();
     }
   }
 
