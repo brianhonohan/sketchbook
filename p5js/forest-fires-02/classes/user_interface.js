@@ -1,11 +1,54 @@
 class UserInterface {
-  constructor(system){
+  constructor(p_xSizeAndPos, system){
+    this.sizeAndPosition = p_xSizeAndPos;
+
     this.system = system;
-    this.tool = undefined;
+    this.tool = -1;
+
+    this.uiSet = new UISet();
+    this.initButtons();
   }
+
+  get x(){ return this.sizeAndPosition.x; }
+  get y(){ return this.sizeAndPosition.y; }
+  get width(){ return this.sizeAndPosition.width; }
+  get height(){ return this.sizeAndPosition.height; }
 
   static get TOOL_FIRE_BREAK(){ return 1; }
   static get TOOL_KNOCK_DOWN(){ return 2; }
+
+
+  static get BTN_LIGHTNING() { return 0; }
+  static get BTN_FIRE_BREAK() { return 1; }
+  static get BTN_KNOCK_DOWN() { return 2; }
+
+  initButtons(){
+    let buttonWidth = 150;
+    let marginX = 25;
+    let buttonConfigs = this.configForButtons();
+
+    let buttonYPos = this.y + 70;
+    buttonConfigs.forEach(btnConfig => {
+      let newButton = new Button(btnConfig.id, 
+                                 btnConfig.label, 
+                                 this.x + marginX, buttonYPos, buttonWidth,
+                                 btnConfig.callback, this);
+      this.uiSet.add(newButton);
+      buttonYPos += 50;
+    });
+  }
+
+  configForButtons(){
+    return [
+      {id: UserInterface.BTN_LIGHTNING, label: 'Lightning', callback: this.handleBtnLightning},
+      {id: UserInterface.BTN_FIRE_BREAK, label: 'Fire Break', callback: this.handleBtnFireBreak},
+      {id: UserInterface.BTN_KNOCK_DOWN, label: 'Knock Down', callback: this.handleBtnKnockDown},
+    ];
+  }
+
+  handleBtnLightning(){ this.setTool(UserInterface.TOOL_LIGHTNING); }
+  handleBtnFireBreak(){ this.setTool(UserInterface.TOOL_FIRE_BREAK); }
+  handleBtnKnockDown(){ this.setTool(UserInterface.TOOL_KNOCK_DOWN); }
 
   keyTyped(key){
     switch (key) {
@@ -18,6 +61,7 @@ class UserInterface {
 
   mousePressed(x, y){
     if (!this.system.containsXY(x, y)){
+      this.uiSet.handleMousePressed();
       return;
     }
 
@@ -25,15 +69,22 @@ class UserInterface {
     const systemY = y - system.y;
 
     switch (this.tool) {
-      case UserInterface.TOOL_FIRE_BREAK:
-        this.system.fireBreakAt(systemX, systemY);
-        break;
       case UserInterface.TOOL_KNOCK_DOWN:
         this.system.knockDownAt(systemX, systemY);
         break;
       case UserInterface.TOOL_LIGHTNING:
         this.system.lightningAt(systemX, systemY);
         break;
+      case UserInterface.TOOL_FIRE_BREAK:
+        this.system.fireBreakAt(systemX, systemY);
+        break;
+    }
+  }
+
+  mouseReleased(){
+    if (!this.system.containsXY(mouseX, mouseY)){
+      this.uiSet.handleMouseReleased();
+      return;
     }
   }
 
@@ -43,5 +94,16 @@ class UserInterface {
 
   triggerLightning(){
     system.lightningStrike();
+  }
+
+  render(){
+    fill(255);
+    rect(this.x, this.y, this.width, this.height);
+
+    fill(0);
+    textSize(20);
+    text('FOREST FIRE SIM', this.x + 14, this.y + 30);
+
+    this.uiSet.draw();
   }
 }

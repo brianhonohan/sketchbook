@@ -6,9 +6,13 @@ function setup() {
   canvas = createCanvas(windowWidth, windowHeight-35);
   P5JsSettings.init();
 
-  let rect = new Rect(0, 0, width, height);
+  let uiPanelWidth = 200;
+
+  let rect = new Rect(0, 0, width - uiPanelWidth, height);
   system = new System(rect);
-  ui = new UserInterface(system);
+
+  let uiRect = new Rect(width - uiPanelWidth, 0, uiPanelWidth, height);
+  ui = new UserInterface(uiRect, system);
 
   background(50);
 }
@@ -16,6 +20,7 @@ function setup() {
 function draw(){
   system.tick();
   system.render();
+  ui.render();
 }
 
 function keyTyped(){
@@ -29,4 +34,8 @@ function keyTyped(){
 
 function mousePressed(){
   ui.mousePressed(mouseX, mouseY);
+}
+
+function mouseReleased(){
+  ui.mouseReleased(mouseX, mouseY);
 }
