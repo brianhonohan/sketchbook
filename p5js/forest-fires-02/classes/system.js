@@ -95,6 +95,8 @@ class System {
 
   setSpeed(newIndex){
     const speedLookup = [0,
+      0.25,
+      0.5,
       1,
       2,
       4
@@ -161,8 +163,15 @@ class System {
       return;
     }
 
-    for (var i = 0; i < this.internalTicksPerFrame; i++){
-      this.internalTick();
+    if (this.internalTicksPerFrame < 1) {
+      const onlyRunOnModulo = 1 / this.internalTicksPerFrame;
+      if (frameCount % onlyRunOnModulo == 0){
+        this.internalTick();
+      }
+    } else {
+      for (var i = 0; i < this.internalTicksPerFrame; i++){
+        this.internalTick();
+      }
     }
   }
 
