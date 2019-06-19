@@ -6,6 +6,7 @@ class System {
     this.scale =  this.settings.scale;
 
     this.paused = false;
+    this.tickCount = 0;
     this.initFireRisks();
     this.fireRiskThreshold = 0.1;
     this.cellViewer = new CellViewer();
@@ -139,10 +140,16 @@ class System {
 
   tick(){
     // console.log("tock");
-    if (frameCount % 5 == 0) {
     if (this.paused){
       return;
     }
+    this.internalTick();
+  }
+
+  internalTick(){
+    this.tickCount += 1;
+
+    if (this.tickCount % 5 == 0) {
       this.calcNextCellTypes();
       this.assignNextTypes();
     }
