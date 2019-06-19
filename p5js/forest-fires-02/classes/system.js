@@ -5,6 +5,7 @@ class System {
     this.settings = this.optionsSet.settings;
     this.scale =  this.settings.scale;
 
+    this.paused = false;
     this.initFireRisks();
     this.fireRiskThreshold = 0.1;
     this.cellViewer = new CellViewer();
@@ -81,6 +82,10 @@ class System {
     this.terrainFireRisks[System.TERRAIN_PARTIAL_BURN] = 0;
   }
 
+  togglePause(){
+    this.paused = !this.paused;
+  }
+
   terrainTypeForPos(x, y){
     const waterOrLand = noise(this.scale * x, this.scale * y);
 
@@ -135,6 +140,9 @@ class System {
   tick(){
     // console.log("tock");
     if (frameCount % 5 == 0) {
+    if (this.paused){
+      return;
+    }
       this.calcNextCellTypes();
       this.assignNextTypes();
     }
