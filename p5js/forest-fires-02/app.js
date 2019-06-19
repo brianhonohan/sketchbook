@@ -21,6 +21,7 @@ function draw(){
   system.tick();
   system.render();
   ui.render();
+  displayFrameRate();
 }
 
 function keyTyped(){
@@ -38,4 +39,14 @@ function mousePressed(){
 
 function mouseReleased(){
   ui.mouseReleased(mouseX, mouseY);
+}
+
+function displayFrameRate(){
+  if (frameCount % 30 != 0){ return; }
+
+  fill(0);
+  rect (0, height - 20, 50, 20);
+  fill(50, 220, 50);
+  textSize(12);
+  text((frameRate()).toFixed(2), 5, height - 6);
 }
