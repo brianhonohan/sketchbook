@@ -56,6 +56,8 @@ class UserInterface {
       case 'L': this.setTool(UserInterface.TOOL_LIGHTNING); break;
       case 'f': this.setTool(UserInterface.TOOL_FIRE_BREAK); break;
       case 'k': this.setTool(UserInterface.TOOL_KNOCK_DOWN); break;
+      case '[':  this.system.slowDown(); break;
+      case ']':  this.system.speedUp(); break;
       case "\\": this.system.togglePause(); break;
     }
   }

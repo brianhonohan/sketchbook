@@ -5,6 +5,8 @@ class System {
     this.settings = this.optionsSet.settings;
     this.scale =  this.settings.scale;
 
+    this.internalTicksPerFrame = 1;
+    this.speedIdx = 1;
     this.paused = false;
     this.tickCount = 0;
     this.initFireRisks();
@@ -85,6 +87,21 @@ class System {
 
   togglePause(){
     this.paused = !this.paused;
+    this.setSpeed(max(1, this.speedIdx));
+  }
+
+  slowDown(){ this.setSpeed(this.speedIdx - 1) }
+  speedUp(){ this.setSpeed(this.speedIdx + 1) }
+
+  setSpeed(newIndex){
+    const speedLookup = [0,
+      1,
+      2,
+      4
+    ];
+
+    this.speedIdx = constrain(newIndex, 0, speedLookup.length - 1);
+    this.internalTicksPerFrame = speedLookup[this.speedIdx];
   }
 
   terrainTypeForPos(x, y){
@@ -143,7 +160,10 @@ class System {
     if (this.paused){
       return;
     }
-    this.internalTick();
+
+    for (var i = 0; i < this.internalTicksPerFrame; i++){
+      this.internalTick();
+    }
   }
 
   internalTick(){
