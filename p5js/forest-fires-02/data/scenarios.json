@@ -1,0 +1,10 @@
+{
+  "scenarios" : [
+    {
+      "seed" : 117,
+      "scale": 0.02,
+      "cellWidth" : 5,
+      "lightning_at" : ["128,198","134,199"]
+    }
+  ]
+}

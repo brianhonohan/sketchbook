@@ -1,8 +1,15 @@
 class System {
   constructor(p_xSizeAndPos){
     this.sizeAndPosition = p_xSizeAndPos;
-    this.optionsSet = new OptionsSet(this.optionsMetadata());
-    this.settings = this.optionsSet.settings;
+  }
+
+  init(p_xSettings){
+    if (p_xSettings){
+      this.settings = p_xSettings;
+    } else {
+      this.optionsSet = new OptionsSet(this.optionsMetadata());
+      this.settings = this.optionsSet.settings;
+    }
     this.scale =  this.settings.scale;
 
     this.internalTicksPerFrame = 1;

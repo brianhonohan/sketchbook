@@ -1,6 +1,13 @@
 var canvas;
 var system;
 var ui;
+var scenarioMgr;
+
+function preload(){
+  let scenarioJson = "./data/scenarios.json";
+  scenarioMgr = new ScenarioManager();
+  scenarioMgr.load(scenarioJson);
+}
 
 function setup() {
   canvas = createCanvas(windowWidth, windowHeight-35);
@@ -10,6 +17,7 @@ function setup() {
 
   let rect = new Rect(0, 0, width - uiPanelWidth, height);
   system = new System(rect);
+  scenarioMgr.loadScenario(0);
 
   let uiRect = new Rect(width - uiPanelWidth, 0, uiPanelWidth, height);
   ui = new UserInterface(uiRect, system);
