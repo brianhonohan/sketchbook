@@ -17,6 +17,7 @@ js_scripts:
 - /sketchbook/js/models/cell_grid.js
 - classes/cell.js
 - classes/cell_viewer.js
+- classes/resources.js
 - classes/system.js
 - classes/user_interface.js
 - app.js

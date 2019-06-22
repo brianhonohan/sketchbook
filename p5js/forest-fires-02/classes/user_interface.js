@@ -3,9 +3,11 @@ class UserInterface {
     this.sizeAndPosition = p_xSizeAndPos;
 
     this.system = system;
+    this.resources = system.resources;
     this.tool = -1;
 
     this.uiSet = new UISet();
+    this.initialBtnConfig = this.configForButtons();
     this.initButtons();
   }
 
@@ -91,6 +93,10 @@ class UserInterface {
     }
   }
 
+  updateButtonLabels(){
+    this.uiSet.elementAt(1).label = this.initialBtnConfig[1].label + " - " + Math.floor(this.resources.fire_break);
+  }
+
   setTool(tool){
     this.tool = tool;
   }
@@ -107,6 +113,7 @@ class UserInterface {
     textSize(20);
     text('FOREST FIRE SIM', this.x + 14, this.y + 30);
 
+    this.updateButtonLabels();
     this.uiSet.draw();
   }
 }

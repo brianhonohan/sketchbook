@@ -11,6 +11,7 @@ class System {
     this.tickCount = 0;
     this.initFireRisks();
     this.fireRiskThreshold = 0.1;
+    this.resources = new Resources();
     this.cellViewer = new CellViewer();
     this.grid = new CellGrid(this.sizeAndPosition, 
                              this, 
@@ -134,11 +135,17 @@ class System {
   }
 
   fireBreakAt(x, y){
+    if (!this.resources.has(Resources.RES_FIRE_BREAK)){
+      console.log("Out of: fire_break");
+      return;
+    }
+
     const cell = this.grid.cellForXY(x, y);
 
     if (!cell.isBurning() && cell.terrainType == System.TERRAIN_FOLLIAGE){
       cell.setType(System.TERRAIN_SOIL);
       cell.fuelAmount = 0;
+      this.resources.use(Resources.RES_FIRE_BREAK);
     }
   }
 
@@ -183,6 +190,7 @@ class System {
       this.assignNextTypes();
     }
     this.grid.cells.forEach(cell => cell.tick());
+    this.resources.tick();
   }
 
   assignNextTypes(){

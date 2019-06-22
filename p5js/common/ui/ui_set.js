@@ -7,6 +7,10 @@ class UISet {
     this.uiElements.push(element);
   }
 
+  elementAt(idx){
+    return this.uiElements[idx];
+  }
+
   handleMousePressed(){
     let pressedButton = this.uiElements.find(el => el.pressIfHit(mouseX, mouseY));
     if (pressedButton){
