@@ -21,6 +21,7 @@ class System {
     this.grid.initCells();
 
     this.firePropagationMatrix = System.BASE_INFLUENCE_MATRIX;
+    this.initialLightning();
   }
 
   // Return a list of Options, specific to this sketch,
@@ -32,6 +33,7 @@ class System {
     return [
       { name: "cellWidth", type: "integer", default: 20}, 
       { name: "scale", type: "float", default: 0.02}, 
+      { name: "lightning_at", type: "array:string", default: [], delimiter: "|"}
       // { name: "varname3", type: "float", default: 0.6}
     ];
   }
@@ -123,6 +125,13 @@ class System {
         return System.TERRAIN_FOLLIAGE;
       }
     }
+  }
+
+  initialLightning(){
+    this.settings.lightning_at.forEach(coord => {
+      let xyCoord = coord.split(",");
+      this.lightningAt(xyCoord[0], xyCoord[1]);
+    });
   }
 
   knockDownAt(x, y){
