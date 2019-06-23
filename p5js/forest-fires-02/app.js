@@ -4,6 +4,12 @@ var ui;
 var scenarioMgr;
 var urlParams;
 
+var LOG_LEVEL_INFO = 0;
+var LOG_LEVEL_DEBUG = 1;
+var LOG_LEVEL_WARNING = 2;
+var LOG_LEVEL_ERROR = 3;
+var logginglevel = LOG_LEVEL_DEBUG;
+
 function preload(){
   let scenarioJson = "./data/scenarios.json";
   scenarioMgr = new ScenarioManager();
@@ -70,3 +76,8 @@ function logError(message){
   console.error(message);
 }
 
+function logMessage(level, message){
+  if (level >= logginglevel){
+    console.log(message);
+  }
+}

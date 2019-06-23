@@ -166,6 +166,7 @@ class System {
   }
 
   lightningAt(x, y){
+    logMessage(LOG_LEVEL_INFO, `lightningAt: ${x},${y}`);
     const cell = this.grid.cellForXY(x, y);
 
     if (!cell.isBurning() && cell.fuelAmount > 0){
