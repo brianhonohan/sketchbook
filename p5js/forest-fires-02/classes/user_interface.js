@@ -1,6 +1,7 @@
 class UserInterface {
   constructor(p_xSizeAndPos, system){
     this.sizeAndPosition = p_xSizeAndPos;
+    this.marginX = 25;
 
     this.system = system;
     this.resources = system.resources;
@@ -26,14 +27,14 @@ class UserInterface {
 
   initButtons(){
     let buttonWidth = 150;
-    let marginX = 25;
+    this.marginX = 25;
     let buttonConfigs = this.configForButtons();
 
     let buttonYPos = this.y + 70;
     buttonConfigs.forEach(btnConfig => {
       let newButton = new Button(btnConfig.id, 
                                  btnConfig.label, 
-                                 this.x + marginX, buttonYPos, buttonWidth,
+                                 this.x + this.marginX, buttonYPos, buttonWidth,
                                  btnConfig.callback, this);
       this.uiSet.add(newButton);
       buttonYPos += 50;
