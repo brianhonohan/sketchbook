@@ -1,15 +1,17 @@
 class UserInterface {
-  constructor(p_xSizeAndPos, system){
+  constructor(p_xSizeAndPos, system, p_xScenarioMgr){
     this.sizeAndPosition = p_xSizeAndPos;
     this.marginX = 25;
 
     this.system = system;
     this.resources = system.resources;
     this.tool = -1;
+    this.scenarioMgr = p_xScenarioMgr;
 
     this.uiSet = new UISet();
     this.initialBtnConfig = this.configForButtons();
     this.initButtons();
+    this.initScenarioUI();
   }
 
   get x(){ return this.sizeAndPosition.x; }
@@ -52,6 +54,24 @@ class UserInterface {
   handleBtnLightning(){ this.setTool(UserInterface.TOOL_LIGHTNING); }
   handleBtnFireBreak(){ this.setTool(UserInterface.TOOL_FIRE_BREAK); }
   handleBtnKnockDown(){ this.setTool(UserInterface.TOOL_KNOCK_DOWN); }
+
+  initScenarioUI(){
+    this.scenarioSelector = createSelect();
+    this.scenarioSelector.position(this.x + this.marginX, 480);
+
+    this.scenarioMgr.scenarios.forEach(scenario => {
+      this.scenarioSelector.option(scenario.name);
+    });
+
+    this.runButton = createButton("Run");
+    this.runButton.position(this.x + this.marginX + 120, 480);
+    this.runButton.mousePressed(this.handleRunScenario);
+  }
+
+  handleRunScenario(){
+    let selectedScenario = ui.scenarioSelector.selected();
+    ui.scenarioMgr.loadScenarioByName(selectedScenario);
+  }
 
   keyTyped(key){
     switch (key) {

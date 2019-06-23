@@ -27,7 +27,7 @@ function setup() {
   }
 
   let uiRect = new Rect(width - uiPanelWidth, 0, uiPanelWidth, height);
-  ui = new UserInterface(uiRect, system);
+  ui = new UserInterface(uiRect, system, scenarioMgr);
 
   background(50);
 }
@@ -65,3 +65,8 @@ function displayFrameRate(){
   textSize(12);
   text((frameRate()).toFixed(2), 5, height - 6);
 }
+
+function logError(message){
+  console.error(message);
+}
+
