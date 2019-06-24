@@ -135,4 +135,35 @@ class P5JsUtils {
 
     line(to.x, to.y, to.x - arrowVector.x, to.y - arrowVector.y);
   }
+
+  // Primary approach of temp canvas and copying over from:
+  //   https://stackoverflow.com/a/32257161
+  static saveCanvasArea(p5Canvas, rectArea){
+    let fromCanvas = document.getElementById(p5Canvas.id());
+    let tmpCanvas = document.createElement("canvas");
+
+    tmpCanvas.style.display = 'none';
+    document.body.appendChild(tmpCanvas);
+    tmpCanvas.width = rectArea.width;
+    tmpCanvas.height = rectArea.height;
+
+    var tmpCtx = tmpCanvas.getContext('2d');
+    tmpCtx.drawImage(
+        fromCanvas, 
+        rectArea.x, rectArea.y, rectArea.width, rectArea.height,
+        0,0, tmpCanvas.width, tmpCanvas.height
+    );
+
+    let filename  = "screenshot-partial";
+    let extension = 'png';
+    let mimeType  = 'image/png';
+
+    // following block from: p5js.saveCanvas
+    // https://github.com/processing/p5.js/blob/da8abf57c79a99736e3c6ccb8146abc115f3d84a/src/image/image.js#L190-L192
+    tmpCanvas.toBlob(function(blob) {
+      p5.prototype.downloadFile(blob, filename, extension);
+    }, mimeType);
+
+    tmpCanvas.parentNode.removeChild(tmpCanvas);
+  }
 }

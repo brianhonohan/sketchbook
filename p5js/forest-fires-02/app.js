@@ -50,8 +50,15 @@ function keyTyped(){
     case 'p':
       saveCanvas(canvas, 'screenshot', 'png');
       break;
+    case 'P':
+      saveSystemCanvas();
+      break;
   }
   ui.keyTyped(key);
+}
+
+function saveSystemCanvas(){
+  P5JsUtils.saveCanvasArea(canvas, system.sizeAndPosition);
 }
 
 function mousePressed(){
