@@ -114,6 +114,10 @@ class UserInterface {
     }
   }
 
+  mouseDragged(){
+    this.mousePressed(mouseX, mouseY);
+  }
+
   updateButtonLabels(){
     this.uiSet.elementAt(1).label = this.initialBtnConfig[1].label + " - " + Math.floor(this.resources.fire_break);
   }

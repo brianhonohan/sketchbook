@@ -62,6 +62,10 @@ function mouseReleased(){
   ui.mouseReleased(mouseX, mouseY);
 }
 
+function mouseDragged(){
+  ui.mouseDragged();
+}
+
 function displayFrameRate(){
   if (frameCount % 30 != 0){ return; }
 
