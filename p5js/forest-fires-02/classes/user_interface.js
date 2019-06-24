@@ -19,6 +19,7 @@ class UserInterface {
   get width(){ return this.sizeAndPosition.width; }
   get height(){ return this.sizeAndPosition.height; }
 
+  static get TOOL_LIGHTNING(){ return 0; }
   static get TOOL_FIRE_BREAK(){ return 1; }
   static get TOOL_KNOCK_DOWN(){ return 2; }
 
