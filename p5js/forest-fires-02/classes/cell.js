@@ -26,6 +26,9 @@ class Cell {
   }
 
   setType(type){
+    if (type == System.TERRAIN_FOLLIAGE) {
+      this.fuelAmount = 100;
+    }
     this.terrainType = type;
     this._needsRender = true;
   }

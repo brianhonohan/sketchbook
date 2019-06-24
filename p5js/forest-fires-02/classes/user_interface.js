@@ -6,6 +6,8 @@ class UserInterface {
     this.system = system;
     this.resources = system.resources;
     this.tool = -1;
+    this.toolMode = 0;
+    this.prevKey = undefined;
     this.scenarioMgr = p_xScenarioMgr;
 
     this.uiSet = new UISet();
@@ -22,6 +24,7 @@ class UserInterface {
   static get TOOL_LIGHTNING(){ return 0; }
   static get TOOL_FIRE_BREAK(){ return 1; }
   static get TOOL_KNOCK_DOWN(){ return 2; }
+  static get TOOL_DRAW(){ return 3; }
 
 
   static get BTN_LIGHTNING() { return 0; }
@@ -75,14 +78,26 @@ class UserInterface {
   }
 
   keyTyped(key){
-    switch (key) {
-      case 'l': this.triggerLightning(); break;
-      case 'L': this.setTool(UserInterface.TOOL_LIGHTNING); break;
-      case 'f': this.setTool(UserInterface.TOOL_FIRE_BREAK); break;
-      case 'k': this.setTool(UserInterface.TOOL_KNOCK_DOWN); break;
-      case '[':  this.system.slowDown(); break;
-      case ']':  this.system.speedUp(); break;
-      case "\\": this.system.togglePause(); break;
+    if (key >= '0' && key <= '9'){
+      this.handleNumberPressed(key);
+    } else {
+      switch (key) {
+        case 'l': this.triggerLightning(); break;
+        case 'L': this.setTool(UserInterface.TOOL_LIGHTNING); break;
+        case 'D': this.setTool(UserInterface.TOOL_DRAW); break;
+        case 'f': this.setTool(UserInterface.TOOL_FIRE_BREAK); break;
+        case 'k': this.setTool(UserInterface.TOOL_KNOCK_DOWN); break;
+        case '[':  this.system.slowDown(); break;
+        case ']':  this.system.speedUp(); break;
+        case "\\": this.system.togglePause(); break;
+      }
+    }
+    this.prevKey = key;
+  }
+
+  handleNumberPressed(key){
+    if (this.prevKey == 'D'){
+      this.toolMode = parseInt(key);
     }
   }
 
@@ -104,6 +119,9 @@ class UserInterface {
         break;
       case UserInterface.TOOL_FIRE_BREAK:
         this.system.fireBreakAt(systemX, systemY);
+        break;
+      case UserInterface.TOOL_DRAW:
+        this.system.setTerrainType(systemX, systemY, this.toolMode);
         break;
     }
   }

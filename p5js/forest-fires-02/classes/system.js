@@ -134,6 +134,14 @@ class System {
     }
   }
 
+  setTerrainType(x, y, type){
+    const cell = this.grid.cellForXY(x, y);
+    if (!cell){
+      return;
+    }
+    cell.setType(type);
+  }
+
   initialLightning(){
     this.settings.lightning_at.forEach(coord => {
       let xyCoord = coord.split(",");
