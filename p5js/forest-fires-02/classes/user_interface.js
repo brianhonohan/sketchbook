@@ -10,6 +10,8 @@ class UserInterface {
     this.prevKey = undefined;
     this.scenarioMgr = p_xScenarioMgr;
 
+    this.dialog = UserInterface.DIALOG_NONE;
+
     this.uiSet = new UISet();
     this.initialBtnConfig = this.configForButtons();
     this.initButtons();
@@ -30,6 +32,9 @@ class UserInterface {
   static get BTN_LIGHTNING() { return 0; }
   static get BTN_FIRE_BREAK() { return 1; }
   static get BTN_KNOCK_DOWN() { return 2; }
+
+  static get DIALOG_NONE() { return 0; }
+  static get DIALOG_UPLOAD() { return 1; }
 
   initButtons(){
     let buttonWidth = 150;
@@ -87,6 +92,7 @@ class UserInterface {
         case 'D': this.setTool(UserInterface.TOOL_DRAW); break;
         case 'f': this.setTool(UserInterface.TOOL_FIRE_BREAK); break;
         case 'k': this.setTool(UserInterface.TOOL_KNOCK_DOWN); break;
+        case 'O': this.showDialog(UserInterface.DIALOG_UPLOAD);
         case '[':  this.system.slowDown(); break;
         case ']':  this.system.speedUp(); break;
         case "\\": this.system.togglePause(); break;
@@ -99,6 +105,21 @@ class UserInterface {
     if (this.prevKey == 'D'){
       this.toolMode = parseInt(key);
     }
+  }
+
+  handleFile(file){
+    if (this.dialog != UserInterface.DIALOG_UPLOAD){
+      return;
+    }
+
+    if (file.type !== 'image') {
+      console.error(`Unexpected file type: ${file.type}`);
+      alert('Please only upload image files');
+      return;
+    }
+    const resultImage = P5JsUtils.p5ImageFromFile(file);
+    this.system.initializeFromImage(resultImage);
+    this.closeDialog();
   }
 
   mousePressed(x, y){
@@ -141,6 +162,25 @@ class UserInterface {
     this.uiSet.elementAt(1).label = this.initialBtnConfig[1].label + " - " + Math.floor(this.resources.fire_break);
   }
 
+  showDialog(dialog){
+    this.dialog = UserInterface.DIALOG_UPLOAD;
+    this.dialogRender = this.renderDialogUpload;
+  }
+
+  closeDialog(){
+    this.dialog = UserInterface.DIALOG_NONE;
+    this.system.requestFullRedraw();
+  }
+
+  renderDialogUpload(){
+    fill(255);
+    rect(100, 100, 400, 200);
+
+    fill(0);
+    textSize(20);
+    text('Drag and drop a terrain image file ...', 125, 125);
+  }
+
   setTool(tool){
     this.tool = tool;
   }
@@ -159,5 +199,9 @@ class UserInterface {
 
     this.updateButtonLabels();
     this.uiSet.draw();
+
+    if (this.dialog != UserInterface.DIALOG_NONE){
+      this.renderDialogUpload();
+    }
   }
 }

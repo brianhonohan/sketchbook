@@ -9,7 +9,11 @@ class P5JsUtils {
   static get DOWN(){  return 2; }
   static get LEFT(){  return 3; }
 
-  static colorAt(x, y, width){
+  static colorAt(x, y, width){ 
+    return P5JsUtils.colorAtInPixels(x, y, width, pixels);
+  }
+
+  static colorAtInPixels(x, y, width, pixels){
     let baseIdx = (round(x) + round(y) * width) * 4;
     return color(
               pixels[baseIdx + 0],
@@ -134,6 +138,25 @@ class P5JsUtils {
     let arrowVector = segmentVector.copy().setMag(8).rotate(0.1 * PI);
 
     line(to.x, to.y, to.x - arrowVector.x, to.y - arrowVector.y);
+  }
+
+  // Intent is to return a p5.Image from the 'file' input of
+  // the canvas.drop(...) callback.
+  static p5ImageFromFile(file){
+    // async call, should have callback
+    const img = createImg(file.data).hide();
+    const gBuffer = createGraphics(img.width, img.height);
+
+    gBuffer.image(img, 0, 0, img.width, img.height);
+    gBuffer.loadPixels();
+
+    const resultImage = createImage(img.width, img.height);
+    resultImage.loadPixels();
+    gBuffer.pixels.forEach((val, idx) => {
+      resultImage.pixels[idx] = gBuffer.pixels[idx];
+    });
+    resultImage.updatePixels();
+    return resultImage;
   }
 
   // Primary approach of temp canvas and copying over from:

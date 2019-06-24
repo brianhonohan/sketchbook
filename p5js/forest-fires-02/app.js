@@ -35,6 +35,7 @@ function setup() {
   let uiRect = new Rect(width - uiPanelWidth, 0, uiPanelWidth, height);
   ui = new UserInterface(uiRect, system, scenarioMgr);
 
+  canvas.drop(handleFile);
   background(50);
 }
 
@@ -71,6 +72,10 @@ function mouseReleased(){
 
 function mouseDragged(){
   ui.mouseDragged();
+}
+
+function handleFile(file){
+  ui.handleFile(file);
 }
 
 function displayFrameRate(){

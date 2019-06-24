@@ -52,6 +52,12 @@ class CellViewer {
       partial_burn: color(70, 70, 70)
     };
   }
+  
+  terrainForColor(forColor){
+    return this.colorLookup.findIndex(tmpC => { 
+      return P5JsUtils.colorsMatch(forColor, tmpC); 
+    });
+  }
 
   initColorSchemeLookup(){
     this.colorLookup = [];

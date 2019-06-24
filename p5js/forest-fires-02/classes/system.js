@@ -11,6 +11,8 @@ class System {
       this.settings = this.optionsSet.settings;
     }
     this.scale =  this.settings.scale;
+    this.baseImage = this.settings.baseImage;
+    this.cellWidth = this.settings.cellWidth;
 
     this.internalTicksPerFrame = 1;
     this.speedIdx = 1;
@@ -117,6 +119,13 @@ class System {
   }
 
   terrainTypeForPos(x, y){
+    if (this.settings.baseImage){
+      return this.getTerrainTypeFromImage(x, y);
+    }
+    return this.getTerrainTypeFromNoise(x, y);
+  }
+
+  getTerrainTypeFromNoise(x, y){
     const waterOrLand = noise(this.scale * x, this.scale * y);
 
     if (waterOrLand < 0.5){
@@ -134,12 +143,29 @@ class System {
     }
   }
 
+  getTerrainTypeFromImage(row, col){
+    const colorAtXY = P5JsUtils.colorAtInPixels((col * this.cellWidth) % this.baseImage.width,
+                                                (row * this.cellWidth) % this.baseImage.height,
+                                                this.baseImage.width,
+                                                this.baseImage.pixels);
+    return this.cellViewer.terrainForColor(colorAtXY);
+    return System.TERRAIN_FOLLIAGE;
+  }
+
   setTerrainType(x, y, type){
     const cell = this.grid.cellForXY(x, y);
     if (!cell){
       return;
     }
     cell.setType(type);
+  }
+
+  initializeFromImage(image){
+    let pausedState = this.paused;
+    this.paused = true;
+    this.settings.baseImage = image;
+    this.init(this.settings);
+    this.paused = pausedState;
   }
 
   initialLightning(){
@@ -251,6 +277,10 @@ class System {
 
     return this.terrainFireRisks[cell.terrainType]
               * this.firePropagationMatrix[neighborIdx];
+  }
+
+  requestFullRedraw(){
+    this.grid.cells.forEach(c => {c._needsRender = true; });
   }
 
   render(){
