@@ -4,7 +4,6 @@ class UserInterface {
     this.marginX = 25;
 
     this.system = system;
-    this.resources = system.resources;
     this.tool = -1;
     this.toolMode = 0;
     this.prevKey = undefined;
@@ -22,6 +21,7 @@ class UserInterface {
   get y(){ return this.sizeAndPosition.y; }
   get width(){ return this.sizeAndPosition.width; }
   get height(){ return this.sizeAndPosition.height; }
+  get resources() { return this.system.resources; }
 
   static get TOOL_LIGHTNING(){ return 0; }
   static get TOOL_FIRE_BREAK(){ return 1; }
