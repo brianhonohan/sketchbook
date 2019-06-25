@@ -7,6 +7,7 @@ class TreeTrunk {
     this.cellViewer = new CellViewer();
     this.initCells();
     this.refreshVoronoi();
+    voronoiSiteFlag(false);  // disables display of point per cell by Voronoi Lib
   }
 
   initCells(){
@@ -34,6 +35,26 @@ class TreeTrunk {
     }
   }
 
+  airCells(){
+    const air = [];
+
+    let tmpTheta = 0;
+    let thetaStep = TAU / this.initialCellCount;
+    let tmpX, tmpY;
+    let airBoundary = this.radius + 5;
+
+    for (var i = 0; i < this.initialCellCount; i++){
+      tmpX = this.centerX + airBoundary * Math.cos(tmpTheta);
+      tmpY = this.centerY + airBoundary * Math.sin(tmpTheta);
+
+      let tmpCell = new Cell(tmpX, tmpY, i, this);
+      tmpCell.type = Cell.TYPE_AIR;
+      air.push(tmpCell);
+      tmpTheta += thetaStep;
+    }
+    return air;
+  }
+
   initPith(){
     let pithCell = new Cell(this.centerX, this.centerY, 0, this);
     pithCell.type = Cell.TYPE_PITH;
@@ -50,6 +71,7 @@ class TreeTrunk {
   refreshVoronoi(){
     voronoiClearSites();
     voronoiSites( this.cells.map(cell => this.voronoiData(cell)) );
+    voronoiSites( this.airCells().map(cell => this.voronoiData(cell)) );
     voronoi(width, height, false);
     this.diagram = voronoiGetDiagram();
   }
@@ -59,7 +81,8 @@ class TreeTrunk {
   }
 
   draw(){
-    voronoiCellStroke( color(150, 200, 150) );
+    voronoiCellStrokeWeight(0);
+    // voronoiCellStroke( color(150, 200, 150) );
     voronoiDraw(0, 0, true, false);
 
     noStroke();

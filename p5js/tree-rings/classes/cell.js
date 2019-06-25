@@ -8,6 +8,7 @@ class Cell {
 
   static get TYPE_PITH(){ return 0; }
   static get TYPE_OTHER(){ return 100; }
+  static get TYPE_AIR(){ return 101; }
 
   get x() { return this.pos.x; }
   get y() { return this.pos.y; }

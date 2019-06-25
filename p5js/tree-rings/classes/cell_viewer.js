@@ -8,6 +8,7 @@ class CellViewer {
 
     this.styles[Cell.TYPE_PITH] = { width: 20, bgColor: color(251,181,37)};
     this.styles[Cell.TYPE_OTHER] = { width: 5, bgColor: color(0, 230, 0)};
+    this.styles[Cell.TYPE_AIR] = { width: 5, bgColor: colorScheme.background };
   }
 
   colorForCell(cell){
