@@ -4,8 +4,8 @@ class System {
     this.optionsSet = new OptionsSet(this.optionsMetadata());
     this.settings = this.optionsSet.settings;
 
-    this.cellViewer = new CellViewer();
-    this.initCells();
+    let trunkSize = this.sizeAndPosition.getConcentric(0.80);
+    this.trunk = new TreeTrunk(trunkSize, this, this.settings.initialCells);
   }
 
   optionsMetadata(){
@@ -14,20 +14,10 @@ class System {
     ];
   }
 
-  initCells(){
-    this.cells = [];
-    for (var i = 0; i < this.settings.initialCells; i++){
-      let tmpCell = new Cell(random(width), random(height), i, this);
-      this.cells.push(tmpCell);
-    }
-  }
-
   tick(){
   }
 
   render(){
-    noStroke();
-    fill(colorScheme.line);
-    this.cells.forEach(c => this.cellViewer.renderCell(c));
+    this.trunk.draw();
   }
 }

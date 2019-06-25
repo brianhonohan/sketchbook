@@ -1,8 +1,8 @@
 class Cell {
-  constructor(x, y, index, system){
+  constructor(x, y, index, parent){
     this.pos = createVector(x, y);
     this._idx = index;
-    this.system = system;
+    this.parent = parent;
   }
 
   get x() { return this.pos.x; }
