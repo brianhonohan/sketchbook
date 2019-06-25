@@ -13,11 +13,18 @@ class TreeTrunk {
     this.cells = [];
     this.initPith();
 
+    let tmpTheta = 0;
+    let thetaStep = TAU / this.initialCellCount;
+    let radius = 30;
+    let tmpX, tmpY;
+
     for (var i = 0; i < this.initialCellCount; i++){
-      let tmpCell = new Cell(this.x + random(this.width),
-                             this.y + random(this.height),
-                             i, this);
+      tmpX = this.centerX + radius * Math.cos(tmpTheta);
+      tmpY = this.centerY + radius * Math.sin(tmpTheta);
+
+      let tmpCell = new Cell(tmpX, tmpY, i, this);
       this.cells.push(tmpCell);
+      tmpTheta += thetaStep;
     }
   }
 
