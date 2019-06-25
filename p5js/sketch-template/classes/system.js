@@ -35,7 +35,6 @@ class System {
   }
 
   render(){
-    background(0);
     this.grid.renderViews();
   }
 }
