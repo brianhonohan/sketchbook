@@ -6,6 +6,7 @@ class TreeTrunk {
 
     this.cellViewer = new CellViewer();
     this.initCells();
+    this.refreshVoronoi();
   }
 
   initCells(){
@@ -23,7 +24,17 @@ class TreeTrunk {
   get width() { return this.sizeAndPosition.width; }
   get height() { return this.sizeAndPosition.height; }
 
+  refreshVoronoi(){
+    voronoiClearSites();
+    voronoiSites( this.cells.map((cell) => [cell.x, cell.y] ));
+    voronoi(width, height, false);
+    this.diagram = voronoiGetDiagram();
+  }
+
   draw(){
+    voronoiCellStroke( color(150, 200, 150) );
+    voronoiDraw(0, 0, false, false);
+
     noStroke();
     fill(colorScheme.line);
     this.cells.forEach(c => this.cellViewer.renderCell(c));
