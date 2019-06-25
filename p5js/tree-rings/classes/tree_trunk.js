@@ -12,15 +12,21 @@ class TreeTrunk {
   initCells(){
     this.cells = [];
     this.initPith();
+    this.radius = 30;
+
+    this.addRing(10);
+  }
+
+  addRing(ringThickness){
+    this.radius += ringThickness;
 
     let tmpTheta = 0;
     let thetaStep = TAU / this.initialCellCount;
-    let radius = 30;
     let tmpX, tmpY;
 
     for (var i = 0; i < this.initialCellCount; i++){
-      tmpX = this.centerX + radius * Math.cos(tmpTheta);
-      tmpY = this.centerY + radius * Math.sin(tmpTheta);
+      tmpX = this.centerX + this.radius * Math.cos(tmpTheta);
+      tmpY = this.centerY + this.radius * Math.sin(tmpTheta);
 
       let tmpCell = new Cell(tmpX, tmpY, i, this);
       this.cells.push(tmpCell);
