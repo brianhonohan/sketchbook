@@ -1,13 +1,28 @@
 class TreeTrunk {
-  constructor(p_xSizeAndPos, system, initialCellCount){
+  constructor(p_xSizeAndPos, system){
     this.sizeAndPosition = p_xSizeAndPos;
     this.system = system;
-    this.initialCellCount = initialCellCount;
+
+    this.optionsSet = new OptionsSet(this.optionsMetadata());
+    this.settings = this.optionsSet.settings;
 
     this.cellViewer = new CellViewer();
+    voronoiSiteFlag(false);  // disables display of point per cell by Voronoi Lib
+  }
+
+  get initialCellCount() { return this.settings.initialCells; }
+  get initialRings() { return this.settings.initialRings; }
+
+  optionsMetadata(){
+    return [
+      { name: "initialCells", type: "integer", default: 20},
+      { name: "initialRings", type: "integer", default: 3}
+    ];
+  }
+
+  init(){
     this.initCells();
     this.refreshVoronoi();
-    voronoiSiteFlag(false);  // disables display of point per cell by Voronoi Lib
   }
 
   initCells(){
@@ -15,7 +30,9 @@ class TreeTrunk {
     this.initPith();
     this.radius = 30;
 
-    this.addRing(10);
+    for (var i = 0; i < this.initialRings; i++){
+      this.addRing(10);
+    }
   }
 
   addRing(ringThickness){

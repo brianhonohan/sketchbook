@@ -3,7 +3,7 @@ var colorScheme;
 
 
 var gui;
-var guiInitialCells;
+var guiInitialCells, guiNumRings;
 
 function setup() {
   createCanvas(500, 500);
@@ -14,7 +14,8 @@ function setup() {
   system = new System(rect);
 
   gui = new dat.gui.GUI();
-  guiInitialCells = gui.add(system.settings, 'initialCells').min(10).max(50).step(1);
+  guiInitialCells = gui.add(system.trunk.settings, 'initialCells').min(10).max(50).step(1);
+  guiNumRings = gui.add(system.trunk.settings, 'initialRings').min(1).max(10).step(1);
   addGuiListeners();
 }
 
@@ -35,6 +36,8 @@ function addGuiListeners(){
   guiInitialCells.onFinishChange(function(value) {
     system.init();
   });
+
+  guiNumRings.onFinishChange(function(val) { system.init(); });
 }
 
 function keyTyped(){
