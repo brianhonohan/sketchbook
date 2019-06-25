@@ -79,6 +79,14 @@ class UserInterface {
     this.restartButton = createButton('Restart');
     this.restartButton.position(this.x + this.marginX, 480 + 25);
     this.restartButton.mousePressed(this.handleRestart);
+
+    this.randomizeButton = createButton('Randomize');
+    this.randomizeButton.position(this.elementMaxX(this.restartButton) + this.marginX, this.restartButton.y);
+    this.randomizeButton.mousePressed(this.handleRandomize);
+  }
+
+  elementMaxX(p5_element){
+    return p5_element.x + p5_element.width;
   }
 
   handleRunScenario(){
@@ -88,6 +96,10 @@ class UserInterface {
 
   handleRestart(){
     ui.system.restart();
+  }
+
+  handleRandomize(){
+    ui.system.randomize();
   }
 
   keyTyped(key){

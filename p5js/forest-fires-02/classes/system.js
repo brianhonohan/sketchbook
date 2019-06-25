@@ -38,6 +38,11 @@ class System {
     this.init(this.settings);
   }
 
+  randomize(){
+    this.settings.seed = Math.round(random(1000000));
+    this.init(this.settings);
+  }
+
   // Return a list of Options, specific to this sketch,
   // that can be tweaked via the URL parameters
   // separate from the default P5JsSettings that are supported
