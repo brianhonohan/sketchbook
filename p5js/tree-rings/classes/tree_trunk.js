@@ -49,14 +49,18 @@ class TreeTrunk {
 
   refreshVoronoi(){
     voronoiClearSites();
-    voronoiSites( this.cells.map((cell) => [cell.x, cell.y] ));
+    voronoiSites( this.cells.map(cell => this.voronoiData(cell)) );
     voronoi(width, height, false);
     this.diagram = voronoiGetDiagram();
   }
 
+  voronoiData(cell){
+    return [cell.x, cell.y, this.cellViewer.colorForCell(cell)];
+  }
+
   draw(){
     voronoiCellStroke( color(150, 200, 150) );
-    voronoiDraw(0, 0, false, false);
+    voronoiDraw(0, 0, true, false);
 
     noStroke();
     fill(colorScheme.line);
