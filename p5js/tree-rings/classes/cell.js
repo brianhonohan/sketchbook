@@ -7,6 +7,8 @@ class Cell {
   }
 
   static get TYPE_PITH(){ return 0; }
+  static get TYPE_EARLY_GROWTH(){ return 1; }
+  static get TYPE_LATE_GROWTH(){ return 2; }
   static get TYPE_OTHER(){ return 100; }
   static get TYPE_AIR(){ return 101; }
 

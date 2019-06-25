@@ -21,6 +21,7 @@ class TreeTrunk {
   }
 
   init(){
+    this.ringCount = 0;
     this.initCells();
     this.refreshVoronoi();
   }
@@ -31,11 +32,12 @@ class TreeTrunk {
     this.radius = 30;
 
     for (var i = 0; i < this.initialRings; i++){
-      this.addRing(10);
+      let cellType = this.getCurrentCellType();
+      this.addRing(10, cellType);
     }
   }
 
-  addRing(ringThickness){
+  addRing(ringThickness, cellType){
     this.radius += ringThickness;
 
     let tmpTheta = 0;
@@ -47,8 +49,18 @@ class TreeTrunk {
       tmpY = this.centerY + this.radius * Math.sin(tmpTheta);
 
       let tmpCell = new Cell(tmpX, tmpY, i, this);
+      tmpCell.type = cellType;
       this.cells.push(tmpCell);
       tmpTheta += thetaStep;
+    }
+    this.ringCount += 1;
+  }
+
+  getCurrentCellType(){
+    if (this.ringCount % 2 == 0){
+      return Cell.TYPE_EARLY_GROWTH;
+    } else {
+      return Cell.TYPE_LATE_GROWTH;
     }
   }
 
