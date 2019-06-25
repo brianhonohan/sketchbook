@@ -11,6 +11,8 @@ class TreeTrunk {
 
   initCells(){
     this.cells = [];
+    this.initPith();
+
     for (var i = 0; i < this.initialCellCount; i++){
       let tmpCell = new Cell(this.x + random(this.width),
                              this.y + random(this.height),
@@ -19,10 +21,18 @@ class TreeTrunk {
     }
   }
 
+  initPith(){
+    let pithCell = new Cell(this.centerX, this.centerY, 0, this);
+    pithCell.type = Cell.TYPE_PITH;
+    this.cells.push(pithCell);
+  }
+
   get x() { return this.sizeAndPosition.x; }
   get y() { return this.sizeAndPosition.x; }
   get width() { return this.sizeAndPosition.width; }
   get height() { return this.sizeAndPosition.height; }
+  get centerX() { return this.sizeAndPosition.centerX; }
+  get centerY() { return this.sizeAndPosition.centerY; }
 
   refreshVoronoi(){
     voronoiClearSites();
