@@ -53,4 +53,10 @@ class Rect {
     return this.minX <= x && x < this.maxX 
            && this.minY <= y && y < this.maxY;
   }
+
+  getConcentric(scale){
+    let newX = this.x - (scale - 1) * this.width / 2;
+    let newY = this.y - (scale - 1) * this.height / 2;
+    return new Rect(newX, newY, this.width * scale, this.height * scale);
+  }
 }
