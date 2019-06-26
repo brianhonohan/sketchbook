@@ -16,6 +16,7 @@ js_scripts:
 - /sketchbook/js/models/rect.js
 - classes/cell.js
 - classes/cell_viewer.js
+- classes/tree_trunk.js
 - classes/system.js
 - app.js
 
