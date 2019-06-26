@@ -5,9 +5,9 @@ Collection of personal coding projects. They may or may not grow into individual
 
 ## Latest
 
-A p5.js sketch, modeling some basic aspects of forest fires.
+A p5.js sketch, modeling the rings of a tree.
 
-[<img src="./p5js/forest-fires/screenshot-01.png" alt="p5js-forest-fires" width="150px" />][link-p5js-forest-fires]
+[<img src="./p5js/tree-rings/screenshot-01.png" alt="p5js-tree-rings" width="150px" />][link-p5js-tree-rings]
 
 
 ## LÖVE
@@ -30,6 +30,7 @@ Collection of sketches using the [p5.js][p5js] Javascript library.
 [<img src="./p5js/common/examples/quadtree/screenshot-01.png" alt="quadtree" width="150px" />][link-p5js-quadtree]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/snowflake-pen/screenshot-01.png" alt="snowflake-pen" width="150px" />][link-p5js-snowflake-pen]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/thermal-cells/screenshot-01.png" alt="thermal-cells" width="150px" />][link-p5js-thermal-cells]
+[<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/tree-rings/screenshot-01.png" alt="tree-rings" width="150px" />][link-p5js-tree-rings]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/voronoi-herd/screenshot-01.png" alt="voronoi-herd" width="150px" />][link-p5js-voronoi-herd]
 
 ## p5.js - Coding Challenges
@@ -90,6 +91,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-p5js-quadtree]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/quadtree/
 [link-p5js-snowflake-pen]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/snowflake-pen/
 [link-p5js-thermal-cells]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/thermal-cells/
+[link-p5js-tree-rings]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/tree-rings/
 [link-p5js-voronoi-herd]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/voronoi-herd/
 
 [link-p5js-cc-fractal-trees-01]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/fractal-trees-01/
