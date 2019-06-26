@@ -6,9 +6,9 @@ class CellViewer {
   initStyleLookup(){
     this.styles = [];
 
-    this.styles[Cell.TYPE_PITH] = { width: 20, bgColor: color(251,181,37)};
-    this.styles[Cell.TYPE_EARLY_GROWTH] = { width: 5, bgColor: color(137,91,33)};
-    this.styles[Cell.TYPE_LATE_GROWTH] = { width: 5, bgColor: color(81,52,16)};
+    this.styles[Cell.TYPE_PITH] = { width: 20, bgColor: color(111,82,46)};
+    this.styles[Cell.TYPE_EARLY_GROWTH] = { width: 5, bgColor: color(167,121,63)};
+    this.styles[Cell.TYPE_LATE_GROWTH] = { width: 5, bgColor: color(111,82,46)};
     this.styles[Cell.TYPE_OTHER] = { width: 5, bgColor: color(0, 230, 0)};
     this.styles[Cell.TYPE_AIR] = { width: 5, bgColor: colorScheme.background };
   }
@@ -18,7 +18,7 @@ class CellViewer {
   }
 
   renderCell(cell){
-    const cellWidth = this.styles[cell.type].width;
-    ellipse(cell.x, cell.y, cellWidth, cellWidth);
+    // const cellWidth = this.styles[cell.type].width;
+    // ellipse(cell.x, cell.y, cellWidth, cellWidth);
   }
 }

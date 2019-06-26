@@ -15,7 +15,7 @@ function setup() {
 
   gui = new dat.gui.GUI();
   guiInitialCells = gui.add(system.trunk.settings, 'initialCells').min(10).max(50).step(1);
-  guiNumRings = gui.add(system.trunk.settings, 'initialRings').min(1).max(10).step(1);
+  guiNumRings = gui.add(system.trunk.settings, 'initialRings').min(1).max(20).step(1);
   addGuiListeners();
 }
 

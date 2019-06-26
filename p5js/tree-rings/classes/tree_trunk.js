@@ -16,7 +16,7 @@ class TreeTrunk {
   optionsMetadata(){
     return [
       { name: "initialCells", type: "integer", default: 20},
-      { name: "initialRings", type: "integer", default: 3}
+      { name: "initialRings", type: "integer", default: 16}
     ];
   }
 
@@ -29,7 +29,7 @@ class TreeTrunk {
   initCells(){
     this.cells = [];
     this.initPith();
-    this.radius = 30;
+    this.radius = 5;
 
     for (var i = 0; i < this.initialRings; i++){
       let cellType = this.getCurrentCellType();
