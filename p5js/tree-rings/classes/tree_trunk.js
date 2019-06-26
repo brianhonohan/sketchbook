@@ -33,7 +33,8 @@ class TreeTrunk {
 
     for (var i = 0; i < this.initialRings; i++){
       let cellType = this.getCurrentCellType();
-      this.addRing(10, cellType);
+      let thickness = this.getGrowthRate();
+      this.addRing(thickness, cellType);
     }
   }
 
@@ -61,6 +62,14 @@ class TreeTrunk {
       return Cell.TYPE_EARLY_GROWTH;
     } else {
       return Cell.TYPE_LATE_GROWTH;
+    }
+  }
+
+  getGrowthRate(){
+    if (this.ringCount % 2 == 0){
+      return random(8, 20);
+    } else {
+      return random(4, 8);
     }
   }
 
