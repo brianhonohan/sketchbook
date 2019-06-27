@@ -1,7 +1,6 @@
 var system;
 
 var gui;
-var guiContainer;
 var systemParams = {
   foraging_rate: 0.6,
   seeds_per_tree: 2,
@@ -19,11 +18,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight-35);
   P5JsSettings.init();
 
-  guiContainer = createDatGuiContainer();
-
-  gui = new dat.gui.GUI({ autoPlace: false });
-  guiContainer.appendChild(gui.domElement);
-
+  gui = P5JsSettings.addDatGui({autoPlace: false});
   gui.add(systemParams, 'foraging_rate').min(0.1).max(0.9).step(0.05);
   gui.add(systemParams, 'seeds_per_tree').min(1).max(20).step(1);
   gui.add(systemParams, 'seed_drop_dist').min(1).max(150).step(10);
@@ -44,9 +39,6 @@ function keyPressed() {
   if (key === 'c'){
     P5JsSettings.init();
     system.init();
-  } else if (key === 'h'){
-    console.log()
-    toggleDatGuiHide();
   } else if (key === 't'){
     system.forest.sproutTree(mouseX, mouseY);
   }
@@ -56,31 +48,4 @@ function draw(){
   background(50);
   system.tick();
   system.render();
-}
-
-function createDatGuiContainer(){
-  let container = document.createElement("div"); 
-  container.setAttribute('id', 'datGuiContainer');
-  container.style.position = 'absolute';
-  container.style.right = '0px';
-  container.style.bottom = '20px';
-
-  let label = document.createElement('div');
-  label.style.color = 'white';
-  label.style.backgroundColor = 'black';
-  label.style.padding = '5px';
-  label.style.font = "11px 'Lucida Grande',sans-serif";
-  label.innerHTML = "Config (Press H to Hide/Show)";
-  container.appendChild(label);
-
-  document.body.appendChild(container);
-  return container;
-}
-
-function toggleDatGuiHide() {
-  if (guiContainer.style.display === "none") {
-    guiContainer.style.display = "block";
-  } else {
-    guiContainer.style.display = "none";
-  }
 }
