@@ -5,13 +5,20 @@ class Forest {
     this.params = system.params;
     this.trees = [];
     this.treeCounter = 0;
-    this.sproutTree(this.centerX, this.centerY);
+
+    for (var i = 0; i < this.params.initial_trees; i++){
+      let tmpX = this.centerX + (random() - 0.5) * this.width * 0.8;
+      let tmpY = this.centerY + (random() - 0.5) * this.height * 0.8;
+      this.sproutTree(tmpX, tmpY);
+    }
 
     this.prevSeason = undefined;
   }
 
   get centerX() { return this.area.centerX; }
   get centerY() { return this.area.centerY; }
+  get width()  { return this.area._width; }
+  get height() { return this.area._height; }
 
   sproutTree(x, y){
     this.trees.push( new Tree(x, y, 0, this.treeCounter++) );

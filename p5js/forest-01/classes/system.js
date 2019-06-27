@@ -4,8 +4,6 @@ class System {
     this.params = params;
     this.optionsSet = new OptionsSet(this.optionsMetadata());
     this.settings = this.optionsSet.settings;
-
-    this.init();
   }
 
   toggleRunning(){

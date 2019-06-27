@@ -5,6 +5,7 @@ var systemParams = {
   foraging_rate: 0.6,
   seeds_per_tree: 2,
   seed_drop_dist: 70,
+  initial_trees: 10,
   paused: false,
   tree: {
     max_age: 200,
@@ -18,10 +19,11 @@ function setup() {
   createCanvas(windowWidth, windowHeight-35);
   P5JsSettings.init();
 
-  gui = new dat.gui.GUI();
+  gui = P5JsSettings.addDatGui({autoPlace: false});
   gui.add(systemParams, 'foraging_rate').min(0.1).max(0.9).step(0.05);
   gui.add(systemParams, 'seeds_per_tree').min(1).max(20).step(1);
   gui.add(systemParams, 'seed_drop_dist').min(1).max(150).step(10);
+  gui.add(systemParams, 'initial_trees').min(1).max(50).step(1);
   gui.add(systemParams, "paused");
 
   let treeCfg = gui.addFolder('Tree Attributes');
