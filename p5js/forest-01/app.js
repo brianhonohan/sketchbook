@@ -64,6 +64,15 @@ function createDatGuiContainer(){
   container.style.position = 'absolute';
   container.style.right = '0px';
   container.style.bottom = '20px';
+
+  let label = document.createElement('div');
+  label.style.color = 'white';
+  label.style.backgroundColor = 'black';
+  label.style.padding = '5px';
+  label.style.font = "11px 'Lucida Grande',sans-serif";
+  label.innerHTML = "Config (Press H to Hide/Show)";
+  container.appendChild(label);
+
   document.body.appendChild(container);
   return container;
 }
