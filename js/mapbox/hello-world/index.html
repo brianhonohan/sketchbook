@@ -19,8 +19,13 @@ body { margin:0; padding:0; }
   mapboxgl.accessToken = 'pk.eyJ1IjoibGVjcnRlIiwiYSI6ImNqeGdkdjZidjAweGozbnF5MzQzZTN2Z2kifQ.NYO4umL5HRyH-B0V37roMg';
   var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v11'
+    style: 'mapbox://styles/mapbox/streets-v11',
+    center: [-74.45, 43.96], // starting position
+    zoom: 10 // starting zoom
   });
+ 
+  // Add zoom and rotation controls to the map.
+  map.addControl(new mapboxgl.NavigationControl());
 </script>
 </body>
 </html>
