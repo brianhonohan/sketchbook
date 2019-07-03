@@ -103,7 +103,7 @@ class System {
     this.terrainFireRisks[System.TERRAIN_WATER]      = -0.1;
     this.terrainFireRisks[System.TERRAIN_FOLLIAGE]   = 0;
     this.terrainFireRisks[System.TERRAIN_BURNING]    = 1.0;
-    this.terrainFireRisks[System.TERRAIN_ENGULFED]   = 1.5;
+    this.terrainFireRisks[System.TERRAIN_ENGULFED]   = 2.0;
     this.terrainFireRisks[System.TERRAIN_SMOLDERING] = 0.3;
     this.terrainFireRisks[System.TERRAIN_BURNT]      = 0.05;
     this.terrainFireRisks[System.TERRAIN_PARTIAL_BURN] = 0;
@@ -270,7 +270,7 @@ class System {
   }
 
   setNextTypeForCell(cell){
-    if(this.fireRiskFromNeighbors(cell) > this.fireRiskThreshold){
+    if(this.fireRiskFromNeighbors(cell) >= this.fireRiskThreshold){
       cell.nextFrameType = System.TERRAIN_BURNING;
     }
   }
