@@ -14,7 +14,7 @@ class ScenarioManager {
 
   loadScenario(idx){
     let scenario = this.data.scenarios[idx];
-    system.init(scenario);
+    system.init( UtilFunctions.shallowCopy(scenario) );
   }
 
   loadScenarioByName(name){
