@@ -13,6 +13,13 @@
       "scale": 0.02,
       "cellWidth" : 20,
       "lightning_at" : ["564,436","596,449"]
+    },
+    {
+      "name" : "Scenario 0",
+      "seed" : 31473,
+      "scale": 0.02,
+      "cellWidth" : 20,
+      "lightning_at" : ["245,390"]
     }
   ]
 }
