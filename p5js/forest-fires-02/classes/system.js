@@ -40,6 +40,7 @@ class System {
 
   randomize(){
     this.settings.seed = Math.round(random(1000000));
+    this.settings.lightning_at = [];
     this.init(this.settings);
   }
 
