@@ -26,4 +26,8 @@ class UtilFunctions {
   static shallowCopy(obj){
     return Object.assign({}, obj);
   }
+
+  static averageOfArray(arr){
+    return arr.reduce( (el, tally) => el + tally, 0) / arr.length;
+  }
 }

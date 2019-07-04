@@ -1,3 +1,5 @@
+var perfTimings = [];
+
 class System {
   constructor(p_xSizeAndPos){
     this.sizeAndPosition = p_xSizeAndPos;
@@ -265,8 +267,18 @@ class System {
   }
 
   calcNextCellTypes(){
+    var t0 = performance.now();
+
     this.grid.cells.filter(c => !c.isBurning() && c.fuelAmount > 0)
                    .forEach(c => this.setNextTypeForCell(c));
+
+    var t1 = performance.now();
+    perfTimings.push((t1 - t0));
+
+    if (perfTimings.length >= 10){
+      console.log(`Average run: ${UtilFunctions.averageOfArray(perfTimings)}`);
+      perfTimings.splice(0, 5);
+    }
   }
 
   setNextTypeForCell(cell){
