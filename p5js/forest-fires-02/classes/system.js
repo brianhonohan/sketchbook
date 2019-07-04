@@ -267,8 +267,21 @@ class System {
   calcNextCellTypes(){
     UtilFunctions.startPerfTime();
 
-    this.grid.cells.filter(c => !c.isBurning() && c.fuelAmount > 0)
-                   .forEach(c => this.setNextTypeForCell(c));
+    this.fireCells = this.grid.cells.filter(c => c.isBurning());
+
+    const cellsAtRisk = [];
+    const idsOfCellsAtRisk = new Map();
+    this.fireCells.forEach(cell => {
+      const neighbors = this.grid.cellNeighborsOfIdx(cell._idx);
+      neighbors.filter(c => c != undefined && !c.isBurning() && c.fuelAmount > 0)
+               .forEach(neighbor => {
+                  if(!idsOfCellsAtRisk.has(neighbor._idx)){
+                    idsOfCellsAtRisk.set(neighbor._idx, true);
+                    cellsAtRisk.push(neighbor);
+                  }
+                });
+    })
+    cellsAtRisk.forEach(c => this.setNextTypeForCell(c));
 
     UtilFunctions.endPerfTime(10, 5);
   }
