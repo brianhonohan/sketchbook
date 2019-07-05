@@ -37,6 +37,7 @@ function setup() {
 
   canvas.drop(handleFile);
   background(50);
+  ui.initialRender();
 }
 
 function draw(){

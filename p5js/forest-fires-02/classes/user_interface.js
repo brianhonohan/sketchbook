@@ -221,14 +221,16 @@ class UserInterface {
     system.lightningStrike();
   }
 
-  render(){
+  initialRender(){
     fill(255);
+    noStroke();
     rect(this.x, this.y, this.width, this.height);
-
     fill(0);
     textSize(20);
     text('FOREST FIRE SIM', this.x + 14, this.y + 30);
+  }
 
+  render(){
     this.updateButtonLabels();
     this.uiSet.draw();
 
