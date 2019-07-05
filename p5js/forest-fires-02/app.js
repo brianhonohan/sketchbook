@@ -46,6 +46,10 @@ function draw(){
   displayFrameRate();
 }
 
+function keyPressed(){
+  ui.keyPressed();
+}
+
 function keyTyped(){
   switch (key) {
     case 'p':

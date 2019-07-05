@@ -102,6 +102,12 @@ class UserInterface {
     ui.system.randomize();
   }
 
+  keyPressed(){
+    switch (keyCode){
+      case 27: this.handleEscapeKey();
+    }
+  }
+
   keyTyped(key){
     if (key >= '0' && key <= '9'){
       this.handleNumberPressed(key);
@@ -119,6 +125,12 @@ class UserInterface {
       }
     }
     this.prevKey = key;
+  }
+
+  handleEscapeKey(){
+    if (this.dialog){
+      this.closeDialog();
+    } 
   }
 
   handleNumberPressed(key){
