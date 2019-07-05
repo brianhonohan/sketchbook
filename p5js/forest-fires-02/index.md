@@ -10,8 +10,6 @@ js_scripts:
 - /sketchbook/vendor/dat.gui/0.7.3/dat.gui.js
 - /sketchbook/p5js/common/p5js_settings.js
 - /sketchbook/p5js/common/p5js_utils.js
-- /sketchbook/p5js/common/ui/ui_set.js
-- /sketchbook/p5js/common/ui/button.js
 - /sketchbook/js/util_functions.js
 - /sketchbook/js/options_set.js
 - /sketchbook/js/models/rect.js

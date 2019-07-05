@@ -11,7 +11,6 @@ class UserInterface {
 
     this.dialog = UserInterface.DIALOG_NONE;
 
-    this.uiSet = new UISet();
     this.initialBtnConfig = this.configForButtons();
     this.initButtons();
     this.initScenarioUI();
@@ -37,17 +36,17 @@ class UserInterface {
   static get DIALOG_UPLOAD() { return 1; }
 
   initButtons(){
+    this.buttons = [];
     let buttonWidth = 150;
     this.marginX = 25;
     let buttonConfigs = this.configForButtons();
 
     let buttonYPos = this.y + 70;
     buttonConfigs.forEach(btnConfig => {
-      let newButton = new Button(btnConfig.id, 
-                                 btnConfig.label, 
-                                 this.x + this.marginX, buttonYPos, buttonWidth,
-                                 btnConfig.callback, this);
-      this.uiSet.add(newButton);
+      let newButton = createButton(btnConfig.label);
+      newButton.position(this.x + this.marginX, buttonYPos);
+      newButton.mousePressed(btnConfig.callback);
+      this.buttons.push(newButton);
       buttonYPos += 50;
     });
   }
@@ -60,9 +59,9 @@ class UserInterface {
     ];
   }
 
-  handleBtnLightning(){ this.setTool(UserInterface.TOOL_LIGHTNING); }
-  handleBtnFireBreak(){ this.setTool(UserInterface.TOOL_FIRE_BREAK); }
-  handleBtnKnockDown(){ this.setTool(UserInterface.TOOL_KNOCK_DOWN); }
+  handleBtnLightning(){ ui.setTool(UserInterface.TOOL_LIGHTNING); }
+  handleBtnFireBreak(){ ui.setTool(UserInterface.TOOL_FIRE_BREAK); }
+  handleBtnKnockDown(){ ui.setTool(UserInterface.TOOL_KNOCK_DOWN); }
 
   initScenarioUI(){
     this.scenarioSelector = createSelect();
@@ -156,7 +155,6 @@ class UserInterface {
 
   mousePressed(x, y){
     if (!this.system.containsXY(x, y)){
-      this.uiSet.handleMousePressed();
       return;
     }
 
@@ -181,7 +179,6 @@ class UserInterface {
 
   mouseReleased(){
     if (!this.system.containsXY(mouseX, mouseY)){
-      this.uiSet.handleMouseReleased();
       return;
     }
   }
@@ -191,7 +188,7 @@ class UserInterface {
   }
 
   updateButtonLabels(){
-    this.uiSet.elementAt(1).label = this.initialBtnConfig[1].label + " - " + Math.floor(this.resources.fire_break);
+    this.buttons[1].html( this.initialBtnConfig[1].label + " - " + Math.floor(this.resources.fire_break));
   }
 
   showDialog(dialog){
@@ -232,7 +229,6 @@ class UserInterface {
 
   render(){
     this.updateButtonLabels();
-    this.uiSet.draw();
 
     if (this.dialog != UserInterface.DIALOG_NONE){
       this.renderDialogUpload();
