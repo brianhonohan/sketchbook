@@ -265,8 +265,6 @@ class System {
   }
 
   calcNextCellTypes(){
-    UtilFunctions.startPerfTime();
-
     this.fireCells = this.grid.cells.filter(c => c.isBurning());
 
     const cellsAtRisk = [];
@@ -282,8 +280,6 @@ class System {
                 });
     })
     cellsAtRisk.forEach(c => this.setNextTypeForCell(c));
-
-    UtilFunctions.endPerfTime(10, 5);
   }
 
   setNextTypeForCell(cell){
