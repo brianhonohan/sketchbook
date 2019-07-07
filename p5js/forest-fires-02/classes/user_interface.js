@@ -75,11 +75,19 @@ class UserInterface {
     this.runButton = createButton("Run");
     this.runButton.position(this.x + this.marginX + 120, 480);
     this.runButton.mousePressed(this.handleRunScenario);
+
+    this.restartButton = createButton('Restart');
+    this.restartButton.position(this.x + this.marginX, 480 + 25);
+    this.restartButton.mousePressed(this.handleRestart);
   }
 
   handleRunScenario(){
     let selectedScenario = ui.scenarioSelector.selected();
     ui.scenarioMgr.loadScenarioByName(selectedScenario);
+  }
+
+  handleRestart(){
+    ui.system.restart();
   }
 
   keyTyped(key){

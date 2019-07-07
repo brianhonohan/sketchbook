@@ -14,8 +14,6 @@ class ScenarioManager {
 
   loadScenario(idx){
     let scenario = this.data.scenarios[idx];
-    randomSeed(scenario.seed);
-    noiseSeed(scenario.seed);
     system.init(scenario);
   }
 

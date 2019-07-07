@@ -10,6 +10,7 @@ class System {
       this.optionsSet = new OptionsSet(this.optionsMetadata());
       this.settings = this.optionsSet.settings;
     }
+    P5JsSettings.setSeed(this.settings.seed);
     this.scale =  this.settings.scale;
     this.baseImage = this.settings.baseImage;
     this.cellWidth = this.settings.cellWidth;
@@ -33,6 +34,10 @@ class System {
     this.initialLightning();
   }
 
+  restart(){
+    this.init(this.settings);
+  }
+
   // Return a list of Options, specific to this sketch,
   // that can be tweaked via the URL parameters
   // separate from the default P5JsSettings that are supported
@@ -42,7 +47,8 @@ class System {
     return [
       { name: "cellWidth", type: "integer", default: 20}, 
       { name: "scale", type: "float", default: 0.02}, 
-      { name: "lightning_at", type: "array:string", default: [], delimiter: "|"}
+      { name: "lightning_at", type: "array:string", default: [], delimiter: "|"},
+      { name: "seed", type: "integer", default: P5JsSettings.getSeed() }
       // { name: "varname3", type: "float", default: 0.6}
     ];
   }
