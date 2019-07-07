@@ -29,6 +29,7 @@ class System {
                              this.cellViewer
                              );
     this.grid.initCells();
+    this.calcInitialStats();
 
     this.firePropagationMatrix = System.BASE_INFLUENCE_MATRIX;
 
@@ -68,6 +69,25 @@ class System {
       tmpCell.fuelAmount = 100;
     }
     return tmpCell;
+  }
+
+  calcInitialStats(){
+    this.stats = {};
+    this.stats.initial = this.getCurrentCellTypeCounts();
+  }
+
+  getCurrentCellTypeCounts(){
+    const currentStats = this.getEmptyCellTypeCount();
+    for(var i=0; i < this.grid.cells.length; i++){
+      currentStats[this.grid.cells[i].terrainType] += 1;
+    }
+    return currentStats;
+  }
+
+  getEmptyCellTypeCount(){
+    const emptyTypeArray = Array(System.TERRAIN_PARTIAL_BURN + 1);
+    emptyTypeArray.fill(0);
+    return emptyTypeArray;
   }
 
   get x(){ return this.sizeAndPosition.x; }
@@ -312,6 +332,7 @@ class System {
   detectFireSuppressed(){
     if (this.hadLightning && this.fireCells.length == 0){
       this.paused = true;
+      this.stats.final = this.getCurrentCellTypeCounts();
       console.log('Fire has been fully suppressed');
       this.ui.showDialog(UserInterface.DIALOG_END_SCENARIO);
     }

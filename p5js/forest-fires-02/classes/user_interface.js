@@ -95,6 +95,7 @@ class UserInterface {
   }
 
   handleRestart(){
+    ui.closeDialog();
     ui.system.restart();
   }
 
@@ -224,7 +225,15 @@ class UserInterface {
 
     fill(0);
     textSize(20);
-    text('The fire has been suppressed ...', 125, 125);
+    let tmpY = 125;
+    text('The fire has been suppressed ...', 125, tmpY);
+
+    // Number of Foliage Cells lost
+    let foliageLoss = this.system.stats.final[System.TERRAIN_FOLLIAGE]
+                        - this.system.stats.initial[System.TERRAIN_FOLLIAGE];
+
+    tmpY += 50;
+    text(`Foliage Loss: ${foliageLoss}`, 125, tmpY);
   }
 
   setTool(tool){
