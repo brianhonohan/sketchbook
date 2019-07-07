@@ -167,9 +167,9 @@ class System {
 
     } else {
       const largeOffset = 100000;
-      const landOrFolliage = noise(this.scale * (x + largeOffset),
+      const landOrFoliage = noise(this.scale * (x + largeOffset),
                                    this.scale * (y + largeOffset));
-      if (landOrFolliage < 0.6) {
+      if (landOrFoliage < 0.6) {
         return System.TERRAIN_SOIL;
       } else {
         return System.TERRAIN_FOLIAGE;
@@ -244,9 +244,9 @@ class System {
   }
 
   lightningStrike(){
-    let firstFolliage = this.grid.cells.find(c => c.terrainType == System.TERRAIN_FOLIAGE);
-    if (firstFolliage) {
-      firstFolliage.startBurning();
+    let firstFoliage = this.grid.cells.find(c => c.terrainType == System.TERRAIN_FOLIAGE);
+    if (firstFoliage) {
+      firstFoliage.startBurning();
     }
   }
 
