@@ -45,7 +45,7 @@ function draw(){
   system.tick();
   system.render();
   ui.render();
-  displayFrameRate();
+  // displayFrameRate();
 }
 
 function keyPressed(){

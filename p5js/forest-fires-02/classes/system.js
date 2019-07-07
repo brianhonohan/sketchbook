@@ -210,12 +210,18 @@ class System {
   }
 
   knockDownAt(x, y){
+    if (!this.resources.has(Resources.RES_KNOCK_DOWN)){
+      console.log("Out of: knock_down");
+      return;
+    }
+
     const cell = this.grid.cellForXY(x, y);
     if (!cell.isBurning()){
       return;
     }
     cell.fireIntensity = 0;
     cell.setType(System.TERRAIN_SMOLDERING);
+    this.resources.use(Resources.RES_KNOCK_DOWN);
   }
 
   fireBreakAt(x, y){

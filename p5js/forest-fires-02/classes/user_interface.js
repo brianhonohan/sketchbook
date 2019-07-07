@@ -191,6 +191,7 @@ class UserInterface {
 
   updateButtonLabels(){
     this.buttons[1].html( this.initialBtnConfig[1].label + " - " + Math.floor(this.resources.fire_break));
+    this.buttons[2].html( this.initialBtnConfig[2].label + " - " + Math.floor(this.resources.knock_down));
   }
 
   showDialog(dialog){
