@@ -201,6 +201,7 @@ class UserInterface {
 
   closeDialog(){
     this.dialog = UserInterface.DIALOG_NONE;
+    this.initialRender();
     this.system.requestFullRedraw();
   }
 
