@@ -6,6 +6,7 @@ modal: true
 
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js
+- https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.js
 - /sketchbook/vendor/dat.gui/0.7.3/dat.gui.js
 - /sketchbook/p5js/common/p5js_settings.js
 - /sketchbook/p5js/common/p5js_utils.js
@@ -15,6 +16,8 @@ js_scripts:
 - /sketchbook/js/models/cell_grid.js
 - classes/cell.js
 - classes/cell_viewer.js
+- classes/resources.js
+- classes/scenario_manager.js
 - classes/system.js
 - classes/user_interface.js
 - app.js

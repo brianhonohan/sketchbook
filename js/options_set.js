@@ -20,7 +20,11 @@ class OptionsSet {
   readParamOptions(){
     let paramOptions = {};
     for (let option of this.optionsMetadata) {
-      paramOptions[option.name] = UtilFunctions.getParameterByName(option.name, this.formatterForType(option.type));
+      if (this.isArrayType(option.type)){
+        paramOptions[option.name] = this.getArray(option);
+      } else {
+        paramOptions[option.name] = UtilFunctions.getParameterByName(option.name, this.formatterForType(option.type));
+      }
     }
     return paramOptions;
   }
@@ -31,6 +35,24 @@ class OptionsSet {
       "float" : (Number),
       "string" :  null
     })[type];
+  }
+
+  isArrayType(type){
+    return type.startsWith("array");
+  }
+
+  getArray(option){
+    let full_param = UtilFunctions.getParameterByName(option.name);
+    if (!full_param) return null;
+
+    let results = full_param.split(option.delimiter || ",");
+
+    let type = option.type.split(":")[1];
+    let formatter = this.formatterForType(type);
+    if (formatter) {
+      results = results.map(val => formatter(val));
+    }
+    return results;
   }
 
   init(){

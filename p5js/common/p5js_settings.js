@@ -1,7 +1,6 @@
 class P5JsSettings {
   static applySettings(newSettings){
-    randomSeed(this.optionsSet.settings.seed);
-    noiseSeed(this.optionsSet.settings.seed);
+    this.setSeed(this.optionsSet.settings.seed);
     noiseDetail(this.optionsSet.settings.noise_octaves, this.optionsSet.settings.noise_falloff);
   }
 
@@ -67,4 +66,12 @@ class P5JsSettings {
     document.body.appendChild(container);
     return container;
   }
+
+  static setSeed(seed){
+    this.optionsSet.settings.seed = seed;
+    randomSeed(this.optionsSet.settings.seed);
+    noiseSeed(this.optionsSet.settings.seed);
+  }
+
+  static getSeed(){ return this.optionsSet.settings.seed; }
 }

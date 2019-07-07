@@ -52,12 +52,18 @@ class CellViewer {
       partial_burn: color(70, 70, 70)
     };
   }
+  
+  terrainForColor(forColor){
+    return this.colorLookup.findIndex(tmpC => { 
+      return P5JsUtils.colorsMatch(forColor, tmpC); 
+    });
+  }
 
   initColorSchemeLookup(){
     this.colorLookup = [];
     this.colorLookup[System.TERRAIN_SOIL] = this._colors.soil;
     this.colorLookup[System.TERRAIN_WATER] = this._colors.water;
-    this.colorLookup[System.TERRAIN_FOLLIAGE] = this._colors.foliage;
+    this.colorLookup[System.TERRAIN_FOLIAGE] = this._colors.foliage;
     this.colorLookup[System.TERRAIN_BURNING] = this._colors.burning;
     this.colorLookup[System.TERRAIN_ENGULFED] = this._colors.engulfed;
     this.colorLookup[System.TERRAIN_SMOLDERING] = this._colors.smoldering;

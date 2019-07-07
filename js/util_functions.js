@@ -22,4 +22,27 @@ class UtilFunctions {
   static dist(x1, y1, x2, y2){
     return Math.sqrt( Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2) );
   }
+
+  static shallowCopy(obj){
+    return Object.assign({}, obj);
+  }
+
+  static averageOfArray(arr){
+    return arr.reduce( (el, tally) => el + tally, 0) / arr.length;
+  }
+
+  static startPerfTime(){
+    this.perfTimings = this.perfTimings || [];
+    this.perfStartAt = performance.now();
+  }
+
+  static endPerfTime(rollingCount = 10, logEveryNTimes = 5){
+    var t1 = performance.now();
+    this.perfTimings.push((t1 - this.perfStartAt));
+
+    if (this.perfTimings.length >= rollingCount){
+      console.log(`Average run: ${UtilFunctions.averageOfArray(this.perfTimings)}`);
+      this.perfTimings.splice(0, logEveryNTimes);
+    }
+  }
 }
