@@ -1,6 +1,7 @@
 class System {
   constructor(p_xSizeAndPos){
     this.sizeAndPosition = p_xSizeAndPos;
+    this.initFireIntensitylLookup();
   }
 
   init(p_xSettings){
@@ -67,6 +68,7 @@ class System {
     const tmpCell = new Cell(tmpRow, tmpCol, i, this);
     tmpCell.setType(this.terrainTypeForPos(tmpRow, tmpCol));
     tmpCell.fuelAmount = this.fuelLookup[tmpCell.terrainType];
+    tmpCell.fireIntensity = this.initialFire[tmpCell.terrainType];
     return tmpCell;
   }
 
@@ -142,6 +144,18 @@ class System {
     this.fuelLookup[System.TERRAIN_PARTIAL_BURN]  = 20;
   }
 
+  initFireIntensitylLookup(){
+    this.initialFire = [];
+    this.initialFire[System.TERRAIN_SOIL]          = 0;
+    this.initialFire[System.TERRAIN_WATER]         = 0;
+    this.initialFire[System.TERRAIN_FOLIAGE]       = 0;
+    this.initialFire[System.TERRAIN_BURNING]       = 5;
+    this.initialFire[System.TERRAIN_ENGULFED]      = 20;
+    this.initialFire[System.TERRAIN_SMOLDERING]    = 15;
+    this.initialFire[System.TERRAIN_BURNT]         = 0;
+    this.initialFire[System.TERRAIN_PARTIAL_BURN]  = 0;
+  }
+
   togglePause(){
     this.paused = !this.paused;
     this.setSpeed(max(1, this.speedIdx));
@@ -204,6 +218,7 @@ class System {
     }
     cell.setType(type);
     cell.fuelAmount = this.fuelLookup[type];
+    cell.fireIntensity = this.initialFire[type];
   }
 
   initializeFromImage(image){
