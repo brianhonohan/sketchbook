@@ -20,6 +20,7 @@ class System {
     this.paused = false;
     this.tickCount = 0;
     this.initFireRisks();
+    this.initFuelLookup();
     this.fireRiskThreshold = 0.1;
     this.resources = new Resources();
     this.cellViewer = new CellViewer();
@@ -65,9 +66,7 @@ class System {
   createCell(tmpRow, tmpCol, i){
     const tmpCell = new Cell(tmpRow, tmpCol, i, this);
     tmpCell.setType(this.terrainTypeForPos(tmpRow, tmpCol));
-    if (tmpCell.terrainType == System.TERRAIN_FOLIAGE){
-      tmpCell.fuelAmount = 100;
-    }
+    tmpCell.fuelAmount = this.fuelLookup[tmpCell.terrainType];
     return tmpCell;
   }
 
@@ -131,6 +130,18 @@ class System {
     this.terrainFireRisks[System.TERRAIN_PARTIAL_BURN] = 0;
   }
 
+  initFuelLookup(){
+    this.fuelLookup = [];
+    this.fuelLookup[System.TERRAIN_SOIL]          = 0;
+    this.fuelLookup[System.TERRAIN_WATER]         = 0;
+    this.fuelLookup[System.TERRAIN_FOLIAGE]       = 100;
+    this.fuelLookup[System.TERRAIN_BURNING]       = 50;
+    this.fuelLookup[System.TERRAIN_ENGULFED]      = 30;
+    this.fuelLookup[System.TERRAIN_SMOLDERING]    = 0;
+    this.fuelLookup[System.TERRAIN_BURNT]         = 0;
+    this.fuelLookup[System.TERRAIN_PARTIAL_BURN]  = 20;
+  }
+
   togglePause(){
     this.paused = !this.paused;
     this.setSpeed(max(1, this.speedIdx));
@@ -192,6 +203,7 @@ class System {
       return;
     }
     cell.setType(type);
+    cell.fuelAmount = this.fuelLookup[type];
   }
 
   initializeFromImage(image){
