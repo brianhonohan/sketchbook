@@ -26,7 +26,7 @@ class Cell {
   }
 
   setType(type){
-    if (type == System.TERRAIN_FOLLIAGE) {
+    if (type == System.TERRAIN_FOLIAGE) {
       this.fuelAmount = 100;
     }
     this.terrainType = type;

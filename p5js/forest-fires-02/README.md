@@ -16,7 +16,7 @@ Currently, fire needs 2 adjacent cells to be on fire for it to propagate; so two
 This sketch has a concept of 'tools' or cursor modes, which alter the behavior of clicking within the sketch.
 
 * `L` - Triggers Lightning beneath the mouse cursor
-* `f` - Turns a FOLLIAGE (green) cell into a SOIL (brown) cell, preventing fire from propagating to it.
+* `f` - Turns a FOLIAGE (green) cell into a SOIL (brown) cell, preventing fire from propagating to it.
 * `k` - 'Knocks-down' the fire where clicked.
 
 ## Config

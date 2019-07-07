@@ -65,7 +65,7 @@ class System {
   createCell(tmpRow, tmpCol, i){
     const tmpCell = new Cell(tmpRow, tmpCol, i, this);
     tmpCell.setType(this.terrainTypeForPos(tmpRow, tmpCol));
-    if (tmpCell.terrainType == System.TERRAIN_FOLLIAGE){
+    if (tmpCell.terrainType == System.TERRAIN_FOLIAGE){
       tmpCell.fuelAmount = 100;
     }
     return tmpCell;
@@ -96,7 +96,7 @@ class System {
 
   static get TERRAIN_SOIL(){ return 0; }
   static get TERRAIN_WATER(){ return 1; }
-  static get TERRAIN_FOLLIAGE(){ return 2; }
+  static get TERRAIN_FOLIAGE(){ return 2; }
   static get TERRAIN_BURNING(){ return 3; }
   static get TERRAIN_ENGULFED(){ return 4; }
   static get TERRAIN_SMOLDERING(){ return 5; }
@@ -123,7 +123,7 @@ class System {
     this.terrainFireRisks = [];
     this.terrainFireRisks[System.TERRAIN_SOIL]       = 0;
     this.terrainFireRisks[System.TERRAIN_WATER]      = -0.1;
-    this.terrainFireRisks[System.TERRAIN_FOLLIAGE]   = 0;
+    this.terrainFireRisks[System.TERRAIN_FOLIAGE]   = 0;
     this.terrainFireRisks[System.TERRAIN_BURNING]    = 1.0;
     this.terrainFireRisks[System.TERRAIN_ENGULFED]   = 2.0;
     this.terrainFireRisks[System.TERRAIN_SMOLDERING] = 0.3;
@@ -172,7 +172,7 @@ class System {
       if (landOrFolliage < 0.6) {
         return System.TERRAIN_SOIL;
       } else {
-        return System.TERRAIN_FOLLIAGE;
+        return System.TERRAIN_FOLIAGE;
       }
     }
   }
@@ -183,7 +183,7 @@ class System {
                                                 this.baseImage.width,
                                                 this.baseImage.pixels);
     return this.cellViewer.terrainForColor(colorAtXY);
-    return System.TERRAIN_FOLLIAGE;
+    return System.TERRAIN_FOLIAGE;
   }
 
   setTerrainType(x, y, type){
@@ -226,7 +226,7 @@ class System {
 
     const cell = this.grid.cellForXY(x, y);
 
-    if (!cell.isBurning() && cell.terrainType == System.TERRAIN_FOLLIAGE){
+    if (!cell.isBurning() && cell.terrainType == System.TERRAIN_FOLIAGE){
       cell.setType(System.TERRAIN_SOIL);
       cell.fuelAmount = 0;
       this.resources.use(Resources.RES_FIRE_BREAK);
@@ -244,7 +244,7 @@ class System {
   }
 
   lightningStrike(){
-    let firstFolliage = this.grid.cells.find(c => c.terrainType == System.TERRAIN_FOLLIAGE);
+    let firstFolliage = this.grid.cells.find(c => c.terrainType == System.TERRAIN_FOLIAGE);
     if (firstFolliage) {
       firstFolliage.startBurning();
     }

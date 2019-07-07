@@ -229,8 +229,8 @@ class UserInterface {
     text('The fire has been suppressed ...', 125, tmpY);
 
     // Number of Foliage Cells lost
-    let foliageLoss = this.system.stats.final[System.TERRAIN_FOLLIAGE]
-                        - this.system.stats.initial[System.TERRAIN_FOLLIAGE];
+    let foliageLoss = this.system.stats.final[System.TERRAIN_FOLIAGE]
+                        - this.system.stats.initial[System.TERRAIN_FOLIAGE];
 
     tmpY += 50;
     text(`Foliage Loss: ${foliageLoss}`, 125, tmpY);
