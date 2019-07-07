@@ -34,6 +34,7 @@ class UserInterface {
 
   static get DIALOG_NONE() { return 0; }
   static get DIALOG_UPLOAD() { return 1; }
+  static get DIALOG_END_SCENARIO() { return 2; }
 
   initButtons(){
     this.buttons = [];
@@ -192,13 +193,20 @@ class UserInterface {
   }
 
   showDialog(dialog){
-    this.dialog = UserInterface.DIALOG_UPLOAD;
+    this.dialog = dialog;
     this.dialogRender = this.renderDialogUpload;
   }
 
   closeDialog(){
     this.dialog = UserInterface.DIALOG_NONE;
     this.system.requestFullRedraw();
+  }
+
+  renderCurrentDialog(){
+    switch (this.dialog) {
+      case UserInterface.DIALOG_END_SCENARIO: return this.renderDialogEndScenario();
+      case UserInterface.DIALOG_UPLOAD: return this.renderDialogUpload();
+    }
   }
 
   renderDialogUpload(){
@@ -208,6 +216,15 @@ class UserInterface {
     fill(0);
     textSize(20);
     text('Drag and drop a terrain image file ...', 125, 125);
+  }
+
+  renderDialogEndScenario(){
+    fill(255);
+    rect(100, 100, 400, 200);
+
+    fill(0);
+    textSize(20);
+    text('The fire has been suppressed ...', 125, 125);
   }
 
   setTool(tool){
@@ -230,8 +247,6 @@ class UserInterface {
   render(){
     this.updateButtonLabels();
 
-    if (this.dialog != UserInterface.DIALOG_NONE){
-      this.renderDialogUpload();
-    }
+    this.renderCurrentDialog();
   }
 }

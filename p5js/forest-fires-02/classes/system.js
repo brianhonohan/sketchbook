@@ -31,6 +31,8 @@ class System {
     this.grid.initCells();
 
     this.firePropagationMatrix = System.BASE_INFLUENCE_MATRIX;
+
+    this.hadLightning = false;
     this.initialLightning();
   }
 
@@ -218,6 +220,7 @@ class System {
     if (!cell.isBurning() && cell.fuelAmount > 0){
       cell.startBurning();
     }
+    this.hadLightning = true;
   }
 
   lightningStrike(){
@@ -251,6 +254,8 @@ class System {
     if (this.tickCount % 5 == 0) {
       this.calcNextCellTypes();
       this.assignNextTypes();
+
+      this.detectFireSuppressed();
     }
     this.grid.cells.forEach(cell => cell.tick());
     this.resources.tick();
@@ -302,6 +307,14 @@ class System {
 
     return this.terrainFireRisks[cell.terrainType]
               * this.firePropagationMatrix[neighborIdx];
+  }
+
+  detectFireSuppressed(){
+    if (this.hadLightning && this.fireCells.length == 0){
+      this.paused = true;
+      console.log('Fire has been fully suppressed');
+      this.ui.showDialog(UserInterface.DIALOG_END_SCENARIO);
+    }
   }
 
   requestFullRedraw(){

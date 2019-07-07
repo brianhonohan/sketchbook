@@ -35,6 +35,7 @@ function setup() {
   let uiRect = new Rect(width - uiPanelWidth, 0, uiPanelWidth, height);
   ui = new UserInterface(uiRect, system, scenarioMgr);
 
+  system.ui = ui;
   canvas.drop(handleFile);
   background(50);
   ui.initialRender();
