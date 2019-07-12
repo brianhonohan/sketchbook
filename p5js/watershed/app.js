@@ -3,13 +3,14 @@ var system;
 var colorScheme;
 
 function setup() {
-  canvas = createCanvas(windowWidth, windowHeight-35);
+  canvas = createCanvas(500, 500);
   P5JsSettings.init();
 
   initColorScheme();
 
   let rect = new Rect(0, 0, width, height);
   system = new System(rect);
+  frameRate(1);
 }
 
 function draw(){
