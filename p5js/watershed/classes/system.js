@@ -26,10 +26,12 @@ class System {
 
   render(){
     stroke(colorScheme.line);
-    for (var i = 0; i < (this.ridges.length - 1); i++){
+    for (var i = (this.ridges.length - 1); i > 0; i--){
       let ridge = this.ridges[i];
-      let nextRidge = this.ridges[i+1];
-      line(ridge.x, ridge.y, nextRidge.x, nextRidge.y);
+      if (ridge.uphill == undefined){
+        continue;
+      }
+      line(ridge.x, ridge.y, ridge.uphill.x, ridge.uphill.y);
     }
   }
 }

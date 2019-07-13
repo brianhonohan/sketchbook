@@ -15,8 +15,10 @@ class TerrainGenerator {
       step.rotate(turnAngle);
 
       let nextPt = p5.Vector.add(prevRidge.pos, step);
-      prevRidge = new Ridge(nextPt);
-      results.push(prevRidge);
+      let nextRidge = new Ridge(nextPt);
+      nextRidge.attachTo(prevRidge);
+      results.push(nextRidge);
+      prevRidge = nextRidge;
     }
     return results;
   }
