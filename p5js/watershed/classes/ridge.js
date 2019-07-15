@@ -1,6 +1,7 @@
 class Ridge {
-  constructor(startingPoint){
+  constructor(startingPoint, elev){
     this.pos = startingPoint;
+    this.elev = elev;
     this.uphill   = undefined;
     this.downhill = [];
   }

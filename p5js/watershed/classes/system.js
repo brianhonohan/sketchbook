@@ -5,6 +5,7 @@ class System {
     this.settings = this.optionsSet.settings;
 
     this.terrainGen = new TerrainGenerator();
+    this.colorGradient = new ColorGradient();
     this.init();
   }
 
@@ -32,6 +33,12 @@ class System {
         continue;
       }
       line(ridge.x, ridge.y, ridge.uphill.x, ridge.uphill.y);
+    }
+    noStroke();
+    for (var i = (this.ridges.length - 1); i > 0; i--){
+      let ridge = this.ridges[i];
+      fill( this.colorGradient.getColorAt(ridge.elev) );
+      ellipse(ridge.x, ridge.y, 5, 5);
     }
   }
 }
