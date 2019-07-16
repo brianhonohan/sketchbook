@@ -29,10 +29,10 @@ class System {
     stroke(colorScheme.line);
     for (var i = (this.ridges.length - 1); i > 0; i--){
       let ridge = this.ridges[i];
-      if (ridge.uphill == undefined){
+      if (ridge.prevRidge == undefined){
         continue;
       }
-      line(ridge.x, ridge.y, ridge.uphill.x, ridge.uphill.y);
+      line(ridge.x, ridge.y, ridge.prevRidge.x, ridge.prevRidge.y);
     }
     noStroke();
     for (var i = (this.ridges.length - 1); i > 0; i--){
