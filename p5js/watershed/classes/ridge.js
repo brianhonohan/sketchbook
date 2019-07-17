@@ -13,4 +13,12 @@ class Ridge {
     this.prevRidge = otherRidge;
     otherRidge.nextRidges.push(this);
   }
+
+  prevIsDownhill(){
+    return (this.prevRidge) ? this.prevRidge.elev < this.elev : undefined;
+  }
+
+  numChildren(){
+    return this.nextRidges.length;
+  }
 }
