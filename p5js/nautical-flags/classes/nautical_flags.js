@@ -41,6 +41,10 @@ class NauticalFlags {
     if (pennantNumber >= 0){
       return 'drawPennant' + pennantNumber; 
     }
+
+    if (key == '.'){
+      return 'drawCodeFlag';
+    }
     return undefined;
   }
 
@@ -686,6 +690,17 @@ class NauticalFlags {
 
     fill(this.colors.white);
     this.drawBarInPennant(0, barWidth, barWidth);
+  }
+
+  drawCodeFlag(){
+    fill(this.colors.red);
+    this.drawPennantBase();
+
+    const barWidth = this.flagWidth / 5;
+    fill(this.colors.white);
+
+    this.drawBarInPennant(barWidth, barWidth);
+    this.drawBarInPennant(barWidth * 3, barWidth);
   }
 
   initPennantCoords(){
