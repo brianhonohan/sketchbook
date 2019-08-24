@@ -2,6 +2,7 @@ class NauticalFlags {
   constructor(){
     this.flagWidth = 300;
     this.initColors();
+    this.initPennantCoords();
   }
 
   initColors(){
@@ -15,20 +16,36 @@ class NauticalFlags {
   }
 
   drawFlag(flag){
-    const supportedFlags = /[a-z0-9]/i;
-    if (supportedFlags.test(flag) === false){
+    let renderMethodName = this.renderMethodFor(flag);
+    if (renderMethodName == undefined){
       console.warn('Unsupported flag requested: ' + flag);
       return;
     }
-    flag = flag.toUpperCase();
 
     background(50);
     noStroke();
     push();
     translate(width / 2 - this.flagWidth / 2, height / 2 - this.flagWidth / 2);
 
-    this['draw'+flag]();
+    this[renderMethodName]();
     pop();
+  }
+
+  renderMethodFor(key){
+    const supportedFlags = /[a-z0-9]/i;
+    if (supportedFlags.test(key)) {
+      return 'draw' + key.toUpperCase();
+    }
+
+    let pennantNumber = this.pennantNumberFromKey(key);
+    if (pennantNumber >= 0){
+      return 'drawPennant' + pennantNumber; 
+    }
+    return undefined;
+  }
+
+  pennantNumberFromKey(key){
+    return ')!@#$%^&*('.indexOf(key);
   }
 
   drawA(){
@@ -535,5 +552,81 @@ class NauticalFlags {
     const barWidth = 0.3333 * this.flagWidth;
     fill(this.colors.white);
     rect(barWidth, 0, barWidth, this.flagWidth);
+  }
+
+  drawPennantBase(){
+    beginShape();
+    vertex(this.pennant.topLeftX, this.pennant.topLeftY);
+    vertex(this.pennant.topRightX, this.pennant.topRightY);
+    vertex(this.pennant.bottomRightX, this.pennant.bottomRightY);
+    vertex(this.pennant.bottomLeftX,  this.pennant.bottomLeftY);
+    endShape();
+  }
+
+  drawBarInPennant(x, barWidth){
+    beginShape();
+    let yVal = (this.pennant.topLeftY + this.pennant.slope * x);
+    vertex(x, yVal);
+
+    yVal += this.pennant.slope * barWidth;
+    vertex(x + barWidth, yVal);
+
+    yVal = (this.pennant.bottomLeftY + this.pennant.slope * (x + barWidth) * -1);
+    vertex(x + barWidth, yVal);
+
+    yVal += this.pennant.slope * barWidth; // (leaving out two negative signs)
+    vertex(x, yVal);
+    endShape();
+  }
+
+  drawPennant0(){
+    fill(this.colors.yellow);
+    this.drawPennantBase();
+
+    fill(this.colors.red);
+    const barWidth = this.flagWidth / 3;
+    this.drawBarInPennant(barWidth, barWidth);
+  }
+
+  drawPennant3(){
+    fill(this.colors.red);
+    this.drawPennantBase();
+
+    const barWidth = this.flagWidth / 3;
+    fill(this.colors.white);
+    this.drawBarInPennant(barWidth, barWidth);
+
+    fill(this.colors.blue);
+    this.drawBarInPennant(2 * barWidth, barWidth);
+  }
+
+  drawPennant5(){
+    fill(this.colors.yellow);
+    this.drawPennantBase();
+
+    fill(this.colors.blue);
+    const barWidth = this.flagWidth / 2;
+    this.drawBarInPennant(barWidth, barWidth);
+  }
+
+  initPennantCoords(){
+    this.pennant = {};
+    const baseHeightPct = 0.5;
+    const tipHeightPct = 0.15;
+
+    this.pennant.topLeftX = 0;
+    this.pennant.topLeftY = baseHeightPct * 0.5 * this.flagWidth;
+
+    this.pennant.topRightX = this.flagWidth;
+    this.pennant.topRightY = this.flagWidth / 2 - tipHeightPct / 2 * this.flagWidth;
+
+    this.pennant.bottomRightX = this.flagWidth;
+    this.pennant.bottomRightY = this.flagWidth / 2 + tipHeightPct / 2 * this.flagWidth;
+
+    this.pennant.bottomLeftX = 0;
+    this.pennant.bottomLeftY = baseHeightPct * 1.5 * this.flagWidth;
+
+    this.pennant.slope = (this.pennant.topRightY - this.pennant.topLeftY) / 
+                          (this.pennant.topRightX - this.pennant.topLeftX);
   }
 }
