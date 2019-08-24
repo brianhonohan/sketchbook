@@ -15,7 +15,7 @@ class NauticalFlags {
   }
 
   drawFlag(flag){
-    const supportedFlags = /[a-z]/i;
+    const supportedFlags = /[a-z0-9]/i;
     if (supportedFlags.test(flag) === false){
       console.warn('Unsupported flag requested: ' + flag);
       return;
@@ -376,5 +376,164 @@ class NauticalFlags {
     triangle(this.flagWidth, 0,
              this.flagWidth / 2, this.flagWidth / 2,
              this.flagWidth, this.flagWidth);
+  }
+
+  draw0(){
+    fill(this.colors.white);
+    rect(0, 0, this.flagWidth, this.flagWidth);
+
+    // draw crosses
+    const barWidth = this.flagWidth / 15;
+    fill(this.colors.blue);
+
+    rect(2 * barWidth, barWidth, barWidth, 3 * barWidth);
+    rect(barWidth, 2 * barWidth, 3 * barWidth, barWidth);
+
+    rect(12 * barWidth, barWidth, barWidth, 3 * barWidth);
+    rect(11 * barWidth, 2 * barWidth, 3 * barWidth, barWidth);
+
+    rect(7 * barWidth, 6 * barWidth, barWidth, 3 * barWidth);
+    rect(6 * barWidth, 7 * barWidth, 3 * barWidth, barWidth);
+
+    rect(12 * barWidth, 11 * barWidth, barWidth, 3 * barWidth);
+    rect(11 * barWidth, 12 * barWidth, 3 * barWidth, barWidth);
+
+    rect(2 * barWidth, 11 * barWidth, barWidth, 3 * barWidth);
+    rect(barWidth,     12 * barWidth, 3 * barWidth, barWidth);
+  }
+
+  draw1(){
+    fill(this.colors.red);
+    rect(0, 0, this.flagWidth, this.flagWidth);
+
+    fill(this.colors.yellow);
+    rect(0, 0.333 * this.flagWidth, this.flagWidth, 0.333 * this.flagWidth);
+  }
+
+  draw2(){
+    fill(this.colors.yellow);
+    rect(0, 0, this.flagWidth, this.flagWidth);
+
+    fill(this.colors.red);
+    rect(0, 0.333 * this.flagWidth, this.flagWidth, 0.333 * this.flagWidth);
+  }
+
+  draw3(){
+    fill(this.colors.blue);
+    rect(0, 0, this.flagWidth, this.flagWidth);
+
+    fill(this.colors.red);
+    rect(0, 0.333 * this.flagWidth, this.flagWidth, 0.333 * this.flagWidth);
+  }
+
+  draw4(){
+    fill(this.colors.white);
+    rect(0, 0, this.flagWidth, this.flagWidth);
+
+    fill(this.colors.red);
+    const triangleOffset = this.flagWidth * 0.15;
+    const triangleHeight = (this.flagWidth - 2 * triangleOffset) / 2;
+    triangle(triangleOffset, 0, 
+             this.flagWidth - triangleOffset, 0,
+             this.flagWidth / 2, triangleHeight);
+
+    triangle(this.flagWidth, triangleOffset, 
+             this.flagWidth, this.flagWidth - triangleOffset,
+             this.flagWidth - triangleHeight, this.flagWidth / 2);
+
+    triangle(triangleOffset, this.flagWidth, 
+             this.flagWidth - triangleOffset, this.flagWidth,
+             this.flagWidth / 2, this.flagWidth - triangleHeight);
+
+    triangle(0, triangleOffset, 
+             0, this.flagWidth - triangleOffset,
+             triangleHeight, this.flagWidth / 2);
+  }
+
+  draw5(){
+    fill(this.colors.blue);
+    rect(0, 0, this.flagWidth, this.flagWidth);
+
+    fill(this.colors.yellow);
+    const triangleOffset = this.flagWidth * 0.15;
+    const triangleHeight = (this.flagWidth - 2 * triangleOffset) / 2;
+    triangle(triangleOffset, 0, 
+             this.flagWidth - triangleOffset, 0,
+             this.flagWidth / 2, triangleHeight);
+
+    triangle(this.flagWidth, triangleOffset, 
+             this.flagWidth, this.flagWidth - triangleOffset,
+             this.flagWidth - triangleHeight, this.flagWidth / 2);
+
+    triangle(triangleOffset, this.flagWidth, 
+             this.flagWidth - triangleOffset, this.flagWidth,
+             this.flagWidth / 2, this.flagWidth - triangleHeight);
+
+    triangle(0, triangleOffset, 
+             0, this.flagWidth - triangleOffset,
+             triangleHeight, this.flagWidth / 2);
+  }
+
+  draw6(){
+    fill(this.colors.blue);
+    rect(0, 0, this.flagWidth, this.flagWidth);
+    
+    fill(this.colors.white);
+    const barWidth = this.flagWidth / 7 * 2;
+
+    // diagonal stripes, down to the left, at 45˚ angle
+    beginShape();
+    vertex(0, 0);
+    vertex(barWidth, 0);
+    vertex(0, barWidth);
+    endShape();
+
+    beginShape();
+    vertex(barWidth * 2, 0);
+    vertex(barWidth * 3, 0);
+    vertex(0, barWidth * 3);
+    vertex(0, barWidth * 2);
+    endShape();
+
+    beginShape();
+    vertex(this.flagWidth, 0.5 * barWidth);
+    vertex(this.flagWidth, 1.5 * barWidth);
+    vertex(1.5 * barWidth, this.flagWidth);
+    vertex(0.5 * barWidth, this.flagWidth);
+    endShape();
+
+    beginShape();
+    vertex(this.flagWidth, 2.5 * barWidth);
+    vertex(this.flagWidth, 3.5 * barWidth);
+    vertex(3.5 * barWidth, this.flagWidth);
+    vertex(2.5 * barWidth, this.flagWidth);
+    endShape();
+  }
+
+  draw7(){
+    fill(this.colors.red);
+    rect(0, 0, this.flagWidth, this.flagWidth);
+
+    const barWidth = 0.3333 * this.flagWidth;
+    fill(this.colors.white);
+    rect(barWidth, 0, barWidth, this.flagWidth);
+  }
+
+  draw8(){
+    fill(this.colors.yellow);
+    rect(0, 0, this.flagWidth, this.flagWidth);
+
+    const barWidth = 0.3333 * this.flagWidth;
+    fill(this.colors.blue);
+    rect(barWidth, 0, barWidth, this.flagWidth);
+  }
+
+  draw9(){
+    fill(this.colors.blue);
+    rect(0, 0, this.flagWidth, this.flagWidth);
+
+    const barWidth = 0.3333 * this.flagWidth;
+    fill(this.colors.white);
+    rect(barWidth, 0, barWidth, this.flagWidth);
   }
 }
