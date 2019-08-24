@@ -618,6 +618,16 @@ class NauticalFlags {
     this.drawBarInPennant(2 * barWidth, barWidth);
   }
 
+  drawPennant4(){
+    fill(this.colors.red);
+    this.drawPennantBase();
+
+    const barWidth = this.flagWidth / 10;
+    fill(this.colors.white);
+    this.drawBarInPennant(this.flagWidth / 4, barWidth);
+    rect(0, (this.flagWidth - barWidth) / 2, this.flagWidth, barWidth);
+  }
+
   drawPennant5(){
     fill(this.colors.yellow);
     this.drawPennantBase();
@@ -625,6 +635,16 @@ class NauticalFlags {
     fill(this.colors.blue);
     const barWidth = this.flagWidth / 2;
     this.drawBarInPennant(barWidth, barWidth);
+  }
+
+  drawPennant8(){
+    fill(this.colors.white);
+    this.drawPennantBase();
+
+    const barWidth = this.flagWidth / 10;
+    fill(this.colors.red);
+    this.drawBarInPennant(this.flagWidth / 4, barWidth);
+    rect(0, (this.flagWidth - barWidth) / 2, this.flagWidth, barWidth);
   }
 
   initPennantCoords(){
