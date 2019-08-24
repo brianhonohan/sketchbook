@@ -1,9 +1,19 @@
+var nauticalFlags;
 
 function setup() {
-  createCanvas(windowWidth, windowHeight-35);
+  createCanvas(500, 500);
   P5JsSettings.init();
+
+  nauticalFlags = new NauticalFlags();
+  background(50);
 }
 
-function draw(){
-  background(50);
+function keyTyped(){
+  switch (key) {
+    case 'P':
+      saveCanvas(canvas, 'screenshot', 'png');
+      break;
+    default:
+      nauticalFlags.drawKey(key);
+  }
 }
