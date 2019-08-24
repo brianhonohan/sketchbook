@@ -588,6 +588,24 @@ class NauticalFlags {
     this.drawBarInPennant(barWidth, barWidth);
   }
 
+  drawPennant1(){
+    fill(this.colors.white);
+    this.drawPennantBase();
+
+    fill(this.colors.red);
+    let dotDiameter = 0.20 * this.flagWidth;
+    ellipse(dotDiameter, this.flagWidth / 2, dotDiameter, dotDiameter);
+  }
+
+  drawPennant2(){
+    fill(this.colors.blue);
+    this.drawPennantBase();
+
+    fill(this.colors.white);
+    let dotDiameter = 0.20 * this.flagWidth;
+    ellipse(dotDiameter, this.flagWidth / 2, dotDiameter, dotDiameter);
+  }
+
   drawPennant3(){
     fill(this.colors.red);
     this.drawPennantBase();
