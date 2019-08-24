@@ -16,11 +16,14 @@ class NauticalFlags {
 
   drawKey(key){
     background(50);
+    push();
+    translate(width / 2 - this.flagWidth / 2, height / 2 - this.flagWidth / 2);
     switch (key){
-      case 'a': this.drawA(); return;
-      case 'b': this.drawB(); return;
-      default: return;
+      case 'a': this.drawA(); break;
+      case 'b': this.drawB(); break;
+      default: break;
     }
+    pop();
   }
 
   drawA(){
