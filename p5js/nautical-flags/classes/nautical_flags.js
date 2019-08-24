@@ -14,11 +14,12 @@ class NauticalFlags {
     };
   }
 
-  drawKey(key){
+  drawFlag(flag){
     background(50);
+    noStroke();
     push();
     translate(width / 2 - this.flagWidth / 2, height / 2 - this.flagWidth / 2);
-    switch (key){
+    switch (flag){
       case 'a': this.drawA(); break;
       case 'b': this.drawB(); break;
       default: break;
@@ -27,32 +28,28 @@ class NauticalFlags {
   }
 
   drawA(){
-    const flagWidth = this.flagWidth;
-    noStroke();
     fill(this.colors.white);
-    rect(0, 0, flagWidth / 2, flagWidth);
+    rect(0, 0, this.flagWidth / 2, this.flagWidth);
     
     fill(this.colors.blue);
     beginShape();
-    vertex(flagWidth / 2, 0);
-    vertex(flagWidth, 0);
-    vertex(flagWidth * 0.66, flagWidth/2);
-    vertex(flagWidth, flagWidth);
-    vertex(flagWidth / 2, flagWidth);
+    vertex(this.flagWidth / 2, 0);
+    vertex(this.flagWidth, 0);
+    vertex(this.flagWidth * 0.66, this.flagWidth/2);
+    vertex(this.flagWidth, this.flagWidth);
+    vertex(this.flagWidth / 2, this.flagWidth);
     endShape();
   }
 
   drawB(){
-    const flagWidth = this.flagWidth;
-    noStroke();
     fill(this.colors.red);
 
     beginShape();
     vertex(0, 0);
-    vertex(flagWidth, 0);
-    vertex(flagWidth * 0.66, flagWidth/2);
-    vertex(flagWidth, flagWidth);
-    vertex(0, flagWidth);
+    vertex(this.flagWidth, 0);
+    vertex(this.flagWidth * 0.66, this.flagWidth/2);
+    vertex(this.flagWidth, this.flagWidth);
+    vertex(0, this.flagWidth);
     endShape();
   }
 }

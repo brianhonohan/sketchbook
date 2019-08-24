@@ -14,6 +14,6 @@ function keyTyped(){
       saveCanvas(canvas, 'screenshot', 'png');
       break;
     default:
-      nauticalFlags.drawKey(key);
+      nauticalFlags.drawFlag(key);
   }
 }
