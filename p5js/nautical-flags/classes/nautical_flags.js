@@ -22,6 +22,9 @@ class NauticalFlags {
     switch (flag){
       case 'a': this.drawA(); break;
       case 'b': this.drawB(); break;
+      case 'c': this.drawC(); break;
+      case 'd': this.drawD(); break;
+      case 'e': this.drawE(); break;
       default: break;
     }
     pop();
@@ -51,5 +54,38 @@ class NauticalFlags {
     vertex(this.flagWidth, this.flagWidth);
     vertex(0, this.flagWidth);
     endShape();
+  }
+
+  drawC(){
+    const barHeight = this.flagWidth * 0.2;
+    fill(this.colors.blue);
+    rect(0, 0, this.flagWidth, barHeight);
+    rect(0, barHeight * 4, this.flagWidth, barHeight);
+
+    fill(this.colors.white);
+    rect(0, barHeight, this.flagWidth, barHeight);
+    rect(0, barHeight * 3, this.flagWidth, barHeight);
+
+    fill(this.colors.red);
+    rect(0, barHeight * 2, this.flagWidth, barHeight);
+  }
+
+  drawD(){
+    const barHeight = this.flagWidth * 0.25;
+    fill(this.colors.yellow);
+    rect(0, 0, this.flagWidth, barHeight);
+    rect(0, barHeight * 3, this.flagWidth, barHeight);
+
+    fill(this.colors.blue);
+    rect(0, barHeight, this.flagWidth, barHeight * 2);
+  }
+
+  drawE(){
+    const barHeight = this.flagWidth * 0.5;
+    fill(this.colors.blue);
+    rect(0, 0, this.flagWidth, barHeight);
+
+    fill(this.colors.red);
+    rect(0, barHeight, this.flagWidth, barHeight);
   }
 }
