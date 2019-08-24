@@ -15,18 +15,19 @@ class NauticalFlags {
   }
 
   drawFlag(flag){
+    const supportedFlags = /[a-e]/i;
+    if (supportedFlags.test(flag) === false){
+      console.warn('Unsupported flag requested: ' + flag);
+      return;
+    }
+    flag = flag.toUpperCase();
+
     background(50);
     noStroke();
     push();
     translate(width / 2 - this.flagWidth / 2, height / 2 - this.flagWidth / 2);
-    switch (flag){
-      case 'a': this.drawA(); break;
-      case 'b': this.drawB(); break;
-      case 'c': this.drawC(); break;
-      case 'd': this.drawD(); break;
-      case 'e': this.drawE(); break;
-      default: break;
-    }
+
+    this['draw'+flag]();
     pop();
   }
 
