@@ -15,10 +15,10 @@ class NauticalFlags {
     };
   }
 
-  drawFlag(flag){
-    let renderMethodName = this.renderMethodFor(flag);
+  handleKeyPressed(){
+    let renderMethodName = this.renderMethodFor(key);
     if (renderMethodName == undefined){
-      console.warn('Unsupported flag requested: ' + flag);
+      console.warn('Unsupported flag requested: ' + key);
       return;
     }
 
@@ -32,6 +32,12 @@ class NauticalFlags {
   }
 
   renderMethodFor(key){
+    if (keyIsDown(CONTROL)){
+      if (key >= '1' && key <= '4'){
+        return 'drawSubstitute' + key;
+      }
+    }
+
     const supportedFlags = /[a-z0-9]/i;
     if (supportedFlags.test(key)) {
       return 'draw' + key.toUpperCase();
@@ -701,6 +707,65 @@ class NauticalFlags {
 
     this.drawBarInPennant(barWidth, barWidth);
     this.drawBarInPennant(barWidth * 3, barWidth);
+  }
+
+  
+  getSubstitudeBaseHeight(){
+    // https://www.crwflags.com/fotw/flags/xf-ics.html
+    // triangle of proportion: 7:11 (base to width)
+    return this.flagWidth / 11 * 7;
+  }
+
+  drawSubstituteBase(){
+    const baseHeight = this.getSubstitudeBaseHeight();
+
+    triangle(0, this.flagWidth / 2 - baseHeight / 2,
+             this.flagWidth, this.flagWidth / 2,
+             0, this.flagWidth / 2 + baseHeight / 2);
+  }
+
+  drawSubstitute1(){
+    fill(this.colors.blue);
+    this.drawSubstituteBase();
+
+    fill(this.colors.yellow);
+    const innerBaseHeight = this.getSubstitudeBaseHeight() / 2;
+    triangle(0, this.flagWidth / 2 - innerBaseHeight / 2,
+             this.flagWidth / 2, this.flagWidth / 2,
+             0, this.flagWidth / 2 + innerBaseHeight / 2);
+  }
+
+  drawSubstitute2(){
+    fill(this.colors.blue);
+    this.drawSubstituteBase();
+
+    fill(this.colors.white);
+    const innerBaseHeight = this.getSubstitudeBaseHeight() / 2;
+    triangle(this.flagWidth / 2, this.flagWidth / 2 - innerBaseHeight / 2,
+             this.flagWidth, this.flagWidth / 2,
+             this.flagWidth / 2, this.flagWidth / 2 + innerBaseHeight / 2);
+  }
+
+  drawSubstitute3(){
+    fill(this.colors.white);
+    this.drawSubstituteBase();
+
+    fill(this.colors.black);
+    const innerBaseHeight = this.getSubstitudeBaseHeight() * 0.4;
+    triangle(this.flagWidth * 0.6, this.flagWidth / 2 - innerBaseHeight / 2,
+             this.flagWidth, this.flagWidth / 2,
+             this.flagWidth * 0.6, this.flagWidth / 2 + innerBaseHeight / 2);
+    rect(0, this.flagWidth / 2 - innerBaseHeight / 2,
+          this.flagWidth * 0.6, innerBaseHeight);
+  }
+
+  drawSubstitute4(){
+    fill(this.colors.red);
+    this.drawSubstituteBase();
+
+    fill(this.colors.yellow);
+    const boxWidth = this.getSubstitudeBaseHeight() / 3;
+    rect(0, this.flagWidth / 2 - boxWidth / 2, boxWidth, boxWidth);
   }
 
   initPennantCoords(){
