@@ -563,18 +563,25 @@ class NauticalFlags {
     endShape();
   }
 
-  drawBarInPennant(x, barWidth){
+  drawBarInPennant(x, barWidth, maxY, minY){
+    minY = (minY == undefined) ? Number.NEGATIVE_INFINITY : minY;
+    maxY = (maxY == undefined) ? Number.POSITIVE_INFINITY : maxY;
+
     beginShape();
-    let yVal = (this.pennant.topLeftY + this.pennant.slope * x);
+    let yVal =  (this.pennant.topLeftY + this.pennant.slope * x);
+    yVal = constrain(yVal, minY, maxY);
     vertex(x, yVal);
 
     yVal += this.pennant.slope * barWidth;
+    yVal = constrain(yVal, minY, maxY);
     vertex(x + barWidth, yVal);
 
     yVal = (this.pennant.bottomLeftY + this.pennant.slope * (x + barWidth) * -1);
+    yVal = constrain(yVal, minY, maxY);
     vertex(x + barWidth, yVal);
 
     yVal += this.pennant.slope * barWidth; // (leaving out two negative signs)
+    yVal = constrain(yVal, minY, maxY);
     vertex(x, yVal);
     endShape();
   }
@@ -637,6 +644,24 @@ class NauticalFlags {
     this.drawBarInPennant(barWidth, barWidth);
   }
 
+  drawPennant6(){
+    fill(this.colors.white);
+    this.drawPennantBase();
+
+    fill(this.colors.black);
+    const barWidth = this.flagWidth;
+    this.drawBarInPennant(0, barWidth, this.flagWidth / 2);
+  }
+
+  drawPennant7(){
+    fill(this.colors.red);
+    this.drawPennantBase();
+
+    fill(this.colors.yellow);
+    const barWidth = this.flagWidth;
+    this.drawBarInPennant(0, barWidth, this.flagWidth / 2);
+  }
+
   drawPennant8(){
     fill(this.colors.white);
     this.drawPennantBase();
@@ -645,6 +670,22 @@ class NauticalFlags {
     fill(this.colors.red);
     this.drawBarInPennant(this.flagWidth / 4, barWidth);
     rect(0, (this.flagWidth - barWidth) / 2, this.flagWidth, barWidth);
+  }
+
+  drawPennant9(){
+    fill(this.colors.yellow);
+    this.drawPennantBase();
+
+    const barWidth = this.flagWidth / 2;
+
+    fill(this.colors.red);
+    this.drawBarInPennant(0, barWidth);
+
+    fill(this.colors.black);
+    this.drawBarInPennant(barWidth, barWidth, barWidth);
+
+    fill(this.colors.white);
+    this.drawBarInPennant(0, barWidth, barWidth);
   }
 
   initPennantCoords(){
