@@ -13,10 +13,28 @@ This is a [p5.js][p5js-home] sketch that allows you to type letters and numbers 
     - `SHIFT` + `0-9` Will show the NATO variant of the [number][wiki-int-numbers].
     - `CTRL` + `1-4` Will show the [Substitute flags][wiki-int-substitute], 1 -4, when you don't have enough flags of one letter.
     - `.` Will show the CODE flag, also known as the 'Answering Pennant', used to start a response to request or as a decimal point.
+    - `CTRL` + Two-Char code for special flags.
+        - `FL` For Flotilla.
+        - `SQ` For Squadron.
+        - `DI` For Division.
+        - `SU` For Subdivision.
+        - `PR` For Preparative.
+        - `IN` For Interrogative.
+        - `NE` For Negative.
+        - `SC` For Screen.
+        - `FO` For Formation.
+        - `CO` For Corpen (Course Pennant)
+        - `TU` For Turn.
+        - `SB` For Starboard.
+        - `PO` For Port.
+        - `SP` For Speed.
+        - `ST` For Station.
+        - `EM` For Emergency.
+        - `DE` For Designation.
 
 # References
 
-Multiple sources were used in 
+Multiple sources were used in determining proportions of the flags.
 
 * Flag Shapes and Meanings:
     - Wikipedia: [International maritime signal flags][wikipedia-int-maritime]
@@ -29,6 +47,7 @@ Multiple sources were used in
     - [Semaphore Flag Signaling][au-semaphore-flags] - How other signal flags are used with a signaler holding two of the same flags in their two arms in different patterns to convey the alphabet and other signals.
     - [Special NATO flags][marinewaypoints.com] - Includes details of secondary flags used by NATO in regards to maneuvering.
     - [International Flags][reddit-int-flags] - Another visual reference.
+
 
 # Links: 
 
