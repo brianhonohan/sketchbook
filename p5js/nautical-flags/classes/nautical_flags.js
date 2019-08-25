@@ -18,7 +18,8 @@ class NauticalFlags {
       blue: color(50, 50, 240),
       red: color(240, 50, 50),
       yellow: color(230, 230, 50),
-      black: color(10)
+      black: color(10),
+      green: color(50, 200, 50)
     };
   }
 
@@ -665,8 +666,7 @@ class NauticalFlags {
 
     beginShape();
     let yVal =  (this.pennant.topLeftY + this.pennant.slope * x);
-    yVal = constrain(yVal, minY, maxY);
-    vertex(x, yVal);
+    vertex(x, constrain(yVal, minY, maxY));
 
     yVal += this.pennant.slope * barWidth;
     yVal = constrain(yVal, minY, maxY);
@@ -990,5 +990,55 @@ class NauticalFlags {
     rect(0, this.flagWidth / 2, barWidth, barHeight);
 
     this.drawBarInTriangle(barWidth, barWidth, undefined, this.flagWidth / 2 + barHeight);
+  }
+
+  drawSpecialIN(){
+    fill(this.colors.white);
+    this.drawPennantBase();
+
+    fill(this.colors.red);
+    this.drawBarInPennant(this.flagWidth / 2, this.flagWidth / 2);
+  }
+
+  drawSpecialNE(){
+    fill(this.colors.blue);
+    this.drawPennantBase();
+
+    fill(this.colors.yellow);
+    const barWidth = this.flagWidth / 4;
+    this.drawBarInPennant(barWidth, barWidth, this.flagWidth / 2);
+    this.drawBarInPennant(3 * barWidth, barWidth, this.flagWidth / 2);
+
+    this.drawBarInPennant(0, barWidth, undefined, this.flagWidth / 2);
+    this.drawBarInPennant(2 * barWidth, barWidth,  undefined, this.flagWidth / 2);
+  }
+
+  drawSpecialTU(){
+    fill(this.colors.white);
+    this.drawPennantBase();
+
+    fill(this.colors.blue);
+    const barWidth = this.flagWidth / 6;
+    this.drawBarInPennant(barWidth, barWidth);
+    this.drawBarInPennant(3 * barWidth, barWidth);
+    this.drawBarInPennant(5 * barWidth, barWidth);
+  }
+
+  drawSpecialSB(){
+    fill(this.colors.green);
+    this.drawPennantBase();
+
+    fill(this.colors.white);
+    const barWidth = this.flagWidth / 3;
+    this.drawBarInPennant(barWidth, barWidth);
+  }
+
+  drawSpecialDE(){
+    fill(this.colors.white);
+    this.drawPennantBase();
+
+    fill(this.colors.blue);
+    const barWidth = this.flagWidth / 3;
+    this.drawBarInPennant(barWidth, barWidth);
   }
 }
