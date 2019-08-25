@@ -1041,4 +1041,25 @@ class NauticalFlags {
     const barWidth = this.flagWidth / 3;
     this.drawBarInPennant(barWidth, barWidth);
   }
+
+  drawSpecialPR(){
+    fill(this.colors.yellow);
+    this.drawPennantBase();
+
+    const barHeight = 0.8 * Math.abs(this.pennant.topRightY - this.pennant.bottomRightY);
+    fill(this.colors.green);
+    rect(0, this.flagWidth / 2 - barHeight / 2, this.flagWidth, barHeight);
+  }
+
+  drawSpecialFO(){
+    fill(this.colors.red);
+    this.drawPennantBase();
+
+    const barHeight = 0.8 * Math.abs(this.pennant.topRightY - this.pennant.bottomRightY);
+    fill(this.colors.white);
+    rect(0, this.flagWidth / 2 - barHeight / 2, this.flagWidth, barHeight);
+
+    fill(this.colors.blue);
+    this.drawBarInPennant(0, this.flagWidth, undefined, this.flagWidth / 2 + barHeight / 2);
+  }
 }
