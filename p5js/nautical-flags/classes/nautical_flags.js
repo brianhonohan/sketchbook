@@ -3,6 +3,7 @@ class NauticalFlags {
     this.flagWidth = flagWidth || 300;
     this.initColors();
     this.initPennantCoords();
+    this.initTriangleCoords();
 
     this.mode = NauticalFlags.MODE_NORMAL;
     this.keyBuffer = [];
@@ -802,11 +803,23 @@ class NauticalFlags {
   }
 
   drawSubstituteBase(){
+    triangle(this.triangle.x1, this.triangle.y1,
+        this.triangle.x2, this.triangle.y2,
+        this.triangle.x3, this.triangle.y3);
+  }
+
+  initTriangleCoords(){
     const baseHeight = this.getSubstitudeBaseHeight();
 
-    triangle(0, this.flagWidth / 2 - baseHeight / 2,
-             this.flagWidth, this.flagWidth / 2,
-             0, this.flagWidth / 2 + baseHeight / 2);
+    this.triangle = {
+      baseHeight: baseHeight,
+      x1: 0, 
+      y1: this.flagWidth / 2 - baseHeight / 2,
+      x2: this.flagWidth,
+      y2: this.flagWidth / 2,
+      x3: 0,
+      y3: this.flagWidth / 2 + baseHeight / 2
+    };
   }
 
   drawSubstitute1(){
