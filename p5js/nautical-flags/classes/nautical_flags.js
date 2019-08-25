@@ -1,6 +1,6 @@
 class NauticalFlags {
-  constructor(){
-    this.flagWidth = 300;
+  constructor(flagWidth){
+    this.flagWidth = flagWidth || 300;
     this.initColors();
     this.initPennantCoords();
   }

@@ -4,7 +4,7 @@ function setup() {
   createCanvas(500, 500);
   P5JsSettings.init();
 
-  nauticalFlags = new NauticalFlags();
+  nauticalFlags = new NauticalFlags(width * 0.6);
   background(50);
 }
 
@@ -17,7 +17,3 @@ function keyTyped(){
       nauticalFlags.handleKeyPressed();
   }
 }
-
-// function keyPressed(){
-  
-// }
