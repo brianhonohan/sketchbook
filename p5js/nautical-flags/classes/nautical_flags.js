@@ -820,6 +820,9 @@ class NauticalFlags {
       x3: 0,
       y3: this.flagWidth / 2 + baseHeight / 2
     };
+
+    this.triangle.slope = (this.triangle.y2 - this.triangle.y1) / 
+                          (this.triangle.x2 - this.triangle.x1);
   }
 
   drawSubstitute1(){
@@ -947,5 +950,45 @@ class NauticalFlags {
     triangle(0, this.flagWidth / 2 - innerBaseHeight / 2,
              this.flagWidth / 2, this.flagWidth / 2,
              0, this.flagWidth / 2 + innerBaseHeight / 2);
+  }
+
+  drawBarInTriangle(x, barWidth, maxY, minY){
+    minY = (minY == undefined) ? Number.NEGATIVE_INFINITY : minY;
+    maxY = (maxY == undefined) ? Number.POSITIVE_INFINITY : maxY;
+
+    beginShape();
+    let yVal =  (this.triangle.y1 + this.triangle.slope * x);
+    vertex(x, constrain(yVal, minY, maxY));
+
+    yVal += this.triangle.slope * barWidth;
+    yVal = constrain(yVal, minY, maxY);
+    vertex(x + barWidth, yVal);
+
+    yVal = (this.triangle.y3 + this.triangle.slope * (x + barWidth) * -1);
+    yVal = constrain(yVal, minY, maxY);
+    vertex(x + barWidth, yVal);
+
+    yVal += this.triangle.slope * barWidth; // (leaving out two negative signs)
+    yVal = constrain(yVal, minY, maxY);
+    vertex(x, yVal);
+    endShape();
+  }
+
+  drawSpecialEM(){
+    fill(this.colors.red);
+    this.drawSpecialTriangleBase();
+
+    fill(this.colors.white);
+    const barWidth = this.flagWidth / 4;
+    const barHeight = this.triangle.baseHeight / 4;
+    this.drawBarInTriangle(0, barWidth, this.flagWidth / 2 - barHeight);
+
+    this.drawBarInTriangle(barWidth * 3, barWidth, this.flagWidth / 2);
+    this.drawBarInTriangle(barWidth * 2, barWidth, undefined, this.flagWidth / 2);
+
+    rect(barWidth, this.flagWidth / 2 - barHeight, barWidth, barHeight);
+    rect(0, this.flagWidth / 2, barWidth, barHeight);
+
+    this.drawBarInTriangle(barWidth, barWidth, undefined, this.flagWidth / 2 + barHeight);
   }
 }
