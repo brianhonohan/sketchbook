@@ -45,7 +45,7 @@ class NauticalFlags {
 
     let pennantNumber = this.pennantNumberFromKey(key);
     if (pennantNumber >= 0){
-      return 'drawPennant' + pennantNumber; 
+      return 'drawNato' + pennantNumber; 
     }
 
     if (key == '.'){
@@ -405,7 +405,7 @@ class NauticalFlags {
              this.flagWidth, this.flagWidth);
   }
 
-  draw0(){
+  drawNato0(){
     fill(this.colors.white);
     rect(0, 0, this.flagWidth, this.flagWidth);
 
@@ -429,7 +429,7 @@ class NauticalFlags {
     rect(barWidth,     12 * barWidth, 3 * barWidth, barWidth);
   }
 
-  draw1(){
+  drawNato1(){
     fill(this.colors.red);
     rect(0, 0, this.flagWidth, this.flagWidth);
 
@@ -437,7 +437,7 @@ class NauticalFlags {
     rect(0, 0.333 * this.flagWidth, this.flagWidth, 0.333 * this.flagWidth);
   }
 
-  draw2(){
+  drawNato2(){
     fill(this.colors.yellow);
     rect(0, 0, this.flagWidth, this.flagWidth);
 
@@ -445,7 +445,7 @@ class NauticalFlags {
     rect(0, 0.333 * this.flagWidth, this.flagWidth, 0.333 * this.flagWidth);
   }
 
-  draw3(){
+  drawNato3(){
     fill(this.colors.blue);
     rect(0, 0, this.flagWidth, this.flagWidth);
 
@@ -453,7 +453,7 @@ class NauticalFlags {
     rect(0, 0.333 * this.flagWidth, this.flagWidth, 0.333 * this.flagWidth);
   }
 
-  draw4(){
+  drawNato4(){
     fill(this.colors.white);
     rect(0, 0, this.flagWidth, this.flagWidth);
 
@@ -477,7 +477,7 @@ class NauticalFlags {
              triangleHeight, this.flagWidth / 2);
   }
 
-  draw5(){
+  drawNato5(){
     fill(this.colors.blue);
     rect(0, 0, this.flagWidth, this.flagWidth);
 
@@ -501,7 +501,7 @@ class NauticalFlags {
              triangleHeight, this.flagWidth / 2);
   }
 
-  draw6(){
+  drawNato6(){
     fill(this.colors.blue);
     rect(0, 0, this.flagWidth, this.flagWidth);
     
@@ -537,7 +537,7 @@ class NauticalFlags {
     endShape();
   }
 
-  draw7(){
+  drawNato7(){
     fill(this.colors.red);
     rect(0, 0, this.flagWidth, this.flagWidth);
 
@@ -546,7 +546,7 @@ class NauticalFlags {
     rect(barWidth, 0, barWidth, this.flagWidth);
   }
 
-  draw8(){
+  drawNato8(){
     fill(this.colors.yellow);
     rect(0, 0, this.flagWidth, this.flagWidth);
 
@@ -555,7 +555,7 @@ class NauticalFlags {
     rect(barWidth, 0, barWidth, this.flagWidth);
   }
 
-  draw9(){
+  drawNato9(){
     fill(this.colors.blue);
     rect(0, 0, this.flagWidth, this.flagWidth);
 
@@ -596,7 +596,7 @@ class NauticalFlags {
     endShape();
   }
 
-  drawPennant0(){
+  draw0(){
     fill(this.colors.yellow);
     this.drawPennantBase();
 
@@ -605,7 +605,7 @@ class NauticalFlags {
     this.drawBarInPennant(barWidth, barWidth);
   }
 
-  drawPennant1(){
+  draw1(){
     fill(this.colors.white);
     this.drawPennantBase();
 
@@ -614,7 +614,7 @@ class NauticalFlags {
     ellipse(dotDiameter, this.flagWidth / 2, dotDiameter, dotDiameter);
   }
 
-  drawPennant2(){
+  draw2(){
     fill(this.colors.blue);
     this.drawPennantBase();
 
@@ -623,7 +623,7 @@ class NauticalFlags {
     ellipse(dotDiameter, this.flagWidth / 2, dotDiameter, dotDiameter);
   }
 
-  drawPennant3(){
+  draw3(){
     fill(this.colors.red);
     this.drawPennantBase();
 
@@ -635,7 +635,7 @@ class NauticalFlags {
     this.drawBarInPennant(2 * barWidth, barWidth);
   }
 
-  drawPennant4(){
+  draw4(){
     fill(this.colors.red);
     this.drawPennantBase();
 
@@ -645,7 +645,7 @@ class NauticalFlags {
     rect(0, (this.flagWidth - barWidth) / 2, this.flagWidth, barWidth);
   }
 
-  drawPennant5(){
+  draw5(){
     fill(this.colors.yellow);
     this.drawPennantBase();
 
@@ -654,7 +654,7 @@ class NauticalFlags {
     this.drawBarInPennant(barWidth, barWidth);
   }
 
-  drawPennant6(){
+  draw6(){
     fill(this.colors.white);
     this.drawPennantBase();
 
@@ -663,7 +663,7 @@ class NauticalFlags {
     this.drawBarInPennant(0, barWidth, this.flagWidth / 2);
   }
 
-  drawPennant7(){
+  draw7(){
     fill(this.colors.red);
     this.drawPennantBase();
 
@@ -672,7 +672,7 @@ class NauticalFlags {
     this.drawBarInPennant(0, barWidth, this.flagWidth / 2);
   }
 
-  drawPennant8(){
+  draw8(){
     fill(this.colors.white);
     this.drawPennantBase();
 
@@ -682,7 +682,7 @@ class NauticalFlags {
     rect(0, (this.flagWidth - barWidth) / 2, this.flagWidth, barWidth);
   }
 
-  drawPennant9(){
+  draw9(){
     fill(this.colors.yellow);
     this.drawPennantBase();
 
