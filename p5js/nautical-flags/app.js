@@ -13,9 +13,15 @@ function keyTyped(){
     case 'P':
       saveCanvas(canvas, 'screenshot', 'png');
       break;
-    default:
-      nauticalFlags.handleKeyPressed();
   }
+}
+
+function keyPressed(){
+  nauticalFlags.handleKeyPressed();
+}
+
+function keyReleased(){
+  nauticalFlags.handleKeyReleased();
 }
 
 function showIntroScreen(){
