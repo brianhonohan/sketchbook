@@ -886,4 +886,28 @@ class NauticalFlags {
     fill(this.colors.blue);
     rect(0, 0, subSquareWidth, subSquareWidth);
   }
+
+  drawSpecialDI(){
+    fill(this.colors.red);
+    rect(0, 0, this.flagWidth, this.flagWidth);
+
+    const barHeight = this.flagWidth / 4;
+    fill(this.colors.white);
+    rect(0, barHeight, this.flagWidth, barHeight);
+    fill(this.colors.blue);
+    rect(0, 2 * barHeight, this.flagWidth, barHeight);
+    fill(this.colors.yellow);
+    rect(0, 3 * barHeight, this.flagWidth, barHeight);
+  }
+
+  drawSpecialPO(){
+    fill(this.colors.red);
+    rect(0, 0, this.flagWidth, this.flagWidth);
+
+    const barWidth = this.flagWidth / 7;
+    fill(this.colors.white);
+    rect(barWidth, 0, barWidth, this.flagWidth);
+    rect(3 * barWidth, 0, barWidth, this.flagWidth);
+    rect(5 * barWidth, 0, barWidth, this.flagWidth);
+  }
 }
