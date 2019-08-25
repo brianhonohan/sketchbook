@@ -31,6 +31,37 @@ class NauticalFlags {
     pop();
   }
 
+  setTempWidth(newWidth){ 
+    this.oldWidth = this.flagWidth;
+    this.flagWidth = newWidth;
+  }
+  restoreOldWidth(){
+    this.flagWidth = this.oldWidth;
+  }
+
+  text(str){
+    const margin = 0.2 * width;
+    const displayWidth = width - 2 * margin;
+
+    const letterWidth = displayWidth / str.length;
+
+    this.setTempWidth(0.9 * letterWidth);
+    const letterSpacing = letterWidth - this.flagWidth;
+
+    noStroke();
+    push();
+    translate(margin, height / 2 - this.flagWidth / 2);
+    const symbols = str.split('');
+
+    for(var i = 0; i < symbols.length; i++){
+      let renderMethodName = this.renderMethodFor(symbols[i]);
+      this[renderMethodName]();
+      translate(this.flagWidth + letterSpacing, 0);
+    }
+    pop();
+    this.restoreOldWidth();
+  }
+
   renderMethodFor(key){
     if (keyIsDown(CONTROL)){
       if (key >= '1' && key <= '4'){

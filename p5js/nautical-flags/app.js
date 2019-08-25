@@ -28,8 +28,10 @@ function showIntroScreen(){
   textSize(32);
   text('Welcome', marginX, 0.2 * height, width - 2 * marginX, height / 3);
 
+  nauticalFlags.text('WELCOME');
   const instructions = 'Type on your keyboard to see the corresponding nautical flag.';
   textSize(20);
   const mainBlockY = height / 2;
   text(instructions, marginX, mainBlockY, width - 2 * marginX, height / 3);
 }
+
