@@ -48,6 +48,10 @@ class NauticalFlags {
       return 'drawNato' + pennantNumber; 
     }
 
+    if (key == ' '){
+      return 'drawSpace';
+    }
+
     if (key == '.'){
       return 'drawCodeFlag';
     }
@@ -56,6 +60,10 @@ class NauticalFlags {
 
   pennantNumberFromKey(key){
     return ')!@#$%^&*('.indexOf(key);
+  }
+
+  drawSpace(){
+    // do nothing
   }
 
   drawA(){
