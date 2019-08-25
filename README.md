@@ -5,9 +5,9 @@ Collection of personal coding projects. They may or may not grow into individual
 
 ## Latest
 
-A p5.js sketch, my second iteration modeling forest fires.
+A p5.js sketch, allowing the user to type and see the Internation Maritime Flag for that letter/number.
 
-[<img src="./p5js/forest-fires-02/screenshot-01.png" alt="p5js-forest-fires-02" width="150px" />][link-p5js-forest-fires-02]
+[<img src="./p5js/nautical-flags/screenshot-01.png" alt="p5js-nautical-flags-02" width="150px" />][link-p5js-nautical-flags]
 
 
 ## LÖVE
@@ -28,6 +28,7 @@ Collection of sketches using the [p5.js][p5js] Javascript library.
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/josef-albers-homage-to-a-square/screenshot-01.png" alt="homage-to-a-square" width="150px" />][link-p5js-josef-albers-homage-to-a-square]
 [<img src="./p5js/keyviz/screenshot-01.png" alt="keyviz" width="150px" />][link-p5js-keyviz]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/meandering-river/screenshot-01.png" alt="meandering-river" width="150px" />][link-p5js-meandering-river]
+[<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/nautical-flags/screenshot-01.png" alt="nautical-flags" width="150px" />][link-p5js-nautical-flags]
 [<img src="./p5js/common/examples/quadtree/screenshot-01.png" alt="quadtree" width="150px" />][link-p5js-quadtree]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/snowflake-pen/screenshot-01.png" alt="snowflake-pen" width="150px" />][link-p5js-snowflake-pen]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/thermal-cells/screenshot-01.png" alt="thermal-cells" width="150px" />][link-p5js-thermal-cells]
@@ -90,6 +91,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-p5js-josef-albers-homage-to-a-square]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/josef-albers-homage-to-a-square/
 [link-p5js-keyviz]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/keyviz/
 [link-p5js-meandering-river]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/meandering-river/
+[link-p5js-nautical-flags]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/nautical-flags/
 [link-p5js-quadtree]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/quadtree/
 [link-p5js-snowflake-pen]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/snowflake-pen/
 [link-p5js-thermal-cells]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/thermal-cells/
