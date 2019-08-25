@@ -3,7 +3,14 @@ class NauticalFlags {
     this.flagWidth = flagWidth || 300;
     this.initColors();
     this.initPennantCoords();
+    this.initTriangleCoords();
+
+    this.mode = NauticalFlags.MODE_NORMAL;
+    this.keyBuffer = [];
   }
+
+  static get MODE_NORMAL(){ return 0; }
+  static get MODE_CTRL_INPUT(){ return 1; }
 
   initColors(){
     this.colors = {
@@ -11,34 +18,106 @@ class NauticalFlags {
       blue: color(50, 50, 240),
       red: color(240, 50, 50),
       yellow: color(230, 230, 50),
-      black: color(10)
+      black: color(10),
+      green: color(50, 200, 50)
     };
   }
 
   handleKeyPressed(){
-    let renderMethodName = this.renderMethodFor(key);
-    if (renderMethodName == undefined){
-      console.warn('Unsupported flag requested: ' + key);
+    if (keyCode === CONTROL){
+      this.mode = NauticalFlags.MODE_CTRL_INPUT;
       return;
     }
 
+    let renderMethodName = this.renderMethodFor(key);
+    if (renderMethodName == undefined){
+      if (this.mode == NauticalFlags.MODE_NORMAL){
+        console.warn('Unsupported flag requested: ' + key);
+      }
+      return;
+    }
+
+    this._renderVia(renderMethodName);
+  }
+
+  _renderVia(methodName){
+    if (undefined === this[methodName]){
+      console.warn('Unsupported render method: ' + methodName);
+      return;
+    }
     background(50);
     noStroke();
     push();
     translate(width / 2 - this.flagWidth / 2, height / 2 - this.flagWidth / 2);
 
-    this[renderMethodName]();
+    this[methodName]();
     pop();
   }
 
+  handleKeyReleased(){
+    if (keyCode === CONTROL){
+      this.mode = NauticalFlags.MODE_NORMAL;
+      this.clearKeyBuffer();
+    }
+  }
+
+  setTempWidth(newWidth){ 
+    this.oldWidth = this.flagWidth;
+    this.flagWidth = newWidth;
+  }
+  restoreOldWidth(){
+    this.flagWidth = this.oldWidth;
+  }
+
+  text(str, x, y){
+    const margin = 0.1 * width;
+    const displayWidth = width - 2 * margin;
+
+    const letterWidth = displayWidth / str.length;
+
+    this.setTempWidth(0.9 * letterWidth);
+    const letterSpacing = letterWidth - this.flagWidth;
+
+    noStroke();
+    push();
+    x = x || margin;
+    y = y || height / 2 - this.flagWidth / 2;
+    translate(x, y);
+    const symbols = str.split('');
+
+    for(var i = 0; i < symbols.length; i++){
+      let renderMethodName = this.renderMethodFor(symbols[i]);
+      this[renderMethodName]();
+      translate(this.flagWidth + letterSpacing, 0);
+    }
+    pop();
+    this.restoreOldWidth();
+  }
+
+  resolveKeyBuffer(){
+    if (this.keyBuffer.length < 2){
+      return;
+    }
+    const flagCode = this.keyBuffer.join('').toUpperCase();
+    const methodName = 'drawSpecial' + flagCode;
+    this._renderVia(methodName);
+    this.clearKeyBuffer();
+  }
+
+  clearKeyBuffer(){ this.keyBuffer.length = 0; }
+
   renderMethodFor(key){
-    if (keyIsDown(CONTROL)){
+    if (this.mode == NauticalFlags.MODE_CTRL_INPUT){
       if (key >= '1' && key <= '4'){
         return 'drawSubstitute' + key;
+      } else if (key >= 'a' && key <= 'z'){
+        this.keyBuffer.push(key);
+        this.resolveKeyBuffer();
       }
+      return;
     }
 
-    const supportedFlags = /[a-z0-9]/i;
+    const supportedFlags = /^[a-z0-9]$/i;
     if (supportedFlags.test(key)) {
       return 'draw' + key.toUpperCase();
     }
@@ -587,8 +666,7 @@ class NauticalFlags {
 
     beginShape();
     let yVal =  (this.pennant.topLeftY + this.pennant.slope * x);
-    yVal = constrain(yVal, minY, maxY);
-    vertex(x, yVal);
+    vertex(x, constrain(yVal, minY, maxY));
 
     yVal += this.pennant.slope * barWidth;
     yVal = constrain(yVal, minY, maxY);
@@ -725,11 +803,26 @@ class NauticalFlags {
   }
 
   drawSubstituteBase(){
+    triangle(this.triangle.x1, this.triangle.y1,
+        this.triangle.x2, this.triangle.y2,
+        this.triangle.x3, this.triangle.y3);
+  }
+
+  initTriangleCoords(){
     const baseHeight = this.getSubstitudeBaseHeight();
 
-    triangle(0, this.flagWidth / 2 - baseHeight / 2,
-             this.flagWidth, this.flagWidth / 2,
-             0, this.flagWidth / 2 + baseHeight / 2);
+    this.triangle = {
+      baseHeight: baseHeight,
+      x1: 0, 
+      y1: this.flagWidth / 2 - baseHeight / 2,
+      x2: this.flagWidth,
+      y2: this.flagWidth / 2,
+      x3: 0,
+      y3: this.flagWidth / 2 + baseHeight / 2
+    };
+
+    this.triangle.slope = (this.triangle.y2 - this.triangle.y1) / 
+                          (this.triangle.x2 - this.triangle.x1);
   }
 
   drawSubstitute1(){
@@ -781,6 +874,8 @@ class NauticalFlags {
     const baseHeightPct = 0.5;
     const tipHeightPct = 0.15;
 
+    this.pennant.baseHeight = baseHeightPct * this.flagWidth;
+
     this.pennant.topLeftX = 0;
     this.pennant.topLeftY = baseHeightPct * 0.5 * this.flagWidth;
 
@@ -795,5 +890,222 @@ class NauticalFlags {
 
     this.pennant.slope = (this.pennant.topRightY - this.pennant.topLeftY) / 
                           (this.pennant.topRightX - this.pennant.topLeftX);
+  }
+
+  drawSpecialSQ(){
+    fill(this.colors.red);
+    rect(0, 0, this.flagWidth, this.flagWidth);
+
+    const subSquareWidth = this.flagWidth / 2;
+    fill(this.colors.yellow);
+    rect(subSquareWidth, 0, subSquareWidth, subSquareWidth);
+    fill(this.colors.white);
+    rect(0, subSquareWidth, subSquareWidth, subSquareWidth);
+    fill(this.colors.blue);
+    rect(0, 0, subSquareWidth, subSquareWidth);
+  }
+
+  drawSpecialDI(){
+    fill(this.colors.red);
+    rect(0, 0, this.flagWidth, this.flagWidth);
+
+    const barHeight = this.flagWidth / 4;
+    fill(this.colors.white);
+    rect(0, barHeight, this.flagWidth, barHeight);
+    fill(this.colors.blue);
+    rect(0, 2 * barHeight, this.flagWidth, barHeight);
+    fill(this.colors.yellow);
+    rect(0, 3 * barHeight, this.flagWidth, barHeight);
+  }
+
+  drawSpecialPO(){
+    fill(this.colors.red);
+    rect(0, 0, this.flagWidth, this.flagWidth);
+
+    const barWidth = this.flagWidth / 7;
+    fill(this.colors.white);
+    rect(barWidth, 0, barWidth, this.flagWidth);
+    rect(3 * barWidth, 0, barWidth, this.flagWidth);
+    rect(5 * barWidth, 0, barWidth, this.flagWidth);
+  }
+
+  drawSpecialTriangleBase(){
+    this.drawSubstituteBase();
+  }
+
+  drawSpecialSU(){
+    fill(this.colors.blue);
+    this.drawSpecialTriangleBase();
+  }
+
+  drawSpecialSP(){
+    fill(this.colors.red);
+    this.drawSpecialTriangleBase();
+  }
+
+  drawSpecialST(){
+    fill(this.colors.red);
+    this.drawSpecialTriangleBase();
+
+    fill(this.colors.white);
+    const innerBaseHeight = this.getSubstitudeBaseHeight() / 2;
+    triangle(0, this.flagWidth / 2 - innerBaseHeight / 2,
+             this.flagWidth / 2, this.flagWidth / 2,
+             0, this.flagWidth / 2 + innerBaseHeight / 2);
+  }
+
+  drawBarInTriangle(x, barWidth, maxY, minY){
+    minY = (minY == undefined) ? Number.NEGATIVE_INFINITY : minY;
+    maxY = (maxY == undefined) ? Number.POSITIVE_INFINITY : maxY;
+
+    beginShape();
+    let yVal =  (this.triangle.y1 + this.triangle.slope * x);
+    vertex(x, constrain(yVal, minY, maxY));
+
+    yVal += this.triangle.slope * barWidth;
+    yVal = constrain(yVal, minY, maxY);
+    vertex(x + barWidth, yVal);
+
+    yVal = (this.triangle.y3 + this.triangle.slope * (x + barWidth) * -1);
+    yVal = constrain(yVal, minY, maxY);
+    vertex(x + barWidth, yVal);
+
+    yVal += this.triangle.slope * barWidth; // (leaving out two negative signs)
+    yVal = constrain(yVal, minY, maxY);
+    vertex(x, yVal);
+    endShape();
+  }
+
+  drawSpecialEM(){
+    fill(this.colors.red);
+    this.drawSpecialTriangleBase();
+
+    fill(this.colors.white);
+    const barWidth = this.flagWidth / 4;
+    const barHeight = this.triangle.baseHeight / 4;
+    this.drawBarInTriangle(0, barWidth, this.flagWidth / 2 - barHeight);
+
+    this.drawBarInTriangle(barWidth * 3, barWidth, this.flagWidth / 2);
+    this.drawBarInTriangle(barWidth * 2, barWidth, undefined, this.flagWidth / 2);
+
+    rect(barWidth, this.flagWidth / 2 - barHeight, barWidth, barHeight);
+    rect(0, this.flagWidth / 2, barWidth, barHeight);
+
+    this.drawBarInTriangle(barWidth, barWidth, undefined, this.flagWidth / 2 + barHeight);
+  }
+
+  drawSpecialIN(){
+    fill(this.colors.white);
+    this.drawPennantBase();
+
+    fill(this.colors.red);
+    this.drawBarInPennant(this.flagWidth / 2, this.flagWidth / 2);
+  }
+
+  drawSpecialNE(){
+    fill(this.colors.blue);
+    this.drawPennantBase();
+
+    fill(this.colors.yellow);
+    const barWidth = this.flagWidth / 4;
+    this.drawBarInPennant(barWidth, barWidth, this.flagWidth / 2);
+    this.drawBarInPennant(3 * barWidth, barWidth, this.flagWidth / 2);
+
+    this.drawBarInPennant(0, barWidth, undefined, this.flagWidth / 2);
+    this.drawBarInPennant(2 * barWidth, barWidth,  undefined, this.flagWidth / 2);
+  }
+
+  drawSpecialTU(){
+    fill(this.colors.white);
+    this.drawPennantBase();
+
+    fill(this.colors.blue);
+    const barWidth = this.flagWidth / 6;
+    this.drawBarInPennant(barWidth, barWidth);
+    this.drawBarInPennant(3 * barWidth, barWidth);
+    this.drawBarInPennant(5 * barWidth, barWidth);
+  }
+
+  drawSpecialSB(){
+    fill(this.colors.green);
+    this.drawPennantBase();
+
+    fill(this.colors.white);
+    const barWidth = this.flagWidth / 3;
+    this.drawBarInPennant(barWidth, barWidth);
+  }
+
+  drawSpecialDE(){
+    fill(this.colors.white);
+    this.drawPennantBase();
+
+    fill(this.colors.blue);
+    const barWidth = this.flagWidth / 3;
+    this.drawBarInPennant(barWidth, barWidth);
+  }
+
+  drawSpecialPR(){
+    fill(this.colors.yellow);
+    this.drawPennantBase();
+
+    const barHeight = 0.8 * Math.abs(this.pennant.topRightY - this.pennant.bottomRightY);
+    fill(this.colors.green);
+    rect(0, this.flagWidth / 2 - barHeight / 2, this.flagWidth, barHeight);
+  }
+
+  drawSpecialFO(){
+    fill(this.colors.red);
+    this.drawPennantBase();
+
+    const barHeight = 0.8 * Math.abs(this.pennant.topRightY - this.pennant.bottomRightY);
+    fill(this.colors.white);
+    rect(0, this.flagWidth / 2 - barHeight / 2, this.flagWidth, barHeight);
+
+    fill(this.colors.blue);
+    this.drawBarInPennant(0, this.flagWidth, undefined, this.flagWidth / 2 + barHeight / 2);
+  }
+
+  drawSpecialSC(){
+    fill(this.colors.black);
+    this.drawPennantBase();
+  }
+
+  drawSpecialCO(){
+    fill(this.colors.red);
+    this.drawPennantBase();
+
+    fill(this.colors.white);
+    const dia1 = 0.5 * this.pennant.baseHeight;
+    ellipse(dia1, this.flagWidth / 2, dia1, dia1);
+
+    const dia2 = 0.75 * dia1;
+    ellipse(2 * dia1 + 0.5 * dia2, this.flagWidth / 2, dia2, dia2);
+  }
+
+  drawSpecialFL(){
+    const swallowtailIndent = this.flagWidth / 3;
+    const swallowtailSlope = (this.flagWidth / 2) / swallowtailIndent;
+
+    fill(this.colors.blue);
+
+    beginShape();
+    vertex(0, 0);
+    vertex(this.flagWidth, 0);
+    vertex(this.flagWidth - swallowtailIndent, this.flagWidth/2);
+    vertex(this.flagWidth, this.flagWidth);
+    vertex(0, this.flagWidth);
+    endShape();
+
+    const barHeight = 0.5 * this.flagWidth;
+    const barMaxX = this.flagWidth - swallowtailIndent+ (barHeight /2) / swallowtailSlope;
+
+    fill(this.colors.white);
+    beginShape();
+    vertex(0, barHeight / 2);
+    vertex(barMaxX, barHeight / 2);
+    vertex(this.flagWidth - swallowtailIndent, this.flagWidth/2);
+    vertex(barMaxX, this.flagWidth / 2+ barHeight / 2);
+    vertex(0, this.flagWidth / 2 + barHeight / 2);
+    endShape();
   }
 }
