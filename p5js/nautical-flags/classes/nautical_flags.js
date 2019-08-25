@@ -874,6 +874,8 @@ class NauticalFlags {
     const baseHeightPct = 0.5;
     const tipHeightPct = 0.15;
 
+    this.pennant.baseHeight = baseHeightPct * this.flagWidth;
+
     this.pennant.topLeftX = 0;
     this.pennant.topLeftY = baseHeightPct * 0.5 * this.flagWidth;
 
@@ -1061,5 +1063,22 @@ class NauticalFlags {
 
     fill(this.colors.blue);
     this.drawBarInPennant(0, this.flagWidth, undefined, this.flagWidth / 2 + barHeight / 2);
+  }
+
+  drawSpecialSC(){
+    fill(this.colors.black);
+    this.drawPennantBase();
+  }
+
+  drawSpecialCO(){
+    fill(this.colors.red);
+    this.drawPennantBase();
+
+    fill(this.colors.white);
+    const dia1 = 0.5 * this.pennant.baseHeight;
+    ellipse(dia1, this.flagWidth / 2, dia1, dia1);
+
+    const dia2 = 0.75 * dia1;
+    ellipse(2 * dia1 + 0.5 * dia2, this.flagWidth / 2, dia2, dia2);
   }
 }
