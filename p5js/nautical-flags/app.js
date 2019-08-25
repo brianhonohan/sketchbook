@@ -1,7 +1,7 @@
 var nauticalFlags;
 
 function setup() {
-  createCanvas(500, 500);
+  createCanvas(windowWidth, windowHeight-35);
   P5JsSettings.init();
 
   nauticalFlags = new NauticalFlags(width * 0.6);
