@@ -26,9 +26,9 @@ function showIntroScreen(){
   const marginX = 0.2 * width;
 
   textSize(32);
-  text('Welcome', marginX, 0.2 * height, width - 2 * marginX, height / 3);
+  text('Welcome', marginX, 0.25 * height, width - 2 * marginX, height / 3);
 
-  nauticalFlags.text('WELCOME');
+  nauticalFlags.text('WELCOME', undefined, 100);
   const instructions = 'Type on your keyboard to see the corresponding nautical flag.';
   textSize(20);
   const mainBlockY = height / 2;

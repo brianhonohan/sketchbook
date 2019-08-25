@@ -39,8 +39,8 @@ class NauticalFlags {
     this.flagWidth = this.oldWidth;
   }
 
-  text(str){
-    const margin = 0.2 * width;
+  text(str, x, y){
+    const margin = 0.1 * width;
     const displayWidth = width - 2 * margin;
 
     const letterWidth = displayWidth / str.length;
@@ -50,7 +50,9 @@ class NauticalFlags {
 
     noStroke();
     push();
-    translate(margin, height / 2 - this.flagWidth / 2);
+    x = x || margin;
+    y = y || height / 2 - this.flagWidth / 2;
+    translate(x, y);
     const symbols = str.split('');
 
     for(var i = 0; i < symbols.length; i++){
