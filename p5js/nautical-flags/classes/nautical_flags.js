@@ -1081,4 +1081,31 @@ class NauticalFlags {
     const dia2 = 0.75 * dia1;
     ellipse(2 * dia1 + 0.5 * dia2, this.flagWidth / 2, dia2, dia2);
   }
+
+  drawSpecialFL(){
+    const swallowtailIndent = this.flagWidth / 3;
+    const swallowtailSlope = (this.flagWidth / 2) / swallowtailIndent;
+
+    fill(this.colors.blue);
+
+    beginShape();
+    vertex(0, 0);
+    vertex(this.flagWidth, 0);
+    vertex(this.flagWidth - swallowtailIndent, this.flagWidth/2);
+    vertex(this.flagWidth, this.flagWidth);
+    vertex(0, this.flagWidth);
+    endShape();
+
+    const barHeight = 0.5 * this.flagWidth;
+    const barMaxX = this.flagWidth - swallowtailIndent+ (barHeight /2) / swallowtailSlope;
+
+    fill(this.colors.white);
+    beginShape();
+    vertex(0, barHeight / 2);
+    vertex(barMaxX, barHeight / 2);
+    vertex(this.flagWidth - swallowtailIndent, this.flagWidth/2);
+    vertex(barMaxX, this.flagWidth / 2+ barHeight / 2);
+    vertex(0, this.flagWidth / 2 + barHeight / 2);
+    endShape();
+  }
 }
