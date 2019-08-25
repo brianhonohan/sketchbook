@@ -17,6 +17,9 @@ function keyTyped(){
 }
 
 function keyPressed(){
+  if (key == 'P') {
+    return;
+  }
   nauticalFlags.handleKeyPressed();
 }
 
