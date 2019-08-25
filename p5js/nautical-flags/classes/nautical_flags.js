@@ -910,4 +910,29 @@ class NauticalFlags {
     rect(3 * barWidth, 0, barWidth, this.flagWidth);
     rect(5 * barWidth, 0, barWidth, this.flagWidth);
   }
+
+  drawSpecialTriangleBase(){
+    this.drawSubstituteBase();
+  }
+
+  drawSpecialSU(){
+    fill(this.colors.blue);
+    this.drawSpecialTriangleBase();
+  }
+
+  drawSpecialSP(){
+    fill(this.colors.red);
+    this.drawSpecialTriangleBase();
+  }
+
+  drawSpecialST(){
+    fill(this.colors.red);
+    this.drawSpecialTriangleBase();
+
+    fill(this.colors.white);
+    const innerBaseHeight = this.getSubstitudeBaseHeight() / 2;
+    triangle(0, this.flagWidth / 2 - innerBaseHeight / 2,
+             this.flagWidth / 2, this.flagWidth / 2,
+             0, this.flagWidth / 2 + innerBaseHeight / 2);
+  }
 }
