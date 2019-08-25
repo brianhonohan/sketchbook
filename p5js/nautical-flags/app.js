@@ -5,7 +5,7 @@ function setup() {
   P5JsSettings.init();
 
   nauticalFlags = new NauticalFlags(width * 0.6);
-  background(50);
+  showIntroScreen();
 }
 
 function keyTyped(){
@@ -16,4 +16,20 @@ function keyTyped(){
     default:
       nauticalFlags.handleKeyPressed();
   }
+}
+
+function showIntroScreen(){
+  background(50);
+  fill(230);
+  textFont('Verdana');
+  textAlign(CENTER, CENTER);
+  const marginX = 0.2 * width;
+
+  textSize(32);
+  text('Welcome', marginX, 0.2 * height, width - 2 * marginX, height / 3);
+
+  const instructions = 'Type on your keyboard to see the corresponding nautical flag.';
+  textSize(20);
+  const mainBlockY = height / 2;
+  text(instructions, marginX, mainBlockY, width - 2 * marginX, height / 3);
 }
