@@ -1,10 +1,17 @@
 var nauticalFlags;
+var keyController;
+var nfTypeset;
 
 function setup() {
   createCanvas(windowWidth, windowHeight-35);
   P5JsSettings.init();
 
   nauticalFlags = new NauticalFlags(width * 0.6);
+  keyController = new KeyboardController();
+  nfTypeset = new NauticalFlagsTypeset();
+
+  keyController.typeset = nfTypeset;
+  nfTypeset.setFont(nauticalFlags);
   showIntroScreen();
 }
 
@@ -20,11 +27,11 @@ function keyPressed(){
   if (key == 'P') {
     return;
   }
-  nauticalFlags.handleKeyPressed();
+  keyController.handleKeyPressed();
 }
 
 function keyReleased(){
-  nauticalFlags.handleKeyReleased();
+  keyController.handleKeyReleased();
 }
 
 function showIntroScreen(){
@@ -37,7 +44,7 @@ function showIntroScreen(){
   textSize(32);
   text('Welcome', marginX, 0.25 * height, width - 2 * marginX, height / 3);
 
-  nauticalFlags.text('WELCOME', undefined, 100);
+  nfTypeset.text('WELCOME', undefined, 100);
   const instructions = 'Type on your keyboard to see the corresponding nautical flag.';
   textSize(20);
   const mainBlockY = height / 2;
