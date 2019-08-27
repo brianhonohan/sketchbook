@@ -1,6 +1,8 @@
 class NauticalFlagsTypeset {
   constructor(){
     this.font = undefined;
+
+    this.styleStack = [];
   }
 
   setFont(newFont) {
@@ -15,37 +17,64 @@ class NauticalFlagsTypeset {
     return this.font.flagWidth;
   }
 
-  setTempWidth(newWidth){ 
-    this.oldWidth = this.font.flagWidth;
-    this.font.flagWidth = newWidth;
-  }
-  restoreOldWidth(){
-    this.font.flagWidth = this.oldWidth;
+  getProperties(){
+    return {
+      fontWidth: this.fontWidth
+    };
   }
 
-  text(str, x, y){
-    const margin = 0.1 * width;
-    const displayWidth = width - 2 * margin;
+  textSize(newSize){
+    this.font.flagWidth = newSize;
+  }
 
-    const letterWidth = displayWidth / str.length;
+  push(){
+    this.styleStack.push(this.getProperties());
+  }
 
-    this.setTempWidth(0.9 * letterWidth);
-    const letterSpacing = letterWidth - this.flagWidth;
+  pop(){
+    if (this.styleStack.length == 0){
+      return;
+    }
+    this.applyStyle( this.styleStack.pop() );
+  }
+
+  applyStyle(style){
+    this.font.flagWidth = style.fontWidth;
+  }
+
+  text(str, x, y, w, h){
+    x = x || 0;
+    y = y || 0;
+    w = w || width;
+    h = h || height - y;
+    let textAlignment = textAlign();
+
+    const letterSpacing = this.fontWidth * 0.1;
+
+
+    const textWidth = str.length * this.fontWidth 
+                        + (str.length - 1) * letterSpacing;
+    let startX;
+    if (textAlignment.horizontal == CENTER){
+      startX = x + (w - textWidth) / 2;
+    } else if (textAlignment.horizontal == RIGHT){
+      startX = x + w - textWidth;
+    } else {
+      // ALIGN LEFT
+      startX = x;
+    }
 
     noStroke();
     push();
-    x = x || margin;
-    y = y || height / 2 - this.flagWidth / 2;
-    translate(x, y);
+    translate(startX, y);
     const symbols = str.split('');
 
     for(var i = 0; i < symbols.length; i++){
       let renderMethodName = this.renderMethodFor(symbols[i]);
-      this[renderMethodName]();
-      translate(this.flagWidth + letterSpacing, 0);
+      this.font[renderMethodName]();
+      translate(this.fontWidth + letterSpacing, 0);
     }
     pop();
-    this.restoreOldWidth();
   }
 
   _renderVia(methodName){
