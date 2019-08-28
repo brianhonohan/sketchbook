@@ -23,6 +23,11 @@ class KeyboardController {
         this.clearKeyBuffer();
       }
     } else {
+      if (key == 'Backspace'){
+        this.typeset.backspace();
+        return;
+      }
+
       successfulRender = this.typeset.renderKey(key);
     }
 

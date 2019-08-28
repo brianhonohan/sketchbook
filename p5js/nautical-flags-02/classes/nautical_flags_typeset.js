@@ -90,6 +90,13 @@ class NauticalFlagsTypeset {
     pop();
   }
 
+  backspace(){
+    this.printBlocks.pop();
+    if (this.mode == NauticalFlagsTypeset.MODE_TEXT){
+      this._renderPrintBlocks();
+    }
+  }
+
   _renderVia(methodName){
     let isKnownMethod = !(undefined === this.font[methodName]);
     let isCommandKey = this.commandKeys.includes(methodName);
