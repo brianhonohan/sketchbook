@@ -26,6 +26,20 @@ class NauticalFlagsTypeset {
                                      .map(name => name.replace('drawSpecial', ''));
   }
 
+  getPrintBlocksInBase64(){
+    return btoa(this.printBlocks.join('|'));
+  }
+
+  setPrintBlocksFromBase64(str){
+    this.printBlocks = atob(str).split('|');
+    this.mode = NauticalFlagsTypeset.MODE_TEXT;
+    this._renderPrintBlocks();
+  }
+
+  requestFullRedraw(){
+    this._renderPrintBlocks();
+  }
+
   get fontWidth(){
     return this.font.size;
   }
@@ -133,7 +147,7 @@ class NauticalFlagsTypeset {
   }
 
   _renderPrintBlocks(){
-    this.pos = createVector(20, 20);
+    this.pos = createVector(20, 50);
     noStroke();
     background(50);
     push();

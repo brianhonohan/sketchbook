@@ -1,6 +1,7 @@
 var nauticalFlags;
 var keyController;
 var nfTypeset;
+var ui;
 
 function setup() {
   createCanvas(windowWidth, windowHeight-35);
@@ -10,9 +11,24 @@ function setup() {
   keyController = new KeyboardController();
   nfTypeset = new NauticalFlagsTypeset();
 
+  let uiRect = new Rect(0, 0, width, 30);
+  ui = new UserInterface(uiRect);
+
   keyController.typeset = nfTypeset;
   nfTypeset.setFont(nauticalFlags);
-  showIntroScreen();
+  nfTypeset.textSize(0.1 * height);
+
+  let params = getURLParams();
+
+  if (params.blocks) {
+    nfTypeset.setPrintBlocksFromBase64(params.blocks);
+  } else {
+    showIntroScreen();
+  }
+}
+
+function draw(){
+  ui.render();
 }
 
 function keyTyped(){
@@ -26,12 +42,18 @@ function keyTyped(){
 function keyPressed(){
   if (key == 'P') {
     return;
+  } else if (ui.isShowingDialog()){
+    return ui.handleKeyPressed();
   }
   keyController.handleKeyPressed();
 }
 
 function keyReleased(){
-  keyController.handleKeyReleased();
+  if (ui.isShowingDialog()){
+    ui.handleKeyReleased();
+  } else {
+    keyController.handleKeyReleased();
+  }
 }
 
 function showIntroScreen(){
@@ -49,7 +71,6 @@ function showIntroScreen(){
   nfTypeset.text('WELCOME', 0.1 * width, 0.25 * height, 0.8 * width);
   nfTypeset.pop();
 
-  nfTypeset.textSize(0.1 * height);
   const instructions = 'Type on your keyboard to see the corresponding nautical flag.';
   textSize(20);
   const mainBlockY = height / 2;
