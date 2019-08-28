@@ -3,7 +3,12 @@ class NauticalFlagsTypeset {
     this.font = undefined;
 
     this.styleStack = [];
+    this.printBlocks = [];
+
+    this.mode = NauticalFlagsTypeset.MODE_TEXT;
   }
+  static get MODE_SINGLE(){ return 0; }
+  static get MODE_TEXT(){ return 1; }
 
   setFont(newFont) {
     this.font = newFont;
@@ -82,7 +87,13 @@ class NauticalFlagsTypeset {
       console.warn('Unsupported render method: ' + methodName);
       return false;
     }
-    return this._renderSingle(methodName);
+
+    if (this.mode == NauticalFlagsTypeset.MODE_TEXT){
+      this.printBlocks.push(methodName);
+      return this._renderPrintBlocks();
+    } else {
+      return this._renderSingle(methodName);
+    }
   }
 
   _renderSingle(methodName){
@@ -92,6 +103,35 @@ class NauticalFlagsTypeset {
     translate(width / 2 - this.fontWidth / 2, height / 2 - this.fontWidth / 2);
 
     this.font[methodName]();
+    pop();
+    return true;
+  }
+
+  _renderPrintBlocks(){
+    this.pos = createVector(20, 20);
+    noStroke();
+    background(50);
+    push();
+    translate(this.pos.x, this.pos.y);
+
+    let letterSpacing = 0.1 * this.fontWidth;
+    let blockOffset = this.fontWidth + letterSpacing;
+    let startX = this.pos.x;
+
+    for(var i = 0; i < this.printBlocks.length; i++){
+      let renderMethodName = this.printBlocks[i];
+      this.font[renderMethodName]();
+
+      if ((this.pos.x + blockOffset + this.fontWidth) > width){
+        translate(startX - this.pos.x, blockOffset);
+        this.pos.x = startX;
+        this.pos.y += blockOffset;
+      } else {
+        this.pos.x += blockOffset;
+        translate(blockOffset, 0);
+        // translate(this.fontWidth + letterSpacing, 0);
+      } 
+    }
     pop();
     return true;
   }

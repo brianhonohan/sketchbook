@@ -48,6 +48,8 @@ function showIntroScreen(){
   nfTypeset.textSize(0.1 * height);
   nfTypeset.text('WELCOME', 0.1 * width, 0.25 * height, 0.8 * width);
   nfTypeset.pop();
+
+  nfTypeset.textSize(0.1 * height);
   const instructions = 'Type on your keyboard to see the corresponding nautical flag.';
   textSize(20);
   const mainBlockY = height / 2;
