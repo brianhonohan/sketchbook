@@ -26,6 +26,9 @@ class KeyboardController {
       if (key == 'Backspace'){
         this.typeset.backspace();
         return;
+      } else if (key == 'Escape'){
+        this.typeset.clearPrintBuffer();
+        return;
       }
 
       successfulRender = this.typeset.renderKey(key);
