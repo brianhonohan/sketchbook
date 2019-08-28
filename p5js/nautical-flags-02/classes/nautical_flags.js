@@ -1,16 +1,15 @@
 class NauticalFlags {
   constructor(flagWidth){
-    this.flagWidth = flagWidth || 300;
+    this.size = flagWidth || 300;
     this.initColors();
-    this.initPennantCoords();
-    this.initTriangleCoords();
-
-    this.mode = NauticalFlags.MODE_NORMAL;
-    this.keyBuffer = [];
   }
 
-  static get MODE_NORMAL(){ return 0; }
-  static get MODE_CTRL_INPUT(){ return 1; }
+  get size(){ return this.flagWidth; }
+  set size(newWidth){ 
+    this.flagWidth = newWidth;
+    this.initPennantCoords();
+    this.initTriangleCoords();
+  }
 
   initColors(){
     this.colors = {
@@ -21,124 +20,6 @@ class NauticalFlags {
       black: color(10),
       green: color(50, 200, 50)
     };
-  }
-
-  handleKeyPressed(){
-    if (keyCode === CONTROL){
-      this.mode = NauticalFlags.MODE_CTRL_INPUT;
-      return;
-    }
-
-    let renderMethodName = this.renderMethodFor(key);
-    if (renderMethodName == undefined){
-      if (this.mode == NauticalFlags.MODE_NORMAL){
-        console.warn('Unsupported flag requested: ' + key);
-      }
-      return;
-    }
-
-    this._renderVia(renderMethodName);
-  }
-
-  _renderVia(methodName){
-    if (undefined === this[methodName]){
-      console.warn('Unsupported render method: ' + methodName);
-      return;
-    }
-    background(50);
-    noStroke();
-    push();
-    translate(width / 2 - this.flagWidth / 2, height / 2 - this.flagWidth / 2);
-
-    this[methodName]();
-    pop();
-  }
-
-  handleKeyReleased(){
-    if (keyCode === CONTROL){
-      this.mode = NauticalFlags.MODE_NORMAL;
-      this.clearKeyBuffer();
-    }
-  }
-
-  setTempWidth(newWidth){ 
-    this.oldWidth = this.flagWidth;
-    this.flagWidth = newWidth;
-  }
-  restoreOldWidth(){
-    this.flagWidth = this.oldWidth;
-  }
-
-  text(str, x, y){
-    const margin = 0.1 * width;
-    const displayWidth = width - 2 * margin;
-
-    const letterWidth = displayWidth / str.length;
-
-    this.setTempWidth(0.9 * letterWidth);
-    const letterSpacing = letterWidth - this.flagWidth;
-
-    noStroke();
-    push();
-    x = x || margin;
-    y = y || height / 2 - this.flagWidth / 2;
-    translate(x, y);
-    const symbols = str.split('');
-
-    for(var i = 0; i < symbols.length; i++){
-      let renderMethodName = this.renderMethodFor(symbols[i]);
-      this[renderMethodName]();
-      translate(this.flagWidth + letterSpacing, 0);
-    }
-    pop();
-    this.restoreOldWidth();
-  }
-
-  resolveKeyBuffer(){
-    if (this.keyBuffer.length < 2){
-      return;
-    }
-    const flagCode = this.keyBuffer.join('').toUpperCase();
-    const methodName = 'drawSpecial' + flagCode;
-    this._renderVia(methodName);
-    this.clearKeyBuffer();
-  }
-
-  clearKeyBuffer(){ this.keyBuffer.length = 0; }
-
-  renderMethodFor(key){
-    if (this.mode == NauticalFlags.MODE_CTRL_INPUT){
-      if (key >= '1' && key <= '4'){
-        return 'drawSubstitute' + key;
-      } else if (key >= 'a' && key <= 'z'){
-        this.keyBuffer.push(key);
-        this.resolveKeyBuffer();
-      }
-      return;
-    }
-
-    const supportedFlags = /^[a-z0-9]$/i;
-    if (supportedFlags.test(key)) {
-      return 'draw' + key.toUpperCase();
-    }
-
-    let pennantNumber = this.pennantNumberFromKey(key);
-    if (pennantNumber >= 0){
-      return 'drawNato' + pennantNumber; 
-    }
-
-    if (key == ' '){
-      return 'drawSpace';
-    }
-
-    if (key == '.'){
-      return 'drawCodeFlag';
-    }
-    return undefined;
-  }
-
-  pennantNumberFromKey(key){
-    return ')!@#$%^&*('.indexOf(key);
   }
 
   drawSpace(){
