@@ -82,6 +82,10 @@ class NauticalFlagsTypeset {
       console.warn('Unsupported render method: ' + methodName);
       return false;
     }
+    return this._renderSingle(methodName);
+  }
+
+  _renderSingle(methodName){
     background(50);
     noStroke();
     push();
@@ -89,7 +93,7 @@ class NauticalFlagsTypeset {
 
     this.font[methodName]();
     pop();
-    return true
+    return true;
   }
 
   renderKey(){
