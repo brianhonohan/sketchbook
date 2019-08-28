@@ -29,7 +29,7 @@ class NauticalFlagsTypeset {
   }
 
   textSize(newSize){
-    this.font.flagWidth = newSize;
+    this.font.nWidth = newSize;
   }
 
   push(){
@@ -44,7 +44,7 @@ class NauticalFlagsTypeset {
   }
 
   applyStyle(style){
-    this.font.flagWidth = style.fontWidth;
+    this.font.nWidth = style.fontWidth;
   }
 
   text(str, x, y, w, h){
