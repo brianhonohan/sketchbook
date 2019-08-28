@@ -4,11 +4,19 @@ class NauticalFlagsTypeset {
 
     this.styleStack = [];
     this.printBlocks = [];
+    this.commandKeys = [];
+    this.initCommandKeys();
 
     this.mode = NauticalFlagsTypeset.MODE_TEXT;
   }
   static get MODE_SINGLE(){ return 0; }
   static get MODE_TEXT(){ return 1; }
+
+  static get CMD_KEY_ENTER() { return 'CMD_KEY_ENTER'; }
+
+  initCommandKeys(){
+    this.commandKeys.push(NauticalFlagsTypeset.CMD_KEY_ENTER);
+  }
 
   setFont(newFont) {
     this.font = newFont;
@@ -83,16 +91,19 @@ class NauticalFlagsTypeset {
   }
 
   _renderVia(methodName){
-    if (undefined === this.font[methodName]){
-      console.warn('Unsupported render method: ' + methodName);
-      return false;
-    }
+    let isKnownMethod = !(undefined === this.font[methodName]);
+    let isCommandKey = this.commandKeys.includes(methodName);
 
-    if (this.mode == NauticalFlagsTypeset.MODE_TEXT){
+    if (this.mode == NauticalFlagsTypeset.MODE_TEXT 
+          && (isKnownMethod || isCommandKey))
+    {
       this.printBlocks.push(methodName);
       return this._renderPrintBlocks();
-    } else {
+    } else if (this.mode == NauticalFlagsTypeset.MODE_SINGLE && isKnownMethod){
       return this._renderSingle(methodName);
+    } else {
+      // console.warn('Unsupported render method: ' + methodName);
+      return false;
     }
   }
 
@@ -120,6 +131,13 @@ class NauticalFlagsTypeset {
 
     for(var i = 0; i < this.printBlocks.length; i++){
       let renderMethodName = this.printBlocks[i];
+
+      if (renderMethodName == NauticalFlagsTypeset.CMD_KEY_ENTER){
+        translate(startX - this.pos.x, blockOffset);
+        this.pos.x = startX;
+        this.pos.y += blockOffset;
+        continue;
+      }
       this.font[renderMethodName]();
 
       if ((this.pos.x + blockOffset + this.fontWidth) > width){
@@ -157,6 +175,12 @@ class NauticalFlagsTypeset {
     let pennantNumber = this.pennantNumberFromKey(key);
     if (pennantNumber >= 0){
       return 'drawNato' + pennantNumber; 
+    }
+
+    if (this.mode == NauticalFlagsTypeset.MODE_TEXT){
+      if (key == 'Enter'){
+        return NauticalFlagsTypeset.CMD_KEY_ENTER;
+      }
     }
 
     if (key == ' '){
