@@ -45,6 +45,7 @@ function keyPressed(){
   } else if (ui.isShowingDialog()){
     return ui.handleKeyPressed();
   }
+  ui.showShareButton();
   keyController.handleKeyPressed();
 }
 
@@ -71,9 +72,14 @@ function showIntroScreen(){
   nfTypeset.text('WELCOME', 0.1 * width, 0.25 * height, 0.8 * width);
   nfTypeset.pop();
 
-  const instructions = 'Type on your keyboard to see the corresponding nautical flag.';
+  const instr1 = 'Type on your keyboard to see the corresponding nautical flag.';
+  const instr2 = 'Press SHIFT + P to download an image of what you\'ve typed.';
+  const instr3 = 'Click the SHARE button to get a shareable URL to send a message to friend.';
+
+  let instructions = instr1 + "\n\n" + instr2 + "\n\n" + instr3;
   textSize(20);
-  const mainBlockY = height / 2;
-  text(instructions, marginX, mainBlockY, width - 2 * marginX, height / 3);
+  const mainBlockY = height / 2 - 50;
+  const lineHeight = 40;
+  text(instructions, marginX, mainBlockY, width - 2 * marginX, mainBlockY);
 }
 

@@ -20,6 +20,11 @@ class UserInterface {
     this.shareButton = createButton("Share");
     this.shareButton.position(this.x + this.marginX, this.y + 5);
     this.shareButton.mousePressed(this.handleShareButton);
+    this.shareButton.hide();
+  }
+
+  showShareButton(){
+    this.shareButton.show();
   }
 
   handleKeyPressed(){
