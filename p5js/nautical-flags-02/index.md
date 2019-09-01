@@ -12,7 +12,10 @@ js_scripts:
 - /sketchbook/js/util_functions.js
 - /sketchbook/js/options_set.js
 - /sketchbook/js/models/rect.js
+- classes/nautical_flags_typeset.js
+- classes/keyboard_controller.js
 - classes/nautical_flags.js
+- classes/user_interface.js
 - app.js
 
 ---
