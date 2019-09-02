@@ -29,14 +29,24 @@ class UserInterface {
   }
 
   initButtons(){
+    let layoutPos = createVector();
+    layoutPos.x = this.x + this.marginX;
+    layoutPos.y = this.y + 5;
     this.shareButton = createButton("Share");
-    this.shareButton.position(this.x + this.marginX, this.y + 5);
+    this.shareButton.position(layoutPos.x, layoutPos.y);
     this.shareButton.mousePressed(this.handleShareButton);
     this.shareButton.hide();
+
+    layoutPos.x += this.shareButton.width + this.marginX;
+    this.clearButton = createButton("Clear");
+    this.clearButton.position(layoutPos.x, layoutPos.y);
+    this.clearButton.mousePressed(this.handleClearButton);
+    this.clearButton.hide();
   }
 
-  showShareButton(){
+  showMainButtons(){
     this.shareButton.show();
+    this.clearButton.show();
   }
 
   handleKeyPressed(){
@@ -45,7 +55,7 @@ class UserInterface {
         return this.handleEscapeKey();
       }
     } else {
-      ui.showShareButton();
+      ui.showMainButtons();
       this.screen = UserInterface.SCREEN_INPUT;
       this.keyHandler.handleKeyPressed();
     }
@@ -81,6 +91,10 @@ class UserInterface {
   handleShareButton(){
     console.log('share button pressed');
     ui.showDialog(UserInterface.DIALOG_SHARE);
+  }
+
+  handleClearButton(){
+    nfTypeset.clearPrintBuffer();
   }
 
   handleEscapeKey(){
