@@ -148,7 +148,17 @@ class UserInterface {
 
   buildShareURL(){
     let blocks64 = nfTypeset.getPrintBlocksInBase64();
-    return window.location.href + "?blocks=" + blocks64;
+    let fullUrl = window.location.href;
+    let baseUrl = fullUrl.split("?")[0];
+    let currentParams = getURLParams();
+    let paramNames = Object.keys(currentParams);
+
+    let otherParams = paramNames.filter(p => {return p != 'blocks';})
+                                .map(p => `${p}=${currentParams[p]}`)
+                                .join('&');
+    otherParams = (otherParams) ? '&' + otherParams : '';
+
+    return  baseUrl + "?blocks=" + blocks64 + otherParams;
   }
 
   initialRender(){}
