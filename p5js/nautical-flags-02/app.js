@@ -52,3 +52,9 @@ function keyPressed(){
 function keyReleased(){
   ui.handleKeyReleased();
 }
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  ui.handleWindowResized();
+  // console.log(`New Window size: ${windowWidth} x ${windowHeight}`);
+}

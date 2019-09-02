@@ -39,6 +39,7 @@ class UserInterface {
       }
     } else {
       ui.showShareButton();
+      this.screen = UserInterface.SCREEN_INPUT;
       this.keyHandler.handleKeyPressed();
     }
   }
@@ -48,6 +49,15 @@ class UserInterface {
       // Do nothing
     } else {
       this.keyHandler.handleKeyReleased();
+    }
+  }
+
+  handleWindowResized(){
+    if (this.screen == UserInterface.SCREEN_INTRO){
+      this.showIntroScreen();
+    } else {
+      nfTypeset.textSize(0.1 * height);
+      nfTypeset.requestFullRedraw();
     }
   }
 
