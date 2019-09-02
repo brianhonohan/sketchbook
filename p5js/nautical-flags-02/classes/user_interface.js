@@ -42,6 +42,10 @@ class UserInterface {
     this.clearButton.position(layoutPos.x, layoutPos.y);
     this.clearButton.mousePressed(this.handleClearButton);
     this.clearButton.hide();
+
+    this.dialogCloseButton = createButton("Close");
+    this.dialogCloseButton.mousePressed(this.handleDialogCloseButton);
+    this.dialogCloseButton.hide();
   }
 
   showMainButtons(){
@@ -97,6 +101,10 @@ class UserInterface {
     nfTypeset.clearPrintBuffer();
   }
 
+  handleDialogCloseButton(){
+    ui.closeDialog();
+  }
+
   handleEscapeKey(){
     if (this.dialog){
       this.closeDialog();
@@ -114,7 +122,7 @@ class UserInterface {
 
   closeDialog(){
     this.dialog = UserInterface.DIALOG_NONE;
-
+    this.dialogCloseButton.hide();
 
     if (this.shareInput !== undefined){
       this.shareInput.remove();
@@ -153,10 +161,15 @@ class UserInterface {
     if (this.shareInput === undefined){
       let url = this.buildShareURL();
       this.shareInput = createInput('');
-      this.shareInput.position(this.dialogRect.x + this.marginX, this.dialogRect.y + 3 * this.marginX);
-      this.shareInput.size(this.dialogRect.width - 2 * this.marginX);
+      this.shareInput.position(this.dialogRect.x + this.marginX - 3, this.dialogRect.y + 3 * this.marginX);
+      this.shareWidth = this.dialogRect.width - 2 * this.marginX - 3;
+      this.shareInput.size(this.shareWidth);
       this.shareInput.value(url);
     }
+
+    this.dialogCloseButton.position(this.dialogRect.maxX - this.dialogCloseButton.width - this.marginX, 
+                                    this.dialogRect.maxY - 40);
+    this.dialogCloseButton.show();
     pop();
   }
 
