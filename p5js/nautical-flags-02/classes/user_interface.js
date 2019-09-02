@@ -7,6 +7,7 @@ class UserInterface {
 
     this.marginX = 25;
     this.initDefaultDialog();
+    this.initKeyboardInput();
     this.initButtons();
   }
 
@@ -20,6 +21,12 @@ class UserInterface {
 
   static get DIALOG_NONE() { return 0; }
   static get DIALOG_SHARE() { return 1; }
+
+  initKeyboardInput(){
+    this.keyboardInput = createInput();
+    console.log('created input');
+    this.keyboardInput.position(-500,-500);
+  }
 
   initButtons(){
     this.shareButton = createButton("Share");
@@ -49,6 +56,16 @@ class UserInterface {
       // Do nothing
     } else {
       this.keyHandler.handleKeyReleased();
+    }
+  }
+
+  handleTouchEnded(){
+    if (this.isShowingDialog()){
+      // do nothing
+    } else {
+      this.screen = UserInterface.SCREEN_INPUT;
+      nfTypeset.requestFullRedraw();
+      this.keyboardInput.elt.focus();
     }
   }
 

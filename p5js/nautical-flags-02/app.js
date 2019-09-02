@@ -49,6 +49,10 @@ function keyPressed(){
   }
 }
 
+function touchEnded(){
+  ui.handleTouchEnded();
+}
+
 function keyReleased(){
   ui.handleKeyReleased();
 }
