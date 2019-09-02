@@ -2,6 +2,8 @@ class UserInterface {
   constructor(p_xSizeAndPos){
     this.sizeAndPosition = p_xSizeAndPos;
     this.dialog = UserInterface.DIALOG_NONE;
+    this.screen = undefined;
+    this.keyHandler = undefined;
 
     this.marginX = 25;
     this.initDefaultDialog();
@@ -12,6 +14,9 @@ class UserInterface {
   get y(){ return this.sizeAndPosition.y; }
   get width(){ return this.sizeAndPosition.width; }
   get height(){ return this.sizeAndPosition.height; }
+
+  static get SCREEN_INTRO() { return 0; }
+  static get SCREEN_INPUT() { return 1; }
 
   static get DIALOG_NONE() { return 0; }
   static get DIALOG_SHARE() { return 1; }
@@ -28,13 +33,22 @@ class UserInterface {
   }
 
   handleKeyPressed(){
-    if (key == 'Escape') {
-      this.handleEscapeKey();
+   if (ui.isShowingDialog()){
+      if (key == 'Escape') {
+        return this.handleEscapeKey();
+      }
+    } else {
+      ui.showShareButton();
+      this.keyHandler.handleKeyPressed();
     }
   }
 
   handleKeyReleased(){
-
+    if (this.isShowingDialog()){
+      // Do nothing
+    } else {
+      this.keyHandler.handleKeyReleased();
+    }
   }
 
   handleShareButton(){
@@ -111,6 +125,44 @@ class UserInterface {
   }
 
   initialRender(){}
+
+  showIntroScreen(){
+    this.screen = UserInterface.SCREEN_INTRO;
+
+    background(50);
+    fill(230);
+    textFont('Verdana');
+    textAlign(CENTER, TOP);
+    const marginX = (width > 667) ? 0.2 * width : 0.05 * width;
+    const lineHeight = 40;
+    let yPos =  0.15 * height;
+    let flagSize = 0.8 * width / (7 * 1.1);
+
+    nfTypeset.push();
+    nfTypeset.textSize(flagSize);
+    nfTypeset.text('WELCOME', 0.1 * width, yPos, 0.8 * width);
+    nfTypeset.pop();
+
+    textSize(32);
+    yPos += 1.5 * flagSize;
+    text('Welcome', marginX, yPos, width - 2 * marginX, lineHeight);
+
+    const instr1 = 'Type to see the corresponding nautical flags.';
+    const instr2 = 'Press SHIFT + P to download an image of what you\'ve typed.';
+    const instr3 = 'Click the SHARE button to get a shareable link to send a message to friend.';
+
+    let lineSpacer = (width > 667) ? "\n\n" : "\n\n";
+    let instructions;
+    if (width > 667) {
+      instructions = instr1 + lineSpacer + instr2 + lineSpacer + instr3;
+    } else {
+      instructions = instr1 + lineSpacer + instr3;
+    }
+    textSize(20);
+    yPos += (width > 667) ? lineHeight * 2 : lineHeight;
+    const mainBlockHeight = height - yPos;
+    text(instructions, marginX, yPos, width - 2 * marginX, mainBlockHeight);
+  }
 
   render(){
     this.renderCurrentDialog();

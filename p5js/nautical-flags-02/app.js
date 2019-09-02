@@ -18,12 +18,14 @@ function setup() {
   nfTypeset.setFont(nauticalFlags);
   nfTypeset.textSize(0.1 * height);
 
+  ui.keyHandler = keyController;
+
   let params = getURLParams();
 
   if (params.blocks) {
     nfTypeset.setPrintBlocksFromBase64(params.blocks);
   } else {
-    showIntroScreen();
+    ui.showIntroScreen();
   }
 }
 
@@ -42,54 +44,11 @@ function keyTyped(){
 function keyPressed(){
   if (key == 'P') {
     return;
-  } else if (ui.isShowingDialog()){
+  } else {
     return ui.handleKeyPressed();
   }
-  ui.showShareButton();
-  keyController.handleKeyPressed();
 }
 
 function keyReleased(){
-  if (ui.isShowingDialog()){
-    ui.handleKeyReleased();
-  } else {
-    keyController.handleKeyReleased();
-  }
+  ui.handleKeyReleased();
 }
-
-function showIntroScreen(){
-  background(50);
-  fill(230);
-  textFont('Verdana');
-  textAlign(CENTER, TOP);
-  const marginX = (width > 667) ? 0.2 * width : 0.05 * width;
-  const lineHeight = 40;
-  let yPos =  0.15 * height;
-  let flagSize = 0.8 * width / (7 * 1.1);
-
-  nfTypeset.push();
-  nfTypeset.textSize(flagSize);
-  nfTypeset.text('WELCOME', 0.1 * width, yPos, 0.8 * width);
-  nfTypeset.pop();
-
-  textSize(32);
-  yPos += 1.5 * flagSize;
-  text('Welcome', marginX, yPos, width - 2 * marginX, lineHeight);
-
-  const instr1 = 'Type to see the corresponding nautical flags.';
-  const instr2 = 'Press SHIFT + P to download an image of what you\'ve typed.';
-  const instr3 = 'Click the SHARE button to get a shareable link to send a message to friend.';
-
-  let lineSpacer = (width > 667) ? "\n\n" : "\n\n";
-  let instructions;
-  if (width > 667) {
-    instructions = instr1 + lineSpacer + instr2 + lineSpacer + instr3;
-  } else {
-    instructions = instr1 + lineSpacer + instr3;
-  }
-  textSize(20);
-  yPos += (width > 667) ? lineHeight * 2 : lineHeight;
-  const mainBlockHeight = height - yPos;
-  text(instructions, marginX, yPos, width - 2 * marginX, mainBlockHeight);
-}
-
