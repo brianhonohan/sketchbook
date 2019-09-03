@@ -73,6 +73,15 @@ class UserInterface {
     }
   }
 
+  handleMouseWheel(event){
+    if (this.isShowingDialog()){
+      // Do nothing
+    } else {
+      nfTypeset.shiftOffset(0, event.deltaY * -1);
+      nfTypeset.requestFullRedraw();
+    }
+  }
+
   handleTouchEnded(){
     if (this.isShowingDialog()){
       // do nothing

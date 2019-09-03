@@ -57,6 +57,10 @@ function keyReleased(){
   ui.handleKeyReleased();
 }
 
+function mouseWheel(event){
+  ui.handleMouseWheel(event);
+}
+
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
   ui.handleWindowResized();

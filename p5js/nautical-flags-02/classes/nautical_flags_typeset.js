@@ -6,6 +6,7 @@ class NauticalFlagsTypeset {
     this.printBlocks = [];
     this.commandKeys = [];
     this.initCommandKeys();
+    this.offset = createVector(0, 0);
 
     this.mode = NauticalFlagsTypeset.MODE_TEXT;
   }
@@ -146,8 +147,14 @@ class NauticalFlagsTypeset {
     return true;
   }
 
+  shiftOffset(xDelta, yDelta){
+    const minScrollY = this.totalY * -1 + 1.1 * this.fontWidth;
+    this.offset.y = constrain(this.offset.y + yDelta, minScrollY, 0);
+  }
+
   _renderPrintBlocks(){
-    this.pos = createVector(20, 50);
+    this.pos = createVector(20 + this.offset.x, 50 + this.offset.y);
+    let startY = this.pos.y;
     noStroke();
     background(50);
     push();
@@ -179,6 +186,7 @@ class NauticalFlagsTypeset {
       } 
     }
     pop();
+    this.totalY = this.pos.y - startY;
     return true;
   }
 
