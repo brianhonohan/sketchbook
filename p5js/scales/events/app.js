@@ -11,16 +11,26 @@ const mouseEvents = [
 ];
 const mouseEventStatuses = [];
 
+const touchEvents = [
+'touchStarted',
+'touchMoved',
+'touchEnded'
+]
+const touchEventStatuses = [];
+
+
 function setup() {
   canvas = createCanvas(windowWidth, windowHeight);
   P5JsSettings.init();
 
   initEvents(mouseEvents, mouseEventStatuses);
+  initEvents(touchEvents, touchEventStatuses);
 }
 
 function draw(){
   background(50);
   renderEventStatuses(mouseEventStatuses, 0.1 * width, 0.1 * height);
+  renderEventStatuses(touchEventStatuses, 0.5 * width, 0.1 * height);
 }
 
 function initEvents(events, eventStatuses){
