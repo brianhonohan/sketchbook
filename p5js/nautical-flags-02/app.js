@@ -49,8 +49,19 @@ function keyPressed(){
   }
 }
 
-function touchEnded(){
+function touchStarted(event){
+  ui.handleTouchStarted(event);
+  return false;
+}
+
+function touchMoved(event){
+   ui.handleTouchMoved(event);
+  return false;
+}
+
+function touchEnded(event){
   ui.handleTouchEnded();
+  return false;
 }
 
 function keyReleased(){

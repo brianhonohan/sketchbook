@@ -82,13 +82,31 @@ class UserInterface {
     }
   }
 
-  handleTouchEnded(){
+  handleTouchStarted(event){
+    if (this.isShowingDialog()){
+      // Do nothing
+    } else {
+      this.touchMovedSinceStart = false;
+    }
+  }
+
+  handleTouchMoved(event){
+    if (this.isShowingDialog()){
+      // Do nothing
+    } else {
+      this.touchMovedSinceStart = true;
+    }
+  }
+
+  handleTouchEnded(event){
     if (this.isShowingDialog()){
       // do nothing
     } else {
-      this.screen = UserInterface.SCREEN_INPUT;
-      nfTypeset.requestFullRedraw();
-      this.keyboardInput.elt.focus();
+      if (this.touchMovedSinceStart == false){
+        this.screen = UserInterface.SCREEN_INPUT;
+        nfTypeset.requestFullRedraw();
+        this.keyboardInput.elt.focus();
+      }
     }
   }
 
