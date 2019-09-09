@@ -50,18 +50,24 @@ function keyPressed(){
 }
 
 function touchStarted(event){
+  if (!(event instanceof TouchEvent)){
+    return;
+  }
   ui.handleTouchStarted(event);
-  return false;
 }
 
 function touchMoved(event){
-   ui.handleTouchMoved(event);
-  return false;
+  if (!(event instanceof TouchEvent)){
+    return;
+  }
+  ui.handleTouchMoved(event);
 }
 
 function touchEnded(event){
-  ui.handleTouchEnded();
-  return false;
+  if (!(event instanceof TouchEvent)){
+    return;
+  }
+  ui.handleTouchEnded(event);
 }
 
 function keyReleased(){
@@ -76,4 +82,8 @@ function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
   ui.handleWindowResized();
   // console.log(`New Window size: ${windowWidth} x ${windowHeight}`);
+}
+
+function logMessage(message){
+  console.log(message);
 }

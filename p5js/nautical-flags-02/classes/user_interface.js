@@ -9,6 +9,7 @@ class UserInterface {
     this.initDefaultDialog();
     this.initKeyboardInput();
     this.initButtons();
+    this.initTouchTracking();
   }
 
   get x(){ return this.sizeAndPosition.x; }
@@ -46,6 +47,11 @@ class UserInterface {
     this.dialogCloseButton = createButton("Close");
     this.dialogCloseButton.mousePressed(this.handleDialogCloseButton);
     this.dialogCloseButton.hide();
+  }
+
+  initTouchTracking(){
+    this.activeTouchPos = createVector(0, 0);
+    this.activeTouchId = undefined;
   }
 
   showMainButtons(){
@@ -87,6 +93,13 @@ class UserInterface {
       // Do nothing
     } else {
       this.touchMovedSinceStart = false;
+
+      if (this.activeTouchId == undefined){
+        let newActiveTouch = event.changedTouches[0];
+        this.activeTouchId = newActiveTouch.identifier;
+        this.activeTouchPos.x = newActiveTouch.pageX;
+        this.activeTouchPos.y = newActiveTouch.pageY;
+      }
     }
   }
 
@@ -95,8 +108,31 @@ class UserInterface {
       // Do nothing
     } else {
       this.touchMovedSinceStart = true;
+
+      let activeTouch = event.changedTouches.item(this.activeTouchId);
+      if (activeTouch){
+        let newPos = createVector(activeTouch.pageX, activeTouch.pageY);
+
+        // console.log('Scrolled: ');
+        // console.log('this.activeTouchId: ' + this.activeTouchId);
+
+        // logMessage('activeTouch: ');
+        // logMessage(activeTouch);
+        let deltaY = newPos.y - this.activeTouchPos.y;
+        // logMessage('deltaY: ' + deltaY);
+        if (abs(deltaY) < 50){
+          nfTypeset.shiftOffset(0, deltaY);
+          // logMessage('nfTypeset.offset.y: ' + nfTypeset.offset.y);
+          nfTypeset.requestFullRedraw();
+        }
+
+        this.activeTouchPos.x = activeTouch.pageX;
+        this.activeTouchPos.y = activeTouch.pageY;
+      }
     }
   }
+
+
 
   handleTouchEnded(event){
     if (this.isShowingDialog()){
@@ -106,6 +142,13 @@ class UserInterface {
         this.screen = UserInterface.SCREEN_INPUT;
         nfTypeset.requestFullRedraw();
         this.keyboardInput.elt.focus();
+      }
+
+      if (event.changedTouches) {
+        let activeTouch = event.changedTouches.item(this.activeTouchId);
+        if (activeTouch){
+          this.activeTouchId == undefined;
+        }
       }
     }
   }
