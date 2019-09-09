@@ -30,6 +30,7 @@ function setup() {
 }
 
 function draw(){
+  ui.tick();
   ui.render();
 }
 
@@ -47,6 +48,10 @@ function keyPressed(){
   } else {
     return ui.handleKeyPressed();
   }
+}
+
+function mouseReleased(event){
+  ui.handleMouseReleased(event);
 }
 
 function touchStarted(event){

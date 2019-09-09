@@ -4,6 +4,8 @@ class UserInterface {
     this.dialog = UserInterface.DIALOG_NONE;
     this.screen = undefined;
     this.keyHandler = undefined;
+    this.activeButton = undefined;
+    this.scrollSpeed = UserInterface.SCROLL_SPEED_START;
 
     this.marginX = 25;
     this.initDefaultDialog();
@@ -19,6 +21,13 @@ class UserInterface {
 
   static get SCREEN_INTRO() { return 0; }
   static get SCREEN_INPUT() { return 1; }
+
+  static get ACTIVE_BUTTON_NONE(){ return 0; }
+  static get ACTIVE_BUTTON_SCROLL_UP(){ return 1; }
+  static get ACTIVE_BUTTON_SCROLL_DOWN(){ return 2; }
+
+  static get SCROLL_SPEED_START() { return 2; }
+  static get SCROLL_SPEED_MAX()  { return 10; }
 
   static get DIALOG_NONE() { return 0; }
   static get DIALOG_SHARE() { return 1; }
@@ -43,6 +52,20 @@ class UserInterface {
     this.clearButton.position(layoutPos.x, layoutPos.y);
     this.clearButton.mousePressed(this.handleClearButton);
     this.clearButton.hide();
+
+    layoutPos.x += this.clearButton.width + this.marginX;
+    this.scrollUpButton = createButton("Scroll Up");
+    this.scrollUpButton.position(layoutPos.x, layoutPos.y);
+    this.scrollUpButton.mousePressed(this.handleScrollUpButton);
+    this.scrollUpButton.touchStarted(this.handleScrollUpButton);
+    this.scrollUpButton.show();
+
+    layoutPos.x += this.scrollUpButton.width + this.marginX;
+    this.scrollDownButton = createButton("Scroll Down");
+    this.scrollDownButton.position(layoutPos.x, layoutPos.y);
+    this.scrollDownButton.mousePressed(this.handleScrollDownButton);
+    this.scrollDownButton.touchStarted(this.handleScrollDownButton);
+    this.scrollDownButton.show();
 
     this.dialogCloseButton = createButton("Close");
     this.dialogCloseButton.mousePressed(this.handleDialogCloseButton);
@@ -77,6 +100,11 @@ class UserInterface {
     } else {
       this.keyHandler.handleKeyReleased();
     }
+  }
+
+  handleMouseReleased(){
+    ui.activeButton = undefined;
+    ui.scrollSpeed = UserInterface.SCROLL_SPEED_START;
   }
 
   handleMouseWheel(event){
@@ -165,6 +193,20 @@ class UserInterface {
   handleShareButton(){
     console.log('share button pressed');
     ui.showDialog(UserInterface.DIALOG_SHARE);
+  }
+
+  handleScrollUpButton(){
+    ui._scroll(10);
+    ui.touchMovedSinceStart = true;
+    ui.activeButton = UserInterface.ACTIVE_BUTTON_SCROLL_UP;
+    return false;
+  }
+
+  handleScrollDownButton(){
+    ui._scroll(-10);
+    ui.touchMovedSinceStart = true;
+    ui.activeButton = UserInterface.ACTIVE_BUTTON_SCROLL_DOWN;
+    return false;
   }
 
   handleClearButton(){
@@ -296,6 +338,33 @@ class UserInterface {
     yPos += (width > 667) ? lineHeight * 2 : lineHeight;
     const mainBlockHeight = height - yPos;
     text(instructions, marginX, yPos, width - 2 * marginX, mainBlockHeight);
+  }
+
+  _scroll(deltaY){
+    nfTypeset.shiftOffset(0, deltaY * -1);
+    nfTypeset.requestFullRedraw();
+  }
+
+  _accelerateScroll(){
+    // this.scrollSpeed = 1.05 * this.scrollSpeed; 
+    this.scrollSpeed = constrain(1.1 * this.scrollSpeed,
+                          -1 * UserInterface.SCROLL_SPEED_MAX,
+                          UserInterface.SCROLL_SPEED_MAX);
+  }
+
+  tick(){
+    this.tickForActiveButon();
+  }
+
+  tickForActiveButon(){
+    switch (this.activeButton) {
+      case UserInterface.ACTIVE_BUTTON_SCROLL_UP:
+        this._accelerateScroll();
+        return this._scroll(-1 * this.scrollSpeed);
+      case UserInterface.ACTIVE_BUTTON_SCROLL_DOWN: 
+        this._accelerateScroll();
+        return this._scroll(this.scrollSpeed);
+    }
   }
 
   render(){
