@@ -9,9 +9,13 @@ class NauticalFlagsTypeset {
     this.offset = createVector(0, 0);
 
     this.mode = NauticalFlagsTypeset.MODE_TEXT;
+    this.renderMode = NauticalFlagsTypeset.DISPLAY_FLAGS;
   }
   static get MODE_SINGLE(){ return 0; }
   static get MODE_TEXT(){ return 1; }
+
+  static get DISPLAY_FLAGS() { return 0; }
+  static get DISPLAY_CODE() { return 1; }
 
   static get CMD_KEY_ENTER() { return 'CMD_KEY_ENTER'; }
 
@@ -35,6 +39,14 @@ class NauticalFlagsTypeset {
     this.printBlocks = atob(str).split('|');
     this.mode = NauticalFlagsTypeset.MODE_TEXT;
     this._renderPrintBlocks();
+  }
+
+  toggleFlags(){
+    if (NauticalFlagsTypeset.DISPLAY_FLAGS == this.renderMode){
+      this.renderMode = NauticalFlagsTypeset.DISPLAY_CODE;
+    } else {
+      this.renderMode = NauticalFlagsTypeset.DISPLAY_FLAGS;
+    }
   }
 
   requestFullRedraw(){
@@ -99,7 +111,7 @@ class NauticalFlagsTypeset {
 
     for(var i = 0; i < symbols.length; i++){
       let renderMethodName = this.renderMethodFor(symbols[i]);
-      this.font[renderMethodName]();
+      this._render(renderMethodName);;
       translate(this.fontWidth + letterSpacing, 0);
     }
     pop();
@@ -142,9 +154,23 @@ class NauticalFlagsTypeset {
     push();
     translate(width / 2 - this.fontWidth / 2, height / 2 - this.fontWidth / 2);
 
-    this.font[methodName]();
+    this._render(methodName);
     pop();
     return true;
+  }
+
+  _render(methodName){
+    if (this.renderMode == NauticalFlagsTypeset.DISPLAY_CODE){
+      let flagCode = methodName.replace("draw", "")
+                               .replace("Nato", "")
+                               .replace("Space", " ")
+                               .replace("Special", " ")
+                               .replace("Substitute", "Sub");
+      textSize(this.fontWidth / flagCode.length);;
+      text(flagCode, 0, 0, this.fontWidth, this.fontWidth);
+    } else {
+      this.font[methodName]();
+    }
   }
 
   shiftOffset(xDelta, yDelta){
@@ -173,7 +199,7 @@ class NauticalFlagsTypeset {
         this.pos.y += blockOffset;
         continue;
       }
-      this.font[renderMethodName]();
+      this._render(renderMethodName);;
 
       if ((this.pos.x + blockOffset + this.fontWidth) > width){
         translate(startX - this.pos.x, blockOffset);

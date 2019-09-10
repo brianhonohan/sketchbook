@@ -67,6 +67,13 @@ class UserInterface {
     this.scrollDownButton.touchStarted(this.handleScrollDownButton);
     this.scrollDownButton.show();
 
+    layoutPos.x += this.scrollDownButton.width + this.marginX;
+    this.toggleFlagsButton = createButton("Toggle Flags");
+    this.toggleFlagsButton.position(layoutPos.x, layoutPos.y);
+    this.toggleFlagsButton.mousePressed(this.handleToggleFlagsButton);
+    this.toggleFlagsButton.touchStarted(this.handleToggleFlagsButton);
+    this.toggleFlagsButton.show();
+
     this.dialogCloseButton = createButton("Close");
     this.dialogCloseButton.mousePressed(this.handleDialogCloseButton);
     this.dialogCloseButton.hide();
@@ -207,6 +214,11 @@ class UserInterface {
     ui.touchMovedSinceStart = true;
     ui.activeButton = UserInterface.ACTIVE_BUTTON_SCROLL_DOWN;
     return false;
+  }
+
+  handleToggleFlagsButton(){
+    nfTypeset.toggleFlags();
+    nfTypeset.requestFullRedraw();
   }
 
   handleClearButton(){
