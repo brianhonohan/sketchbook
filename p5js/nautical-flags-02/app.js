@@ -24,6 +24,7 @@ function setup() {
 
   if (params.blocks) {
     nfTypeset.setPrintBlocksFromBase64(params.blocks);
+    ui.showMainButtons();
   } else {
     ui.showIntroScreen();
   }

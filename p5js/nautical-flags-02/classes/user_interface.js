@@ -7,7 +7,7 @@ class UserInterface {
     this.activeButton = undefined;
     this.scrollSpeed = UserInterface.SCROLL_SPEED_START;
 
-    this.marginX = 25;
+    this.marginX = 15;
     this.initDefaultDialog();
     this.initKeyboardInput();
     this.initButtons();
@@ -54,25 +54,25 @@ class UserInterface {
     this.clearButton.hide();
 
     layoutPos.x += this.clearButton.width + this.marginX;
-    this.scrollUpButton = createButton("Scroll Up");
+    this.scrollUpButton = createButton("Up");
     this.scrollUpButton.position(layoutPos.x, layoutPos.y);
     this.scrollUpButton.mousePressed(this.handleScrollUpButton);
     this.scrollUpButton.touchStarted(this.handleScrollUpButton);
-    this.scrollUpButton.show();
+    this.scrollUpButton.hide();
 
     layoutPos.x += this.scrollUpButton.width + this.marginX;
-    this.scrollDownButton = createButton("Scroll Down");
+    this.scrollDownButton = createButton("Down");
     this.scrollDownButton.position(layoutPos.x, layoutPos.y);
     this.scrollDownButton.mousePressed(this.handleScrollDownButton);
     this.scrollDownButton.touchStarted(this.handleScrollDownButton);
-    this.scrollDownButton.show();
+    this.scrollDownButton.hide();
 
     layoutPos.x += this.scrollDownButton.width + this.marginX;
     this.toggleFlagsButton = createButton("Toggle Flags");
     this.toggleFlagsButton.position(layoutPos.x, layoutPos.y);
     this.toggleFlagsButton.mousePressed(this.handleToggleFlagsButton);
     this.toggleFlagsButton.touchStarted(this.handleToggleFlagsButton);
-    this.toggleFlagsButton.show();
+    this.toggleFlagsButton.hide();
 
     this.dialogCloseButton = createButton("Close");
     this.dialogCloseButton.mousePressed(this.handleDialogCloseButton);
@@ -87,6 +87,9 @@ class UserInterface {
   showMainButtons(){
     this.shareButton.show();
     this.clearButton.show();
+    this.scrollUpButton.show();
+    this.scrollDownButton.show();
+    this.toggleFlagsButton.show();
   }
 
   handleKeyPressed(){
