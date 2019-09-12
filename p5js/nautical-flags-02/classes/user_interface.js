@@ -58,6 +58,7 @@ class UserInterface {
     this.scrollUpButton.position(layoutPos.x, layoutPos.y);
     this.scrollUpButton.mousePressed(this.handleScrollUpButton);
     this.scrollUpButton.touchStarted(this.handleScrollUpButton);
+    this.scrollUpButton.touchEnded(this.handleScrollEnded);
     this.scrollUpButton.hide();
 
     layoutPos.x += this.scrollUpButton.width + this.marginX;
@@ -65,13 +66,13 @@ class UserInterface {
     this.scrollDownButton.position(layoutPos.x, layoutPos.y);
     this.scrollDownButton.mousePressed(this.handleScrollDownButton);
     this.scrollDownButton.touchStarted(this.handleScrollDownButton);
+    this.scrollDownButton.touchEnded(this.handleScrollEnded);
     this.scrollDownButton.hide();
 
     layoutPos.x += this.scrollDownButton.width + this.marginX;
     this.toggleFlagsButton = createButton("Toggle Flags");
     this.toggleFlagsButton.position(layoutPos.x, layoutPos.y);
     this.toggleFlagsButton.mousePressed(this.handleToggleFlagsButton);
-    this.toggleFlagsButton.touchStarted(this.handleToggleFlagsButton);
     this.toggleFlagsButton.hide();
 
     this.dialogCloseButton = createButton("Close");
@@ -217,6 +218,11 @@ class UserInterface {
     ui._scroll(-10);
     ui.touchMovedSinceStart = true;
     ui.activeButton = UserInterface.ACTIVE_BUTTON_SCROLL_DOWN;
+    return false;
+  }
+
+  handleScrollEnded(){
+    ui.activeButton = UserInterface.ACTIVE_BUTTON_NONE;
     return false;
   }
 
