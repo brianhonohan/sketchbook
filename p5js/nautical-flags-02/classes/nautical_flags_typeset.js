@@ -161,6 +161,7 @@ class NauticalFlagsTypeset {
 
   _render(methodName){
     if (this.renderMode == NauticalFlagsTypeset.DISPLAY_CODE){
+      fill(230);
       let flagCode = methodName.replace("draw", "")
                                .replace("Nato", "")
                                .replace("Space", " ")
