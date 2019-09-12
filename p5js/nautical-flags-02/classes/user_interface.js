@@ -189,6 +189,7 @@ class UserInterface {
   }
 
   handleWindowResized(){
+    this.initDefaultDialog();
     if (this.screen == UserInterface.SCREEN_INTRO){
       this.showIntroScreen();
     } else {
@@ -285,11 +286,11 @@ class UserInterface {
     if (this.shareInput === undefined){
       let url = this.buildShareURL();
       this.shareInput = createInput('');
-      this.shareInput.position(this.dialogRect.x + this.marginX - 3, this.dialogRect.y + 3 * this.marginX);
-      this.shareWidth = this.dialogRect.width - 2 * this.marginX - 3;
-      this.shareInput.size(this.shareWidth);
       this.shareInput.value(url);
     }
+    this.shareInput.position(this.dialogRect.x + this.marginX - 3, this.dialogRect.y + 3 * this.marginX);
+    this.shareWidth = this.dialogRect.width - 2 * this.marginX - 3;
+    this.shareInput.size(this.shareWidth);
 
     this.dialogCloseButton.position(this.dialogRect.maxX - this.dialogCloseButton.width - this.marginX, 
                                     this.dialogRect.maxY - 40);
