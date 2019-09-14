@@ -2,10 +2,13 @@ var nauticalFlags;
 var keyController;
 var nfTypeset;
 var ui;
+var canvas;
 
 function setup() {
-  createCanvas(windowWidth, windowHeight-35);
+  canvas = createCanvas(windowWidth, windowHeight-35);
   P5JsSettings.init();
+
+  disableSelectOnCanvas();
 
   nauticalFlags = new NauticalFlags(width * 0.6);
   keyController = new KeyboardController();
@@ -92,4 +95,9 @@ function windowResized() {
 
 function logMessage(message){
   console.log(message);
+}
+function disableSelectOnCanvas(){
+  canvas.elt.style['user-select'] = 'none';
+  canvas.elt.style['-webkit-user-select'] = 'none';
+  canvas.elt.style['-moz-user-select'] = 'none';
 }
