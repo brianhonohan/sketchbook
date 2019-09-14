@@ -3,9 +3,10 @@ var keyController;
 var nfTypeset;
 var ui;
 var canvas;
+var vertMargin = determineVerticalMargin();
 
 function setup() {
-  canvas = createCanvas(windowWidth, windowHeight-35);
+  canvas = createCanvas(windowWidth, windowHeight-vertMargin);
   P5JsSettings.init();
 
   disableSelectOnElement(canvas.elt);
@@ -31,6 +32,11 @@ function setup() {
   } else {
     ui.showIntroScreen();
   }
+}
+
+function determineVerticalMargin(){
+  let fullUrl = window.location.href;
+  return (fullUrl.indexOf(".html") > 0) ? 0 : 37;
 }
 
 function draw(){

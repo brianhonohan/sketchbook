@@ -41,7 +41,7 @@ class UserInterface {
   initButtons(){
     let layoutPos = createVector();
     layoutPos.x = this.x + this.marginX;
-    layoutPos.y = this.y + 5;
+    layoutPos.y = this.y + 5 + vertMargin;
     this.shareButton = createButton("Share");
     this.shareButton.position(layoutPos.x, layoutPos.y);
     this.shareButton.mousePressed(this.handleShareButton);
@@ -307,7 +307,7 @@ class UserInterface {
       this.shareInput = createInput('');
       this.shareInput.value(url);
     }
-    this.shareInput.position(this.dialogRect.x + this.marginX - 3, this.dialogRect.y + 3 * this.marginX);
+    this.shareInput.position(this.dialogRect.x + this.marginX - 3, this.dialogRect.centerY);
     this.shareWidth = this.dialogRect.width - 2 * this.marginX - 3;
     this.shareInput.size(this.shareWidth);
 
