@@ -1,7 +1,7 @@
 
 ## Overview
 
-This is a [p5.js][p5js-home] sketch that allows you to type letters and numbers and see the corresponding [International Maritime Signal Flag][wikipedia-int-maritime].
+This is a [p5.js][p5js-home] sketch that allows you to type a message using the [International Maritime Signal Flag][wikipedia-int-maritime] and share the URL to the message with a friend.
 
 
 ## Controls
@@ -56,23 +56,26 @@ Multiple sources were used in determining proportions of the flags.
 
 # Screenshots:
 
+## Example Message:
 ![screenshot][screenshot-01]
+![screenshot][screenshot-02]
 
+## All Flags
+![screenshot][screenshot-03]
+![screenshot][screenshot-04]
 
-## Screen captures
-
-Cycling through A -> Z, CODE flag, 0-9 pennants, 0-9 NATO numerical, and finally substitute flags.
-
-![screencap][screencap-01]
 
 
 
 [p5js-home]: http://p5js.org/
 [processing-home]: http://processing/
 [source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/nautical-flags/
-[live-view]: https://brianhonohan.com/sketchbook/p5js/nautical-flags/
+[live-view]: https://brianhonohan.com/sketchbook/p5js/nautical-flags-02/
+[live-view-example]: https://brianhonohan.com/sketchbook/p5js/nautical-flags-02/?blocks=ZHJhdzB8ZHJhdzF8ZHJhdzJ8ZHJhdzN8ZHJhdzR8ZHJhdzV8ZHJhdzZ8ZHJhdzd8ZHJhdzh8ZHJhdzl8ZHJhd05hdG8wfGRyYXdOYXRvMXxkcmF3TmF0bzJ8ZHJhd05hdG8zfGRyYXdOYXRvNHxkcmF3TmF0bzV8ZHJhd05hdG82fGRyYXdOYXRvN3xkcmF3TmF0bzh8ZHJhd05hdG85fENNRF9LRVlfRU5URVJ8ZHJhd0F8ZHJhd0J8ZHJhd0N8ZHJhd0R8ZHJhd0V8ZHJhd0Z8ZHJhd0d8ZHJhd0h8ZHJhd0l8ZHJhd0p8ZHJhd0t8ZHJhd0x8ZHJhd018ZHJhd058ZHJhd098ZHJhd1B8ZHJhd1F8ZHJhd1J8ZHJhd1N8ZHJhd1R8ZHJhd1V8ZHJhd1Z8ZHJhd1d8ZHJhd1h8ZHJhd1l8ZHJhd1p8ZHJhd1N1YnN0aXR1dGUxfGRyYXdTdWJzdGl0dXRlMnxkcmF3U3Vic3RpdHV0ZTN8ZHJhd1N1YnN0aXR1dGU0fGRyYXdDb2RlRmxhZ3xkcmF3U3BlY2lhbEZMfGRyYXdTcGVjaWFsU1F8ZHJhd1NwZWNpYWxESXxkcmF3U3BlY2lhbFNVfGRyYXdTcGVjaWFsUFJ8ZHJhd1NwZWNpYWxJTnxkcmF3U3BlY2lhbE5FfGRyYXdTcGVjaWFsU0N8ZHJhd1NwZWNpYWxGT3xkcmF3U3BlY2lhbENPfGRyYXdTcGVjaWFsVFV8ZHJhd1NwZWNpYWxTQnxkcmF3U3BlY2lhbFBPfGRyYXdTcGVjaWFsU1B8ZHJhd1NwZWNpYWxTVHxkcmF3U3BlY2lhbEVNfGRyYXdTcGVjaWFsREU=
 [screenshot-01]: ./screenshot-01.png
-[screencap-01]: ./screencap-01.gif
+[screenshot-02]: ./screenshot-02.png
+[screenshot-03]: ./screenshot-03.png
+[screenshot-04]: ./screenshot-04.png
 
 [mainharbors.com]: http://www.maineharbors.com/flag.htm
 [us-navy-mil]: https://www.navy.mil/navydata/communications/flags/flags.html

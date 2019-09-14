@@ -2,10 +2,14 @@ var nauticalFlags;
 var keyController;
 var nfTypeset;
 var ui;
+var canvas;
+var vertMargin = determineVerticalMargin();
 
 function setup() {
-  createCanvas(windowWidth, windowHeight-35);
+  canvas = createCanvas(windowWidth, windowHeight-vertMargin);
   P5JsSettings.init();
+
+  disableSelectOnElement(canvas.elt);
 
   nauticalFlags = new NauticalFlags(width * 0.6);
   keyController = new KeyboardController();
@@ -18,16 +22,25 @@ function setup() {
   nfTypeset.setFont(nauticalFlags);
   nfTypeset.textSize(0.1 * height);
 
+  ui.keyHandler = keyController;
+
   let params = getURLParams();
 
   if (params.blocks) {
     nfTypeset.setPrintBlocksFromBase64(params.blocks);
+    ui.showMainButtons();
   } else {
-    showIntroScreen();
+    ui.showIntroScreen();
   }
 }
 
+function determineVerticalMargin(){
+  let fullUrl = window.location.href;
+  return (fullUrl.indexOf(".html") > 0) ? 0 : 37;
+}
+
 function draw(){
+  ui.tick();
   ui.render();
 }
 
@@ -42,44 +55,56 @@ function keyTyped(){
 function keyPressed(){
   if (key == 'P') {
     return;
-  } else if (ui.isShowingDialog()){
+  } else {
     return ui.handleKeyPressed();
   }
-  ui.showShareButton();
-  keyController.handleKeyPressed();
+}
+
+function mouseReleased(event){
+  ui.handleMouseReleased(event);
+}
+
+function touchStarted(event){
+  if (!(event instanceof TouchEvent)){
+    return;
+  }
+  ui.handleTouchStarted(event);
+}
+
+function touchMoved(event){
+  if (!(event instanceof TouchEvent)){
+    return;
+  }
+  ui.handleTouchMoved(event);
+}
+
+function touchEnded(event){
+  if (!(event instanceof TouchEvent)){
+    return;
+  }
+  ui.handleTouchEnded(event);
 }
 
 function keyReleased(){
-  if (ui.isShowingDialog()){
-    ui.handleKeyReleased();
-  } else {
-    keyController.handleKeyReleased();
-  }
+  ui.handleKeyReleased();
 }
 
-function showIntroScreen(){
-  background(50);
-  fill(230);
-  textFont('Verdana');
-  textAlign(CENTER, CENTER);
-  const marginX = 0.2 * width;
-
-  textSize(32);
-  text('Welcome', marginX, 0.25 * height, width - 2 * marginX, height / 3);
-
-  nfTypeset.push();
-  nfTypeset.textSize(0.1 * height);
-  nfTypeset.text('WELCOME', 0.1 * width, 0.25 * height, 0.8 * width);
-  nfTypeset.pop();
-
-  const instr1 = 'Type on your keyboard to see the corresponding nautical flag.';
-  const instr2 = 'Press SHIFT + P to download an image of what you\'ve typed.';
-  const instr3 = 'Click the SHARE button to get a shareable URL to send a message to friend.';
-
-  let instructions = instr1 + "\n\n" + instr2 + "\n\n" + instr3;
-  textSize(20);
-  const mainBlockY = height / 2 - 50;
-  const lineHeight = 40;
-  text(instructions, marginX, mainBlockY, width - 2 * marginX, mainBlockY);
+function mouseWheel(event){
+  ui.handleMouseWheel(event);
 }
 
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  ui.handleWindowResized();
+  // console.log(`New Window size: ${windowWidth} x ${windowHeight}`);
+}
+
+function logMessage(message){
+  console.log(message);
+}
+
+function disableSelectOnElement(element){
+  element.style['user-select'] = 'none';
+  element.style['-webkit-user-select'] = 'none';
+  element.style['-moz-user-select'] = 'none';
+}

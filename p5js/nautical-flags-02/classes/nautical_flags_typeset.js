@@ -6,11 +6,16 @@ class NauticalFlagsTypeset {
     this.printBlocks = [];
     this.commandKeys = [];
     this.initCommandKeys();
+    this.offset = createVector(0, 0);
 
     this.mode = NauticalFlagsTypeset.MODE_TEXT;
+    this.renderMode = NauticalFlagsTypeset.DISPLAY_FLAGS;
   }
   static get MODE_SINGLE(){ return 0; }
   static get MODE_TEXT(){ return 1; }
+
+  static get DISPLAY_FLAGS() { return 0; }
+  static get DISPLAY_CODE() { return 1; }
 
   static get CMD_KEY_ENTER() { return 'CMD_KEY_ENTER'; }
 
@@ -34,6 +39,14 @@ class NauticalFlagsTypeset {
     this.printBlocks = atob(str).split('|');
     this.mode = NauticalFlagsTypeset.MODE_TEXT;
     this._renderPrintBlocks();
+  }
+
+  toggleFlags(){
+    if (NauticalFlagsTypeset.DISPLAY_FLAGS == this.renderMode){
+      this.renderMode = NauticalFlagsTypeset.DISPLAY_CODE;
+    } else {
+      this.renderMode = NauticalFlagsTypeset.DISPLAY_FLAGS;
+    }
   }
 
   requestFullRedraw(){
@@ -98,7 +111,7 @@ class NauticalFlagsTypeset {
 
     for(var i = 0; i < symbols.length; i++){
       let renderMethodName = this.renderMethodFor(symbols[i]);
-      this.font[renderMethodName]();
+      this._render(renderMethodName);;
       translate(this.fontWidth + letterSpacing, 0);
     }
     pop();
@@ -141,13 +154,34 @@ class NauticalFlagsTypeset {
     push();
     translate(width / 2 - this.fontWidth / 2, height / 2 - this.fontWidth / 2);
 
-    this.font[methodName]();
+    this._render(methodName);
     pop();
     return true;
   }
 
+  _render(methodName){
+    if (this.renderMode == NauticalFlagsTypeset.DISPLAY_CODE){
+      fill(230);
+      let flagCode = methodName.replace("draw", "")
+                               .replace("Nato", "")
+                               .replace("Space", " ")
+                               .replace("Special", " ")
+                               .replace("Substitute", "Sub");
+      textSize(0.95 * this.fontWidth / flagCode.length);
+      text(flagCode, 0, 0, this.fontWidth, this.fontWidth);
+    } else {
+      this.font[methodName]();
+    }
+  }
+
+  shiftOffset(xDelta, yDelta){
+    const minScrollY = this.totalY * -1 + 1.1 * this.fontWidth;
+    this.offset.y = constrain(this.offset.y + yDelta, minScrollY, 0);
+  }
+
   _renderPrintBlocks(){
-    this.pos = createVector(20, 50);
+    this.pos = createVector(20 + this.offset.x, 50 + this.offset.y);
+    let startY = this.pos.y;
     noStroke();
     background(50);
     push();
@@ -166,7 +200,7 @@ class NauticalFlagsTypeset {
         this.pos.y += blockOffset;
         continue;
       }
-      this.font[renderMethodName]();
+      this._render(renderMethodName);;
 
       if ((this.pos.x + blockOffset + this.fontWidth) > width){
         translate(startX - this.pos.x, blockOffset);
@@ -179,6 +213,7 @@ class NauticalFlagsTypeset {
       } 
     }
     pop();
+    this.totalY = this.pos.y - startY;
     return true;
   }
 
