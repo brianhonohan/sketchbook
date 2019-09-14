@@ -167,7 +167,7 @@ class NauticalFlagsTypeset {
                                .replace("Space", " ")
                                .replace("Special", " ")
                                .replace("Substitute", "Sub");
-      textSize(this.fontWidth / flagCode.length);;
+      textSize(0.95 * this.fontWidth / flagCode.length);
       text(flagCode, 0, 0, this.fontWidth, this.fontWidth);
     } else {
       this.font[methodName]();
