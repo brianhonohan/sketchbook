@@ -78,6 +78,16 @@ class UserInterface {
     this.dialogCloseButton = createButton("Close");
     this.dialogCloseButton.mousePressed(this.handleDialogCloseButton);
     this.dialogCloseButton.hide();
+
+    this.disableSelectOnButtons();
+  }
+
+  disableSelectOnButtons(){
+    disableSelectOnElement(this.shareButton.elt);
+    disableSelectOnElement(this.clearButton.elt);
+    disableSelectOnElement(this.toggleFlagsButton.elt);
+    disableSelectOnElement(this.scrollUpButton.elt);
+    disableSelectOnElement(this.scrollDownButton.elt);
   }
 
   initTouchTracking(){

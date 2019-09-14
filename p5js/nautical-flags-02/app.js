@@ -8,7 +8,7 @@ function setup() {
   canvas = createCanvas(windowWidth, windowHeight-35);
   P5JsSettings.init();
 
-  disableSelectOnCanvas();
+  disableSelectOnElement(canvas.elt);
 
   nauticalFlags = new NauticalFlags(width * 0.6);
   keyController = new KeyboardController();
@@ -96,8 +96,9 @@ function windowResized() {
 function logMessage(message){
   console.log(message);
 }
-function disableSelectOnCanvas(){
-  canvas.elt.style['user-select'] = 'none';
-  canvas.elt.style['-webkit-user-select'] = 'none';
-  canvas.elt.style['-moz-user-select'] = 'none';
+
+function disableSelectOnElement(element){
+  element.style['user-select'] = 'none';
+  element.style['-webkit-user-select'] = 'none';
+  element.style['-moz-user-select'] = 'none';
 }
