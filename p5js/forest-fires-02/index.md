@@ -3,8 +3,10 @@ layout: minimal
 title:  "P5.JS - Forest Fire Simulation"
 categories: p5js
 modal: true
+viewport_noscale: true
 
 js_scripts:
+- https://cdnjs.cloudflare.com/ajax/libs/inobounce/0.2.0/inobounce.js
 - https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js
 - https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.js
 - /sketchbook/vendor/dat.gui/0.7.3/dat.gui.js
