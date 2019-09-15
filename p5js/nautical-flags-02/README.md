@@ -7,7 +7,7 @@ This is a [p5.js][p5js-home] sketch that allows you to type a message using the 
 ## Controls
 
 * Keyboard:
-    - `SHIFT` + `P` Will save the canvas as a PNG to your computer.
+    - `[` Will save the canvas as a PNG to your computer.
     - `A` - `Z` By themselves will show the flag for that [letter][wiki-int-letters].
     - `0` - `9` By themselves will show the flag for that [number][wiki-int-numbers].
     - `SHIFT` + `0-9` Will show the NATO variant of the [number][wiki-int-numbers].
