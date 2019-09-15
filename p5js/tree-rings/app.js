@@ -13,7 +13,7 @@ function setup() {
   let rect = new Rect(0, 0, width, height);
   system = new System(rect);
 
-  gui = new dat.gui.GUI();
+  gui = P5JsSettings.addDatGui({autoPlace: false});
   guiInitialCells = gui.add(system.trunk.settings, 'initialCells').min(10).max(50).step(1);
   guiNumRings = gui.add(system.trunk.settings, 'initialRings').min(1).max(20).step(1);
   addGuiListeners();

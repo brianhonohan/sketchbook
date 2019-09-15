@@ -14,7 +14,7 @@ var params = {
 function setup(){
   createCanvas(windowWidth, windowHeight);
 
-  gui = new dat.gui.GUI();
+  gui = P5JsSettings.addDatGui({autoPlace: false});
   gui.add(params, "maxSteps").min(1).max(10).step(1);
   gui.add(params, "branches").min(1).max(5).step(1);
   gui.add(params, "baseLengthFactor").min(.1).max(.5).step(.05);
