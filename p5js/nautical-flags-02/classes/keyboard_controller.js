@@ -11,7 +11,7 @@ class KeyboardController {
   handleKeyPressed(){
     if (keyCode === CONTROL){
       this.mode = KeyboardController.MODE_CTRL_INPUT;
-      return;
+      return true;
     }
 
     let successfulRender;
@@ -25,10 +25,10 @@ class KeyboardController {
     } else {
       if (key == 'Backspace'){
         this.typeset.backspace();
-        return;
+        return true;
       } else if (key == 'Escape'){
         this.typeset.clearPrintBuffer();
-        return;
+        return true;
       }
 
       successfulRender = this.typeset.renderKey(key);
@@ -38,7 +38,9 @@ class KeyboardController {
       if (this.mode == KeyboardController.MODE_NORMAL){
         console.warn('Unsupported flag requested: ' + key);
       }
+      return false;
     }
+    return true;
   }
 
   handleKeyReleased(){

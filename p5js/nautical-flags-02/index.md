@@ -3,6 +3,7 @@ layout: minimal
 title:  "P5.JS - Nautical Flags"
 categories: p5js
 modal: true
+viewport_noscale: true
 
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/inobounce/0.2.0/inobounce.js

@@ -111,7 +111,7 @@ class UserInterface {
     } else {
       ui.showMainButtons();
       this.screen = UserInterface.SCREEN_INPUT;
-      this.keyHandler.handleKeyPressed();
+      return this.keyHandler.handleKeyPressed();
     }
   }
 
@@ -252,6 +252,7 @@ class UserInterface {
   handleEscapeKey(){
     if (this.dialog){
       this.closeDialog();
+      return true;
     } 
   }
 
@@ -399,7 +400,37 @@ class UserInterface {
     }
   }
 
+  renderCursor(){
+    push();
+    translate(nfTypeset.pos.x, nfTypeset.pos.y);
+    noStroke();
+    fill(this.colorForFrame());
+    rect(0, 0, 3, nfTypeset.fontHeight);
+    pop();
+  }
+
+  colorForFrame(){
+    let framesPerCycle = 90;
+    let halfCycleLength = framesPerCycle / 2;
+    
+    let cycleOffset = frameCount % framesPerCycle;
+    let rising = (cycleOffset < halfCycleLength);
+    
+    let minGrey = 50;
+    let maxGrey = 250;
+    let startingGrey = (rising) ? minGrey : maxGrey;
+    let greyDirection = (rising) ? 1 : -1;
+    let greyStepPerFrame = (maxGrey - minGrey) / halfCycleLength;
+
+    let grey = startingGrey + (cycleOffset % halfCycleLength) * greyStepPerFrame * greyDirection;
+    return color(grey);
+  }
+
   render(){
     this.renderCurrentDialog();
+
+    if (this.screen == UserInterface.SCREEN_INPUT){
+      this.renderCursor();
+    }
   }
 }
