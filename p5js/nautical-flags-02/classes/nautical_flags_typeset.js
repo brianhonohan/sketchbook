@@ -57,6 +57,10 @@ class NauticalFlagsTypeset {
     return this.font.size;
   }
 
+  get fontHeight(){
+    return this.fontWidth;
+  }
+
   getProperties(){
     return {
       fontWidth: this.fontWidth
