@@ -4,10 +4,11 @@ var lineSegment;
 var geomCircleLine;
 
 function setup(){
-  canvas = createCanvas(500, 500);
+  canvas =   createCanvas(windowWidth, windowHeight);
 
-  circle = new Circle(300, height/2,  100);
-  lineSeg = new LineSegment(150, 350, 400, 100);
+  circle = new Circle(width/2, height/2,  100);
+  lineSeg = new LineSegment(0.2 * width, 0.8 * height,
+                            0.8 * width, 0.2 * height);
 
   let line = lineSeg.getLine();
   geomCircleLine = new CircleLineIntersection(circle, line);
