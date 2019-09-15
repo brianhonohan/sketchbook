@@ -56,7 +56,7 @@ function keyPressed(){
   if (key == 'P') {
     return;
   } else {
-    return ui.handleKeyPressed();
+    return !ui.handleKeyPressed();
   }
 }
 

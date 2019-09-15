@@ -111,7 +111,7 @@ class UserInterface {
     } else {
       ui.showMainButtons();
       this.screen = UserInterface.SCREEN_INPUT;
-      this.keyHandler.handleKeyPressed();
+      return this.keyHandler.handleKeyPressed();
     }
   }
 
@@ -252,6 +252,7 @@ class UserInterface {
   handleEscapeKey(){
     if (this.dialog){
       this.closeDialog();
+      return true;
     } 
   }
 
