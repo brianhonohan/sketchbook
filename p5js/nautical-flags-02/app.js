@@ -46,18 +46,14 @@ function draw(){
 
 function keyTyped(){
   switch (key) {
-    case 'P':
+    case '[':
       saveCanvas(canvas, 'screenshot', 'png');
       break;
   }
 }
 
 function keyPressed(){
-  if (key == 'P') {
-    return;
-  } else {
-    return !ui.handleKeyPressed();
-  }
+  return !ui.handleKeyPressed();
 }
 
 function mouseReleased(event){
