@@ -45,4 +45,16 @@ class UtilFunctions {
       this.perfTimings.splice(0, logEveryNTimes);
     }
   }
+
+  static ceil(value, increment = 1){
+    return Math.ceil(value / increment) * increment;
+  }
+
+  static floor(value, increment = 1){
+    return Math.floor(value / increment) * increment;
+  }
+
+  static round(value, increment = 1){
+    return Math.round(value / increment) * increment;
+  }
 }
