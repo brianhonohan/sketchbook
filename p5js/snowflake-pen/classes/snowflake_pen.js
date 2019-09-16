@@ -11,13 +11,6 @@ class SnowflakePen {
     this.sliceBisector = new Line(this.slope, 0);
   }
 
-  isPointInFirstSegment(x, y){
-    // assumes Snowflakw has a segment pointing directly upward
-    return x > this.x 
-        && y < this.y
-        && (x - this.x) < (this.y - y) * this.slope;
-  }
-
   drawRepeatedly(newX, newY){
     let penLocation = createVector(newX - this.x, newY - this.y);
     let reflectedPenLoc = this.sliceBisector.reflectPoint(penLocation);
@@ -47,7 +40,7 @@ class SnowflakePen {
     push();
     translate(this.x, this.y);
 
-    if (mouseIsPressed && this.isPointInFirstSegment(mouseX, mouseY)){
+    if (mouseIsPressed){
       if (this.penWasDown){
         this.drawRepeatedly(mouseX, mouseY);
       }
