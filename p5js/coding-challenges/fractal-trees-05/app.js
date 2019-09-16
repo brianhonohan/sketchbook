@@ -17,7 +17,7 @@ var guiNumNutrients;
 function setup() {
   canvas = createCanvas(windowWidth, windowHeight-40);
 
-  gui = new dat.gui.GUI();
+  gui = P5JsSettings.addDatGui({autoPlace: false});
   guiNumNutrients = gui.add(params, "num_nutrients").min(50).max(4000).step(50);
   gui.add(params, "draw_plant_areas");
   gui.add(params, "draw_segment_areas");
@@ -26,6 +26,7 @@ function setup() {
   guiNumPlants= gui.add(params, "num_plants").min(1).max(20).step(1);
   gui.add(params, "random_colors_per_plant");
   addGuiListeners();
+  gui.close();
 
   groundLevel = floor(height * 0.1);
   initSystem();

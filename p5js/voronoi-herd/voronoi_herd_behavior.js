@@ -18,7 +18,8 @@ function setup(){
   createCanvas(windowWidth, windowHeight-35);
   P5JsSettings.init();
 
-  gui = new dat.gui.GUI();
+
+  gui = P5JsSettings.addDatGui({autoPlace: false});
   guiHerdCount = gui.add(systemParams, "herd_count").min(5).max(50).step(1);
   gui.add(systemParams, "memberSize").min(1).max(30).step(1);
   gui.add(systemParams, "drawVoronoi");

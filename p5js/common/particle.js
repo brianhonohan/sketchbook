@@ -4,6 +4,7 @@ class Particle {
     this.vel    = createVector(0, 0);
     this.accel  = createVector(0, 0);
 
+    this.setDefaultBounds();
     this.boundaryMode = Particle.BOUNDARY_MODE_WRAP;
   }
 
@@ -23,8 +24,8 @@ class Particle {
     // TODO: Replace with Rect and refactor collision checks
     this.bounds = {
       minX: 0,
-      maxY: 0,
-      minX: width,
+      minY: 0,
+      maxX: width,
       maxY: height 
     };
   }
