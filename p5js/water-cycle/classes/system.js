@@ -48,9 +48,11 @@ class System {
         }
 
         var cellAbove = this.weatherGrid.cells[neighborIdx];
-        tmpCell.air = cellAbove.air;
-        tmpCell.water = cellAbove.water;
-        tmpCell.soil = cellAbove.soil;
+        if (cellAbove) {
+          tmpCell.air = cellAbove.air;
+          tmpCell.water = cellAbove.water;
+          tmpCell.soil = cellAbove.soil;
+        }
       }
     }
   }
