@@ -14,7 +14,7 @@ js_scripts:
 - /sketchbook/js/util_functions.js
 - /sketchbook/js/options_set.js
 - /sketchbook/js/models/rect.js
-- classes/digital_display.js
+- classes/seven_segment_display.js
 - classes/system.js
 - app.js
 
