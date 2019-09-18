@@ -1,6 +1,6 @@
 ---
 layout: minimal
-title:  "P5.JS - Digital Display"
+title:  "P5.JS - Seven Segment Display"
 categories: p5js
 modal: true
 viewport_noscale: true
