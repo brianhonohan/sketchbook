@@ -23,6 +23,6 @@ class System {
   }
 
   render(){
-    this.grid.renderViews();
+    
   }
 }
