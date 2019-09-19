@@ -4,6 +4,7 @@ class SevenSegmentDisplay {
     this.value = 0;
     this.calcDimensions();
     this.initColors();
+    this.initBitFlags();
   }
 
   get x(){ return this.sizeAndPosition.x; }
@@ -12,6 +13,12 @@ class SevenSegmentDisplay {
   get maxY(){ return this.sizeAndPosition.maxY; }
   get width(){ return this.sizeAndPosition.width; }
   get height(){ return this.sizeAndPosition.height; }
+
+  setValue(newValue){
+    if (this.flagsForValue(newValue) != undefined){
+      this.value = newValue;
+    }
+  }
 
   calcDimensions(){
     this.horizBarWidth  = this.width  * 0.8;
@@ -27,15 +34,41 @@ class SevenSegmentDisplay {
     };
   }
 
+  initBitFlags(){
+    this.bitFlags = {
+      digits: [
+        [1, 1, 1, 1, 1, 1, 0], // 0
+        [0, 1, 1, 0, 0, 0, 0], // 1
+        [1, 1, 0, 1, 1, 0, 1], // 2
+        [1, 1, 1, 1, 0, 0, 1], // 3
+        [0, 1, 1, 0, 0, 1, 1], // 4
+        [1, 0, 1, 1, 0, 1, 1], // 5
+        [1, 0, 1, 1, 1, 1, 1], // 6
+        [1, 1, 1, 0, 0, 0, 0], // 7
+        [1, 1, 1, 1, 1, 1, 1], // 8
+        [1, 1, 1, 1, 0, 1, 1], // 9
+      ]
+    }
+  }
+
+  flagsForValue(value){
+    if (value >= 0 && value <= 9){
+      return this.bitFlags.digits[value];
+    }
+    return undefined;
+  }
+
   draw(){
     noStroke();
-    this.drawSegmentA(true);
-    this.drawSegmentB(true);
-    this.drawSegmentC(true);
-    this.drawSegmentD(true);
-    this.drawSegmentE(true);
-    this.drawSegmentF(true);
-    this.drawSegmentG(true);
+    let flags = this.flagsForValue(this.value);
+
+    this.drawSegmentA(flags[0]);
+    this.drawSegmentB(flags[1]);
+    this.drawSegmentC(flags[2]);
+    this.drawSegmentD(flags[3]);
+    this.drawSegmentE(flags[4]);
+    this.drawSegmentF(flags[5]);
+    this.drawSegmentG(flags[6]);
   }
 
   fillForStatus(status){

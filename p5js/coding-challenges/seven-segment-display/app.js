@@ -6,10 +6,9 @@ function setup() {
 
   let rect = new Rect(0, 0, width, height);
   system = new System(rect);
+  system.render();
 }
 
-function draw(){
-  background(50);
-  system.tick();
-  system.render();
+function keyTyped(){
+  system.setValue(key);
 }

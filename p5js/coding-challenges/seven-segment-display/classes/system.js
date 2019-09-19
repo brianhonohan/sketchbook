@@ -35,6 +35,11 @@ class System {
     // console.log("tock");
   }
 
+  setValue(newValue){
+    this.sevenSegDisplay.setValue(newValue);
+    this.render();
+  }
+
   render(){
     background(50);
     this.sevenSegDisplay.draw();
