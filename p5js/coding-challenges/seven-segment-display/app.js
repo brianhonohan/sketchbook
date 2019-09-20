@@ -7,7 +7,11 @@ function setup() {
   createCanvas(windowWidth, windowHeight-35);
   P5JsSettings.init();
 
-  fullRect = new Rect(0, 0, width, height);
+
+  let minDimension = min(width, height);
+  fullRect = new Rect((width - minDimension) / 2, 
+                      (height - minDimension) / 2, 
+                      minDimension, minDimension);
   smallRect = new Rect(0, 0, width, height * 0.5);
   system = new System(fullRect);
   system.render();
