@@ -1,10 +1,14 @@
 class SevenSegmentDisplay {
   constructor(sizeAndPosition){
-    this.sizeAndPosition = sizeAndPosition;
+    this.setSizeAndPos(sizeAndPosition);
     this.value = 0;
-    this.calcDimensions();
     this.initColors();
     this.initBitFlags();
+  }
+
+  setSizeAndPos(sizeAndPosition){
+    this.sizeAndPosition = sizeAndPosition;
+    this.calcDimensions();
   }
 
   get x(){ return this.sizeAndPosition.x; }
