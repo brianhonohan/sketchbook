@@ -7,7 +7,7 @@ Collection of personal coding projects. They may or may not grow into individual
 
 A p5.js sketch of Seven-Segment Digital display of numbers.
 
-[<img src="./p5js/coding-challenges/seven-segment-display/screenshot-01.png" alt="p5js-coding-challenges/seven-segment-display" width="150px" />][link-p5js-coding-challenges/seven-segment-display]
+[<img src="./p5js/coding-challenges/seven-segment-display/screenshot-01.png" alt="p5js-coding-challenges/seven-segment-display" width="150px" />][link-p5js-cc-seven-segment-display]
 
 
 ## LÖVE
