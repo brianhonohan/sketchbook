@@ -6,10 +6,11 @@ This is a [p5.js][p5js-home] sketch of a seven-segment digital display.
 
 ## Controls
 
-(No interactivity implemented yet).
+* `0-9` - Keys zero through nine trigger the rendering of that number.
 
 # References:
 * [Coding Train - Episode #117][youtube-coding-train]
+* [Wikipedia - Seven Segment Display][wikipedia-seven-segment-display]
 
 # Links: 
 
