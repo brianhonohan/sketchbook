@@ -5,9 +5,9 @@ Collection of personal coding projects. They may or may not grow into individual
 
 ## Latest
 
-A p5.js sketch, allowing the user to type and send a message using the International Maritime Flags.
+A p5.js sketch of Seven-Segment Digital display of numbers.
 
-[<img src="./p5js/nautical-flags-02/screenshot-01.png" alt="p5js-nautical-flags-02" width="150px" />][link-p5js-nautical-flags-02]
+[<img src="./p5js/coding-challenges/seven-segment-display/screenshot-01.png" alt="p5js-coding-challenges/seven-segment-display" width="150px" />][link-p5js-coding-challenges/seven-segment-display]
 
 
 ## LÖVE
@@ -46,6 +46,7 @@ Collection of sketches using the [p5.js][p5js] Javascript library inspired by th
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/coding-challenges/fractal-trees-05/screenshot-01.png" alt="fractal-trees-05" width="150px" />][link-p5js-cc-fractal-trees-05]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/coding-challenges/maze-generator/screenshot-01.png" alt="maze-generator" width="150px" />][link-p5js-cc-maze-generator]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/coding-challenges/mitosis/screenshot-07.png" alt="mitosis" width="150px" />][link-p5js-cc-mitosis]
+[<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/coding-challenges/seven-segment-display/screenshot-01.png" alt="seven-segment-display" width="150px" />][link-p5js-cc-seven-segment-display]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/coding-challenges/snake/screenshot-01.png" alt="snake" width="150px" />][link-p5js-cc-snake]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/coding-challenges/solar-system/screenshot-01.png" alt="solar-system" width="150px" />][link-p5js-cc-solar-system]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/coding-challenges/solar-system-3d/screenshot-01.png" alt="solar-system-3d" width="150px" />][link-p5js-cc-solar-system-3d]
@@ -107,6 +108,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-p5js-cc-fractal-trees-05]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/fractal-trees-05/
 [link-p5js-cc-maze-generator]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/maze-generator/
 [link-p5js-cc-mitosis]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/mitosis/
+[link-p5js-cc-seven-segment-display]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/seven-segment-display/
 [link-p5js-cc-snake]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/snake/
 [link-p5js-cc-solar-system]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/solar-system/
 [link-p5js-cc-solar-system-3d]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/solar-system-3d/
