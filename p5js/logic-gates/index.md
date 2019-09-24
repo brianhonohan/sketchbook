@@ -18,12 +18,15 @@ js_scripts:
 - /sketchbook/p5js/common/shapes/point.js
 - /sketchbook/p5js/common/shapes/rectangle.js
 - /sketchbook/p5js/common/shapes/circle.js
+- /sketchbook/p5js/common/shapes/line_segment.js
 - /sketchbook/js/models/logic.js
 - /sketchbook/js/models/circuitry/circuit_base.js
 - /sketchbook/js/models/circuitry/gate.js
 - /sketchbook/js/models/circuitry/input.js
 - /sketchbook/js/models/circuitry/output.js
+- /sketchbook/js/models/circuitry/wire.js
 - classes/circuit_component.js
+- classes/wire_segment.js
 
 - classes/system.js
 - app.js

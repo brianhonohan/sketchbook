@@ -30,6 +30,21 @@ class System {
     this.components.push( new CircuitComponent(width / 2, height / 2 - blockSize / 2, CircuitComponent.TYPE_AND) );
 
     this.components.push( new CircuitComponent(width - marginX - blockSize, height / 2, CircuitComponent.TYPE_OUTPUT_LED) );
+
+    let wire1 = new WireSegment();
+    wire1.startAtNode(this.components[0], 0);
+    wire1.endAtNode(this.components[2], 0);
+    this.components.push( wire1 );
+
+    let wire2 = new WireSegment();
+    wire2.startAtNode(this.components[1], 0);
+    wire2.endAtNode(this.components[2], 1);
+    this.components.push( wire2 );
+
+    let wire3 = new WireSegment();
+    wire3.startAtNode(this.components[2], 0);
+    wire3.endAtNode(this.components[3], 0);
+    this.components.push( wire3 );
   }
 
   render(){
