@@ -14,6 +14,17 @@ js_scripts:
 - /sketchbook/js/util_functions.js
 - /sketchbook/js/options_set.js
 - /sketchbook/js/models/rect.js
+
+- /sketchbook/p5js/common/shapes/point.js
+- /sketchbook/p5js/common/shapes/rectangle.js
+- /sketchbook/p5js/common/shapes/circle.js
+- /sketchbook/js/models/logic.js
+- /sketchbook/js/models/circuitry/circuit_base.js
+- /sketchbook/js/models/circuitry/gate.js
+- /sketchbook/js/models/circuitry/input.js
+- /sketchbook/js/models/circuitry/output.js
+- classes/circuit_component.js
+
 - classes/system.js
 - app.js
 

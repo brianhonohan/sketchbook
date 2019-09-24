@@ -4,6 +4,8 @@ class System {
     this.optionsSet = new OptionsSet(this.optionsMetadata());
     this.settings = this.optionsSet.settings;
 
+    this.components = [];
+    this.initExample01();
   }
 
   // Return a list of Options, specific to this sketch,
@@ -16,5 +18,22 @@ class System {
       // { name: "varname2", type: "string", default: 'Lorem Ipsum'}, 
       // { name: "varname3", type: "float", default: 0.6}
     ];
+  }
+
+  initExample01(){
+    let blockSize = 50;  // cheating knowledge of block
+    let marginX = 0.2 * width;
+    let marginY = 0.2 * height;
+    this.components.push( new CircuitComponent(marginX, marginY, CircuitComponent.TYPE_INPUT_OFF) );
+    this.components.push( new CircuitComponent(marginX, height - marginY - blockSize, CircuitComponent.TYPE_INPUT_ON) );
+
+    this.components.push( new CircuitComponent(width / 2, height / 2 - blockSize / 2, CircuitComponent.TYPE_AND) );
+
+    this.components.push( new CircuitComponent(width - marginX - blockSize, height / 2, CircuitComponent.TYPE_OUTPUT_LED) );
+  }
+
+  render(){
+    background(colorScheme.background);
+    this.components.forEach(c => c.render());
   }
 }

@@ -19,6 +19,10 @@ class Circle {
   get maxX() { return this.pos.x + this.radius; }
   get minY() { return this.pos.y - this.radius; }
   get maxY() { return this.pos.y + this.radius; }
+  get centerX() { return this.pos.x; }
+  get centerY() { return this.pos.y; }
+  get width() { return this.radius * 2; }
+  get height() { return this.radius * 2; }
 
   pointsAtX(x) {
     if (x < this.minX || x > this.maxX) {
