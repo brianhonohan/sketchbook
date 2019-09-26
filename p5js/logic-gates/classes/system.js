@@ -20,11 +20,23 @@ class System {
     ];
   }
 
+  handleMousePressed(){
+    this.lastPressed = this.components.filter(c => c['handleMousePressed'] != undefined)
+                                      .find(c => c.handleMousePressed());
+  }
+
+  handleMouseReleased(){
+    if (this.lastPressed){
+      this.lastPressed.handleMouseReleased();
+    }
+    this.lastPressed = undefined;
+  }
+
   initExample01(){
     let blockSize = 50;  // cheating knowledge of block
     let marginX = 0.2 * width;
     let marginY = 0.2 * height;
-    this.components.push( new CircuitComponent(marginX, marginY, CircuitComponent.TYPE_INPUT_OFF) );
+    this.components.push( new CircuitComponent(marginX, marginY, CircuitComponent.TYPE_BUTTON) );
     this.components.push( new CircuitComponent(marginX, height - marginY - blockSize, CircuitComponent.TYPE_INPUT_ON) );
 
     this.components.push( new CircuitComponent(width / 2, height / 2 - blockSize / 2, CircuitComponent.TYPE_AND) );

@@ -25,13 +25,15 @@ class CircuitComponent {
   static get TYPE_INPUT_OFF() { return 0; }
   static get TYPE_INPUT_ON() { return 1; }
   static get TYPE_OUTPUT_LED(){ return 2; }
-  
+  static get TYPE_BUTTON(){ return 3; }
+
   static nodeForType(type){
     switch(type) {
       case CircuitComponent.TYPE_INPUT_OFF: return new Input({signal: 0});
       case CircuitComponent.TYPE_INPUT_ON: return new Input({signal: 1});
       case CircuitComponent.TYPE_OUTPUT_LED: return new Output();
       case CircuitComponent.TYPE_AND: return new Gate({type: Logic.OP_AND});
+      case CircuitComponent.TYPE_BUTTON: return new Button({signal: 0});
     }
   }
 
@@ -68,6 +70,26 @@ class CircuitComponent {
       let tmpPt = new Point(this.shape.maxX + 10, this.shape.minY + (1 + i) * vertSpacing);
       this.outputPoints.push( tmpPt );
     }
+  }
+
+  handleMousePressed(){
+    if (this.shape.containsXY(mouseX, mouseY) == false){
+      return false;
+    }
+
+    if (this.node['handleUserToggle']){
+      this.node.handleUserToggle();
+      return true;
+    }
+    return false;
+  }
+
+  handleMouseReleased(){
+    if (this.node['handleUserToggle']){
+      this.node.handleUserToggle();
+      return true;
+    }
+    return false;
   }
 
   get posAndSize(){

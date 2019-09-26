@@ -18,3 +18,13 @@ function initColorScheme(){
     object:     color(100)
   };
 }
+
+function mousePressed(){
+  system.handleMousePressed();
+  system.render();
+}
+
+function mouseReleased(){
+  system.handleMouseReleased();
+  system.render();
+}

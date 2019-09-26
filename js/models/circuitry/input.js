@@ -5,7 +5,10 @@ class Input extends CircuitBase {
     this.numOutputs = 1;
     this.settings = settings;
     this.initOutputs();
-    this.label = `I = ${this.settings.signal}`;
+  }
+
+  get label(){
+    return `I = ${this.output()}`;
   }
 
   output(){
