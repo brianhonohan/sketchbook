@@ -15,7 +15,9 @@ function initColorScheme(){
   colorScheme = {
     background: color(50),
     line:       color(230),
-    object:     color(100)
+    object:     color(100),
+    lineOn:     color(40, 200,40),
+    lineOff:    color(200, 40, 40),
   };
 }
 

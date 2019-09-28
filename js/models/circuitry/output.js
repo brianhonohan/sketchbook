@@ -4,4 +4,8 @@ class Output extends CircuitBase {
     this.numInputs = 1;
     this.label = "O";
   }
+
+  output(){
+    return this.inputs[0].output();
+  }
 }

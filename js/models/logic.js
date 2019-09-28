@@ -72,5 +72,5 @@ class Logic {
   
   // Functions existy / truthy credited to Michael Fogus, in 'Functional Javascript'
   static existy(x) { return x != null; }
-  static truthy(x) { return (x !== false) && Logic.existy(x); }
+  static truthy(x) { return x !== false && x !== 0 && Logic.existy(x); }
 }

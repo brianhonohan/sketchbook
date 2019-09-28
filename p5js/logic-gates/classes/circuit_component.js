@@ -97,7 +97,11 @@ class CircuitComponent {
   }
 
   render(){
-    stroke(colorScheme.line);
+    if (this.node.output()){
+      stroke(colorScheme.lineOn);
+    } else {
+      stroke(colorScheme.lineOff);
+    }
     strokeWeight(2);
     this.shape.draw();
     this.renderInputs();
