@@ -4,7 +4,6 @@ class Input extends CircuitBase {
 
     this.numOutputs = 1;
     this.settings = settings;
-    this.initOutputs();
   }
 
   get label(){
@@ -13,9 +12,5 @@ class Input extends CircuitBase {
 
   output(){
     return this.settings.signal;
-  }
-
-  initOutputs(){
-    this.outputs[0] = this.output; 
   }
 }

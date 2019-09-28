@@ -9,10 +9,16 @@ class Wire {
   bindUpstream(node, index){
     this.upstream = node;
     this.upstreamIdx = index;
+    node.bindOutput(this, index);
   }
 
   bindDownstream(node, index){
     this.downstream = node;
     this.downstreamIdx = index;
+    node.bindInput(this, index);
+  }
+
+  output(){
+    return this.upstream.output();
   }
 }
