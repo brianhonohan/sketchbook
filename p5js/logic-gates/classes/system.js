@@ -66,6 +66,9 @@ class System {
 
   render(){
     background(colorScheme.background);
-    this.components.forEach(c => c.render());
+    this.components.filter(c => (c instanceof WireSegment))
+                   .forEach(c => c.render());
+    this.components.filter(c => !(c instanceof WireSegment))
+                    .forEach(c => c.render());
   }
 }

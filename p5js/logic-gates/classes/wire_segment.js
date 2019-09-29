@@ -23,7 +23,12 @@ class WireSegment {
     this.lineSegment.endX = endPt.x;
     this.lineSegment.endY = endPt.y;
 
-    stroke(colorScheme.line);
+    if (this.wire.output()){
+      stroke(colorScheme.lineOn);
+    } else {
+      stroke(colorScheme.lineOff);
+    }
+    strokeWeight(2);
     this.lineSegment.draw();
   }
 }
