@@ -23,17 +23,32 @@ class CircuitComponent {
   static get defaultSize() { return 50; }
 
   static get TYPE_INPUT_OFF() { return 0; }
-  static get TYPE_INPUT_ON() { return 1; }
+  static get TYPE_INPUT_ON()  { return 1; }
   static get TYPE_OUTPUT_LED(){ return 2; }
-  static get TYPE_BUTTON(){ return 3; }
+  static get TYPE_BUTTON()    { return 3; }
+  static get TYPE_NOOP()      { return 4; }
+  static get TYPE_NOT()       { return 5; }
+  static get TYPE_AND()       { return 6; }
+  static get TYPE_OR()        { return 7; }
+  static get TYPE_NAND()      { return 8; }
+  static get TYPE_NOR()       { return 9; }
+  static get TYPE_XOR()       { return 10; }
+  static get TYPE_XNOR()      { return 11; }
 
   static nodeForType(type){
     switch(type) {
       case CircuitComponent.TYPE_INPUT_OFF: return new Input({signal: 0});
       case CircuitComponent.TYPE_INPUT_ON: return new Input({signal: 1});
       case CircuitComponent.TYPE_OUTPUT_LED: return new Output();
-      case CircuitComponent.TYPE_AND: return new Gate({type: Logic.OP_AND});
-      case CircuitComponent.TYPE_BUTTON: return new Button({signal: 0});
+      case CircuitComponent.TYPE_BUTTON:   return new Button({signal: 0});
+      case CircuitComponent.TYPE_NOOP:  return new Gate({type: Logic.OP_NOOP});
+      case CircuitComponent.TYPE_NOT:   return new Gate({type: Logic.OP_NOT});
+      case CircuitComponent.TYPE_AND:   return new Gate({type: Logic.OP_AND});
+      case CircuitComponent.TYPE_OR:    return new Gate({type: Logic.OP_OR});
+      case CircuitComponent.TYPE_NAND:  return new Gate({type: Logic.OP_NAND});
+      case CircuitComponent.TYPE_NOR:   return new Gate({type: Logic.OP_NOR});
+      case CircuitComponent.TYPE_XOR:   return new Gate({type: Logic.OP_XOR});
+      case CircuitComponent.TYPE_XNOR:  return new Gate({type: Logic.OP_XNOR});
     }
   }
 

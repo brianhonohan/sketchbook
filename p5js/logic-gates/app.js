@@ -30,3 +30,11 @@ function mouseReleased(){
   system.handleMouseReleased();
   system.render();
 }
+
+function keyTyped(){
+  if (key >= 1 && key <= 6) {
+    let gateType = int(key) + 1;
+    system.setMainGate(gateType);
+    system.render();
+  }
+}

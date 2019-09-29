@@ -39,7 +39,8 @@ class System {
     this.components.push( new CircuitComponent(marginX, marginY, CircuitComponent.TYPE_BUTTON) );
     this.components.push( new CircuitComponent(marginX, height - marginY - blockSize, CircuitComponent.TYPE_INPUT_ON) );
 
-    this.components.push( new CircuitComponent(width / 2, height / 2 - blockSize / 2, CircuitComponent.TYPE_AND) );
+    this.mainGate = new CircuitComponent(width / 2, height / 2 - blockSize / 2, CircuitComponent.TYPE_AND);
+    this.components.push( this.mainGate );
 
     this.components.push( new CircuitComponent(width - marginX - blockSize, height / 2, CircuitComponent.TYPE_OUTPUT_LED) );
 
@@ -57,6 +58,10 @@ class System {
     wire3.startAtNode(this.components[2], 0);
     wire3.endAtNode(this.components[3], 0);
     this.components.push( wire3 );
+  }
+
+  setMainGate(newType){
+    this.mainGate.node.type = newType;
   }
 
   render(){
