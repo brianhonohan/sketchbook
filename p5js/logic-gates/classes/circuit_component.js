@@ -115,12 +115,16 @@ class CircuitComponent {
     return [this.x, this.y, CircuitComponent.defaultSize, CircuitComponent.defaultSize];
   }
 
-  render(){
+  setStrokeForOutput(){
     if (this.node.output()){
       stroke(colorScheme.lineOn);
     } else {
       stroke(colorScheme.lineOff);
     }
+  }
+
+  render(){
+    this.setStrokeForOutput();
     strokeWeight(2);
     this.shape.draw();
     this.renderInputs();
@@ -130,6 +134,39 @@ class CircuitComponent {
     fill(colorScheme.line);
     textAlign(CENTER, CENTER);
     text(this.node.label, this.shape.centerX, this.shape.centerY);
+
+    this.postRenderForType();
+  }
+
+  postRenderForType(){
+    let renderMethod = this[`_postRenderForType${this.type}`];
+    if (renderMethod){
+      renderMethod.call(this);
+    }
+  }
+
+  _postRenderForType12(){
+    this._renderPushSwitch(-1);
+  }
+
+  _postRenderForType13(){
+    this._renderPushSwitch(1);
+  }
+
+  _renderPushSwitch(direction){
+    this.setStrokeForOutput();
+
+    let smallLength = this.shape.width * 0.25;
+    line(this.shape.minX, this.shape.centerY, this.shape.minX + smallLength, this.shape.centerY);
+    line(this.shape.maxX, this.shape.centerY, this.shape.maxX - smallLength, this.shape.centerY);
+
+    let largeLength = this.shape.width - 2 * smallLength;
+    let deltaY = this.shape.height * 0.2;
+    let connectionY = (this.node.closed) ? this.shape.centerY : this.shape.centerY + deltaY * direction;
+    line(this.shape.minX + smallLength, connectionY, this.shape.maxX - smallLength, connectionY);
+
+    let plungerHeight = this.shape.height * 0.2;
+    line(this.shape.centerX, connectionY, this.shape.centerX, connectionY - plungerHeight);
   }
 
   renderInputs(){
