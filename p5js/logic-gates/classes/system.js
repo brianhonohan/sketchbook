@@ -5,7 +5,7 @@ class System {
     this.settings = this.optionsSet.settings;
 
     this.components = [];
-    this.initExample01();
+    this.initExample02();
   }
 
   // Return a list of Options, specific to this sketch,
@@ -58,6 +58,40 @@ class System {
     wire3.startAtNode(this.components[2], 0);
     wire3.endAtNode(this.components[3], 0);
     this.components.push( wire3 );
+  }
+
+  initExample02(){
+    let blockSize = 50;  // cheating knowledge of block
+    let marginX = 0.2 * width;
+    let marginY = 0.2 * height;
+
+    this.components.push( new CircuitComponent(marginX, marginY, CircuitComponent.TYPE_INPUT_ON) );
+    this.components.push( new CircuitComponent(width / 2 - blockSize / 2, marginY, CircuitComponent.TYPE_PUSH_OFF) );
+    this.components.push( new CircuitComponent(width - marginX - blockSize, marginY + blockSize / 2, CircuitComponent.TYPE_OUTPUT_LED) );
+
+    let wire1 = new WireSegment();
+    wire1.startAtNode(this.components[0], 0);
+    wire1.endAtNode(this.components[1], 0);
+    this.components.push( wire1 );
+
+    let wire2 = new WireSegment();
+    wire2.startAtNode(this.components[1], 0);
+    wire2.endAtNode(this.components[2], 0);
+    this.components.push( wire2 );
+
+    this.components.push( new CircuitComponent(marginX, height - marginY - blockSize, CircuitComponent.TYPE_INPUT_ON) );
+    this.components.push( new CircuitComponent(width / 2 - blockSize / 2, height - marginY - blockSize, CircuitComponent.TYPE_PUSH_ON) );
+    this.components.push( new CircuitComponent(width - marginX - blockSize, height - marginY - blockSize / 2, CircuitComponent.TYPE_OUTPUT_LED) );
+
+    let wire3 = new WireSegment();
+    wire3.startAtNode(this.components[5], 0);
+    wire3.endAtNode(this.components[6], 0);
+    this.components.push( wire3 );
+
+    let wire4 = new WireSegment();
+    wire4.startAtNode(this.components[6], 0);
+    wire4.endAtNode(this.components[7], 0);
+    this.components.push( wire4 );
   }
 
   setMainGate(newType){

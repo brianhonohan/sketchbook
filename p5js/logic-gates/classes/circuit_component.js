@@ -34,6 +34,8 @@ class CircuitComponent {
   static get TYPE_NOR()       { return 9; }
   static get TYPE_XOR()       { return 10; }
   static get TYPE_XNOR()      { return 11; }
+  static get TYPE_PUSH_OFF(){ return 12; }
+  static get TYPE_PUSH_ON() { return 13; }
 
   static nodeForType(type){
     switch(type) {
@@ -49,6 +51,8 @@ class CircuitComponent {
       case CircuitComponent.TYPE_NOR:   return new Gate({type: Logic.OP_NOR});
       case CircuitComponent.TYPE_XOR:   return new Gate({type: Logic.OP_XOR});
       case CircuitComponent.TYPE_XNOR:  return new Gate({type: Logic.OP_XNOR});
+      case CircuitComponent.TYPE_PUSH_OFF: return new PushSwitch({closed: false});
+      case CircuitComponent.TYPE_PUSH_ON:  return new PushSwitch({closed: true});
     }
   }
 
