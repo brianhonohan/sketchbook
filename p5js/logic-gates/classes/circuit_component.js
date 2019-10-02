@@ -96,16 +96,16 @@ class CircuitComponent {
       return false;
     }
 
-    if (this.node['handleUserToggle']){
-      this.node.handleUserToggle();
+    if (this.node['handleToggleStart']){
+      this.node.handleToggleStart();
       return true;
     }
     return false;
   }
 
   handleMouseReleased(){
-    if (this.node['handleUserToggle']){
-      this.node.handleUserToggle();
+    if (this.node['handleToggleEnd']){
+      this.node.handleToggleEnd();
       return true;
     }
     return false;

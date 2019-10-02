@@ -14,7 +14,10 @@ class PushSwitch extends Gate {
     }
   }
 
-  handleUserToggle(){
+  handleToggleStart(){ this._toggle(); }
+  handleToggleEnd(){ this._toggle(); }
+
+  _toggle(){
     this.closed = (this.closed + 1) % 2;
   }
 }

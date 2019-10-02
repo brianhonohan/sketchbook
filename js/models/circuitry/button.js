@@ -8,7 +8,10 @@ class Button extends Input {
     return this.signal;
   }
 
-  handleUserToggle(){
+  handleToggleStart(){ this._toggle(); }
+  handleToggleEnd(){ this._toggle(); }
+
+  _toggle(){
     this.signal = (this.signal + 1) % 2;
   }
 }
