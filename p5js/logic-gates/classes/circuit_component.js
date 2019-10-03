@@ -153,20 +153,23 @@ class CircuitComponent {
     this._renderPushSwitch(1);
   }
 
+  get internalLeadLength() { return this.shape.width * 0.25; }
   _renderPushSwitch(direction){
     this.setStrokeForOutput();
 
-    let smallLength = this.shape.width * 0.25;
-    line(this.shape.minX, this.shape.centerY, this.shape.minX + smallLength, this.shape.centerY);
-    line(this.shape.maxX, this.shape.centerY, this.shape.maxX - smallLength, this.shape.centerY);
+    this._renderInternalLeads();
 
-    let largeLength = this.shape.width - 2 * smallLength;
     let deltaY = this.shape.height * 0.2;
     let connectionY = (this.node.closed) ? this.shape.centerY : this.shape.centerY + deltaY * direction;
-    line(this.shape.minX + smallLength, connectionY, this.shape.maxX - smallLength, connectionY);
+    line(this.shape.minX + this.internalLeadLength, connectionY, this.shape.maxX - this.internalLeadLength, connectionY);
 
     let plungerHeight = this.shape.height * 0.2;
     line(this.shape.centerX, connectionY, this.shape.centerX, connectionY - plungerHeight);
+  }
+
+  _renderInternalLeads(){
+    line(this.shape.minX, this.shape.centerY, this.shape.minX + this.internalLeadLength, this.shape.centerY);
+    line(this.shape.maxX, this.shape.centerY, this.shape.maxX - this.internalLeadLength, this.shape.centerY);
   }
 
   renderInputs(){
