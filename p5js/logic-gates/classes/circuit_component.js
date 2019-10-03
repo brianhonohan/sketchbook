@@ -189,7 +189,15 @@ class CircuitComponent {
   }
 
   _renderInternalLeads(){
+    this._renderInternalInputLeads();
+    this._renderInternalOutputLeads();
+  }
+
+  _renderInternalInputLeads(){
     line(this.shape.minX, this.shape.centerY, this.leftInternalLeadX, this.shape.centerY);
+  }
+
+  _renderInternalOutputLeads(){
     line(this.shape.maxX, this.shape.centerY, this.rightInternalLeadX, this.shape.centerY);
   }
 
