@@ -5,7 +5,7 @@ class System {
     this.settings = this.optionsSet.settings;
 
     this.components = [];
-    this.initExample02();
+    this.initExample03();
   }
 
   // Return a list of Options, specific to this sketch,
@@ -67,6 +67,19 @@ class System {
 
     this.components.push( this.wireUp(this.components[5], 0, this.components[6], 0) );
     this.components.push( this.wireUp(this.components[6], 0, this.components[7], 0) );
+  }
+
+  initExample03(){
+    let blockSize = 50;  // cheating knowledge of block
+    let marginX = 0.2 * width;
+    let marginY = 0.2 * height;
+
+    this.components.push( new CircuitComponent(marginX, marginY, CircuitComponent.TYPE_INPUT_ON) );
+    this.components.push( new CircuitComponent(width / 2 - blockSize / 2, marginY, CircuitComponent.TYPE_SWITCH_SPST) );
+    this.components.push( new CircuitComponent(width - marginX - blockSize, marginY + blockSize / 2, CircuitComponent.TYPE_OUTPUT_LED) );
+
+    this.components.push( this.wireUp(this.components[0], 0, this.components[1], 0) );
+    this.components.push( this.wireUp(this.components[1], 0, this.components[2], 0) );
   }
 
   wireUp(startComp, startOutIdx, endComp, endInIdx){

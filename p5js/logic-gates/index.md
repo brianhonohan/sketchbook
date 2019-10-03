@@ -26,6 +26,7 @@ js_scripts:
 - /sketchbook/js/models/circuitry/output.js
 - /sketchbook/js/models/circuitry/button.js
 - /sketchbook/js/models/circuitry/push_switch.js
+- /sketchbook/js/models/circuitry/single_pole_single_throw.js
 - /sketchbook/js/models/circuitry/wire.js
 - classes/circuit_component.js
 - classes/wire_segment.js

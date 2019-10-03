@@ -36,6 +36,7 @@ class CircuitComponent {
   static get TYPE_XNOR()      { return 11; }
   static get TYPE_PUSH_OFF(){ return 12; }
   static get TYPE_PUSH_ON() { return 13; }
+  static get TYPE_SWITCH_SPST() { return 14; }
 
   static nodeForType(type){
     switch(type) {
@@ -53,6 +54,7 @@ class CircuitComponent {
       case CircuitComponent.TYPE_XNOR:  return new Gate({type: Logic.OP_XNOR});
       case CircuitComponent.TYPE_PUSH_OFF: return new PushSwitch({closed: false});
       case CircuitComponent.TYPE_PUSH_ON:  return new PushSwitch({closed: true});
+      case CircuitComponent.TYPE_SWITCH_SPST:  return new SinglePoleSingleThrow({closed: true});
     }
   }
 
@@ -151,6 +153,21 @@ class CircuitComponent {
 
   _postRenderForType13(){
     this._renderPushSwitch(1);
+  }
+
+  _postRenderForType14(){
+    this.setStrokeForOutput();
+    this._renderInternalLeads();
+
+    if (this.node.closed) {
+      line(this.leftInternalLeadX, this.shape.centerY, this.rightInternalLeadX, this.shape.centerY);
+    } else {
+      let switchLatch = createVector(this.rightInternalLeadX - this.leftInternalLeadX, 0);
+      switchLatch.rotate(- Math.PI / 4);
+      line(this.leftInternalLeadX, this.shape.centerY, 
+              this.leftInternalLeadX + switchLatch.x, 
+              this.shape.centerY + switchLatch.y);
+    }
   }
 
   get internalLeadLength() { return this.shape.width * 0.25; }
