@@ -89,6 +89,15 @@ class System {
     this.components.push( this.wireUp(this.components[5], 0, this.components[6], 0) );
     this.components.push( this.wireUp(this.components[6], 0, this.components[7], 0) );
     this.components.push( this.wireUp(this.components[6], 1, this.components[8], 0) );
+
+    this.components.push( new CircuitComponent(marginX, height - marginY - 2.5 * blockSize, CircuitComponent.TYPE_INPUT_ON) );
+    this.components.push( new CircuitComponent(marginX, height - marginY - 0.5 * blockSize, CircuitComponent.TYPE_INPUT_OFF) );
+    this.components.push( new CircuitComponent(width / 2 - blockSize / 2, height - marginY - 1.5 * blockSize, CircuitComponent.TYPE_SWITCH_FSPDT) );
+    this.components.push( new CircuitComponent(width - marginX - blockSize, height - marginY - blockSize, CircuitComponent.TYPE_OUTPUT_LED) );
+
+    this.components.push( this.wireUp(this.components[12], 0, this.components[14], 0) );
+    this.components.push( this.wireUp(this.components[13], 0, this.components[14], 1) );
+    this.components.push( this.wireUp(this.components[14], 0, this.components[15], 0) );
   }
 
   wireUp(startComp, startOutIdx, endComp, endInIdx){
