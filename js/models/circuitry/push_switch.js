@@ -3,7 +3,6 @@ class PushSwitch extends Gate {
     super(settings);
     this.numInputs = 1;
     this.closed = this.settings.closed;
-    this.label = '';
   }
 
   output(){

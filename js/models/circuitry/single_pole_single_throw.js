@@ -4,7 +4,6 @@ class SinglePoleSingleThrow extends Gate {
     this.closed = this.settings.closed;
     this.numInputs = 1;
     this.numOutputs = 1;
-    this.label = '';
   }
 
   output(){

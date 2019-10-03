@@ -132,10 +132,12 @@ class CircuitComponent {
     this.renderInputs();
     this.renderOutputs();
 
-    noStroke();
-    fill(colorScheme.line);
-    textAlign(CENTER, CENTER);
-    text(this.node.label, this.shape.centerX, this.shape.centerY);
+    if (this.node.label) {
+      noStroke();
+      fill(colorScheme.line);
+      textAlign(CENTER, CENTER);
+      text(this.node.label, this.shape.centerX, this.shape.centerY);
+    }
 
     this.postRenderForType();
   }
