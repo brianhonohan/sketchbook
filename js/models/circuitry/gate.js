@@ -15,4 +15,8 @@ class Gate extends CircuitBase {
   output(){
     return this.operation.apply(null, this.inputs.map(i => i.output()));
   }
+
+  input(index = 0){
+    return this.inputs[index].output();
+  }
 }

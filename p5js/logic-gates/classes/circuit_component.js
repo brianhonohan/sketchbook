@@ -120,7 +120,11 @@ class CircuitComponent {
   }
 
   setStrokeForOutput(){
-    if (this.node.output()){
+    this.setStrokeForSignal(this.node.output());
+  }
+
+  setStrokeForSignal(signal){
+    if (signal){
       stroke(colorScheme.lineOn);
     } else {
       stroke(colorScheme.lineOff);
@@ -128,7 +132,7 @@ class CircuitComponent {
   }
 
   render(){
-    this.setStrokeForOutput();
+    this.setStrokeForSignal(this.node.output(CircuitBase.ANY_OUTPUT));
     strokeWeight(2);
     this.shape.draw();
     this.renderInputs();
@@ -163,6 +167,7 @@ class CircuitComponent {
     this.setStrokeForOutput();
     this._renderInternalLeads();
 
+    this.setStrokeForSignal(this.node.input());
     if (this.node.closed) {
       line(this.leftInternalLeadX, this.shape.centerY, this.rightInternalLeadX, this.shape.centerY);
     } else {
@@ -175,13 +180,9 @@ class CircuitComponent {
   }
 
   _postRenderForType15(){
-    if (this.node.input()){
-      stroke(colorScheme.lineOn);
-    } else {
-      stroke(colorScheme.lineOff);
-    }
     this._renderInternalLeads();
 
+    this.setStrokeForSignal(this.node.input());
     let leadY = this._yOfNthConnector(this.node.numOutputs, this.node.activeOutput);
     line(this.leftInternalLeadX, this.shape.centerY, this.rightInternalLeadX, leadY);
   }
@@ -189,6 +190,7 @@ class CircuitComponent {
   get internalLeadLength() { return this.shape.width * 0.25; }
   get leftInternalLeadX() { return this.shape.minX + this.internalLeadLength; }
   get rightInternalLeadX() { return this.shape.maxX - this.internalLeadLength; }
+
   _renderPushSwitch(direction){
     this.setStrokeForOutput();
 
@@ -211,6 +213,7 @@ class CircuitComponent {
     if (this.node.numInputs == 0){ return; }
 
     for (var i = 0; i < this.node.numInputs; i++){
+      this.setStrokeForSignal(this.node.input(i));
       let leadY = this._yOfNthConnector(this.node.numInputs, i);
       line(this.shape.minX,leadY, this.leftInternalLeadX, leadY);
     }
@@ -220,6 +223,7 @@ class CircuitComponent {
     if (this.node.numOutputs == 0){ return; }
 
     for (var i = 0; i < this.node.numOutputs; i++){
+      this.setStrokeForSignal(this.node.output(i));
       let leadY = this._yOfNthConnector(this.node.numOutputs, i);
       line(this.shape.maxX,leadY, this.rightInternalLeadX, leadY);
     }
@@ -231,10 +235,16 @@ class CircuitComponent {
   }
 
   renderInputs(){
-    this.inputPoints.forEach(p => this.drawPoint(p));
+    this.inputPoints.forEach((p, idx) => {
+      this.setStrokeForSignal(this.node.input(idx));
+      this.drawPoint(p)
+    });
   }
   renderOutputs(){
-    this.outputPoints.forEach(p => this.drawPoint(p));
+    this.outputPoints.forEach((p, idx) => {
+      this.setStrokeForSignal(this.node.output(idx));
+      this.drawPoint(p)
+    });
   }
 
   drawPoint(point){

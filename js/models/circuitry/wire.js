@@ -21,4 +21,8 @@ class Wire {
   output(){
     return this.upstream.output(this.upstreamIdx);
   }
+
+  input(){
+    return this.output();
+  }
 }

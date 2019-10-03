@@ -8,4 +8,8 @@ class Output extends CircuitBase {
   output(){
     return this.inputs[0].output();
   }
+
+  input(){
+    return this.output();
+  }
 }

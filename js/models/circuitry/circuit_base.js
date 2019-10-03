@@ -7,6 +7,8 @@ class CircuitBase {
     this.numOutputs = 0;
   }
 
+  get ANY_OUTPUT(){ return -1; }
+
   bindInput(node, index = 0){
     if (index > (this.numInputs-1)){
       return;

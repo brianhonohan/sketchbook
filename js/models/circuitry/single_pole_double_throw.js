@@ -8,6 +8,9 @@ class SinglePoleDoubleThrow extends Gate {
   }
 
   output(index){
+    if (index == SinglePoleDoubleThrow.ANY_OUTPUT){
+      return this.inputs[0].output();
+    }else 
     if (index == this.activeOutput) {
       return this.inputs[0].output();
     } else {
