@@ -37,6 +37,7 @@ class CircuitComponent {
   static get TYPE_PUSH_OFF(){ return 12; }
   static get TYPE_PUSH_ON() { return 13; }
   static get TYPE_SWITCH_SPST() { return 14; }
+  static get TYPE_SWITCH_SPDT() { return 15; }
 
   static nodeForType(type){
     switch(type) {
@@ -55,6 +56,7 @@ class CircuitComponent {
       case CircuitComponent.TYPE_PUSH_OFF: return new PushSwitch({closed: false});
       case CircuitComponent.TYPE_PUSH_ON:  return new PushSwitch({closed: true});
       case CircuitComponent.TYPE_SWITCH_SPST:  return new SinglePoleSingleThrow({closed: true});
+      case CircuitComponent.TYPE_SWITCH_SPDT:  return new SinglePoleDoubleThrow({activeOutput: 0});
     }
   }
 
@@ -170,6 +172,18 @@ class CircuitComponent {
               this.leftInternalLeadX + switchLatch.x, 
               this.shape.centerY + switchLatch.y);
     }
+  }
+
+  _postRenderForType15(){
+    if (this.node.input()){
+      stroke(colorScheme.lineOn);
+    } else {
+      stroke(colorScheme.lineOff);
+    }
+    this._renderInternalLeads();
+
+    let leadY = this._yOfNthConnector(this.node.numOutputs, this.node.activeOutput);
+    line(this.leftInternalLeadX, this.shape.centerY, this.rightInternalLeadX, leadY);
   }
 
   get internalLeadLength() { return this.shape.width * 0.25; }

@@ -80,6 +80,15 @@ class System {
 
     this.components.push( this.wireUp(this.components[0], 0, this.components[1], 0) );
     this.components.push( this.wireUp(this.components[1], 0, this.components[2], 0) );
+
+    this.components.push( new CircuitComponent(marginX, height / 2 - blockSize / 2, CircuitComponent.TYPE_INPUT_ON) );
+    this.components.push( new CircuitComponent(width / 2 - blockSize / 2, height / 2 - blockSize / 2, CircuitComponent.TYPE_SWITCH_SPDT) );
+    this.components.push( new CircuitComponent(width - marginX - blockSize,  height / 2 - blockSize, CircuitComponent.TYPE_OUTPUT_LED) );
+    this.components.push( new CircuitComponent(width - marginX - blockSize,  height / 2 + blockSize, CircuitComponent.TYPE_OUTPUT_LED) );
+
+    this.components.push( this.wireUp(this.components[5], 0, this.components[6], 0) );
+    this.components.push( this.wireUp(this.components[6], 0, this.components[7], 0) );
+    this.components.push( this.wireUp(this.components[6], 1, this.components[8], 0) );
   }
 
   wireUp(startComp, startOutIdx, endComp, endInIdx){
