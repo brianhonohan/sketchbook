@@ -194,11 +194,25 @@ class CircuitComponent {
   }
 
   _renderInternalInputLeads(){
-    line(this.shape.minX, this.shape.centerY, this.leftInternalLeadX, this.shape.centerY);
+    if (this.node.numInputs == 0){ return; }
+
+    let vertSpacing = this.shape.height / (this.node.numInputs + 1);
+
+    for (var i = 0; i < this.node.numInputs; i++){
+      let leadY = this.shape.minY + (1 + i) * vertSpacing;
+      line(this.shape.minX,leadY, this.leftInternalLeadX, leadY);
+    }
   }
 
   _renderInternalOutputLeads(){
-    line(this.shape.maxX, this.shape.centerY, this.rightInternalLeadX, this.shape.centerY);
+    if (this.node.numOutputs == 0){ return; }
+
+    let vertSpacing = this.shape.height / (this.node.numOutputs + 1);
+
+    for (var i = 0; i < this.node.numOutputs; i++){
+      let leadY = this.shape.minY + (1 + i) * vertSpacing;
+      line(this.shape.maxX,leadY, this.rightInternalLeadX, leadY);
+    }
   }
 
   renderInputs(){
