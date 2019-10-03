@@ -73,10 +73,10 @@ class CircuitComponent {
     if (this.node.numInputs == 0){
       return;
     }
-    let vertSpacing = this.shape.height / (this.node.numInputs + 1);
 
     for (var i = 0; i < this.node.numInputs; i++){
-      let tmpPt = new Point(this.shape.minX - 10, this.shape.minY + (1 + i) * vertSpacing);
+      let leadY = this._yOfNthConnector(this.node.numInputs, i);
+      let tmpPt = new Point(this.shape.minX - 10, leadY);
       this.inputPoints.push( tmpPt );
     }
   }
@@ -85,10 +85,10 @@ class CircuitComponent {
     if (this.node.numOutputs == 0){
       return;
     }
-    let vertSpacing = this.shape.height / (this.node.numOutputs + 1);
 
     for (var i = 0; i < this.node.numOutputs; i++){
-      let tmpPt = new Point(this.shape.maxX + 10, this.shape.minY + (1 + i) * vertSpacing);
+      let leadY = this._yOfNthConnector(this.node.numOutputs, i);
+      let tmpPt = new Point(this.shape.maxX + 10, leadY);
       this.outputPoints.push( tmpPt );
     }
   }
@@ -196,10 +196,8 @@ class CircuitComponent {
   _renderInternalInputLeads(){
     if (this.node.numInputs == 0){ return; }
 
-    let vertSpacing = this.shape.height / (this.node.numInputs + 1);
-
     for (var i = 0; i < this.node.numInputs; i++){
-      let leadY = this.shape.minY + (1 + i) * vertSpacing;
+      let leadY = this._yOfNthConnector(this.node.numInputs, i);
       line(this.shape.minX,leadY, this.leftInternalLeadX, leadY);
     }
   }
@@ -207,12 +205,15 @@ class CircuitComponent {
   _renderInternalOutputLeads(){
     if (this.node.numOutputs == 0){ return; }
 
-    let vertSpacing = this.shape.height / (this.node.numOutputs + 1);
-
     for (var i = 0; i < this.node.numOutputs; i++){
-      let leadY = this.shape.minY + (1 + i) * vertSpacing;
+      let leadY = this._yOfNthConnector(this.node.numOutputs, i);
       line(this.shape.maxX,leadY, this.rightInternalLeadX, leadY);
     }
+  }
+
+  _yOfNthConnector(numConnectors, idx){
+    let vertSpacing = this.shape.height / (numConnectors + 1);
+    return this.shape.minY + (1 + idx) * vertSpacing;
   }
 
   renderInputs(){
