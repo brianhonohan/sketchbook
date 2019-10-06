@@ -1,6 +1,6 @@
 class CircuitBase {
   constructor(settings){
-    this.settings = settings;
+    this.applySettings(settings);
     this.inputs     = [];
     this.outputs    = [];
     this.numInputs  = 0;
@@ -8,6 +8,14 @@ class CircuitBase {
   }
 
   get ANY_OUTPUT(){ return -1; }
+
+  defaultSettings(){
+    return {};
+  }
+
+  applySettings(settings){
+    this.settings = Object.assign(this.defaultSettings(), settings);
+  }
 
   bindInput(node, index = 0){
     if (index > (this.numInputs-1)){
@@ -24,8 +32,5 @@ class CircuitBase {
       this.outputs[index] = [];
     }
     this.outputs[index].push(node);
-  }
-
-  tick(){
   }
 }

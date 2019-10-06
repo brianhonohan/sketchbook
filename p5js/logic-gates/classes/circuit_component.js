@@ -1,6 +1,7 @@
 class CircuitComponent {
-  constructor(x, y, type, size = undefined){
+  constructor(x, y, type, size = undefined, nodeSettings){
     this.origPos = createVector(x, y);
+    this.nodeSettings = nodeSettings;
     this.size = size || CircuitComponent.defaultSize;
     this.node = undefined;
     this.shape = undefined;
@@ -15,10 +16,14 @@ class CircuitComponent {
   setType(type){
     this.type = type;
     this.node = CircuitComponent.nodeForType(type);
+    if (this.nodeSettings) {
+      this.node.applySettings(this.nodeSettings);
+    }
     this.shape = this._makeShape();
     this._configShape();
     this._initInputs();
     this._initOutputs();
+    this._initTickHandling();
   }
 
   static get defaultSize() { return 50; }
@@ -45,6 +50,7 @@ class CircuitComponent {
   static get TYPE_SWITCH_SPST() { return 14; }
   static get TYPE_SWITCH_SPDT() { return 15; }
   static get TYPE_SWITCH_FSPDT() { return 16; }
+  static get TYPE_CLOCK() { return 17; }
 
   static nodeForType(type){
     switch(type) {
@@ -65,6 +71,7 @@ class CircuitComponent {
       case CircuitComponent.TYPE_SWITCH_SPST:  return new SinglePoleSingleThrow({closed: true});
       case CircuitComponent.TYPE_SWITCH_SPDT:  return new SinglePoleDoubleThrow({activeOutput: 0});
       case CircuitComponent.TYPE_SWITCH_FSPDT:  return new FlippedSinglePoleDoubleThrow({activeInput: 0});
+      case CircuitComponent.TYPE_CLOCK:  return new ClockSignal();
     }
   }
 
@@ -100,6 +107,12 @@ class CircuitComponent {
       let leadY = this._yOfNthConnector(this.node.numOutputs, i);
       let tmpPt = new Point(this.shape.maxX + 10, leadY);
       this.outputPoints.push( tmpPt );
+    }
+  }
+
+  _initTickHandling(){
+    if (this.node.tick != undefined) {
+      this.handleTick = function(){ this.node.tick(); };
     }
   }
 

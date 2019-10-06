@@ -19,6 +19,11 @@ function setup() {
   ui.initialRender();
 }
 
+function draw(){
+  system.tick();
+  system.render();
+}
+
 function determineVerticalMargin(){
   let fullUrl = window.location.href;
   return (fullUrl.indexOf(".html") > 0) ? 0 : 37;

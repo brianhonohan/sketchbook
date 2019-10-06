@@ -1,7 +1,8 @@
 class System {
   constructor(p_xSizeAndPos){
     this.sizeAndPosition = p_xSizeAndPos;
-    this.numExamples = 3;
+    this.numExamples = 4;
+    this.boundHandlerClockFlip = this.handleClockFlip.bind(this);
   }
 
   init(p_xSettings){
@@ -12,13 +13,16 @@ class System {
       this.settings = this.optionsSet.settings;
     }
 
+    this.needsRender = true;
     this.components = [];
+    this.tickComponents = [];
     this.lastPressed = undefined;
 
     if (this.settings.scenario) {
       this[`initExample${this.settings.scenario}`]();
       this.resizeComponents( this.componentSize );
     }
+    this.tickComponents = this.components.filter(c => c['handleTick'] != undefined);
   }
 
   // Return a list of Options, specific to this sketch,
@@ -36,11 +40,15 @@ class System {
   handleMousePressed(){
     this.lastPressed = this.components.filter(c => c['handleMousePressed'] != undefined)
                                       .find(c => c.handleMousePressed());
+    if (this.lastPressed) {
+      this.needsRender = true;
+    }
   }
 
   handleMouseReleased(){
     if (this.lastPressed){
       this.lastPressed.handleMouseReleased();
+      this.needsRender = true;
     }
     this.lastPressed = undefined;
   }
@@ -125,6 +133,46 @@ class System {
     this.components.push( this.wireUp(this.components[14], 0, this.components[15], 0) );
   }
 
+  initExample4(){
+    let blockSize = this.componentSize;
+    let marginX = this.marginX;
+    let marginY = this.marginY;
+
+    let clockSettings = {cycleFlipCallback: this.boundHandlerClockFlip};
+    this.components.push( new CircuitComponent(marginX, marginY, CircuitComponent.TYPE_CLOCK, blockSize, clockSettings) );
+    this.components.push( new CircuitComponent(width / 2 - blockSize / 2, marginY, CircuitComponent.TYPE_SWITCH_SPST, blockSize) );
+    this.components.push( new CircuitComponent(width - marginX - blockSize, marginY + blockSize / 2, CircuitComponent.TYPE_OUTPUT_LED) );
+
+    this.components.push( this.wireUp(this.components[0], 0, this.components[1], 0) );
+    this.components.push( this.wireUp(this.components[1], 0, this.components[2], 0) );
+
+    let baseY = height / 2;
+    clockSettings = {cycleFlipCallback: this.boundHandlerClockFlip, ticksPerWave: 90};
+    this.components.push( new CircuitComponent(marginX, baseY - blockSize / 2, CircuitComponent.TYPE_CLOCK, blockSize, clockSettings) );
+    this.components.push( new CircuitComponent(width / 2 - blockSize / 2, baseY - blockSize / 2, CircuitComponent.TYPE_SWITCH_SPST, blockSize) );
+    this.components.push( new CircuitComponent(width - marginX - blockSize,  baseY, CircuitComponent.TYPE_OUTPUT_LED) );
+
+    this.components.push( this.wireUp(this.components[5], 0, this.components[6], 0) );
+    this.components.push( this.wireUp(this.components[6], 0, this.components[7], 0) );
+
+    baseY = height - marginY - blockSize;
+    clockSettings = {cycleFlipCallback: this.boundHandlerClockFlip, ticksPerWave: 100, dutyCycle: 0.2};
+    this.components.push( new CircuitComponent(marginX, baseY - 1.25 * blockSize, CircuitComponent.TYPE_CLOCK, blockSize, clockSettings) );
+
+    clockSettings = {cycleFlipCallback: this.boundHandlerClockFlip, ticksPerWave: 100, dutyCycle: 0.8, tickOffset: 80};
+    this.components.push( new CircuitComponent(marginX, baseY + 0.25 * blockSize, CircuitComponent.TYPE_CLOCK, blockSize, clockSettings) );
+    this.components.push( new CircuitComponent(width / 2 - blockSize / 2,  baseY - 0.5 * blockSize, CircuitComponent.TYPE_OR, blockSize) );
+    this.components.push( new CircuitComponent(width - marginX - blockSize, baseY, CircuitComponent.TYPE_OUTPUT_LED) );
+
+    this.components.push( this.wireUp(this.components[10], 0, this.components[12], 0) );
+    this.components.push( this.wireUp(this.components[11], 0, this.components[12], 1) );
+    this.components.push( this.wireUp(this.components[12], 0, this.components[13], 0) );
+  }
+
+  handleClockFlip(clock){
+    this.needsRender = true;
+  }
+
   wireUp(startComp, startOutIdx, endComp, endInIdx){
     let wire = new WireSegment();
     wire.startAtNode(startComp, startOutIdx);
@@ -134,13 +182,22 @@ class System {
 
   setMainGate(newType){
     this.mainGate.node.type = newType;
+    this.needsRender = true;
+  }
+
+  tick(){
+    this.tickComponents.forEach(c => c.handleTick());
   }
 
   render(){
+    if (this.needsRender == false) {
+      return;
+    }
     background(colorScheme.background);
     this.components.filter(c => (c instanceof WireSegment))
                    .forEach(c => c.render());
     this.components.filter(c => !(c instanceof WireSegment))
                     .forEach(c => c.render());
+    this.needsRender = false;
   }
 }

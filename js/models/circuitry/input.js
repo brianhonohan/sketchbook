@@ -1,9 +1,7 @@
 class Input extends CircuitBase {
   constructor(settings){
-    super();
-
+    super(settings);
     this.numOutputs = 1;
-    this.settings = settings;
   }
 
   get label(){

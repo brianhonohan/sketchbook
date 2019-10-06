@@ -22,6 +22,7 @@ js_scripts:
 - /sketchbook/p5js/common/shapes/line_segment.js
 - /sketchbook/js/models/logic.js
 - /sketchbook/js/models/circuitry/circuit_base.js
+- /sketchbook/js/models/circuitry/clock_signal.js
 - /sketchbook/js/models/circuitry/gate.js
 - /sketchbook/js/models/circuitry/input.js
 - /sketchbook/js/models/circuitry/output.js
