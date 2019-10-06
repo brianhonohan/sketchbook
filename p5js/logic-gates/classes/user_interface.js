@@ -27,6 +27,28 @@ class UserInterface {
     this.runButton = createButton("Run Example");
     this.p5Dom_positionToRightOf(this.runButton, this.scenarioSelector);
     this.runButton.mousePressed(this.handleRunScenario);
+
+    this.componentRow = [];
+    this.componentRow.push(this.scenarioSelector);
+    this.componentRow.push(this.runButton);
+  }
+
+  layoutComponents(){
+    this._layoutRow(this.componentRow);
+  }
+
+  _layoutRow(row, y){
+    let rowWidth = row.map(p5Dom => p5Dom.elt.offsetWidth)
+                      .reduce((v, sum) =>  sum + v, 0)
+                      + (row.length - 1) * this.marginX;
+
+    y = y || row[0].y;
+    let layoutPos = createVector(width/2 - rowWidth/2, y);
+
+    row.forEach(p5Dom => {
+      p5Dom.position(layoutPos.x, layoutPos.y);
+      layoutPos.x += p5Dom.elt.offsetWidth + this.marginX;
+    });
   }
 
   p5Dom_positionToRightOf(domObj, rightOf){
@@ -41,6 +63,11 @@ class UserInterface {
       this.system.init({scenario: scenarioNum});
     }
   }
+
+  handleWindowResized(){
+    this.layoutComponents();
+  }
+
 
   initialRender(){}
 }

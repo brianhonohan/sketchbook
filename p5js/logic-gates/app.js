@@ -46,3 +46,9 @@ function keyTyped(){
     system.render();
   }
 }
+
+function windowResized() {
+  canvas = resizeCanvas(windowWidth, windowHeight);
+  ui.handleWindowResized();
+  system.render();
+}
