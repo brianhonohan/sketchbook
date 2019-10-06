@@ -1,9 +1,10 @@
 var system;
 var colorScheme;
 var ui;
+var vertMargin = determineVerticalMargin();
 
 function setup() {
-  createCanvas(windowWidth, windowHeight-35);
+  canvas = createCanvas(windowWidth, windowHeight-vertMargin);
   P5JsSettings.init();
   initColorScheme();
 
@@ -16,6 +17,11 @@ function setup() {
   system.init();
   system.render();
   ui.initialRender();
+}
+
+function determineVerticalMargin(){
+  let fullUrl = window.location.href;
+  return (fullUrl.indexOf(".html") > 0) ? 0 : 37;
 }
 
 function initColorScheme(){
