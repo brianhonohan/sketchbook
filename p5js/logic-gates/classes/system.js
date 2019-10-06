@@ -17,6 +17,7 @@ class System {
 
     if (this.settings.scenario) {
       this[`initExample${this.settings.scenario}`]();
+      this.resizeComponents( this.componentSize );
     }
   }
 
@@ -44,14 +45,25 @@ class System {
     this.lastPressed = undefined;
   }
 
+  get componentSize(){ return (width < 400 || height < 400) ? 40 : 50; }
+  get marginX(){ return (width > 400) ? 0.2 * width : 0.1 * width; }
+  get marginY(){ return (height > 400) ? 0.2 * height : 0.12 * height; }
+
+  resizeComponents(newSize){
+    this.components.filter(c => c.size !== undefined)
+                   .forEach(c => c.setSize(newSize) );
+  }
+
   initExample1(){
-    let blockSize = 50;  // cheating knowledge of block
-    let marginX = 0.2 * width;
+    let blockSize = this.componentSize;
+    let marginX = this.marginX;
     let marginY = 0.2 * height;
     this.components.push( new CircuitComponent(marginX, marginY, CircuitComponent.TYPE_BUTTON) );
     this.components.push( new CircuitComponent(marginX, height - marginY - blockSize, CircuitComponent.TYPE_INPUT_ON) );
 
-    this.mainGate = new CircuitComponent(width / 2, height / 2 - blockSize / 2, CircuitComponent.TYPE_AND);
+    let mainGateY = height / 2 - blockSize / 2;
+    console.log(`mainGateY: ${mainGateY}`);
+    this.mainGate = new CircuitComponent(width / 2, mainGateY, CircuitComponent.TYPE_AND, blockSize);
     this.components.push( this.mainGate );
 
     this.components.push( new CircuitComponent(width - marginX - blockSize, height / 2, CircuitComponent.TYPE_OUTPUT_LED) );
@@ -62,19 +74,19 @@ class System {
   }
 
   initExample2(){
-    let blockSize = 50;  // cheating knowledge of block
-    let marginX = 0.2 * width;
+    let blockSize = this.componentSize;
+    let marginX = this.marginX;
     let marginY = 0.2 * height;
 
-    this.components.push( new CircuitComponent(marginX, marginY, CircuitComponent.TYPE_INPUT_ON) );
-    this.components.push( new CircuitComponent(width / 2 - blockSize / 2, marginY, CircuitComponent.TYPE_PUSH_OFF) );
+    this.components.push( new CircuitComponent(marginX, marginY, CircuitComponent.TYPE_INPUT_ON, blockSize) );
+    this.components.push( new CircuitComponent(width / 2 - blockSize / 2, marginY, CircuitComponent.TYPE_PUSH_OFF, blockSize) );
     this.components.push( new CircuitComponent(width - marginX - blockSize, marginY + blockSize / 2, CircuitComponent.TYPE_OUTPUT_LED) );
 
     this.components.push( this.wireUp(this.components[0], 0, this.components[1], 0) );
     this.components.push( this.wireUp(this.components[1], 0, this.components[2], 0) );
 
-    this.components.push( new CircuitComponent(marginX, height - marginY - blockSize, CircuitComponent.TYPE_INPUT_ON) );
-    this.components.push( new CircuitComponent(width / 2 - blockSize / 2, height - marginY - blockSize, CircuitComponent.TYPE_PUSH_ON) );
+    this.components.push( new CircuitComponent(marginX, height - marginY - blockSize, CircuitComponent.TYPE_INPUT_ON, blockSize) );
+    this.components.push( new CircuitComponent(width / 2 - blockSize / 2, height - marginY - blockSize, CircuitComponent.TYPE_PUSH_ON, blockSize) );
     this.components.push( new CircuitComponent(width - marginX - blockSize, height - marginY - blockSize / 2, CircuitComponent.TYPE_OUTPUT_LED) );
 
     this.components.push( this.wireUp(this.components[5], 0, this.components[6], 0) );
@@ -82,30 +94,31 @@ class System {
   }
 
   initExample3(){
-    let blockSize = 50;  // cheating knowledge of block
-    let marginX = 0.2 * width;
-    let marginY = 0.2 * height;
+    let blockSize = this.componentSize;
+    let marginX = this.marginX;
+    let marginY = this.marginY;
 
-    this.components.push( new CircuitComponent(marginX, marginY, CircuitComponent.TYPE_INPUT_ON) );
-    this.components.push( new CircuitComponent(width / 2 - blockSize / 2, marginY, CircuitComponent.TYPE_SWITCH_SPST) );
+    this.components.push( new CircuitComponent(marginX, marginY, CircuitComponent.TYPE_INPUT_ON, blockSize) );
+    this.components.push( new CircuitComponent(width / 2 - blockSize / 2, marginY, CircuitComponent.TYPE_SWITCH_SPST, blockSize) );
     this.components.push( new CircuitComponent(width - marginX - blockSize, marginY + blockSize / 2, CircuitComponent.TYPE_OUTPUT_LED) );
 
     this.components.push( this.wireUp(this.components[0], 0, this.components[1], 0) );
     this.components.push( this.wireUp(this.components[1], 0, this.components[2], 0) );
 
-    this.components.push( new CircuitComponent(marginX, height / 2 - blockSize / 2, CircuitComponent.TYPE_INPUT_ON) );
-    this.components.push( new CircuitComponent(width / 2 - blockSize / 2, height / 2 - blockSize / 2, CircuitComponent.TYPE_SWITCH_SPDT) );
-    this.components.push( new CircuitComponent(width - marginX - blockSize,  height / 2 - blockSize, CircuitComponent.TYPE_OUTPUT_LED) );
-    this.components.push( new CircuitComponent(width - marginX - blockSize,  height / 2 + blockSize, CircuitComponent.TYPE_OUTPUT_LED) );
+    this.components.push( new CircuitComponent(marginX, height / 2 - blockSize / 2, CircuitComponent.TYPE_INPUT_ON, blockSize) );
+    this.components.push( new CircuitComponent(width / 2 - blockSize / 2, height / 2 - blockSize / 2, CircuitComponent.TYPE_SWITCH_SPDT, blockSize) );
+    this.components.push( new CircuitComponent(width - marginX - blockSize,  height / 2 - 0.75 * blockSize, CircuitComponent.TYPE_OUTPUT_LED) );
+    this.components.push( new CircuitComponent(width - marginX - blockSize,  height / 2 + 0.75 * blockSize, CircuitComponent.TYPE_OUTPUT_LED) );
 
     this.components.push( this.wireUp(this.components[5], 0, this.components[6], 0) );
     this.components.push( this.wireUp(this.components[6], 0, this.components[7], 0) );
     this.components.push( this.wireUp(this.components[6], 1, this.components[8], 0) );
 
-    this.components.push( new CircuitComponent(marginX, height - marginY - 2.5 * blockSize, CircuitComponent.TYPE_INPUT_ON) );
-    this.components.push( new CircuitComponent(marginX, height - marginY - 0.5 * blockSize, CircuitComponent.TYPE_INPUT_OFF) );
-    this.components.push( new CircuitComponent(width / 2 - blockSize / 2, height - marginY - 1.5 * blockSize, CircuitComponent.TYPE_SWITCH_FSPDT) );
-    this.components.push( new CircuitComponent(width - marginX - blockSize, height - marginY - blockSize, CircuitComponent.TYPE_OUTPUT_LED) );
+    let baseY = height - marginY - blockSize;
+    this.components.push( new CircuitComponent(marginX, baseY - 1.25 * blockSize, CircuitComponent.TYPE_INPUT_ON, blockSize) );
+    this.components.push( new CircuitComponent(marginX, baseY + 0.25 * blockSize, CircuitComponent.TYPE_INPUT_OFF, blockSize) );
+    this.components.push( new CircuitComponent(width / 2 - blockSize / 2,  baseY - 0.5 * blockSize, CircuitComponent.TYPE_SWITCH_FSPDT, blockSize) );
+    this.components.push( new CircuitComponent(width - marginX - blockSize, baseY, CircuitComponent.TYPE_OUTPUT_LED) );
 
     this.components.push( this.wireUp(this.components[12], 0, this.components[14], 0) );
     this.components.push( this.wireUp(this.components[13], 0, this.components[14], 1) );

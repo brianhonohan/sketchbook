@@ -1,6 +1,7 @@
 class CircuitComponent {
-  constructor(x, y, type){
+  constructor(x, y, type, size = undefined){
     this.origPos = createVector(x, y);
+    this.size = size || CircuitComponent.defaultSize;
     this.node = undefined;
     this.shape = undefined;
     this.inputPoints  = [];
@@ -21,6 +22,11 @@ class CircuitComponent {
   }
 
   static get defaultSize() { return 50; }
+
+  setSize(newSize){
+    this.size = newSize;
+    this.shape.setSize(this.size);
+  }
 
   static get TYPE_INPUT_OFF() { return 0; }
   static get TYPE_INPUT_ON()  { return 1; }
@@ -64,7 +70,7 @@ class CircuitComponent {
 
   _makeShape(){
     switch(this.type) {
-      case CircuitComponent.TYPE_OUTPUT_LED: return new Circle(this.x, this.y, CircuitComponent.defaultSize / 2);
+      case CircuitComponent.TYPE_OUTPUT_LED: return new Circle(this.x, this.y, this.size / 2);
       default: return new Rectangle(...this.posAndSize);
     }
   }
@@ -122,7 +128,7 @@ class CircuitComponent {
   }
 
   get posAndSize(){
-    return [this.x, this.y, CircuitComponent.defaultSize, CircuitComponent.defaultSize];
+    return [this.x, this.y, this.size, this.size];
   }
 
   setStrokeForOutput(){
