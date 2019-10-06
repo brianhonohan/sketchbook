@@ -10,6 +10,18 @@ class Rectangle extends Rect {
     this.fillColor = color(80);
   }
 
+  setSize(newSize){
+    let deltaWidth    = this.width - newSize;
+    let deltaHeight   = this.height - newSize;
+
+    // Maintain location
+    this._x += deltaWidth / 2;
+    this._y += deltaHeight / 2;
+
+    this._width   = newSize;
+    this._height  = newSize;
+  }
+
   initPoints(){
     this.topLeft      = new Point(0, 0);
     this.topRight     = new Point(0, 0);

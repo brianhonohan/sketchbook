@@ -24,6 +24,10 @@ class Circle {
   get width() { return this.radius * 2; }
   get height() { return this.radius * 2; }
 
+  setSize(newSize){
+    this.radius = newSize / 2;
+  }
+
   pointsAtX(x) {
     if (x < this.minX || x > this.maxX) {
       return [];
