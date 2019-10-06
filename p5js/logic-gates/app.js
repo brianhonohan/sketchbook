@@ -23,6 +23,7 @@ function initColorScheme(){
     background: color(50),
     line:       color(230),
     object:     color(100),
+    objectClickable:     color(160,160,90),
     lineOn:     color(40, 200,40),
     lineOff:    color(200, 40, 40),
   };

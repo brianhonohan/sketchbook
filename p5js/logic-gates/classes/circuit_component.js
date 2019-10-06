@@ -117,6 +117,10 @@ class CircuitComponent {
     return false;
   }
 
+  isClickable(){
+    return Logic.or(this.node['handleToggleStart'], this.node['handleToggleEnd']);
+  }
+
   get posAndSize(){
     return [this.x, this.y, CircuitComponent.defaultSize, CircuitComponent.defaultSize];
   }
@@ -133,9 +137,14 @@ class CircuitComponent {
     }
   }
 
+  setFill(){
+    this.shape.fillColor = this.isClickable() ? colorScheme.objectClickable : colorScheme.object;
+  }
+
   render(){
     this.setStrokeForSignal(this.node.output(CircuitBase.ANY_OUTPUT));
     strokeWeight(2);
+    this.setFill();
     this.shape.draw();
     this.renderInputs();
     this.renderOutputs();
