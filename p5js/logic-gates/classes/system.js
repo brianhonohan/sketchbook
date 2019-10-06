@@ -1,11 +1,23 @@
 class System {
   constructor(p_xSizeAndPos){
     this.sizeAndPosition = p_xSizeAndPos;
-    this.optionsSet = new OptionsSet(this.optionsMetadata());
-    this.settings = this.optionsSet.settings;
+    this.numExamples = 3;
+  }
+
+  init(p_xSettings){
+    if (p_xSettings){
+      this.settings = p_xSettings;
+    } else {
+      this.optionsSet = new OptionsSet(this.optionsMetadata());
+      this.settings = this.optionsSet.settings;
+    }
 
     this.components = [];
-    this.initExample03();
+    this.lastPressed = undefined;
+
+    if (this.settings.scenario) {
+      this[`initExample${this.settings.scenario}`]();
+    }
   }
 
   // Return a list of Options, specific to this sketch,
@@ -15,7 +27,7 @@ class System {
   // supported types: integer, float, string
   optionsMetadata(){
     return [
-      // { name: "varname2", type: "string", default: 'Lorem Ipsum'}, 
+      { name: "scenario", type: "number", default: 1}, 
       // { name: "varname3", type: "float", default: 0.6}
     ];
   }
@@ -32,7 +44,7 @@ class System {
     this.lastPressed = undefined;
   }
 
-  initExample01(){
+  initExample1(){
     let blockSize = 50;  // cheating knowledge of block
     let marginX = 0.2 * width;
     let marginY = 0.2 * height;
@@ -49,7 +61,7 @@ class System {
     this.components.push( this.wireUp(this.components[2], 0, this.components[3], 0) );
   }
 
-  initExample02(){
+  initExample2(){
     let blockSize = 50;  // cheating knowledge of block
     let marginX = 0.2 * width;
     let marginY = 0.2 * height;
@@ -69,7 +81,7 @@ class System {
     this.components.push( this.wireUp(this.components[6], 0, this.components[7], 0) );
   }
 
-  initExample03(){
+  initExample3(){
     let blockSize = 50;  // cheating knowledge of block
     let marginX = 0.2 * width;
     let marginY = 0.2 * height;

@@ -8,6 +8,7 @@ viewport_noscale: true
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/inobounce/0.2.0/inobounce.js
 - https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.js
+- https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.js
 - https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.6/dat.gui.js
 - /sketchbook/p5js/common/p5js_settings.js
 - /sketchbook/p5js/common/p5js_utils.js
@@ -32,7 +33,7 @@ js_scripts:
 - /sketchbook/js/models/circuitry/wire.js
 - classes/circuit_component.js
 - classes/wire_segment.js
-
+- classes/user_interface.js
 - classes/system.js
 - app.js
 

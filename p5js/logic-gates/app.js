@@ -1,5 +1,6 @@
 var system;
 var colorScheme;
+var ui;
 
 function setup() {
   createCanvas(windowWidth, windowHeight-35);
@@ -8,7 +9,13 @@ function setup() {
 
   let rect = new Rect(0, 0, width, height);
   system = new System(rect);
+
+  let uiRect = new Rect(0, 0, width, 50);
+  ui = new UserInterface(uiRect, system);
+
+  system.init();
   system.render();
+  ui.initialRender();
 }
 
 function initColorScheme(){
