@@ -53,8 +53,8 @@ class System {
     this.lastPressed = undefined;
   }
 
-  get componentSize(){ return (width < 400 || height < 400) ? 40 : 50; }
-  get marginX(){ return (width > 400) ? 0.2 * width : 0.1 * width; }
+  get componentSize(){ return (width < 500 || height < 400) ? 40 : 50; }
+  get marginX(){ return (width > 500) ? 0.2 * width : 0.1 * width; }
   get marginY(){ return (height > 400) ? 0.2 * height : 0.12 * height; }
 
   resizeComponents(newSize){
