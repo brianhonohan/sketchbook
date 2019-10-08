@@ -22,7 +22,7 @@ class UserInterface {
     }
 
     let widthSelector = this.scenarioSelector.elt.offsetWidth;
-    this.scenarioSelector.position(this.width / 2 - widthSelector, this.marginY);
+    this.scenarioSelector.position(this.width / 2 - widthSelector, this.y + this.marginY);
 
     this.runButton = createButton("Run Example");
     this.p5Dom_positionToRightOf(this.runButton, this.scenarioSelector);

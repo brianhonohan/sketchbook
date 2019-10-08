@@ -11,7 +11,7 @@ function setup() {
   let rect = new Rect(0, 0, width, height);
   system = new System(rect);
 
-  let uiRect = new Rect(0, 0, width, 50);
+  let uiRect = new Rect(0, vertMargin, width, 50);
   ui = new UserInterface(uiRect, system);
 
   system.init();
