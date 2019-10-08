@@ -161,7 +161,8 @@ class System {
 
     clockSettings = {cycleFlipCallback: this.boundHandlerClockFlip, ticksPerWave: 100, dutyCycle: 0.8, tickOffset: 80};
     this.components.push( new CircuitComponent(marginX, baseY + 0.25 * blockSize, CircuitComponent.TYPE_CLOCK, blockSize, clockSettings) );
-    this.components.push( new CircuitComponent(width / 2 - blockSize / 2,  baseY - 0.5 * blockSize, CircuitComponent.TYPE_OR, blockSize) );
+    this.mainGate = new CircuitComponent(width / 2 - blockSize / 2,  baseY - 0.5 * blockSize, CircuitComponent.TYPE_OR, blockSize);
+    this.components.push( this.mainGate );
     this.components.push( new CircuitComponent(width - marginX - blockSize, baseY, CircuitComponent.TYPE_OUTPUT_LED) );
 
     this.components.push( this.wireUp(this.components[10], 0, this.components[12], 0) );
