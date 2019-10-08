@@ -5,9 +5,9 @@ Collection of personal coding projects. They may or may not grow into individual
 
 ## Latest
 
-A p5.js sketch of Seven-Segment Digital display of numbers.
+A p5.js sketch of Logic Gates.
 
-[<img src="./p5js/coding-challenges/seven-segment-display/screenshot-01.png" alt="p5js-coding-challenges/seven-segment-display" width="150px" />][link-p5js-cc-seven-segment-display]
+[<img src="./p5js/logic-gates/screenshot-01.png" alt="p5js/logic-gates" width="150px" />][link-p5js-logic-gates]
 
 
 ## LÖVE
@@ -27,6 +27,7 @@ Collection of sketches using the [p5.js][p5js] Javascript library.
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/hello_world/screenshot-01.png" alt="hello_world" width="150px" />][link-p5js-hello_world]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/josef-albers-homage-to-a-square/screenshot-01.png" alt="homage-to-a-square" width="150px" />][link-p5js-josef-albers-homage-to-a-square]
 [<img src="./p5js/keyviz/screenshot-01.png" alt="keyviz" width="150px" />][link-p5js-keyviz]
+[<img src="./p5js/logic-gates/screenshot-01.png" alt="logic-gates" width="150px" />][link-p5js-logic-gates]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/meandering-river/screenshot-01.png" alt="meandering-river" width="150px" />][link-p5js-meandering-river]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/nautical-flags/screenshot-01.png" alt="nautical-flags" width="150px" />][link-p5js-nautical-flags]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/nautical-flags-02/screenshot-01.png" alt="nautical-flags" width="150px" />][link-p5js-nautical-flags-02]
@@ -92,6 +93,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-p5js-hello_world]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/hello_world/
 [link-p5js-josef-albers-homage-to-a-square]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/josef-albers-homage-to-a-square/
 [link-p5js-keyviz]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/keyviz/
+[link-p5js-logic-gates]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/logic-gates/
 [link-p5js-meandering-river]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/meandering-river/
 [link-p5js-nautical-flags]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/nautical-flags/
 [link-p5js-nautical-flags-02]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/nautical-flags-02/
