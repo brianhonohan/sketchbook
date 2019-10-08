@@ -22,6 +22,7 @@ function setup() {
 function draw(){
   system.tick();
   system.render();
+  // displayFrameRate();
 }
 
 function determineVerticalMargin(){
@@ -55,6 +56,8 @@ function keyTyped(){
     let gateType = int(key) + 1;
     system.setMainGate(gateType);
     system.render();
+  } else if (key == 'p') {
+    saveCanvas(canvas, 'screenshot', 'png');
   }
 }
 
@@ -62,4 +65,14 @@ function windowResized() {
   canvas = resizeCanvas(windowWidth, windowHeight);
   ui.handleWindowResized();
   system.render();
+}
+
+function displayFrameRate(everyNthFrame = 1){
+  if (frameCount % everyNthFrame != 0){ return; }
+
+  fill(0);
+  rect (0, height - 20, 50, 20);
+  fill(50, 220, 50);
+  textSize(12);
+  text((frameRate()).toFixed(2), 15, height - 6);
 }
