@@ -82,7 +82,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [coding-train]: https://www.youtube.com/channel/UCvjgXvBlbQiydffZU7m1_aw
 [coding-train-cc]: https://www.youtube.com/watch?v=17WoOqgXsRM&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=1
 
-[link-love2d-game-of-life]: https://github.com/brianhonohan/sketchbook/tree/master/lua/game-of-life
+[link-love2d-game-of-life]: https://github.com/brianhonohan/sketchbook/tree/master/love2d/game-of-life
 
 [link-p5js-ecosystem]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/ecosystem/
 [link-p5js-forest-01]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/forest-01/
