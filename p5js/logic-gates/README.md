@@ -85,7 +85,7 @@ Mouse:
 
 [p5js-home]: http://p5js.org/
 [source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/logic-gates/
-[live-view]: https://brianhonohan.com/sketchbook/p5js/logic-gates/live-view.html
+[live-view]: https://brianhonohan.com/sketchbook/p5js/logic-gates/
 [screenshot-01]: ./screenshot-01.png
 [screencap-01]: ./screencap-01.gif
 [screencap-02]: ./screencap-02.gif
