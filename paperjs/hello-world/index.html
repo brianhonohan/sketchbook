@@ -21,6 +21,11 @@
         tool.onMouseDrag = function(event) {
             path.add(event.point);
         }
+
+        tool.onKeyDown = function(event) {
+            // When a key is pressed, set the content of the text item:
+            console.log('The ' + event.key + ' key was pressed!');
+        }
     }
 </script>
 <style type="text/css">
