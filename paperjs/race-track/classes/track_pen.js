@@ -1,6 +1,7 @@
 class TrackPen {
   constructor(){
     this.activePath = undefined;
+    this.paths = [];
     this.initTool();
   }
 
@@ -19,6 +20,7 @@ class TrackPen {
     this.activePath = new paper.Path();
     this.activePath.strokeColor = 'black';
     this.activePath.add(event.point);
+    this.paths.push(this.activePath);
   }
 
   onMouseDrag(event){
@@ -27,5 +29,14 @@ class TrackPen {
 
   onKeyDown(event){
     console.log('The ' + event.key + ' key was pressed!');
+
+    if (event.key == 'backspace') {
+      this.clearPaths();
+    }
+  }
+
+  clearPaths(){
+    this.paths.forEach(p => p.remove());
+    this.paths = [];
   }
 }
