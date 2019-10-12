@@ -7,12 +7,14 @@ class TrackPen {
 
   initTool(){
     this.tool = new paper.Tool();
+    this.tool.minDistance = 40;
 
     // This appears to be necesary because the paper.Tool is not
     // a ES6 Class, but rather a function which returns an object
     // and so can't use ' extend paper.Tool'
     this.tool.onMouseDown = this.onMouseDown.bind(this);
     this.tool.onMouseDrag = this.onMouseDrag.bind(this);
+    this.tool.onMouseUp = this.onMouseUp.bind(this);
     this.tool.onKeyDown = this.onKeyDown.bind(this);
   }
 
@@ -25,6 +27,14 @@ class TrackPen {
 
   onMouseDrag(event){
     this.activePath.add(event.point);
+    this.activePath.smooth();
+  }
+
+  onMouseUp(event){
+    this.activePath.closed = true;
+    this.activePath.smooth();
+    this.activePath.flatten();
+    this.activePath.simplify();
   }
 
   onKeyDown(event){
@@ -32,6 +42,12 @@ class TrackPen {
 
     if (event.key == 'backspace') {
       this.clearPaths();
+    } else if (event.key == 's'){
+      this.activePath.simplify();
+    } else if (event.key == 'm'){
+      this.activePath.smooth();
+    } else if (event.key == 'f'){
+      this.activePath.flatten(1);
     }
   }
 
