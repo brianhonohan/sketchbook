@@ -35,6 +35,7 @@ class TrackPen {
     this.activePath.smooth();
     this.activePath.flatten();
     this.activePath.simplify();
+    this.activePath.selected = true;
   }
 
   onKeyDown(event){
@@ -48,6 +49,10 @@ class TrackPen {
       this.activePath.smooth();
     } else if (event.key == 'f'){
       this.activePath.flatten(1);
+    } else if (event.key == 't'){
+      startTrain();
+    } else if (event.key == 'escape'){
+      stopTrain();
     }
   }
 
