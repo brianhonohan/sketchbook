@@ -10,6 +10,7 @@ js_scripts:
 - /sketchbook/vendor/paper.js/0.12.3/paper-core.js
 - /sketchbook/paperjs/common/paper_autocanvas.js
 - classes/track_pen.js
+- classes/train_engine.js
 - app.js
 
 ---
