@@ -1,5 +1,6 @@
 var trackPen;
 var trainEngine;
+var car;
 var components;
 
 function setupPaper(canvasId){
@@ -22,5 +23,15 @@ function startTrain(){
 }
 
 function stopTrain(){
+  paper.view.onFrame = undefined;
+}
+
+function startRaceCar(){
+  car = new RaceCar(trackPen.activePath);
+  components.push(car);
+  paper.view.onFrame = tick;
+}
+
+function stopRaceCar(){
   paper.view.onFrame = undefined;
 }

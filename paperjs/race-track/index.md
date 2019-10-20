@@ -11,6 +11,7 @@ js_scripts:
 - /sketchbook/paperjs/common/paper_autocanvas.js
 - classes/track_pen.js
 - classes/train_engine.js
+- classes/race_car.js
 - app.js
 
 ---

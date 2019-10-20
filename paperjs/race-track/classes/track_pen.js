@@ -51,8 +51,11 @@ class TrackPen {
       this.activePath.flatten(1);
     } else if (event.key == 't'){
       startTrain();
+    } else if (event.key == 'r'){
+      startRaceCar();
     } else if (event.key == 'escape'){
       stopTrain();
+      stopRaceCar();
     }
   }
 
