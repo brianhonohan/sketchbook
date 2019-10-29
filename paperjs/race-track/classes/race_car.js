@@ -4,7 +4,7 @@ class RaceCar {
     this.distTraveled = 0;
     this.speed = 4;
     this.shape = new paper.Shape.Circle(this.location(), 10);
-    this.shape.fillColor = new paper.Color(0, 0.7, 0);
+    this.shape.fillColor = PaperJsUtils.getRandomColor();
 
     this.replaceTires();
     this.initWearMatrix();
