@@ -13,6 +13,7 @@ js_scripts:
 - classes/track_pen.js
 - classes/train_engine.js
 - classes/race_car.js
+- classes/stats_display.js
 - app.js
 
 ---

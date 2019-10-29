@@ -2,6 +2,7 @@ var trackPen;
 var trainEngine;
 var car;
 var components;
+var statsDisplay = new StatsDisplay();
 
 function setupPaper(canvasId){
   paper.setup('myCanvas');
@@ -11,9 +12,9 @@ function setupPaper(canvasId){
   components = [];
 }
 
-
 function tick(event){
   components.forEach(c => c.tick());
+  statsDisplay.tick();
 }
 
 function startTrain(){
@@ -29,6 +30,7 @@ function stopTrain(){
 function startRaceCar(){
   car = new RaceCar(trackPen.activePath);
   components.push(car);
+  statsDisplay.addDisplay();
   paper.view.onFrame = tick;
 }
 

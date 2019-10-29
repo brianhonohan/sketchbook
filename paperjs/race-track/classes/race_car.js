@@ -8,7 +8,6 @@ class RaceCar {
 
     this.replaceTires();
     this.initWearMatrix();
-    this.initTireView();
   }
 
   replaceTires(){
@@ -64,47 +63,5 @@ class RaceCar {
     this._degradeTires();
     this.distTraveled += this.speed;
     this.shape.position = this.location();
-
-    this._setTireViewColors();
-  }
-
-  initTireView(){
-    let screenWidth = paper.view.size.width;
-    let tireSize = new paper.Size(15, 25);
-
-    let margin = 20;
-
-    let baseX = screenWidth - 2 * tireSize.width - 2 * margin;
-    let x = baseX;
-    let y = margin;
-
-    this.tireViews = [];
-    this.tireViews.push( new paper.Shape.Rectangle(new paper.Point(x, y), tireSize) );
-
-    x += tireSize.width + margin;
-    this.tireViews.push( new paper.Shape.Rectangle(new paper.Point(x, y), tireSize) );
-
-    x = baseX;
-    y += tireSize.height + margin;
-    this.tireViews.push( new paper.Shape.Rectangle(new paper.Point(x, y), tireSize) );
-
-    x += tireSize.width + margin;
-    this.tireViews.push( new paper.Shape.Rectangle(new paper.Point(x, y), tireSize) );
-  }
-
-  _setTireViewColors(){
-    this.tireViews.forEach((tireView, idx) => {
-      tireView.fillColor = this.colorForTire(idx);
-    });
-  }
-
-  colorForTire(idx){
-    return this.colorForTireCondition(this.tires[idx]);
-  }
-
-  colorForTireCondition(condition){
-    let red   = 1 - condition;
-    let green = condition;
-    return new paper.Color(red, green, 0);
   }
 }
