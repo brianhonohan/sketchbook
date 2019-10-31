@@ -18,10 +18,11 @@ class StatsDisplay {
   }
 
   updateDisplayForCar(displayIndex, car){
-    let tireViews = this.displays[displayIndex];
+    let display = this.displays[displayIndex];
     let tires     = car.tires;
 
-    this._setTireViewColors(tireViews, tires);
+    display.carMarker.fillColor = car.color;
+    this._setTireViewColors(display.tireViews, tires);
   }
 
   addDisplay(){
@@ -29,11 +30,12 @@ class StatsDisplay {
     let tireSize = new paper.Size(15, 25);
 
     let margin = 20;
-    let heightOfTireDisplay = 100;
+    let heightOfTireDisplay = 70;
 
     let baseX = screenWidth - 2 * tireSize.width - 2 * margin;
-    let x = baseX;
-    let y = margin + ((this.getCarList().length - 1) * (heightOfTireDisplay + margin));
+    let baseY = margin + ((this.getCarList().length - 1) * (heightOfTireDisplay + margin));
+    let x = baseX + 10;
+    let y = baseY;
 
     let tireViews = [];
     tireViews.push( new paper.Shape.Rectangle(new paper.Point(x, y), tireSize) );
@@ -41,14 +43,21 @@ class StatsDisplay {
     x += tireSize.width + margin;
     tireViews.push( new paper.Shape.Rectangle(new paper.Point(x, y), tireSize) );
 
-    x = baseX;
+    x = baseX + 10;
     y += tireSize.height + margin;
     tireViews.push( new paper.Shape.Rectangle(new paper.Point(x, y), tireSize) );
 
     x += tireSize.width + margin;
     tireViews.push( new paper.Shape.Rectangle(new paper.Point(x, y), tireSize) );
 
-    this.displays.push(tireViews);
+    let carMarker = new paper.Shape.Rectangle(new paper.Point(baseX, baseY),
+                                              new paper.Point(baseX + 5, baseY + heightOfTireDisplay));
+
+    let display = {
+      carMarker: carMarker,
+      tireViews: tireViews
+    }
+    this.displays.push(display);
   }
 
   _setTireViewColors(tireViews, tires){
