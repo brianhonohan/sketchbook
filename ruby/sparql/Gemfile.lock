@@ -1,0 +1,30 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    concurrent-ruby (1.1.9)
+    connection_pool (2.2.5)
+    dotenv (2.7.6)
+    hamster (3.0.0)
+      concurrent-ruby (~> 1.0)
+    link_header (0.0.8)
+    net-http-persistent (4.0.1)
+      connection_pool (~> 2.2)
+    rdf (3.1.15)
+      hamster (~> 3.0)
+      link_header (~> 0.0, >= 0.0.8)
+    sparql-client (3.1.2)
+      net-http-persistent (~> 4.0, >= 4.0.1)
+      rdf (~> 3.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  dotenv
+  sparql-client
+
+RUBY VERSION
+   ruby 2.7.5p203
+
+BUNDLED WITH
+   2.1.4
