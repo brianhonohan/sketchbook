@@ -13,8 +13,12 @@ class StatsDisplay {
     });
   }
 
+  setCarList(components){
+    this.carList = components;
+  }
+
   getCarList(){
-    return components; // Warning: global variable
+    return this.carList;
   }
 
   updateDisplayForCar(displayIndex, car){
