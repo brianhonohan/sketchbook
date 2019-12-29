@@ -42,7 +42,9 @@ class TrackPen {
     console.log('The ' + event.key + ' key was pressed!');
 
     if (event.key == 'backspace') {
+      clearComponents();
       this.clearPaths();
+      stopRaceCar();
     } else if (event.key == 's'){
       this.activePath.simplify();
     } else if (event.key == 'm'){

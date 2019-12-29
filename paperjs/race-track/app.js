@@ -37,3 +37,8 @@ function startRaceCar(){
 function stopRaceCar(){
   paper.view.onFrame = undefined;
 }
+
+function clearComponents(){
+  components.forEach(c => c.remove());
+  statsDisplay.clear();
+}

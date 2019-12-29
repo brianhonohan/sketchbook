@@ -11,6 +11,10 @@ class RaceCar {
     this.initWearMatrix();
   }
 
+  remove(){
+    this.shape.remove();
+  }
+
   replaceTires(){
     this.tireHardness = 100;
     this.tires = new Array(4).fill(1);

@@ -60,6 +60,13 @@ class StatsDisplay {
     this.displays.push(display);
   }
 
+  clear(){
+    this.displays.forEach(d => {
+      d.carMarker.remove();
+      d.tireViews.forEach(tV => tV.remove());
+    });
+  }
+
   _setTireViewColors(tireViews, tires){
     tireViews.forEach((tireView, idx) => {
       tireView.fillColor = this.colorForTire(tires[idx]);
