@@ -52,12 +52,9 @@ class TrackPen {
       this.activePath.smooth();
     } else if (event.key == 'f'){
       this.activePath.flatten(1);
-    } else if (event.key == 't'){
-      this.system.startTrain();
     } else if (event.key == 'r'){
       this.system.startRaceCar();
     } else if (event.key == 'escape'){
-      this.system.stopTrain();
       this.system.stopRaceCar();
     }
   }

@@ -14,16 +14,6 @@ class System {
     this.statsDisplay.tick();
   }
 
-  startTrain(){
-    var trainEngine = new TrainEngine(this.trackPen.activePath);
-    this.components.push(trainEngine);
-    paper.view.onFrame = tick;
-  }
-
-  stopTrain(){
-    paper.view.onFrame = undefined;
-  }
-
   startRaceCar(){
     var car = new RaceCar(this.trackPen.activePath);
     this.components.push(car);
