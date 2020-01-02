@@ -1,5 +1,6 @@
 class TrackPen {
-  constructor(system){
+  constructor(defaultTool, system){
+    this.defaultTool = defaultTool;
     this.system = system;
     this.activePath = undefined;
     this.paths = [];
@@ -42,25 +43,19 @@ class TrackPen {
   onKeyDown(event){
     console.log('The ' + event.key + ' key was pressed!');
 
-    if (event.key == 'backspace') {
-      this.system.clearComponents();
-      this.activePath = undefined;
-      this.clearPaths();
-      this.system.stopRaceCar();
-    } else if (event.key == 's'){
+    if (event.key == 's'){
       this.activePath.simplify();
     } else if (event.key == 'm'){
       this.activePath.smooth();
     } else if (event.key == 'f'){
       this.activePath.flatten(1);
-    } else if (event.key == 'r'){
-      this.system.startRaceCar(this.activePath);
-    } else if (event.key == 'escape'){
-      this.system.stopRaceCar();
+    } else {
+      this.defaultTool.onKeyDown(event);
     }
   }
 
   clearPaths(){
+    this.activePath = undefined;
     this.paths.forEach(p => p.remove());
     this.paths = [];
   }

@@ -1,8 +1,7 @@
 class System {
   constructor(){
-    this.trackPen = new TrackPen(this);
+    this.ui = new UserInterface(this);
     this.statsDisplay = new StatsDisplay();
-    paper.tool = this.trackPen.tool;
     this.components = [];
 
     this.statsDisplay = new StatsDisplay();
