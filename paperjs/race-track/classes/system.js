@@ -14,12 +14,12 @@ class System {
     this.statsDisplay.tick();
   }
 
-  startRaceCar(){
-    if (this.trackPen.activePath == undefined) {
+  startRaceCar(trackPath){
+    if (trackPath == undefined) {
       console.warn('No active path to start a race car on');
       return;
     }
-    var car = new RaceCar(this.trackPen.activePath);
+    var car = new RaceCar(trackPath);
     this.components.push(car);
     this.statsDisplay.addDisplay();
     paper.view.onFrame = tick;
