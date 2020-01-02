@@ -15,6 +15,10 @@ class System {
   }
 
   startRaceCar(){
+    if (this.trackPen.activePath == undefined) {
+      console.warn('No active path to start a race car on');
+      return;
+    }
     var car = new RaceCar(this.trackPen.activePath);
     this.components.push(car);
     this.statsDisplay.addDisplay();

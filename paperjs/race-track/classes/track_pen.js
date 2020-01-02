@@ -44,6 +44,7 @@ class TrackPen {
 
     if (event.key == 'backspace') {
       this.system.clearComponents();
+      this.activePath = undefined;
       this.clearPaths();
       this.system.stopRaceCar();
     } else if (event.key == 's'){
