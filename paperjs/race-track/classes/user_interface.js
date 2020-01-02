@@ -50,7 +50,8 @@ class UserInterface {
       this.system.stopRaceCar();
       this.setActiveTool(UserInterface.TOOL_TRACK_PEN);
     } else if (event.key == 'r'){
-      this.system.startRaceCar(this.trackPen.activePath);
+      this.system.buildTrack(this.trackPen.activePath);
+      this.system.startRaceCar();
       this.setActiveTool(UserInterface.TOOL_DEFAULT);
     } else if (event.key == 'p'){
       this.setActiveTool(UserInterface.TOOL_TRACK_PEN);

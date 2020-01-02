@@ -12,6 +12,7 @@ js_scripts:
 - /sketchbook/paperjs/common/paperjs_utils.js
 - classes/track_pen.js
 - classes/user_interface.js
+- classes/track.js
 - classes/race_car.js
 - classes/stats_display.js
 - classes/system.js

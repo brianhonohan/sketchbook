@@ -13,12 +13,19 @@ class System {
     this.statsDisplay.tick();
   }
 
-  startRaceCar(trackPath){
-    if (trackPath == undefined) {
-      console.warn('No active path to start a race car on');
+  buildTrack(path){
+    if (this.track  && this.track.path == path){
       return;
     }
-    var car = new RaceCar(trackPath);
+    this.track = new Track(path);
+  }
+
+  startRaceCar(){
+    if (this.track == undefined) {
+      console.warn('No active track to start a race car on.');
+      return;
+    }
+    var car = new RaceCar(this.track.path);
     this.components.push(car);
     this.statsDisplay.addDisplay();
     paper.view.onFrame = tick;
@@ -33,5 +40,6 @@ class System {
     this.components = [];
     this.statsDisplay.setCarList(this.components);
     this.statsDisplay.clear();
+    this.track = undefined;
   }
 }
