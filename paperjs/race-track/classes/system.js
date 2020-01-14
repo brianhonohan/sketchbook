@@ -3,6 +3,7 @@ class System {
     this.ui = new UserInterface(this);
     this.statsDisplay = new StatsDisplay();
     this.components = [];
+    this.drivers = [];
 
     this.statsDisplay = new StatsDisplay();
     this.statsDisplay.setCarList(this.components);
@@ -10,6 +11,7 @@ class System {
 
   tick(){
     this.components.forEach(c => c.tick());
+    this.drivers.forEach(d => d.tick());
     this.statsDisplay.tick();
   }
 
@@ -27,6 +29,14 @@ class System {
     }
     var car = new RaceCar(this.track.path);
     this.components.push(car);
+
+    var driver = new Driver(car, this.track);
+    this.drivers.push(driver);
+
+    // convenience variables for debugging in console
+    lastCar = car;
+    lastDriver = driver;
+
     this.statsDisplay.addDisplay();
     paper.view.onFrame = tick;
   }

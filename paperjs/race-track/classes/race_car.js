@@ -2,7 +2,7 @@ class RaceCar {
   constructor(path){
     this.path = path;
     this.distTraveled = 0;
-    this.speed = 4;
+    this.speed = 0;
     this.shape = new paper.Shape.Circle(this.location(), 10);
     this.color = PaperJsUtils.getRandomColor(0.6, 0.8);
     this.shape.fillColor = this.color;
@@ -29,6 +29,12 @@ class RaceCar {
     return this.path.getPointAt(this.distTraveled % this.path.length);
   }
 
+  accelerate(){
+    // based on 0-60 mph in 1.6 sec
+    // converted to pixels per frame per frame
+    this.speed += 0.00233;
+  }
+
   initWearMatrix(){
      // Negative Curvature, turning left, wears right tires more
     // Positive Curvature, turning right, wears left tires more
@@ -40,6 +46,27 @@ class RaceCar {
       [0.4,              0,             0.6],
       [0.6,              0,             0.4],
     ];
+  }
+
+  _maxSpeedForCurvature(curvature, limit_num_gs = 4){
+    // Equating Centripetal force (m * v^2 / r) and F = m * g
+    // v = (4 * g * r) ^ 0.5
+    // r = (curvature == 0) ? INFINITY
+    if (curvature == 0) {
+      return NUMBER.POSITIVE_INFINITY;
+    }
+
+    var radius = 1 / Math.abs(curvature);
+    return Math.pow(limit_num_gs * GRAV_CONSTANT * radius, 0.5);
+  }
+
+  spinRisk(maxSpeed){
+    const percentOfMax = this.speed / maxSpeed;
+    if (percentOfMax < 0.9){
+      return 0;
+    }
+
+    return Math.pow((percentOfMax - 0.9) / 0.15, 2);
   }
 
   _wearFactor(tireIndex, curvature){
@@ -57,6 +84,11 @@ class RaceCar {
     });
   }
 
+  updateCurveSamples(){
+    let samplePoints = this._samplePoints();
+    this.curveSamples = samplePoints.map(sp => this.path.getCurvatureAt(sp));
+  }
+
   _samplePoints(numSamples = 4){
     let samples = new Array(numSamples).fill(null);
     let stepSize = this.speed / numSamples;
@@ -64,7 +96,22 @@ class RaceCar {
     return samples.map((e, idx) => distOffset + idx * stepSize);
   }
 
+
+  spinoutCheck(){
+    const spinRisks = this.curveSamples.map(curvature => this._maxSpeedForCurvature(curvature))
+                                       .map(maxCurveSpeed => this.spinRisk(maxCurveSpeed));
+    const maxRisk = Math.max(...spinRisks);
+    const hasSpun = Math.random() < maxRisk;
+    if (hasSpun == false){
+      return;
+    }
+    console.log('car spun out');
+    this.speed = 0.5 * this.speed;
+  }
+
   tick(event){
+    this.updateCurveSamples();
+    this.spinoutCheck()
     this._degradeTires();
     this.distTraveled += this.speed;
     this.shape.position = this.location();
