@@ -60,8 +60,7 @@ class RaceCar {
     return Math.pow(limit_num_gs * GRAV_CONSTANT * radius, 0.5);
   }
 
-  spinRisk(maxSpeed){
-    const percentOfMax = this.speed / maxSpeed;
+  spinRisk(percentOfMax){
     if (percentOfMax < 0.9){
       return 0;
     }
@@ -98,9 +97,11 @@ class RaceCar {
 
 
   spinoutCheck(){
-    const spinRisks = this.curveSamples.map(curvature => this._maxSpeedForCurvature(curvature))
-                                       .map(maxCurveSpeed => this.spinRisk(maxCurveSpeed));
-    const maxRisk = Math.max(...spinRisks);
+    this.maxSpeedAtSamples  = this.curveSamples.map(curvature => this._maxSpeedForCurvature(curvature));
+    this.percMaxAtSamples   = this.maxSpeedAtSamples.map(maxCurveSpeed => this.speed / maxCurveSpeed);
+    this.spinRisksAtSamples = this.percMaxAtSamples.map(percentOfMax => this.spinRisk(percentOfMax));
+
+    const maxRisk = Math.max(...this.spinRisksAtSamples);
     const hasSpun = Math.random() < maxRisk;
     if (hasSpun == false){
       return;
