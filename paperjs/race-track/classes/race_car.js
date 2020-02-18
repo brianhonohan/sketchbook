@@ -74,12 +74,9 @@ class RaceCar {
   }
 
   _degradeTires(){
-    let samplePoints = this._samplePoints();
-    let curveSamples = samplePoints.map(sp => this.path.getCurvatureAt(sp));
-
     this.tires.forEach((t, idx) => {
-      this.tires[idx] -= curveSamples.map(c => this._wearFactor(idx, c))
-                                     .reduce((wear, totalWear) => wear + totalWear);
+      this.tires[idx] -= this.curveSamples.map(c => this._wearFactor(idx, c))
+                                          .reduce((wear, totalWear) => wear + totalWear);
     });
   }
 
