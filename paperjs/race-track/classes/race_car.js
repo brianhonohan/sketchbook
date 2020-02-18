@@ -16,7 +16,7 @@ class RaceCar {
   }
 
   replaceTires(){
-    this.tireHardness = 100;
+    this.tireHardness = 4000;
     this.tires = new Array(4).fill(1);
   }
 
