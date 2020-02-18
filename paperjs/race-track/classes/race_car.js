@@ -4,7 +4,7 @@ class RaceCar {
     this.distTraveled = 0;
     this.speed = 0;
     this.shape = new paper.Shape.Circle(this.location(), 10);
-    this.color = PaperJsUtils.getRandomColor(0.6, 0.8);
+    this.color = PaperJsUtils.getColorFromHSB( 360 * Math.random(), 1, 0.8);
     this.shape.fillColor = this.color;
 
     this.replaceTires();

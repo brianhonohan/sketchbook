@@ -52,4 +52,9 @@ class PaperJsUtils {
     let blueLvl  = baseVal * blueFactor + secondaryVal * (1 - blueFactor);
     return new paper.Color(redLvl, greenLvl, blueLvl);
   }
+
+  static getColorFromHSB(hue, s = 1, b = 1){
+    let rgb = UtilFunctions.hsbToRgb2({h: hue, s: s, b: b});
+    return new paper.Color(rgb.r, rgb.g, rgb.b);
+  }
 }
