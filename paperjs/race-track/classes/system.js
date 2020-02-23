@@ -7,6 +7,7 @@ class System {
 
     this.statsDisplay = new StatsDisplay();
     this.statsDisplay.setCarList(this.components);
+    this.paused = false;
   }
 
   tick(){
@@ -38,11 +39,25 @@ class System {
     lastDriver = driver;
 
     this.statsDisplay.addDisplay();
-    paper.view.onFrame = tick;
+    this.unpause();
   }
 
-  stopRaceCar(){
+  pause(){
     paper.view.onFrame = undefined;
+    this.paused = true;
+  }
+
+  unpause(){
+    paper.view.onFrame = tick;
+    this.paused = false;
+  }
+
+  togglePause(){
+    if (this.paused) {
+      this.unpause();
+    } else {
+      this.pause();
+    }
   }
 
   clearComponents(){

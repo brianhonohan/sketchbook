@@ -44,10 +44,10 @@ class UserInterface {
   onKeyDown(event){
     console.log('The ' + event.key + ' key was pressed in UI!');
 
-    if (event.key == 'backspace') {
+    if (event.key == 'c') {
       this.trackPen.clearPaths();
       this.system.clearComponents();
-      this.system.stopRaceCar();
+      this.system.pause();
       this.setActiveTool(UserInterface.TOOL_TRACK_PEN);
     } else if (event.key == 'r'){
       this.system.buildTrack(this.trackPen.activePath);
@@ -55,8 +55,10 @@ class UserInterface {
       this.setActiveTool(UserInterface.TOOL_DEFAULT);
     } else if (event.key == 'p'){
       this.setActiveTool(UserInterface.TOOL_TRACK_PEN);
+    } else if (event.key == '\\'){
+      this.system.togglePause();
     } else if (event.key == 'escape'){
-      this.system.stopRaceCar();
+      this.system.pause();
     }
   }
 }
