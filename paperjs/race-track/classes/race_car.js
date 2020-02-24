@@ -57,7 +57,7 @@ class RaceCar {
     }
 
     var radius = 1 / Math.abs(curvature);
-    return Math.pow(limit_num_gs * GRAV_CONSTANT * radius, 0.5);
+    return Math.pow(limit_num_gs * GRAV_ACCEL * radius, 0.5);
   }
 
   spinRisk(percentOfMax){

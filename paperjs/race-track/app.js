@@ -9,9 +9,9 @@ var PX_PER_M = 0.5;
 // PaperJS standard FPS
 var FPS = 60;
 
-// Converting G (9.80665 m/s^2 ==> px / frame^2)
+// Converting g (9.80665 m/s^2 ==> px / frame^2)
 // 9.80665 m/s^2 * 0.5 px/m * 1 sec / 60 frame * 1 sec / 60 frame
-var GRAV_CONSTANT = 0.00136203472;
+var GRAV_ACCEL = 0.00136203472;
 
 function setupPaper(canvasId){
   paper.setup('myCanvas');
