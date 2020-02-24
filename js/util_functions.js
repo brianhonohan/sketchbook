@@ -31,6 +31,47 @@ class UtilFunctions {
     return arr.reduce( (el, tally) => el + tally, 0) / arr.length;
   }
 
+  // via: https://en.wikipedia.org/wiki/HSL_and_HSV#From_HSV
+  static hsbToRGB(hsb){
+    let C = hsb.b * hsb.s;
+    let X = C * (1 - Math.abs( (hsb.h / 60) % 2 - 1));
+    let m = hsb.b - C;
+
+    let rgbPrime;
+
+    if (hsb.h >= 0 && hsb.h < 60) {
+      rgbPrime = [C, X, 0];
+    } else if (hsb.h >= 60 && hsb.h < 120) {
+      rgbPrime = [X, C, 0];
+    } else if (hsb.h >= 120 && hsb.h < 180) {
+      rgbPrime = [0, C, X];
+    } else if (hsb.h >= 180 && hsb.h < 240) {
+      rgbPrime = [0, X, C];
+    } else if (hsb.h >= 240 && hsb.h < 300) {
+      rgbPrime = [X, 0, C];
+    } else if (hsb.h >= 300 && hsb.h < 360) {
+      rgbPrime = [C, 0, X];
+    }
+
+    let rgb = {};
+    rgb.r = (rgbPrime[0] + m) * 255;
+    rgb.g = (rgbPrime[1] + m) * 255;
+    rgb.b = (rgbPrime[2] + m) * 255;
+    return rgb;
+  }
+
+  // via: https://en.wikipedia.org/wiki/HSL_and_HSV#HSV_to_RGB_alternative
+  static hsbToRgb2(hsb){
+    return {r: UtilFunctions._hsbToRgbHelper(5, hsb),
+            g: UtilFunctions._hsbToRgbHelper(3, hsb),
+            b: UtilFunctions._hsbToRgbHelper(1, hsb)};
+  }
+
+  static _hsbToRgbHelper(n, hsb){
+    let k = (n + hsb.h / 60) % 6;
+    return hsb.b - hsb.b * hsb.s * Math.max(0, Math.min(k, 4 - k, 1));
+  }
+
   static startPerfTime(){
     this.perfTimings = this.perfTimings || [];
     this.perfStartAt = performance.now();
