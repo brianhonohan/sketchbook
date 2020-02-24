@@ -5,15 +5,20 @@ Collection of personal coding projects. They may or may not grow into individual
 
 ## Latest
 
-A p5.js sketch of Logic Gates.
+A paper.js sketch of a Race-Track simulation.
 
-[<img src="./p5js/logic-gates/screenshot-01.png" alt="p5js/logic-gates" width="150px" />][link-p5js-logic-gates]
+[<img src="./paperjs/race-track/screenshot-01.png" alt="p5js/race-track" width="150px" />][link-paperjs-race-track]
 
 
 ## LÖVE
 Collection of sketches using the [LÖVE][love2d] environment.
 
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/love2d/game-of-life/screenshot-01.png" alt="game-of-life" width="150px" />][link-love2d-game-of-life]
+
+## paper.js
+Collection of sketches using the [paper.js][paperjs] Javascript library.
+
+[<img src="https://github.com/brianhonohan/sketchbook/raw/master/paperjs/race-track/screenshot-01.png" alt="race-track" width="150px" />][link-paperjs-race-track]
 
 ## p5.js
 Collection of sketches using the [p5.js][p5js] Javascript library.
@@ -78,11 +83,14 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 
 [love2d]: https://love2d.org/
 [p5js]: https://p5js.org/
+[paperjs]: http://paperjs.org/
 [processing]: https://processing.org/
 [coding-train]: https://www.youtube.com/channel/UCvjgXvBlbQiydffZU7m1_aw
 [coding-train-cc]: https://www.youtube.com/watch?v=17WoOqgXsRM&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=1
 
 [link-love2d-game-of-life]: https://github.com/brianhonohan/sketchbook/tree/master/love2d/game-of-life
+
+[link-paperjs-race-track]: https://github.com/brianhonohan/sketchbook/tree/master/paperjs/race-track
 
 [link-p5js-ecosystem]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/ecosystem/
 [link-p5js-forest-01]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/forest-01/
