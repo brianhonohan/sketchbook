@@ -1,8 +1,14 @@
 var tool;
 var path;
 
+var plateViewer;
+
 function setupPaper(canvasId){
   paper.setup('myCanvas');
+
+  plateViewer = new PlateViewer();
+  plateViewer.viewPlate(Plates.iv_1);
+
   tool = new paper.Tool();
   tool.onMouseDown = handleMouseDown;
   tool.onMouseDrag = handleMouseDrag;
