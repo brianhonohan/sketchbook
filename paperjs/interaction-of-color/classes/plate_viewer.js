@@ -22,8 +22,10 @@ class PlateViewer {
 
   viewPart(part){
     let shape = this.buildShape(part);
-    shape.fillColor = this.colorFrom(part.color);
-    this.shapeGroup.addChild(shape);
+    if (shape) {
+      shape.fillColor = this.colorFrom(part.color);
+      this.shapeGroup.addChild(shape);
+    }
   }
 
   buildShape(shapeData){
