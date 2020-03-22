@@ -48,4 +48,22 @@ class Plates {
         ]
       };
   }
+
+  static get iv_4(){
+    return {
+      "parts": [
+        // Top and bottom purple rectangles
+          {"shape": "rect", "color": "39,24,91", "pos": "0,0", "size": "230,70"}
+        , {"shape": "rect", "color": "136,59,144", "pos": "0,253", "size": "230,70"}
+
+        // tilted, lighter purple rectangle
+        , {"shape": "rect", "color": "158,81,156", "pos": "35,35", "size": "155,250", "rotation": "5"}
+
+        // overlaid dark blue-grey, and red rectangles
+        , {"shape": "rect", "color": "15,43,54", "pos": "0,69", "size": "230,26"}
+        , {"shape": "rect", "color": "211,56,26", "pos": "0,94", "size": "230,160"}
+
+      ]
+    };
+  }
 }

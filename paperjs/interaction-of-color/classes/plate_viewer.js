@@ -40,6 +40,9 @@ class PlateViewer {
   viewRect(shape){
     let rect = this.rectForShape(shape);
     let newRect = new paper.Shape.Rectangle(rect);
+    if (shape.rotation){
+      newRect.rotate( Number(shape.rotation) );
+    }
     return newRect;
   }
 
