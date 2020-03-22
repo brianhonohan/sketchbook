@@ -21,17 +21,22 @@ class PlateViewer {
   }
 
   viewPart(part){
-    switch (part.shape){
-      case "rect": return this.viewRect(part);
-      default: console.log(`Unrecognized shape: ${part.shape}`);
+    let shape = this.buildShape(part);
+    shape.fillColor = this.colorFrom(part.color);
+    this.shapeGroup.addChild(shape);
+  }
+
+  buildShape(shapeData){
+    switch (shapeData.shape){
+      case "rect": return this.viewRect(shapeData);
+      default: console.log(`Unrecognized shape: ${shapeData.shape}`);
     }
   }
 
   viewRect(shape){
     let rect = this.rectForShape(shape);
     let newRect = new paper.Shape.Rectangle(rect);
-    newRect.fillColor = this.colorFrom(shape.color);
-    this.shapeGroup.addChild(newRect);
+    return newRect;
   }
 
   rectForShape(shape){
