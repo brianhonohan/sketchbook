@@ -15,7 +15,7 @@ function setupPaper(canvasId){
                                 , width - 2 * xMargin
                                 , height - 2 * yMargin);
   plateViewer = new PlateViewer(rect);
-  plateViewer.viewPlate(Plates.iv_1);
+  plateViewer.viewPlate(Plates.iv_3);
 
   tool = new paper.Tool();
   tool.onMouseDown = handleMouseDown;

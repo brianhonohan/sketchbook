@@ -31,6 +31,8 @@ class PlateViewer {
   buildShape(shapeData){
     switch (shapeData.shape){
       case "rect": return this.viewRect(shapeData);
+      case "cutout": return this.buildCutout(shapeData);
+      case "grid": return this.buildGrid(shapeData);
       default: console.log(`Unrecognized shape: ${shapeData.shape}`);
     }
   }
@@ -39,6 +41,43 @@ class PlateViewer {
     let rect = this.rectForShape(shape);
     let newRect = new paper.Shape.Rectangle(rect);
     return newRect;
+  }
+
+  buildCutout(shape){
+    const compPath = new paper.CompoundPath();
+    let base = this.buildShape(shape.base);
+    let hole = this.buildShape(shape.holes[0]);
+    compPath.addChild(base);
+    compPath.addChild(hole);
+    compPath.fillRule = 'evenodd';
+    return compPath;
+  }
+
+  buildGrid(shape){
+    const grid = new paper.Group();
+    const rows = shape.rows;
+    const cols = shape.cols;
+    const row_spacing = shape.row_spacing;
+    const col_spacing = shape.col_spacing;
+    const shapeType = shape.item;
+    const itemSize = this.sizeForShape(shape.item_size);
+
+    let pos = this.pointForShape(shape.pos);
+    let tmpPos = this.pointForShape(shape.pos);
+    let tmpShapeData = {shape: shapeType, size: shape.item_size};
+
+    for(let row = 0; row < rows; row++){
+      tmpPos.x = pos.x;
+      tmpPos.y = pos.y + row * (itemSize.height + row_spacing);
+
+      for(let col = 0; col < cols; col++){
+        tmpPos.x = pos.x + col * (itemSize.width + col_spacing);
+        tmpShapeData.pos = `${tmpPos.x},${tmpPos.y}`;
+        grid.addChild(this.buildShape(tmpShapeData));
+      }
+    }
+
+    return grid;
   }
 
   rectForShape(shape){
