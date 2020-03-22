@@ -32,49 +32,12 @@ class PlateViewer {
     // preserve the aspect ratio of the plate
     // center (horizontally / vertically) in this viewer's area
     // display as large as possible
-    if (this.isFlatterThanPlate()){
-      this.offsetAndScale = this._calcFlattenTransform();
-    } else {
-      this.offsetAndScale = this._calcElongateTransform();
-    }
+    let layoutUtils = new LayoutUtilFunctions();
+    this.offsetAndScale = layoutUtils.calcTransformToFitRectInRect(this.plateBounds, this.sizeAndPosition);
 
     this.matrix = new paper.Matrix();
     this.matrix.translate(this.offsetAndScale.xOffset, this.offsetAndScale.yOffset);
     this.matrix.scale(this.offsetAndScale.scale);
-  }
-
-  isFlatterThanPlate(){
-    return this._isRectAFlatterThanB(this.sizeAndPosition, this.plateBounds);
-  }
-
-  _baseTransform(){
-    return {
-      xOffset: 0,
-      yOffset: 0,
-      scale: 1
-    };
-  }
-
-  _calcFlattenTransform(){
-    const transform = this._baseTransform();
-    transform.scale = this.height / this.plateBounds.height;
-    transform.xOffset = 0.5 * (this.width - this.plateBounds.width * transform.scale);
-    return transform;
-  }
-
-  _calcElongateTransform(){
-    const transform = this._baseTransform();
-    transform.scale = this.width / this.plateBounds.width;
-    transform.yOffset = 0.5 * (this.height - this.plateBounds.height * transform.scale);
-    return transform;
-  }
-
-  _isRectAFlatterThanB(rectA, rectB){
-    return this._aspectRatioOf(rectA) > this._aspectRatioOf(rectB);
-  }
-
-  _aspectRatioOf(rect){
-    return rect.width / rect.height;
   }
 
   viewParts(parts){

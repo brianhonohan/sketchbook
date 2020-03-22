@@ -10,6 +10,7 @@ js_scripts:
 - /sketchbook/js/util_functions.js
 - /sketchbook/vendor/paper.js/0.12.3/paper-core.js
 - /sketchbook/paperjs/common/paper_autocanvas.js
+- /sketchbook/js/layout_util_functions.js
 - classes/plate_viewer.js
 - classes/plates.js
 - app.js
