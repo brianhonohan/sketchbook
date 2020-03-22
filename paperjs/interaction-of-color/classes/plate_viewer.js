@@ -14,11 +14,16 @@ class PlateViewer {
     }
   }
 
-  viewRect(rect){
-    let point = this.pointForShape(rect);
-    let size = this.sizeForShape(rect);
-    let newRect = new paper.Shape.Rectangle(point, size);
-    newRect.fillColor = this.colorFrom(rect.color);
+  viewRect(shape){
+    let rect = this.rectForShape(shape);
+    let newRect = new paper.Shape.Rectangle(rect);
+    newRect.fillColor = this.colorFrom(shape.color);
+  }
+
+  rectForShape(shape){
+    let point = this.pointForShape(shape);
+    let size = this.sizeForShape(shape);
+    return new paper.Rectangle(point, size);
   }
 
   pointForShape(shape){
