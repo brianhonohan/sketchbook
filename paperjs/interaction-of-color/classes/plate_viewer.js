@@ -40,18 +40,18 @@ class PlateViewer {
   }
 
   rectForShape(shape){
-    let point = this.pointForShape(shape);
-    let size = this.sizeForShape(shape);
+    let point = this.pointForShape(shape.pos);
+    let size = this.sizeForShape(shape.size);
     return new paper.Rectangle(point, size);
   }
 
-  pointForShape(shape){
-    var pos = this.parseNumbersFromCsv(shape.pos);
+  pointForShape(pos_csv){
+    var pos = this.parseNumbersFromCsv(pos_csv);
     return new paper.Point( pos[0], pos[1] );
   }
 
-  sizeForShape(shape){
-    var size = this.parseNumbersFromCsv(shape.size);
+  sizeForShape(size_csv){
+    var size = this.parseNumbersFromCsv(size_csv);
     return new paper.Size( size[0], size[1] );
   }
 
