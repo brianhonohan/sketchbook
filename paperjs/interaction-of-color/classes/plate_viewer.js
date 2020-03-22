@@ -12,32 +12,8 @@ class PlateViewer {
   viewPlate(plate){
     this.shapeGroup = new paper.Group();
     this.plate = plate;
-    this.computeBounds();
-    this.calcOffsetAndScale();
     this.viewParts(plate.parts);
-    this.shapeGroup.transform(this.matrix);
-  }
-
-  computeBounds(plate){
-    this.plateBounds = new paper.Rectangle(0,0,0,0);
-    this.plate.parts.forEach(part => this.expandToInclude(part));
-  }
-
-  expandToInclude(part){
-    const tmpRect = this.rectForShape(part);
-    this.plateBounds = this.plateBounds.unite(tmpRect);
-  }
-
-  calcOffsetAndScale(){
-    // preserve the aspect ratio of the plate
-    // center (horizontally / vertically) in this viewer's area
-    // display as large as possible
-    let layoutUtils = new LayoutUtilFunctions();
-    this.offsetAndScale = layoutUtils.calcTransformToFitRectInRect(this.plateBounds, this.sizeAndPosition);
-
-    this.matrix = new paper.Matrix();
-    this.matrix.translate(this.offsetAndScale.xOffset, this.offsetAndScale.yOffset);
-    this.matrix.scale(this.offsetAndScale.scale);
+    this.shapeGroup.fitBounds(this.sizeAndPosition);
   }
 
   viewParts(parts){
