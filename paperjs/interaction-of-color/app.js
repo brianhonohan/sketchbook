@@ -6,7 +6,8 @@ var plateViewer;
 function setupPaper(canvasId){
   paper.setup('myCanvas');
 
-  plateViewer = new PlateViewer();
+  let rect = new paper.Rectangle(0, 0, paper.view.size._width, paper.view.size._height);
+  plateViewer = new PlateViewer(rect);
   plateViewer.viewPlate(Plates.iv_1);
 
   tool = new paper.Tool();
