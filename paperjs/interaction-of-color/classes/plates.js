@@ -66,4 +66,33 @@ class Plates {
       ]
     };
   }
+
+
+
+  static get v_3(){
+    return {
+      "parts": [
+        // Blue rectangles
+          {"shape": "rect", "color": "45,45,65", "pos": "50,50", "size": "30,125", "rotation": "-2"}
+        , {"shape": "rect", "color": "100,118,146", "pos": "35,35", "size": "30,125", "rotation": "-2"}
+        , {"shape": "rect", "color": "63,55,114", "pos": "78,0", "size": "30,125", "rotation": "1"}
+        , {"shape": "rect", "color": "72,111,169", "pos": "115,30", "size": "30,125", "rotation": "17"}
+        , {"shape": "rect", "color": "46,42,79", "pos": "215,23", "size": "30,125", "rotation": "5"}
+        , {"shape": "rect", "color": "83,112,127", "pos": "188,27", "size": "30,125", "rotation": "-2"}
+        , {"shape": "rect", "color": "104,144,177", "pos": "166,35", "size": "30,125", "rotation": "2"}
+        , {"shape": "rect", "color": "86,107,159", "pos": "143,15", "size": "30,125", "rotation": "6"}
+
+        // Red rectangles
+          , {"shape": "rect", "color": "104,11,2",  "pos": "45,210", "size": "30,125",  "rotation": "3"}
+                , {"shape": "rect", "color": "162,50,30",  "pos": "153,220", "size": "30,125", "rotation": "-2"}
+              , {"shape": "rect", "color": "113,12,0",  "pos": "137,190", "size": "30,125",  "rotation": "-2"}
+            , {"shape": "rect", "color": "152,75,67", "pos": "109,225", "size": "30,125",  "rotation": "9"}
+          , {"shape": "rect", "color": "110,38,36", "pos": "86,230", "size": "30,125",  "rotation": "0"}
+        , {"shape": "rect", "color": "150,50,10",  "pos": "66,220", "size": "30,125",  "rotation": "1"}
+
+        , {"shape": "rect", "color": "159,80,50", "pos": "218,203", "size": "30,125", "rotation": "-2"}
+        , {"shape": "rect", "color": "135,45,0",  "pos": "193,210", "size": "30,125", "rotation": "4"}
+      ]
+    };
+  }
 }
