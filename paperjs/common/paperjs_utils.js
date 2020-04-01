@@ -57,4 +57,39 @@ class PaperJsUtils {
     let rgb = UtilFunctions.hsbToRgb2({h: hue, s: s, b: b});
     return new paper.Color(rgb.r, rgb.g, rgb.b);
   }
+
+  static addDragging(shape){
+    shape.onMouseDrag = function(event) {
+      shape.position.x += event.delta.x;
+      shape.position.y += event.delta.y;
+    };
+  }
+
+  static addOrderControls(shape){
+    shape.onClick = function(event){
+        if (paper.Key.isDown('f')) {
+          if (paper.Key.isDown('shift')){
+            shape.bringToFront();
+          }else{
+            let nextSibling = shape.nextSibling;
+            if (shape.nextSibling){
+              shape.remove();
+              shape.insertAbove(nextSibling);
+            }
+          }
+
+        } else if (paper.Key.isDown('b')) {
+          if (paper.Key.isDown('shift')){
+            shape.sendToBack();
+          }else{
+            let previousSibling = shape.previousSibling;
+
+            if (previousSibling){
+              shape.remove();
+              shape.insertBelow(previousSibling);
+            }
+          }
+        }
+      };
+  }
 }

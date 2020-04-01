@@ -23,36 +23,9 @@ class PlateViewer {
   viewPart(part){
     let shape = this.buildShape(part);
     if (shape) {
-      shape.onMouseDrag = function(event) {
-        shape.position.x += event.delta.x;
-        shape.position.y += event.delta.y;
-      };
+      PaperJsUtils.addDragging(shape);
+      PaperJsUtils.addOrderControls(shape);
 
-      shape.onClick = function(event){
-        if (paper.Key.isDown('f')) {
-          if (paper.Key.isDown('shift')){
-            shape.bringToFront();
-          }else{
-            let nextSibling = shape.nextSibling;
-            if (shape.nextSibling){
-              shape.remove();
-              shape.insertAbove(nextSibling);
-            }
-          }
-
-        } else if (paper.Key.isDown('b')) {
-          if (paper.Key.isDown('shift')){
-            shape.sendToBack();
-          }else{
-            let previousSibling = shape.previousSibling;
-
-            if (previousSibling){
-              shape.remove();
-              shape.insertBelow(previousSibling);
-            }
-          }
-        }
-      };
       shape.fillColor = this.colorFrom(part.color);
       this.shapeGroup.addChild(shape);
     }
