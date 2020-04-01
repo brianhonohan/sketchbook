@@ -23,6 +23,10 @@ class PlateViewer {
   viewPart(part){
     let shape = this.buildShape(part);
     if (shape) {
+      shape.onMouseDrag = function(event) {
+        shape.position.x += event.delta.x;
+        shape.position.y += event.delta.y;
+      };
       shape.fillColor = this.colorFrom(part.color);
       this.shapeGroup.addChild(shape);
     }

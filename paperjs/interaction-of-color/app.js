@@ -16,21 +16,6 @@ function setupPaper(canvasId){
                                 , height - 2 * yMargin);
   plateViewer = new PlateViewer(rect);
   plateViewer.viewPlate(Plates.v_3);
-
-  tool = new paper.Tool();
-  tool.onMouseDown = handleMouseDown;
-  tool.onMouseDrag = handleMouseDrag;
-  tool.onKeyDown = handleKeyPressed;
-}
-
-function handleMouseDown(event){
-  path = new paper.Path();
-  path.strokeColor = 'black';
-  path.add(event.point);
-}
-
-function handleMouseDrag(event){
-  path.add(event.point);
 }
 
 function handleKeyPressed(event){
