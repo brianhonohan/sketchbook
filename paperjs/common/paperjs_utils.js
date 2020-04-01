@@ -65,31 +65,35 @@ class PaperJsUtils {
     };
   }
 
+  static bringShapeForward(shape){
+    let nextSibling = shape.nextSibling;
+    if (shape.nextSibling){
+      shape.remove();
+      shape.insertAbove(nextSibling);
+    }
+  }
+
+  static sendShapeBack(shape){
+    let previousSibling = shape.previousSibling;
+    if (previousSibling){
+      shape.remove();
+      shape.insertBelow(previousSibling);
+    }
+  }
+
   static addOrderControls(shape){
     shape.onClick = function(event){
-        if (paper.Key.isDown('f')) {
-          if (paper.Key.isDown('shift')){
-            shape.bringToFront();
-          }else{
-            let nextSibling = shape.nextSibling;
-            if (shape.nextSibling){
-              shape.remove();
-              shape.insertAbove(nextSibling);
-            }
-          }
+      const pressedF     = paper.Key.isDown('f');
+      const pressedB     = paper.Key.isDown('b');
+      const pressedShift = paper.Key.isDown('shift');
 
-        } else if (paper.Key.isDown('b')) {
-          if (paper.Key.isDown('shift')){
-            shape.sendToBack();
-          }else{
-            let previousSibling = shape.previousSibling;
-
-            if (previousSibling){
-              shape.remove();
-              shape.insertBelow(previousSibling);
-            }
-          }
-        }
-      };
+      if (pressedF){
+        (pressedShift) ? shape.bringToFront()
+                       : PaperJsUtils.bringShapeForward(shape);
+      } else if (pressedB){
+        (pressedShift) ? shape.sendToBack()
+                       : PaperJsUtils.sendShapeBack(shape);
+      }
+    };
   }
 }
