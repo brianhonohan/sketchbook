@@ -5,9 +5,9 @@ Collection of personal coding projects. They may or may not grow into individual
 
 ## Latest
 
-A paper.js sketch of a Race-Track simulation.
+A paper.js sketch of some plates from 'Interaction of Color' (Josef Albers).
 
-[<img src="./paperjs/race-track/screenshot-01.png" alt="p5js/race-track" width="150px" />][link-paperjs-race-track]
+[<img src="./paperjs/interaction-of-color/screenshot-01.png" alt="p5js/interaction-of-color" width="150px" />][link-paperjs-interaction-of-color]
 
 
 ## LÖVE
@@ -18,6 +18,7 @@ Collection of sketches using the [LÖVE][love2d] environment.
 ## paper.js
 Collection of sketches using the [paper.js][paperjs] Javascript library.
 
+[<img src="https://github.com/brianhonohan/sketchbook/raw/master/paperjs/interaction-of-color/screenshot-01.png" alt="interaction-of-color" width="150px" />][link-paperjs-interaction-of-color]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/paperjs/race-track/screenshot-01.png" alt="race-track" width="150px" />][link-paperjs-race-track]
 
 ## p5.js
@@ -90,6 +91,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 
 [link-love2d-game-of-life]: https://github.com/brianhonohan/sketchbook/tree/master/love2d/game-of-life
 
+[link-paperjs-interaction-of-color]: https://github.com/brianhonohan/sketchbook/tree/master/paperjs/interaction-of-color
 [link-paperjs-race-track]: https://github.com/brianhonohan/sketchbook/tree/master/paperjs/race-track
 
 [link-p5js-ecosystem]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/ecosystem/

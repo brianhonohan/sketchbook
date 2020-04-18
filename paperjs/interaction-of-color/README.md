@@ -14,24 +14,45 @@ Following Plates are able to be rendered and interacted with:
 
 ## Controls
 
-(No interactivity implemented yet).
+### Mouse
+
+* `Click + Drag` - Move a shape around.
+* `Doubleclick + F` - Bring the shape to foreground (so it appears above all others).
+* `Doubleclick + B` - Send the shape to the background (so it appears below all others).
+* `Doubleclick + f` - Bring the shape forward one layer.
+* `Doubleclick + b` - Send the shape back one layer.
 
 # References:
-* 
+* [Wikipedia: Josef Albers][wikipedia-josef-albers]
+* [Albers Foundation][albers-foundation]
 
 # Links: 
 
 * [Live View][live-view]
 * [Source on Github][source-code]
 
-# Screenshot:
+# Screenshots:
 
+### Plate IV-1
+![screenshot][screenshot-plate-iv-1]
+
+### Plate IV-3
+![screenshot][screenshot-plate-iv-3]
+
+### Plate IV-4
+![screenshot][screenshot-plate-iv-4]
+
+### Plate V-3
 ![screenshot][screenshot-01]
 
 [paperjs-home]: http://http://paperjs.org/
-[source-code]: https://github.com/brianhonohan/sketchbook/tree/master/paperjs/sketch_name/
-[live-view]: https://brianhonohan.com/sketchbook/paperjs/sketch_name/
+[source-code]: https://github.com/brianhonohan/sketchbook/tree/master/paperjs/interaction-of-color/
+[live-view]: https://brianhonohan.com/sketchbook/paperjs/interaction-of-color/
 [screenshot-01]: ./screenshot-01.png
+[screenshot-plate-iv-1]: ./screenshot-plate-iv-1.png
+[screenshot-plate-iv-3]: ./screenshot-plate-iv-3.png
+[screenshot-plate-iv-4]: ./screenshot-plate-iv-4.png
+
 
 [wikipedia-josef-albers]: https://en.wikipedia.org/wiki/Josef_Albers
 [albers-foundation]: https://albersfoundation.org/teaching/josef-albers/interaction-of-color/publications/overview/
