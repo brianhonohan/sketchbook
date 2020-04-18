@@ -57,4 +57,43 @@ class PaperJsUtils {
     let rgb = UtilFunctions.hsbToRgb2({h: hue, s: s, b: b});
     return new paper.Color(rgb.r, rgb.g, rgb.b);
   }
+
+  static addDragging(shape){
+    shape.onMouseDrag = function(event) {
+      shape.position.x += event.delta.x;
+      shape.position.y += event.delta.y;
+    };
+  }
+
+  static bringShapeForward(shape){
+    let nextSibling = shape.nextSibling;
+    if (shape.nextSibling){
+      shape.remove();
+      shape.insertAbove(nextSibling);
+    }
+  }
+
+  static sendShapeBack(shape){
+    let previousSibling = shape.previousSibling;
+    if (previousSibling){
+      shape.remove();
+      shape.insertBelow(previousSibling);
+    }
+  }
+
+  static addOrderControls(shape){
+    shape.onClick = function(event){
+      const pressedF     = paper.Key.isDown('f');
+      const pressedB     = paper.Key.isDown('b');
+      const pressedShift = paper.Key.isDown('shift');
+
+      if (pressedF){
+        (pressedShift) ? shape.bringToFront()
+                       : PaperJsUtils.bringShapeForward(shape);
+      } else if (pressedB){
+        (pressedShift) ? shape.sendToBack()
+                       : PaperJsUtils.sendShapeBack(shape);
+      }
+    };
+  }
 }
