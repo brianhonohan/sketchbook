@@ -3,6 +3,7 @@ layout: minimal
 title:  "P5.JS - Water Cycle"
 categories: p5js
 modal: true
+bh_skip_page: true
 
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.23/p5.js
