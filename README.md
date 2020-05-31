@@ -58,7 +58,7 @@ Collection of sketches using the [p5.js][p5js] Javascript library inspired by th
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/coding-challenges/solar-system/screenshot-01.png" alt="solar-system" width="150px" />][link-p5js-cc-solar-system]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/coding-challenges/solar-system-3d/screenshot-01.png" alt="solar-system-3d" width="150px" />][link-p5js-cc-solar-system-3d]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/coding-challenges/solar-system-3d-texturized/screenshot-01.png" alt="solar-system-3d-texturized" width="150px" />][link-p5js-cc-solar-system-3d-texturized]
-[<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/coding-challenges/space-invaders/screenshot.png" alt="space-invaders" width="150px" />][link-p5js-cc-space-invaders]
+[<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/coding-challenges/space-invaders/screenshot-01.png" alt="space-invaders" width="150px" />][link-p5js-cc-space-invaders]
 
 ## Processing
 Collection of sketches using the [Processing (P3)][processing] environment.

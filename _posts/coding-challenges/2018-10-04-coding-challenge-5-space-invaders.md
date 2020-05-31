@@ -2,7 +2,7 @@
 title:  "Coding Challenge #5 - Space invaders"
 date:   2018-10-04 11:00:00 -0400
 categories: [p5js, coding-challenges]
-thumbnail: /sketchbook/p5js/coding-challenges/space-invaders/screenshot.png
+thumbnail: /sketchbook/p5js/coding-challenges/space-invaders/screenshot-01.png
 
 ---
 
@@ -88,7 +88,7 @@ var missleSpeed = 3;
 [coding-train]: https://thecodingtrain.com/
 [ct-challenge-5]: https://www.youtube.com/watch?v=biN3v3ef-Y0&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=5
 [source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/space-invaders/
-[live-view]: /sketchbook/p5js/coding-challenges/space-invaders/live-view.html
+[live-view]: /sketchbook/p5js/coding-challenges/space-invaders/
 [screenshot]: /sketchbook/p5js/coding-challenges/space-invaders/screenshot.png
 [wiki-space-invaders]: https://en.wikipedia.org/wiki/Space_Invaders
 [classic-gaming]: http://www.classicgaming.cc/classics/space-invaders/
