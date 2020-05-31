@@ -1,6 +1,6 @@
 ---
 layout: minimal
-title:  "P5.JS - Mitosis - Coding Challenge #5"
+title:  "P5.JS - Mitosis - Coding Challenge #6"
 categories: p5js
 modal: true
 
