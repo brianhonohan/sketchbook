@@ -47,14 +47,18 @@ exclude:
 
 defaults:
   - scope:
+      path: ""
+    values:
+      bh_page_type: sketch
+  - scope:
       path: "assets"
     values:
-      bh_skip_page: true
+      bh_page_type: asset
   - scope:
       path: "css"
     values:
-      bh_skip_page: true
+      bh_page_type: css
   - scope:
       path: "feed.xml"
     values:
-      bh_skip_page: true
+      bh_page_type: feed

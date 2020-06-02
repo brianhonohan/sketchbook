@@ -10,13 +10,13 @@ layout: default
   {{ content }}
 
 
-  {%- if site.pages.size > 0 -%}
+  {% assign filtered_pages = site.pages | where: 'bh_page_type', "sketch" %}
+
+
+  {%- if filtered_pages.size > 0 -%}
     <h2 class="post-list-heading">{{ page.list_title | default: "Sketches" }}</h2>
     <ul class="post-list util-clear">
-      {%- for page in site.pages -%}
-      {% if page.bh_skip_page == true %}
-        {% continue %}
-      {% endif %}
+      {%- for page in filtered_pages -%}
       <li class="util-clear">
 
         <div class="listing-thumbnail">
