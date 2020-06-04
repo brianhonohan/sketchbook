@@ -31,39 +31,39 @@ class HockeyRink {
   Rect neRect;
   Rect seRect;
   Rect swRect;
-  
+
   boolean debuggingCornerCollision;
-  
+
   HockeyRink(){
-    restoreDefaults(); 
+    restoreDefaults();
   }
-  
+
   void restoreDefaults(){
     // From: http://www.sportsknowhow.com/hockey/dimensions/hockey-rink-dimensions.html
     // Goal Crease and Referee Crease from: http://www.nhl.com/ice/page.htm?id=26394
     _length = 200;
-    _width = 85; 
+    _width = 85;
     _cornerRadius = 28;
     _goalLineAt = 11;
     _minorLineWidth = 2 /12.0;
     _majorLineWidth = 1;
     _blueLineAt = _goalLineAt + 60;
     _dashLength = 1.8;
-    
+
     _faceoffCircleRadius = 15;
     _faceoffDotDiameter = 2;
     _neutralZoneDotsToBlueLine = 5;
     _faceoffDotFromLongAxis = 22;
     _endZoneDotsToGoalLine = 20;
     _refCreaseRadius = 10;
-    
+
     _goalTrapShortEnd = 18;
     _goalTrapLongEnd = 28;
-    
+
     _creaseWidth = 8;
     _creaseLength = 6.5;
     _creaseSemiArcDepth = 1.5;
-    
+
     mainOpenSpace = new Rect(this._cornerRadius, 0,
                              this._length - 2 * this._cornerRadius, this._width);
     float xSecondaryArea = (float)(this._cornerRadius - Math.pow(this._cornerRadius * this._cornerRadius / 2, 0.5));
@@ -72,24 +72,24 @@ class HockeyRink {
                                 this._cornerRadius, this._width - 2 * this._cornerRadius);
     eastEndOpenSpace = new Rect(this._length - this._cornerRadius, this._cornerRadius,
                                 this._cornerRadius, this._width - 2 * this._cornerRadius);
-                                
+
     nwCorner = new Circle(this._cornerRadius, this._cornerRadius, this._cornerRadius);
     neCorner = new Circle(this._length - this._cornerRadius, this._cornerRadius, this._cornerRadius);
     seCorner = new Circle(this._length - this._cornerRadius, this._width - this._cornerRadius, this._cornerRadius);
     swCorner = new Circle(this._cornerRadius, this._width - this._cornerRadius, this._cornerRadius);
-    
+
     nwRect = new Rect(0, 0,  this._cornerRadius, this._cornerRadius);
     neRect = new Rect(this._length - this._cornerRadius, 0,  this._cornerRadius, this._cornerRadius);
     seRect = new Rect(this._length - this._cornerRadius, this._width - this._cornerRadius,  this._cornerRadius, this._cornerRadius);
     swRect = new Rect(0, this._width - this._cornerRadius,  this._cornerRadius, this._cornerRadius);
-    
+
     debuggingCornerCollision = true;
   }
-  
+
   PVector centerFaceoffSpot(){
     return new PVector(this._length / 2, this._width / 2);
   }
-  
+
   public static final int CONSTRAINT_UNKNOWN    = -1;
   public static final int CONSTRAINT_NONE       = 0;
   public static final int CONSTRAINT_W_BOARD    = 1;
@@ -100,7 +100,7 @@ class HockeyRink {
   public static final int CONSTRAINT_SW_CORNER  = 6;
   public static final int CONSTRAINT_N_BOARD    = 7;
   public static final int CONSTRAINT_S_BOARD    = 8;
-  
+
   void constrainMovement(PVector from, Circle to, PVector vel){
     // if the 'to' location is allowed, don't affect the velocity
     int violation = this.constraintViolated(from, to);
@@ -146,18 +146,18 @@ class HockeyRink {
         return;
     }
   }
-  
+
   int constraintViolated(PVector from, Shape obj){
     if (this.isInSimpleOpenSpace(obj)){
       return CONSTRAINT_NONE;
     }
-    
+
     LineSegment trajectory = new LineSegment(from.x, from.y, obj.x(), obj.y());
 
     if (obj.minX() < this.westEndOpenSpace.minX()){
       float deltaX = (this.westEndOpenSpace.minX() - from.x);
       float yAtViolation = from.y + trajectory.slope() * deltaX;
-      
+
       if (yAtViolation < this.westEndOpenSpace.minY()){
         return HockeyRink.CONSTRAINT_NW_CORNER;
       } else if (yAtViolation > this.westEndOpenSpace.maxY()){
@@ -175,7 +175,7 @@ class HockeyRink {
         return HockeyRink.CONSTRAINT_SE_CORNER;
       } else {
         return HockeyRink.CONSTRAINT_E_BOARD;
-      } 
+      }
     }
 
     if (obj.minY() < this.mainOpenSpace.minY()){
@@ -192,20 +192,20 @@ class HockeyRink {
     } else if (obj.maxY() > this.mainOpenSpace.maxY()){
       float deltaY = (this.mainOpenSpace.maxY() - from.y);
       float xAtViolation = from.x + deltaY / trajectory.slope();
-      
+
       if (xAtViolation < this.mainOpenSpace.minX()){
         return HockeyRink.CONSTRAINT_SW_CORNER;
       } else if (xAtViolation > this.mainOpenSpace.maxX()){
         return HockeyRink.CONSTRAINT_SE_CORNER;
       } else {
         return HockeyRink.CONSTRAINT_S_BOARD;
-      } 
+      }
     }
-    
+
     // In a corner, may nore may not have hit the corner board
     Circle cornerToCheck;
     int constraintIfViolation;
-    
+
     if (obj.minX() < this.mainOpenSpace.minX()){
       if (obj.minY() < westEndOpenSpace.minY()){
         cornerToCheck = this.nwCorner;
@@ -230,7 +230,7 @@ class HockeyRink {
 
     return CONSTRAINT_NONE;
   }
-  
+
   void bounceOffCorner(PVector from, Circle to, PVector vel, Circle corner, Rect cornerRect){
     LineSegment trajectory = new LineSegment(from.x, from.y, to.x(), to.y());
     Line trajAsLine = trajectory.getLine();
@@ -241,10 +241,10 @@ class HockeyRink {
     trimmedCircle.radius -= to.radius;
     CircleLineIntersection intersectionCalc = new CircleLineIntersection(trimmedCircle, trajAsLine);
     PVector[] points = intersectionCalc.intersectionPoints();
-    
+
     this.startDebuggingCornerCollision();
     this.debugCollisionRects(tracjectoryBounds, cornerRect);
-    
+
     PVector intersectionPt = null;
     for (int i = 0; i < points.length; i++){
       PVector tmpPoint = points[i];
@@ -253,9 +253,9 @@ class HockeyRink {
         break;
       }
     }
-    
+
     if (intersectionPt == null){
-      println("ERROR in finding intersection point"); 
+      println("ERROR in finding intersection point");
       finishDebuggingCornerCollision();
       return;
     }
@@ -265,16 +265,16 @@ class HockeyRink {
     PVector vecInterPtFrom   = new PVector(from.x - intersectionPt.x, from.y - intersectionPt.y);
     PVector vecInterPtCenter = new PVector(corner.x() - intersectionPt.x, corner.y() - intersectionPt.y);
     float betaAngle = this.rotationBetweenVectors(vecInterPtCenter, vecInterPtFrom);
-    
+
     PVector reboundTraj = new PVector(to.x() - intersectionPt.x, to.y() - intersectionPt.y);
     reboundTraj.rotate(PI - 2 * betaAngle);
     to.pos.x = intersectionPt.x + reboundTraj.x;
     to.pos.y = intersectionPt.y + reboundTraj.y;
-    
+
     reboundTraj.setMag(vel.mag());
     vel.set(reboundTraj.x, reboundTraj.y);
   }
-  
+
   float rotationBetweenVectors(PVector v1, PVector v2){
     float h1 = v1.heading();
     PVector h2 = v2.copy().rotate(-h1);
@@ -287,7 +287,7 @@ class HockeyRink {
         || this.westEndOpenSpace.contains(obj)
         || this.eastEndOpenSpace.contains(obj);
   }
-  
+
   void startDebuggingCornerCollision(){
     if (debuggingCornerCollision == false){
       return;
@@ -301,7 +301,7 @@ class HockeyRink {
     noStroke();
     fill(50, 200, 200, 100);
     cornerRect.draw();
-    
+
     fill(200, 200, 50, 100);
     tracjectoryBounds.draw();
   }
