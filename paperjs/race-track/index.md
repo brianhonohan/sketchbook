@@ -4,6 +4,7 @@ title:  "paper.js - Race Track"
 categories: paperjs
 modal: true
 viewport_noscale: true
+excerpt: Allows you to draw a race track (with your mouse) and press 'r' to send race cars around the track, simulating tire wear.
 
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/inobounce/0.2.0/inobounce.js

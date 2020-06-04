@@ -4,6 +4,7 @@ title:  "P5.JS - Ecosystem"
 categories: p5js
 modal: true
 viewport_noscale: true
+excerpt: Randomly generated terrain, with the intention of creating an environment in which an ecosystem can be modeled.
 
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/inobounce/0.2.0/inobounce.js

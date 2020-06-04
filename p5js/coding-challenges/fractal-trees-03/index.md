@@ -1,9 +1,10 @@
 ---
 layout: minimal
-title:  "P5.JS - Fractal Trees via Objects - Coding Challenge #15"
+title:  "P5.JS - Fractal Trees - Coding Challenge #15"
 categories: p5js
 modal: true
 viewport_noscale: true
+excerpt: Simulates tree growth with apical meristem cells driving growth at the end of branches, which secrete auxin, a growth inhibitor (shown as pink) which prevents lateral growth for little while.
 
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/inobounce/0.2.0/inobounce.js

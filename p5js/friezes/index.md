@@ -4,6 +4,7 @@ title:  "P5.JS - Frieze Pen"
 categories: p5js
 modal: true
 viewport_noscale: true
+excerpt: Allows you to draw a frieze, reflecting the lines you draw through a horizontal line, and repeating off to the right.
 
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/inobounce/0.2.0/inobounce.js

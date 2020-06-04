@@ -4,6 +4,7 @@ title:  "P5.JS - Voronoi Herd"
 categories: p5js
 modal: true
 viewport_noscale: true
+excerpt: Simulates members of a herd avoiding a predator (that you click and drag) using mix of a Voronoi diagram (for fear modeling) and Boid modeling of movement.
 
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/inobounce/0.2.0/inobounce.js

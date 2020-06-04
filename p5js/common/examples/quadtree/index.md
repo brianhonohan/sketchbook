@@ -3,6 +3,7 @@ layout: minimal
 title:  "P5.JS - Common Examples - Quadtree"
 categories: p5js
 modal: true
+excerpt: Implementation of a quadtree data structure, which groups data points into successively nested quadrants, which allows for fast access of elements in an area.
 
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js

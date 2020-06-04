@@ -1,9 +1,10 @@
 ---
 layout: minimal
-title:  "P5.JS - Nautical Flags"
+title:  "P5.JS - Nautical Flags - Part 2"
 categories: p5js
 modal: true
 viewport_noscale: true
+excerpt: Sketch that allows you to compose a message in nautical flags and get a shareable URL that will re-render the message on a friend's computer.
 
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/inobounce/0.2.0/inobounce.js

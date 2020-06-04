@@ -3,6 +3,7 @@ layout: minimal
 title:  "P5.JS - Fractal Trees - Space Colonization"
 categories: p5js
 modal: true
+excerpt: Models root growth based on 'space colonization' algorithm, where roots grow in spurts in an attempt to secure resources.
 
 js_scripts:
 - /sketchbook/vendor/p5.js/0.7.2/p5.js

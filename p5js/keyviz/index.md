@@ -3,6 +3,7 @@ layout: minimal
 title:  "P5.JS - KeyViz"
 categories: p5js
 modal: true
+excerpt: Preliminary sketch to record keyboard input and allow it to be played back, with the intention of allowing the user to create time-based drawings.
 
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js

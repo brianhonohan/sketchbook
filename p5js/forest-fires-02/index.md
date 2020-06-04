@@ -1,9 +1,10 @@
 ---
 layout: minimal
-title:  "P5.JS - Forest Fire Simulation"
+title:  "P5.JS - Forest Fire Simulation - Part 2"
 categories: p5js
 modal: true
 viewport_noscale: true
+excerpt: Adds interaction to the forest fire simulation sketch, with limits to amount of fire breaks that can be added, and ability to load different scenarios.
 
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/inobounce/0.2.0/inobounce.js

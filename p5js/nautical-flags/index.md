@@ -3,6 +3,7 @@ layout: minimal
 title:  "P5.JS - Nautical Flags"
 categories: p5js
 modal: true
+excerpt: Sketch rendering the various International Maritime Signal Flags, including numbers and Answering pennants, as you type on your keyboard.
 
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js
