@@ -277,7 +277,8 @@ class HockeyRink {
 
   float rotationBetweenVectors(PVector v1, PVector v2){
     float h1 = v1.heading();
-    PVector h2 = v2.copy().rotate(-h1);
+    PVector h2 = v2.copy();
+    h2.rotate(-h1);
     return h2.heading();
   }
 
