@@ -3,6 +3,7 @@ title:  "Coding Challenge #10 - Maze Generator"
 date:   2018-10-09 21:00:00 -0400
 categories: [p5js, coding-challenges]
 thumbnail: /sketchbook/p5js/coding-challenges/maze-generator/screenshot-01.png
+excerpt: This is a p5.js sketch inspired by the Coding Train’s Coding Challenge #10 (and part 2, part 3, part 4) on generating a maze.
 
 ---
 

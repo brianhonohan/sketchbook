@@ -4,6 +4,7 @@ title:  "Coding Challenge #1 - Starfield"
 date:   2018-09-26 21:00:00 -0400
 categories: [processing, coding-challenges]
 thumbnail: /sketchbook/processing/coding-challenges/starfield/screenshot-01.png
+excerpt: This is a Processing sketch inspired by the Coding Train’s Coding Challenge #1 on creating a starfield simulation, similar to Star Trek’s warp speed or the mid-90s Windows screensaver.
 
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.6.6/processing.js

@@ -4,6 +4,7 @@ title:  "Processing - Exploring Fermat's Spiral and Vogel's Model using the Gold
 date:   2015-01-24 12:00:00 -0400
 categories: [processing]
 thumbnail: /sketchbook/processing/spirals/screenshot-01.png
+excerpt: This is a Processing sketch inspired by the Fermat spiral; which is closely related to the arrangement of sunflower seeds (phyllotaxis).
 
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.6.6/processing.js

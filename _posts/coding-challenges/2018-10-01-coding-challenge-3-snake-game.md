@@ -5,6 +5,8 @@ date:   2018-10-01 08:00:00 -0400
 categories: [p5js, coding-challenges]
 modal: true
 thumbnail: /sketchbook/p5js/coding-challenges/snake/screenshot-01.png
+excerpt: This is a sketch inspired by the Coding Train's Coding Challenge #3 to create a version of the old Snake computer game.
+
 
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.23/p5.js
