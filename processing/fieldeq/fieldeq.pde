@@ -74,7 +74,7 @@ void draw(){
 
     tmpBall.render();
   }
-  println("num balls: " + balls.size() + ", framerate: " + frameRate);
+  // println("num balls: " + balls.size() + ", framerate: " + frameRate);
 }
 
 void dropTracers(int spacing){
@@ -186,9 +186,8 @@ class FieldView {
         maxMag = max(minMag, tmpMag);
       }
     }
-    
-    println("Found max mag:" + maxMag);
 
+    // println("Found max mag:" + maxMag);
     for (int i = 0; i < numCols; i++){
       x = (vectorSpacing+2*vectorMargin) * i  + vectorMargin + (0.5 * vectorSpacing) ;
 
