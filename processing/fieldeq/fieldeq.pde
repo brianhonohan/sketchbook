@@ -8,9 +8,8 @@ boolean fadeToBlack = false;
 
 
 void setup(){
-  size(displayWidth/2, displayHeight);
-  //size(500, 500);
  
+  size(500, 500);
   if(fadeToBlack){
     background(0);
   }
