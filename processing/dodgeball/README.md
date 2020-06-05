@@ -1,5 +1,5 @@
-# dodgeball
-A simple game of dodgling circles bigger than you, absorbing smaller ones.
+# Overview
+A simple game of dodging circles bigger than you, absorbing smaller ones.
 
 The intent of this sketch is to experiment with a bit of game mechanics.
 

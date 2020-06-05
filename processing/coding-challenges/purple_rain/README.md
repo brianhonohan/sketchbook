@@ -8,7 +8,7 @@ Mouse:
 
 ## Links: 
 
-* [Live View](https://brianhonohan.com/sketchbook/processing/coding-challenges/2018/10/02/coding-challenge-4-purple-rain.html)
+* [Live View](/sketchbook/processing/coding-challenges/purple_rain/)
 * [Source on Github](https://github.com/brianhonohan/sketchbook/tree/master/processing/coding-challenges/purple_rain/)
 
 [processing-home]: https://processing.org

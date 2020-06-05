@@ -17,7 +17,7 @@ Mouse:
 
 ## Links: 
 
-* [Live View](https://brianhonohan.com/sketchbook/processing/coding-challenges/2018/09/30/coding-challenge-2-menger-sponge.html)
+* [Live View](/sketchbook/processing/coding-challenges/menger_sponge/)
 * [Source on Github](https://github.com/brianhonohan/sketchbook/tree/master/processing/coding-challenges/menger_sponge)
 
 [processing-home]: https://processing.org

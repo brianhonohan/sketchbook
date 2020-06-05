@@ -4,6 +4,7 @@ title:  "P5.JS - Logic Gates"
 categories: p5js
 modal: true
 viewport_noscale: true
+excerpt: Basic simulation of logic gates, switches, and clock signal inputs, along with a set of scenarios to load.
 
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/inobounce/0.2.0/inobounce.js

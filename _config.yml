@@ -28,16 +28,37 @@ theme: minima
 plugins:
   - jekyll-feed
 
-
+show_excerpts: true
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
-# exclude:
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - tmp
+  - p5js/sketch-template/
+  - paperjs/sketch-template/
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      bh_page_type: sketch
+  - scope:
+      path: "assets"
+    values:
+      bh_page_type: asset
+  - scope:
+      path: "css"
+    values:
+      bh_page_type: css
+  - scope:
+      path: "feed.xml"
+    values:
+      bh_page_type: feed

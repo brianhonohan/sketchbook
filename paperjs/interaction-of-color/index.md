@@ -4,6 +4,7 @@ title:  "paper.js - Interaction of Color"
 categories: paperjs
 modal: true
 viewport_noscale: true
+excerpt: Rendering of several plates from Josef Albers' "Interaction of Color" that you can interact with (dragging shapes around) to see how colors that appear different are the same.
 
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/inobounce/0.2.0/inobounce.js

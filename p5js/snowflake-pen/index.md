@@ -4,6 +4,7 @@ title:  "P5.JS - Snowflake Pen"
 categories: p5js
 modal: true
 viewport_noscale: true
+excerpt: Allows you to draw a snowflake by repeating and reflecting the lines you draw around a circle.
 
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/inobounce/0.2.0/inobounce.js

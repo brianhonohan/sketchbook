@@ -25,7 +25,7 @@ Keys:
 [coding-train]: https://thecodingtrain.com/
 [ct-challenge-5]: https://www.youtube.com/watch?v=biN3v3ef-Y0&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=5
 [source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/space-invaders/
-[live-view]: https://brianhonohan.com/sketchbook/p5js/coding-challenges/space-invaders/live-view.html
+[live-view]: https://brianhonohan.com/sketchbook/p5js/coding-challenges/space-invaders/
 [wiki-space-invaders]: https://en.wikipedia.org/wiki/Space_Invaders
 [classic-gaming]: http://www.classicgaming.cc/classics/space-invaders/
 [youtube-space-invaders]: https://www.youtube.com/watch?v=kR2fjwr-TzA&t=125s

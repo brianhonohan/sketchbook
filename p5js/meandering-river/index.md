@@ -3,6 +3,7 @@ layout: minimal
 title:  "P5.JS - Meandering River"
 categories: p5js
 modal: true
+excerpt: Preliminary sketch modeling the meandering of a river.
 
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js

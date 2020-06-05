@@ -53,7 +53,7 @@ Overall, this felt more like creating a timed animation than simulating a natura
 [coding-train]: https://thecodingtrain.com/
 [ct-challenge-6]: https://www.youtube.com/watch?v=jxGS3fKPKJA&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=6
 [source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/mitosis/
-[live-view]: /sketchbook/p5js/coding-challenges/mitosis/live-view.html
+[live-view]: /sketchbook/p5js/coding-challenges/mitosis/
 [wikipedia-mitosis]: https://en.wikipedia.org/wiki/Mitosis
 [wikipedia-cell-cycle]: https://en.wikipedia.org/wiki/Cell_cycle
 [youtube-mitosis]: https://www.youtube.com/watch?v=DwAFZb8juMQ

@@ -123,7 +123,7 @@ class GridNumberVisualizer extends NumberVisualizer {
   
   void layerOn(){
     float _x = ((number.current-1) % maxCols) * (boxWidth + boxMargin);
-    float _y = _height - ((number.current-1) / maxCols) * (boxWidth + boxMargin);
+    float _y = _height - ceil((0.0001 + number.current-1) / (1.0 * maxCols)) * (boxWidth + boxMargin);
     drawBoxAt(_x, _y);
   }
 
@@ -188,8 +188,3 @@ class BoundingBox {
   Point topLeft;
   Point bottomRight;
 }
-
-
-
-
-

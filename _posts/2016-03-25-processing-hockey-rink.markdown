@@ -4,7 +4,7 @@ title:  "Processing - Drawing a Hockey Rink"
 date:   2016-03-25 19:59:15 -0400
 categories: processing
 thumbnail: /sketchbook/processing/hockey/screenshot-01.png
-
+excerpt: Scaled rendering of a Hockey rink, to learn Processing's drawing functions.
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.6.6/processing.js
 

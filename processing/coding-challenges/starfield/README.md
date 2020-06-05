@@ -5,7 +5,7 @@ This is a [Processing][processing-home] sketch inspired by the [Coding Train's][
 
 ## Links: 
 
-* [Live View](https://brianhonohan.com/sketchbook/processing/coding-challenges/2018/09/26/coding-challenge-1-starfield.html)
+* [Live View](/sketchbook/processing/coding-challenges/starfield/)
 * [Source on Github](https://github.com/brianhonohan/sketchbook/tree/master/processing/coding-challenges/starfield)
 
 [source-code]: https://github.com/brianhonohan/sketchbook/blob/b05f5d6a5dfe0e4a0d030ea37c20868c7aa9c86a/processing/coding-challenges/starfield/starfield.pde

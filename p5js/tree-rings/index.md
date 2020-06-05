@@ -4,6 +4,7 @@ title:  "P5.JS - Tree Rings"
 categories: p5js
 modal: true
 viewport_noscale: true
+excerpt: Preliminary sketch that establishes cells of a tree trunk cross-section to represent the growth rings experienced in different seasons.
 
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/inobounce/0.2.0/inobounce.js
