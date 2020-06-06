@@ -1,7 +1,7 @@
 # Overview
-A collection of equations, to create various Vector fields
+A collection of equations, to create various Vector fields.
 
-The intent of this sketch is to experiment with alternate 
+The intent of this sketch is to experiment with alternate fields and see what patterns they produce.
 
 Currently the fields have to be toggled on/off via code.
 
