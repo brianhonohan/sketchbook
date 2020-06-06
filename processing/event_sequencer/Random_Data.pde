@@ -18,8 +18,8 @@ class SequenceFactory{
       totalsByState[i] = tmpTransition.fluxFromTo[0][i];
     }
     sequence.addTransition(tmpTransition);
-    print2DimArrayInt("Matrix: ", tmpTransition.fluxFromTo, 8);
-    printArrayInt("Totals: ", totalsByState);
+    // print2DimArrayInt("Matrix: ", tmpTransition.fluxFromTo, 8);
+    // printArrayInt("Totals: ", totalsByState);
 
     // for the remaining transitions
     // ... TODO: add some new from OUTSIDE ... NOPE ... not in the simple model
@@ -67,8 +67,8 @@ class SequenceFactory{
           totalsByState[to] += tmpTransition.fluxFromTo[from][to];
         }
       }
-      print2DimArrayInt("Matrxi: ", tmpTransition.fluxFromTo, 8);
-      printArrayInt("Tottals: ", totalsByState);
+      // print2DimArrayInt("Matrxi: ", tmpTransition.fluxFromTo, 8);
+      // printArrayInt("Tottals: ", totalsByState);
     }
 
     return sequence;
