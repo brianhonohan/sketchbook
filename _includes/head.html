@@ -9,7 +9,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
+
+    {% if page.excerpt %}
+    <meta name="description" content="{{ page.excerpt }}">
+    {% else %}
     <meta name="description" content="{{ site.description }}">
+    {% endif %}
 
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
 
