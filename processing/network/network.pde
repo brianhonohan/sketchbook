@@ -6,14 +6,14 @@ NodeViewer nodeViewer;
 void setup(){
   size(500, 500);
   // size(displayWidth/2, displayHeight);
-  allNodes = new ArrayList<Node>(); 
+  allNodes = new ArrayList<Node>();
   tmpNode = new Node();
   nodeViewer = new NodeViewer();
-  
+
   tmpNode.x = width / 2;
   tmpNode.y = height / 2;
   allNodes.add(tmpNode);
-  
+
   rectMode(CENTER);
   ellipseMode(CENTER);
 
@@ -26,26 +26,26 @@ void draw(){
 //  fill(2, 20);
 //  rect(width/2, height/2, width, height);
   background(0);
-  
+
   noStroke();
   for(int i=0; i < allNodes.size(); i++){
     tmpNode = allNodes.get(i);
     fill(tmpNode._color);
     nodeViewer.renderNode(tmpNode);
   }
-  
+
   for(int i=0; i < allNodes.size(); i++){
     tmpNode = allNodes.get(i);
     tmpNode.calcSpringForce();
 //    tmpNode.calcForce();
   }
-  
+
   for(int i=0; i < allNodes.size(); i++){
     tmpNode = allNodes.get(i);
     tmpNode.applyForce();
   }
-  
-  
+
+
   strokeWeight(0.5);
   stroke(200,200,200);
   Node childNode;
@@ -62,7 +62,7 @@ void mousePressed(){
   Node tmpNode = new Node();
   tmpNode.x = mouseX;
   tmpNode.y = mouseY;
-  
+
   int idxOfParent = indexOfNodeToAddTo();
   allNodes.get(idxOfParent).addNode(tmpNode);
   allNodes.add(tmpNode);
@@ -75,7 +75,7 @@ int indexOfNodeToAddTo(){
     if(key == 'c'){
       float minDist = MAX_FLOAT;
       float tmpDist;
-      
+
       for(int i=0; i < allNodes.size(); i++){
         tmpNode = allNodes.get(i);
         tmpDist = dist(mouseX,mouseY, tmpNode.x, tmpNode.y);
@@ -84,10 +84,10 @@ int indexOfNodeToAddTo(){
           ret_index = i;
         }
       }
-    } 
+    }
   }
   return ret_index;
-  
+
 }
 
 
@@ -101,36 +101,36 @@ class Node {
   PVector velocity;
   PVector force;
   color _color;
-  
-  
+
+
   // CONSTANTS
   float TIME_STEP = 0.08;
-  float G_FACTOR = 10;  
+  float G_FACTOR = 10;
   float SPRING_K = 0.05;
-   
+
   Node(){
-    this.connectedNodes = new ArrayList<Node>(); 
+    this.connectedNodes = new ArrayList<Node>();
     x = width / 2 + random(10);
     y = height / 2 + random(10);
     force = new PVector();
     velocity = new PVector();
     mass = 1;
-    
-    _color = color(  random(50,200), random(50,200), random(50,200) ); 
+
+    _color = color(  random(50,200), random(50,200), random(50,200) );
   }
-  
+
   public void addNode(Node node){
     connectedNodes.add(node);
-//    node.initialSpringLength = 30; 
+//    node.initialSpringLength = 30;
     float dist = this.distanceTo(node);
     node.initialSpringLength = dist + dist * 0.1 * randomGaussian();
   }
-  
+
   public void calcForce(){
     Node tmpNode;
     PVector f = new PVector();
     float dist;
-    
+
     for(int i=0; i < connectedNodes.size(); i++){
       tmpNode = connectedNodes.get(i);
       f.set(tmpNode.x - this.x, tmpNode.y - this.y);
@@ -141,52 +141,52 @@ class Node {
       f.set(0,0,0);
     }
   }
-  
+
   public float distanceTo(Node otherNode){
      return dist(otherNode.x,otherNode.y, this.x,this.y);
   }
-  
+
   public void calcSpringForce(){
     Node tmpNode;
     PVector f = new PVector();
     float displacement;
-    
+
     for(int i=0; i < connectedNodes.size(); i++){
       tmpNode = connectedNodes.get(i);
-      displacement = this.distanceTo(tmpNode) - tmpNode.initialSpringLength; 
-      
-      
-      
+      displacement = this.distanceTo(tmpNode) - tmpNode.initialSpringLength;
+
+
+
       // establish base direction of force
       f.set(tmpNode.x - this.x, tmpNode.y - this.y);
       f.div( f.mag() );
-      
-      
+
+
       f.mult( SPRING_K * displacement );
       this.force.add(f);
       tmpNode.force.sub(f);
       f.set(0,0,0);
     }
   }
-  
-  
+
+
   public void applyForce(){
-    
-    velocity.set( velocity.x + force.x/mass * TIME_STEP 
+
+    velocity.set( velocity.x + force.x/mass * TIME_STEP
                     , velocity.y + force.y/mass * TIME_STEP);
-                    
+
     this.x += velocity.x;
-    this.y += velocity.y; 
-    force.set(0,0); 
+    this.y += velocity.y;
+    force.set(0,0);
   }
 }
 
 
 class NodeViewer {
-  
+
   void renderNode(Node node){
 //    rect(node.x, node.y, 10, 10);
- 
-    ellipse(node.x, node.y, 10, 10);   
-  } 
+
+    ellipse(node.x, node.y, 10, 10);
+  }
 }
