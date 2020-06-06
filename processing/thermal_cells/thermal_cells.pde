@@ -44,7 +44,7 @@ void mouseDragged(){
 
 void keyPressed(){
   switch(key){
-     case 63:   // Question mark
+     case '?':   // Question mark
          app.toggleHelpDisplay();
          return;
   }
@@ -294,8 +294,8 @@ class GridViewController {
   }
 
   void _deltaHeatAt(boolean addingHeat, int globalX, int globalY){
-    int inCol = (globalX - this._x) / (cellWidth+cellSpacing);
-    int inRow = (globalY - this._y) / (cellHeight+cellSpacing);
+    int inCol = floor((globalX - this._x) / (cellWidth+cellSpacing));
+    int inRow = floor((globalY - this._y) / (cellHeight+cellSpacing));
 
     int idxOfCell = inCol + inRow * numCols;
     if (idxOfCell < 0 || idxOfCell > (cells.size() - 1)){
@@ -331,7 +331,7 @@ class GridViewController {
     for(int i=0; i<numCells; i++){
       tmpCell = new Cell();
       tmpCol = i % numCols;
-      tmpRow = i / numCols;
+      tmpRow = floor(i / numCols);
       // tmpCell.temp = map(tmpCol, 0, numCols, -300, 300);
       // tmpCell.temp = 100 * randomGaussian();
       tmpCell.temp = 300 * (noise(tmpCol, tmpRow) - 0.5);
