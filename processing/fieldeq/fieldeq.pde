@@ -1,33 +1,26 @@
 
-FieldEquation fq;  
+FieldEquation fq;
 FieldView fv;
 Ball testBall;
 ArrayList<Ball> balls;
 
 boolean fadeToBlack = false;
-
+boolean drawVectors = true;
 
 void setup(){
-  size(displayWidth/2, displayHeight);
-  //size(500, 500);
- 
+  size(500, 500);
+  background(52);
+
   if(fadeToBlack){
     background(0);
   }
-  
+
   HashMap<String,Integer> hm = new HashMap<String,Integer>();
   fq = new LotkaVolterraEquation();
-  // fq = new SimpleWind();
- fq = new SinuousWind();
-  // fq = new OddEvenWind();
-  // fq = new StackedWind();
-  //  fq = new MultiStackedFields();
-  //  fq = new GravityField();
-  // fq = new LorentzEquation();
-  
+
   fv = new FieldView();
-  fv.renderEquation(fq);
-  
+  setField(fq);
+
   balls = new ArrayList<Ball>();  // Create an empty ArrayList
   testBall = new Ball();
   testBall.x = width/2;
@@ -35,22 +28,89 @@ void setup(){
 //  balls.add(testBall);
 //  testBall.render();
  // frameRate(30);
-  
+
   dropTracers(50);
+}
+
+void keyPressed(){
+  switch(key){
+    case '1': setField(new LotkaVolterraEquation()); break;
+    case '2': setField(new SimpleWind()); break;
+    case '3': setField(new SinuousWind()); break;
+    case '4': setField(new OddEvenWind()); break;
+    case '5': setField(new StackedWind()); break;
+    case '6': setField(new MultiStackedFields()); break;
+    case '7': setField(new GravityField()); break;
+    case 'd': dropTracers(50); break;
+    case 'c': clearDrawing(); break;
+    case 'C': clearAll(); break;
+    case 'f': toggleFade(); break;
+    case 'v': toggleDrawVectors(); break;
+    case 'b': drawVectorField(); break;
+  }
+}
+
+void setField(FieldEquation newField){
+  fq = newField;
+  clearDrawing();
+}
+
+void clearAll(){
+  balls.clear();
+  clearDrawing();
+}
+
+void clearDrawing(){
+  if (fadeToBlack) {
+    background(0);
+  } else {
+    background(180);
+    maybeDrawVectorField();
+  }
+}
+
+void maybeDrawVectorField(){
+  if (drawVectors == false){
+    return;
+  }
+  drawVectorField();
+}
+
+void drawVectorField(){
+  if (fadeToBlack){
+    stroke(255);
+  } else {
+    stroke(0);
+  }
+  fv.renderEquation(fq);
+}
+
+void toggleFade(){
+  if (fadeToBlack){
+    fadeToBlack = false;
+    clearDrawing();
+  } else {
+    fadeToBlack = true;
+  }
+}
+
+void toggleDrawVectors(){
+  drawVectors = !drawVectors;
+  clearDrawing();
 }
 
 void draw(){
 //  float dxBall = fq.dx(testBall.x / 100.0, testBall.y / 100.0);
 //  float dyBall = fq.dy(testBall.x / 100.0, testBall.y / 100.0);
   // println("dx " + dxBall);
-  
+
 //  fv.renderEquation(fq);
   // testBall.render();
   if (fadeToBlack){
     fill(0, 10);
     rect(0,0, width, height);
   }
-  
+
 
   Ball tmpBall;
   for(int i=0; i < balls.size(); i++){
@@ -59,31 +119,31 @@ void draw(){
     float dyBall = fq.dy(tmpBall.x / 100.0, tmpBall.y / 100.0);
     tmpBall.x += dxBall;
     tmpBall.y += dyBall;
-    
+
     tmpBall.x += tmpBall.xSpeed;
     tmpBall.y += tmpBall.ySpeed;
     // println("dx: " + dxBall + ", dy: " + dyBall);
-    
-    if (abs(tmpBall.x) > 4 * width) {   // off the screen 
-      balls.remove(i); 
-    }else if (abs(tmpBall.y) > 4 * height) { 
-      balls.remove(i);  // off the screen 
-    }else if (abs(dxBall) < 0.0001 && abs(dyBall) < 0.0001){ 
-      balls.remove(i); 
+
+    if (abs(tmpBall.x) > 4 * width) {   // off the screen
+      balls.remove(i);
+    }else if (abs(tmpBall.y) > 4 * height) {
+      balls.remove(i);  // off the screen
+    }else if (abs(dxBall) < 0.0001 && abs(dyBall) < 0.0001){
+      balls.remove(i);
     } // stopped moving
-    
+
     tmpBall.render();
   }
-  println("num balls: " + balls.size() + ", framerate: " + frameRate);
+  // println("num balls: " + balls.size() + ", framerate: " + frameRate);
 }
 
 void dropTracers(int spacing){
   if (spacing < 20){
-   return; 
+   return;
   }
   int numCols = floor(width / spacing);
   int numRows = floor(height / spacing);
-  
+
   for(int i=0; i<numCols; i++){
     for(int j=0; j<numRows; j++){
       createBallAt(i*spacing,j*spacing);
@@ -101,25 +161,18 @@ void createBallAt(float x, float y){
 
 Ball inertialBall = null;
 void mouseDragged(){
-  if (keyPressed == false){ 
+  if (keyPressed == false){
     createBallAt(mouseX,mouseY);
-  }else if(key == 'a'){
-    stroke( color(50,200,50) );
-    line(inertialBall.x, inertialBall.y, mouseX, mouseY);
   }
 }
 void mousePressed(){
-  if (keyPressed == false){ 
+  if (keyPressed == false){
     createBallAt(mouseX,mouseY);
   }else if(key == 'a'){
     // println("pressing a");
     inertialBall = new Ball();
     inertialBall.x = mouseX;
     inertialBall.y = mouseY;
-  }else if(key == 'd'){
-   dropTracers(50);  
-  }else if(key == 'c'){
-   balls.clear();  
   }
 }
 void mouseReleased(){
@@ -130,7 +183,7 @@ void mouseReleased(){
     balls.add(inertialBall);
     inertialBall = null;
   }
-  
+
 }
 
 
@@ -140,7 +193,7 @@ class Ball {
   float y;
   float xSpeed = 0;
   float ySpeed = 0;
-  
+
   void render(){
     fill(200, 30, 30);
     if (xSpeed > 0 || ySpeed > 0){
@@ -154,46 +207,46 @@ class Ball {
 
 
 class FieldView {
-  int vectorSpacing = 50;
-  int vectorMargin = 5;
+  int vectorSpacing = 20;
+  int vectorMargin = 3;
   float scalingFactor = 100;
-  
+
   void renderEquation(FieldEquation fq){
     int numCols = floor(1.0 * width / (vectorSpacing + 2*vectorMargin));
     int numRows = floor(1.0 * height / (vectorSpacing + 2*vectorMargin));
-    
+
     float x;
     float y;
     float dx;
     float dy;
-    
+
     float maxMag = -1;
     float minMag = -1;
     float tmpMag = 0;
     for (int i = 0; i < numCols; i++){
       x = (vectorSpacing+2*vectorMargin) * i  + vectorMargin + (0.5 * vectorSpacing) ;
-      
+
       for (int j = 0; j < numRows; j++){
         y = (vectorSpacing+2*vectorMargin) * j  + vectorMargin + (0.5 * vectorSpacing) ;
-        
+
         dx = fq.dx(x/scalingFactor, y/scalingFactor);
         dy = fq.dy(x/scalingFactor, y/scalingFactor);
         tmpMag = mag(dx, dy);
         if (maxMag < 0){ maxMag = tmpMag; }
         if (minMag < 0){ minMag = tmpMag; }
-        
+
         minMag = min(minMag, tmpMag);
         maxMag = max(minMag, tmpMag);
       }
     }
-    
-    println("Found max mag:" + maxMag);
+
+    // println("Found max mag:" + maxMag);
     for (int i = 0; i < numCols; i++){
       x = (vectorSpacing+2*vectorMargin) * i  + vectorMargin + (0.5 * vectorSpacing) ;
-      
+
       for (int j = 0; j < numRows; j++){
         y = (vectorSpacing+2*vectorMargin) * j  + vectorMargin + (0.5 * vectorSpacing) ;
-        
+
         dx = fq.dx(x/scalingFactor, y/scalingFactor);
         dy = fq.dy(x/scalingFactor, y/scalingFactor);
         //println("---- x,y " + x + ", " + y);
@@ -201,7 +254,7 @@ class FieldView {
       }
     }
   }
-  
+
   void renderVectorAt(PVector vector,float p_nX,float p_nY, float p_nMinMag, float p_nMaxMag){
 //    strokeWeight(3);
 //    point(p_nX, p_nY);
@@ -210,12 +263,12 @@ class FieldView {
 //    println("... min: " + p_nMinMag + ", max: " + p_nMaxMag);
     pushMatrix();
     translate(p_nX, p_nY);
-    
+
     // MOVED DOWN to after the length of the line is determined.
 //    translate(-1 * vector.x / p_nMaxMag *  vectorSpacing * 0.5
 //              , -1 * vector.y / p_nMaxMag *  vectorSpacing * 0.5);
     strokeWeight(1);
-    
+
     float magnitude = vector.mag();
     float rotation = vector.heading();
 //    println("... mag: " + magnitude);
@@ -239,21 +292,21 @@ class FieldView {
     unitVector.normalize();
     translate(-1 * unitVector.x * lineLength * 0.5, -1 * unitVector.y * lineLength * 0.5);
 
-    
+
     line(0,0, lineLength , 0);
-    
+
     // Walk to the end of the line, and turn to create the arrow
     translate(lineLength, 0);
     rotate( radians(-160) );
     line(0,0, lineLength * 0.25, 0);
-    
+
     popMatrix();
   }
 }
 
 class FieldEquation {
   float dx(float _x, float _y){ return 1; }
-  float dy(float _x, float _y){ return 1; } 
+  float dy(float _x, float _y){ return 1; }
 }
 
 
@@ -263,12 +316,12 @@ class LotkaVolterraEquation extends FieldEquation  {
 //  float beta  = 0.0004;  // sort of the likelihood Y eats X
 //  float delta = 0.00003;  // sort of the benefit Y gets by eating X
 //  float gamma = 0.04;  // Population loss of Y due overpopulation
- 
+
   float alpha = 3;  // population gain by X, due to mating
   float beta  = 0.5;  // sort of the likelihood Y eats X
   float delta = 0.250001;  // sort of the benefit Y gets by eating X
-  float gamma = 1.4;  // Population loss of Y due 
- 
+  float gamma = 1.4;  // Population loss of Y due
+
   float dx(float _x, float _y){ return alpha * _x - beta * _x * _y; }
   float dy(float _x, float _y){ return delta * _x * _y - gamma * _y; }
 }
@@ -279,10 +332,10 @@ class LorentzEquation extends FieldEquation  {
 //  float beta  = 0.0004;  // sort of the likelihood Y eats X
 //  float delta = 0.00003;  // sort of the benefit Y gets by eating X
 //  float gamma = 0.04;  // Population loss of Y due overpopulation
- 
-  float sigma = 4;  
-  float rho  = 10;  
-  
+
+  float sigma = 4;
+  float rho  = 10;
+
   float dx(float _x, float _y){ return sigma * (_y - _x ); }
   float dy(float _x, float _y){ return _x * (rho - 10) - _y; }
 }
@@ -340,28 +393,28 @@ class GravityField extends FieldEquation {
   PVector lastVectorCalculated;
   float _lastX;
   float _lastY;
-  
+
   GravityField(){
     init();
   }
-  
+
   void init(){
     masses = new ArrayList<MassObject>();
-    
+
     //masses.add( new MassObject(width/2 / 100.0,  height/2 / 100.0, 100000.0) );
     masses.add( new MassObject(random(0,width)*0.01,  random(0,height)*0.01, 10000) );
     masses.add( new MassObject(random(0,width)*0.01,  random(0,height)*0.01, 10000) );
     masses.add( new MassObject(random(0,width)*0.01,  random(0,height)*0.01, 10000) );
     masses.add( new MassObject(random(0,width)*0.01,  random(0,height)*0.01, 10000) );
     masses.add( new MassObject(random(0,width)*0.01,  random(0,height)*0.01, 10000) );
-    
+
   }
-  
-  
-  float dx(float _x, float _y){ 
-    lastVectorCalculated = new PVector(); 
-    
-    PVector tmpForce; 
+
+
+  float dx(float _x, float _y){
+    lastVectorCalculated = new PVector();
+
+    PVector tmpForce;
     float gravitational_constant = 0.001;
     for(int i=0; i<masses.size(); i++){
       MassObject object = masses.get(i);
@@ -377,10 +430,10 @@ class GravityField extends FieldEquation {
     }
     return lastVectorCalculated.x;
   }
-  float dy(float _x, float _y){ 
+  float dy(float _x, float _y){
      return lastVectorCalculated.y;
   }
-  
+
 }
 
 
@@ -388,17 +441,17 @@ class MultiStackedFields extends FieldEquation {
   final int OPERAND_ADDITIVE  = 0;
   final int OPERAND_SUBTRACT  = 1;
   final int OPERAND_MULTIPLY  = 2;
-  
+
   int operand = OPERAND_MULTIPLY;
   ArrayList<FieldEquation> fields;
-  
+
   MultiStackedFields(){
     interestingMix3();
   }
-  
+
   void initInterestingMix(){
     operand = OPERAND_ADDITIVE;
-    fields = new ArrayList<FieldEquation>(); 
+    fields = new ArrayList<FieldEquation>();
     fields.add( new LotkaVolterraEquation() );
     fields.add( new SimpleWind() );
     fields.add( new SinuousWind() );
@@ -406,21 +459,21 @@ class MultiStackedFields extends FieldEquation {
   }
   void initInterestingMix2(){
     operand = OPERAND_ADDITIVE;
-    fields = new ArrayList<FieldEquation>(); 
+    fields = new ArrayList<FieldEquation>();
     fields.add( new LotkaVolterraEquation() );
     fields.add( new SimpleWind() );
   }
-  
+
   void interestingMix3(){
      operand = OPERAND_MULTIPLY;
-    fields = new ArrayList<FieldEquation>(); 
+    fields = new ArrayList<FieldEquation>();
     fields.add( new LotkaVolterraEquation() );
     // fields.add( new SinuousWind() );
     SimpleWind sw = new SimpleWind();
     sw.speed = 20;
     fields.add( sw );
   }
-  float dx(float _x, float _y){ 
+  float dx(float _x, float _y){
     float retDx = 0;
     FieldEquation fe;
     for(int i=0; i < fields.size(); i++){
@@ -434,8 +487,8 @@ class MultiStackedFields extends FieldEquation {
     }
     return retDx;
   }
-  
-  float dy(float _x, float _y){ 
+
+  float dy(float _x, float _y){
     float retDy = 0;
     FieldEquation fe;
     for(int i=0; i < fields.size(); i++){
@@ -448,7 +501,7 @@ class MultiStackedFields extends FieldEquation {
     }
     return retDy;
   }
-  
+
   float combineValues(float val1, float val2){
     switch(operand){
       case OPERAND_ADDITIVE:  return val1 + val2;
