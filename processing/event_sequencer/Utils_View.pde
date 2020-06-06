@@ -73,10 +73,6 @@ class LineView {
     vector = new PVector(to.x - from.x, to.y - from.y);
   }
 
-  LineView(Point from, PVector _vector){
-    position = new PVector(from.x, from.y);
-    vector = new PVector(_vector.x, _vector.y);
-  }
   public JSONObject toJSON(){
     JSONObject json = new JSONObject();
     json.setFloat("x", position.x);
@@ -100,7 +96,9 @@ class LineView {
     PVector newVector = new PVector(vector.x, vector.y);
     newVector.normalize();
     newVector.rotate(HALF_PI);
-    return new LineView(midPoint(), newVector);
+    Point from = midPoint();
+    Point to = new Point(from.x + newVector.x, from.y + newVector.y);
+    return new LineView(from, to);
   }
 
   void setLength(float scale){
