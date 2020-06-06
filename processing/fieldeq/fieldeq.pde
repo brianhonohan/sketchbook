@@ -5,28 +5,22 @@ Ball testBall;
 ArrayList<Ball> balls;
 
 boolean fadeToBlack = false;
-
+boolean drawVectors = true;
 
 void setup(){
- 
   size(500, 500);
+  background(52);
+
   if(fadeToBlack){
     background(0);
   }
 
   HashMap<String,Integer> hm = new HashMap<String,Integer>();
   fq = new LotkaVolterraEquation();
-  // fq = new SimpleWind();
- fq = new SinuousWind();
-  // fq = new OddEvenWind();
-  // fq = new StackedWind();
-  //  fq = new MultiStackedFields();
-  //  fq = new GravityField();
-  // fq = new LorentzEquation();
-  
+
   fv = new FieldView();
-  fv.renderEquation(fq);
-  
+  setField(fq);
+
   balls = new ArrayList<Ball>();  // Create an empty ArrayList
   testBall = new Ball();
   testBall.x = width/2;
@@ -36,6 +30,73 @@ void setup(){
  // frameRate(30);
 
   dropTracers(50);
+}
+
+void keyPressed(){
+  switch(key){
+    case '1': setField(new LotkaVolterraEquation()); break;
+    case '2': setField(new SimpleWind()); break;
+    case '3': setField(new SinuousWind()); break;
+    case '4': setField(new OddEvenWind()); break;
+    case '5': setField(new StackedWind()); break;
+    case '6': setField(new MultiStackedFields()); break;
+    case '7': setField(new GravityField()); break;
+    case 'd': dropTracers(50); break;
+    case 'c': clearDrawing(); break;
+    case 'C': clearAll(); break;
+    case 'f': toggleFade(); break;
+    case 'v': toggleDrawVectors(); break;
+    case 'b': drawVectorField(); break;
+  }
+}
+
+void setField(FieldEquation newField){
+  fq = newField;
+  clearDrawing();
+}
+
+void clearAll(){
+  balls.clear();
+  clearDrawing();
+}
+
+void clearDrawing(){
+  if (fadeToBlack) {
+    background(0);
+  } else {
+    background(180);
+    maybeDrawVectorField();
+  }
+}
+
+void maybeDrawVectorField(){
+  if (drawVectors == false){
+    return;
+  }
+  drawVectorField();
+}
+
+void drawVectorField(){
+  if (fadeToBlack){
+    stroke(255);
+  } else {
+    stroke(0);
+  }
+  fv.renderEquation(fq);
+}
+
+void toggleFade(){
+  if (fadeToBlack){
+    fadeToBlack = false;
+    clearDrawing();
+  } else {
+    fadeToBlack = true;
+  }
+}
+
+void toggleDrawVectors(){
+  drawVectors = !drawVectors;
+  clearDrawing();
 }
 
 void draw(){
@@ -102,9 +163,6 @@ Ball inertialBall = null;
 void mouseDragged(){
   if (keyPressed == false){
     createBallAt(mouseX,mouseY);
-  }else if(key == 'a'){
-    stroke( color(50,200,50) );
-    line(inertialBall.x, inertialBall.y, mouseX, mouseY);
   }
 }
 void mousePressed(){
@@ -115,10 +173,6 @@ void mousePressed(){
     inertialBall = new Ball();
     inertialBall.x = mouseX;
     inertialBall.y = mouseY;
-  }else if(key == 'd'){
-   dropTracers(50);  
-  }else if(key == 'c'){
-   balls.clear();  
   }
 }
 void mouseReleased(){
@@ -153,8 +207,8 @@ class Ball {
 
 
 class FieldView {
-  int vectorSpacing = 50;
-  int vectorMargin = 5;
+  int vectorSpacing = 20;
+  int vectorMargin = 3;
   float scalingFactor = 100;
 
   void renderEquation(FieldEquation fq){
