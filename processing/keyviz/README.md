@@ -6,6 +6,6 @@ The intent of this sketch is to be able to record and playback keyboard input on
 Future features include:
 
   * Adding an audio track
-  * More ellaborate visualizations
-  * Abilty to edit keyboard recordings
+  * More elaborate visualizations
+  * Ability to edit keyboard recordings
   * Ability to create parallel keyboard recordings

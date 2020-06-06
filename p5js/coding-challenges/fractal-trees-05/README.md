@@ -1,7 +1,7 @@
 
 ## Overview
 
-This is a [p5.js][p5js-home] sketch inspired by the [Coding Train's][coding-train] [Coding Challenge #17][ct-challenge-17]  on implmementing the 'Space Colonization' tree growth algorithm, as outlined on [AlgorithmBotany.com][algo-botany-space-colonization].
+This is a [p5.js][p5js-home] sketch inspired by the [Coding Train's][coding-train] [Coding Challenge #17][ct-challenge-17]  on implementing the 'Space Colonization' tree growth algorithm, as outlined on [AlgorithmBotany.com][algo-botany-space-colonization].
 
 The gist of it is to imagine the end result of a tree's growth, in terms of location of the leaves ... and allow the branches to grow into those spaces.
 

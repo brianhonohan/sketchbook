@@ -46,7 +46,7 @@ With Horiztonal Reflection:
 
 ![screencap][screencap-01]
 
-Without Horiztonal Reflection::
+Without Horizontal Reflection::
 
 ![screencap][screencap-04]
 

@@ -1,4 +1,4 @@
-# fieldeq
+# Overview
 A collection of equations, to create various Vector fields
 
 The intent of this sketch is to experiment with alternate 
@@ -20,7 +20,6 @@ Fields are:
 0. LorentzEquation
 
 ## Controls
-
 
 `a` -  While holding the mouse, will add a ball, you can pull it back like a slingshot and release.
 

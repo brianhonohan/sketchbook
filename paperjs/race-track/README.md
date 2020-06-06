@@ -28,8 +28,8 @@ In future versions, hope create a Race Engineer simulation, where they decide in
 
 ## Controls
 
-- `Mouse` + `Click & Drag` - Draw the inital track.
-    - After drawing a track, before adding cars, it can be modifed via:
+- `Mouse` + `Click & Drag` - Draw the initial track.
+    - After drawing a track, before adding cars, it can be modified via:
     - `s` - Simplify the track a bit removing some of the points.
     - `m` - Smooths the track a bit by rounding out curves.
 - `r` - Adds a new car to the race track at the starting point.
