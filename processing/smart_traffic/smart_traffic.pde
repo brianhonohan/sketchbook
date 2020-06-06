@@ -12,7 +12,7 @@ int seed;
 float secsPerFrame;
 
 void setup(){
-  size(displayWidth, displayHeight/2);
+  size(700, 150);
   strokeWeight(2);
   establishSeed();
   
@@ -405,7 +405,7 @@ class Road {
   int carsAdded;
   
   Road(){
-    _width = displayWidth;
+    _width = width;
     cars = new ArrayList<Car>(); 
     speedLimit = 30;
     carsAdded = 0;
