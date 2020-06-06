@@ -1,50 +1,50 @@
 class SequenceFactory{
-  
+
   EventSequence generateRandomData(int numStates, int numTransitions, boolean allowRepeats, int seed)
   {
     EventSequence sequence = new EventSequence();
-    randomSeed(seed);
-    
+    // randomSeed(seed);
+
     // first generate the genesis transition, where things only spawn from nothing. (State 0);
     TransitionSet tmpTransition = new TransitionSet("0", numStates);
-    int totalsByState[] = new int[numStates];  
+    int totalsByState[] = new int[numStates];
     // we'll only transition from state 0
     for(int i=0; i<numStates; i++){
       sequence.addState(new ItemState(i, "State " + i ));
       if(i == 0){
-        continue; 
+        continue;
       }
-      tmpTransition.fluxFromTo[0][i] = int(500 + random(500, 1000));  
+      tmpTransition.fluxFromTo[0][i] = int(500 + random(500, 1000));
       totalsByState[i] = tmpTransition.fluxFromTo[0][i];
     }
     sequence.addTransition(tmpTransition);
-    print2DimArrayInt("Matrix: ", tmpTransition.fluxFromTo, 8);
-    printArrayInt("Totals: ", totalsByState);
-    
+    // print2DimArrayInt("Matrix: ", tmpTransition.fluxFromTo, 8);
+    // printArrayInt("Totals: ", totalsByState);
+
     // for the remaining transitions
     // ... TODO: add some new from OUTSIDE ... NOPE ... not in the simple model
-    // ... thinking that there may be arrays transistions for each time period, 
+    // ... thinking that there may be arrays transistions for each time period,
     // ... to advance items from step 1 to step 2 and so on
     // For NOW:
-    // .. just 
+    // .. just
     float tmpPercentInFlux = 0;
     int numInFlux = 0;
-    int[] fluxToOthers; 
+    int[] fluxToOthers;
     int potentialNextSteps = (allowRepeats) ? numStates : numStates - 1;
-    
+
     for(int i=1; i<numTransitions; i++){
       tmpTransition = new TransitionSet((i + ""), numStates);
-      
+
       for(int from=0; from<numStates; from++){
         if(from == 0){
-          continue; 
+          continue;
         }
-        
+
         // determine % of items moving on to another state
         tmpPercentInFlux = random(0.1, 0.6);
         numInFlux = int(totalsByState[from] * tmpPercentInFlux);
         fluxToOthers = randomGroups(numInFlux, potentialNextSteps);
-        
+
         int idxInFluxToOthers = 0;
         for(int to=0; to<numStates; to++){
           idxInFluxToOthers = to;
@@ -57,9 +57,9 @@ class SequenceFactory{
           }
           tmpTransition.fluxFromTo[from][to] = fluxToOthers[idxInFluxToOthers];
         }
-      } 
+      }
       sequence.addTransition(tmpTransition);
-      
+
       // Apply the transitions to the running totals
       for(int from=0; from<numStates; from++){
         for(int to=0; to<numStates; to++){
@@ -67,10 +67,10 @@ class SequenceFactory{
           totalsByState[to] += tmpTransition.fluxFromTo[from][to];
         }
       }
-      print2DimArrayInt("Matrxi: ", tmpTransition.fluxFromTo, 8);
-      printArrayInt("Tottals: ", totalsByState);
-    } 
-    
+      // print2DimArrayInt("Matrxi: ", tmpTransition.fluxFromTo, 8);
+      // printArrayInt("Tottals: ", totalsByState);
+    }
+
     return sequence;
   }
 }
@@ -80,7 +80,7 @@ class SequenceFactory{
 int[] randomGroups(int population, int nGroups){
   float[] groupRatios = randomSegments(nGroups);
   int[] groups = new int[nGroups];
-  
+
   // track running total to ensure total matches 'population'
   int total = 0;
   for(int i=0; i<nGroups; i++){
@@ -98,14 +98,14 @@ int[] randomGroups(int population, int nGroups){
 // returns a float[] where sum is approx 1 (not equal, because of floating point error)
 float[] randomSegments(int nGroups){
   float[] segments = new float[nGroups];
-  
+
   float avgSegmentSize = 1.0 / nGroups;
-  
+
   // popluate the arra
   for(int i=0; i<nGroups; i++){
     segments[i] = avgSegmentSize;
   }
-  
+
   float pairSum;
   for(int i=0; i<nGroups; i++){
     for(int j=(i+1); j<nGroups; j++){
@@ -117,6 +117,6 @@ float[] randomSegments(int nGroups){
       }
     }
   }
-  
+
   return segments;
 }

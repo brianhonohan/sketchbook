@@ -1,4 +1,4 @@
-## Processing - Event Sequencer
+## Overview
 
 Makes use of the [processing.org](https://processing.org/) sketchbook to try out some ideas of rendering transitions of elements through a [state diagram](https://en.wikipedia.org/wiki/State_diagram)
 

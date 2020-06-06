@@ -13,25 +13,25 @@ SequenceViewer seqViewer;
 ColorSet colorSet;
 Logging logger = new Logging();
 
-int numStates = 4;
+int numStates = 6;
 int numTransitions = 4;
 int randomSeed = 1005;
 boolean allowRepeats = true;
 
 void setup(){
-  size(500, 750);
+  size(500, 500);
   colorSet = new ColorSet();
-  
+
   seqFactory = new SequenceFactory();
   sequence = seqFactory.generateRandomData(numStates, numTransitions, allowRepeats, randomSeed);
-  sequence.printTransitions();
-  
+  // sequence.printTransitions();
+
   seqViewer = new StaticSeqViewer();
   seqViewer.setPosition(width*0.05, height*0.05);
   seqViewer.setDimensions(width*0.9, height*0.9);
   seqViewer.setSequence(sequence);
   seqViewer.render();
-  
+
   //UtilsLayoutSimpleTestDriver tester = new UtilsLayoutSimpleTestDriver();
   //tester.radialLayout();
 }

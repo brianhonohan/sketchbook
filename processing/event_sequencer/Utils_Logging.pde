@@ -15,9 +15,9 @@ String strLeftPadded(String message, int numChars, String paddingChar){
   int numCharsToPrint = numChars;
   if(message != null){
     int strLeng = message.length();
-    numCharsToPrint -= strLeng; 
+    numCharsToPrint -= strLeng;
   }
-  String fullMessage = ""; 
+  String fullMessage = "";
   for(int i=0; i<numCharsToPrint; i++){
     fullMessage += paddingChar;
   }
@@ -32,16 +32,16 @@ void print2DimArrayInt(String message, int[][] arrayVals, int charsPerCol){
     return;
   }
   charsPerCol = 8;
-  
+
   // header indexes
   int maxIter = min(arrayVals[0].length, 200);
   printLeftPadded("", charsPerCol, " ");
   for(int i=0; i<maxIter; i++){
     printLeftPadded(""+i, charsPerCol, " ");
   }
-  
+
   println("");
-  
+
   // print values
   for(int row=0; row<maxIter; row++){
     printLeftPadded(""+row, charsPerCol, " ");

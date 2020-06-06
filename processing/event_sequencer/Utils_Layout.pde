@@ -2,12 +2,12 @@ class LayoutManager {
   UIView constraints;
   LayoutManager(UIView _constraints){
     constraints = _constraints;
-  } 
-  
-  Point getNthPosition(int n, int totalCount) {
-    return new Point(0, 0); 
   }
-  
+
+  Point getNthPosition(int n, int totalCount) {
+    return new Point(0, 0);
+  }
+
   void layoutViews(ArrayList<? extends UIView> views){
     int numElements = views.size();
     UIView tmpView;
@@ -23,15 +23,15 @@ class RadialLayoutManager extends LayoutManager{
   RadialLayoutManager(UIView _constraints){
     super(_constraints);
   }
-  
+
   // Assumes n is 0 based index within the Total Count
   Point getNthPosition(int n, int totalCount) {
-    Point centerPoint = new Point(constraints.centerX(), constraints.centerY()); 
+    Point centerPoint = new Point(constraints.centerX(), constraints.centerY());
     Point result = centerPoint;
-    
+
     float angleBetweenPointsInRadians = TWO_PI / totalCount;
     float angleAtPosition = n * angleBetweenPointsInRadians;
-    
+
     PolarPoint polar = new PolarPoint();
     polar.r = min(constraints._width, constraints._height) / 2.0;
     polar.theta = angleAtPosition;
