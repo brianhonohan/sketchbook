@@ -12,4 +12,4 @@ Below is a sample of the output, where the circles represent the states and the 
 
 * The color of the line denotes the _destination_ state of the elements in transition.
 * The weight of the line denotes is scaled to the number of items transitioning.
-* The size of the state cirle denotes the population of the state.
+* The size of the state circle denotes the population of the state.

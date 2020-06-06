@@ -3,3 +3,4 @@ if (PVector.prototype.copy == undefined){
     return new PVector(this.x, this.y, this.z);
   }
 }
+

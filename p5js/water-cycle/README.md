@@ -12,7 +12,7 @@ Starting with a view divided into 4 main sections:
 - third quarter is the foothills
 - fourth quarter is a slope of a mountain range
 
-May add a fifth section, for the otherside of the mountain, to demonstrate a rain shadow.
+May add a fifth section, for the other side of the mountain, to demonstrate a rain shadow.
 
 * [Live View](https://brianhonohan.com/sketchbook/p5js/water-cycle/)
 * [Source on Github](https://github.com/brianhonohan/sketchbook/tree/master/p5js/water-cycle)

@@ -1,7 +1,7 @@
-# fieldeq
-A collection of equations, to create various Vector fields
+# Overview
+A collection of equations, to create various Vector fields.
 
-The intent of this sketch is to experiment with alternate 
+The intent of this sketch is to experiment with alternate fields and see what patterns they produce.
 
 Currently the fields have to be toggled on/off via code.
 
@@ -20,7 +20,6 @@ Fields are:
 0. LorentzEquation
 
 ## Controls
-
 
 `a` -  While holding the mouse, will add a ball, you can pull it back like a slingshot and release.
 

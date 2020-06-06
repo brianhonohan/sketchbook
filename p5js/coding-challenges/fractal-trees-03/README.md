@@ -10,12 +10,12 @@ This served to explore some of the internal physiology of tree growth.
     - In this this sketch, the small elliptical leaves are produced by the meristems.
 * That [Apical Meristems][wikipedia-apical-meristem] are at the ends (tips / apex) of the stems and regulate growth by production of [Auxins][wikipedia-auxin].
     - These are visualized as green-circles at the end of segments.
-* [Auxin][wikipedia-auxin] is a plant hormone that at high levels leads to elongation of shoots, and supresses lateral growth (both in terms of widenning of branches and opening of lateral buds).
+* [Auxin][wikipedia-auxin] is a plant hormone that at high levels leads to elongation of shoots, and suppresses lateral growth (both in terms of widening of branches and opening of lateral buds).
     - The Auxin concentration is visualized by a reddening of the otherwise white tree segments.
 * [Axillary-buds][wikipedia-axillary-bud] are created by Apical Meristems at the attachment point of leaves, but their growth is dormant until the Apical Meristem has grown sufficiently far a way. This is a form of [Apical Dominance][wikipedia-apical-dominance].
     - The buds are yellow circles, seen at the attach point of leaves.
 * [Gravitropism][wikipedia-gravitropism] is a natural behavior of plants to grow relative to the gravity they are experiencing. 
-    - In this sketch, this is demonstrated within the roots, where the root segments have a a sense of which direction they are growing in, which drives their branching behavior. (Only segments growing downard oscillate between branches on each side; left and right segments only branch downward).
+    - In this sketch, this is demonstrated within the roots, where the root segments have a a sense of which direction they are growing in, which drives their branching behavior. (Only segments growing downward oscillate between branches on each side; left and right segments only branch downward).
 
 
 ## Controls

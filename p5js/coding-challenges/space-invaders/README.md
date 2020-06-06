@@ -7,7 +7,7 @@ This is a [p5.js][p5js-home] sketch inspired by the [Coding Train's][coding-trai
 ## Controls
 Keys:
 
--  `LEFT` / `RIGHT` to move the laser base (blue rectange at bottome) left or right.
+-  `LEFT` / `RIGHT` to move the laser base (blue rectangle at bottom) left or right.
 -  `UP` - to fire a laser beam at the income invaders.
 
 

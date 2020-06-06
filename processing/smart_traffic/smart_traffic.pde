@@ -12,7 +12,7 @@ int seed;
 float secsPerFrame;
 
 void setup(){
-  size(displayWidth, displayHeight/2);
+  size(700, 150);
   strokeWeight(2);
   establishSeed();
   
@@ -31,7 +31,7 @@ void establishSeed(){
 //  seed = 11124;
   noiseSeed(seed);
   randomSeed(seed);
-  println("Random Seed: " + seed);
+  //println("Random Seed: " + seed);
 }
 
 void debugMsg(String msg){
@@ -405,7 +405,7 @@ class Road {
   int carsAdded;
   
   Road(){
-    _width = displayWidth;
+    _width = width;
     cars = new ArrayList<Car>(); 
     speedLimit = 30;
     carsAdded = 0;
@@ -444,7 +444,7 @@ class Road {
   }
   
   void tick(){
-    println(".............. TICK .......................");
+    //println(".............. TICK .......................");
     Car tmpCar;
 
     for(int ii=0; ii < cars.size(); ii++){
@@ -481,4 +481,3 @@ class Road {
 }
 // ------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------
-
