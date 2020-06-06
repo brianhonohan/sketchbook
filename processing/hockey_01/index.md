@@ -7,8 +7,8 @@ excerpt: Second version of a hockey rink, adds ability to bounce a puck off the 
 
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.6.6/processing.js
-- processingjs_patches/float.js
-- processingjs_patches/pvector.js
+- /sketchbook/js/processingjs_patches/float.js
+- /sketchbook/js/processingjs_patches/pvector.js
 
 ---
 
