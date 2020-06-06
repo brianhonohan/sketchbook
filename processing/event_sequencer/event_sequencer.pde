@@ -21,17 +21,17 @@ boolean allowRepeats = true;
 void setup(){
   size(500, 750);
   colorSet = new ColorSet();
-  
+
   seqFactory = new SequenceFactory();
   sequence = seqFactory.generateRandomData(numStates, numTransitions, allowRepeats, randomSeed);
   sequence.printTransitions();
-  
+
   seqViewer = new StaticSeqViewer();
   seqViewer.setPosition(width*0.05, height*0.05);
   seqViewer.setDimensions(width*0.9, height*0.9);
   seqViewer.setSequence(sequence);
   seqViewer.render();
-  
+
   //UtilsLayoutSimpleTestDriver tester = new UtilsLayoutSimpleTestDriver();
   //tester.radialLayout();
 }

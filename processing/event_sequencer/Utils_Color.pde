@@ -1,8 +1,8 @@
 class ColorSet {
   color[] colors;
-  
+
   ColorSet(){
-    // From ColorBrewer 2.0 
+    // From ColorBrewer 2.0
     // See: http://colorbrewer2.org/#type=qualitative&scheme=Set1&n=6
     colors = new color[6];
     colors[0] = unhex("FFe41a1c");
@@ -12,15 +12,15 @@ class ColorSet {
     colors[4] = unhex("FFff7f00");
     colors[5] = unhex("FFffff33");
   }
-  
+
   color getColor(int i){
     if (i >= colors.length) {
       logger.warn("Invalid color index");
       return color(0);
     }
-    return this.colors[i];  
+    return this.colors[i];
   }
-  
+
   color getColorForHash(int hash){
     return colors[hash % colors.length];
   }
