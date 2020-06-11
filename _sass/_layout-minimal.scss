@@ -1,7 +1,7 @@
 .layout-minimal {
   height: 100%;
   overflow: hidden;
-  
+
   .site-header {
     min-height: 0px;
 
@@ -12,24 +12,18 @@
 
     .site-title {
       font-size: 16px;
-      line-height: 30px;
+
+      @include media-query($on-palm) {
+        line-height: 33px;
+      }
     }
 
     .site-nav {
-      line-height: 30px;
+      line-height: 0px;
 
       @include media-query($on-palm) {
-        top: 1px;
+        top: 0px;
       }
-
-      .menu-icon {
-        height: 20px;
-
-        @include media-query($on-palm) {
-          padding-top: 5px;
-        }
-      }
-
     }
   }
 

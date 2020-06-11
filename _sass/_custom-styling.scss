@@ -11,3 +11,28 @@
 .util-clear {
   clear: both;
 }
+
+#menu {
+  margin: 4px;
+  line-height: 48px;
+}
+
+#toggle-menu {
+  @include media-query($on-palm) {
+    font-size: 26px;
+    padding: 0em 1em;
+  }
+}
+
+.layout-minimal {
+  #toggle-menu {
+    @include media-query($on-palm) {
+      padding: 0.6em 0.6em;
+    }
+  }
+
+  #menu {
+    margin: 0px;
+    line-height: 0px;
+  }
+}

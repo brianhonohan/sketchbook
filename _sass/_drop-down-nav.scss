@@ -44,28 +44,17 @@
 #menu a {
   position: relative;
   display: block;
-  color: white;
-  text-shadow: 1px 1px 0 rgba(0, 0, 0, .125);
+  color: #111;
 }
 
 #menu,
 #toggle-menu {
-  background-color: #09c;
+  background-color: #fff;
 }
 
 #toggle-menu,
 #menu a {
   padding: 1em 1.5em;
-}
-
-#menu a {
-  transition: all .125s ease-in-out;
-  -webkit-transition: all .125s ease-in-out;
-}
-
-#menu a:hover {
-  background-color: white;
-  color: #09c;
 }
 
 #menu .sub-menu {
@@ -102,17 +91,13 @@
 }
 
 
-@media only screen and (max-width: 64em) and (min-width: 52.01em) {
-  #menu li {
-    width: 33.333%;
-  }
-
+@media only screen and (max-width: $on-laptop) and (min-width: $on-palm) {
   #menu .sub-menu li {
     width: auto;
   }
 }
 
-@media only screen and (min-width: 52em) {
+@media only screen and (min-width: $on-palm) {
   #menu .main-menu {
     display: block;
   }
