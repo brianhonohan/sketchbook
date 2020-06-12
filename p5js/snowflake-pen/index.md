@@ -1,6 +1,6 @@
 ---
 layout: minimal
-title:  "P5.JS - Snowflake Pen"
+title:  "p5.js - Snowflake Pen"
 categories: p5js
 modal: true
 viewport_noscale: true

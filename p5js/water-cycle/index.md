@@ -1,6 +1,6 @@
 ---
 layout: minimal
-title:  "P5.JS - Water Cycle"
+title:  "p5.js - Water Cycle"
 categories: p5js
 modal: true
 bh_page_type: draft

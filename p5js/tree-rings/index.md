@@ -1,6 +1,6 @@
 ---
 layout: minimal
-title:  "P5.JS - Tree Rings"
+title:  "p5.js - Tree Rings"
 categories: p5js
 modal: true
 viewport_noscale: true

@@ -1,6 +1,6 @@
 ---
 layout: minimal
-title:  "P5.JS - Forest Fire Simulation - Part 2"
+title:  "p5.js - Forest Fire Simulation - Part 2"
 categories: p5js
 modal: true
 viewport_noscale: true

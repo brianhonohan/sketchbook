@@ -1,6 +1,6 @@
 ---
 layout: minimal
-title:  "P5.JS - Logic Gates"
+title:  "p5.js - Logic Gates"
 categories: p5js
 modal: true
 viewport_noscale: true
