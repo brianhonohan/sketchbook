@@ -36,3 +36,24 @@
     line-height: 0px;
   }
 }
+
+
+// Override defaults of simple-modal-close
+
+.simple-modal-close {
+  background: #ffffff;
+  border-radius: .25em;
+  border: 1px solid #A93333;
+  color: #A93333;
+  padding: 0.9em;
+  text-decoration: none;
+  line-height: 0.5;
+  text-align: center;
+  font-size: 16px;
+}
+.simple-modal-close:focus,
+.simple-modal-close:hover,
+.simple-modal-close:active {
+  background: #A93333;
+  color: #ffffff;
+}
