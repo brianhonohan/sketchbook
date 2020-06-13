@@ -9,12 +9,12 @@ layout: default
 
   {{ content }}
 
-  {% assign categories = "p5js, paperjs, processing, ruby" | split: ", " %}
+  {% assign categories = "p5js, paperjs, processing, ruby" | split: ", " | sort: 'title', 'first' %}
 
   {% assign all_filtered_pages = site.pages | where: 'bh_page_type', "sketch" %}
 
   {%- for category in categories -%}
-    {% assign filtered_pages = all_filtered_pages | where: "categories", category %}
+    {% assign filtered_pages = all_filtered_pages | where: "categories", category | sort: 'title', 'first' %}
 
     {%- if filtered_pages.size > 0 -%}
       <h2 class="post-list-heading util-clear">{{ category }} Sketches</h2>

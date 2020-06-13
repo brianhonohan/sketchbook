@@ -9,7 +9,7 @@ layout: default
 
   {{ content }}
 
-  {% assign filtered_pages = site.pages | where: 'bh_page_type', "sketch" | where: "categories", page.category %}
+  {% assign filtered_pages = site.pages | where: 'bh_page_type', "sketch" | where: "categories", page.category | sort: 'title', 'first' %}
 
   {%- if filtered_pages.size > 0 -%}
     <h2 class="post-list-heading">{{ page.list_title | default: "Sketches" }}</h2>
