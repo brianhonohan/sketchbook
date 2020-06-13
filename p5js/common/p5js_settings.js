@@ -6,8 +6,8 @@ class P5JsSettings {
 
   static optionsMetadata() {
     return [
-      { name: "seed", type: "integer", default: Math.round(random(1000))}, 
-      { name: "noise_octaves", type: "integer", default: 10}, 
+      { name: "seed", type: "integer", default: Math.round(random(1000))},
+      { name: "noise_octaves", type: "integer", default: 10},
       { name: "noise_falloff", type: "float", default: 0.6}
     ];
   }
@@ -49,7 +49,7 @@ class P5JsSettings {
   }
 
   static createDatGuiContainer(){
-    let container = document.createElement("div"); 
+    let container = document.createElement("div");
     container.setAttribute('id', 'datGuiContainer');
     container.style.position = 'absolute';
     container.style.right = '0px';
@@ -74,4 +74,13 @@ class P5JsSettings {
   }
 
   static getSeed(){ return this.optionsSet.settings.seed; }
+
+  static getVertMargin(){
+    if (typeof sketch_settings == "object"
+        && typeof sketch_settings.vertMargin == "number")
+    {
+      return sketch_settings.vertMargin;
+    }
+    return 0;
+  }
 }

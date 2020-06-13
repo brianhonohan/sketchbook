@@ -16,8 +16,8 @@ var systemParams = {
 };
 
 function setup() {
-  createCanvas(windowWidth, windowHeight-35);
   P5JsSettings.init();
+  createCanvas(windowWidth, windowHeight - P5JsSettings.getVertMargin());
 
   gui = P5JsSettings.addDatGui({autoPlace: false});
   gui.add(systemParams, 'foraging_rate').min(0.1).max(0.9).step(0.05);
@@ -25,13 +25,14 @@ function setup() {
   gui.add(systemParams, 'seed_drop_dist').min(1).max(150).step(10);
   gui.add(systemParams, 'initial_trees').min(1).max(50).step(1);
   gui.add(systemParams, "paused");
+  P5JsSettings.toggleDatGuiHide();
 
   let treeCfg = gui.addFolder('Tree Attributes');
   treeCfg.add(systemParams.tree, 'max_age').min(20).max(500).step(5);
   treeCfg.add(systemParams.tree, 'years_as_sapling').min(3).max(30).step(1);
   treeCfg.add(systemParams.tree, 'years_as_mature').min(15).max(300).step(5);
   treeCfg.add(systemParams.tree, 'age_to_make_seeds').min(3).max(60).step(3);
-  
+
   let rect = new Rect(0, 0, width, height);
   system = new System(rect, systemParams);
   system.init();

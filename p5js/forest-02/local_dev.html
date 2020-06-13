@@ -3,6 +3,11 @@
 <head>
     <title>P5.JS - Forest 02 - Growth</title>
 
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.12.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@4.13.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.8.0"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/inobounce/0.2.0/inobounce.js" charset="utf-8"></script>
+
     <script src="/sketchbook/vendor/p5.js/0.7.2/p5.js" charset="utf-8"></script>
     <script src="/sketchbook/vendor/dat.gui/0.7.3/dat.gui.js"></script>
     <script src="/sketchbook/p5js/common/p5js_settings.js"></script>
@@ -20,12 +25,86 @@
     <script src="app.js" charset="utf-8"></script>
 
 <style>
-body {
-  margin: 0;
-  font-family: Sans-Serif;
-}
+html, body {margin: 0; height: 100%; overflow: hidden}
+body { font-family: Sans-Serif; }
+#vis { position: fixed; bottom: 0px; padding-left: 20px; }
 </style>
 </head>
 <body>
+    <div id="vis"></div>
+
+    <script>
+      var vlSpec = {
+        $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
+        height: 90,
+        width: 500,
+        data: {
+          name: 'population_v_time',
+          values: [
+             {time: -101, population: 200},  // hack to leave room for axis labels by giving large value, will be removed based on 'minimumX'
+
+             // {time: -101, population: 200},
+             // {time: -101, population: 200},
+             // {time: -101, population: 200},
+             // {time: -101, population: 200},
+          ]
+        },
+        mark: {
+            type: "line",
+            interpolate: "step-after"
+        },
+        encoding: {
+          y: {
+            field: 'population',
+            type: 'quantitative',
+            axis: {
+              title: '# of Trees'
+            }
+        },
+          x: {
+            field: 'time',
+            type: 'quantitative',
+            axis: {
+              title: 'Time (seconds)'
+            }
+          }
+        },
+        usermeta: {
+            embedOptions: {
+                actions: false
+            }
+        }
+      };
+
+      // Embed the visualization in the container with id `vis`
+      vegaEmbed('#vis', vlSpec).then(function (res) {
+          function populationVsTimeDataMapper() {
+            var counter = -1;
+
+            return function () {
+              counter++;
+              var newVals = [{time: counter, population: system.forest.trees.length }];
+              return newVals;
+            };
+          }
+
+          var valueGenerator = populationVsTimeDataMapper();
+          var minimumX = -100;
+          window.setInterval(function () {
+            minimumX++;
+            var changeSet = vega
+              .changeset()
+              .insert(valueGenerator())
+              .remove(function (t) {
+                return t.time < minimumX;
+              });
+            res.view.change('population_v_time', changeSet).run();
+          }, 1000);
+        });
+
+      var sketch_settings = {
+        vertMargin: 135
+      }
+    </script>
 </body>
 </html>
