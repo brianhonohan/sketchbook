@@ -2,7 +2,6 @@
 layout: post
 title:  "Processing - Smart Traffic"
 categories: processing
-modal: true
 excerpt: An agent-based simulation of traffic with cars that have different driving styles, to see how traffic jams arise (with goal of finding 'smart' behavior to avoid them).
 
 js_scripts:

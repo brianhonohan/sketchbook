@@ -2,7 +2,6 @@
 layout: post
 title:  "Processing - Hexagonal"
 categories: processing
-modal: true
 excerpt: An exploration of drawing a grid of hexagons, and translating x-y coordinates of the mouse into which hexagon it intersects with.
 
 js_scripts:

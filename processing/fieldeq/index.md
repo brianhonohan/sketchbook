@@ -2,7 +2,6 @@
 layout: post
 title:  "Processing - Field Equations"
 categories: processing
-modal: true
 excerpt: An exploration of creating layerable field equations that govern the motion of objects within the field.
 
 js_scripts:

@@ -2,7 +2,6 @@
 layout: post
 title:  "Processing - Interaction of Color"
 categories: processing
-modal: true
 excerpt: Preliminary exploration of creating a color wheel, revealed as you move your mouse around.
 
 js_scripts:

@@ -2,7 +2,6 @@
 layout: post
 title:  "Processing - Spirals"
 categories: processing
-modal: true
 excerpt: An exploration Fermat's Spiral, where the mouse location alters the  spacing of points in the spiral.
 
 js_scripts:

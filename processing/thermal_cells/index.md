@@ -2,7 +2,6 @@
 layout: post
 title:  "Processing - Thermal Cells"
 categories: processing
-modal: true
 excerpt: An exploration heat diffusion through a grid of cells. Clicking and dragging removes heat, and pressing a key while doing so adds heat.
 
 js_scripts:
