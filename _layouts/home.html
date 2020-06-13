@@ -9,38 +9,44 @@ layout: default
 
   {{ content }}
 
+  {% assign categories = "p5js, paperjs, processing, ruby" | split: ", " | sort: 'title', 'first' %}
 
-  {% assign filtered_pages = site.pages | where: 'bh_page_type', "sketch" %}
+  {% assign all_filtered_pages = site.pages | where: 'bh_page_type', "sketch" %}
+
+  {%- for category in categories -%}
+    {% assign filtered_pages = all_filtered_pages | where: "categories", category | sort: 'title', 'first' %}
+
+    {%- if filtered_pages.size > 0 -%}
+      <h2 class="post-list-heading util-clear">{{ category }} Sketches</h2>
+      <ul class="post-list util-clear">
+        {%- for page in filtered_pages -%}
+        <li class="util-clear">
+
+          <div class="listing-thumbnail">
+            <a class="post-link" href="{{ page.url | relative_url }}">
+              <img src="{{ page.url | relative_url }}screenshot-01.png" align="center" class="img-thumbnail" />
+            </a>
+          </div>
+
+          {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+          <span class="post-meta">{{ page.date | date: date_format }}</span>
+          <h3>
+            <a class="post-link" href="{{ page.url | relative_url }}">
+              {{ page.title | escape }}
+            </a>
+          </h3>
+          {%- if site.show_excerpts -%}
+            {{ page.excerpt }}
+          {%- endif -%}
+        </li>
+        {%- endfor -%}
+      </ul>
+
+    {%- endif -%}
+
+  {%- endfor -%}
 
 
-  {%- if filtered_pages.size > 0 -%}
-    <h2 class="post-list-heading">{{ page.list_title | default: "Sketches" }}</h2>
-    <ul class="post-list util-clear">
-      {%- for page in filtered_pages -%}
-      <li class="util-clear">
-
-        <div class="listing-thumbnail">
-          <a class="post-link" href="{{ page.url | relative_url }}">
-            <img src="{{ page.url | relative_url }}screenshot-01.png" align="center" class="img-thumbnail" />
-          </a>
-        </div>
-
-        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-        <span class="post-meta">{{ page.date | date: date_format }}</span>
-        <h3>
-          <a class="post-link" href="{{ page.url | relative_url }}">
-            {{ page.title | escape }}
-          </a>
-        </h3>
-        {%- if site.show_excerpts -%}
-          {{ page.excerpt }}
-        {%- endif -%}
-      </li>
-      {%- endfor -%}
-    </ul>
-  {%- endif -%}
-
-  <hr style="clear: both" />
 
 
   {%- if site.posts.size > 0 -%}
