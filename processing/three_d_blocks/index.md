@@ -2,7 +2,6 @@
 layout: post
 title:  "Processing - 3D Blocks"
 categories: processing
-modal: true
 excerpt: An exploration of 3D rendering in Processing.
 
 js_scripts:

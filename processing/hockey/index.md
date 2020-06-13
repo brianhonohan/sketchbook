@@ -2,7 +2,6 @@
 layout: post
 title:  "Processing - Hockey"
 categories: processing
-modal: true
 excerpt: A scaled drawing of a hockey rink.
 
 js_scripts:

@@ -1,6 +1,6 @@
 ---
 layout: minimal
-title:  "P5.JS - Fractal Trees - Coding Challenge #15"
+title:  "p5.js - Fractal Trees - Coding Challenge #15"
 categories: p5js
 modal: true
 viewport_noscale: true

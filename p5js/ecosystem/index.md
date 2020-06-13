@@ -1,6 +1,6 @@
 ---
 layout: minimal
-title:  "P5.JS - Ecosystem"
+title:  "p5.js - Ecosystem"
 categories: p5js
 modal: true
 viewport_noscale: true

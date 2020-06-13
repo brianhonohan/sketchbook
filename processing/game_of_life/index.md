@@ -2,7 +2,6 @@
 layout: post
 title:  "Processing - Game of Life"
 categories: processing
-modal: true
 excerpt: A basic implementation of Conway's Game of Life, with some ability to 'paint' automaton like the GliderGun onto the world.
 
 js_scripts:

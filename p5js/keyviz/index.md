@@ -1,6 +1,6 @@
 ---
 layout: minimal
-title:  "P5.JS - KeyViz"
+title:  "p5.js - KeyViz"
 categories: p5js
 modal: true
 excerpt: Preliminary sketch to record keyboard input and allow it to be played back, with the intention of allowing the user to create time-based drawings.

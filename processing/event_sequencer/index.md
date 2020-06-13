@@ -2,7 +2,6 @@
 layout: post
 title:  "Processing - Event Sequencer"
 categories: processing
-modal: true
 excerpt: A visualization of state transitions for a population of data points switching between states.
 
 js_scripts:

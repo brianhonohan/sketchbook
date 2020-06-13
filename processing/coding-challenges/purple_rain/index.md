@@ -2,7 +2,6 @@
 layout: post
 title:  "Processing - Purple Rain"
 categories: processing
-modal: true
 excerpt: A simple sketch created around the death of Prince, inspired by the 'Coding Train' YouTube channel.
 
 js_scripts:

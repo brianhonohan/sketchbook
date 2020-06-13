@@ -1,6 +1,6 @@
 ---
 layout: minimal
-title:  "P5.JS - Forest Fire Simulation"
+title:  "p5.js - Forest Fire Simulation"
 categories: p5js
 modal: true
 excerpt: Simulates forest fire propagation using cellular-automaton modeling, with basic interaction to create fire breaks.

@@ -1,6 +1,6 @@
 ---
 layout: minimal
-title:  "P5.JS - Frieze Pen"
+title:  "p5.js - Frieze Pen"
 categories: p5js
 modal: true
 viewport_noscale: true

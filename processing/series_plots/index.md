@@ -2,7 +2,6 @@
 layout: post
 title:  "Processing - Series Plots"
 categories: processing
-modal: true
 excerpt: Stacked bar charts.
 
 js_scripts:

@@ -2,7 +2,6 @@
 layout: post
 title:  "Processing - Number Visualizer"
 categories: processing
-modal: true
 excerpt: Simple sketch of displaying a number, displaying that number of boxes.
 
 js_scripts:

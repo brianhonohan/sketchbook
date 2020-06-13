@@ -1,6 +1,6 @@
 ---
 layout: minimal
-title:  "P5.JS - Meandering River"
+title:  "p5.js - Meandering River"
 categories: p5js
 modal: true
 excerpt: Preliminary sketch modeling the meandering of a river.

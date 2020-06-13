@@ -1,6 +1,6 @@
 ---
 layout: minimal
-title:  "P5.JS - <sketch_name>"
+title:  "p5.js - <sketch_name>"
 categories: p5js
 modal: true
 viewport_noscale: true

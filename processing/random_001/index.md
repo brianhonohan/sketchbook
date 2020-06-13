@@ -2,7 +2,6 @@
 layout: post
 title:  "Processing - Random 001"
 categories: processing
-modal: true
 excerpt: A random, serendipitous sketch.
 
 js_scripts:

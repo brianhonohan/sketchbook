@@ -2,7 +2,6 @@
 layout: post
 title:  "Processing - Hockey 01"
 categories: processing
-modal: true
 excerpt: Second version of a hockey rink, adds ability to bounce a puck off the boards, including the curved corners.
 
 js_scripts:
