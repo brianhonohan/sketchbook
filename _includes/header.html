@@ -1,7 +1,16 @@
 <header class="site-header">
 
   <div class="wrapper">
-    <a class="site-title" href="http://brianhonohan.com/">Brian Honohan</a>
+
+    {% if page.layout == "minimal" %}
+      <a class="site-title" href="/"><img src="{{site.baseurl}}/assets/images/home.png" alt="Home" width="33px" /></a>
+      <a class="site-title" href="/sketchbook/">/&nbsp;&nbsp;<img src="{{site.baseurl}}/assets/images/sketchbook.png" alt="Sketchbook" width="33px" /></a>
+      {% if page.title %}
+        <span class="site-title">/&nbsp;&nbsp;{{ page.title }}</span>
+      {% endif %}
+    {% else %}
+      <a class="site-title" href="/">Brian Honohan</a>
+    {% endif %}
 
     <nav id="menu" class="site-nav">
       <label for="tm" id="toggle-menu">&equiv;</label>
@@ -13,9 +22,10 @@
            data-modal-content-id="modal-content"
            data-modal-close-text="X"
            data-modal-close-title="Close this window">Info</a></li>
+        {% else %}
+          <li><a class="page-link" href="/about">About Me</a></li>
+          <li><a class="page-link" href="/sketchbook/">Sketchbook</a></li>
         {% endif %}
-        <li><a class="page-link" href="/about">About Me</a></li>
-        <li><a class="page-link" href="/sketchbook/">Sketchbook</a></li>
       </ul>
     </nav>
 

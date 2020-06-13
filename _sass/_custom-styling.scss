@@ -24,6 +24,19 @@
   }
 }
 
+#menu a {
+  @include media-query($on-laptop) {
+    padding: 1em 0.5em;
+  }
+}
+
+#toggle-menu {
+  @include media-query($on-palm) {
+    font-size: 26px;
+    padding: 0em 1em;
+  }
+}
+
 .layout-minimal {
   #toggle-menu {
     @include media-query($on-palm) {
@@ -56,4 +69,10 @@
 .simple-modal-close:active {
   background: #A93333;
   color: #ffffff;
+}
+
+
+.site-title {
+  padding-right: 8px;
+  text-decoration: none !important;
 }
