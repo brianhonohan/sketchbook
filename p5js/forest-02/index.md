@@ -7,6 +7,9 @@ bh_page_type: draft
 excerpt: Simulates the life-cycle of individual trees in a small forest, as they compete over resources.
 
 js_scripts:
+- https://cdn.jsdelivr.net/npm/vega@5.12.1
+- https://cdn.jsdelivr.net/npm/vega-lite@4.13.1
+- https://cdn.jsdelivr.net/npm/vega-embed@6.8.0
 - https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js
 - /sketchbook/vendor/dat.gui/0.7.3/dat.gui.js
 - /sketchbook/p5js/common/p5js_settings.js
@@ -21,6 +24,7 @@ js_scripts:
 - classes/tree.js
 - classes/forest.js
 - classes/seasonal_time.js
+- classes/data_visualizer.js
 - app.js
 
 ---

@@ -1,4 +1,5 @@
 var system;
+var dataVisualizer;
 
 var gui;
 var systemParams = {
@@ -17,7 +18,8 @@ var systemParams = {
 
 function setup() {
   P5JsSettings.init();
-  createCanvas(windowWidth, windowHeight - P5JsSettings.getVertMargin());
+  var dataVizHeight = 135;
+  createCanvas(windowWidth, windowHeight - P5JsSettings.getVertMargin() - dataVizHeight);
 
   gui = P5JsSettings.addDatGui({autoPlace: false});
   gui.add(systemParams, 'foraging_rate').min(0.1).max(0.9).step(0.05);
@@ -36,6 +38,9 @@ function setup() {
   let rect = new Rect(0, 0, width, height);
   system = new System(rect, systemParams);
   system.init();
+
+  dataVisualizer = new DataVisualizer(system);
+  dataVisualizer.initialize();
 }
 
 function keyPressed() {
