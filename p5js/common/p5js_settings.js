@@ -75,12 +75,25 @@ class P5JsSettings {
 
   static getSeed(){ return this.optionsSet.settings.seed; }
 
-  static getVertMargin(){
-    if (typeof sketch_settings == "object"
-        && typeof sketch_settings.vertMargin == "number")
-    {
-      return sketch_settings.vertMargin;
+  static resizeCanvas(canvas, options = {}){
+    let sizeAdjusted = false;
+
+    let maxY = canvas.elt.offsetTop + height;
+    let marginBottom = P5JsSettings.valueOrDefault(options.marginBottom, 0);
+
+    let newHeight = height;
+
+    if (maxY > (windowHeight - marginBottom)){
+      newHeight = windowHeight - canvas.elt.offsetTop - marginBottom;
+      sizeAdjusted = true;
     }
-    return 0;
+
+    if (sizeAdjusted){
+      resizeCanvas(width, newHeight, true);
+    }
+  }
+
+  static valueOrDefault(v, d){
+    return (v === undefined) ? d : v;
   }
 }
