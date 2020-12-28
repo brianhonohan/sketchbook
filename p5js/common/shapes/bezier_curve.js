@@ -15,6 +15,16 @@ class BezierCurve {
     this.points.push(this.p4);
   }
 
+  attachHeadTo(curve){
+    this.p1 = curve.p4;
+    this.initPoints();
+  }
+
+  attachTailTo(curve){
+    this.p4 = curve.p1;
+    this.initPoints();
+  }
+
   makeLinear(){
     this.p2.set(this.p1.x, this.p1.y);
     this.p3.set(this.p4.x, this.p4.y);

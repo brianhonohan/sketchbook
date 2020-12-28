@@ -19,6 +19,7 @@ js_scripts:
 - /sketchbook/p5js/common/shapes/circle.js
 - /sketchbook/p5js/common/shapes/triangle.js
 - /sketchbook/p5js/common/shapes/bezier_curve.js
+- /sketchbook/p5js/common/shapes/polybezier.js
 - app.js
 
 ---
