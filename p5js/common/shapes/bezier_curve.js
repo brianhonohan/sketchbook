@@ -15,6 +15,11 @@ class BezierCurve {
     this.points.push(this.p4);
   }
 
+  makeLinear(){
+    this.p2.set(this.p1.x, this.p1.y);
+    this.p3.set(this.p4.x, this.p4.y);
+  }
+
   handleMousePressed(){
     const pointPressed = this.points.find(p => p.containsXY(mouseX, mouseY));
 

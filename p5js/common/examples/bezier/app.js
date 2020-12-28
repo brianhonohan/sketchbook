@@ -12,6 +12,7 @@ function setup() {
                                 0.6 * width, 0.2 * height,
                                 0.8 * width, 0.2 * height);
   bezierCurve.dragEnabled = true;
+  bezierCurve.makeLinear();
   // bezierCurve.fillColor = color(80);
   // bezierCurve.move(150, 180);
   shapes.push(bezierCurve);
