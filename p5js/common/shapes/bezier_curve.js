@@ -21,12 +21,12 @@ class BezierCurve {
 
   attachHeadTo(curve){
     this.p1 = curve.p4;
-    this.initPoints();
+    this.points.shift();
   }
 
   attachTailTo(curve){
     this.p4 = curve.p1;
-    this.initPoints();
+    this.points.pop();
   }
 
   makeLinear(){
