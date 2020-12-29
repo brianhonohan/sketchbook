@@ -15,6 +15,11 @@ class Point {
     this.y = y;
   }
 
+  move(x, y){
+    this.x += x;
+    this.y += y;
+  }
+
   containsXY(x, y){
     return dist(x, y, this.x, this.y) < this.radius;
   }

@@ -7,6 +7,10 @@ class BezierCurve {
     this.initPoints();
   }
 
+  move(x, y){
+    this.points.forEach(p => p.move(x, y));
+  }
+
   initPoints(){
     this.points = [];
     this.points.push(this.p1);

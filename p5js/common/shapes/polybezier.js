@@ -14,6 +14,10 @@ class Polybezier {
     this._dragEnabled = newVal;
   }
 
+  move(x, y){
+    this.curves.forEach(c => c.move(x, y));
+  }
+
   handleMousePressed(){
     const pressedElement = this.curves.find(s => s.handleMousePressed());
     if (pressedElement){
