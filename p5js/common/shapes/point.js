@@ -20,6 +20,27 @@ class Point {
     this.y += y;
   }
 
+  // NOTE: This function accepts alternate formatted params
+  // (Point, heading)
+  // (x, y, heading)
+  rotateAbout(a, b, c){
+    let otherPoint;
+    let heading;
+
+    if (a instanceof Point){
+      otherPoint = a.pos;
+      heading = b;
+    } else {
+      otherPoint = createVector(a, b);
+      heading = c;
+    }
+
+    let diff = p5.Vector.sub(this.pos, otherPoint);
+    diff.rotate(heading);
+    this.x = otherPoint.x + diff.x;
+    this.y = otherPoint.y + diff.y;
+  }
+
   containsXY(x, y){
     return dist(x, y, this.x, this.y) < this.radius;
   }

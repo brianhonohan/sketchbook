@@ -38,6 +38,10 @@ class Polybezier {
     this.curves.forEach(c => c.move(x, y));
   }
 
+  rotateAbout(a, b, c){
+    this.curves.forEach(curve => curve.rotateAbout(a, b, c));
+  }
+
   handleMousePressed(){
     const pressedElement = this.curves.find(s => s.handleMousePressed());
     if (pressedElement){

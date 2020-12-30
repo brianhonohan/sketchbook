@@ -11,6 +11,10 @@ class BezierCurve {
     this.points.forEach(p => p.move(x, y));
   }
 
+  rotateAbout(a, b, c){
+    this.points.forEach(p => p.rotateAbout(a, b, c));
+  }
+
   initPoints(){
     this.points = [];
     this.points.push(this.p1);
