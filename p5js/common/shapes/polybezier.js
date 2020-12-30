@@ -5,22 +5,13 @@ class Polybezier {
   }
 
   static circle(x, y, radius){
-    // From: https://spencermortensen.com/articles/bezier-circle/
-    // P0=(0,1), P1=(c,1), P2=(1,c), P3=(1,0)
-    // c=0.551915024494
-    const unitC = 0.551915024494;
-    const scaledC = unitC * radius;
-    let c = scaledC;
-    let l = radius;
-
     const approxCircle = new Polybezier();
-    approxCircle.append(new BezierCurve( 0,  l,  c,  l,  l,  c,  l,  0));
-    approxCircle.append(new BezierCurve( l,  0,  l, -c,  c, -l,  0, -l));
-    approxCircle.append(new BezierCurve( 0, -l, -c, -l, -l, -c, -l,  0));
-    approxCircle.append(new BezierCurve(-l,  0, -l,  c, -c,  l,  0,  l));
+    approxCircle.append(BezierCurve.circularQuarterArc(x, y, radius, 0));
+    approxCircle.append(BezierCurve.circularQuarterArc(x, y, radius, HALF_PI));
+    approxCircle.append(BezierCurve.circularQuarterArc(x, y, radius, PI));
+    approxCircle.append(BezierCurve.circularQuarterArc(x, y, radius, 3 * HALF_PI));
     approxCircle.close();
     approxCircle.dragEnabled = true;
-    approxCircle.move(x, y);
     return approxCircle;
   }
 

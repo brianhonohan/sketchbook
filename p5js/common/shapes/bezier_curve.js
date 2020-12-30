@@ -7,6 +7,21 @@ class BezierCurve {
     this.initPoints();
   }
 
+  static circularQuarterArc(x, y, radius, startAt){
+    // From: https://spencermortensen.com/articles/bezier-circle/
+    // P0=(0,1), P1=(c,1), P2=(1,c), P3=(1,0)
+    // c=0.551915024494
+    const unitC = 0.551915024494;
+    const scaledC = unitC * radius;
+    let c = scaledC;
+    let l = radius;
+
+    let curve = new BezierCurve( l,  0,  l,  c,  c,  l,  0,  l);
+    curve.rotateAbout(0, 0, startAt);
+    curve.move(x, y);
+    return curve;
+  }
+
   move(x, y){
     this.points.forEach(p => p.move(x, y));
   }
