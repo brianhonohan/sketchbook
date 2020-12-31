@@ -4,7 +4,12 @@ class BezierCurve {
     this.p2 = new Point(x2, y2);
     this.p3 = new Point(x3, y3);
     this.p4 = new Point(x4, y4);
+    this.dragEnabled = false;
     this.initPoints();
+  }
+
+  toggleDragEnabled(){
+    this.dragEnabled = !this.dragEnabled;
   }
 
   static circularQuarterArc(x, y, radius, startAt){

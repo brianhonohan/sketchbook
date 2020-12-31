@@ -20,6 +20,32 @@ class Point {
     this.y += y;
   }
 
+  // static get ALIGN_MODE_MOVE_1() { return 0; }
+  // static get ALIGN_MODE_MOVE_2() { return 1; }
+  static get ALIGN_MODE_MOVE_3() { return 2; }
+  static get ALIGN_MODE_AVERAGE() { return 3; }
+
+  static align(p1, p2, p3, mode){
+    mode = mode ? Point.ALIGN_MODE_MOVE_3;
+
+    let vec12 = createVector(p2.x - p1.x, p2.y - p1.y);
+    let vec23 = createVector(p3.x - p2.x, p3.y - p2.y);
+
+    let heading12 = vec12.heading();
+    let heading23 = vec23.heading();
+
+    switch (mode) {
+      case Point.ALIGN_MODE_MOVE_3:
+        vec23.rotate(heading12 - heading23);
+        p3.x = p2.x + vec23.x;
+        p3.y = p2.y + vec23.y;
+        return;
+      // case Point.ALIGN_MODE_AVERAGE:
+        
+
+    }
+  }
+
   // NOTE: This function accepts alternate formatted params
   // (Point, heading)
   // (x, y, heading)

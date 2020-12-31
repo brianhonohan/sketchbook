@@ -25,6 +25,10 @@ class Polybezier {
     this._dragEnabled = newVal;
   }
 
+  toggleDragEnabled(){
+    this.dragEnabled = !this.dragEnabled;
+  }
+
   move(x, y){
     this.curves.forEach(c => c.move(x, y));
   }

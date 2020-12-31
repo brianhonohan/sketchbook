@@ -61,3 +61,12 @@ function mouseReleased(){
   shapes.filter(s => s.dragEnabled == true)
         .forEach(s => s.handleMouseReleased());
 }
+
+function keyPressed(){
+  switch(key){
+    case 'd':
+      console.log("D pressed");
+      shapes.forEach(s => s.toggleDragEnabled());
+      break;
+  }
+}
