@@ -37,6 +37,39 @@ class Polybezier {
     this.curves.forEach(curve => curve.rotateAbout(a, b, c));
   }
 
+  smooth(mode){
+    let stopIdx = this.closed ? this.length - 1: this.length - 2;
+    for(let i = 0; i <= stopIdx; i++){
+      let nextIdx = (i + 1) % this.curves.length;
+      this.smoothVertex(this.curves[i],
+                        this.curves[nextIdx],
+                        mode);
+    }
+  }
+
+  static get SMOOTH_MODE_CASCADE() { return 0; }
+  static get SMOOTH_MODE_TRAILING() { return 1; }
+  static get SMOOTH_MODE_AVERAGE() { return 2; }
+
+  smoothVertex(curve1, curve2, mode){
+    let p1;
+    let p2 = curve1.p4;
+    let p3;
+    switch(mode){
+      case Polybezier.SMOOTH_MODE_CASCADE:
+        p1 = curve1.p3;
+        p3 = curve2.p2;
+        Point.align(p1, p2, p3);
+        break;
+      case Polybezier.SMOOTH_MODE_TRAILING:
+        p1 = curve2.p2;
+        p3 = curve1.p3;
+        Point.align(p1, p2, p3);
+        break;
+    }
+
+  }
+
   handleMousePressed(){
     const pressedElement = this.curves.find(s => s.handleMousePressed());
     if (pressedElement){
