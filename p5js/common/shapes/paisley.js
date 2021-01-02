@@ -45,12 +45,7 @@ class Paisley {
                                     this.leftShoulderPt
                                     );
 
-    // console.log(`... now leftShoulderPt at: ${this.leftShoulderPt.x}, ${this.leftShoulderPt.y}`);
     this.polybezier.append(leftTail);
-
-
-    // let leftTail = new BezierCurve(this.tail, this.tail,this.tail, this.tail);
-    // this.polybezier.append(leftTail);
   }
 
   _initDefaultTail(){
