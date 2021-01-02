@@ -1,16 +1,17 @@
 class Paisley {
   constructor(x, y, heading, bulbRadius) {
     this.pos = new Point(x, y);
-    this.heading = heading;
     this.bulbRadius = bulbRadius;
 
-    this.headingVec = createVector(1, 0);
-    this.headingVec.rotate(heading);
-
-    this.tail = new Point(x, y);
     this.leftShoulderPt = new Point(x, y);
     this.rightShoulderPt = new Point(x, y);
     this.shoulderConstraintOffset = createVector(0,0);
+
+    this.headingVec = createVector(1, 0);
+    this.headingPt = new Point(1, 0);
+    this.heading = heading;
+
+    this.tail = new Point(x, y);
 
     this.draggable = false;
     this._initDefaultTail();
@@ -20,10 +21,25 @@ class Paisley {
     this.points = [];
     this.points.push(this.pos);
     this.points.push(this.tail);
+    this.points.push(this.headingPt);
   }
 
   get x() { return this.pos.x; }
   get y() { return this.pos.y; }
+  get heading() { return this._heading; }
+  set heading(newVal){
+    this.headingVec.x = 1;
+    this.headingVec.y = 0;
+    this.headingVec.rotate(newVal);
+    this._updateHeadingPt();
+    this._calcHelperPoints();
+    this._heading = newVal;
+  }
+
+  _updateHeadingPt(){
+    this.headingPt.x = this.x + this.headingVec.x * this.bulbRadius;
+    this.headingPt.y = this.y + this.headingVec.y * this.bulbRadius;
+  }
 
   _initPolyBezier() {
     this.polybezier = new Polybezier();
@@ -67,7 +83,6 @@ class Paisley {
   }
 
   _calcHelperPoints(){
-    console.log(`_calcHelperPoints ...c alled`);
     let step = this.headingVec.copy();
     step.mult(this.bulbRadius);
 
@@ -82,9 +97,7 @@ class Paisley {
 
   get dragEnabled() { return this._dragEnabled; }
   set dragEnabled(newVal){
-    console.log(`setting to new: ${newVal}`);
-    this.pos.dragEnabled = newVal;
-    this.tail.dragEnabled = newVal;
+    this.points.forEach(pt => pt.dragEnabled = newVal);
     this._dragEnabled = newVal;
   }
 
@@ -104,9 +117,14 @@ class Paisley {
     this.pressedElement.handleMouseDragged();
 
     if (this.pressedElement == this.pos){
+      this._updateHeadingPt();
       this._calcHelperPoints();
     } else if (this.pressedElement == this.tail) {
       // no extra work here (for now)
+    } else if (this.pressedElement == this.headingPt){
+      let newHeadingVec = createVector(this.headingPt.x - this.x,this.headingPt.y - this.y);
+      this.heading = newHeadingVec.heading();
+      this._calcHelperPoints();
     }
     this._initPolyBezier();
   }
