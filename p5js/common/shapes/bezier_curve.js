@@ -1,11 +1,26 @@
 class BezierCurve {
-  constructor(x1, y1, x2, y2, x3, y3, x4, y4){
-    this.p1 = new Point(x1, y1);
-    this.p2 = new Point(x2, y2);
-    this.p3 = new Point(x3, y3);
-    this.p4 = new Point(x4, y4);
+  // Accepts:
+  // Point1, Point2, Point3, Point4
+  // x1, y1, x2, y2, x3, y3, x4, y4
+  constructor(a, b, c, d, x3, y3, x4, y4){
+    if (a.x && a.y){
+      this.p1 = new Point(a.x, a.y);
+      this.p2 = new Point(b.x, b.y);
+      this.p3 = new Point(c.x, c.y);
+      this.p4 = new Point(d.x, d.y);
+    } else {
+      this.p1 = new Point(a, b);
+      this.p2 = new Point(c, d);
+      this.p3 = new Point(x3, y3);
+      this.p4 = new Point(x4, y4);
+    }
+
     this.dragEnabled = false;
     this.initPoints();
+  }
+
+  static fromPoints(p1, p2, p3, p4){
+    return new BezierCurve(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y);
   }
 
   toggleDragEnabled(){
