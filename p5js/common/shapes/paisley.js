@@ -112,8 +112,10 @@ class Paisley {
   }
   handleMouseReleased(){
     this.isDragged = false;
-    this.pressedElement.handleMouseReleased();
-    this.pressedElement = undefined;
+    if (this.pressedElement) {
+      this.pressedElement.handleMouseReleased();
+      this.pressedElement = undefined;
+    }
   }
 
   drawDraggablePoints(){

@@ -58,6 +58,6 @@ function mouseDragged(){
 }
 
 function mouseReleased(){
-  shapes.filter(s => s.dragEnabled)
+  shapes.filter(s => s.isDragged)
         .forEach(s => s.handleMouseReleased());
 }
