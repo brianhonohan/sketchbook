@@ -98,22 +98,27 @@ class Paisley {
   }
 
   handleMousePressed(){
-    const pressedElement = this.points.find(el => el.handleMousePressed());
-    if (pressedElement){
+    this.pressedElement = this.points.find(el => el.handleMousePressed());
+    if (this.pressedElement){
       this.isDragged = true;
       return true;
     }
     return false;
   }
   handleMouseDragged(){
-    this.points.filter(p => p.isDragged == true)
-        .forEach(p => p.handleMouseDragged());
-    this._calcHelperPoints();
+    this.pressedElement.handleMouseDragged();
+
+    if (this.pressedElement == this.pos){
+      this._calcHelperPoints();
+    } else if (this.pressedElement == this.tail) {
+      // no extra work here (for now)
+    }
     this._initPolyBezier();
   }
   handleMouseReleased(){
-    this.points.forEach(p => p.handleMouseReleased());
     this.isDragged = false;
+    this.pressedElement.handleMouseReleased();
+    this.pressedElement = undefined;
   }
 
   drawDraggablePoints(){
