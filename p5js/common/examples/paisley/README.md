@@ -9,9 +9,6 @@ This is a [p5.js][p5js-home] sketch to demonstrate the creation of a simple Pais
 Mouse
 * Click and drag the center of the bulb and the tail.
 
-# References:
-* 
-
 # Links: 
 
 * [Live View][live-view]

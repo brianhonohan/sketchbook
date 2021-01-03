@@ -3,7 +3,7 @@ layout: minimal
 title:  "p5.js - Common Examples - Paisley"
 categories: p5js
 modal: true
-excerpt: Demonstrates the drawing of a simple Paisley shape.
+excerpt: Demonstrates the drawing of a simple Paisley shap.ebe
 
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.js
@@ -20,7 +20,7 @@ js_scripts:
 - /sketchbook/p5js/common/shapes/triangle.js
 - /sketchbook/p5js/common/shapes/bezier_curve.js
 - /sketchbook/p5js/common/shapes/polybezier.js
-- /sketchbook/p5js/common/shapes/pasiley.js
+- /sketchbook/p5js/common/shapes/paisley.js
 - app.js
 
 ---
