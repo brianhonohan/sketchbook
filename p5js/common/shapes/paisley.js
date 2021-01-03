@@ -5,7 +5,8 @@ class Paisley {
 
     this.leftShoulderPt = new Point(x, y);
     this.rightShoulderPt = new Point(x, y);
-    this.shoulderConstraintOffset = createVector(0,0);
+    this.leftConstraint = createVector(0, 0);
+    this.rightConstraint = createVector(0, 0);
     this.tail = new Point(x, y);
 
     this.headingVec = createVector(1, 0);
@@ -44,9 +45,6 @@ class Paisley {
     this.polybezier = new Polybezier();
     this.polybezier.append(BezierCurve.circularQuarterArc(this.x, this.y, this.bulbRadius, this.heading - HALF_PI));
     this.polybezier.append(BezierCurve.circularQuarterArc(this.x, this.y, this.bulbRadius, this.heading));
-
-    this.rightConstraint = p5.Vector.add(this.rightShoulderPt.pos, this.shoulderConstraintOffset);
-    this.leftConstraint = p5.Vector.add(this.leftShoulderPt.pos, this.shoulderConstraintOffset);
 
     let rightTail = new BezierCurve(this.rightShoulderPt,
                                     this.rightConstraint,
@@ -87,9 +85,51 @@ class Paisley {
     this.rightShoulderPt.set(this.x + step.x, this.y + step.y);
     this.leftShoulderPt.set(this.x - step.x, this.y - step.y);
 
-    step.rotate(HALF_PI);
-    this.shoulderConstraintOffset.x = step.x * 2;
-    this.shoulderConstraintOffset.y = step.y * 2;
+    this._calcShoulderConstraints();
+  }
+
+  _calcShoulderConstraints(){
+    let step = this.headingVec.copy();
+    step.rotate(PI);
+
+    // let mags = [this.bulbRadius * 2, this.bulbRadius * 2]; 
+    let mags = this._shoulderConstraintMag();
+    let rightMag = mags[0];
+    let leftMag  = mags[1];
+
+    this.rightConstraint.set(step);
+    this.rightConstraint.mult(rightMag);
+    this.rightConstraint.add(this.rightShoulderPt.pos);
+
+    this.leftConstraint.set(step);
+    this.leftConstraint.mult(leftMag);
+    this.leftConstraint.add(this.leftShoulderPt.pos);
+  }
+
+  // This method tries to dynamically adjust the constraint points for the
+  // left and right shoulders, based on the heading in relation to the current tail vector
+  // It falls short when angle between the heading and tail vector < 90 degrees.
+  _shoulderConstraintMag(){
+    this.tailVec = createVector(this.tail.x - this.x, this.tail.y - this.y);
+    this.tailMag = this.tailVec.mag();
+
+    // NOTE: angleBetween(v1, v2) falls short, because it doesn't give direction
+    let rotationBtw = P5JsUtils.rotationBetweenVectors(this.headingVec, this.tailVec);
+    let absRotation = abs(rotationBtw);
+
+    let outerMag = min(this.bulbRadius, this.tailMag) * 2; 
+    let innerMag = min(this.bulbRadius, this.tailMag) * 2;
+
+    if (absRotation < 2) {
+      outerMag *= (1 + 2 - absRotation);
+      innerMag *= (1 - 2 + absRotation);
+    }
+
+    if (rotationBtw > 0) {
+      return [innerMag, outerMag];
+    } else {
+      return [outerMag, innerMag];
+    }
   }
 
   get dragEnabled() { return this._dragEnabled; }
@@ -118,6 +158,7 @@ class Paisley {
       this._calcHelperPoints();
     } else if (this.pressedElement == this.tail) {
       // no extra work here (for now)
+      this._shoulderConstraintMag();
     } else if (this.pressedElement == this.headingPt){
       let newHeadingVec = createVector(this.headingPt.x - this.x,this.headingPt.y - this.y);
       this.heading = newHeadingVec.heading();
