@@ -6,12 +6,11 @@ class Paisley {
     this.leftShoulderPt = new Point(x, y);
     this.rightShoulderPt = new Point(x, y);
     this.shoulderConstraintOffset = createVector(0,0);
+    this.tail = new Point(x, y);
 
     this.headingVec = createVector(1, 0);
     this.headingPt = new Point(1, 0);
     this.heading = heading;
-
-    this.tail = new Point(x, y);
 
     this.draggable = false;
     this._initDefaultTail();
@@ -46,12 +45,11 @@ class Paisley {
     this.polybezier.append(BezierCurve.circularQuarterArc(this.x, this.y, this.bulbRadius, this.heading - HALF_PI));
     this.polybezier.append(BezierCurve.circularQuarterArc(this.x, this.y, this.bulbRadius, this.heading));
 
-
     this.rightConstraint = p5.Vector.add(this.rightShoulderPt.pos, this.shoulderConstraintOffset);
     this.leftConstraint = p5.Vector.add(this.leftShoulderPt.pos, this.shoulderConstraintOffset);
 
     let rightTail = new BezierCurve(this.rightShoulderPt,
-                                    p5.Vector.add(this.rightShoulderPt.pos, this.shoulderConstraintOffset),
+                                    this.rightConstraint,
                                     this.tail,
                                     this.tail);
     this.polybezier.append(rightTail);
@@ -60,7 +58,6 @@ class Paisley {
                                     this.leftConstraint,
                                     this.leftShoulderPt
                                     );
-
     this.polybezier.append(leftTail);
   }
 
