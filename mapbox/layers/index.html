@@ -112,9 +112,10 @@ map.on('load', function () {
     link.href = '#';
     link.className = 'active';
     link.textContent = id.toUpperCase();
+    link.setAttribute('data-layer_id', id);
 
     link.onclick = function (e) {
-      var clickedLayer = this.textContent;
+      var clickedLayer = this.getAttribute('data-layer_id');
       e.preventDefault();
       e.stopPropagation();
 
