@@ -10,13 +10,17 @@
         body { margin:0; padding:0; }
         #map { position:absolute; top:0; bottom:0; width:100%; }
     </style>
+    <script src='/sketchbook/js/image_utils.js'></script>
+    <script src='/sketchbook/mapbox/common/mapbox_utils.js'></script>
     <link rel="stylesheet" type="text/css" href="./css/main.css" media="screen"/>
 </head>
 <body>
 
 <nav id="menu"></nav>
 <div id="map"></div>
-
-<script src='./js/main.js'></script>
+<script>
+    var mbUtils;
+</script>
+<script type="module" src='./js/main.js'></script>
 </body>
 </html>

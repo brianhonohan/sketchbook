@@ -1,4 +1,13 @@
+import tilebelt from '/sketchbook/vendor/mapbox/tilebelt/index.js';
+
 mapboxgl.accessToken = 'pk.eyJ1IjoibGVjcnRlIiwiYSI6ImNqeGdkdjZidjAweGozbnF5MzQzZTN2Z2kifQ.NYO4umL5HRyH-B0V37roMg';
+
+const mbUtilsCfg = {
+  accessToken: mapboxgl.accessToken,
+  tilebelt: tilebelt
+}
+mbUtils = new MapboxUtils(mbUtilsCfg);
+
 var map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/mapbox/cjaudgl840gn32rnrepcb9b9g', // the outdoors-v10 style but without Hillshade layers
