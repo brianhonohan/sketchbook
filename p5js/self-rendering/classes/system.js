@@ -3,6 +3,22 @@ class System {
     this.sizeAndPosition = p_xSizeAndPos;
     this.optionsSet = new OptionsSet(this.optionsMetadata());
     this.settings = this.optionsSet.settings;
+
+    this.fetcher = new ResourceFetcher();
+    this.startReflecting();
+  }
+
+  startReflecting() {
+    let self = this;
+    this.fetcher.loadHomepage(
+        function(x) { self.parseHomepage(x) }
+      );
+  }
+
+  parseHomepage(data){
+    this.homepage = new ResponseHandler(data);
+    console.log("got data:");
+    console.log(data);
   }
 
   // Return a list of Options, specific to this sketch,
