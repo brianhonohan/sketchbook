@@ -14,7 +14,6 @@ js_scripts:
 - /sketchbook/js/util_functions.js
 - /sketchbook/js/options_set.js
 - /sketchbook/js/models/rect.js
-- classes/response_handler.js
 - classes/resource_fetcher.js
 - classes/system.js
 - app.js

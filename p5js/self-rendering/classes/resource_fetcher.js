@@ -1,16 +1,27 @@
 class ResourceFetcher {
-
-  currentPage(){
-    return window.location.href;
+  constructor(){
+    this.resources = {};
   }
 
-  loadHomepage(callback){
-    this.fetch(this.currentPage(), callback);
+  static get CURRENT_PAGE() { return "__CURRENT_PAGE"; }
+
+  loadCurrentPage(){
+    const url =  window.location.href;
+    this.fetch(ResourceFetcher.CURRENT_PAGE, url);
   }
 
-  fetch(url, callback){
+  fetch(resource_name, url){
+    let storeData = this.storeResource.bind(this);
     fetch(url)
-      .then(x => callback(x) );
+      .then(response => response.text())
+      .then(data => storeData(resource_name, data))
+      .catch(error => console.warn(error));
+  }
+
+  storeResource(name, data){
+    this.resources[name] = data;
+    console.log(this.resources);
+    return data;
   }
 
   __fetchSynchronously(url){

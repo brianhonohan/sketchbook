@@ -10,15 +10,7 @@ class System {
 
   startReflecting() {
     let self = this;
-    this.fetcher.loadHomepage(
-        function(x) { self.parseHomepage(x) }
-      );
-  }
-
-  parseHomepage(data){
-    this.homepage = new ResponseHandler(data);
-    console.log("got data:");
-    console.log(data);
+    this.fetcher.loadCurrentPage();
   }
 
   // Return a list of Options, specific to this sketch,
