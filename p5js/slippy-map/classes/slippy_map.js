@@ -6,7 +6,7 @@ class SlippyMap {
     this.tileSets = {};
 
     this.zoom = 0;
-    this.maxZoom = 5;
+    this.maxZoom = 5 + 0.999;
 
     this.uiIsDragging = false;
     this.uiNeedsRendering = true;
