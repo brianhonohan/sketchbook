@@ -13,6 +13,8 @@ class SlippyMap {
     this.startDragY = undefined;
     this.offsetX = 0;
     this.offsetY = 0;
+    this.prevOffsetX = 0;
+    this.prevOffsetY = 0;
 
     this.uiIsDragging = false;
     this.uiNeedsRendering = true;
@@ -55,6 +57,8 @@ class SlippyMap {
     this.uiIsDragging = true;
     this.startDragX = x;
     this.startDragY = y;
+    this.prevOffsetX = this.offsetX;
+    this.prevOffsetY = this.offsetY;
   }
 
   handleMouseReleased(x,y){
@@ -62,8 +66,8 @@ class SlippyMap {
   }
 
   handleMouseDragged(x, y, prevX, prevY){
-    this.offsetX = x - this.startDragX;
-    this.offsetY = y - this.startDragY;
+    this.offsetX = this.prevOffsetX + x - this.startDragX;
+    this.offsetY = this.prevOffsetY + y - this.startDragY;
     this.uiNeedsRendering = true;
   }
 
