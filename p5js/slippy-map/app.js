@@ -8,12 +8,11 @@ function setup() {
 
   let rect = new Rect(0, 0, width, height);
   system = new System(rect);
-  frameRate(2);
+  // frameRate(2);
   background(50);
 }
 
 function draw(){
-  console.log('tick');
   system.tick();
   system.render();
 }
