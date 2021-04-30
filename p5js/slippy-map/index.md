@@ -16,7 +16,8 @@ js_scripts:
 - /sketchbook/js/models/rect.js
 - classes/slippy_map.js
 - classes/tile_renderer.js
-- classes/data_manager.js
+- classes/tile.js
+- classes/tile_set.js
 - classes/system.js
 - app.js
 
