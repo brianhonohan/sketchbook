@@ -8,6 +8,7 @@ class SlippyMap {
     this.maxZoom = 5;
 
     this.uiIsDragging = false;
+    this.uiNeedsRendering = true;
   }
 
   get x() { return this.sizeAndPosition.x; }
@@ -26,9 +27,13 @@ class SlippyMap {
 
   adjustZoom(zoomDelta){
     this.zoom = constrain(this._zoom + zoomDelta, 0, this.maxZoom);
+    this.uiNeedsRendering = true;
   }
 
   render(){
+    if (this.uiNeedsRendering == false){
+      return;
+    }
     push();
     translate(this.x, this.y);
     this.fillBackground();
@@ -40,6 +45,8 @@ class SlippyMap {
     }
 
     pop();
+
+    this.uiNeedsRendering = false;
   }
 
   renderTile(tile){

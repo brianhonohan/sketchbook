@@ -9,10 +9,10 @@ function setup() {
   let rect = new Rect(0, 0, width, height);
   system = new System(rect);
   frameRate(2);
+  background(50);
 }
 
 function draw(){
-  background(50);
   console.log('tick');
   system.tick();
   system.render();
