@@ -24,6 +24,12 @@ class SlippyMap {
   set zoom(z) {
     this._zoom = z;
     this.visualScale = 1 + this._zoom % 1;
+    this.scaledWidth = this.width / this.visualScale;
+    this.scaledHeight = this.height / this.visualScale;
+
+    this.numScaledTilesWide = this.scaledWidth / this.tileSize;
+    this.numScaledTilesHigh = this.scaledHeight / this.tileSize;
+
     this.tileSet = this.getTilesetForZoom(Math.floor(z));
   }
 
@@ -41,8 +47,8 @@ class SlippyMap {
     this.fillBackground();
 
     scale(this.visualScale);
-    let numColsToShow = min(this.width / this.tileRenderer.tileSize,  this.tileSet.colCount);
-    let numRowsToShow = min(this.height / this.tileRenderer.tileSize, this.tileSet.rowCount);
+    let numColsToShow = min(this.numScaledTilesWide, this.tileSet.colCount);
+    let numRowsToShow = min(this.numScaledTilesHigh, this.tileSet.rowCount);
 
     for(let i = 0; i < numColsToShow; i++){
       for(let j = 0; j < numRowsToShow; j++){
@@ -58,14 +64,8 @@ class SlippyMap {
     let x = tile.x * this.tileSize;
     let y = tile.y * this.tileSize;
 
-    let dWidth  = min(this.tileSize, this.width / this.visualScale - x);
-    let dHeight = min(this.tileSize, this.height / this.visualScale - y);
-
-    if (dWidth <= 0 || dHeight <= 0){
-      // this tile should not be rendered
-      console.log('tile should not be shown');
-      return;
-    }
+    let dWidth  = min(this.tileSize, this.scaledWidth - x);
+    let dHeight = min(this.tileSize, this.scaledHeight - y);
 
     image(tile.image, x, y, dWidth, dHeight, 0, 0, dWidth, dHeight);
   }
