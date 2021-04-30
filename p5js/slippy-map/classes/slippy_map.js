@@ -8,6 +8,9 @@ class SlippyMap {
     this.zoom = 0;
     this.maxZoom = 5 + 0.999;
 
+
+    this.startDragX = undefined;
+    this.startDragY = undefined;
     this.offsetX = 0;
     this.offsetY = 0;
 
@@ -50,6 +53,8 @@ class SlippyMap {
 
     // otherwise, start dragging
     this.uiIsDragging = true;
+    this.startDragX = x;
+    this.startDragY = y;
   }
 
   handleMouseReleased(x,y){
@@ -57,12 +62,8 @@ class SlippyMap {
   }
 
   handleMouseDragged(x, y, prevX, prevY){
-    const deltaX = x - prevX;
-    const deltaY = y - prevY;
-    // console.log(`Dragged:  x: ${deltaX} ... y: ${deltaY}`);
-
-    this.offsetX += deltaX;
-    this.offsetY += deltaY;
+    this.offsetX = x - this.startDragX;
+    this.offsetY = y - this.startDragY;
     this.uiNeedsRendering = true;
   }
 
