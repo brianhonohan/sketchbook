@@ -25,3 +25,15 @@ function determineVerticalMargin(){
 function mouseWheel(event) {
   return system.ui_controller__mouseWheel(event);
 }
+
+function mousePressed() {
+  return system.ui_controller__mousePressed(mouseX, mouseY);
+}
+
+function mouseReleased() {
+  return system.ui_controller__mouseReleased(mouseX, mouseY);
+}
+
+function mouseDragged() {
+  return system.ui_controller__mouseDragged(mouseX, mouseY, pmouseX, pmouseY);
+}

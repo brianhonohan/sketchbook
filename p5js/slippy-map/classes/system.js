@@ -49,4 +49,23 @@ class System {
 
     return true; // Propagate the event if not handled.
   }
+
+  ui_controller__mousePressed(x,y){
+    if (this.slippyMap.handleMousePressed(x,y)){
+      return true;
+    }
+  }
+
+  ui_controller__mouseReleased(x,y){
+    if (this.slippyMap.handleMouseReleased(x,y)){
+      return true;
+    }
+  }
+
+  ui_controller__mouseDragged(x, y, prevX, prevY){
+    if (this.slippyMap.uiIsDragging){
+      this.slippyMap.handleMouseDragged(x, y, prevX, prevY);
+      return true;
+    }
+  }
 }
