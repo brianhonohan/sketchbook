@@ -79,6 +79,7 @@ class SlippyMap {
     translate(this.x, this.y);
     this.fillBackground();
 
+    console.log(`offsetX: ${this.offsetX} ... offsetY: ${this.offsetY}`);
     scale(this.visualScale);
     let numColsToShow = min(this.numScaledTilesWide, this.tileSet.colCount);
     let numRowsToShow = min(this.numScaledTilesHigh, this.tileSet.rowCount);
@@ -117,12 +118,12 @@ class SlippyMap {
     let sY = 0;
     if (x < 0) { 
       sX = -1 * x;
-      dWidth = this.tileSize - sX;
+      dWidth = min(this.tileSize - sX, this.scaledWidth);
       x = 0;
     }
     if (y < 0) { 
       sY = -1 * y;
-      dHeight = this.tileSize - sY;
+      dHeight = min(this.tileSize - sY, this.scaledHeight);
       y = 0;
     }
 
