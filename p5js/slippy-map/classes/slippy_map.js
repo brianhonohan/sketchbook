@@ -18,6 +18,8 @@ class SlippyMap {
 
     this.uiIsDragging = false;
     this.uiNeedsRendering = true;
+
+    this.finiteWorld = true;
   }
 
   get x() { return this.sizeAndPosition.x; }
@@ -79,13 +81,12 @@ class SlippyMap {
     translate(this.x, this.y);
     this.fillBackground();
 
-    console.log(`offsetX: ${this.offsetX} ... offsetY: ${this.offsetY}`);
     scale(this.visualScale);
-    let numColsToShow = min(this.numScaledTilesWide, this.tileSet.colCount);
-    let numRowsToShow = min(this.numScaledTilesHigh, this.tileSet.rowCount);
+    let colsToShow = this.colsToShow();
+    let rowsToShow = this.rowsToShow();
 
-    for(let i = 0; i < numColsToShow; i++){
-      for(let j = 0; j < numRowsToShow; j++){
+    for(let i = colsToShow[0]; i < colsToShow[1]; i++){
+      for(let j = rowsToShow[0]; j < rowsToShow[1]; j++){
         this.renderTile( this.tileSet.getTile(i,j) );
       }
     }
@@ -94,13 +95,35 @@ class SlippyMap {
     this.uiNeedsRendering = false;
   }
 
+  colsToShow(){
+    let first = floor((0 - this.offsetX) / this.tileSize / this.visualScale);
+    let last = first + this.numScaledTilesWide + 1; // TODO: remove hack to always get one more column
+
+    if (this.finiteWorld) {
+      first = constrain(first, 0, this.tileSet.colCount);
+      last = constrain(last, 0, this.tileSet.colCount);
+    }
+    return [first, last];
+  }
+
+  rowsToShow(){
+    let first = floor((0 - this.offsetY) / this.tileSize / this.visualScale);
+    let last = first + this.numScaledTilesHigh + 1;
+
+    if (this.finiteWorld) {
+      first = constrain(first, 0, this.tileSet.rowCount);
+      last = constrain(last, 0, this.tileSet.rowCount);
+    }
+    return [first, last];
+  }
+
   renderTile(tile){
     let x = tile.x * this.tileSize + this.offsetX / this.visualScale;
     let y = tile.y * this.tileSize + this.offsetY / this.visualScale;
 
     if ((x + this.tileSize) < 0 || (y + this.tileSize) < 0){
       // this tile should not be rendered
-      console.log('x or y is negative; tile should not be shown');
+      // console.log('x or y is negative; tile should not be shown');
       return;
     }
 
@@ -110,7 +133,7 @@ class SlippyMap {
     // TEMPORARILY bring back this safeguard
     if (dWidth <= 0 || dHeight <= 0){
       // this tile should not be rendered
-      console.log('x or y is > tileSize; tile should not be shown');
+      // console.log('x or y is > tileSize; tile should not be shown');
       return;
     }
 
