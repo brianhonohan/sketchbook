@@ -1,6 +1,6 @@
 ---
 layout: minimal
-title:  "p5.js - <sketch_name>"
+title:  "p5.js - Slippy Map"
 categories: p5js
 modal: true
 viewport_noscale: true
@@ -14,9 +14,10 @@ js_scripts:
 - /sketchbook/js/util_functions.js
 - /sketchbook/js/options_set.js
 - /sketchbook/js/models/rect.js
-- /sketchbook/js/models/cell_grid.js
-- classes/cell.js
-- classes/cell_viewer.js
+- classes/slippy_map.js
+- classes/tile_renderer.js
+- classes/tile.js
+- classes/tile_set.js
 - classes/system.js
 - app.js
 
