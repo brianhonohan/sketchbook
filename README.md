@@ -38,6 +38,7 @@ Collection of sketches using the [p5.js][p5js] Javascript library.
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/meandering-river/screenshot-01.png" alt="meandering-river" width="150px" />][link-p5js-meandering-river]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/nautical-flags-02/screenshot-01.png" alt="nautical-flags" width="150px" />][link-p5js-nautical-flags-02]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/nautical-flags/screenshot-01.png" alt="nautical-flags" width="150px" />][link-p5js-nautical-flags]
+[<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/slippy-map/screenshot-01.png" alt="slippy-map" width="150px" />][link-p5js-slippy-map]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/snowflake-pen/screenshot-01.png" alt="snowflake-pen" width="150px" />][link-p5js-snowflake-pen]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/thermal-cells/screenshot-01.png" alt="thermal-cells" width="150px" />][link-p5js-thermal-cells]
 [<img src="https://github.com/brianhonohan/sketchbook/raw/master/p5js/tree-rings/screenshot-01.png" alt="tree-rings" width="150px" />][link-p5js-tree-rings]
@@ -109,6 +110,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-p5js-nautical-flags]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/nautical-flags/
 [link-p5js-quadtree]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/quadtree/
 [link-p5js-snowflake-pen]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/snowflake-pen/
+[link-p5js-slippy-map]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/slippy-map/
 [link-p5js-thermal-cells]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/thermal-cells/
 [link-p5js-tree-rings]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/tree-rings/
 [link-p5js-voronoi-herd]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/voronoi-herd/
