@@ -4,6 +4,7 @@ title:  "p5.js - Slippy Map"
 categories: p5js
 modal: true
 viewport_noscale: true
+excerpt: An exploration of implementing Slippy-Map tile manager and rendering for pannable / zoomable view.
 
 js_scripts:
 - /sketchbook/vendor/inobounce/0.2.0/inobounce.js
