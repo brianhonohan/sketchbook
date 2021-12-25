@@ -5,9 +5,9 @@ Collection of personal coding projects. They may or may not grow into individual
 
 ## Latest
 
-A paper.js sketch of some plates from 'Interaction of Color' (Josef Albers).
+A p5.js sketch of a Slippy-map interface.
 
-[<img src="./paperjs/interaction-of-color/screenshot-01.png" alt="p5js/interaction-of-color" width="150px" />][link-paperjs-interaction-of-color]
+[<img src="./p5js/slippy-map/screenshot-01.png" alt="slippy-map" width="150px" />][link-p5js-slippy-map]
 
 
 ## LÖVE
