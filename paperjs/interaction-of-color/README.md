@@ -7,10 +7,10 @@ It is intended to demonstrate some aspects of the PaperJS library while giving t
 
 Following Plates are able to be rendered and interacted with:
 
-* [Plate IV-1](?plate=iv_1)
-* [Plate IV-3](?plate=iv_3)
-* [Plate IV-4](?plate=iv_4)
-* [Plate V-3](?plate=v_3)
+* [Plate IV-1][link-plate-iv-1]
+* [Plate IV-3][link-plate-iv-3]
+* [Plate IV-4][link-plate-iv-4]
+* [Plate V-3][link-plate-v-3]
 
 ## Controls
 
@@ -26,7 +26,7 @@ Following Plates are able to be rendered and interacted with:
 * [Wikipedia: Josef Albers][wikipedia-josef-albers]
 * [Albers Foundation][albers-foundation]
 
-# Links: 
+# Links:
 
 * [Live View][live-view]
 * [Source on Github][source-code]
@@ -53,6 +53,10 @@ Following Plates are able to be rendered and interacted with:
 [screenshot-plate-iv-3]: ./screenshot-plate-iv-3.png
 [screenshot-plate-iv-4]: ./screenshot-plate-iv-4.png
 
+[link-plate-iv-1]: https://brianhonohan.com/sketchbook/paperjs/interaction-of-color/?plate=iv_1
+[link-plate-iv-3]: https://brianhonohan.com/sketchbook/paperjs/interaction-of-color/?plate=iv_3
+[link-plate-iv-4]: https://brianhonohan.com/sketchbook/paperjs/interaction-of-color/?plate=iv_4
+[link-plate-v-3]: https://brianhonohan.com/sketchbook/paperjs/interaction-of-color/?plate=v_3
 
 [wikipedia-josef-albers]: https://en.wikipedia.org/wiki/Josef_Albers
 [albers-foundation]: https://albersfoundation.org/teaching/josef-albers/interaction-of-color/publications/overview/
