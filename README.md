@@ -24,8 +24,11 @@ Collection of sketches using the [paper.js][paperjs] Javascript library.
 ## p5.js
 Collection of sketches using the [p5.js][p5js] Javascript library.
 
+[<img src="./p5js/common/examples/bezier/screenshot-01.png" alt="bezier" width="150px" />][link-p5js-bezier]
 [<img src="./p5js/common/examples/draggable/screenshot-01.png" alt="draggable" width="150px" />][link-p5js-draggable]
+[<img src="./p5js/common/examples/paisley/screenshot-01.png" alt="paisley" width="150px" />][link-p5js-paisley]
 [<img src="./p5js/common/examples/quadtree/screenshot-01.png" alt="quadtree" width="150px" />][link-p5js-quadtree]
+[<img src="./p5js/common/examples/teardrops/screenshot-01.png" alt="teardrops" width="150px" />][link-p5js-teardrops]
 [<img src="./p5js/ecosystem/screenshot-01.png" alt="ecosystem" width="150px" />][link-p5js-ecosystem]
 [<img src="./p5js/forest-01/screenshot-01.png" alt="forest-01" width="150px" />][link-p5js-forest-01]
 [<img src="./p5js/forest-fires-02/screenshot-01.png" alt="forest-fires-02" width="150px" />][link-p5js-forest-fires-02]
@@ -95,6 +98,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-paperjs-interaction-of-color]: https://github.com/brianhonohan/sketchbook/tree/master/paperjs/interaction-of-color
 [link-paperjs-race-track]: https://github.com/brianhonohan/sketchbook/tree/master/paperjs/race-track
 
+[link-p5js-bezier]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/bezier/
 [link-p5js-draggable]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/draggable/
 [link-p5js-ecosystem]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/ecosystem/
 [link-p5js-forest-01]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/forest-01/
@@ -108,9 +112,11 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-p5js-meandering-river]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/meandering-river/
 [link-p5js-nautical-flags-02]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/nautical-flags-02/
 [link-p5js-nautical-flags]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/nautical-flags/
+[link-p5js-paisley]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/paisley/
 [link-p5js-quadtree]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/quadtree/
-[link-p5js-snowflake-pen]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/snowflake-pen/
 [link-p5js-slippy-map]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/slippy-map/
+[link-p5js-snowflake-pen]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/snowflake-pen/
+[link-p5js-teardrop]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/teardrop/
 [link-p5js-thermal-cells]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/thermal-cells/
 [link-p5js-tree-rings]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/tree-rings/
 [link-p5js-voronoi-herd]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/voronoi-herd/
