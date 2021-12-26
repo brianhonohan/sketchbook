@@ -25,6 +25,10 @@ class Sketch
     draw
     @frameCount += 1
     sleep(1 / (@target_fps * 1.20))
+
+    # Reset, to allow for window resizing
+    # @width = nil
+    # @height = nil
   end
 
   def run
@@ -38,15 +42,17 @@ class Sketch
 
     summary = "Runtime: #{ellapsed} secs | Framerate: #{true_frame_rate}"
     @context = self.class.default_context
-    print_at(summary, 0, height - 3)
+    # print_at(summary, 0, height - 3)
     puts
   end
 
   def width
+    # @width ||= TermInfo.screen_width
     TermInfo.screen_width
   end
 
   def height
+    # @height ||= TermInfo.screen_height
     TermInfo.screen_height
   end
 
@@ -71,6 +77,11 @@ class Sketch
     Color::RGB.from_fraction(r / max, g / max, b / max)
   end
 
+  def color_hsl(h, s, l, max_h: 360)
+    max_h *= 1.0
+    Color::HSL.from_fraction(h, s, l)
+  end
+
   def self.default_bg_color
     Color::RGB.by_hex('#333333')
   end
@@ -80,11 +91,11 @@ class Sketch
   end
 
   def stroke(color)
-    context[:fg] = color
+    context[:fg] = color.to_rgb
   end
 
   def fill(color)
-    context[:bg] = color
+    context[:bg] = color.to_rgb
   end
 
   def fill_background
