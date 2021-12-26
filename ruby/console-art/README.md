@@ -28,7 +28,8 @@ And there are some basic methods provided to subclasses:
 |--------|-------------|
 | `width`  | Returns the width of the console window in terms of number of characters.           |
 | `height` | Returns the height of the console window in terms of number of characters           |
-| `color(r , g, b)` | Returns a representation of the RGB color (0-255) based, that can be passed into color setting functions |
+| `color(r, g, b)` | Returns a representation of the RGB color (0-255) based, that can be passed into color setting functions |
+| `color_hsl(h, s, l)` | Returns a representation of the HSL color (0-1) based, that can be passed into color setting functions |
 | `stroke( color )` | Sets the stroke color of text display) |
 | `fill( color )` | Sets the background color of text output. |
 | `print_at(text, x, y)` | Displays the `text` string at the specified coordinates. |
@@ -38,11 +39,11 @@ And there are some basic methods provided to subclasses:
 
 ## Requires:
 
-* Ruby 2.3.0 
+* Ruby 2.7.5 
 * Bundler
 
 
-## Setup: 
+## Setup:
 
 ```
 bundle install
@@ -54,8 +55,13 @@ bundle install
 bundle exec ruby ./sketches/random_color.rb
 ```
 
-## Example Output: 
+## Example Output:
 
+[sketches/random_color.rb](sketches/random_color.rb)
 ![random-colors](sketches/random_color.png)
 
+[sketches/striped_string.rb](sketches/striped_string.rb)
 ![striped_string](sketches/striped_string.png)
+
+[sketches/color_chart.rb](sketches/color_chart.rb)
+![color_chart](sketches/color_chart.png)

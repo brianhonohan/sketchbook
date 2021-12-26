@@ -91,7 +91,7 @@ class Sketch
   end
 
   def stroke(color)
-    context[:fg] = color
+    context[:fg] = color.to_rgb
   end
 
   def fill(color)
