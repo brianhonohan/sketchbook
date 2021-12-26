@@ -1,4 +1,5 @@
 .DS_Store
+.env
 
 /ruby/console-art/.byebug_history
 _site
