@@ -5,9 +5,9 @@ Collection of personal coding projects. They may or may not grow into individual
 
 ## Latest
 
-A p5.js sketch of a Slippy-map interface.
+A Ruby sketch of the 10-Print algorithm ([https://10print.org/](https://10print.org/)).
 
-[<img src="./p5js/slippy-map/screenshot-01.png" alt="slippy-map" width="150px" />][link-p5js-slippy-map]
+[<img src="./ruby/console-art/sketches/10_print.png" alt="ruby-10-print" width="150px" />][link-ruby-console-art]
 
 
 ## LÖVE
@@ -153,3 +153,5 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-spirals]: https://github.com/brianhonohan/sketchbook/tree/master/processing/spirals
 [link-thermal_cells]: https://github.com/brianhonohan/sketchbook/tree/master/processing/thermal_cells
 [link-three_d_blocks]: https://github.com/brianhonohan/sketchbook/tree/master/processing/three_d_blocks
+
+[link-ruby-console-art]: https://github.com/brianhonohan/sketchbook/tree/master/ruby/console-art

@@ -65,3 +65,6 @@ bundle exec ruby ./sketches/random_color.rb
 
 [sketches/color_chart.rb](sketches/color_chart.rb)
 ![color_chart](sketches/color_chart.png)
+
+[sketches/10_print.rb](sketches/color_chart.rb)
+![color_chart](sketches/10_print.png)
