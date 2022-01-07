@@ -5,9 +5,9 @@ Collection of personal coding projects. They may or may not grow into individual
 
 ## Latest
 
-A Ruby sketch of the 10-Print algorithm ([https://10print.org/](https://10print.org/)).
+A paper.js sketch of the 10-Print algorithm ([https://10print.org/](https://10print.org/)).
 
-[<img src="./ruby/console-art/sketches/10_print.png" alt="ruby-10-print" width="150px" />][link-ruby-console-art]
+[<img src="./paperjs/10-print/screenshot-01.png" alt="paperpjs-10-print" width="150px" />][link-paperjs-10-print]
 
 
 ## LÖVE
@@ -97,6 +97,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 
 [link-paperjs-interaction-of-color]: https://github.com/brianhonohan/sketchbook/tree/master/paperjs/interaction-of-color
 [link-paperjs-race-track]: https://github.com/brianhonohan/sketchbook/tree/master/paperjs/race-track
+[link-paperjs-10-print]: https://github.com/brianhonohan/sketchbook/tree/master/paperjs/10-print
 
 [link-p5js-bezier]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/bezier/
 [link-p5js-draggable]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/draggable/
