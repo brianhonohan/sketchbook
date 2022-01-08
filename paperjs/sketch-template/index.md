@@ -4,6 +4,7 @@ title:  "paper.js - sketch_name"
 categories: paperjs
 modal: true
 viewport_noscale: true
+excerpt: 
 
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/inobounce/0.2.0/inobounce.js

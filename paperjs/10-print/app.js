@@ -12,7 +12,7 @@ function setupPaper(canvasId){
 
 function clearAndRedraw(){
   paper.project.activeLayer.removeChildren();
-  background(new paper.Color(0.19));
+  PaperJsUtils.background(new paper.Color(0.19));
   draw10PRINT();
 }
 
@@ -22,8 +22,8 @@ function  draw10PRINT(){
   const startPt = new paper.Point(0,0);
   const endPt   = new paper.Point(0,0);
 
-  let cols = Math.ceil(width() / cellSize);
-  let rows = Math.ceil(height() / cellSize);
+  let cols = Math.ceil(PaperJsUtils.width() / cellSize);
+  let rows = Math.ceil(PaperJsUtils.height() / cellSize);
 
   for (let i = 0; i < cols; i++){
     for (let j = 0; j < rows; j++){
@@ -59,23 +59,3 @@ function handleKeyPressed(event){
   clearAndRedraw()
 }
 
-
-
-function width(){
-  return paper.view.size.width;
-}
-
-function height(){
-  return paper.view.size.height;
-}
-
-function background(color){
-  var rect = new paper.Path.Rectangle({
-      point: [0, 0],
-      size: [width(), height()],
-      strokeColor: color,
-      selected: false
-  });
-  rect.sendToBack();
-  rect.fillColor = color;
-}
