@@ -4,6 +4,7 @@ title:  "paper.js - 10-PRINT"
 categories: paperjs
 modal: true
 viewport_noscale: true
+excerpt: Simple sketch of inspired by 10-Print algorithm, which had random alterations of `/` and `\` diagonal.
 
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/inobounce/0.2.0/inobounce.js
