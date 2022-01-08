@@ -96,4 +96,23 @@ class PaperJsUtils {
       }
     };
   }
+
+  static width(){
+    return paper.view.size.width;
+  }
+
+  static height(){
+    return paper.view.size.height;
+  }
+
+  static background(color){
+    var rect = new paper.Path.Rectangle({
+        point: [0, 0],
+        size: [PaperJsUtils.width(), PaperJsUtils.height()],
+        strokeColor: color,
+        selected: false
+    });
+    rect.sendToBack();
+    rect.fillColor = color;
+  }
 }
