@@ -2,6 +2,7 @@ class Paisley {
   constructor(x, y, heading, bulbRadius) {
     this.pos = new Point(x, y);
     this.bulbRadius = bulbRadius;
+    this.radiusPt = new Point(0,0);
 
     this.leftShoulderPt = new Point(x, y);
     this.rightShoulderPt = new Point(x, y);
@@ -22,6 +23,7 @@ class Paisley {
     this.points.push(this.pos);
     this.points.push(this.tail);
     this.points.push(this.headingPt);
+    this.points.push(this.radiusPt);
   }
 
   get x() { return this.pos.x; }
@@ -39,6 +41,11 @@ class Paisley {
   _updateHeadingPt(){
     this.headingPt.x = this.x + this.headingVec.x * this.bulbRadius;
     this.headingPt.y = this.y + this.headingVec.y * this.bulbRadius;
+  }
+
+  _updateRadiusPt(){
+    this.radiusPt.x = this.leftShoulderPt.x;
+    this.radiusPt.y = this.leftShoulderPt.y;
   }
 
   _initPolyBezier() {
@@ -104,6 +111,7 @@ class Paisley {
     this.leftConstraint.set(step);
     this.leftConstraint.mult(leftMag);
     this.leftConstraint.add(this.leftShoulderPt.pos);
+    this._updateRadiusPt();
   }
 
   // This method tries to dynamically adjust the constraint points for the
@@ -162,6 +170,10 @@ class Paisley {
     } else if (this.pressedElement == this.headingPt){
       let newHeadingVec = createVector(this.headingPt.x - this.x,this.headingPt.y - this.y);
       this.heading = newHeadingVec.heading();
+      this._calcHelperPoints();
+    } else if (this.pressedElement == this.radiusPt){
+      this.bulbRadius = this.pos.distTo(this.radiusPt);
+      this._updateHeadingPt();
       this._calcHelperPoints();
     }
     this._initPolyBezier();
