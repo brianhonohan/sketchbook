@@ -1,5 +1,5 @@
 class Paisley {
-  constructor(x, y, heading, bulbRadius) {
+  constructor(x, y, heading, bulbRadius, tailX, tailY) {
     this.pos = new Point(x, y);
     this.bulbRadius = bulbRadius;
     this.radiusPt = new Point(0,0);
@@ -15,7 +15,12 @@ class Paisley {
     this.heading = heading;
 
     this.draggable = false;
-    this._initDefaultTail();
+    if (tailX == undefined || tailY == undefined) {
+      this._initDefaultTail();
+    } else {
+      this.tail.x = tailX;
+      this.tail.y = tailY;
+    }
     this._calcHelperPoints();
 
     this._initPolyBezier();
