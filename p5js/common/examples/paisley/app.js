@@ -32,3 +32,12 @@ function mouseReleased(){
   shapes.filter(s => s.isDragged == true)
         .forEach(s => s.handleMouseReleased());
 }
+
+function keyPressed(){
+  switch(key){
+    case 'c':
+      shapes.filter(s => s.isDragged == true)
+            .forEach(s => console.log(s._constructorCall()));
+      break;
+  }
+}

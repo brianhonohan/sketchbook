@@ -31,6 +31,12 @@ class Paisley {
     this.points.push(this.radiusPt);
   }
 
+  _constructorCall(){
+    return `new Paisley(${this.x}, ${this.y}, `
+            + `${this.heading}, ${this.bulbRadius},`
+            + `${this.tail.x}, ${this.tail.y});`;
+  }
+
   get x() { return this.pos.x; }
   get y() { return this.pos.y; }
   get heading() { return this._heading; }
