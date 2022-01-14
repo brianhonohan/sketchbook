@@ -60,7 +60,10 @@ class Paisley {
   }
 
   _initPolyBezier() {
-    this.polybezier = new Polybezier();
+    if (this.polybezier == undefined){
+      this.polybezier = new Polybezier();
+    }
+    this.polybezier.clear();
     this.polybezier.append(BezierCurve.circularQuarterArc(this.x, this.y, this.bulbRadius, this.heading - HALF_PI));
     this.polybezier.append(BezierCurve.circularQuarterArc(this.x, this.y, this.bulbRadius, this.heading));
 

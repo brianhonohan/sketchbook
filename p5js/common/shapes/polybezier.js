@@ -1,5 +1,13 @@
 class Polybezier {
   constructor(){
+    this._reset();
+  }
+
+  clear(){
+    this._reset()
+  }
+
+  _reset(){
     this.curves = [];
     this.closed = false;
   }
