@@ -9,6 +9,7 @@ function setup() {
 
   paisley = new Paisley(0.3 * width, 0.5 * height, HALF_PI + QUARTER_PI, 0.1 * width);
   paisley.dragEnabled = true;
+  paisley.fillColor = color(255);
   shapes.push(paisley);
 }
 

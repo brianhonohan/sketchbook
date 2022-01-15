@@ -6,7 +6,6 @@ class Circle {
     this.dragEnabled = false;
     this.isDragged = false;
 
-    this.fillColor = undefined;
     this.dragPos = new Point(0, 0);
     this.dragPos.pos = this.pos; 
     this.dragSize = new Point(this.x + this.radius, this.y);
@@ -160,9 +159,7 @@ class Circle {
   }
 
   draw(){
-    if (this.fillColor){
-      fill(this.fillColor);
-    }
+    P5JsUtils.applyStyleSet(this);
     ellipseMode(CENTER);
     ellipse(this.x, this.y, this.radius * 2, this.radius * 2);
 

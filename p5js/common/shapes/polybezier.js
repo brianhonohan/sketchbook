@@ -119,6 +119,17 @@ class Polybezier {
   }
 
   draw(){
+    P5JsUtils.applyStyleSet(this);
     this.curves.forEach(c => c.draw());
+  }
+
+  // Unused
+  _drawEachEachCurve(){
+    beginShape();
+    vertex(this.curves[0].p1.x, this.curves[0].p1.y);
+    this.curves.forEach(bc => {
+      bezierVertex(bc.p2.x, bc.p2.y, bc.p3.x, bc.p3.y, bc.p4.x, bc.p4.y);
+    });
+    endShape();
   }
 }

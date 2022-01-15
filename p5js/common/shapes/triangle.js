@@ -7,7 +7,6 @@ class Triangle {
     this.dragEnabled = false;
     this.isDragged = false;
 
-    this.fillColor = undefined;
     this.points = [this.p1, this.p2, this.p3];
   }
 
@@ -36,9 +35,7 @@ class Triangle {
   }
 
   draw(){
-    if (this.fillColor){
-      fill(this.fillColor);
-    }
+    P5JsUtils.applyStyleSet(this);
     triangle(this.p1.x, this.p1.y,
              this.p2.x, this.p2.y,
              this.p3.x, this.p3.y);

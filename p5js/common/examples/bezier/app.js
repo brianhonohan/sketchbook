@@ -53,6 +53,7 @@ function resetShapes(){
   bezierCurve.dragEnabled = true;
   // bezierCurve.makeLinear();
   // bezierCurve.move(150, 180);
+  bezierCurve.strokeColor = color(255);
   shapes.push(bezierCurve);
 
   polybezier = new Polybezier();
@@ -71,6 +72,8 @@ function resetShapes(){
   polybezier.close();
   polybezier.smooth(Polybezier.SMOOTH_MODE_TRAILING);
   polybezier.dragEnabled = true;
+  polybezier.noFill = true;
+  polybezier.strokeColor = color(255);
   shapes.push(polybezier);
 
   bezierCircle = Polybezier.circle(0.7 * width, 0.5 * height, 0.15 * width);
