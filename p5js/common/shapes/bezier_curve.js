@@ -16,6 +16,7 @@ class BezierCurve {
     }
 
     this.dragEnabled = false;
+    this.noFill = true;
     this.initPoints();
   }
 
@@ -98,16 +99,7 @@ class BezierCurve {
   }
 
   draw(){
-    if (this.fillColor){
-      fill(this.fillColor);
-    } else {
-      noFill();
-    }
-    if (this.strokeColor) {
-      stroke(this.strokeColor);
-    } else {
-      stroke(255);
-    }
+    P5JsUtils.applyStyleSet(this);
     bezier(this.p1.x, this.p1.y,
            this.p2.x, this.p2.y,
            this.p3.x, this.p3.y,
@@ -120,13 +112,17 @@ class BezierCurve {
   }
 
   drawGuideLines(){
+    push();
     stroke(100, 200, 100);
     line(this.p1.x, this.p1.y, this.p2.x, this.p2.y);
     line(this.p4.x, this.p4.y, this.p3.x, this.p3.y);
+    pop();
   }
 
   drawDraggablePoints(){
+    push();
     this.points.forEach(p => this.drawPoint(p));
+    pop();
   }
 
   drawPoint(point){

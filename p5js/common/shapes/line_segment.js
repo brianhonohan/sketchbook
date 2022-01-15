@@ -7,7 +7,6 @@ class LineSegment {
 
     this.dragEnabled = false;
     this.isDragged = true;
-    this.strokeColor = undefined;
   }
 
   dx() { return this.endX - this.startX; }
@@ -67,9 +66,7 @@ class LineSegment {
   }
 
   draw(){
-    if (this.strokeColor) {
-      stroke(this.strokeColor);
-    }
+    P5JsUtils.applyStyleSet(this);
     line(this.startX, this.startY, this.endX, this.endY);
   }
 

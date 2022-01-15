@@ -16,6 +16,10 @@ class Point {
     this.y = y;
   }
 
+  distTo(otherPoint){
+    return dist(this.x, this.y, otherPoint.x, otherPoint.y);
+  }
+
   move(x, y){
     this.x += x;
     this.y += y;

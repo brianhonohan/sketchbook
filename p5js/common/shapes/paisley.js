@@ -1,7 +1,8 @@
 class Paisley {
-  constructor(x, y, heading, bulbRadius) {
+  constructor(x, y, heading, bulbRadius, tailX, tailY) {
     this.pos = new Point(x, y);
     this.bulbRadius = bulbRadius;
+    this.radiusPt = new Point(0,0);
 
     this.leftShoulderPt = new Point(x, y);
     this.rightShoulderPt = new Point(x, y);
@@ -14,7 +15,12 @@ class Paisley {
     this.heading = heading;
 
     this.draggable = false;
-    this._initDefaultTail();
+    if (tailX == undefined || tailY == undefined) {
+      this._initDefaultTail();
+    } else {
+      this.tail.x = tailX;
+      this.tail.y = tailY;
+    }
     this._calcHelperPoints();
 
     this._initPolyBezier();
@@ -22,6 +28,13 @@ class Paisley {
     this.points.push(this.pos);
     this.points.push(this.tail);
     this.points.push(this.headingPt);
+    this.points.push(this.radiusPt);
+  }
+
+  _constructorCall(){
+    return `new Paisley(${this.x}, ${this.y}, `
+            + `${this.heading}, ${this.bulbRadius},`
+            + `${this.tail.x}, ${this.tail.y});`;
   }
 
   get x() { return this.pos.x; }
@@ -41,8 +54,16 @@ class Paisley {
     this.headingPt.y = this.y + this.headingVec.y * this.bulbRadius;
   }
 
+  _updateRadiusPt(){
+    this.radiusPt.x = this.leftShoulderPt.x;
+    this.radiusPt.y = this.leftShoulderPt.y;
+  }
+
   _initPolyBezier() {
-    this.polybezier = new Polybezier();
+    if (this.polybezier == undefined){
+      this.polybezier = new Polybezier();
+    }
+    this.polybezier.clear();
     this.polybezier.append(BezierCurve.circularQuarterArc(this.x, this.y, this.bulbRadius, this.heading - HALF_PI));
     this.polybezier.append(BezierCurve.circularQuarterArc(this.x, this.y, this.bulbRadius, this.heading));
 
@@ -104,6 +125,7 @@ class Paisley {
     this.leftConstraint.set(step);
     this.leftConstraint.mult(leftMag);
     this.leftConstraint.add(this.leftShoulderPt.pos);
+    this._updateRadiusPt();
   }
 
   // This method tries to dynamically adjust the constraint points for the
@@ -163,6 +185,10 @@ class Paisley {
       let newHeadingVec = createVector(this.headingPt.x - this.x,this.headingPt.y - this.y);
       this.heading = newHeadingVec.heading();
       this._calcHelperPoints();
+    } else if (this.pressedElement == this.radiusPt){
+      this.bulbRadius = this.pos.distTo(this.radiusPt);
+      this._updateHeadingPt();
+      this._calcHelperPoints();
     }
     this._initPolyBezier();
   }
@@ -179,6 +205,7 @@ class Paisley {
   }
 
   draw(){
+    P5JsUtils.applyStyleSet(this);
     this.polybezier.draw();
 
     if (this.dragEnabled) {

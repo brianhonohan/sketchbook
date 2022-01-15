@@ -111,7 +111,7 @@ class Rectangle extends Rect {
   }
 
   draw(){
-    fill(this.fillColor);
+    P5JsUtils.applyStyleSet(this);
     rect(this.x, this.y, this.width, this.height);
 
     if (this.dragEnabled) {

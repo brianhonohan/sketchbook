@@ -189,4 +189,12 @@ class P5JsUtils {
 
     tmpCanvas.parentNode.removeChild(tmpCanvas);
   }
+
+  static applyStyleSet(styleSet){
+    if (styleSet.fillColor) { fill(styleSet.fillColor); }
+    if (styleSet.noFill) { noFill(); }
+    if (styleSet.strokeColor) { stroke(styleSet.strokeColor); }
+    if (styleSet.noStroke) { noStroke(); }
+    if (styleSet.strokeWeight) { strokeWeight(styleSet.strokeWeight); }
+  }
 }
