@@ -2,7 +2,6 @@ class HalfCircleTeardrop {
   constructor(startX, startY, endX, endY) {
     this.start = createVector(startX, startY);
     this.end = createVector(endX, endY);
-    this.fillColor = color(80);
     this._calcDimensions();
   }
 
@@ -19,6 +18,7 @@ class HalfCircleTeardrop {
     this.p3 = p5.Vector.add(this.end, this.quarterLength);
 
     this.heading = this.direction.heading();
+    this.rendered = false;
   }
 
   get x() { return this.end.x; }
@@ -31,20 +31,27 @@ class HalfCircleTeardrop {
   }
 
   static createViaPoints(start, end){
-    return new Paisley(start.x, start.y, end.x, end.y);
+    return new HalfCircleTeardrop(start.x, start.y, end.x, end.y);
   }
 
   draw(){
-    noStroke();
-    fill(255);
-    arc(this.p2.x, this.p2.y, this.diameter, this.diameter, this.heading + Math.PI, this.heading);
+    if (this.rendered == false) {
+      this._render();
+    }
+    image(this.graphics, 0, 0, width, height);
+  }
 
-    ellipse(this.end.x, this.end.y, this.radius, this.radius);
-    // arc(this.end.x, this.end.y, this.radius, this.radius, this.heading-0.1, this.heading + Math.PI + 0.1);
-    // fill(200, 100, 100);
-    fill(50);
-    
-    ellipse(this.p1.x, this.p1.y, this.radius, this.radius);
-    // arc(this.p1.x, this.p1.y, this.radius, this.radius, this.heading + Math.PI - 0.1, this.heading + 0.1);
+  _render(){
+    this.graphics = createGraphics(width, height);
+    P5JsUtils.applyStyleSet(this, this.graphics);
+
+    this.graphics.noStroke();
+    this.graphics.arc(this.p2.x, this.p2.y, this.diameter, this.diameter, this.heading + Math.PI, this.heading);
+    this.graphics.ellipse(this.end.x, this.end.y, this.radius, this.radius);
+
+    this.graphics.erase();
+    this.graphics.ellipse(this.p1.x, this.p1.y, this.radius, this.radius);
+    this.graphics.noErase();
+    this.rendered = true;
   }
 }
