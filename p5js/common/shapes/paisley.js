@@ -200,16 +200,12 @@ class Paisley {
     }
   }
 
-  drawDraggablePoints(){
-    this.points.forEach(p => p.draw(p));
-  }
-
   draw(){
     P5JsUtils.applyStyleSet(this);
     this.polybezier.draw();
 
     if (this.dragEnabled) {
-      this.drawDraggablePoints();
+      P5JsUtils.drawControlPoints(this.points);
     }
   }
 }

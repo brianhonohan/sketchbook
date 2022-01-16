@@ -44,7 +44,6 @@ function draw(){
   noStroke();
 
   shapes.forEach(s => s.draw());
-  lineSeg.drawDraggablePoints();
 }
 
 function mousePressed(){

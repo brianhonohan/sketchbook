@@ -206,4 +206,20 @@ class P5JsUtils {
       if (styleSet.strokeWeight) { strokeWeight(styleSet.strokeWeight); }
     }
   }
+
+  static drawControlPoints(points){
+    push();
+    points.forEach(p => P5JsUtils._drawControlPoint(p));
+    pop();
+  }
+
+  static _drawControlPoint(point){
+    if (point.containsXY(mouseX, mouseY)){
+      fill(200, 200, 100);
+    }else {
+      fill(100, 200, 100);
+    }
+    noStroke();
+    ellipse(point.x, point.y, point.radius, point.radius);
+  }
 }

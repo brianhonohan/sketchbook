@@ -107,7 +107,7 @@ class BezierCurve {
 
     if (this.dragEnabled) {
       this.drawGuideLines();
-      this.drawDraggablePoints();
+      P5JsUtils.drawControlPoints(this.points);
     }
   }
 
@@ -117,21 +117,5 @@ class BezierCurve {
     line(this.p1.x, this.p1.y, this.p2.x, this.p2.y);
     line(this.p4.x, this.p4.y, this.p3.x, this.p3.y);
     pop();
-  }
-
-  drawDraggablePoints(){
-    push();
-    this.points.forEach(p => this.drawPoint(p));
-    pop();
-  }
-
-  drawPoint(point){
-    if (point.containsXY(mouseX, mouseY)){
-      fill(200, 200, 100);
-    }else {
-      fill(100, 200, 100);
-    }
-    noStroke();
-    ellipse(point.x, point.y, point.radius, point.radius);
   }
 }

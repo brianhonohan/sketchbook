@@ -102,14 +102,8 @@ class Point {
   }
 
   draw(){
-    if (this.dragEnabled) { 
-      if (this.containsXY(mouseX, mouseY)){
-        fill(200, 200, 100);
-      }else {
-        fill(100, 200, 100);
-      }
-      noStroke();
-      ellipse(this.x, this.y, this.radius, this.radius);
+    if (this.dragEnabled) {
+      P5JsUtils.drawControlPoints([this]);
     }
     point(this.x, this.y);
   }
