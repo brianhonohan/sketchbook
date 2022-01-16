@@ -177,19 +177,16 @@ class Paisley {
 
     if (this.pressedElement == this.pos){
       this._updateHeadingPt();
-      this._calcHelperPoints();
     } else if (this.pressedElement == this.tail) {
-      // no extra work here (for now)
       this._shoulderConstraintMag();
     } else if (this.pressedElement == this.headingPt){
       let newHeadingVec = createVector(this.headingPt.x - this.x,this.headingPt.y - this.y);
       this.heading = newHeadingVec.heading();
-      this._calcHelperPoints();
     } else if (this.pressedElement == this.radiusPt){
       this.bulbRadius = this.pos.distTo(this.radiusPt);
       this._updateHeadingPt();
-      this._calcHelperPoints();
     }
+    this._calcHelperPoints();
     this._initPolyBezier();
   }
   handleMouseReleased(){
