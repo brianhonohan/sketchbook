@@ -190,11 +190,20 @@ class P5JsUtils {
     tmpCanvas.parentNode.removeChild(tmpCanvas);
   }
 
-  static applyStyleSet(styleSet){
-    if (styleSet.fillColor) { fill(styleSet.fillColor); }
-    if (styleSet.noFill) { noFill(); }
-    if (styleSet.strokeColor) { stroke(styleSet.strokeColor); }
-    if (styleSet.noStroke) { noStroke(); }
-    if (styleSet.strokeWeight) { strokeWeight(styleSet.strokeWeight); }
+  static applyStyleSet(styleSet, buffer = undefined){
+    if (buffer) {
+      if (styleSet.fillColor) { buffer.fill(styleSet.fillColor); }
+      if (styleSet.noFill) { buffer.noFill(); }
+      if (styleSet.strokeColor) { buffer.stroke(styleSet.strokeColor); }
+      if (styleSet.noStroke) { buffer.noStroke(); }
+      if (styleSet.strokeWeight) { buffer.strokeWeight(styleSet.strokeWeight); }
+
+    } else {
+      if (styleSet.fillColor) { fill(styleSet.fillColor); }
+      if (styleSet.noFill) { noFill(); }
+      if (styleSet.strokeColor) { stroke(styleSet.strokeColor); }
+      if (styleSet.noStroke) { noStroke(); }
+      if (styleSet.strokeWeight) { strokeWeight(styleSet.strokeWeight); }
+    }
   }
 }
