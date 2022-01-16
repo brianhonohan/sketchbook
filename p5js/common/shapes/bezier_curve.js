@@ -106,9 +106,13 @@ class BezierCurve {
            this.p4.x, this.p4.y);
 
     if (this.dragEnabled) {
-      this.drawGuideLines();
-      P5JsUtils.drawControlPoints(this.points);
+      this.drawDragControls();
     }
+  }
+
+  drawDragControls(){
+    this.drawGuideLines();
+    P5JsUtils.drawControlPoints(this.points);
   }
 
   drawGuideLines(){
