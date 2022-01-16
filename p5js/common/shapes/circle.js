@@ -164,22 +164,7 @@ class Circle {
     ellipse(this.x, this.y, this.radius * 2, this.radius * 2);
 
     if (this.dragEnabled) {
-      this.drawDraggablePoints();
+      P5JsUtils.drawControlPoints([this.dragPos, this.dragSize]);
     }
-  }
-
-  drawDraggablePoints(){
-    this.drawPoint(this.dragPos);
-    this.drawPoint(this.dragSize);
-  }
-
-  drawPoint(point){
-    if (point.containsXY(mouseX, mouseY)){
-      fill(200, 200, 100);
-    }else {
-      fill(100, 200, 100);
-    }
-    noStroke();
-    ellipse(point.x, point.y, point.radius, point.radius);
   }
 }
