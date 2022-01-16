@@ -1,9 +1,11 @@
 class LineSegment {
   constructor(x1, y1, x2, y2){
-    this.startX = x1;
-    this.startY = y1;
-    this.endX   = x2;
-    this.endY   = y2;
+    this.start = new Point(x1, y1);
+    this.end = new Point(x2, y2);
+
+    this.points = [];
+    this.points.push(this.start);
+    this.points.push(this.end);
 
     this.dragEnabled = false;
     this.isDragged = true;
@@ -27,61 +29,50 @@ class LineSegment {
   }
 
   translate(x, y){
-    this.startX += x;
-    this.startY += y;
-    this.endX   += x;
-    this.endY   += y;
+    this.start.move(x, y);
+    this.end.move(x, y);
   }
 
-  get start(){ return {x: this.startX, y: this.startY }; }
-  get end()  { return {x: this.endX,   y: this.endY }; }
+  set startX(val) { this.start.x = val; }
+  set startY(val) { this.start.y = val; }
+  set endX(val) { this.end.x = val; }
+  set endY(val) { this.end.y = val; }
+  get startX() { return this.start.x; }
+  get startY() { return this.start.y; }
+  get endX() { return this.end.x; }
+  get endY() { return this.end.y; }
 
-  isMouseOverPoint(x, y){
-    return dist(x, y, mouseX, mouseY) < 10;
-  }
 
   handleMousePressed(){
-    this.draggingStart = this.isMouseOverPoint(this.startX, this.startY);
-    this.draggingEnd = !this.draggingStart && this.isMouseOverPoint(this.endX, this.endY);
+    const pointPressed = this.points.find(p => p.containsXY(mouseX, mouseY));
 
-    this.isDragged = this.draggingStart || this.draggingEnd;
-    return this.isDragged;
+    if (pointPressed){
+      pointPressed.isBeingDragged = true;
+      this.isDragged = true;
+      return true;
+    }
+    return false;
   }
 
   handleMouseDragged(){
-    if (this.draggingStart){
-      this.startX = mouseX;
-      this.startY = mouseY;
-    }
+    const pointDragged = this.points.find(p => p.isBeingDragged);
 
-    if (this.draggingEnd){
-      this.endX = mouseX;
-      this.endY = mouseY;
+    if (pointDragged) {
+      pointDragged.set(mouseX, mouseY);
     }
   }
 
   handleMouseReleased(){
-    this.draggingStart = false;
-    this.draggingEnd = false;
+    this.points.forEach(p => { p.isBeingDragged = false; });
+    this.isDragged = false;
   }
 
   draw(){
     P5JsUtils.applyStyleSet(this);
     line(this.startX, this.startY, this.endX, this.endY);
-  }
 
-  drawDraggablePoints(){
-    this.drawPointAt(this.startX, this.startY);
-    this.drawPointAt(this.endX, this.endY);
-  }
-
-  drawPointAt(x, y){
-    if (this.isMouseOverPoint(x, y)){
-      fill(200, 200, 100);
-    }else {
-      fill(100, 200, 100);
+    if (this.dragEnabled) {
+      P5JsUtils.drawControlPoints(this.points);
     }
-    noStroke();
-    ellipse(x, y, 10, 10);
   }
 }
