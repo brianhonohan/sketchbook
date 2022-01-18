@@ -5,9 +5,9 @@ Collection of personal coding projects. They may or may not grow into individual
 
 ## Latest
 
-A paper.js sketch of the 10-Print algorithm ([https://10print.org/](https://10print.org/)).
+A p5.js sketch demonstrating spiraled Paisley shapes.
 
-[<img src="./paperjs/10-print/screenshot-01.png" alt="paperpjs-10-print" width="150px" />][link-paperjs-10-print]
+[<img src="./p5js/paisley-01/screenshot-01.png" alt="paisley-01" width="150px" />][link-p5js-paisley-01]
 
 
 ## LÖVE
@@ -18,6 +18,7 @@ Collection of sketches using the [LÖVE][love2d] environment.
 ## paper.js
 Collection of sketches using the [paper.js][paperjs] Javascript library.
 
+[<img src="./paperjs/10-print/screenshot-01.png" alt="paperpjs-10-print" width="150px" />][link-paperjs-10-print]
 [<img src="./paperjs/interaction-of-color/screenshot-01.png" alt="interaction-of-color" width="150px" />][link-paperjs-interaction-of-color]
 [<img src="./paperjs/race-track/screenshot-01.png" alt="race-track" width="150px" />][link-paperjs-race-track]
 
@@ -114,6 +115,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-p5js-nautical-flags-02]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/nautical-flags-02/
 [link-p5js-nautical-flags]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/nautical-flags/
 [link-p5js-paisley]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/paisley/
+[link-p5js-paisley-01]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/paisley-01/
 [link-p5js-quadtree]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/quadtree/
 [link-p5js-slippy-map]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/slippy-map/
 [link-p5js-snowflake-pen]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/snowflake-pen/

@@ -1,10 +1,10 @@
 ---
 layout: minimal
-title:  "p5.js - <sketch_name>"
+title:  "p5.js - Paisley Spiral"
 categories: p5js
 modal: true
 viewport_noscale: true
-excerpt: 
+excerpt: Demo of drawing multiple Paisley shapes in a spiral pattern to explore controlled generation of head/tail/heading parameters.
 
 js_scripts:
 - /sketchbook/vendor/inobounce/0.2.0/inobounce.js
@@ -15,9 +15,10 @@ js_scripts:
 - /sketchbook/js/util_functions.js
 - /sketchbook/js/options_set.js
 - /sketchbook/js/models/rect.js
-- /sketchbook/js/models/cell_grid.js
-- classes/cell.js
-- classes/cell_viewer.js
+- /sketchbook/p5js/common/shapes/point.js" charset="utf-8"></script>
+- /sketchbook/p5js/common/shapes/bezier_curve.js" charset="utf-8"></script>
+- /sketchbook/p5js/common/shapes/polybezier.js" charset="utf-8"></script>
+- /sketchbook/p5js/common/shapes/paisley.js" charset="utf-8"></script>
 - classes/system.js
 - app.js
 

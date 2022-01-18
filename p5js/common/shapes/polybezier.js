@@ -120,10 +120,13 @@ class Polybezier {
 
   draw(){
     P5JsUtils.applyStyleSet(this);
-    this.curves.forEach(c => c.draw());
+    this._drawEachEachCurve();
+
+    if (this.dragEnabled) {
+      this.curves.forEach(c => c.drawDragControls());
+    }
   }
 
-  // Unused
   _drawEachEachCurve(){
     beginShape();
     vertex(this.curves[0].p1.x, this.curves[0].p1.y);

@@ -15,7 +15,7 @@ Keyboard
 - `p` - Will download a `.png` image file of your drawing to your computer.
 - `c` - Will clear the canvas.
 
-# Links: 
+# Links:
 
 * [Live View][live-view]
 * [Source on Github][source-code]
