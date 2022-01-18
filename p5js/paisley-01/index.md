@@ -15,10 +15,10 @@ js_scripts:
 - /sketchbook/js/util_functions.js
 - /sketchbook/js/options_set.js
 - /sketchbook/js/models/rect.js
-- /sketchbook/p5js/common/shapes/point.js" charset="utf-8"></script>
-- /sketchbook/p5js/common/shapes/bezier_curve.js" charset="utf-8"></script>
-- /sketchbook/p5js/common/shapes/polybezier.js" charset="utf-8"></script>
-- /sketchbook/p5js/common/shapes/paisley.js" charset="utf-8"></script>
+- /sketchbook/p5js/common/shapes/point.js
+- /sketchbook/p5js/common/shapes/bezier_curve.js
+- /sketchbook/p5js/common/shapes/polybezier.js
+- /sketchbook/p5js/common/shapes/paisley.js
 - classes/system.js
 - app.js
 
