@@ -11,7 +11,7 @@ This is a [p5.js][p5js-home] sketch
 # References:
 * 
 
-# Links: 
+# Links:
 
 * [Live View][live-view]
 * [Source on Github][source-code]
