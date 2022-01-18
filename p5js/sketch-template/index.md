@@ -4,6 +4,7 @@ title:  "p5.js - <sketch_name>"
 categories: p5js
 modal: true
 viewport_noscale: true
+excerpt: 
 
 js_scripts:
 - /sketchbook/vendor/inobounce/0.2.0/inobounce.js
