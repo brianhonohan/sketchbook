@@ -42,6 +42,7 @@ Collection of sketches using the [p5.js][p5js] Javascript library.
 [<img src="./p5js/meandering-river/screenshot-01.png" alt="meandering-river" width="150px" />][link-p5js-meandering-river]
 [<img src="./p5js/nautical-flags-02/screenshot-01.png" alt="nautical-flags" width="150px" />][link-p5js-nautical-flags-02]
 [<img src="./p5js/nautical-flags/screenshot-01.png" alt="nautical-flags" width="150px" />][link-p5js-nautical-flags]
+[<img src="./p5js/paisley-01/screenshot-01.png" alt="paisley-01" width="150px" />][link-p5js-paisley-01]
 [<img src="./p5js/slippy-map/screenshot-01.png" alt="slippy-map" width="150px" />][link-p5js-slippy-map]
 [<img src="./p5js/snowflake-pen/screenshot-01.png" alt="snowflake-pen" width="150px" />][link-p5js-snowflake-pen]
 [<img src="./p5js/thermal-cells/screenshot-01.png" alt="thermal-cells" width="150px" />][link-p5js-thermal-cells]
