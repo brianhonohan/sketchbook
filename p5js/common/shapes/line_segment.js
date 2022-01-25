@@ -17,10 +17,17 @@ class LineSegment {
 
   dx() { return this.endX - this.startX; }
   dy() { return this.endY - this.startY; }
-  slope() { return this.dy() / this.dx(); }
+  get slope() { return this.dy() / this.dx(); }
+
+  get offset() {
+    if (this.slope == Infinity) {
+      return undefined;
+    }
+    return this.startY + this.slope * (0 - this.startX);
+  }
 
   getLine(){
-    let slope = this.slope();
+    let slope = this.slope;
     if (slope == Infinity || slope == -Infinity){
       return new VerticalLine(this.startX);
     } else if (slope == 0){

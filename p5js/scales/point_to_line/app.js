@@ -13,8 +13,7 @@ function setup(){
                             0.8 * width, 0.2 * height);
   lineSeg.dragEnabled = true;
 
-  let line = lineSeg.getLine();
-  geomPointLine = new PointToLine(pointObj, line);
+  geomPointLine = new PointToLine(pointObj, lineSeg);
 
   closestPoint = new Point(geomPointLine.closestX(), geomPointLine.closestY());
 
@@ -51,9 +50,6 @@ function mousePressed(){
 function mouseDragged(){
   shapes.filter(s => s.isDragged)
         .forEach(s => s.handleMouseDragged());
-
-  let line = lineSeg.getLine();
-  geomPointLine = new PointToLine(pointObj, line);
   closestPoint = new Point(geomPointLine.closestX(), geomPointLine.closestY());
 }
 
