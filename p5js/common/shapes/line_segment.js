@@ -1,8 +1,12 @@
 class LineSegment {
   constructor(x1, y1, x2, y2){
-    this.start = new Point(x1, y1);
-    this.end = new Point(x2, y2);
-
+    if (typeof x1 == "object" && typeof y1){
+      this.start = x1;
+      this.end = y1;
+    } else {
+      this.start = new Point(x1, y1);
+      this.end = new Point(x2, y2);
+    }
     this.points = [];
     this.points.push(this.start);
     this.points.push(this.end);
