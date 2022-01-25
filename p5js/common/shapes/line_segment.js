@@ -1,8 +1,12 @@
 class LineSegment {
   constructor(x1, y1, x2, y2){
-    this.start = new Point(x1, y1);
-    this.end = new Point(x2, y2);
-
+    if (typeof x1 == "object" && typeof y1){
+      this.start = x1;
+      this.end = y1;
+    } else {
+      this.start = new Point(x1, y1);
+      this.end = new Point(x2, y2);
+    }
     this.points = [];
     this.points.push(this.start);
     this.points.push(this.end);
@@ -13,10 +17,17 @@ class LineSegment {
 
   dx() { return this.endX - this.startX; }
   dy() { return this.endY - this.startY; }
-  slope() { return this.dy() / this.dx(); }
+  get slope() { return this.dy() / this.dx(); }
+
+  get offset() {
+    if (this.slope == Infinity) {
+      return undefined;
+    }
+    return this.startY + this.slope * (0 - this.startX);
+  }
 
   getLine(){
-    let slope = this.slope();
+    let slope = this.slope;
     if (slope == Infinity || slope == -Infinity){
       return new VerticalLine(this.startX);
     } else if (slope == 0){
