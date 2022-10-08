@@ -33,7 +33,8 @@ class OptionsSet {
     return ({
       "integer" : (parseInt),
       "float" : (Number),
-      "string" :  null
+      "string" :  null,
+      "bool" :  ((v) => { return (v == "true"); })
     })[type];
   }
 
