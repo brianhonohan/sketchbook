@@ -16,6 +16,7 @@ function setup() {
   gui = P5JsSettings.addDatGui({autoPlace: false});
   guiInitialCells = gui.add(system.trunk.settings, 'initialCells').min(10).max(50).step(1);
   guiNumRings = gui.add(system.trunk.settings, 'initialRings').min(1).max(20).step(1);
+  guiCellCenters = gui.add(system.trunk.settings, 'draw_cell_centers');
   addGuiListeners();
   draw();
   noLoop();
@@ -42,6 +43,10 @@ function addGuiListeners(){
 
   guiNumRings.onFinishChange(function(val) { 
     system.init(); 
+    draw();
+  });
+
+  guiCellCenters.onFinishChange(function(val){
     draw();
   });
 }

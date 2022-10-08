@@ -18,7 +18,7 @@ class CellViewer {
   }
 
   renderCell(cell){
-    // const cellWidth = this.styles[cell.type].width;
-    // ellipse(cell.x, cell.y, cellWidth, cellWidth);
+    const cellWidth = this.styles[cell.type].width;
+    ellipse(cell.x, cell.y, cellWidth, cellWidth);
   }
 }

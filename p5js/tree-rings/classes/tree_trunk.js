@@ -16,7 +16,8 @@ class TreeTrunk {
   optionsMetadata(){
     return [
       { name: "initialCells", type: "integer", default: 20},
-      { name: "initialRings", type: "integer", default: 16}
+      { name: "initialRings", type: "integer", default: 16},
+      { name: "draw_cell_centers", type: "bool", default: false}
     ];
   }
 
@@ -36,6 +37,8 @@ class TreeTrunk {
       let thickness = this.getGrowthRate();
       this.addRing(thickness, cellType);
     }
+
+    this.initAir();
   }
 
   addRing(ringThickness, cellType){
@@ -73,8 +76,8 @@ class TreeTrunk {
     }
   }
 
-  airCells(){
-    const air = [];
+  initAir(){
+    this.airCells = [];
 
     let tmpTheta = 0;
     let thetaStep = TAU / this.initialCellCount;
@@ -87,10 +90,9 @@ class TreeTrunk {
 
       let tmpCell = new Cell(tmpX, tmpY, i, this);
       tmpCell.type = Cell.TYPE_AIR;
-      air.push(tmpCell);
+      this.airCells.push(tmpCell);
       tmpTheta += thetaStep;
     }
-    return air;
   }
 
   initPith(){
@@ -109,7 +111,7 @@ class TreeTrunk {
   refreshVoronoi(){
     voronoiClearSites();
     voronoiSites( this.cells.map(cell => this.voronoiData(cell)) );
-    voronoiSites( this.airCells().map(cell => this.voronoiData(cell)) );
+    voronoiSites( this.airCells.map(cell => this.voronoiData(cell)) );
     voronoi(width, height, false);
     this.diagram = voronoiGetDiagram();
   }
@@ -123,8 +125,11 @@ class TreeTrunk {
     // voronoiCellStroke( color(150, 200, 150) );
     voronoiDraw(0, 0, true, false);
 
-    noStroke();
-    fill(colorScheme.line);
-    this.cells.forEach(c => this.cellViewer.renderCell(c));
+    if (this.settings.draw_cell_centers) {
+      noStroke();
+      fill(colorScheme.line);
+      this.cells.forEach(c => this.cellViewer.renderCell(c));
+      this.airCells.forEach(c => this.cellViewer.renderCell(c));
+    }
   }
 }
