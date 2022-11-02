@@ -16,7 +16,7 @@ class TreeTrunk {
   optionsMetadata(){
     return [
       { name: "initialCells", type: "integer", default: 20},
-      { name: "initialRings", type: "integer", default: 16},
+      { name: "initialRings", type: "integer", default: 3},
       { name: "draw_cell_centers", type: "bool", default: false}
     ];
   }
@@ -38,6 +38,8 @@ class TreeTrunk {
       this.addRing(thickness, cellType);
     }
 
+    this.addRing(2, Cell.TYPE_VASCULAR_CAMBIUM);
+
     this.initAir();
   }
 
@@ -58,6 +60,34 @@ class TreeTrunk {
       tmpTheta += thetaStep;
     }
     this.ringCount += 1;
+  }
+
+  tick(){
+    console.log('hello');
+    this.triggerGrowthFromCambium();
+    this.initAir();
+    this.refreshVoronoi();
+  }
+
+  triggerGrowthFromCambium(){
+    this.vascularCambiumCells().forEach(c => {
+      // grow
+      var growthDirection = p5.Vector.sub(c.pos, this.pith.pos).normalize();
+      growthDirection.mult(2);
+      c.pos.add(growthDirection);
+      let tmpCell = new Cell(c.x-growthDirection.x,c.y-growthDirection.y, -1, this);
+      tmpCell.type = Cell.TYPE_SECONDARY_XYLEM;
+      this.cells.push(tmpCell);
+
+      growthDirection.mult(2);
+      tmpCell = new Cell(c.x+growthDirection.x, c.y+growthDirection.y, -1, this);
+      tmpCell.type = Cell.TYPE_SECONDARY_PHLOEM;
+      this.cells.push(tmpCell);
+    });
+  }
+
+  vascularCambiumCells(){
+    return this.cells.filter(c => c.type == Cell.TYPE_VASCULAR_CAMBIUM);
   }
 
   getCurrentCellType(){
@@ -98,6 +128,7 @@ class TreeTrunk {
   initPith(){
     let pithCell = new Cell(this.centerX, this.centerY, 0, this);
     pithCell.type = Cell.TYPE_PITH;
+    this.pith = pithCell;
     this.cells.push(pithCell);
   }
 

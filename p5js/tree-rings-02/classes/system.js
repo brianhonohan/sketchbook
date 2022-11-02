@@ -19,6 +19,7 @@ class System {
   }
 
   tick(){
+    // this.trunk.tick();
   }
 
   render(){

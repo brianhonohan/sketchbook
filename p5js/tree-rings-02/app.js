@@ -18,8 +18,9 @@ function setup() {
   guiNumRings = gui.add(system.trunk.settings, 'initialRings').min(1).max(20).step(1);
   guiCellCenters = gui.add(system.trunk.settings, 'draw_cell_centers');
   addGuiListeners();
-  draw();
-  noLoop();
+  // draw();
+  // noLoop();
+  frameRate(1);
 }
 
 function draw(){
@@ -58,6 +59,14 @@ function keyTyped(){
       break;
     case '0':
       P5JsUtils.toggleLoop();
+      break;
+    case 't':
+      system.trunk.tick();
+      draw()
+      break;
+    case 't':
+      system.trunk.tick();
+      draw()
       break;
   }
 }
