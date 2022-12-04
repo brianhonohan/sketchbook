@@ -5,10 +5,9 @@ Collection of personal coding projects. They may or may not grow into individual
 
 ## Latest
 
-A p5.js sketch demonstrating spiraled Paisley shapes.
+A p5.js sketch that uses Perlin noise to create a series of waves.
 
-[<img src="./p5js/paisley-01/screenshot-01.png" alt="paisley-01" width="150px" />][link-p5js-paisley-01]
-
+[<img src="./p5js/random/3/screenshot-01.png" alt="random-3" width="150px" />][link-p5js-random-3]
 
 ## LÖVE
 Collection of sketches using the [LÖVE][love2d] environment.
@@ -48,6 +47,7 @@ Collection of sketches using the [p5.js][p5js] Javascript library.
 [<img src="./p5js/thermal-cells/screenshot-01.png" alt="thermal-cells" width="150px" />][link-p5js-thermal-cells]
 [<img src="./p5js/random/1/screenshot-01.png" alt="random-1" width="150px" />][link-p5js-random-1]
 [<img src="./p5js/random/2/screenshot-01.png" alt="random-2" width="150px" />][link-p5js-random-2]
+[<img src="./p5js/random/3/screenshot-01.png" alt="random-3" width="150px" />][link-p5js-random-3]
 [<img src="./p5js/tree-rings/screenshot-01.png" alt="tree-rings" width="150px" />][link-p5js-tree-rings]
 [<img src="./p5js/voronoi-herd/screenshot-01.png" alt="voronoi-herd" width="150px" />][link-p5js-voronoi-herd]
 
@@ -122,6 +122,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-p5js-quadtree]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/quadtree/
 [link-p5js-random-1]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/1/
 [link-p5js-random-2]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/2/
+[link-p5js-random-3]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/3/
 [link-p5js-slippy-map]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/slippy-map/
 [link-p5js-snowflake-pen]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/snowflake-pen/
 [link-p5js-teardrops]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/teardrops/
