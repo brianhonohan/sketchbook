@@ -1,4 +1,4 @@
-class LineTool extends RootTool {
+class LineTool extends BaseTool {
   constructor(tool, parentTool){
     super(tool, parentTool);
   }
