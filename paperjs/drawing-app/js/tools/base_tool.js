@@ -4,6 +4,7 @@ class BaseTool {
 
     var that = this;
     this.tool.onMouseDown = function(event) { that.handleMouseDown(event) };
+    this.tool.onMouseUp = function(event) { that.handleMouseUp(event) };
     this.tool.onMouseDrag = function(event) { that.handleMouseDrag(event) };
     this.tool.onKeyDown = function(event) { that.handleKeyPressed(event) };
 
@@ -19,6 +20,11 @@ class BaseTool {
 
   handleMouseDown(event){
     console.log(`handleMouseDown:`);
+    console.log(event);
+  }
+
+  handleMouseUp(event){
+    console.log(`handleMouseUp:`);
     console.log(event);
   }
 

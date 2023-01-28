@@ -12,6 +12,7 @@ js_scripts:
 - /sketchbook/paperjs/common/paper_autocanvas.js
 - js/tools/base_tool.js
 - js/tools/root_tool.js
+- js/tools/line_tool.js
 - js/tools/pen_tool.js
 - app.js
 
