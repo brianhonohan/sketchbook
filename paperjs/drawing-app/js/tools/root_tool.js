@@ -11,7 +11,8 @@ class RootTool extends BaseTool {
     this.tools['root'] = this;
     this.tools['pen'] = new PenTool(new paper.Tool(), this);
     this.tools['line'] = new LineTool(new paper.Tool(), this);
+    this.tools['rect'] = new RectTool(new paper.Tool(), this);
 
-    this.tools['line'].activate();
+    this.tools['rect'].activate();
   }
 }

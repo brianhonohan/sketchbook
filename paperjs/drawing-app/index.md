@@ -14,6 +14,7 @@ js_scripts:
 - js/tools/root_tool.js
 - js/tools/line_tool.js
 - js/tools/pen_tool.js
+- js/tools/rect_tool.js
 - app.js
 
 ---
