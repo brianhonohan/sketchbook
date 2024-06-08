@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="/sketchbook/vendor/jquery-accessible-modal-window-aria/simple-modal.css">
 
     <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
+    {% for css_file in page.css_files %}<link rel="stylesheet" href="{{ css_file }}">
+    {% endfor %}
     {% for js in page.js_scripts %}<script src="{{ js }}" charset="utf-8"></script>
     {% endfor %}
 </head>

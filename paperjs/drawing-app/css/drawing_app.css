@@ -1,0 +1,26 @@
+.sq-50 {
+  width: 50px;
+  height: 50px;
+}
+
+/* via : https://stackoverflow.com/a/53336754 */
+.tool-icon-default {
+  filter: invert(99%) sepia(0%) saturate(1409%) hue-rotate(204deg) brightness(119%) contrast(87%) 
+          drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4));
+}
+.tool-icon-active {
+  filter: invert(91%) sepia(25%) saturate(1752%) hue-rotate(2deg) brightness(92%) contrast(104%)
+          drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4));
+}
+
+.toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #333;
+  color: #eee;
+  padding: 20px;
+}
