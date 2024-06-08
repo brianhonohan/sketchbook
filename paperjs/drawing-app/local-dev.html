@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Paper.js - Drawing App</title>
+  <link rel="stylesheet" href="css/drawing_app.css">
   <script type="text/javascript" src="/sketchbook/vendor/paper.js/0.12.3/paper-core.js"></script>
   <script src="/sketchbook/paperjs/common/paper_autocanvas.js" charset="utf-8"></script>
 
@@ -13,5 +14,18 @@
   <script src="app.js" charset="utf-8"></script>
 </head>
 <body>
+  <div> 
+    <div class="toolbar">
+      <a href="#" class="">
+        <img src="assets/icon_pen.svg" class="sq-50 tool tool-icon-default" alt="Pen Tool" data-tool-id="pen">
+      </a>
+      <a href="#" class="">
+        <img src="assets/icon_line.svg" class="sq-50 tool tool-icon-default" alt="Line Tool" data-tool-id="line">
+      </a>
+      <a href="#" class="">
+        <img src="assets/icon_rect.svg" class="sq-50 tool tool-icon-default" alt="Rect Tool" data-tool-id="rect">
+      </a>
+    </div>
+  </div>
 </body>
 </html>

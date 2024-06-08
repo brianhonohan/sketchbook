@@ -15,4 +15,12 @@ class RootTool extends BaseTool {
 
     this.tools['rect'].activate();
   }
+
+  switchTo(toolId){
+    if (this.tools[toolId]){
+      this.tools[toolId].activate();
+      return true;
+    }
+    return false;
+  }
 }

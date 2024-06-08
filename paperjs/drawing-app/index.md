@@ -1,10 +1,13 @@
 ---
-layout: minimal
-title:  "paper.js - sketch_name"
+layout: full_page
+title:  "paper.js - Drawing App"
 categories: paperjs
-modal: true
+modal: false
 viewport_noscale: true
-excerpt: 
+excerpt: Basic drawing app to explore creating different 'tools' within Paper JS drawing SDK.
+
+css_files:
+- css/drawing_app.css
 
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/inobounce/0.2.0/inobounce.js
@@ -19,5 +22,20 @@ js_scripts:
 
 ---
 
-{% include_relative README.md %}
+{% capture includeGuts %}
+  <div class="toolbar">
+    <a href="#" class="">
+      <img src="assets/icon_pen.svg" class="sq-50 tool tool-icon-default" alt="Pen Tool" data-tool-id="pen">
+    </a>
+    <a href="#" class="">
+      <img src="assets/icon_line.svg" class="sq-50 tool tool-icon-default" alt="Line Tool" data-tool-id="line">
+    </a>
+    <a href="#" class="">
+      <img src="assets/icon_rect.svg" class="sq-50 tool tool-icon-default" alt="Rect Tool" data-tool-id="rect">
+    </a>
+  </div>
+  <div>
+  </div>
+{% endcapture %}
+{{ includeGuts | replace: '    ', ''}}
 
