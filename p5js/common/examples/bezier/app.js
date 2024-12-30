@@ -22,6 +22,10 @@ function mousePressed(){
         .find(s => s.handleMousePressed());
 }
 
+function touchStarted(){
+  mousePressed();
+}
+
 function mouseDragged(){
   shapes.filter(s => s.isDragged == true)
         .forEach(s => s.handleMouseDragged());
@@ -30,6 +34,10 @@ function mouseDragged(){
 function mouseReleased(){
   shapes.filter(s => s.dragEnabled == true)
         .forEach(s => s.handleMouseReleased());
+}
+
+function touchEnded(){
+  mouseReleased();
 }
 
 function keyPressed(){
