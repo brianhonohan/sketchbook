@@ -51,6 +51,9 @@ function mouseReleased(){
   system.render();
 }
 
+function touchStarted(){ mousePressed(); }
+function touchEnded(){ mouseReleased(); }
+
 function keyTyped(){
   if (key >= 1 && key <= 6) {
     let gateType = int(key) + 1;
