@@ -55,8 +55,6 @@ SOFTWARE.
 */
 
 if (typeof(Voronoi) === 'function'){
-  console.log('Voronoi class exists');
-
   // Source Credit: Raycast https://github.com/substack/point-in-polygon
   // Not specific to Voronoi, but useful for the model
   Voronoi.prototype.Diagram.prototype.isInPolygon = function(x,y, vs) {
