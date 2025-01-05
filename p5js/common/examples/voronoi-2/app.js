@@ -6,6 +6,11 @@ let voronoiFour;
 let halfWidth;
 let halfHeight;
 let bbox;
+let sitesPerDiagram;
+let highlightedCell;
+let highlightedOffset;
+let highlightedCellNeighbors;
+let lastTouch;
 
 function setup() {
   createCanvas(windowWidth, windowHeight-35);
@@ -14,63 +19,99 @@ function setup() {
 
   halfWidth = 0.5 * width;
   halfHeight = 0.5 * height;
+  sitesPerDiagram = 1000;
 
   let sites;
   bbox = {xl: 0, xr: halfWidth, yt: 0, yb: halfHeight}; // xl is x-left, xr is x-right, yt is y-top, and yb is y-bottom
 
-  sites = randomPointsWithin(10, bbox);
+  sites = randomPointsWithin(sitesPerDiagram, bbox);
   voronoiOne = createVoronoi(sites, bbox);
 
-  sites = randomPointsWithin(10, bbox);
+  sites = randomPointsWithin(sitesPerDiagram, bbox);
   voronoiTwo = createVoronoi(sites, bbox);
 
-  sites = randomPointsWithin(10, bbox);
+  sites = randomPointsWithin(sitesPerDiagram, bbox);
   voronoiThree = createVoronoi(sites, bbox);
 
-  sites = randomPointsWithin(10, bbox);
+  sites = randomPointsWithin(sitesPerDiagram, bbox);
   voronoiFour = createVoronoi(sites, bbox);
 }
 
 function draw(){
-  background(255);
-  
-  voronoiSiteStrokeWeight(10);
-  voronoiSiteStroke(color(180,50, 50));
+  voronoiSiteStrokeWeight(2);
+  stroke(50);
+  strokeWeight(0.5)
 
-  strokeWeight(1)
+  voronoiSiteStroke(color(180,50, 50));
   fill(50, 180, 50);
   drawVoronoi(voronoiOne, 0, 0);
   
-  voronoiSiteStrokeWeight(10);
   voronoiSiteStroke(color(180,100, 180));
-
   fill(180, 180, 50);
   drawVoronoi(voronoiTwo, halfWidth, 0);
   
   voronoiSiteStroke(color(180,100, 50));
-
   fill(50, 180, 180);
   drawVoronoi(voronoiThree, 0, halfHeight);
 
+  voronoiSiteStroke(color(180,100, 50));
   fill(50, 50, 180);
   drawVoronoi(voronoiFour, halfWidth, halfHeight);
   
-  noLoop();
+  highlightUnderMouse();
+  if (highlightedCell){
+    push()
+    fill(180, 50, 50);
+    stroke(200);
+    translate(highlightedOffset.x, highlightedOffset.y);
+    drawVoronoiCell(highlightedCell, 0, 0, VOR_CELLDRAW_RELATIVE);
+
+    for(let i = 0; i < highlightedCellNeighbors.length; i++){
+      fill(180, 110, 100);
+      drawVoronoiCell(highlightedCellNeighbors[i], 0, 0, VOR_CELLDRAW_RELATIVE, true);
+    }
+    pop();
+  }
 }
 
 function mousePressed(){
-  sites = randomPointsWithin(10, bbox);
+  highlightCellAtXY(mouseX, mouseY);
+}
 
-  if (mouseX < halfWidth && mouseY < halfHeight){
-    voronoiOne = createVoronoi(sites, bbox);
-  } else if (mouseX >= halfWidth && mouseY < halfHeight){
-    voronoiTwo = createVoronoi(sites, bbox);
-  } else if (mouseX < halfWidth && mouseY >= halfHeight){
-    voronoiThree = createVoronoi(sites, bbox);
+function touchMoved(){
+  lastTouch = touches[0];
+}
+
+function highlightUnderMouse(){
+  if (lastTouch){
+    highlightCellAtXY(lastTouch.x, lastTouch.y);
+    objects = quadtree.find(lastTouch);
   } else {
-    voronoiFour = createVoronoi(sites, bbox);
+    highlightCellAtXY(mouseX, mouseY);
   }
-  draw();
+}
+
+function highlightCellAtXY(x, y){
+  diagram = diagramForXY(x, y);
+  cell = diagram.getCellAtXY(x % halfWidth, y % halfHeight);
+  if (cell){
+    highlightedOffset = {x: Math.floor(x/halfWidth) * halfWidth, y: Math.floor(y/halfHeight) * halfHeight};
+    highlightedCell = cell;
+    
+    highlightedCellNeighbors = diagram.neighborsOfCell(cell);
+  }
+}
+
+function diagramForXY(x, y){
+  if (x < halfWidth && y < halfHeight){
+    return voronoiOne;
+  } else if (x >= halfWidth && y < halfHeight){
+    return voronoiTwo;
+  } else if (x < halfWidth && y >= halfHeight){
+    return voronoiThree;
+  } else {
+    return voronoiFour;
+  }
 }
 
 function randomPointsWithin(number, bbox){

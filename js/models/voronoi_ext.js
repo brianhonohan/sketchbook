@@ -55,73 +55,35 @@ SOFTWARE.
 */
 
 if (typeof(Voronoi) === 'function'){
-  // Source Credit: Raycast https://github.com/substack/point-in-polygon
-  // Not specific to Voronoi, but useful for the model
-  Voronoi.prototype.Diagram.prototype.isInPolygon = function(x,y, vs) {
-    // vs is an array of points
-    var inside = false;
-    for (var i = 0, j = vs.length - 1; i < vs.length; j = i++) {
-      var xi = vs[i][0], yi = vs[i][1];
-      var xj = vs[j][0], yj = vs[j][1];
-    
-      var intersect = ((yi > y) != (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
 
-      if (intersect){
-        inside = !inside;
+  // CREDIT: https://github.com/Dozed12/p5.voronoi
+  // Refactored name from: voronoiGetSite,
+  // Removed complexity of the jittered cells;
+  // And ultimately switched to using the underlying Voronoi lib 
+  // for the built-in cell.pointIntersection(x, y) 
+  Voronoi.prototype.Diagram.prototype.getCellAtXY = function(x, y){
+    for (var i = 0; i < this.cells.length; i++) {
+      if (1 == this.cells[i].pointIntersection(x, y)) {
+        return this.cells[i];
       }
     }
-    return inside;
   }
 
-  // CREDIT: https://github.com/Dozed12/p5.voronoi
-  // Refactored name from: voronoiGetSite, but the algorithm is the same
-  // Removed complexity of the jittered cells
-  Voronoi.prototype.Diagram.prototype.getSiteIdAtXY = function(x, y){
-    for (var i = 0; i < this.cells.length; i++) {
-      if(this.isInPolygon(x, y, this.cells[i]))
-        return i;
-    }
-  }
-  
-  // Not specific to Voronoi, but useful for the model
-  // CREDIT: https://github.com/Dozed12/p5.voronoi
-  Voronoi.prototype.Diagram.prototype.removeDuplicates = function(id){
-    let unique_array = []
-    for(let i = 0;i < arr.length; i++){
-        if(unique_array.indexOf(arr[i]) == -1){
-            unique_array.push(arr[i])
-        }
-    }
-    return unique_array;
-  }
-
-  // CREDIT: https://github.com/Dozed12/p5.voronoi
-  // Refactored name from: voronoiNeighbors, but the algorithm is the same
+  // Original CREDIT: https://github.com/Dozed12/p5.voronoi
+  // Refactored name from: voronoiNeighbors, uses the underlying Voronoi lib
   // Attach to the Diagram prototype so that it can be called on a diagram object,
   // and thus the context can hold on to multiple diagrams concurrently
-  Voronoi.prototype.Diagram.prototype.neighborsOfCell = function(id){
-    if(id >= this.cells.length || id === undefined)
-      return;
-
-    //All neighbors
-    var allNeighbors = [];
-    for (var i = 0; i < this.cells[id].halfedges.length; i++) {
-      if(this.cells[id].halfedges[i].edge.rSite !== null)
-        allNeighbors.push(this.cells[id].halfedges[i].edge.rSite.voronoiId);
-      allNeighbors.push(this.cells[id].halfedges[i].edge.lSite.voronoiId);
+  // and that is necessary in order to reference the cells array
+  Voronoi.prototype.Diagram.prototype.neighborsOfCell = function(cell){
+    if (cell === undefined){
+      return [];
     }
 
-    //Remove duplicates
-    var uniqueNeighbors = this.removeDuplicates(allNeighbors);
-
-    //Remove itself
-    for (var i = 0; i < uniqueNeighbors.length; i++) {
-      if(uniqueNeighbors[i] == id){
-        uniqueNeighbors.splice(i,1);
-        break;
-      }
+    const neighborIds = cell.getNeighborIds();
+    const neighborCells = [];
+    for (let i = 0; i < neighborIds.length; i++){
+      neighborCells.push(this.cells[neighborIds[i]]);
     }
-
-    return uniqueNeighbors;
+    return neighborCells;
   }
 }
