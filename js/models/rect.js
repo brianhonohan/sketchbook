@@ -49,6 +49,11 @@ class Rect {
     this._height = maxY - this._y;
   }
 
+  static rectContainsXY(rect1, x, y){
+    return rect1.x <= x && x < (rect1.x + rect1.width)
+           && rect1.y <= y && y < (rect1.y + rect1.height);
+  }
+
   containsXY(x, y){ 
     return this.minX <= x && x < this.maxX 
            && this.minY <= y && y < this.maxY;

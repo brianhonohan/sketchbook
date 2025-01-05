@@ -28,6 +28,7 @@ Collection of sketches using the [p5.js][p5js] Javascript library.
 [<img src="./p5js/common/examples/draggable/screenshot-01.png" alt="draggable" width="150px" />][link-p5js-draggable]
 [<img src="./p5js/common/examples/paisley/screenshot-01.png" alt="paisley" width="150px" />][link-p5js-paisley]
 [<img src="./p5js/common/examples/quadtree/screenshot-01.png" alt="quadtree" width="150px" />][link-p5js-quadtree]
+[<img src="./p5js/common/examples/quadtree-2/screenshot-01.png" alt="quadtree" width="150px" />][link-p5js-quadtree-2]
 [<img src="./p5js/common/examples/teardrops/screenshot-01.png" alt="teardrops" width="150px" />][link-p5js-teardrops]
 [<img src="./p5js/common/examples/voronoi/screenshot-01.png" alt="voronoi" width="150px" />][link-p5js-voronoi]
 [<img src="./p5js/ecosystem/screenshot-01.png" alt="ecosystem" width="150px" />][link-p5js-ecosystem]
@@ -121,6 +122,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-p5js-paisley]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/paisley/
 [link-p5js-paisley-01]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/paisley-01/
 [link-p5js-quadtree]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/quadtree/
+[link-p5js-quadtree-2]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/quadtree-2/
 [link-p5js-voronoi]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/voronoi/
 [link-p5js-random-1]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/1/
 [link-p5js-random-2]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/2/
