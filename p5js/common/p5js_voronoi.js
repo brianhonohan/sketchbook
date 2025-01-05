@@ -66,7 +66,6 @@ SOFTWARE.
 // with one exception: display of the site (point) itself
 
 p5.prototype.__voronoiBeforeSetup = function(){
-  console.log("initiatilizing the voronoi plugin");
   siteStrokeWeight = 1;
   siteStroke = color(0);  
 }
