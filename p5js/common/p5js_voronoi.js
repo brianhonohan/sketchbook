@@ -167,8 +167,10 @@ p5.prototype.drawVoronoiCell = function(cell, x = 0, y = 0, mode = undefined, de
     }
   }
   
-  push();
-  translate(translateX, translateY);
+  if (translateX != 0 || translateY != 0) {
+    push();
+    translate(translateX, translateY);
+  }
 
   beginShape();
   let tmpEdgeStartPoint = null;
@@ -178,5 +180,7 @@ p5.prototype.drawVoronoiCell = function(cell, x = 0, y = 0, mode = undefined, de
   }
   endShape(CLOSE);
   
-  pop();
+  if (translateX != 0 || translateY != 0) {
+    pop();
+  }
 }
