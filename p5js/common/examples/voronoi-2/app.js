@@ -15,6 +15,7 @@ let lastTouch;
 var gui;
 var systemParams = {
   sitesPerDiagram: 1000,
+  highlightNeighbors: true,
 }
 
 function setup() {
@@ -22,6 +23,7 @@ function setup() {
 
   gui = P5JsSettings.addDatGui({autoPlace: false});
   guiSitesPerDiagrams = gui.add(systemParams, "sitesPerDiagram").min(1).max(5000).step(50);
+  gui.add(systemParams, "highlightNeighbors");
   addGuiListeners();
   // gui.close();
 
@@ -82,9 +84,11 @@ function draw(){
     translate(highlightedOffset.x, highlightedOffset.y);
     drawVoronoiCell(highlightedCell, 0, 0, VOR_CELLDRAW_RELATIVE);
 
-    for(let i = 0; i < highlightedCellNeighbors.length; i++){
-      fill(180, 110, 100);
-      drawVoronoiCell(highlightedCellNeighbors[i], 0, 0, VOR_CELLDRAW_RELATIVE, true);
+    if (systemParams.highlightNeighbors){
+      for(let i = 0; i < highlightedCellNeighbors.length; i++){
+        fill(180, 110, 100);
+        drawVoronoiCell(highlightedCellNeighbors[i], 0, 0, VOR_CELLDRAW_RELATIVE, true);
+      }
     }
     pop();
   }
@@ -114,7 +118,9 @@ function highlightCellAtXY(x, y){
     highlightedOffset = {x: Math.floor(x/halfWidth) * halfWidth, y: Math.floor(y/halfHeight) * halfHeight};
     highlightedCell = cell;
     
-    highlightedCellNeighbors = diagram.neighborsOfCell(cell);
+    if (systemParams.highlightNeighbors){
+      highlightedCellNeighbors = diagram.neighborsOfCell(cell);
+    }
   }
 }
 
