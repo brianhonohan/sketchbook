@@ -7,7 +7,7 @@ Collection of personal coding projects. They may or may not grow into individual
 
 A p5.js sketch that uses some refactored version of p5.voronoi.js to draw multiple diagrams in one sketch.
 
-[<img src="./p5js/common/examples/voronoi/screenshot-01.png" alt="voronoi" width="150px" />][link-p5js-voronoi]
+[<img src="./p5js/common/examples/voronoi-2/screenshot-01.png" alt="voronoi" width="150px" />][link-p5js-voronoi-2]
 
 ## LÖVE
 Collection of sketches using the [LÖVE][love2d] environment.
@@ -31,6 +31,7 @@ Collection of sketches using the [p5.js][p5js] Javascript library.
 [<img src="./p5js/common/examples/quadtree-2/screenshot-01.png" alt="quadtree" width="150px" />][link-p5js-quadtree-2]
 [<img src="./p5js/common/examples/teardrops/screenshot-01.png" alt="teardrops" width="150px" />][link-p5js-teardrops]
 [<img src="./p5js/common/examples/voronoi/screenshot-01.png" alt="voronoi" width="150px" />][link-p5js-voronoi]
+[<img src="./p5js/common/examples/voronoi-2/screenshot-01.png" alt="voronoi second sketch" width="150px" />][link-p5js-voronoi-2]
 [<img src="./p5js/ecosystem/screenshot-01.png" alt="ecosystem" width="150px" />][link-p5js-ecosystem]
 [<img src="./p5js/forest-01/screenshot-01.png" alt="forest-01" width="150px" />][link-p5js-forest-01]
 [<img src="./p5js/forest-fires-02/screenshot-01.png" alt="forest-fires-02" width="150px" />][link-p5js-forest-fires-02]
@@ -124,6 +125,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-p5js-quadtree]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/quadtree/
 [link-p5js-quadtree-2]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/quadtree-2/
 [link-p5js-voronoi]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/voronoi/
+[link-p5js-voronoi-2]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/voronoi-2/
 [link-p5js-random-1]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/1/
 [link-p5js-random-2]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/2/
 [link-p5js-random-3]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/3/

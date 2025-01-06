@@ -65,9 +65,15 @@ SOFTWARE.
 // Therefore, reuse: fill(), noFill(), stroke(), noStroke(), strokeWeight() for cells
 // with one exception: display of the site (point) itself
 
+const VOR_CELLDRAW_BOUNDED = 1;
+const VOR_CELLDRAW_CENTER = 2;
+const VOR_CELLDRAW_SITE = 3;
+const VOR_CELLDRAW_RELATIVE = 4;
+
 p5.prototype.__voronoiBeforeSetup = function(){
   siteStrokeWeight = 1;
   siteStroke = color(0);  
+  currentVoronoiCellMode = VOR_CELLDRAW_BOUNDED;
 }
 p5.prototype.registerMethod("beforeSetup", p5.prototype.__voronoiBeforeSetup);
 
@@ -107,13 +113,8 @@ p5.prototype.drawVoronoi = function(diagram, x, y) {
   //Render Cells
   for (var i = 0; i < cells.length; i++) {
     // This draws all edges twice, but it's not a big deal; might overweight the line
-    beginShape();
-    let tmpEdgeStartPoint = null;
-    for (var j = 0; j < cells[i].halfedges.length; j++) {
-      tmpEdgeStartPoint = cells[i].halfedges[j].getStartpoint(); 
-      vertex(tmpEdgeStartPoint.x, tmpEdgeStartPoint.y);
-    }
-    endShape(CLOSE);
+    // this is only of benefit if we want to fill the cells with diff colors
+    drawVoronoiCell(cells[i], 0, 0, VOR_CELLDRAW_RELATIVE);
   }
 
   //Render Site
@@ -130,4 +131,57 @@ p5.prototype.drawVoronoi = function(diagram, x, y) {
   pop();
 }
 
+p5.prototype.voronoiCellMode = function(mode) {
+  if (mode == VOR_CELLDRAW_BOUNDED 
+    || mode == VOR_CELLDRAW_CENTER 
+    || mode == VOR_CELLDRAW_SITE
+    || mode == VOR_CELLDRAW_RELATIVE)
+  {
+    currentVoronoiCellMode = mode;
+  }
+}
 
+p5.prototype.drawVoronoiCell = function(cell, x = 0, y = 0, mode = undefined, debug = false) {
+  if (mode == undefined) {
+    mode = currentVoronoiCellMode;
+  }
+
+  let translateX = x;
+  let translateY = y;
+
+  if (mode == VOR_CELLDRAW_RELATIVE) {
+    // Do nothing, draw as is
+  } else {
+    const cellBbox = cell.getBbox();
+
+    if (mode == VOR_CELLDRAW_BOUNDED) {
+      translateX = x - cellBbox.x;
+      translateY = y - cellBbox.y; 
+  
+    } else if (mode == VOR_CELLDRAW_CENTER) {
+      translateX = x - (cellBbox.x + cellBbox.width/2);
+      translateY = y - (cellBbox.y + cellBbox.height/2);
+  
+    } else if (mode == VOR_CELLDRAW_SITE) { 
+      translateX = x - cell.site.x;
+      translateY = y - cell.site.y; 
+    }
+  }
+  
+  if (translateX != 0 || translateY != 0) {
+    push();
+    translate(translateX, translateY);
+  }
+
+  beginShape();
+  let tmpEdgeStartPoint = null;
+  for (var j = 0; j < cell.halfedges.length; j++) {
+    tmpEdgeStartPoint = cell.halfedges[j].getStartpoint(); 
+    vertex(tmpEdgeStartPoint.x, tmpEdgeStartPoint.y);
+  }
+  endShape(CLOSE);
+  
+  if (translateX != 0 || translateY != 0) {
+    pop();
+  }
+}
