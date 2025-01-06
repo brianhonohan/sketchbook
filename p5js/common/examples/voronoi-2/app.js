@@ -14,7 +14,7 @@ let lastTouch;
 
 var gui;
 var systemParams = {
-  sitesPerDiagram: 1000,
+  sitesPerDiagram: 200,
   highlightNeighbors: true,
   drawFourDiagrams: true,
 }
@@ -89,55 +89,63 @@ function draw(){
     drawVoronoi(voronoiFour, halfWidth, halfHeight);
   }
   
-  highlightUnderMouse();
-  if (highlightedCell){
-    push()
-    fill(180, 50, 50);
-    stroke(200);
-    translate(highlightedOffset.x, highlightedOffset.y);
-    drawVoronoiCell(highlightedCell, 0, 0, VOR_CELLDRAW_RELATIVE);
-
-    if (systemParams.highlightNeighbors){
-      for(let i = 0; i < highlightedCellNeighbors.length; i++){
-        fill(180, 110, 100);
-        drawVoronoiCell(highlightedCellNeighbors[i], 0, 0, VOR_CELLDRAW_RELATIVE, true);
-      }
-    }
-    pop();
-  }
+  drawHighlightedCell();
 }
 
-function mousePressed(){
-  highlightCellAtXY(mouseX, mouseY);
+function mouseMoved(){
+  highlightUnderMouse();
 }
 
 function touchMoved(){
   lastTouch = touches[0];
+  highlightUnderMouse()
 }
 
 function highlightUnderMouse(){
   if (lastTouch){
-    highlightCellAtXY(lastTouch.x, lastTouch.y);
-    objects = quadtree.find(lastTouch);
+    updatedHighlightCell(lastTouch.x, lastTouch.y);
   } else {
-    highlightCellAtXY(mouseX, mouseY);
+    updatedHighlightCell(mouseX, mouseY);
   }
 }
 
-function highlightCellAtXY(x, y){
+function updatedHighlightCell(x, y){
   diagram = diagramForXY(x, y);
   if (diagram == undefined){
     return;
   }
   cell = diagram.getCellAtXY(x % halfWidth, y % halfHeight);
-  if (cell){
-    highlightedOffset = {x: Math.floor(x/halfWidth) * halfWidth, y: Math.floor(y/halfHeight) * halfHeight};
-    highlightedCell = cell;
-    
-    if (systemParams.highlightNeighbors){
-      highlightedCellNeighbors = diagram.neighborsOfCell(cell);
+  if (cell == undefined){
+    return;
+  }
+  if (cell == highlightedCell){
+    return;
+  }
+  highlightedOffset = {x: Math.floor(x/halfWidth) * halfWidth, y: Math.floor(y/halfHeight) * halfHeight};
+  highlightedCell = cell;
+  
+  if (systemParams.highlightNeighbors){
+    highlightedCellNeighbors = diagram.neighborsOfCell(cell);
+  }
+}
+
+function drawHighlightedCell(){
+  if (highlightedCell == undefined){
+    return;
+  }
+  push()
+  fill(180, 50, 50);
+  stroke(200);
+  translate(highlightedOffset.x, highlightedOffset.y);
+  drawVoronoiCell(highlightedCell, 0, 0, VOR_CELLDRAW_RELATIVE);
+
+  if (systemParams.highlightNeighbors){
+    for(let i = 0; i < highlightedCellNeighbors.length; i++){
+      fill(180, 110, 100);
+      drawVoronoiCell(highlightedCellNeighbors[i], 0, 0, VOR_CELLDRAW_RELATIVE, true);
     }
   }
+  pop();
 }
 
 function diagramForXY(x, y){
