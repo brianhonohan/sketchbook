@@ -6,35 +6,51 @@ let voronoiFour;
 let halfWidth;
 let halfHeight;
 let bbox;
-let sitesPerDiagram;
 let highlightedCell;
 let highlightedOffset;
 let highlightedCellNeighbors;
 let lastTouch;
 
+
+var gui;
+var systemParams = {
+  sitesPerDiagram: 1000,
+}
+
 function setup() {
   createCanvas(windowWidth, windowHeight-35);
 
-  P5JsSettings.init();
+  gui = P5JsSettings.addDatGui({autoPlace: false});
+  guiSitesPerDiagrams = gui.add(systemParams, "sitesPerDiagram").min(1).max(5000).step(50);
+  addGuiListeners();
+  // gui.close();
 
   halfWidth = 0.5 * width;
   halfHeight = 0.5 * height;
-  sitesPerDiagram = 1000;
 
   let sites;
   bbox = {xl: 0, xr: halfWidth, yt: 0, yb: halfHeight}; // xl is x-left, xr is x-right, yt is y-top, and yb is y-bottom
+  generatePointsForDiagrams();
+}
 
-  sites = randomPointsWithin(sitesPerDiagram, bbox);
+function generatePointsForDiagrams(){
+  sites = randomPointsWithin(systemParams.sitesPerDiagram, bbox);
   voronoiOne = createVoronoi(sites, bbox);
 
-  sites = randomPointsWithin(sitesPerDiagram, bbox);
+  sites = randomPointsWithin(systemParams.sitesPerDiagram, bbox);
   voronoiTwo = createVoronoi(sites, bbox);
 
-  sites = randomPointsWithin(sitesPerDiagram, bbox);
+  sites = randomPointsWithin(systemParams.sitesPerDiagram, bbox);
   voronoiThree = createVoronoi(sites, bbox);
 
-  sites = randomPointsWithin(sitesPerDiagram, bbox);
+  sites = randomPointsWithin(systemParams.sitesPerDiagram, bbox);
   voronoiFour = createVoronoi(sites, bbox);
+}
+
+function addGuiListeners(){
+  guiSitesPerDiagrams.onFinishChange(function(value) {
+    generatePointsForDiagrams();
+  });
 }
 
 function draw(){
