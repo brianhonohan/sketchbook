@@ -113,6 +113,7 @@ p5.prototype.drawVoronoi = function(diagram, x, y) {
   //Render Cells
   for (var i = 0; i < cells.length; i++) {
     // This draws all edges twice, but it's not a big deal; might overweight the line
+    // this is only of benefit if we want to fill the cells with diff colors
     drawVoronoiCell(cells[i], 0, 0, VOR_CELLDRAW_RELATIVE);
   }
 
