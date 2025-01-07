@@ -26,6 +26,7 @@ Collection of sketches using the [p5.js][p5js] Javascript library.
 
 [<img src="./p5js/common/examples/bezier/screenshot-01.png" alt="bezier" width="150px" />][link-p5js-bezier]
 [<img src="./p5js/common/examples/draggable/screenshot-01.png" alt="draggable" width="150px" />][link-p5js-draggable]
+[<img src="./p5js/common/examples/geometry-circle-line/screenshot-01.png" alt="draggable" width="150px" />][link-p5js-geometry-circle-line]
 [<img src="./p5js/common/examples/paisley/screenshot-01.png" alt="paisley" width="150px" />][link-p5js-paisley]
 [<img src="./p5js/common/examples/quadtree/screenshot-01.png" alt="quadtree" width="150px" />][link-p5js-quadtree]
 [<img src="./p5js/common/examples/quadtree-2/screenshot-01.png" alt="quadtree" width="150px" />][link-p5js-quadtree-2]
