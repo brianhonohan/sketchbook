@@ -13,9 +13,11 @@ js_scripts:
 - /sketchbook/js/util_functions.js
 - /sketchbook/js/options_set.js
 - /sketchbook/js/models/line.js
+- /sketchbook/js/models/quadratic_equation.js
 - /sketchbook/js/models/rect.js
 - /sketchbook/p5js/common/shapes/point.js
 - /sketchbook/p5js/common/shapes/line_segment.js
+- /sketchbook/p5js/common/geometry/circle_line_intersection.js
 - /sketchbook/p5js/common/shapes/rectangle.js
 - /sketchbook/p5js/common/shapes/circle.js
 - /sketchbook/p5js/common/shapes/triangle.js
