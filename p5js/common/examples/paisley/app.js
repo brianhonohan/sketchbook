@@ -2,7 +2,7 @@ var system;
 var paisley;
 
 function setup() {
-  createCanvas(500, 500);
+  createCanvas(windowWidth, windowHeight-35);
   P5JsSettings.init();
 
   shapes = [];

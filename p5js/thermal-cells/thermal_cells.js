@@ -2,7 +2,7 @@ let grid;
 var canvas;
 
 function setup() {
-  var canvas = createCanvas(500, 500);
+  var canvas = createCanvas(windowWidth, windowHeight-35);
   grid = new GridViewController(0, 0, width, height);
   frameRate(30);
 }
