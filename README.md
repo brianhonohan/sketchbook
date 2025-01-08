@@ -18,6 +18,7 @@ Collection of sketches using the [LÖVE][love2d] environment.
 Collection of sketches using the [paper.js][paperjs] Javascript library.
 
 [<img src="./paperjs/10-print/screenshot-01.png" alt="paperpjs-10-print" width="150px" />][link-paperjs-10-print]
+[<img src="./paperjs/drawing-app/screenshot-01.png" alt="race-track" width="150px" />][link-paperjs-drawing-app]
 [<img src="./paperjs/interaction-of-color/screenshot-01.png" alt="interaction-of-color" width="150px" />][link-paperjs-interaction-of-color]
 [<img src="./paperjs/race-track/screenshot-01.png" alt="race-track" width="150px" />][link-paperjs-race-track]
 
@@ -106,6 +107,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-paperjs-interaction-of-color]: https://github.com/brianhonohan/sketchbook/tree/master/paperjs/interaction-of-color
 [link-paperjs-race-track]: https://github.com/brianhonohan/sketchbook/tree/master/paperjs/race-track
 [link-paperjs-10-print]: https://github.com/brianhonohan/sketchbook/tree/master/paperjs/10-print
+[link-paperjs-drawing-app]: https://github.com/brianhonohan/sketchbook/tree/master/paperjs/drawing-app
 
 [link-p5js-bezier]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/bezier/
 [link-p5js-draggable]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/draggable/

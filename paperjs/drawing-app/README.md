@@ -6,7 +6,8 @@ This is a [paper.js][paperjs-home] sketch
 
 ## Controls
 
-(No interactivity implemented yet).
+* Mouse interactions via the tool bar.
+
 
 # References:
 * 
@@ -20,7 +21,7 @@ This is a [paper.js][paperjs-home] sketch
 
 ![screenshot][screenshot-01]
 
-[paperjs-home]: http://http://paperjs.org/
-[source-code]: https://github.com/brianhonohan/sketchbook/tree/master/paperjs/sketch_name/
-[live-view]: https://brianhonohan.com/sketchbook/paperjs/sketch_name/
+[paperjs-home]: http://paperjs.org/
+[source-code]: https://github.com/brianhonohan/sketchbook/tree/master/paperjs/drawing-app/
+[live-view]: https://brianhonohan.com/sketchbook/paperjs/drawing-app/
 [screenshot-01]: ./screenshot-01.png
