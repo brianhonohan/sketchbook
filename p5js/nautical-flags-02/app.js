@@ -15,7 +15,7 @@ function setup() {
   keyController = new KeyboardController();
   nfTypeset = new NauticalFlagsTypeset();
 
-  let uiRect = new Rect(0, 0, width, 30);
+  let uiRect = new Rect(0, vertMargin, width, 30);
   ui = new UserInterface(uiRect);
 
   keyController.typeset = nfTypeset;
