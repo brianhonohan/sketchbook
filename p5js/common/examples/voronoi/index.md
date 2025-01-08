@@ -3,7 +3,7 @@ layout: minimal
 title:  "p5.js - Common Examples - Voronoi"
 categories: p5js
 modal: true
-excerpt: Demonstrates the modified p5.voronoi (for multiple diagrams in one sketch)
+excerpt: Demonstrates preliminary modified p5.voronoi, working towards multiple interactive diagrams in one sketch.
 
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/inobounce/0.2.0/inobounce.js

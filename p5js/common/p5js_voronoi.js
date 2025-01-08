@@ -104,8 +104,10 @@ p5.prototype.createVoronoi = function(sites, boundingBox) {
   return voronoi.compute(sites, boundingBox);
 }
 
-p5.prototype.drawVoronoi = function(diagram, x, y) {
+p5.prototype.drawVoronoi = function(diagram, x, y, options = {}) {
   var cells = diagram.cells;
+  const drawOptions = { redrawAll: true }
+  for (var attrname in options) { drawOptions[attrname] = options[attrname]; }
 
   push();
   translate(x, y);
@@ -114,7 +116,12 @@ p5.prototype.drawVoronoi = function(diagram, x, y) {
   for (var i = 0; i < cells.length; i++) {
     // This draws all edges twice, but it's not a big deal; might overweight the line
     // this is only of benefit if we want to fill the cells with diff colors
-    drawVoronoiCell(cells[i], 0, 0, VOR_CELLDRAW_RELATIVE);
+    if (drawOptions.redrawAll) {
+      drawVoronoiCell(cells[i], 0, 0, VOR_CELLDRAW_RELATIVE);
+    } else if (cells[i].needsRedraw == undefined || cells[i].needsRedraw) {
+      drawVoronoiCell(cells[i], 0, 0, VOR_CELLDRAW_RELATIVE);
+    }
+    cells[i].needsRedraw = false;
   }
 
   //Render Site
