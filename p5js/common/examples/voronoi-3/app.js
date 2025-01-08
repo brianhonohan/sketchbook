@@ -14,9 +14,9 @@ let lastTouch;
 
 var gui;
 var systemParams = {
-  sitesPerDiagram: 200,
+  sitesPerDiagram: 2000,
   highlightNeighbors: true,
-  drawFourDiagrams: true,
+  drawFourDiagrams: false,
 }
 
 function setup() {
@@ -24,7 +24,7 @@ function setup() {
   createCanvas(800, 600);
 
   gui = P5JsSettings.addDatGui({autoPlace: false});
-  guiSitesPerDiagrams = gui.add(systemParams, "sitesPerDiagram").min(1).max(5000).step(50);
+  guiSitesPerDiagrams = gui.add(systemParams, "sitesPerDiagram").min(1).max(10000).step(50);
   gui.add(systemParams, "highlightNeighbors");
   guiDrawFourDiagrams = gui.add(systemParams, "drawFourDiagrams");
   addGuiListeners();
@@ -73,7 +73,7 @@ function draw(){
 
   voronoiSiteStroke(color(180,50, 50));
   fill(50, 180, 50);
-  drawVoronoi(voronoiOne, 0, 0);
+  drawVoronoi(voronoiOne, 0, 0, { redrawAll: false });
   
   if (systemParams.drawFourDiagrams){
     voronoiSiteStroke(color(180,100, 180));
@@ -138,11 +138,13 @@ function drawHighlightedCell(){
   stroke(200);
   translate(highlightedOffset.x, highlightedOffset.y);
   drawVoronoiCell(highlightedCell, 0, 0, VOR_CELLDRAW_RELATIVE);
+  highlightedCell.needsRedraw = true;
 
   if (systemParams.highlightNeighbors){
     for(let i = 0; i < highlightedCellNeighbors.length; i++){
       fill(180, 110, 100);
       drawVoronoiCell(highlightedCellNeighbors[i], 0, 0, VOR_CELLDRAW_RELATIVE, true);
+      highlightedCellNeighbors[i].needsRedraw = true;
     }
   }
   pop();
