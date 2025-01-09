@@ -101,7 +101,9 @@ p5.prototype.voronoiSiteNoStroke = function(){
 
 p5.prototype.createVoronoi = function(sites, boundingBox) {
   const voronoi = new Voronoi();
-  return voronoi.compute(sites, boundingBox);
+  const diagram =  voronoi.compute(sites, boundingBox);
+  diagram.setBbox(boundingBox);
+  return diagram;
 }
 
 p5.prototype.drawVoronoi = function(diagram, x, y, options = {}) {

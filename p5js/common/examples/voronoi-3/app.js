@@ -17,6 +17,7 @@ var systemParams = {
   sitesPerDiagram: 2000,
   highlightNeighbors: true,
   drawFourDiagrams: false,
+  useQuadtree: true,
 }
 
 function setup() {
@@ -24,9 +25,10 @@ function setup() {
   createCanvas(800, 600);
 
   gui = P5JsSettings.addDatGui({autoPlace: false});
-  guiSitesPerDiagrams = gui.add(systemParams, "sitesPerDiagram").min(1).max(10000).step(50);
-  gui.add(systemParams, "highlightNeighbors");
+  guiSitesPerDiagrams = gui.add(systemParams, "sitesPerDiagram").min(1).max(20000).step(50);
+  guiHighlightNeighbors = gui.add(systemParams, "highlightNeighbors");
   guiDrawFourDiagrams = gui.add(systemParams, "drawFourDiagrams");
+  guiUseQuadtree = gui.add(systemParams, "useQuadtree");
   addGuiListeners();
 
   generatePointsForDiagrams();
@@ -44,6 +46,10 @@ function generatePointsForDiagrams(){
 
   sites = randomPointsWithin(systemParams.sitesPerDiagram, bbox);
   voronoiOne = createVoronoi(sites, bbox);
+
+  highlightedCell = undefined;
+  highlightedOffset = undefined;
+  highlightedCellNeighbors = undefined;
   
   if (systemParams.drawFourDiagrams){
     sites = randomPointsWithin(systemParams.sitesPerDiagram, bbox);
@@ -61,7 +67,13 @@ function addGuiListeners(){
   guiSitesPerDiagrams.onFinishChange(function(value) {
     generatePointsForDiagrams();
   });
+  guiHighlightNeighbors.onFinishChange(function(value) {
+    generatePointsForDiagrams();
+  });
   guiDrawFourDiagrams.onFinishChange(function(value) {
+    generatePointsForDiagrams();
+  });
+  guiUseQuadtree.onFinishChange(function(value) {
     generatePointsForDiagrams();
   });
 }
@@ -114,7 +126,8 @@ function updatedHighlightCell(x, y){
   if (diagram == undefined){
     return;
   }
-  cell = diagram.getCellAtXY(x % halfWidth, y % halfHeight);
+  cell = diagram.getCellAtXY(x % halfWidth, y % halfHeight,
+                    {useQuadTree: systemParams.useQuadtree});
   if (cell == undefined){
     return;
   }

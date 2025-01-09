@@ -55,19 +55,81 @@ SOFTWARE.
 */
 
 if (typeof(Voronoi) === 'function'){
+  Voronoi.prototype.Diagram.prototype.setBbox = function(bbox){
+    this.bbox = bbox;
+  }
 
   // CREDIT: https://github.com/Dozed12/p5.voronoi
   // Refactored name from: voronoiGetSite,
   // Removed complexity of the jittered cells;
   // And ultimately switched to using the underlying Voronoi lib 
   // for the built-in cell.pointIntersection(x, y) 
-  Voronoi.prototype.Diagram.prototype.getCellAtXY = function(x, y){
-    for (var i = 0; i < this.cells.length; i++) {
-      if (1 == this.cells[i].pointIntersection(x, y)) {
-        return this.cells[i];
+  Voronoi.prototype.Diagram.prototype.getCellAtXY = function(x, y, config = {} ){
+    const options = { useQuadTree: false }
+    for (var attrname in options) { options[attrname] = config[attrname]; }
+    let potentialCells = this.cells;
+
+    if (options.useQuadTree) {
+      if (this.quadtree == undefined){ this._buildQuadtree(); }
+      potentialCells = this.quadtree.find({x: x, y: y});
+    }
+
+    for (var i = 0; i < potentialCells.length; i++) {
+      if (1 == potentialCells[i].pointIntersection(x, y)) {
+        return potentialCells[i];
       }
     }
   }
+
+  Voronoi.prototype.Diagram.prototype._buildQuadtree = function(){
+    if (this.quadtree){
+      return;
+    }
+    const bboxAsRect = new Rect(this.bbox.xl, this.bbox.yt, 
+                                  this.bbox.xr - this.bbox.xl,
+                                  this.bbox.yb - this.bbox.yt);
+    this.quadtree = new Quadtree(bboxAsRect, 20, false);
+
+    for (var i = 0; i < this.cells.length; i++) {
+      this.quadtree.add(this.cells[i]);
+    }
+  }
+
+  // Only compute the bounding box once
+  Voronoi.prototype.Cell.prototype.boundingBox = function(){
+    if (this._bbox == undefined){
+      this._bbox = this.getBbox();
+    }
+    return this._bbox;
+  }
+
+  // This is to allow Cells to conform the API that the quadtree expect
+  // being able to treat x,y, width, height as properties of the items it contains
+  // eg: item.x or item.y 
+  Object.defineProperty(Voronoi.prototype.Cell.prototype, 'x', {
+    get: function () {
+      this.boundingBox();
+      return this._bbox.x;
+    }
+  });
+  Object.defineProperty(Voronoi.prototype.Cell.prototype, 'y', {
+    get: function () {
+      this.boundingBox();
+      return this._bbox.y;
+    }
+  });
+  Object.defineProperty(Voronoi.prototype.Cell.prototype, 'width', {
+    get: function () {
+      this.boundingBox();
+      return this._bbox.width;
+    }
+  });
+  Object.defineProperty(Voronoi.prototype.Cell.prototype, 'height', {
+    get: function () {
+      this.boundingBox();
+      return this._bbox.height;
+    }
+  });
 
   // Original CREDIT: https://github.com/Dozed12/p5.voronoi
   // Refactored name from: voronoiNeighbors, uses the underlying Voronoi lib
