@@ -1,19 +1,33 @@
 var canvas;
 var circle1;
 var circle2;
-var tangentMode;
+let tangentMode;
 let shapes = [];
+
+var gui;
+var params = {
+  tangentModeIdx: 1
+}
 
 function setup(){
   canvas = createCanvas(windowWidth, windowHeight - 35);
 
   circle1 = new Circle(0.25 * width, height/2, 0.1 * width);
-  circle2 = new Circle(0.75 * width, height/2, 0.2 * width);
+  circle2 = new Circle(0.66 * width, height/2, 0.2 * width);
   shapes = [circle1, circle2];
   circle2.dragEnabled = true;
   circle1.debugMode = true; 
 
-  setTangentMode();
+  gui = P5JsSettings.addDatGui({autoPlace: false});
+  guiTangentMode = gui.add(params, "tangentModeIdx", 0,3,1);
+  gui.add(circle1, "debugMode");
+  addGuiListeners();
+}
+
+function addGuiListeners(){
+  guiTangentMode.onChange(function(value) {
+    setTangentMode(params.tangentModeIdx);
+  });
 }
 
 function draw(){
@@ -72,7 +86,9 @@ function mouseReleased(){
 }
 
 function setTangentMode(newIdx){
+  params.tangentModeIdx = newIdx;
   tangentMode = getTangentMode(newIdx);
+  gui.updateDisplay();
 }
 
 function getTangentMode(idx){
