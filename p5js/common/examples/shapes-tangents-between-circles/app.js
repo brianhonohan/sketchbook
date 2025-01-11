@@ -2,12 +2,17 @@ var canvas;
 var circle1;
 var circle2;
 var tangentMode;
+let shapes = [];
 
 function setup(){
-  canvas = createCanvas(500, 500);
+  canvas = createCanvas(windowWidth, windowHeight - 35);
 
-  circle1 = new Circle(100, height/2,  75);
-  circle2 = new Circle(325, height/2, 125);
+  circle1 = new Circle(0.25 * width, height/2, 0.1 * width);
+  circle2 = new Circle(0.75 * width, height/2, 0.2 * width);
+  shapes = [circle1, circle2];
+  circle2.dragEnabled = true;
+  circle1.debugMode = true; 
+
   setTangentMode();
 }
 
@@ -22,8 +27,6 @@ function draw(){
   strokeWeight(2);
   circle1.draw();
   circle2.draw();
-
-  circle1.debugMode = true;
 
   const lineSeg = circle1.tangentToCircle(circle2, tangentMode);
   stroke(230);
@@ -44,10 +47,28 @@ function keyTyped(){
     case '4':
       setTangentMode(3);
       break;
+    case 'd':
+      circle1.debugMode = !circle1.debugMode;
+      break;
     case 'p':
       saveCanvas(canvas, 'screenshot', 'png');
       break;
   }
+}
+
+function mousePressed(){
+  shapes.filter(s => s.dragEnabled)
+        .find(s => s.handleMousePressed());
+}
+
+function mouseDragged(){
+  shapes.filter(s => s.isDragged)
+        .forEach(s => s.handleMouseDragged());
+}
+
+function mouseReleased(){
+  shapes.filter(s => s.isDragged)
+        .forEach(s => s.handleMouseReleased());
 }
 
 function setTangentMode(newIdx){
