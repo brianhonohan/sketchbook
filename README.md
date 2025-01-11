@@ -7,7 +7,7 @@ Collection of personal coding projects. They may or may not grow into individual
 
 A p5.js sketch that demonstrates computing the closest point on a line, from a given point.
 
-[<img src="./p5js/common/examples/geometry-point-to-line/screenshot-01.png" alt="geometry-circle-line intersecting" width="150px" />][link-p5js-geometry-point-to-line]
+[<img src="./p5js/common/examples/shapes-tangents-between-circles/screenshot-01.png" alt="tangents-between-circles" width="150px" />][link-p5js-shapes-tangents-between-circles]
 
 ## LÖVE
 Collection of sketches using the [LÖVE][love2d] environment.
@@ -32,6 +32,7 @@ Collection of sketches using the [p5.js][p5js] Javascript library.
 [<img src="./p5js/common/examples/paisley/screenshot-01.png" alt="paisley" width="150px" />][link-p5js-paisley]
 [<img src="./p5js/common/examples/quadtree/screenshot-01.png" alt="quadtree" width="150px" />][link-p5js-quadtree]
 [<img src="./p5js/common/examples/quadtree-2/screenshot-01.png" alt="quadtree" width="150px" />][link-p5js-quadtree-2]
+[<img src="./p5js/common/examples/shapes-tangents-between-circles/screenshot-01.png" alt="quadtree" width="150px" />][link-p5js-shapes-tangents-between-circles]
 [<img src="./p5js/common/examples/teardrops/screenshot-01.png" alt="teardrops" width="150px" />][link-p5js-teardrops]
 [<img src="./p5js/common/examples/voronoi/screenshot-01.png" alt="voronoi" width="150px" />][link-p5js-voronoi]
 [<img src="./p5js/common/examples/voronoi-2/screenshot-01.png" alt="voronoi second sketch" width="150px" />][link-p5js-voronoi-2]
@@ -130,6 +131,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-p5js-paisley-01]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/paisley-01/
 [link-p5js-quadtree]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/quadtree/
 [link-p5js-quadtree-2]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/quadtree-2/
+[link-p5js-shapes-tangents-between-circles]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/shapes-tangents-between-circles/
 [link-p5js-voronoi]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/voronoi/
 [link-p5js-voronoi-2]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/voronoi-2/
 [link-p5js-random-1]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/1/
