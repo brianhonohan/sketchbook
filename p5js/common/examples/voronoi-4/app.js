@@ -14,21 +14,25 @@ let lastTouch;
 
 var gui;
 var systemParams = {
-  sitesPerDiagram: 2000,
+  sitesPerDiagram: 200,
   highlightNeighbors: true,
   drawFourDiagrams: false,
   useQuadtree: true,
+  useD3Delaunay: true,
 }
+let genericGuiListeners;
 
 function setup() {
   // createCanvas(windowWidth, windowHeight-35);
-  createCanvas(800, 600);
+  createCanvas(500, 500);
 
   gui = P5JsSettings.addDatGui({autoPlace: false});
-  guiSitesPerDiagrams = gui.add(systemParams, "sitesPerDiagram").min(1).max(20000).step(50);
-  guiHighlightNeighbors = gui.add(systemParams, "highlightNeighbors");
-  guiDrawFourDiagrams = gui.add(systemParams, "drawFourDiagrams");
-  guiUseQuadtree = gui.add(systemParams, "useQuadtree");
+  genericGuiListeners = [];
+  genericGuiListeners.push(gui.add(systemParams, "sitesPerDiagram").min(1).max(20000).step(50));
+  genericGuiListeners.push(gui.add(systemParams, "highlightNeighbors"));
+  genericGuiListeners.push(gui.add(systemParams, "drawFourDiagrams"));
+  genericGuiListeners.push(gui.add(systemParams, "useQuadtree"));
+  genericGuiListeners.push(gui.add(systemParams, "useD3Delaunay"));
   addGuiListeners();
 
   generatePointsForDiagrams();
@@ -45,7 +49,7 @@ function generatePointsForDiagrams(){
   bbox = {xl: 0, xr: halfWidth, yt: 0, yb: halfHeight}; // xl is x-left, xr is x-right, yt is y-top, and yb is y-bottom
 
   sites = randomPointsWithin(systemParams.sitesPerDiagram, bbox);
-  voronoiOne = createVoronoi(sites, bbox);
+  voronoiOne = createVoronoi(sites, bbox, systemParams.useD3Delaunay);
 
   highlightedCell = undefined;
   highlightedOffset = undefined;
@@ -64,18 +68,7 @@ function generatePointsForDiagrams(){
 }
 
 function addGuiListeners(){
-  guiSitesPerDiagrams.onFinishChange(function(value) {
-    generatePointsForDiagrams();
-  });
-  guiHighlightNeighbors.onFinishChange(function(value) {
-    generatePointsForDiagrams();
-  });
-  guiDrawFourDiagrams.onFinishChange(function(value) {
-    generatePointsForDiagrams();
-  });
-  guiUseQuadtree.onFinishChange(function(value) {
-    generatePointsForDiagrams();
-  });
+  genericGuiListeners.forEach(l => l.onFinishChange( () => generatePointsForDiagrams() ));
 }
 
 function draw(){
@@ -85,7 +78,7 @@ function draw(){
 
   voronoiSiteStroke(color(180,50, 50));
   fill(50, 180, 50);
-  drawVoronoi(voronoiOne, 0, 0, { redrawAll: false });
+  drawVoronoi(voronoiOne, 0, 0, { redrawAll: false, useD3: systemParams.useD3Delaunay});
   
   if (systemParams.drawFourDiagrams){
     voronoiSiteStroke(color(180,100, 180));
@@ -122,6 +115,11 @@ function highlightUnderMouse(){
 }
 
 function updatedHighlightCell(x, y){
+  if (systemParams.useD3Delaunay){
+    // unsupported
+    return;
+  }
+
   diagram = diagramForXY(x, y);
   if (diagram == undefined){
     return;

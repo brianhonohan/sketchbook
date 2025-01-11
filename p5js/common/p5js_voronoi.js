@@ -99,45 +99,82 @@ p5.prototype.voronoiSiteNoStroke = function(){
   siteStrokeWeight = 0;
 }
 
-p5.prototype.createVoronoi = function(sites, boundingBox) {
-  const voronoi = new Voronoi();
-  const diagram =  voronoi.compute(sites, boundingBox);
-  diagram.setBbox(boundingBox);
-  return diagram;
+p5.prototype.createVoronoi = function(sites, boundingBox, useD3 = false) {
+  if (useD3 == true){
+    const sitePoints = [];
+    for(let i = 0; i < sites.length; i++){
+      sitePoints.push(sites[i].x, sites[i].y);
+    }
+    const bboxAsArray = [boundingBox.xl, boundingBox.yt, 
+                          boundingBox.xr - boundingBox.xl,
+                          boundingBox.yb - boundingBox.yt];
+
+    const delaunay = d3.Delaunay.from(sitePoints);
+    const voronoi = delaunay.voronoi(bboxAsArray);
+    return voronoi;
+
+  }else {
+    const voronoi = new Voronoi();
+    const diagram =  voronoi.compute(sites, boundingBox);
+    diagram.setBbox(boundingBox);
+    return diagram;
+  }
 }
 
 p5.prototype.drawVoronoi = function(diagram, x, y, options = {}) {
-  var cells = diagram.cells;
-  const drawOptions = { redrawAll: true }
+  const drawOptions = { redrawAll: true, useD3: false }
   for (var attrname in options) { drawOptions[attrname] = options[attrname]; }
 
-  push();
-  translate(x, y);
-
-  //Render Cells
-  for (var i = 0; i < cells.length; i++) {
-    // This draws all edges twice, but it's not a big deal; might overweight the line
-    // this is only of benefit if we want to fill the cells with diff colors
-    if (drawOptions.redrawAll) {
-      drawVoronoiCell(cells[i], 0, 0, VOR_CELLDRAW_RELATIVE);
-    } else if (cells[i].needsRedraw == undefined || cells[i].needsRedraw) {
-      drawVoronoiCell(cells[i], 0, 0, VOR_CELLDRAW_RELATIVE);
-    }
-    cells[i].needsRedraw = false;
-  }
-
-  //Render Site
-  if(siteStroke != 0){
+  if  (drawOptions.useD3) {
     push();
-    strokeWeight(siteStrokeWeight);
-    stroke(siteStroke);
-    for (var i = 0; i < cells.length; i++) {
-      point(cells[i].site.x,cells[i].site.y);
+    translate(x, y);
+    console.log(diagram);
+    noLoop();
+    
+    const p5Context = {
+      moveTo: function(x,y){ 
+        console.log('moveTo'); beginShape(); vertex(x, y); },
+      lineTo: function(x,y){ vertex(x, y); console.log(`${x}, ${y}`) },
+      closePath : function(){ endShape(CLOSE); }, 
+      rect: function(x, y, width, height){ rect(x,y,width,height); }
     }
+    let svg = diagram.render();
+    p5Context.closePath();
+
+    console.log(svg);
+
+    pop();
+
+  } else {
+    push();
+    translate(x, y);
+
+    //Render Cells
+    var cells = diagram.cells;
+    for (var i = 0; i < cells.length; i++) {
+      // This draws all edges twice, but it's not a big deal; might overweight the line
+      // this is only of benefit if we want to fill the cells with diff colors
+      if (drawOptions.redrawAll) {
+        drawVoronoiCell(cells[i], 0, 0, VOR_CELLDRAW_RELATIVE);
+      } else if (cells[i].needsRedraw == undefined || cells[i].needsRedraw) {
+        drawVoronoiCell(cells[i], 0, 0, VOR_CELLDRAW_RELATIVE);
+      }
+      cells[i].needsRedraw = false;
+    }
+
+    //Render Site
+    if(siteStroke != 0){
+      push();
+      strokeWeight(siteStrokeWeight);
+      stroke(siteStroke);
+      for (var i = 0; i < cells.length; i++) {
+        point(cells[i].site.x,cells[i].site.y);
+      }
+      pop();
+    }
+
     pop();
   }
-
-  pop();
 }
 
 p5.prototype.voronoiCellMode = function(mode) {

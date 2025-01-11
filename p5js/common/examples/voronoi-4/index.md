@@ -9,6 +9,7 @@ excerpt: Explores using the d3-delaunay library to generate the voronoi diagram.
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/inobounce/0.2.0/inobounce.js
 - https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.2/p5.min.js
+- https://cdn.jsdelivr.net/npm/d3-delaunay@6
 - /sketchbook/vendor/dat.gui/0.7.3/dat.gui.js
 - /sketchbook/p5js/common/p5js_settings.js
 - /sketchbook/p5js/common/p5js_utils.js
