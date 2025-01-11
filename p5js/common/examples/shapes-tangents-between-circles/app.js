@@ -23,6 +23,8 @@ function draw(){
   circle1.draw();
   circle2.draw();
 
+  circle1.debugMode = true;
+
   const lineSeg = circle1.tangentToCircle(circle2, tangentMode);
   stroke(230);
   lineSeg.draw();
