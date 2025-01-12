@@ -5,9 +5,9 @@ Collection of personal coding projects. They may or may not grow into individual
 
 ## Latest
 
-A p5.js sketch that demonstrates computing the closest point on a line, from a given point.
+A p5.js sketch that explores rendering support for d3-delaunay computed voronoi diagrams.
 
-[<img src="./p5js/common/examples/shapes-tangents-between-circles/screenshot-01.png" alt="tangents-between-circles" width="150px" />][link-p5js-shapes-tangents-between-circles]
+[<img src="./p5js/common/examples/voronoi-4/screenshot-01.png" alt="voronoi diagrams via d3-delaunay vs gorhill" width="150px" />][link-p5js-voronoi-4]
 
 ## LÖVE
 Collection of sketches using the [LÖVE][love2d] environment.
@@ -36,6 +36,8 @@ Collection of sketches using the [p5.js][p5js] Javascript library.
 [<img src="./p5js/common/examples/teardrops/screenshot-01.png" alt="teardrops" width="150px" />][link-p5js-teardrops]
 [<img src="./p5js/common/examples/voronoi/screenshot-01.png" alt="voronoi" width="150px" />][link-p5js-voronoi]
 [<img src="./p5js/common/examples/voronoi-2/screenshot-01.png" alt="voronoi second sketch" width="150px" />][link-p5js-voronoi-2]
+[<img src="./p5js/common/examples/voronoi-3/screenshot-01.png" alt="voronoi second sketch" width="150px" />][link-p5js-voronoi-3]
+[<img src="./p5js/common/examples/voronoi-4/screenshot-01.png" alt="voronoi second sketch" width="150px" />][link-p5js-voronoi-4]
 [<img src="./p5js/ecosystem/screenshot-01.png" alt="ecosystem" width="150px" />][link-p5js-ecosystem]
 [<img src="./p5js/forest-01/screenshot-01.png" alt="forest-01" width="150px" />][link-p5js-forest-01]
 [<img src="./p5js/forest-fires-02/screenshot-01.png" alt="forest-fires-02" width="150px" />][link-p5js-forest-fires-02]
@@ -134,6 +136,8 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-p5js-shapes-tangents-between-circles]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/shapes-tangents-between-circles/
 [link-p5js-voronoi]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/voronoi/
 [link-p5js-voronoi-2]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/voronoi-2/
+[link-p5js-voronoi-3]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/voronoi-3/
+[link-p5js-voronoi-4]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/voronoi-4/
 [link-p5js-random-1]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/1/
 [link-p5js-random-2]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/2/
 [link-p5js-random-3]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/3/
