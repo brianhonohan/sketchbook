@@ -109,7 +109,9 @@ p5.prototype.createVoronoi = function(sites, boundingBox, useD3 = false) {
                           boundingBox.xr - boundingBox.xl,
                           boundingBox.yb - boundingBox.yt];
 
-    const delaunay = d3.Delaunay.from(sitePoints);
+    // https://github.com/d3/d3-delaunay/issues/116
+    // delaunay = d3.Delaunay.from(sitePoints);
+    const delaunay = new d3.Delaunay(sitePoints);
     const voronoi = delaunay.voronoi(bboxAsArray);
     return voronoi;
 
@@ -128,17 +130,15 @@ p5.prototype.drawVoronoi = function(diagram, x, y, options = {}) {
   if  (drawOptions.useD3) {
     push();
     translate(x, y);
-    console.log(diagram);
-    noLoop();
-    
+    beginShape(LINES);
     const p5Context = {
-      moveTo: function(x,y){ 
-        console.log('moveTo'); beginShape(); vertex(x, y); },
-      lineTo: function(x,y){ vertex(x, y); console.log(`${x}, ${y}`) },
+      moveTo: function(x,y){ vertex(x, y); },
+      lineTo: function(x,y){ vertex(x, y); },
       closePath : function(){ endShape(CLOSE); }, 
       rect: function(x, y, width, height){ rect(x,y,width,height); }
     }
     let svg = diagram.render();
+    diagram.render(p5Context);
     p5Context.closePath();
 
     console.log(svg);
