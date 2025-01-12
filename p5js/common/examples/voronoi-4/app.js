@@ -10,7 +10,7 @@ let highlightedCell;
 let highlightedOffset;
 let highlightedCellNeighbors;
 let lastTouch;
-
+const sitesList = [];
 
 var gui;
 var systemParams = {
@@ -24,23 +24,26 @@ var systemParams = {
 let genericGuiListeners;
 
 function setup() {
-  // createCanvas(windowWidth, windowHeight-35);
-  createCanvas(500, 500);
+  createCanvas(windowWidth, windowHeight-35);
+  // createCanvas(500, 500);
 
   gui = P5JsSettings.addDatGui({autoPlace: false});
   genericGuiListeners = [];
-  genericGuiListeners.push(gui.add(systemParams, "sitesPerDiagram").min(1).max(20000).step(50));
+  guiSiteCountListener = gui.add(systemParams, "sitesPerDiagram").min(1).max(20000).step(50);
   genericGuiListeners.push(gui.add(systemParams, "highlightNeighbors"));
-  genericGuiListeners.push(gui.add(systemParams, "drawFourDiagrams"));
+  guiDrawFourListener = gui.add(systemParams, "drawFourDiagrams");
   genericGuiListeners.push(gui.add(systemParams, "useQuadtree"));
   genericGuiListeners.push(gui.add(systemParams, "useD3Delaunay"));
   p5jsUtilPauseListnener = gui.add(systemParams, "pause");
   addGuiListeners();
+  
+  sitesList[0] = randomPointsWithin(systemParams.sitesPerDiagram, getBbox());
 
   generatePointsForDiagrams();
+  recomputeDiagrams();
 }
 
-function generatePointsForDiagrams(){
+function getBbox(){
   if (systemParams.drawFourDiagrams){
     halfWidth = 0.5 * width;
     halfHeight = 0.5 * height;
@@ -49,39 +52,49 @@ function generatePointsForDiagrams(){
     halfHeight = height;  
   }
   bbox = {xl: 0, xr: halfWidth, yt: 0, yb: halfHeight}; // xl is x-left, xr is x-right, yt is y-top, and yb is y-bottom
+  return bbox;
+}
 
-  sites = randomPointsWithin(systemParams.sitesPerDiagram, bbox);
-  voronoiOne = createVoronoi(sites, bbox, systemParams.useD3Delaunay);
+function generatePointsForDiagrams(){
+  sitesList[0] = randomPointsWithin(systemParams.sitesPerDiagram, getBbox());
+  if (systemParams.drawFourDiagrams){
+    sitesList[1] = randomPointsWithin(systemParams.sitesPerDiagram, bbox);
+    sitesList[2] = randomPointsWithin(systemParams.sitesPerDiagram, bbox);
+    sitesList[3] = randomPointsWithin(systemParams.sitesPerDiagram, bbox);
+  }
+}
+
+function recomputeDiagrams(){
+  // sites = randomPointsWithin(systemParams.sitesPerDiagram, getBbox());
+  voronoiOne = createVoronoi(sitesList[0], bbox, systemParams.useD3Delaunay);
 
   highlightedCell = undefined;
   highlightedOffset = undefined;
   highlightedCellNeighbors = undefined;
   
   if (systemParams.drawFourDiagrams){
-    sites = randomPointsWithin(systemParams.sitesPerDiagram, bbox);
-    voronoiTwo = createVoronoi(sites, bbox);
-
-    sites = randomPointsWithin(systemParams.sitesPerDiagram, bbox);
-    voronoiThree = createVoronoi(sites, bbox);
-
-    sites = randomPointsWithin(systemParams.sitesPerDiagram, bbox);
-    voronoiFour = createVoronoi(sites, bbox);
+    voronoiTwo = createVoronoi(sitesList[1], bbox);
+    voronoiThree = createVoronoi(sitesList[2], bbox);
+    voronoiFour = createVoronoi(sitesList[3], bbox);
   }
 }
 
 function addGuiListeners(){
-  genericGuiListeners.forEach(l => l.onFinishChange( () => generatePointsForDiagrams() ));
+  guiSiteCountListener.onFinishChange(() => { generatePointsForDiagrams(); recomputeDiagrams(); });
+  guiDrawFourListener.onFinishChange(() => { generatePointsForDiagrams(); recomputeDiagrams(); });
+  genericGuiListeners.forEach(l => l.onFinishChange( () => recomputeDiagrams() ));
   p5jsUtilPauseListnener.onFinishChange(() => P5JsUtils.toggleLoop() );
 }
 
 function draw(){
+  background(120);
   voronoiSiteStrokeWeight(2);
   stroke(50);
   strokeWeight(0.5)
 
   voronoiSiteStroke(color(180,50, 50));
   fill(50, 180, 50);
-  drawVoronoi(voronoiOne, 0, 0, { redrawAll: false, useD3: systemParams.useD3Delaunay});
+  drawVoronoi(voronoiOne, 0, 0, { redrawAll: true, useD3: systemParams.useD3Delaunay});
   
   if (systemParams.drawFourDiagrams){
     voronoiSiteStroke(color(180,100, 180));
