@@ -19,6 +19,7 @@ var systemParams = {
   drawFourDiagrams: false,
   useQuadtree: true,
   useD3Delaunay: true,
+  pause: false,
 }
 let genericGuiListeners;
 
@@ -33,6 +34,7 @@ function setup() {
   genericGuiListeners.push(gui.add(systemParams, "drawFourDiagrams"));
   genericGuiListeners.push(gui.add(systemParams, "useQuadtree"));
   genericGuiListeners.push(gui.add(systemParams, "useD3Delaunay"));
+  p5jsUtilPauseListnener = gui.add(systemParams, "pause");
   addGuiListeners();
 
   generatePointsForDiagrams();
@@ -69,6 +71,7 @@ function generatePointsForDiagrams(){
 
 function addGuiListeners(){
   genericGuiListeners.forEach(l => l.onFinishChange( () => generatePointsForDiagrams() ));
+  p5jsUtilPauseListnener.onFinishChange(() => P5JsUtils.toggleLoop() );
 }
 
 function draw(){
