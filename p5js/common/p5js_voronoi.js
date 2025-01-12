@@ -128,26 +128,20 @@ p5.prototype.drawVoronoi = function(diagram, x, y, options = {}) {
   for (var attrname in options) { drawOptions[attrname] = options[attrname]; }
 
   if  (drawOptions.useD3) {
-    const p5Context = {
-      moveTo: function(x,y){ vertex(x, y); },
-      lineTo: function(x,y){ vertex(x, y); },
-      closePath : function(){ endShape(CLOSE); }, 
-      rect: function(x, y, width, height){ rect(x,y,width,height); }
-    }
-    const p5Context_Debug = {
-      _p5Ctx: p5Context,
-      moveTo: function(x,y){  console.log(`moveTo ${x}, ${y}`); this._p5Ctx.moveTo(x, y); },
-      lineTo: function(x,y){ console.log(`lineTo ${x}, ${y}`); this._p5Ctx.lineTo(x, y); },
-      closePath : function(){ console.log(`closePath`); this._p5Ctx.closePath(); }, 
-      rect: function(x, y, width, height){ console.log(`rect ${x}, ${y}`); this._p5Ctx.rect(x,y,width,height); }
-    }
-    const ctx = drawOptions.debug ? p5Context_Debug : p5Context;
-
     push();
     translate(x, y);
-    beginShape(LINES);
-    diagram.render(ctx);
-    endShape(CLOSE);
+
+    // FROM CodingTrain sketch: https://editor.p5js.org/codingtrain/sketches/GpeT1W8X1
+    let polygons = diagram.cellPolygons();
+    let cells = Array.from(polygons);
+
+    for (let poly of cells) {
+      beginShape();
+      for (let i = 0; i < poly.length; i++) {
+        vertex(poly[i][0], poly[i][1]);
+      }
+      endShape();
+    }
     pop();
 
   } else {
@@ -223,7 +217,7 @@ p5.prototype.drawVoronoiCell = function(cell, x = 0, y = 0, mode = undefined, de
     push();
     translate(translateX, translateY);
   }
-
+ 
   beginShape();
   let tmpEdgeStartPoint = null;
   for (var j = 0; j < cell.halfedges.length; j++) {
@@ -231,7 +225,7 @@ p5.prototype.drawVoronoiCell = function(cell, x = 0, y = 0, mode = undefined, de
     vertex(tmpEdgeStartPoint.x, tmpEdgeStartPoint.y);
   }
   endShape(CLOSE);
-  
+
   if (translateX != 0 || translateY != 0) {
     pop();
   }

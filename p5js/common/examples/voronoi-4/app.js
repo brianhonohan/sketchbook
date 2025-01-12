@@ -87,14 +87,13 @@ function addGuiListeners(){
 }
 
 function draw(){
-  background(120);
   voronoiSiteStrokeWeight(2);
   stroke(50);
   strokeWeight(0.5)
 
   voronoiSiteStroke(color(180,50, 50));
   fill(50, 180, 50);
-  drawVoronoi(voronoiOne, 0, 0, { redrawAll: true, useD3: systemParams.useD3Delaunay});
+  drawVoronoi(voronoiOne, 0, 0, { redrawAll: false, useD3: systemParams.useD3Delaunay});
   
   if (systemParams.drawFourDiagrams){
     voronoiSiteStroke(color(180,100, 180));
