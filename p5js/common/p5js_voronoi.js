@@ -124,25 +124,30 @@ p5.prototype.createVoronoi = function(sites, boundingBox, useD3 = false) {
 }
 
 p5.prototype.drawVoronoi = function(diagram, x, y, options = {}) {
-  const drawOptions = { redrawAll: true, useD3: false }
+  const drawOptions = { redrawAll: true, useD3: false, debug: false }
   for (var attrname in options) { drawOptions[attrname] = options[attrname]; }
 
   if  (drawOptions.useD3) {
-    push();
-    translate(x, y);
-    beginShape(LINES);
     const p5Context = {
       moveTo: function(x,y){ vertex(x, y); },
       lineTo: function(x,y){ vertex(x, y); },
       closePath : function(){ endShape(CLOSE); }, 
       rect: function(x, y, width, height){ rect(x,y,width,height); }
     }
-    let svg = diagram.render();
-    diagram.render(p5Context);
-    p5Context.closePath();
+    const p5Context_Debug = {
+      _p5Ctx: p5Context,
+      moveTo: function(x,y){  console.log(`moveTo ${x}, ${y}`); this._p5Ctx.moveTo(x, y); },
+      lineTo: function(x,y){ console.log(`lineTo ${x}, ${y}`); this._p5Ctx.lineTo(x, y); },
+      closePath : function(){ console.log(`closePath`); this._p5Ctx.closePath(); }, 
+      rect: function(x, y, width, height){ console.log(`rect ${x}, ${y}`); this._p5Ctx.rect(x,y,width,height); }
+    }
+    const ctx = drawOptions.debug ? p5Context_Debug : p5Context;
 
-    console.log(svg);
-
+    push();
+    translate(x, y);
+    beginShape(LINES);
+    diagram.render(ctx);
+    endShape(CLOSE);
     pop();
 
   } else {
