@@ -2,7 +2,7 @@ var headings;
 var drawMode;
 
 function setup(){
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(500, 500);
 
   headings = [
       0
@@ -24,6 +24,7 @@ function setup(){
   ];
 
   drawMode = 'DRAW_VECTORS';
+  drawMode = 'DENOTE_ROTATION';
   drawTableOfVectors();
 }
 
