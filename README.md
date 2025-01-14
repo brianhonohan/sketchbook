@@ -5,9 +5,9 @@ Collection of personal coding projects. They may or may not grow into individual
 
 ## Latest
 
-A p5.js sketch that explores rendering support for d3-delaunay computed voronoi diagrams.
+A p5.js sketch that tests out and validates a simple `rotationBetweenVectors()` function.
 
-[<img src="./p5js/common/examples/voronoi-4/screenshot-01.png" alt="voronoi diagrams via d3-delaunay vs gorhill" width="150px" />][link-p5js-voronoi-4]
+[<img src="./p5js/common/examples/rotation-between-vectors/screenshot-01.png" alt="voronoi diagrams via d3-delaunay vs gorhill" width="150px" />][link-p5js-voronoi-4]
 
 ## LÖVE
 Collection of sketches using the [LÖVE][love2d] environment.
@@ -32,6 +32,7 @@ Collection of sketches using the [p5.js][p5js] Javascript library.
 [<img src="./p5js/common/examples/paisley/screenshot-01.png" alt="paisley" width="150px" />][link-p5js-paisley]
 [<img src="./p5js/common/examples/quadtree/screenshot-01.png" alt="quadtree" width="150px" />][link-p5js-quadtree]
 [<img src="./p5js/common/examples/quadtree-2/screenshot-01.png" alt="quadtree" width="150px" />][link-p5js-quadtree-2]
+[<img src="./p5js/common/examples/rotation-between-vectors/screenshot-01.png" alt="quadtree" width="150px" />][link-p5js-rotation-between-vectors]
 [<img src="./p5js/common/examples/shapes-tangents-between-circles/screenshot-01.png" alt="quadtree" width="150px" />][link-p5js-shapes-tangents-between-circles]
 [<img src="./p5js/common/examples/teardrops/screenshot-01.png" alt="teardrops" width="150px" />][link-p5js-teardrops]
 [<img src="./p5js/common/examples/voronoi/screenshot-01.png" alt="voronoi" width="150px" />][link-p5js-voronoi]
@@ -133,6 +134,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-p5js-paisley-01]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/paisley-01/
 [link-p5js-quadtree]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/quadtree/
 [link-p5js-quadtree-2]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/quadtree-2/
+[link-p5js-rotation-between-vectors]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/rotation-between-vectors/
 [link-p5js-shapes-tangents-between-circles]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/shapes-tangents-between-circles/
 [link-p5js-voronoi]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/voronoi/
 [link-p5js-voronoi-2]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/voronoi-2/

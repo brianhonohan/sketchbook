@@ -2,7 +2,7 @@ var headings;
 var drawMode;
 
 function setup(){
-  createCanvas(500, 500);
+  createCanvas(windowWidth, windowHeight-35);
 
   headings = [
       0
@@ -24,7 +24,6 @@ function setup(){
   ];
 
   drawMode = 'DRAW_VECTORS';
-  drawMode = 'DENOTE_ROTATION';
   drawTableOfVectors();
 }
 
@@ -135,4 +134,13 @@ function keyTyped(){
     drawMode = 'DRAW_VECTORS';
     drawTableOfVectors();
   }
+}
+
+function mousePressed(){
+  if (drawMode == 'DENOTE_ROTATION'){
+    drawMode = 'DRAW_VECTORS';
+  } else {
+     drawMode = 'DENOTE_ROTATION';
+  }
+  drawTableOfVectors();
 }
