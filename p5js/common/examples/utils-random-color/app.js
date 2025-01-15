@@ -12,6 +12,7 @@ const colorOptions = [
 
 function setup(){
   canvas = createCanvas(windowWidth, windowHeight-35);
+  // canvas = createCanvas(500, 500);
   colorId = P5JsUtils.COLOR_ID_GREEN;
   background(50);
   mode = 'random';
@@ -62,15 +63,16 @@ function keyTyped(){
 
 function drawColorTiles(){
   let cellWidth = 20;
-  let margin = 20;
-  let numRows = (width  - 2 * margin) / cellWidth - 1;
-  let numCols = (height - 2 * margin) / cellWidth - 1;
+  let marginX = 0.1 * width;
+  let marginY = 0.1 * height;
+  let numRows = Math.floor( (width  - 2 * marginY) / cellWidth );
+  let numCols = Math.floor( (height - 2 * marginY) / cellWidth );
 
   noStroke();
   for (let i = 0; i < numRows; i++){
     for (let j = 0; j < numCols; j++){
       fillColorFor(j, i);
-      rect(margin + i * cellWidth, margin + j * cellWidth, cellWidth, cellWidth);
+      rect(marginX + i * cellWidth, marginY + j * cellWidth, cellWidth, cellWidth);
     }
   }
 }
