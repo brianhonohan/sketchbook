@@ -1,6 +1,6 @@
 ---
 layout: minimal
-title:  "p5.js - Common Examples - Rotation bewtewen Vectors"
+title:  "p5.js - Common Examples - Rotation between Vectors"
 categories: p5js
 modal: true
 excerpt: Implementation of a basic function rotationBetweenVectors() to compute the rotation between two vectors.
