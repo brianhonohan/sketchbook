@@ -5,9 +5,9 @@ Collection of personal coding projects. They may or may not grow into individual
 
 ## Latest
 
-A p5.js sketch that tests out and validates a simple `randomColorById()` function, to generate one of the 6 colors of the rainbow.
+A p5.js sketch that tests out the built-in `blendMode()` function, with interactive background control.
 
-[<img src="./p5js/common/examples/utils-random-color/screenshot-01.png" alt="utils-random-color" width="150px" />][link-p5js-utils-random-color]
+[<img src="./p5js/scales/blendmode/screenshot-01.png" alt="p5js-blendmode" width="150px" />][link-p5js-scales-blendmode]
 
 ## LÖVE
 Collection of sketches using the [LÖVE][love2d] environment.
@@ -59,6 +59,7 @@ Collection of sketches using the [p5.js][p5js] Javascript library.
 [<img src="./p5js/random/1/screenshot-01.png" alt="random-1" width="150px" />][link-p5js-random-1]
 [<img src="./p5js/random/2/screenshot-01.png" alt="random-2" width="150px" />][link-p5js-random-2]
 [<img src="./p5js/random/3/screenshot-01.png" alt="random-3" width="150px" />][link-p5js-random-3]
+[<img src="./p5js/scales/blendmode/screenshot-01.png" alt="thermal-cells" width="150px" />][link-p5js-scales-blendmode]
 [<img src="./p5js/tree-rings/screenshot-01.png" alt="tree-rings" width="150px" />][link-p5js-tree-rings]
 [<img src="./p5js/voronoi-herd/screenshot-01.png" alt="voronoi-herd" width="150px" />][link-p5js-voronoi-herd]
 
@@ -144,6 +145,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-p5js-random-1]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/1/
 [link-p5js-random-2]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/2/
 [link-p5js-random-3]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/3/
+[link-p5js-scales-blendmode]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/scales/blendmode/
 [link-p5js-slippy-map]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/slippy-map/
 [link-p5js-snowflake-pen]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/snowflake-pen/
 [link-p5js-teardrops]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/teardrops/

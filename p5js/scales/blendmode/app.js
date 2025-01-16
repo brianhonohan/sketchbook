@@ -6,11 +6,11 @@ var palette;
 var gui;
 
 var guiParams = {
-  imgBrightness: 50
+  imgBrightness: 69
 }
 
 function setup(){
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(windowWidth, windowHeight-35);
   colorMode(HSB, 100);
   blendModes = new P5jsBlendModes();
   noStroke();
@@ -24,7 +24,8 @@ function setup(){
 
   drawOnce();
 
-  gui = new dat.gui.GUI();
+  gui = P5JsSettings.addDatGui({autoPlace: false});
+  // gui = new dat.gui.GUI();
   guiBrightness = gui.add(guiParams, "imgBrightness").min(0).max(100).step(1);
   addGuiListeners();
 
