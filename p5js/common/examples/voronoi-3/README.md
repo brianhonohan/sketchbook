@@ -3,7 +3,7 @@
 
 This is a [p5.js][p5js-home] sketch to explore some optimizations in rendering Voronoi diagrams.
 
-Of note, used [Chrome Performance Tools][chrome-perf-tools] to do some perfromance profiling and fine tuning.
+Of note, used [Chrome Performance Tools][chrome-perf-tools] to do some performance profiling and fine tuning.
 
 ## Controls
 
