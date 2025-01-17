@@ -9,7 +9,7 @@ And further compare the developer experience working wiht the two libraries.
 
 In short, the two libraries are comparable in performance on rendering as it relates to adpating to the p5.js drawing context. I did not test/benchmark delaunay/voronoi computation. And generally found the gorhill-implementation more readily available for extension for my uses (at this time).
 
-Of note, used [Chrome Performance Tools][chrome-perf-tools] to do some perfromance profiling and fine tuning.
+Of note, used [Chrome Performance Tools][chrome-perf-tools] to do some performance profiling and fine tuning.
 
 ## Controls
 

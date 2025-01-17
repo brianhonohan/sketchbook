@@ -37,6 +37,22 @@ class P5JsSettings {
         }
       });
     }
+    if (datGuiParams.bindOptions === true) {
+      const seedListener = datGui.add(this.optionsSet.settings, "seed", 1, Number.MAX_SAFE_INTEGER);
+      const noiseOctavesListener = datGui.add(this.optionsSet.settings, "noise_octaves", 1, 16);
+      const noiseFallOffListener = datGui.add(this.optionsSet.settings, "noise_falloff", 0.01, 1, 0.01);
+
+      const globalSettings = this;
+      const handleDatGui = function(callback){
+        globalSettings.applySettings();
+        if (callback !== undefined){
+          callback();
+        }
+      }
+      seedListener.onFinishChange(() => handleDatGui(datGuiParams.callback));
+      noiseOctavesListener.onFinishChange(() => handleDatGui(datGuiParams.callback));
+      noiseFallOffListener.onFinishChange(() => handleDatGui(datGuiParams.callback));
+    }
     return datGui;
   }
 
