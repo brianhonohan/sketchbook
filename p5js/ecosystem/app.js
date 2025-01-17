@@ -8,8 +8,15 @@ function setup() {
   let rect = new Rect(0, 0, width, height);
   ecosystem = new Ecosystem(rect);
 
+  gui = P5JsSettings.addDatGui({autoPlace: false, 
+    bindOptions: true, callback: regenerateSystem});
+
   logSettings();
   frameRate(1);
+}
+
+function regenerateSystem(){
+  ecosystem.generate();
 }
 
 function draw() {
