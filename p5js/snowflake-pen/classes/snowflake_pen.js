@@ -4,7 +4,13 @@ class SnowflakePen {
     this.y = y;
     this.prevPos = createVector(0, 0);
     this.penWasDown = false;
-    this.numSlices = 6;
+    this.setNumberofSlices(6);
+  }
+
+  setNumberofSlices(newSliceCount){
+    if (newSliceCount < 1) { return; }
+
+    this.numSlices = newSliceCount;
     this.rotationPerSlice = 2 * Math.PI / this.numSlices;
     this.halfRotation = this.rotationPerSlice / 2;
     this.slope = Math.tan(this.halfRotation);
