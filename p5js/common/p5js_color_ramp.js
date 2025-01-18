@@ -60,12 +60,30 @@ class P5jsColorRamp {
 
       if(colors[i].breakpoint != undefined){
         this.rangeMode = P5jsColorRamp.RANGE_MODE_MIN_MAX;
+        this.spacingMode = P5jsColorRamp.SPACING_MODE_BREAKPOINTS;
         this.breakpoints.push(colors[i].breakpoint);
         this.minValue = min(this.minValue || Number.MAX_VALUE, colors[i].breakpoint);
         this.maxValue = max(this.maxValue || Number.MIN_VALUE, colors[i].breakpoint);
       }
     }
+    if (this.spacingMode == P5jsColorRamp.SPACING_MODE_BREAKPOINTS){
+      this._computeProporationalRanges();
+    }
     return this;
+  }
+
+  _computeProporationalRanges(){
+    this._proporationalRanges = [];
+
+    if (this.spacingMode == P5jsColorRamp.SPACING_MODE_UNIFORM){
+      this._proporationalRanges.fill(1.0 / this.colorCount, 0, this.colorCount);
+    }
+
+    for (let i = 0; i < this.colorCount; i++){
+      let rangeBefore = (i == 0) ? 0 : (this.breakpoints[i] -this.breakpoints[i-1]) / 2.0;
+      let rangeAfterBP = (i == this.colorCount - 1) ? 0 : (this.breakpoints[i+1] - this.breakpoints[i]) / 2.0;
+      this._proporationalRanges[i] = (rangeAfterBP + rangeBefore) / this.rangeMagnitude;
+    }
   }
 
   _parseStringColors(colors_string){
@@ -80,16 +98,12 @@ class P5jsColorRamp {
 
   draw(x,y,_width, _height){
     noStroke();
-    let cellHeight = _height / this.colorCount;
 
+    let cellHeight;
     let currentY = y + _height;
     for (let i = 0; i < this.colorCount; i++){
       fill(this.colors[i]);
-      if (this.rangeMode == P5jsColorRamp.RANGE_MODE_MIN_MAX){
-        let rangeBefore = (i == 0) ? 0 : (this.breakpoints[i] -this.breakpoints[i-1]) / 2.0;
-        let rangeAfterBP = (i == this.colorCount - 1) ? 0 : (this.breakpoints[i+1] - this.breakpoints[i]) / 2.0;
-        cellHeight = (rangeAfterBP + rangeBefore) / 2 * _height;
-      }
+      cellHeight = this._proporationalRanges[i] * _height;
       rect(x, currentY - cellHeight, _width, cellHeight);
 
       currentY -= cellHeight;
