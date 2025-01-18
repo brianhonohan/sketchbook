@@ -92,13 +92,28 @@ class P5jsColorRamp {
 
   // addColor(color, breakpoint){ }
 
-  getColorFor(value){
+  getColorForValue(value){
+    if(value < this.minValue){
+      return this.colors[0];
+    }
+
+    for (let i = 1; i < this.colorCount; i++){
+      if (value < this.breakpoints[i]){
+        const normalizedInRange = norm(value, this.breakpoints[i-1], this.breakpoints[i]);
+        return lerpColor(this.colors[i-1], this.colors[i], normalizedInRange);
+      }
+    }
+    return this.colors[this.colorCount-1];
   }
 
 
-  draw(x,y,_width, _height){
-    noStroke();
+  draw(x,y,_width, _height, smooth = false){
+    if (smooth == true){
+      this._drawGradient(x,y,_width,_height);
+      return;
+    }
 
+    noStroke();
     let cellHeight;
     let currentY = y + _height;
     for (let i = 0; i < this.colorCount; i++){
@@ -108,6 +123,27 @@ class P5jsColorRamp {
 
       currentY -= cellHeight;
     }
-    noLoop();
+  }
+
+  _drawGradient(x,y,_width, _height){
+    if (this._gradientBuffer == undefined){
+      this._renderGradient(_width, _height);
+    }
+    image(this._gradientBuffer, x, y);
+  }
+
+  _renderGradient(_width, _height){
+    this._gradientBuffer = createImage(_width, _height);
+    this._gradientBuffer.loadPixels();
+
+    // Assumes vertical rendering
+    let colorVal;
+    for (let y = 0; y < _height; y += 1) {
+      colorVal = this.getColorForValue(this.minValue + y * 1.0 / _height * this.rangeMagnitude);
+      for (let x = 0; x < _width; x += 1) {
+        this._gradientBuffer.set(x, _height - y, colorVal);
+      }
+    }
+    this._gradientBuffer.updatePixels();
   }
 }

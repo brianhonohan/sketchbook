@@ -16,5 +16,5 @@ function setup(){
 function draw(){
   background(50);
 
-  colorRamp.draw(rampPos.x, rampPos.y, rampPos.width, rampPos.height);
+  colorRamp.draw(rampPos.x, rampPos.y, rampPos.width, rampPos.height, true);
 }
