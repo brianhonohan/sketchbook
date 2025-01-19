@@ -9,6 +9,9 @@ excerpt: Demonstrates P5jsColorRamp capabilites, to provide for multi-segment co
 js_scripts:
 - /sketchbook/vendor/inobounce/0.2.0/inobounce.js
 - https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.2/p5.min.js
+- /sketchbook/vendor/dat.gui/0.7.3/dat.gui.js
+- /sketchbook/p5js/common/p5js_settings.js
+- /sketchbook/p5js/common/p5js_color_ramp.js
 
 - app.js
 
