@@ -17,7 +17,72 @@ class P5jsColorRamp {
         {color: color(255, 255, 255), breakpoint: _newRamp.maxValue}
       ]
     );
+    return _newRamp;
+  }
 
+  static visibleSpectrum(){
+    const _newRamp = new P5jsColorRamp();
+    _newRamp.setRange(380,750);
+
+    // Numbers pulled from: https://en.wikipedia.org/wiki/Visible_spectrum
+    // with breakpoints set at the min-points of the wavelength ranges
+    _newRamp.setColors(
+      [
+        {color: color(0,0,0), breakpoint: _newRamp.minValue},
+        {color: color(200,0,200), breakpoint: 415},
+        {color: color(0,0,230), breakpoint: 466.5},
+        {color: color(0,230,230), breakpoint: 492},
+        {color: color(0,230,0), breakpoint: 532.5},
+        {color: color(230, 230, 0), breakpoint: 577.5},
+        {color: color(230, 115, 0), breakpoint: 607.5},
+        {color: color(220,0,0), breakpoint: 687.5},
+        {color: color(0,0,0), breakpoint: _newRamp.maxValue},
+      ]
+    );
+    return _newRamp;
+  }
+
+  static visibleSpectrum(){
+    const _newRamp = new P5jsColorRamp();
+    _newRamp.setRange(380,750);
+
+    // Numbers pulled from: https://en.wikipedia.org/wiki/Visible_spectrum
+    // with breakpoints set at the min-points of the wavelength ranges
+    _newRamp.setColors(
+      [
+        {color: color(0,0,0), breakpoint: _newRamp.minValue},
+        {color: color(200,0,200), breakpoint: 415},
+        {color: color(0,0,230), breakpoint: 466.5},
+        {color: color(0,230,230), breakpoint: 492},
+        {color: color(0,230,0), breakpoint: 532.5},
+        {color: color(230, 230, 0), breakpoint: 577.5},
+        {color: color(230, 115, 0), breakpoint: 607.5},
+        {color: color(220,0,0), breakpoint: 687.5},
+        {color: color(0,0,0), breakpoint: _newRamp.maxValue},
+      ]
+    );
+    return _newRamp;
+  }
+
+  static temperatureScale(){
+    const _newRamp = new P5jsColorRamp();
+    _newRamp.setRange(-50,50);
+
+    // Based on Celsius scale
+    _newRamp.setColors(
+      [
+        {color: color(120,0,120), breakpoint: _newRamp.minValue},
+        {color: color(200,0,200), breakpoint: -35},
+        {color: color(0,0,200), breakpoint: -22},
+        {color: color(0,230,230), breakpoint: -10},
+        {color: color(230,230,230), breakpoint: 0},
+        {color: color(0,230,0), breakpoint: 7},
+        {color: color(230, 230, 0), breakpoint: 12},
+        {color: color(230, 115, 0), breakpoint: 30},
+        {color: color(180,0,0), breakpoint: 40},
+        {color: color(150,0,0), breakpoint: _newRamp.maxValue},
+      ]
+    );
     return _newRamp;
   }
 
