@@ -218,6 +218,8 @@ class P5jsColorRamp {
   }
 
   _renderGradient(_width, _height){
+    _width = Math.floor(_width);
+    _height = Math.floor(_height);
     this._gradientBuffer = createImage(_width, _height);
     this._gradientBuffer.loadPixels();
 
