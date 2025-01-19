@@ -5,9 +5,9 @@ Collection of personal coding projects. They may or may not grow into individual
 
 ## Latest
 
-A p5.js sketch that tests out the built-in `blendMode()` function, with interactive background control.
+A p5.js sketch that demonstrates a new `P5jsColorRamp` utility class to create 'color-ramps' (or multi-segmented lerped-color spectrums).
 
-[<img src="./p5js/scales/blendmode/screenshot-01.png" alt="p5js-blendmode" width="150px" />][link-p5js-scales-blendmode]
+[<img src="./p5js/common/examples/color-ramp/screenshot-01.png" alt="p5js-color-ramp" width="150px" />][link-p5js-color-ramp]
 
 ## LÖVE
 Collection of sketches using the [LÖVE][love2d] environment.
@@ -27,6 +27,7 @@ Collection of sketches using the [p5.js][p5js] Javascript library.
 
 [<img src="./p5js/common/examples/bezier/screenshot-01.png" alt="bezier" width="150px" />][link-p5js-bezier]
 [<img src="./p5js/common/examples/draggable/screenshot-01.png" alt="draggable" width="150px" />][link-p5js-draggable]
+[<img src="./p5js/common/examples/color-ramp/screenshot-01.png" alt="draggable" width="150px" />][link-p5js-color-ramp]
 [<img src="./p5js/common/examples/geometry-circle-line/screenshot-01.png" alt="draggable" width="150px" />][link-p5js-geometry-circle-line]
 [<img src="./p5js/common/examples/geometry-point-to-line/screenshot-01.png" alt="draggable" width="150px" />][link-p5js-geometry-point-to-line]
 [<img src="./p5js/common/examples/paisley/screenshot-01.png" alt="paisley" width="150px" />][link-p5js-paisley]
@@ -117,6 +118,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-paperjs-drawing-app]: https://github.com/brianhonohan/sketchbook/tree/master/paperjs/drawing-app
 
 [link-p5js-bezier]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/bezier/
+[link-p5js-color-ramp]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/color-ramp/
 [link-p5js-draggable]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/draggable/
 [link-p5js-geometry-circle-line]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/geometry-circle-line/
 [link-p5js-geometry-point-to-line]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/geometry-point-to-line/
