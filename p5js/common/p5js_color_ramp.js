@@ -90,6 +90,27 @@ class P5jsColorRamp {
     
   }
 
+  setBinCount(numberOfBins){
+    this.binCount = numberOfBins;
+    this.binnedColors = [];
+    this.binStepSize = this.rangeMagnitude / numberOfBins;
+    for(let i = 0; i < numberOfBins; i++){
+      this.binnedColors.push(this.getColorForValue(this.minValue + this.binStepSize * i));
+    }
+    return this.binnedColors;
+  }
+
+  getColorForBin(binNumber){
+    return this.binnedColors[binNumber];
+  }
+
+  getBinnedColorForValue(value){
+    if (value < this.minValue) { return this.getColorForBin(0); }
+    if (value > this.maxValue) { return this.getColorForBin(this.binCount - 1); }
+    const binNumber = Math.floor((value - this.minValue)/this.binStepSize);
+    return this.getColorForBin(binNumber);
+  }
+
   // addColor(color, breakpoint){ }
 
   getColorForValue(value){
@@ -105,7 +126,6 @@ class P5jsColorRamp {
     }
     return this.colors[this.colorCount-1];
   }
-
 
   draw(x,y,_width, _height, smooth = false){
     if (smooth == true){
@@ -145,5 +165,17 @@ class P5jsColorRamp {
       }
     }
     this._gradientBuffer.updatePixels();
+  }
+  
+  drawBins(x,y,_width, _height){
+    noStroke();
+    let cellHeight = _height / this.binCount;
+    let currentY = y + _height;
+
+    for (let i = 0; i < this.binCount; i++){
+      fill(this.binnedColors[i]);
+      rect(x, currentY - cellHeight, _width, cellHeight);
+      currentY -= cellHeight;
+    }
   }
 }
