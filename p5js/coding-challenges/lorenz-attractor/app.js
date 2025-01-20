@@ -12,7 +12,7 @@ var systemParams = {
 };
 
 function setup(){
-  createCanvas(windowWidth, windowHeight, WEBGL);
+  createCanvas(windowWidth, windowHeight-35, WEBGL);
 
   gui = new dat.gui.GUI();
   gui.add(systemParams, "rho").min(1).max(50).step(0.1);
