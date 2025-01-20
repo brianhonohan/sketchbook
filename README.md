@@ -5,9 +5,9 @@ Collection of personal coding projects. They may or may not grow into individual
 
 ## Latest
 
-A p5.js sketch that demonstrates a new `P5jsColorRamp` utility class to create 'color-ramps' (or multi-segmented lerped-color spectrums).
+A p5.js sketch completing the Coding Train's Coding Challenge on Lorenz Attractor.
 
-[<img src="./p5js/common/examples/color-ramp/screenshot-01.png" alt="p5js-color-ramp" width="150px" />][link-p5js-color-ramp]
+[<img src="./p5js/coding-challenges/lorenz-attractor/screenshot-01.png" alt="p5js-color-ramp" width="150px" />][link-p5js-cc-lorenz-attractor]
 
 ## LÖVE
 Collection of sketches using the [LÖVE][love2d] environment.
@@ -72,6 +72,7 @@ Collection of sketches using the [p5.js][p5js] Javascript library inspired by th
 [<img src="./p5js/coding-challenges/fractal-trees-03/screenshot-01.png" alt="fractal-trees-03" width="150px" />][link-p5js-cc-fractal-trees-03]
 [<img src="./p5js/coding-challenges/fractal-trees-04/screenshot-01.png" alt="fractal-trees-04" width="150px" />][link-p5js-cc-fractal-trees-04]
 [<img src="./p5js/coding-challenges/fractal-trees-05/screenshot-01.png" alt="fractal-trees-05" width="150px" />][link-p5js-cc-fractal-trees-05]
+[<img src="./p5js/coding-challenges/lorenz-attractor/screenshot-01.png" alt="fractal-trees-05" width="150px" />][link-p5js-cc-lorenz-attractor]
 [<img src="./p5js/coding-challenges/maze-generator/screenshot-01.png" alt="maze-generator" width="150px" />][link-p5js-cc-maze-generator]
 [<img src="./p5js/coding-challenges/mitosis/screenshot-07.png" alt="mitosis" width="150px" />][link-p5js-cc-mitosis]
 [<img src="./p5js/coding-challenges/seven-segment-display/screenshot-01.png" alt="seven-segment-display" width="150px" />][link-p5js-cc-seven-segment-display]
@@ -161,6 +162,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-p5js-cc-fractal-trees-03]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/fractal-trees-03/
 [link-p5js-cc-fractal-trees-04]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/fractal-trees-04/
 [link-p5js-cc-fractal-trees-05]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/fractal-trees-05/
+[link-p5js-cc-lorenz-attractor]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/lorenz-attractor/
 [link-p5js-cc-maze-generator]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/maze-generator/
 [link-p5js-cc-mitosis]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/mitosis/
 [link-p5js-cc-seven-segment-display]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/seven-segment-display/
