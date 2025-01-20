@@ -3,7 +3,7 @@ title:  "Coding Challenge #6 - Mitosis"
 date:   2018-10-06 8:00:00 -0400
 categories: [p5js, coding-challenges]
 thumbnail: /sketchbook/p5js/coding-challenges/mitosis/screenshot-01.png
-
+excerpt: Preliminary sketch of cellular mitosis, splitting a vector shape into two while modeling the phases of cellular division.
 ---
 
 This is a [p5.js][p5js-home] sketch inspired by the [Coding Train's][coding-train] [Coding Challenge #6][ct-challenge-6] on creating a simulation of [Mitosis][wikipedia-mitosis]
