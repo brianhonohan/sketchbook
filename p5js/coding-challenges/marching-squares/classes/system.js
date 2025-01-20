@@ -11,6 +11,7 @@ class System {
                              this.cellViewer
                              );
     this.grid.initCells();
+    this.regenerate();
   }
 
   // Return a list of Options, specific to this sketch,
@@ -21,9 +22,10 @@ class System {
   optionsMetadata(){
     return [
       { name: "cellWidth", type: "integer", default: 50}, 
-      // { name: "varname2", type: "string", default: 'Lorem Ipsum'}, 
-      // { name: "varname3", type: "float", default: 0.6}
-      // { name: "varname4", type: "bool", default: false}
+      { name: "drawGrid", type: "bool", default: true}, 
+      { name: "scale", type: "float", default: 0.01}, 
+      { name: "xOffset", type: "integer", default: 0},
+      { name: "yOffset", type: "integer", default: 0},
     ];
   }
 
@@ -31,8 +33,21 @@ class System {
     return new Cell(tmpRow, tmpCol, i, this);
   }
 
+  regenerate(){
+    let cell;
+    for(let i = 0; i < this.grid.numCells; i++){
+      cell = this.grid.cells[i];
+      cell.value = this.getValueAt(cell._row, cell._col);
+    }
+  }
+
+  getValueAt(row,col){
+    return Math.floor(2 * noise((this.settings.xOffset + row) * this.settings.scale, 
+                                (this.settings.yOffset + col) * this.settings.scale));
+  }
+
   tick(){
-    console.log("tock");
+
   }
 
   render(){
