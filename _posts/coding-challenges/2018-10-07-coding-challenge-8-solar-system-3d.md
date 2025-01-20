@@ -3,6 +3,7 @@ title:  "Coding Challenge #8 - Solar System 3D"
 date:   2018-10-07 16:00:00 -0400
 categories: [p5js, coding-challenges]
 thumbnail: /sketchbook/p5js/coding-challenges/solar-system-3d/screenshot-01.png
+excerpt: Building on the 2D-sketch, this makes use of 3D-vectors to model the Solar System. Highlights the value of refactoring away 2D concepts to make it ready for 3D support.
 ---
 
 This is a [p5.js][p5js-home] sketch inspired by the [Coding Train's][coding-train] [Coding Challenge #8][ct-challenge-8] on creating a Solar System modeled in 3D.

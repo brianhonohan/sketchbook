@@ -4,6 +4,7 @@ title:  "P5.JS - Procedural Generation of Terrain"
 date:   2017-11-04 13:31:15 -0400
 categories: p5js
 thumbnail: /sketchbook/p5js/ecosystem/screenshot-01.png
+excerpt: Using Perlin noise to generate terrain, with approximate controls for percent of water and graduated color maps for elevation and water depth.
 
 ---
 
