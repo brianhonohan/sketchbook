@@ -4,7 +4,7 @@ class System {
     this.optionsSet = new OptionsSet(this.optionsMetadata());
     this.settings = this.optionsSet.settings;
 
-    this.cellViewer = new CellViewer();
+    this.cellViewer = new CellViewer(this.settings.cellWidth, this.settings.cellWidth);
     this.grid = new CellGrid(this.sizeAndPosition, 
                              this, 
                              this.settings.cellWidth,
@@ -12,6 +12,8 @@ class System {
                              );
     this.grid.initCells();
     this.regenerate();
+
+    fill(50);
   }
 
   // Return a list of Options, specific to this sketch,
@@ -21,9 +23,9 @@ class System {
   // supported types: integer, float, string, bool
   optionsMetadata(){
     return [
-      { name: "cellWidth", type: "integer", default: 50}, 
-      { name: "drawGrid", type: "bool", default: true}, 
-      { name: "scale", type: "float", default: 0.01}, 
+      { name: "cellWidth", type: "integer", default: 20}, 
+      { name: "drawGrid", type: "bool", default: false}, 
+      { name: "scale", type: "float", default: 0.1}, 
       { name: "xOffset", type: "integer", default: 0},
       { name: "yOffset", type: "integer", default: 0},
     ];
@@ -39,18 +41,26 @@ class System {
       cell = this.grid.cells[i];
       cell.value = this.getValueAt(cell._row, cell._col);
     }
+    for(let i = 0; i < this.grid.numCells; i++){
+      cell = this.grid.cells[i];
+      cell.computeMarchingSquareTile();
+    }
   }
 
   getValueAt(row,col){
-    return Math.floor(2 * noise((this.settings.xOffset + row) * this.settings.scale, 
-                                (this.settings.yOffset + col) * this.settings.scale));
+    return Math.floor(2 * noise((this.settings.yOffset + row) * this.settings.scale, 
+                                (this.settings.xOffset + col) * this.settings.scale));
   }
 
   tick(){
-
+    if (frameCount % 30 == 0) { 
+      this.settings.yOffset += 1;
+      this.regenerate();
+    }
   }
 
   render(){
+    background(50);
     this.grid.renderViews();
   }
 }
