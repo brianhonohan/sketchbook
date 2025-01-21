@@ -18,6 +18,8 @@ class CellViewer {
     this.mgYOffsets[1] = cellHeight;
     this.mgYOffsets[2] = cellHeight + this.halfCellHeight;
     this.mgYOffsets[3] = cellHeight;
+
+    this.precomputeVerticesForCase();
   }
 
   renderCell(tmpCell, tmpX, tmpY, cellWidth, cellHeight){
@@ -39,9 +41,8 @@ class CellViewer {
     this.renderMarchingGridTile(tmpCell, tmpX, tmpY);
   }
 
-  renderMarchingGridTile(tmpCell, x, y){
-    if (tmpCell.mgCase == undefined) { return; }
 
+  precomputeVerticesForCase(){
     // 0  nothing
     // 1  /..
     // 2  ..\
@@ -59,44 +60,47 @@ class CellViewer {
     // 14 /..
     // 15 nothing
 
+    this.verticesForCase = [];
+
+    this.verticesForCase[0] = [];
+    this.verticesForCase[15] = [];
+
+    this.verticesForCase[1] = [0, 3];
+    this.verticesForCase[14] = [0, 3];
+    
+    this.verticesForCase[2] = [0, 1];
+    this.verticesForCase[13] = [0, 1];
+    
+    this.verticesForCase[3] = [3, 1];
+    this.verticesForCase[12] = [3, 1];
+
+    this.verticesForCase[4] = [1, 2];
+    this.verticesForCase[11] = [1, 2];
+
+    this.verticesForCase[5] = [[0, 1], [2,3]];
+    this.verticesForCase[10] = [[0, 3], [1,2]];
+
+    this.verticesForCase[6] = [0, 2];
+    this.verticesForCase[9] = [0, 2];
+
+    this.verticesForCase[7] = [3, 2];
+    this.verticesForCase[8] = [3, 2];
+  }
+
+  
+  renderMarchingGridTile(tmpCell, x, y){
+    if (tmpCell.mgCase == undefined) { return; }
     if (tmpCell.mgCase == 0 || tmpCell.mgCase == 15) { 
       return;
     }
 
-    if (tmpCell.mgCase == 1 || tmpCell.mgCase == 14) {
-      this._drawFromTo(x, y, 0, 3);
-      return;
-    }
-    if (tmpCell.mgCase == 2 || tmpCell.mgCase == 13) {
-      this._drawFromTo(x, y, 0, 1);
-      return;
-    }
-    if (tmpCell.mgCase == 3 || tmpCell.mgCase == 12) {
-      this._drawFromTo(x, y, 3, 1);
-      return;
-    }
-    if (tmpCell.mgCase == 4 || tmpCell.mgCase == 11) {
-      this._drawFromTo(x, y, 1, 2);
-      return;
-    }
-    if (tmpCell.mgCase == 5) {
-      this._drawFromTo(x, y, 0, 1);
+    if (tmpCell.mgCase == 5 || tmpCell.mgCase == 10) { 
+      this._drawFromTo(x, y, this.verticesForCase[tmpCell.mgCase][0][0], this.verticesForCase[tmpCell.mgCase][0][1]);
+      this._drawFromTo(x, y, this.verticesForCase[tmpCell.mgCase][1][0], this.verticesForCase[tmpCell.mgCase][1][1]);
       this._drawFromTo(x, y, 2, 3);
       return;
     }
-    if (tmpCell.mgCase == 10) {
-      this._drawFromTo(x, y, 0, 3);
-      this._drawFromTo(x, y, 1, 2);
-      return;
-    }
-    if (tmpCell.mgCase == 6 || tmpCell.mgCase == 9) {
-      this._drawFromTo(x, y, 0, 2);
-      return;
-    }
-    if (tmpCell.mgCase == 7 || tmpCell.mgCase == 8) {
-      this._drawFromTo(x, y, 3, 2);
-      return;
-    }
+    this._drawFromTo(x, y, this.verticesForCase[tmpCell.mgCase][0], this.verticesForCase[tmpCell.mgCase][1]);
   }
 
   _drawFromTo(x, y, fromIdx, toIdx){
