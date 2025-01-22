@@ -8,10 +8,10 @@ let guiXOffset;
 let guiYOffset;
 
 function setup() {
-  canvas = createCanvas(500, 500); // for screenshots
-  // canvas = createCanvas(windowWidth, windowHeight-vertMargin);
-  P5JsSettings.init();
-
+  // canvas = createCanvas(500, 500); // for screenshots
+  canvas = createCanvas(windowWidth, windowHeight-vertMargin);
+  P5JsSettings.init({'noise_falloff': 0.4});
+  
   let rect = new Rect(0, 0, width, height);
   system = new System(rect);
   
@@ -21,6 +21,7 @@ function setup() {
   guiYOffset = gui.add(system.settings, "yOffset", -10000, 10000, 1);
   gui.add(system.settings, "fillRect");
   gui.add(system.settings, "drawGrid");
+
   addGuiListeners();
 }
 
