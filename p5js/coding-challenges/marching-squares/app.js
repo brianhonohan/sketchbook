@@ -19,6 +19,7 @@ function setup() {
   guiScaleListener = gui.add(system.settings, "scale", 0.01, 0.2, 0.001);
   guiXOffset = gui.add(system.settings, "xOffset", -10000, 10000, 1);
   guiYOffset = gui.add(system.settings, "yOffset", -10000, 10000, 1);
+  gui.add(system.settings, "fillRect");
   gui.add(system.settings, "drawGrid");
   addGuiListeners();
 }

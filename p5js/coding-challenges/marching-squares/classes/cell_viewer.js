@@ -26,10 +26,12 @@ class CellViewer {
     stroke(50, 200, 200);
 
     if (tmpCell.system.settings.drawGrid){
+      fill(50);
+      strokeWeight(1);
       rect(tmpX, tmpY, cellWidth, cellHeight);
     }
     
-    if (tmpCell.value > 0) {
+    if (tmpCell.value > 0 && tmpCell.system.settings.fillRect) {
       fill(50, 200, 200);
       rect(tmpX + 0.25 * this.cellWidth, tmpY + 0.25 * this.cellHeight,
                    this.halfCellWidth, this.halfCellHeight);
@@ -38,6 +40,7 @@ class CellViewer {
     // text("" + tmpCell.value, tmpX + cellWidth / 2, tmpY + cellHeight/2);
 
     stroke(200, 200, 40);
+    strokeWeight(2);
     this.renderMarchingGridTile(tmpCell, tmpX, tmpY);
   }
 
