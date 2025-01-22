@@ -1,7 +1,13 @@
 
 ## Overview
 
-This is a [p5.js][p5js-home] sketch implementing the basic Marching Squares algorithm, inspired by Coding Train's video: https://www.youtube.com/watch?v=0ZONMNUKTfU
+This is a [p5.js][p5js-home] sketch implementing the basic Marching Squares algorithm, inspired by [Coding Train's video - Coding Marching Squares
+][coding-train-yt-marching-sq].
+
+Next steps in upcoming sketches / iterations
+* Fix the issue of not connecting the isolines to the left and top window edges.
+* Enhance this by using interpolation to have smoother lines
+* Allow for multiple steps within the 2D value field
 
 
 ## Controls
