@@ -12,8 +12,24 @@ class P5JsSettings {
     ];
   }
 
-  static init(){
-    this.optionsSet = new OptionsSet(this.optionsMetadata());
+  static init(sketchDefaults = {}){
+    const optMetadata = this.optionsMetadata();
+
+    // Allow sketches to hard-code defaults that layer on top of the 
+    // defaults defined in this base class
+    // with intent of layering data as follows:
+    // Defaults from P5jsSettings
+    // Sketch defaults (if present)
+    // URL params (if present), handled by OptionsSet
+    if (Object.keys(sketchDefaults).length > 0) {
+      for(let i = 0; i < optMetadata.length; i++){
+        if ( sketchDefaults[optMetadata[i].name] != undefined ){
+          optMetadata[i].default = sketchDefaults[optMetadata[i].name];
+        }
+      }
+    }
+    
+    this.optionsSet = new OptionsSet(optMetadata);
     this.applySettings(this.optionsSet.settings);
     this.logSettings();
   }

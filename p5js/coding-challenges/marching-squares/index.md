@@ -1,6 +1,6 @@
 ---
 layout: minimal
-title:  "p5.js - <sketch_name>"
+title:  "p5.js - Marching Squares"
 categories: p5js
 modal: true
 viewport_noscale: true

@@ -13,7 +13,7 @@ class CellGrid {
     this.effectCellWidth = this.cellWidth + this.cellSpacing;
     this.effectCellHeight = this.cellHeight + this.cellSpacing;
 
-    this.cellViewer = cellViewer || new CellViewer();
+    this.cellViewer = cellViewer || new CellViewer(cellWidth, this.cellHeight, this);
 
     this.wrap = false;
 
@@ -183,6 +183,22 @@ class CellGrid {
       }
     }
     return idxAbove;
+  }
+
+  cellDownToRight(idx){
+    return this.cells[this.cellIndexDownToRight(idx)];
+  }
+
+  cellIndexDownToRight(idx){
+    let idxD2R = idx + this.numCols + 1;
+    if (idxD2R > (this.numCells-1)){
+      if (this.wrap) {
+        idxD2R = idxD2R % this.numCells;
+      }else{
+        idxD2R = undefined;
+      }
+    }
+    return idxD2R;
   }
 
   renderViews(){
