@@ -4,7 +4,7 @@ title:  "p5.js - Marching Squares"
 categories: p5js
 modal: true
 viewport_noscale: true
-excerpt: 
+excerpt: A basic implementation of the 'Marching Squares' algorithm to plot the division line between 0 and 1 values in a 2D-field.
 
 js_scripts:
 - /sketchbook/vendor/inobounce/0.2.0/inobounce.js
