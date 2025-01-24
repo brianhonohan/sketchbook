@@ -5,9 +5,10 @@ Collection of personal coding projects. They may or may not grow into individual
 
 ## Latest
 
-A p5.js sketch exploring the Coding Train's Coding Challenge on Marching Squares algorithm, to draw isolines in 2D value field.
+A p5.js sketch exploring the built-in function `paletteLerp()` and in particular how it compares to my recent [ColorRamp][link-p5js-color-ramp] implementation.
 
-[<img src="./p5js/coding-challenges/marching-squares/screenshot-01.png" alt="p5js-marching-squares" width="150px" />][link-p5js-cc-marching-squares]
+[<img src="./p5js/scales/palettelerp/screenshot-01.png" alt="a spectrum of color" width="150px" />][link-p5js-scales-palettelerp]
+
 
 ## LÖVE
 Collection of sketches using the [LÖVE][love2d] environment.
@@ -61,6 +62,7 @@ Collection of sketches using the [p5.js][p5js] Javascript library.
 [<img src="./p5js/random/2/screenshot-01.png" alt="random-2" width="150px" />][link-p5js-random-2]
 [<img src="./p5js/random/3/screenshot-01.png" alt="random-3" width="150px" />][link-p5js-random-3]
 [<img src="./p5js/scales/blendmode/screenshot-01.png" alt="thermal-cells" width="150px" />][link-p5js-scales-blendmode]
+[<img src="./p5js/scales/palettelerp/screenshot-01.png" alt="thermal-cells" width="150px" />][link-p5js-scales-palettelerp]
 [<img src="./p5js/tree-rings/screenshot-01.png" alt="tree-rings" width="150px" />][link-p5js-tree-rings]
 [<img src="./p5js/voronoi-herd/screenshot-01.png" alt="voronoi-herd" width="150px" />][link-p5js-voronoi-herd]
 
@@ -150,6 +152,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-p5js-random-2]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/2/
 [link-p5js-random-3]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/3/
 [link-p5js-scales-blendmode]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/scales/blendmode/
+[link-p5js-scales-palettelerp]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/scales/palettelerp/
 [link-p5js-slippy-map]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/slippy-map/
 [link-p5js-snowflake-pen]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/snowflake-pen/
 [link-p5js-teardrops]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/teardrops/
