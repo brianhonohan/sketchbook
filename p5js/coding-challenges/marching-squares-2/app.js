@@ -6,7 +6,8 @@ let gui;
 
 function setup() {
   // canvas = createCanvas(500, 500); // for screenshots
-  canvas = createCanvas(windowWidth, windowHeight-vertMargin);
+  canvas = createCanvas(900, 900); // consistent, medium sizae for perf optimziation
+  // canvas = createCanvas(windowWidth, windowHeight-vertMargin);
   P5JsSettings.init({'noise_falloff': 0.4});
   
   let rect = new Rect(0, 0, width, height);

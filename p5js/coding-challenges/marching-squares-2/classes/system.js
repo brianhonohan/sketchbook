@@ -39,6 +39,8 @@ class System {
       this.cellViewer
       );
     this.grid.initCells();
+    this.cellViewer.system = this;
+    this.cellViewer.grid = this.grid;
     this.regenerate();
   }
 
@@ -69,6 +71,7 @@ class System {
 
   render(){
     background(50);
-    this.grid.renderViews();
+    // this.grid.renderViews();
+    this.cellViewer.renderCells(this.grid.cells);
   }
 }

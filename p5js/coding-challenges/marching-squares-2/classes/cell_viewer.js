@@ -44,6 +44,28 @@ class CellViewer {
     this.renderMarchingGridTile(tmpCell, tmpX, tmpY);
   }
 
+  renderCells(cells){
+    if (this.system.settings.fillRect) {
+      fill(50, 200, 200);
+      noStroke();
+      for(let i=0; i<cells.length; i++){
+        if (cells[[i]].value == 0){ continue; }
+        rect( (i % this.grid.numCols) * this.cellWidth + 0.25 * this.cellWidth,
+            Math.floor(i / this.grid.numCols) * this.cellHeight + 0.25 * this.cellHeight,
+            this.halfCellWidth, this.halfCellHeight);
+      }
+    }
+    
+    stroke(200, 200, 40);
+    strokeWeight(2);
+    for(let i=0; i<cells.length; i++){
+      this.renderMarchingGridTile(cells[i], 
+        (i % this.grid.numCols) * this.cellWidth,
+        Math.floor(i / this.grid.numCols) * this.cellWidth
+      );
+    }
+  }
+
 
   precomputeVerticesForCase(){
     // 0  nothing
