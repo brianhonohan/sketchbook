@@ -29,6 +29,8 @@ class System {
       { name: "scale", type: "float", default: 0.1}, 
       { name: "xOffset", type: "integer", default: 0},
       { name: "yOffset", type: "integer", default: 0},
+      { name: "zOffset", type: "float", default: 0},
+      { name: "zSpeed", type: "float", default: 0.001},
     ];
   }
 
@@ -50,12 +52,13 @@ class System {
 
   getValueAt(row,col){
     return Math.floor(2 * noise((this.settings.yOffset + row) * this.settings.scale, 
-                                (this.settings.xOffset + col) * this.settings.scale));
+                                (this.settings.xOffset + col) * this.settings.scale,
+                               this.settings.zOffset));
   }
 
   tick(){
-    if (frameCount % 30 == 0) { 
-      this.settings.yOffset += 1;
+    if (this.settings.zSpeed != 0) { 
+      this.settings.zOffset += this.settings.zSpeed;
       this.regenerate();
     }
   }
