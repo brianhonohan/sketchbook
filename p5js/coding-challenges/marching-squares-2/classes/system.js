@@ -4,15 +4,7 @@ class System {
     this.optionsSet = new OptionsSet(this.optionsMetadata());
     this.settings = this.optionsSet.settings;
 
-    this.cellViewer = new CellViewer(this.settings.cellWidth, this.settings.cellWidth);
-    this.grid = new CellGrid(this.sizeAndPosition, 
-                             this, 
-                             this.settings.cellWidth,
-                             this.cellViewer
-                             );
-    this.grid.initCells();
-    this.regenerate();
-
+    this.init();
     fill(50);
   }
 
@@ -36,6 +28,18 @@ class System {
 
   createCell(tmpRow, tmpCol, i){
     return new Cell(tmpRow, tmpCol, i, this);
+  }
+
+
+  init(){
+    this.cellViewer = new CellViewer(this.settings.cellWidth, this.settings.cellWidth);
+    this.grid = new CellGrid(this.sizeAndPosition, 
+      this, 
+      this.settings.cellWidth,
+      this.cellViewer
+      );
+    this.grid.initCells();
+    this.regenerate();
   }
 
   regenerate(){
