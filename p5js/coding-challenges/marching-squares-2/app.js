@@ -3,9 +3,6 @@ var canvas;
 var vertMargin = determineVerticalMargin();
 
 let gui;
-let guiScaleListener;
-let guiXOffset;
-let guiYOffset;
 
 function setup() {
   // canvas = createCanvas(500, 500); // for screenshots
@@ -16,24 +13,34 @@ function setup() {
   system = new System(rect);
   
   gui = P5JsSettings.addDatGui({autoPlace: false, bindOptions: true, callback: regenerateSystem});
-  guiScaleListener = gui.add(system.settings, "scale", 0.01, 0.2, 0.001);
-  guiXOffset = gui.add(system.settings, "xOffset", -10000, 10000, 1);
-  guiYOffset = gui.add(system.settings, "yOffset", -10000, 10000, 1);
-  guiYOffset = gui.add(system.settings, "zSpeed", -0.005, 0.005, 0.0001);
+  
+  // WANT an easier way to add params, with callbacks
+  // // OPTION 1: Use default callback, and have util class handle binding
+  // P5JsSettings.addGuiOptions(gui, regenerateSystem, [
+  //   // [use_generic_callback T/F or custom, obj, param, min, max, step]
+  //   {params: [system.settings, "scale", 0.01, 0.2, 0.001]},
+  //   {params: [system.settings, "xOffset", -10000, 10000, 1]},
+  //   {params: [system.settings, "yOffset", -10000, 10000, 1]},
+  //   {params: [system.settings, "zSpeed", -0.005, 0.005, 0.0001]},
+  //   {params: [system.settings, "fillRect"], callback: false},
+  //   {params: [system.settings, "drawGrid"], callback: false},
+  // ]);
+
+  // // OPTION 2: 
+  // // Update system.optionsMetadata() to have min/max/step
+  // P5JsSettings.addObject(gui, system, regenerateSystem);
+
+  // Option 3: method chaining
+  gui.add(system.settings, "scale", 0.01, 0.2, 0.001).onChange(regenerateSystem);
+  gui.add(system.settings, "xOffset", -10000, 10000, 1).onChange(regenerateSystem);
+  gui.add(system.settings, "yOffset", -10000, 10000, 1).onChange(regenerateSystem);
+  gui.add(system.settings, "zSpeed", -0.005, 0.005, 0.0001).onChange(regenerateSystem);
   gui.add(system.settings, "fillRect");
   gui.add(system.settings, "drawGrid");
-
-  addGuiListeners();
 }
 
 function regenerateSystem(){
   system.regenerate();
-}
-
-function addGuiListeners(){
-  guiScaleListener.onChange(() => regenerateSystem() );
-  guiXOffset.onChange(() => regenerateSystem() );
-  guiYOffset.onChange(() => regenerateSystem() );
 }
 
 function draw(){
