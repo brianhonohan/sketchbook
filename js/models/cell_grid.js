@@ -1,9 +1,25 @@
 class CellGrid {
-  constructor (rect, cellProvider, cellWidth, cellViewer){
-    this._x = rect._x;
-    this._y = rect._y;
-    this._width = rect._width;
-    this._height = rect._height;
+  /*
+  Description: This class provides several functions to work with a 2D grid of cells
+  - Determins number of rows / columns of a grid, given its area and cellWidth (square cells)
+  - Utility functions around determining neighbors of cell (either as indices or cells themself) 
+  - [Optionally] Initializer of a grid, calling the 'CellProvider' to build cells 
+  - [Optionally] Renderer with the aide of the 'CellViewer' to display cells
+  - [Optionally] Holder of the cell array
+
+  An alternate usage is to have the surrounding context maintain the 'cells' and merely use this
+  to walk through the array.
+
+  @param rect - An object that has x,y, width, height properties
+  @param CellProvider - Optional, only necessary if using initCells for callback to build each cell
+  @param cellWidth - Optional, defaults to 20 px for each cell
+  @param cellViewer - Optional, only necessary if using the renderViews functions
+  */
+  constructor (rect, cellProvider, cellWidth = 20, cellViewer){
+    this._x = rect.x;
+    this._y = rect.y;
+    this._width = rect.width;
+    this._height = rect.height;
     this.cellProvider = cellProvider;
 
     this.cellWidth = cellWidth;
