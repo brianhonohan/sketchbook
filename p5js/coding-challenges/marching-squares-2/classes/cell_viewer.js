@@ -45,6 +45,17 @@ class CellViewer {
   }
 
   renderCells(cells){
+    if (this.system.settings.drawGrid){
+      stroke(50, 200, 200);
+      strokeWeight(1);
+      for(let i=1; i< (this.grid.numRows-1); i++){
+        line(0, i * this.cellHeight, width, i * this.cellHeight);
+      }
+      for(let i=1; i< (this.grid.numCols-1); i++){
+        line(i * this.cellWidth, 0, i * this.cellWidth, height);
+      }
+    }
+
     if (this.system.settings.fillRect) {
       fill(50, 200, 200);
       noStroke();
