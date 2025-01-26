@@ -5,10 +5,9 @@ Collection of personal coding projects. They may or may not grow into individual
 
 ## Latest
 
-A p5.js sketch exploring the built-in function `paletteLerp()` and in particular how it compares to my recent [ColorRamp][link-p5js-color-ramp] implementation.
+A p5.js sketch is an iteration to improve on the performance of the marching-squares implementation.
 
-[<img src="./p5js/scales/palettelerp/screenshot-01.png" alt="a spectrum of color" width="150px" />][link-p5js-scales-palettelerp]
-
+[<img src="./p5js/coding-challenges/marching-squares-2/screenshot-01.png" alt="isolines via marching squares algorithm" width="150px" />][link-p5js-cc-marching-squares-2]
 
 ## LÖVE
 Collection of sketches using the [LÖVE][love2d] environment.
@@ -74,8 +73,9 @@ Collection of sketches using the [p5.js][p5js] Javascript library inspired by th
 [<img src="./p5js/coding-challenges/fractal-trees-03/screenshot-01.png" alt="fractal-trees-03" width="150px" />][link-p5js-cc-fractal-trees-03]
 [<img src="./p5js/coding-challenges/fractal-trees-04/screenshot-01.png" alt="fractal-trees-04" width="150px" />][link-p5js-cc-fractal-trees-04]
 [<img src="./p5js/coding-challenges/fractal-trees-05/screenshot-01.png" alt="fractal-trees-05" width="150px" />][link-p5js-cc-fractal-trees-05]
-[<img src="./p5js/coding-challenges/lorenz-attractor/screenshot-01.png" alt="fractal-trees-05" width="150px" />][link-p5js-cc-lorenz-attractor]
-[<img src="./p5js/coding-challenges/marching-squares/screenshot-01.png" alt="fractal-trees-05" width="150px" />][link-p5js-cc-marching-squares]
+[<img src="./p5js/coding-challenges/lorenz-attractor/screenshot-01.png" alt="lorenz-attractor looping lines" width="150px" />][link-p5js-cc-lorenz-attractor]
+[<img src="./p5js/coding-challenges/marching-squares/screenshot-01.png" alt="marching-squares" width="150px" />][link-p5js-cc-marching-squares]
+[<img src="./p5js/coding-challenges/marching-squares-2/screenshot-01.png" alt="marching-squares-2" width="150px" />][link-p5js-cc-marching-squares-2]
 [<img src="./p5js/coding-challenges/maze-generator/screenshot-01.png" alt="maze-generator" width="150px" />][link-p5js-cc-maze-generator]
 [<img src="./p5js/coding-challenges/mitosis/screenshot-07.png" alt="mitosis" width="150px" />][link-p5js-cc-mitosis]
 [<img src="./p5js/coding-challenges/seven-segment-display/screenshot-01.png" alt="seven-segment-display" width="150px" />][link-p5js-cc-seven-segment-display]
@@ -168,6 +168,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-p5js-cc-fractal-trees-05]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/fractal-trees-05/
 [link-p5js-cc-lorenz-attractor]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/lorenz-attractor/
 [link-p5js-cc-marching-squares]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/marching-squares/
+[link-p5js-cc-marching-squares-2]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/marching-squares-2/
 [link-p5js-cc-maze-generator]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/maze-generator/
 [link-p5js-cc-mitosis]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/mitosis/
 [link-p5js-cc-seven-segment-display]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/seven-segment-display/
