@@ -4,7 +4,7 @@ title:  "p5.js - Marching Squares 2"
 categories: p5js
 modal: true
 viewport_noscale: true
-excerpt: An iteration of the 'Marching Squares' to add in interpolation and multi-level isolines.
+excerpt: An iteration of the 'Marching Squares' to do a bit of optimization and add in interpolation and multi-level isolines.
 
 js_scripts:
 - /sketchbook/vendor/inobounce/0.2.0/inobounce.js
