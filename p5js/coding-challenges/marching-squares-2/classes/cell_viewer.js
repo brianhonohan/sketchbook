@@ -7,6 +7,14 @@ class CellViewer {
     this.halfCellWidth = cellWidth / 2;
     this.halfCellHeight = cellHeight / 2;
 
+    this.renderMarginX = Math.floor(0.25 * cellWidth);
+    this.renderMarginY = Math.floor(0.25 * cellHeight);
+
+    this.isPixelRenderer = (cellWidth <= 4);
+    this.rectRenderFunction = (this.isPixelRenderer) ? this._fillCellsViaPixels : this._fillCellsViaRect;
+
+    this.fillColor = color(50, 200, 200);
+
     this.mgXOffsets = [];
     this.mgYOffsets = [];
     this.mgXOffsets[0] = cellWidth;
@@ -46,7 +54,7 @@ class CellViewer {
 
   renderCells(cells){
     if (this.system.settings.drawGrid){
-      stroke(50, 200, 200);
+      stroke(this.fillColor);
       strokeWeight(1);
       for(let i=1; i< (this.grid.numRows-1); i++){
         line(0, i * this.cellHeight, width, i * this.cellHeight);
@@ -56,15 +64,8 @@ class CellViewer {
       }
     }
 
-    if (this.system.settings.fillRect) {
-      fill(50, 200, 200);
-      noStroke();
-      for(let i=0; i<cells.length; i++){
-        if (cells[[i]].value == 0){ continue; }
-        rect( (i % this.grid.numCols) * this.cellWidth + 0.25 * this.cellWidth,
-            Math.floor(i / this.grid.numCols) * this.cellHeight + 0.25 * this.cellHeight,
-            this.halfCellWidth, this.halfCellHeight);
-      }
+    if (this.system.settings.fillRect ) {
+      this.rectRenderFunction(cells);
     }
     
     stroke(200, 200, 40);
@@ -75,6 +76,55 @@ class CellViewer {
         Math.floor(i / this.grid.numCols) * this.cellWidth
       );
     }
+  }
+
+  _fillCellsViaRect(cells){
+    if (this.cellWidth <= 4){
+      return;
+    }
+
+    fill(this.fillColor);
+    noStroke();
+    for(let i=0; i<cells.length; i++){
+      if (cells[[i]].value == 0){ continue; }
+      rect( (i % this.grid.numCols) * this.cellWidth + 0.25 * this.cellWidth,
+          Math.floor(i / this.grid.numCols) * this.cellHeight + 0.25 * this.cellHeight,
+          this.halfCellWidth, this.halfCellHeight);
+    }
+  }
+  _fillCellsViaPixels(cells){
+    loadPixels();
+    const r = red(this.fillColor);
+    const g = green(this.fillColor);
+    const b = blue(this.fillColor);
+
+    let cellX;
+    let cellY;
+    let j;
+    let k;
+    let pixelX;
+    let pixelY;
+    let pixelIndex;
+
+    for(let i=0; i<cells.length; i++){
+      if (cells[[i]].value == 0){ continue; }
+
+      cellX = Math.floor((i % this.grid.numCols) * this.cellWidth + this.renderMarginX);
+      cellY = Math.floor(Math.floor(i / this.grid.numCols) * this.cellHeight + this.renderMarginY);
+
+      for (j = 0; j < this.halfCellWidth; j++){
+        for (k = 0; k < this.halfCellHeight; k++){
+          pixelX = cellX + j;
+          pixelY = cellY + k;
+          pixelIndex = ((pixelY * width) + pixelX) * 4;
+          pixels[pixelIndex + 0] = r;
+          pixels[pixelIndex + 1] = g;
+          pixels[pixelIndex + 2] = b;
+          pixels[pixelIndex + 3] = 255;
+        }
+      }
+    } 
+    updatePixels();
   }
 
 
