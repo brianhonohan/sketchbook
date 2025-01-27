@@ -3,6 +3,7 @@ class System {
     this.sizeAndPosition = p_xSizeAndPos;
     this.optionsSet = new OptionsSet(this.optionsMetadata());
     this.settings = this.optionsSet.settings;
+    this.osNoise = new OpenSimplexNoise(P5JsSettings.getSeed());
 
     this.init();
     fill(50);
@@ -23,6 +24,7 @@ class System {
       { name: "yOffset", type: "integer", default: 0},
       { name: "zOffset", type: "float", default: 0},
       { name: "zSpeed", type: "float", default: 0.001},
+      { name: "open_simplex_noise", type: "bool", default: true},
     ];
   }
 
@@ -57,6 +59,12 @@ class System {
   }
 
   getValueAt(row,col){
+    if (this.settings.open_simplex_noise){ 
+      return Math.ceil(this.osNoise.noise3D(
+            (this.settings.yOffset + row) * this.settings.scale, 
+            (this.settings.xOffset + col) * this.settings.scale,
+            this.settings.zOffset));
+    }
     return Math.floor(2 * noise((this.settings.yOffset + row) * this.settings.scale, 
                                 (this.settings.xOffset + col) * this.settings.scale,
                                this.settings.zOffset));

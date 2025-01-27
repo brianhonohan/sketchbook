@@ -32,11 +32,12 @@ function setup() {
   // P5JsSettings.addObject(gui, system, regenerateSystem);
 
   // Option 3: method chaining
-  gui.add(system.settings, "cellWidth", 1, 100, 1).onChange(reinitSystem);
-  gui.add(system.settings, "scale", 0.01, 0.2, 0.001).onChange(regenerateSystem);
+  gui.add(system.settings, "cellWidth", 1, 12, 2).onChange(reinitSystem);
+  gui.add(system.settings, "scale", 0.01, 0.5, 0.001).onChange(regenerateSystem);
   gui.add(system.settings, "xOffset", -10000, 10000, 1).onChange(regenerateSystem);
   gui.add(system.settings, "yOffset", -10000, 10000, 1).onChange(regenerateSystem);
   gui.add(system.settings, "zSpeed", -0.005, 0.005, 0.0001).onChange(regenerateSystem);
+  gui.add(system.settings, "open_simplex_noise").onChange(regenerateSystem);
   gui.add(system.settings, "fillRect");
   gui.add(system.settings, "drawGrid");
 }
