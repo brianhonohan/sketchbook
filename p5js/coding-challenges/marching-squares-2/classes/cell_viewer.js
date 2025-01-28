@@ -67,14 +67,11 @@ class CellViewer {
     if (this.system.settings.fillRect ) {
       this.rectRenderFunction(cells);
     }
-    
-    stroke(200, 200, 40);
-    strokeWeight(2);
-    for(let i=0; i<cells.length; i++){
-      this.renderMarchingGridTile(cells[i], 
-        (i % this.grid.numCols) * this.cellWidth,
-        Math.floor(i / this.grid.numCols) * this.cellWidth
-      );
+      
+    if (this.system.settings.interpolate_lines){
+      this._drawInterpolatedLines(cells);
+    } else {
+      this._drawSimpleLines(cells);
     }
   }
 
@@ -127,6 +124,123 @@ class CellViewer {
     updatePixels();
   }
 
+  _drawSimpleLines(cells){
+    stroke(200, 200, 40);
+    strokeWeight(2);
+    for(let i=0; i<cells.length; i++){
+      this.renderMarchingGridTile(cells[i], 
+        (i % this.grid.numCols) * this.cellWidth,
+        Math.floor(i / this.grid.numCols) * this.cellWidth
+      );
+    }
+  }
+
+  drawLine(v1, v2){
+    line(v1.x, v1.y, v2.x, v2.y);
+  }
+
+  _drawInterpolatedLines(cells){
+    stroke(200, 200, 40);
+    strokeWeight(2);
+
+    let cellValue;
+    let valueToRight;
+    let valueBelow;
+    let valueDownToRight;
+
+    let pt0 = createVector();
+    let pt1 = createVector();
+    let pt2 = createVector();
+    let pt3 = createVector();
+    let interpAmt;
+
+    let cellX;
+    let cellY;
+    const numCols = this.grid.numCols;
+
+    let debugged = false;
+
+    for(let i=0; i< (cells.length - numCols); i++){
+      if (cells[i].mgCase == undefined) { continue; }
+      if (cells[i].mgCase == 0 || cells[i].mgCase == 15) { 
+        continue;
+      }
+
+      if ((i + 1) % numCols == 0) { continue; }
+
+      cellValue = cells[i].rawValue;
+      valueToRight = cells[i + 1].rawValue;
+      valueDownToRight = cells[i + numCols + 1].rawValue;
+      valueBelow = cells[i + numCols].rawValue;
+
+      cellX = (i % numCols) * this.cellWidth;
+      cellY = Math.floor(i / numCols) * this.cellWidth;
+
+      // FROM https://editor.p5js.org/codingtrain/sketches/18cjVoAX1
+      interpAmt = (1 - cellValue) / (valueToRight - cellValue);
+      pt0.x = lerp(cellX, cellX + this.cellWidth, interpAmt);
+      pt0.y = cellY;
+
+      interpAmt = (1 - valueToRight) / (valueDownToRight - valueToRight);
+      pt1.x = cellX + this.cellWidth;
+      pt1.y = lerp(cellY, cellY + this.cellWidth, interpAmt);
+
+      interpAmt = (1 - valueBelow) / (valueDownToRight - valueBelow);
+      pt2.x = lerp(cellX, cellX + this.cellWidth, interpAmt);
+      pt2.y = cellY + this.cellWidth;
+
+      interpAmt = (1 - cellValue) / (valueBelow - cellValue);
+      pt3.x = cellX;
+      pt3.y = lerp(cellY, cellY + this.cellWidth, interpAmt);
+
+      switch (cells[i].mgCase) {
+        case 1:
+          this.drawLine(pt0, pt3);
+          break;
+        case 2:
+          this.drawLine(pt0, pt1);
+          break;
+        case 3:
+          this.drawLine(pt3, pt1);
+          break;
+        case 4:
+          this.drawLine(pt1, pt2);
+          break;
+        case 5:
+          this.drawLine(pt0, pt1);
+          this.drawLine(pt2, pt3);
+          break;
+        case 6:
+          this.drawLine(pt0, pt2);
+          break;
+        case 7:
+          this.drawLine(pt3, pt2);
+          break;
+        case 8:
+          this.drawLine(pt3, pt2);
+          break;
+        case 9:
+          this.drawLine(pt0, pt2);
+          break;
+        case 10:
+          this.drawLine(pt0, pt3);
+          this.drawLine(pt1, pt2);
+          break;
+        case 11:
+          this.drawLine(pt1, pt2);
+          break;
+        case 12:
+          this.drawLine(pt3, pt1);
+          break;
+        case 13:
+          this.drawLine(pt0, pt1);
+          break;
+        case 14:
+          this.drawLine(pt0, pt3);
+          break;
+      }
+    }
+  }
 
   precomputeVerticesForCase(){
     // 0  nothing
