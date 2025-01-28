@@ -15,7 +15,7 @@ Next steps in upcoming sketches / iterations
 (No interactivity implemented yet).
 
 # References:
-* [Marching Squares (Wikipedia)] article describing the algorithm
+* [Marching Squares (Wikipedia)][wikipedia-marching-squares] article describing the algorithm
 * [Coding Train's video - Marching Squares][coding-train-yt-marching-sq] - original inspiring video.
 
 # Links:
