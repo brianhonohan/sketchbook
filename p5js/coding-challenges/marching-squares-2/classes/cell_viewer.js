@@ -183,7 +183,6 @@ class CellViewer {
     if (tmpCell.mgCase == 5 || tmpCell.mgCase == 10) { 
       this._drawFromTo(x, y, this.verticesForCase[tmpCell.mgCase][0][0], this.verticesForCase[tmpCell.mgCase][0][1]);
       this._drawFromTo(x, y, this.verticesForCase[tmpCell.mgCase][1][0], this.verticesForCase[tmpCell.mgCase][1][1]);
-      this._drawFromTo(x, y, 2, 3);
       return;
     }
     this._drawFromTo(x, y, this.verticesForCase[tmpCell.mgCase][0], this.verticesForCase[tmpCell.mgCase][1]);
