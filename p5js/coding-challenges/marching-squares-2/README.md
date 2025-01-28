@@ -4,9 +4,12 @@
 This is a [p5.js][p5js-home] sketch implementing the basic Marching Squares algorithm, inspired by [Coding Train's video - Coding Marching Squares
 ][coding-train-yt-marching-sq].
 
+In this iteration:
+* Enhance this by using interpolation to have smoother lines 
+
+
 Next steps in upcoming sketches / iterations
 * Fix the issue of not connecting the isolines to the left and top window edges.
-* Enhance this by using interpolation to have smoother lines
 * Allow for multiple steps within the 2D value field
 
 
@@ -15,7 +18,7 @@ Next steps in upcoming sketches / iterations
 (No interactivity implemented yet).
 
 # References:
-* [Marching Squares (Wikipedia)] article describing the algorithm
+* [Marching Squares (Wikipedia)][wikipedia-marching-squares] article describing the algorithm
 * [Coding Train's video - Marching Squares][coding-train-yt-marching-sq] - original inspiring video.
 
 # Links:

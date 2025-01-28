@@ -25,6 +25,7 @@ class System {
       { name: "zOffset", type: "float", default: 0},
       { name: "zSpeed", type: "float", default: 0.001},
       { name: "open_simplex_noise", type: "bool", default: true},
+      { name: "interpolate_lines", type: "bool", default: true},
     ];
   }
 
@@ -50,7 +51,8 @@ class System {
     let cell;
     for(let i = 0; i < this.grid.numCells; i++){
       cell = this.grid.cells[i];
-      cell.value = this.getValueAt(cell._row, cell._col);
+      cell.rawValue = this.getValueAt(cell._row, cell._col);
+      cell.value = Math.floor(cell.rawValue);
     }
     for(let i = 0; i < this.grid.numCells; i++){
       cell = this.grid.cells[i];
@@ -58,16 +60,17 @@ class System {
     }
   }
 
+  // returns value from [0, 2)
   getValueAt(row,col){
     if (this.settings.open_simplex_noise){ 
-      return Math.ceil(this.osNoise.noise3D(
+      return 1 + this.osNoise.noise3D(
             (this.settings.yOffset + row) * this.settings.scale, 
             (this.settings.xOffset + col) * this.settings.scale,
-            this.settings.zOffset));
+            this.settings.zOffset);
     }
-    return Math.floor(2 * noise((this.settings.yOffset + row) * this.settings.scale, 
+    return 2 * noise((this.settings.yOffset + row) * this.settings.scale, 
                                 (this.settings.xOffset + col) * this.settings.scale,
-                               this.settings.zOffset));
+                               this.settings.zOffset);
   }
 
   tick(){
