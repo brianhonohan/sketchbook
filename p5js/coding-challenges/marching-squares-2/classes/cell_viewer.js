@@ -173,25 +173,28 @@ class CellViewer {
       valueDownToRight = cells[i + numCols + 1].rawValue;
       valueBelow = cells[i + numCols].rawValue;
 
-      cellX = (i % numCols) * this.cellWidth;
-      cellY = Math.floor(i / numCols) * this.cellWidth;
+      // Need to add 'halfWdidth' because I treat the 'value' as existing
+      // at the center point of the cell; might rethink that.
+      // ... causes 2 additional floating point operatinos per cell, per iteration
+      cellX = (i % numCols) * this.cellWidth + this.halfCellWidth;
+      cellY = Math.floor(i / numCols) * this.cellWidth + this.halfCellHeight;
 
       // FROM https://editor.p5js.org/codingtrain/sketches/18cjVoAX1
       interpAmt = (1 - cellValue) / (valueToRight - cellValue);
-      pt0.x = this.halfCellWidth + lerp(cellX, cellX + this.cellWidth, interpAmt);
-      pt0.y = this.halfCellHeight + cellY;
+      pt0.x = lerp(cellX, cellX + this.cellWidth, interpAmt);
+      pt0.y = cellY;
 
       interpAmt = (1 - valueToRight) / (valueDownToRight - valueToRight);
-      pt1.x = this.halfCellWidth + cellX + this.cellWidth;
-      pt1.y = this.halfCellHeight + lerp(cellY, cellY + this.cellWidth, interpAmt);
+      pt1.x = cellX + this.cellWidth;
+      pt1.y = lerp(cellY, cellY + this.cellWidth, interpAmt);
 
       interpAmt = (1 - valueBelow) / (valueDownToRight - valueBelow);
-      pt2.x = this.halfCellWidth + lerp(cellX, cellX + this.cellWidth, interpAmt);
-      pt2.y = this.halfCellHeight + cellY + this.cellWidth;
+      pt2.x = lerp(cellX, cellX + this.cellWidth, interpAmt);
+      pt2.y = cellY + this.cellWidth;
 
       interpAmt = (1 - cellValue) / (valueBelow - cellValue);
-      pt3.x = this.halfCellWidth + cellX;
-      pt3.y = this.halfCellHeight + lerp(cellY, cellY + this.cellWidth, interpAmt);
+      pt3.x = cellX;
+      pt3.y = lerp(cellY, cellY + this.cellWidth, interpAmt);
 
       switch (cells[i].mgCase) {
         case 1:
