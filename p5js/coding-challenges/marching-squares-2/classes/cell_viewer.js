@@ -35,6 +35,7 @@ class CellViewer {
     this.pt3 = createVector();
 
     this.precomputeVerticesForCase();
+    this.precomputePointsForCase();
   }
 
   renderCell(tmpCell, tmpX, tmpY, cellWidth, cellHeight){
@@ -199,52 +200,7 @@ class CellViewer {
       this.pt3.x = cellX;
       this.pt3.y = lerp(cellY, cellY + this.cellWidth, interpAmt);
 
-      switch (cells[i].mgCase) {
-        case 1:
-          this.drawLine(this.pt0, this.pt3);
-          break;
-        case 2:
-          this.drawLine(this.pt0, this.pt1);
-          break;
-        case 3:
-          this.drawLine(this.pt3, this.pt1);
-          break;
-        case 4:
-          this.drawLine(this.pt1, this.pt2);
-          break;
-        case 5:
-          this.drawLine(this.pt0, this.pt1);
-          this.drawLine(this.pt2, this.pt3);
-          break;
-        case 6:
-          this.drawLine(this.pt0, this.pt2);
-          break;
-        case 7:
-          this.drawLine(this.pt3, this.pt2);
-          break;
-        case 8:
-          this.drawLine(this.pt3, this.pt2);
-          break;
-        case 9:
-          this.drawLine(this.pt0, this.pt2);
-          break;
-        case 10:
-          this.drawLine(this.pt0, this.pt3);
-          this.drawLine(this.pt1, this.pt2);
-          break;
-        case 11:
-          this.drawLine(this.pt1, this.pt2);
-          break;
-        case 12:
-          this.drawLine(this.pt3, this.pt1);
-          break;
-        case 13:
-          this.drawLine(this.pt0, this.pt1);
-          break;
-        case 14:
-          this.drawLine(this.pt0, this.pt3);
-          break;
-      }
+      this._renderInterpolatedLines(cells[i]);
     }
   }
 
@@ -293,6 +249,34 @@ class CellViewer {
     this.verticesForCase[8] = [3, 2];
   }
 
+  precomputePointsForCase(){
+    this.pointsForCase = [];
+
+    this.pointsForCase[0] = [];
+    this.pointsForCase[15] = [];
+
+    this.pointsForCase[1] = [this.pt0, this.pt3];
+    this.pointsForCase[14] = [this.pt0, this.pt3];
+    
+    this.pointsForCase[2] = [this.pt0, this.pt1];
+    this.pointsForCase[13] = [this.pt0, this.pt1];
+    
+    this.pointsForCase[3] = [this.pt3, this.pt1];
+    this.pointsForCase[12] = [this.pt3, this.pt1];
+
+    this.pointsForCase[4] = [this.pt1, this.pt2];
+    this.pointsForCase[11] = [this.pt1, this.pt2];
+
+    this.pointsForCase[5] = [[this.pt0, this.pt1], [this.pt2, this.pt3]];
+    this.pointsForCase[10] = [[this.pt0, this.pt3], [this.pt1, this.pt2]];
+
+    this.pointsForCase[6] = [this.pt0, this.pt2];
+    this.pointsForCase[9] = [this.pt0, this.pt2];
+
+    this.pointsForCase[7] = [this.pt3, this.pt2];
+    this.pointsForCase[8] = [this.pt3, this.pt2];
+  }
+
   
   renderMarchingGridTile(tmpCell, x, y){
     if (tmpCell.mgCase == undefined) { return; }
@@ -306,6 +290,21 @@ class CellViewer {
       return;
     }
     this._drawFromTo(x, y, this.verticesForCase[tmpCell.mgCase][0], this.verticesForCase[tmpCell.mgCase][1]);
+  }
+
+  
+  _renderInterpolatedLines(cell){
+    if (cell.mgCase == undefined) { return; }
+    if (cell.mgCase == 0 || cell.mgCase == 15) { 
+      return;
+    }
+
+    if (cell.mgCase == 5 || cell.mgCase == 10) { 
+      this.drawLine(this.pointsForCase[cell.mgCase][0][0], this.pointsForCase[cell.mgCase][0][1]);
+      this.drawLine(this.pointsForCase[cell.mgCase][1][0], this.pointsForCase[cell.mgCase][1][1]);
+      return;
+    }
+    this.drawLine(this.pointsForCase[cell.mgCase][0], this.pointsForCase[cell.mgCase][1]);
   }
 
   _drawFromTo(x, y, fromIdx, toIdx){
