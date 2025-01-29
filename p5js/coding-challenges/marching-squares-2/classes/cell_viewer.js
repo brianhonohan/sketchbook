@@ -10,7 +10,7 @@ class CellViewer {
     this.renderMarginX = Math.floor(0.25 * cellWidth);
     this.renderMarginY = Math.floor(0.25 * cellHeight);
 
-    this.isPixelRenderer = (cellWidth <= 4);
+    this.isPixelRenderer = (cellWidth <= 6);
     this.rectRenderFunction = (this.isPixelRenderer) ? this._fillCellsViaPixels : this._fillCellsViaRect;
 
     this.fillColor = color(50, 200, 200);
