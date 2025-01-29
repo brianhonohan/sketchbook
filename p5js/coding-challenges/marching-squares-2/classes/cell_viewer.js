@@ -27,6 +27,13 @@ class CellViewer {
     this.mgYOffsets[2] = cellHeight + this.halfCellHeight;
     this.mgYOffsets[3] = cellHeight;
 
+    // class variables to avoid garbage collection
+    // should not be used outside of this._drawInterpolatedLines()
+    this.pt0 = createVector();
+    this.pt1 = createVector();
+    this.pt2 = createVector();
+    this.pt3 = createVector();
+
     this.precomputeVerticesForCase();
   }
 
@@ -148,10 +155,6 @@ class CellViewer {
     let valueBelow;
     let valueDownToRight;
 
-    let pt0 = createVector();
-    let pt1 = createVector();
-    let pt2 = createVector();
-    let pt3 = createVector();
     let interpAmt;
 
     let cellX;
@@ -181,65 +184,65 @@ class CellViewer {
 
       // FROM https://editor.p5js.org/codingtrain/sketches/18cjVoAX1
       interpAmt = (1 - cellValue) / (valueToRight - cellValue);
-      pt0.x = lerp(cellX, cellX + this.cellWidth, interpAmt);
-      pt0.y = cellY;
+      this.pt0.x = lerp(cellX, cellX + this.cellWidth, interpAmt);
+      this.pt0.y = cellY;
 
       interpAmt = (1 - valueToRight) / (valueDownToRight - valueToRight);
-      pt1.x = cellX + this.cellWidth;
-      pt1.y = lerp(cellY, cellY + this.cellWidth, interpAmt);
+      this.pt1.x = cellX + this.cellWidth;
+      this.pt1.y = lerp(cellY, cellY + this.cellWidth, interpAmt);
 
       interpAmt = (1 - valueBelow) / (valueDownToRight - valueBelow);
-      pt2.x = lerp(cellX, cellX + this.cellWidth, interpAmt);
-      pt2.y = cellY + this.cellWidth;
+      this.pt2.x = lerp(cellX, cellX + this.cellWidth, interpAmt);
+      this.pt2.y = cellY + this.cellWidth;
 
       interpAmt = (1 - cellValue) / (valueBelow - cellValue);
-      pt3.x = cellX;
-      pt3.y = lerp(cellY, cellY + this.cellWidth, interpAmt);
+      this.pt3.x = cellX;
+      this.pt3.y = lerp(cellY, cellY + this.cellWidth, interpAmt);
 
       switch (cells[i].mgCase) {
         case 1:
-          this.drawLine(pt0, pt3);
+          this.drawLine(this.pt0, this.pt3);
           break;
         case 2:
-          this.drawLine(pt0, pt1);
+          this.drawLine(this.pt0, this.pt1);
           break;
         case 3:
-          this.drawLine(pt3, pt1);
+          this.drawLine(this.pt3, this.pt1);
           break;
         case 4:
-          this.drawLine(pt1, pt2);
+          this.drawLine(this.pt1, this.pt2);
           break;
         case 5:
-          this.drawLine(pt0, pt1);
-          this.drawLine(pt2, pt3);
+          this.drawLine(this.pt0, this.pt1);
+          this.drawLine(this.pt2, this.pt3);
           break;
         case 6:
-          this.drawLine(pt0, pt2);
+          this.drawLine(this.pt0, this.pt2);
           break;
         case 7:
-          this.drawLine(pt3, pt2);
+          this.drawLine(this.pt3, this.pt2);
           break;
         case 8:
-          this.drawLine(pt3, pt2);
+          this.drawLine(this.pt3, this.pt2);
           break;
         case 9:
-          this.drawLine(pt0, pt2);
+          this.drawLine(this.pt0, this.pt2);
           break;
         case 10:
-          this.drawLine(pt0, pt3);
-          this.drawLine(pt1, pt2);
+          this.drawLine(this.pt0, this.pt3);
+          this.drawLine(this.pt1, this.pt2);
           break;
         case 11:
-          this.drawLine(pt1, pt2);
+          this.drawLine(this.pt1, this.pt2);
           break;
         case 12:
-          this.drawLine(pt3, pt1);
+          this.drawLine(this.pt3, this.pt1);
           break;
         case 13:
-          this.drawLine(pt0, pt1);
+          this.drawLine(this.pt0, this.pt1);
           break;
         case 14:
-          this.drawLine(pt0, pt3);
+          this.drawLine(this.pt0, this.pt3);
           break;
       }
     }
