@@ -6,7 +6,7 @@ This is a [p5.js][p5js-home] sketch implementing the basic Marching Squares algo
 
 In this iteration:
 * Enhance this by using interpolation to have smoother lines 
-
+* Optimize rendering to allow for smaller cell widths (ie. higher resolution)
 
 Next steps in upcoming sketches / iterations
 * Fix the issue of not connecting the isolines to the left and top window edges.
