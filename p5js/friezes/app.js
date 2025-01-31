@@ -4,6 +4,8 @@ var friezePen;
 var optionsSet;
 var settings;
 
+let gui;
+
 function setup() {
   createCanvas(windowWidth, windowHeight-35);
   P5JsSettings.init();
@@ -11,6 +13,19 @@ function setup() {
   optionsSet = new OptionsSet(optionsMetadata());
   settings = optionsSet.settings;
 
+  gui = P5JsSettings.addDatGui({autoPlace: false});
+
+  gui.add(settings, "tileWidth", 5, 0.5 * width, 5).onChange(createPen);
+  gui.add(settings, "tileHeight", 5, 0.9 * height, 5).onChange(createPen);
+  gui.add(settings, "transform").onChange(createPen);
+  gui.add(settings, "horizReflect").onChange(createPen);
+  gui.add(settings, "strokeWeight", 0.5,10,0.5).onChange(createPen);
+
+  createPen();
+  drawBackground();
+}
+
+function createPen(){
   strokeWeight(settings.strokeWeight);
   const numRows = (settings.horizReflect == 1) ? 2 : 1;
   const yMargin = height / 2 - settings.tileHeight / 2 * numRows;
@@ -45,10 +60,10 @@ function keyTyped(){
 
 function optionsMetadata(){
   return [
-    { name: "tileWidth", type: "integer", default: 50},
-    { name: "tileHeight", type: "integer", default: 50},
+    { name: "tileWidth", type: "integer", default: 0.2 * width},
+    { name: "tileHeight", type: "integer", default: 0.2 * height},
     { name: "transform", type: "string", default: 'vht'},
-    { name: "horizReflect", type: "integer", default: '1'},
+    { name: "horizReflect", type: "bool", default: true},
     { name: "strokeWeight", type: "float", default: '2'},
   ];
 }
