@@ -11,6 +11,11 @@ function setup() {
   optionsSet = new OptionsSet(optionsMetadata());
   settings = optionsSet.settings;
 
+  createPen();
+  drawBackground();
+}
+
+function createPen(){
   strokeWeight(settings.strokeWeight);
   const numRows = (settings.horizReflect == 1) ? 2 : 1;
   const yMargin = height / 2 - settings.tileHeight / 2 * numRows;
@@ -18,7 +23,6 @@ function setup() {
   friezePen = new FriezePen(drawableArea);
   friezePen.setTransform(settings.transform);
   friezePen.shouldDrawHorizReflection = (settings.horizReflect == 1);
-  drawBackground();
 }
 
 function draw(){
