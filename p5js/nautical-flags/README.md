@@ -67,8 +67,8 @@ Cycling through A -> Z, CODE flag, 0-9 pennants, 0-9 NATO numerical, and finally
 
 
 
-[p5js-home]: http://p5js.org/
-[processing-home]: http://processing/
+[p5js-home]: https://p5js.org/
+[processing-home]: https://processing.org/
 [source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/nautical-flags/
 [live-view]: https://brianhonohan.com/sketchbook/p5js/nautical-flags/
 [screenshot-01]: ./screenshot-01.png
