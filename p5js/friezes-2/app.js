@@ -15,6 +15,7 @@ function setup() {
 
   gui = P5JsSettings.addDatGui({autoPlace: false});
 
+  gui.add(settings, "showDrawArea").onChange(toggleDrawingArea);
   gui.add(settings, "tileWidth", 5, 0.5 * width, 5).onChange(createPen);
   gui.add(settings, "tileHeight", 5, 0.9 * height, 5).onChange(createPen);
   gui.add(settings, "transform").onChange(setPenTransform);
@@ -51,6 +52,11 @@ function createPen(){
   drawBackground();
 }
 
+function toggleDrawingArea(){
+  drawBackground();
+  friezePen.flagForRedraw();
+}
+
 function setPenTransform(){
   drawBackground();
   friezePen.setTransform(settings.transform);
@@ -62,7 +68,6 @@ function setStrokeWeight(){
 }
 
 function setStrokeColor(){
-  console.log(settings.strokeColor);
   friezePen.setStrokeColor(settings.strokeColor);
 }
 
@@ -74,7 +79,9 @@ function drawBackground(){
   background(50);
   fill(80);
   noStroke();
-  P5JsUtils.drawRect(drawableArea);
+  if (settings.showDrawArea){
+    P5JsUtils.drawRect(drawableArea);
+  }
 }
 
 function keyTyped(){
@@ -101,6 +108,7 @@ function keyTyped(){
 
 function optionsMetadata(){
   return [
+    { name: "showDrawArea", type: "bool", default: true},
     { name: "tileWidth", type: "integer", default: 0.1 * width},
     { name: "tileHeight", type: "integer", default: 0.4 * height},
     { name: "transform", type: "string", default: 'vzt'},
