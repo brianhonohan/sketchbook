@@ -53,7 +53,18 @@ function keyTyped(){
       saveCanvas(canvas, 'screenshot', 'png');
       break;
     case 'c':
+      friezePen.clear()
       drawBackground();
+      break;
+    case 'u':
+      if (friezePen.undo()){
+        drawBackground();
+      }
+      break;    
+    case 'r':
+      if (friezePen.redo()){
+        drawBackground();
+      }
       break;
   }
 }
@@ -66,4 +77,16 @@ function optionsMetadata(){
     { name: "horizReflect", type: "bool", default: true},
     { name: "strokeWeight", type: "float", default: '2'},
   ];
+}
+
+function mousePressed(){
+  friezePen.startDrawing();
+}
+
+function mouseDragged(){
+  friezePen.handleMouseDrag();
+}
+
+function mouseReleased(){
+  friezePen.stopDrawing();
 }

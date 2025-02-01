@@ -11,6 +11,16 @@ class FriezePen {
                        FriezePen.TRANSFORM_HORIZONTAL_FLIP,
                        FriezePen.TRANSFORM_TRANSLATION];
     this.shouldDrawHorizReflection = true;
+
+    this.clear();
+  }
+
+  clear(){
+    this.undoneHistory = [];
+    this.currentPenPath = [];
+    this.history = [];
+    this.pathCursor = 0;
+    this.pointCursor = 0;
   }
 
   get x(){ return this.area.x; }
@@ -43,11 +53,25 @@ class FriezePen {
 
   resetPen(){
     this.currentTile = this.area.copy();
-    this.pos.set(mouseX, mouseY);
-    this.prevPos.set(pmouseX, pmouseY);
+    this.pos.set(this.currentX(), this.currentY());
+    this.prevPos.set(this.prevX(), this.prevY());
+  }
+
+  currentX(){
+    return this.history[this.pathCursor][this.pointCursor][0];
+  }
+  currentY(){
+    return this.history[this.pathCursor][this.pointCursor][1];
+  }
+  prevX(){
+    return this.history[this.pathCursor][this.pointCursor-1][0];
+  }
+  prevY(){
+    return this.history[this.pathCursor][this.pointCursor-1][1];
   }
 
   drawRepeatedly(){
+    if (this.pointCursor == 0) { return; }
     this.resetPen();
 
     this.drawTranslations();
@@ -116,14 +140,81 @@ class FriezePen {
   }
 
   draw(){
-    if (mouseIsPressed && this.area.containsXY(mouseX, mouseY)){
-      if (this.penWasDown){
-        stroke(230);
-        this.drawRepeatedly();
-      }
-      this.penWasDown = true;
-    } else{
-      this.penWasDown = false;
+    if (this.needsRedraw == false) { return; }
+    this.renderUndrawnPoints();
+  }
+
+  renderUndrawnPoints(){
+    stroke(230);
+    while(this.hasPointsToRender()){
+      this.drawRepeatedly();
+      this.stepToNextPoint();
     }
+  }
+
+  hasPointsToRender(){
+    return this.history.length > 0 
+          && (
+            (this.pointCursor < (this.history[this.pathCursor].length - 1)
+              && this.history[this.pathCursor].length > 1)
+            || this.pathCursor < (this.history.length - 1)
+          );
+  }
+
+  stepToNextPoint(){
+    if (this.pointCursor < (this.history[this.pathCursor].length - 1)){
+      this.pointCursor++;
+      return;
+    }
+
+    if (this.pathCursor < (this.history.length - 1)){
+      this.pathCursor++;
+      this.pointCursor = 0;
+    }
+  }
+
+  _flagForRedraw(){
+    this.pathCursor = 0;
+    this.pointCursor = 0;
+  }
+
+  startDrawing(){
+    this.currentPenPath = [];
+    this.history.push(this.currentPenPath);
+    this.undoneHistory = [];
+    this._captureMousePoint();
+  }
+
+  _captureMousePoint(){
+    if (this.area.containsXY(mouseX, mouseY) == false){
+      return;
+    }
+    this.currentPenPath.push([mouseX, mouseY]);
+  }
+
+  handleMouseDrag(){
+    this._captureMousePoint();
+  }
+
+  stopDrawing(){
+    //
+  }
+
+  undo(){
+    if (this.history.length == 0) {
+      return false;
+    }
+    this.undoneHistory.push(this.history.pop());
+    this._flagForRedraw();
+    return true;
+  }
+
+  redo(){
+    if (this.undoneHistory.length == 0) { 
+      return false; 
+    }
+    this.history.push(this.undoneHistory.pop());
+    this._flagForRedraw();
+    return true;
   }
 }
