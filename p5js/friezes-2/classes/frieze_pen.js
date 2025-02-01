@@ -183,6 +183,9 @@ class FriezePen {
   }
 
   startDrawing(){
+    if (this.area.containsXY(mouseX, mouseY) == false){
+      return;
+    }
     this.currentPenPath = [];
     this.history.push(this.currentPenPath);
     this.undoneHistory = [];
