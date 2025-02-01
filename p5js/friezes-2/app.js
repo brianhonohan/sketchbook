@@ -91,8 +91,8 @@ function keyTyped(){
 
 function optionsMetadata(){
   return [
-    { name: "tileWidth", type: "integer", default: 0.2 * width},
-    { name: "tileHeight", type: "integer", default: 0.2 * height},
+    { name: "tileWidth", type: "integer", default: 0.1 * width},
+    { name: "tileHeight", type: "integer", default: 0.4 * height},
     { name: "transform", type: "string", default: 'vzt'},
     { name: "horizReflect", type: "bool", default: true},
     { name: "strokeWeight", type: "float", default: '2'},
