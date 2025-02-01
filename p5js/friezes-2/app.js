@@ -14,14 +14,17 @@ function setup() {
   settings = optionsSet.settings;
 
   gui = P5JsSettings.addDatGui({autoPlace: false});
+  const drawArea = gui.addFolder("Drawing area");
+  drawArea.add(settings, "showDrawArea").onChange(toggleDrawingArea);
+  drawArea.add(settings, "tileWidth", 5, 0.5 * width, 5).onChange(createPen);
+  drawArea.add(settings, "tileHeight", 5, 0.9 * height, 5).onChange(createPen);
 
-  gui.add(settings, "showDrawArea").onChange(toggleDrawingArea);
-  gui.add(settings, "tileWidth", 5, 0.5 * width, 5).onChange(createPen);
-  gui.add(settings, "tileHeight", 5, 0.9 * height, 5).onChange(createPen);
-  gui.add(settings, "transform").onChange(setPenTransform);
-  gui.add(settings, "horizReflect").onChange(createPen);
-  gui.add(settings, "strokeWeight", 0.5,10,0.5).onChange(setStrokeWeight);
-  gui.addColor(settings, "strokeColor").onChange(setStrokeColor);
+  const penGui = gui.addFolder("Pen Controls");
+  penGui.add(settings, "transform").onChange(setPenTransform);
+  penGui.add(settings, "horizReflect").onChange(createPen);
+  penGui.add(settings, "strokeWeight", 0.5,10,0.5).onChange(setStrokeWeight);
+  penGui.addColor(settings, "strokeColor").onChange(setStrokeColor);
+  penGui.open();
 
   createPen();
 
