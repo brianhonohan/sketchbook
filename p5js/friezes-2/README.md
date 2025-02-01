@@ -15,8 +15,8 @@ It was inspired by Ch. 30 "Strip Friezes" of Barrow's [100 Essential Things You 
 * URL parameters:
     - `tileWidth=###` will set the width of the light grey drawing area.
     - `tileHeight=###` will set the height of the light grey drawing area.
-    - `transform=hvt` Will configure the transformation for each step. You can leave `v` or `h` out; but `t` is required.
-        - `h` means the lines will be horizontally flipped
+    - `transform=hzt` Will configure the transformation for each step. You can leave `v` or `z` out; but `t` is required.
+        - `z` means the lines will be horizontally flipped
         - `v` means the lines will be vertically flipped
         - `t` should always be included, otherwise you won't see any repetition
     - `horizReflect=0` will disable the second row of the frieze, which is a horizontal reflection. Setting it `=1` will turn reflection back on.

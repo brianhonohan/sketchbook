@@ -17,7 +17,7 @@ function setup() {
 
   gui.add(settings, "tileWidth", 5, 0.5 * width, 5).onChange(createPen);
   gui.add(settings, "tileHeight", 5, 0.9 * height, 5).onChange(createPen);
-  gui.add(settings, "transform").onChange(createPen);
+  gui.add(settings, "transform").onChange(setPenTransform);
   gui.add(settings, "horizReflect").onChange(createPen);
   gui.add(settings, "strokeWeight", 0.5,10,0.5).onChange(createPen);
 
@@ -48,6 +48,12 @@ function createPen(){
   friezePen.setTransform(settings.transform);
   friezePen.shouldDrawHorizReflection = (settings.horizReflect == 1);
   drawBackground();
+}
+
+function setPenTransform(){
+  drawBackground();
+  friezePen.setTransform(settings.transform);
+  friezePen.flagForRedraw();
 }
 
 function draw(){
@@ -87,7 +93,7 @@ function optionsMetadata(){
   return [
     { name: "tileWidth", type: "integer", default: 0.2 * width},
     { name: "tileHeight", type: "integer", default: 0.2 * height},
-    { name: "transform", type: "string", default: 'vht'},
+    { name: "transform", type: "string", default: 'vzt'},
     { name: "horizReflect", type: "bool", default: true},
     { name: "strokeWeight", type: "float", default: '2'},
   ];

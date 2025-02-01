@@ -25,7 +25,7 @@ class FriezePen {
 
   static get TRANSFORM_TRANSLATION() { return 't'; }
   static get TRANSFORM_VERTICAL_FLIP() { return 'v'; }
-  static get TRANSFORM_HORIZONTAL_FLIP() { return 'h'; }
+  static get TRANSFORM_HORIZONTAL_FLIP() { return 'z'; }
 
   static get VALID_TRANSFORMS() {
     return [
@@ -144,7 +144,6 @@ class FriezePen {
   }
 
   draw(){
-    if (this.needsRedraw == false) { return; }
     this.renderUndrawnPoints();
   }
 
@@ -177,7 +176,7 @@ class FriezePen {
     }
   }
 
-  _flagForRedraw(){
+  flagForRedraw(){
     this.pathCursor = 0;
     this.pointCursor = 0;
   }
@@ -212,7 +211,7 @@ class FriezePen {
       return false;
     }
     this.undoneHistory.push(this.history.pop());
-    this._flagForRedraw();
+    this.flagForRedraw();
     return true;
   }
 
@@ -221,7 +220,7 @@ class FriezePen {
       return false; 
     }
     this.history.push(this.undoneHistory.pop());
-    this._flagForRedraw();
+    this.flagForRedraw();
     return true;
   }
 }
