@@ -30,7 +30,14 @@ function createPen(){
   const numRows = (settings.horizReflect == 1) ? 2 : 1;
   const yMargin = height / 2 - settings.tileHeight / 2 * numRows;
   drawableArea = new Rect(50, yMargin, settings.tileWidth, settings.tileHeight);
-  friezePen = new FriezePen(drawableArea);
+
+  if (friezePen == undefined){
+    friezePen = new FriezePen(drawableArea);
+  } else {
+    friezePen.clear();
+    friezePen.setDrawableArea(drawableArea);
+  }
+  
   friezePen.setTransform(settings.transform);
   friezePen.shouldDrawHorizReflection = (settings.horizReflect == 1);
   drawBackground();

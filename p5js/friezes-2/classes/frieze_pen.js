@@ -1,11 +1,6 @@
 class FriezePen {
   constructor(sizeAndPos){
-    this.area = sizeAndPos;
-    this.currentTile = sizeAndPos.copy();
-    this.numCols = this.calcNumTilesWide();
-
-    this.pos = createVector(0, 0);
-    this.prevPos = createVector(0, 0);
+    this.setDrawableArea(sizeAndPos);
     this.transforms = [
                        FriezePen.TRANSFORM_VERTICAL_FLIP,
                        FriezePen.TRANSFORM_HORIZONTAL_FLIP,
@@ -38,6 +33,15 @@ class FriezePen {
             FriezePen.TRANSFORM_HORIZONTAL_FLIP,
             FriezePen.TRANSFORM_TRANSLATION
            ];
+  }
+
+  setDrawableArea(sizeAndPos){
+    this.area = sizeAndPos;
+    this.currentTile = sizeAndPos.copy();
+    this.numCols = this.calcNumTilesWide();
+
+    this.pos = createVector(0, 0);
+    this.prevPos = createVector(0, 0);
   }
 
   setTransform(transformAsStr){
