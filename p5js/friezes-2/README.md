@@ -5,7 +5,6 @@ This is a [p5.js][p5js-home] sketch that allows you to draw a Frieze.
 
 It was inspired by Ch. 30 "Strip Friezes" of Barrow's [100 Essential Things You didn't know you didn't know about Math & the Arts][book-100things-amazon] (amazon.com).
 
-
 ## Controls
 
 * Keyboard:
@@ -35,33 +34,13 @@ It was inspired by Ch. 30 "Strip Friezes" of Barrow's [100 Essential Things You 
 # Screenshots:
 
 ![screenshot][screenshot-01]
-![screenshot][screenshot-02]
-![screenshot][screenshot-03]
-![screenshot][screenshot-04]
-
-
-## Screen captures
-
-With Horiztonal Reflection:
-
-![screencap][screencap-01]
-
-Without Horizontal Reflection::
-
-![screencap][screencap-04]
 
 
 
 [p5js-home]: https://p5js.org/
 [processing-home]: https://processing.org/
-[source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/friezes/
-[live-view]: https://brianhonohan.com/sketchbook/p5js/friezes/?tileWidth=60&tileHeight=200&transform=hvt&horizReflect=1&strokeWeight=1.5
-[screenshot-01]: ./screenshot-01.png
-[screenshot-02]: ./screenshot-02.png
-[screenshot-03]: ./screenshot-03.png
-[screenshot-04]: ./screenshot-04.png
-[screencap-01]: ./screencap-01.gif
-[screencap-04]: ./screencap-04.gif
+[source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/friezes-2/
+[live-view]: https://brianhonohan.com/sketchbook/p5js/friezes-2/
 
 [book-100things-amazon]: https://www.amazon.com/s?search-alias=stripbooks&field-isbn=9781847922311
 [youtube-friezes]: https://www.youtube.com/watch?v=0h3poQhHc_g
