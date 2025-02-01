@@ -22,6 +22,13 @@ function setup() {
   gui.add(settings, "strokeWeight", 0.5,10,0.5).onChange(createPen);
 
   createPen();
+
+  var penProxy = {
+    "Undo (U)": () => {friezePen.undo() && drawBackground()},
+    "Redo (R)": () => {friezePen.redo() && drawBackground()},
+  };
+  gui.add(penProxy,'Undo (U)');
+  gui.add(penProxy,'Redo (R)');
   drawBackground();
 }
 
