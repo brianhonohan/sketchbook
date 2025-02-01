@@ -20,6 +20,10 @@ class FriezePen {
     // strokeWight history
     this.swHistory = [];
     this.swUndoHistory = [];
+
+    // strokeColor history
+    this.scHistory = [];
+    this.scUndoHistory = [];
   }
 
   get x(){ return this.area.x; }
@@ -37,6 +41,10 @@ class FriezePen {
             FriezePen.TRANSFORM_HORIZONTAL_FLIP,
             FriezePen.TRANSFORM_TRANSLATION
            ];
+  }
+
+  setStrokeColor(strokeColor){
+    this.currentStrokeColor = strokeColor;
   }
 
   setStrokeWeight(_strokeWeight){
@@ -159,7 +167,7 @@ class FriezePen {
     if (this.hasPointsToRender() == false){
       return;
     }
-    stroke(230);
+    stroke(this.scHistory[this.pathCursor]);
     strokeWeight(this.swHistory[this.pathCursor]);
     while(this.hasPointsToRender()){
       this.drawRepeatedly();
@@ -184,6 +192,7 @@ class FriezePen {
 
     if (this.pathCursor < (this.history.length - 1)){
       this.pathCursor++;
+      stroke(this.scHistory[this.pathCursor]);
       strokeWeight(this.swHistory[this.pathCursor]);
       this.pointCursor = 0;
     }
@@ -200,6 +209,7 @@ class FriezePen {
     }
     this.currentPenPath = [];
     this.history.push(this.currentPenPath);
+    this.scHistory.push(this.currentStrokeColor);
     this.swHistory.push(this.currentStrokeWeight);
     this.undoneHistory = [];
     this._captureMousePoint();
@@ -225,6 +235,7 @@ class FriezePen {
       return false;
     }
     this.undoneHistory.push(this.history.pop());
+    this.scUndoHistory.push(this.scHistory.pop());
     this.swUndoHistory.push(this.swHistory.pop());
     this.flagForRedraw();
     return true;
@@ -235,6 +246,7 @@ class FriezePen {
       return false; 
     }
     this.history.push(this.undoneHistory.pop());
+    this.scHistory.push(this.scUndoHistory.pop());
     this.swHistory.push(this.swUndoHistory.pop());
     this.flagForRedraw();
     return true;

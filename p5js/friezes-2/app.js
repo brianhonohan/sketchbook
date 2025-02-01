@@ -20,6 +20,7 @@ function setup() {
   gui.add(settings, "transform").onChange(setPenTransform);
   gui.add(settings, "horizReflect").onChange(createPen);
   gui.add(settings, "strokeWeight", 0.5,10,0.5).onChange(setStrokeWeight);
+  gui.addColor(settings, "strokeColor").onChange(setStrokeColor);
 
   createPen();
 
@@ -43,6 +44,7 @@ function createPen(){
     friezePen.clear();
     friezePen.setDrawableArea(drawableArea);
   }
+  friezePen.setStrokeColor(settings.strokeColor);
   friezePen.setStrokeWeight(settings.strokeWeight);
   friezePen.setTransform(settings.transform);
   friezePen.shouldDrawHorizReflection = (settings.horizReflect == 1);
@@ -57,6 +59,11 @@ function setPenTransform(){
 
 function setStrokeWeight(){
   friezePen.setStrokeWeight(settings.strokeWeight);
+}
+
+function setStrokeColor(){
+  console.log(settings.strokeColor);
+  friezePen.setStrokeColor(settings.strokeColor);
 }
 
 function draw(){
@@ -99,6 +106,7 @@ function optionsMetadata(){
     { name: "transform", type: "string", default: 'vzt'},
     { name: "horizReflect", type: "bool", default: true},
     { name: "strokeWeight", type: "float", default: 2},
+    { name: "strokeColor", type: "color", default: '#FFFFFF'},
   ];
 }
 
