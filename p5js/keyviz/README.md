@@ -48,8 +48,8 @@ With fading:
 
 
 
-[p5js-home]: http://p5js.org/
-[processing-home]: http://processing/
+[p5js-home]: https://p5js.org/
+[processing-home]: https://processing.org/
 [source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/keyviz/
 [live-view]: https://brianhonohan.com/sketchbook/p5js/keyviz/
 [screenshot-01]: ./screenshot-01.png
