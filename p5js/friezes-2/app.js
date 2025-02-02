@@ -34,6 +34,10 @@ function setup() {
   };
   gui.add(penProxy,'Undo (U)');
   gui.add(penProxy,'Redo (R)');
+
+  gui.add(settings, "animate").onChange(animatePen);
+  gui.add(settings, "animationSpeed", 1, 10, 1).onChange(animatePen);
+
   drawBackground();
 }
 
@@ -48,6 +52,8 @@ function createPen(){
     friezePen.clear();
     friezePen.setDrawableArea(drawableArea);
   }
+  friezePen.setAnimation(settings.animate);
+  friezePen.setAnimationSpeed(settings.animationSpeed);
   friezePen.setStrokeColor(settings.strokeColor);
   friezePen.setStrokeWeight(settings.strokeWeight);
   friezePen.setTransform(settings.transform);
@@ -72,6 +78,14 @@ function setStrokeWeight(){
 
 function setStrokeColor(){
   friezePen.setStrokeColor(settings.strokeColor);
+}
+
+function animatePen(){
+  friezePen.setAnimation(settings.animate);
+  friezePen.setAnimationSpeed(settings.animationSpeed);
+  
+  drawBackground();
+  friezePen.flagForRedraw();
 }
 
 function draw(){
@@ -118,6 +132,8 @@ function optionsMetadata(){
     { name: "horizReflect", type: "bool", default: true},
     { name: "strokeWeight", type: "float", default: 2},
     { name: "strokeColor", type: "color", default: '#FFFFFF'},
+    { name: "animate", type: "bool", default: false},
+    { name: "animationSpeed", type: "float", default: 1},
   ];
 }
 

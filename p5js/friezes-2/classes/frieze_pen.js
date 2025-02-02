@@ -6,6 +6,8 @@ class FriezePen {
                        FriezePen.TRANSFORM_HORIZONTAL_FLIP,
                        FriezePen.TRANSFORM_TRANSLATION];
     this.shouldDrawHorizReflection = true;
+    this.animationSpeed = 0;
+    this._renderFunction = this.renderUndrawnPoints;
 
     this.clear();
   }
@@ -63,6 +65,14 @@ class FriezePen {
   setTransform(transformAsStr){
     this.transforms = transformAsStr.split('');
     this.transforms.filter(t => FriezePen.VALID_TRANSFORMS.includes(t));
+  }
+
+  setAnimation(animate){
+    this._renderFunction = (animate) ? this.animateFrame : this.renderUndrawnPoints;
+  }
+
+  setAnimationSpeed(speed){
+    this.animationSpeed = speed;
   }
 
   calcNumTilesWide(){
@@ -160,7 +170,7 @@ class FriezePen {
   }
 
   draw(){
-    this.renderUndrawnPoints();
+    this._renderFunction();
   }
 
   renderUndrawnPoints(){
@@ -172,6 +182,29 @@ class FriezePen {
     while(this.hasPointsToRender()){
       this.drawRepeatedly();
       this.stepToNextPoint();
+    }
+  }
+
+  // Not sure if I need a separate function ... 
+  // with this current implementation, could likely just 
+  // check: if (this.animating && stepCount >= this.animationSpeed)
+  //
+  // might refactor back down to single render function
+  animateFrame(){
+    if (this.hasPointsToRender() == false){
+      return;
+    }
+    stroke(this.scHistory[this.pathCursor]);
+    strokeWeight(this.swHistory[this.pathCursor]);
+    let stepCount = 0;
+    while(this.hasPointsToRender()){
+      this.drawRepeatedly();
+      this.stepToNextPoint(); 
+
+      stepCount++;
+      if (stepCount >= this.animationSpeed){
+        break;
+      }
     }
   }
 
