@@ -5,9 +5,9 @@ Collection of personal coding projects. They may or may not grow into individual
 
 ## Latest
 
-A p5.js sketch is an iteration to improve on the performance of the marching-squares implementation.
+A p5.js sketch is an iteration to add features an earlier 'Friezes' sketch, to add improved drawing controls.
 
-[<img src="./p5js/coding-challenges/marching-squares-2/screenshot-01.png" alt="isolines via marching squares algorithm" width="150px" />][link-p5js-cc-marching-squares-2]
+[<img src="./p5js/friezes-2/screenshot-01.png" alt="blue and orange lines, in repeated pattern" width="150px" />][link-p5js-friezes-2]
 
 ## LÖVE
 Collection of sketches using the [LÖVE][love2d] environment.
@@ -46,6 +46,7 @@ Collection of sketches using the [p5.js][p5js] Javascript library.
 [<img src="./p5js/forest-fires-02/screenshot-01.png" alt="forest-fires-02" width="150px" />][link-p5js-forest-fires-02]
 [<img src="./p5js/forest-fires/screenshot-01.png" alt="forest-fires" width="150px" />][link-p5js-forest-fires]
 [<img src="./p5js/friezes/screenshot-01.png" alt="friezes" width="150px" />][link-p5js-friezes]
+[<img src="./p5js/friezes-2/screenshot-01.png" alt="blue and orange lines, in repeated pattern" width="150px" />][link-p5js-friezes-2]
 [<img src="./p5js/hello_world/screenshot-01.png" alt="hello_world" width="150px" />][link-p5js-hello_world]
 [<img src="./p5js/josef-albers-homage-to-a-square/screenshot-01.png" alt="homage-to-a-square" width="150px" />][link-p5js-josef-albers-homage-to-a-square]
 [<img src="./p5js/keyviz/screenshot-01.png" alt="keyviz" width="150px" />][link-p5js-keyviz]
@@ -131,6 +132,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-p5js-forest-fires-02]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/forest-fires-02/
 [link-p5js-forest-fires]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/forest-fires/
 [link-p5js-friezes]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/friezes/
+[link-p5js-friezes-2]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/friezes-2/
 [link-p5js-hello_world]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/hello_world/
 [link-p5js-josef-albers-homage-to-a-square]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/josef-albers-homage-to-a-square/
 [link-p5js-keyviz]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/keyviz/

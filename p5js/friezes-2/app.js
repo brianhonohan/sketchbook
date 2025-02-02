@@ -7,6 +7,7 @@ var settings;
 let gui;
 
 function setup() {
+  // createCanvas(500, 500);
   createCanvas(windowWidth, windowHeight-35);
   P5JsSettings.init();
 
@@ -83,7 +84,7 @@ function setStrokeColor(){
 function animatePen(){
   friezePen.setAnimation(settings.animate);
   friezePen.setAnimationSpeed(settings.animationSpeed);
-  
+
   drawBackground();
   friezePen.flagForRedraw();
 }

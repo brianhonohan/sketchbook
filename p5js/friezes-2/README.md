@@ -41,6 +41,7 @@ It was inspired by Ch. 30 "Strip Friezes" of Barrow's [100 Essential Things You 
 [processing-home]: https://processing.org/
 [source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/friezes-2/
 [live-view]: https://brianhonohan.com/sketchbook/p5js/friezes-2/
+[screenshot-01]: ./screenshot-01.png
 
 [book-100things-amazon]: https://www.amazon.com/s?search-alias=stripbooks&field-isbn=9781847922311
 [youtube-friezes]: https://www.youtube.com/watch?v=0h3poQhHc_g
