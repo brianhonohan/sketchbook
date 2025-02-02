@@ -3,10 +3,8 @@ class System {
     this.sizeAndPosition = p_xSizeAndPos;
     this.optionsSet = new OptionsSet(this.optionsMetadata());
     this.settings = this.optionsSet.settings;
-    this.osNoise = new OpenSimplexNoise(P5JsSettings.getSeed());
 
     this.init();
-    fill(50);
   }
 
   // Return a list of Options, specific to this sketch,
@@ -29,60 +27,27 @@ class System {
     ];
   }
 
-  createCell(tmpRow, tmpCol, i){
-    return new Cell(tmpRow, tmpCol, i, this);
-  }
-
-
   init(){
+    this.field = new DiscreteField(this.sizeAndPosition, this);
+    
     this.cellViewer = new CellViewer(this.settings.cellWidth, this.settings.cellWidth);
-    this.grid = new CellGrid(this.sizeAndPosition, 
-      this, 
-      this.settings.cellWidth,
-      this.cellViewer
-      );
-    this.grid.initCells();
     this.cellViewer.system = this;
-    this.cellViewer.grid = this.grid;
-    this.regenerate();
+    this.cellViewer.grid = this.field.grid;
   }
-
+  
   regenerate(){
-    let cell;
-    for(let i = 0; i < this.grid.numCells; i++){
-      cell = this.grid.cells[i];
-      cell.rawValue = this.getValueAt(cell._row, cell._col);
-      cell.value = Math.floor(cell.rawValue);
-    }
-    for(let i = 0; i < this.grid.numCells; i++){
-      cell = this.grid.cells[i];
-      cell.computeMarchingSquareTile();
-    }
-  }
-
-  // returns value from [0, 2)
-  getValueAt(row,col){
-    if (this.settings.open_simplex_noise){ 
-      return 1 + this.osNoise.noise3D(
-            (this.settings.yOffset + row) * this.settings.scale, 
-            (this.settings.xOffset + col) * this.settings.scale,
-            this.settings.zOffset);
-    }
-    return 2 * noise((this.settings.yOffset + row) * this.settings.scale, 
-                                (this.settings.xOffset + col) * this.settings.scale,
-                               this.settings.zOffset);
+    this.field.regenerate();
   }
 
   tick(){
     if (this.settings.zSpeed != 0) { 
       this.settings.zOffset += this.settings.zSpeed;
-      this.regenerate();
+      this.field.regenerate();
     }
   }
 
   render(){
     background(50);
-    // this.grid.renderViews();
-    this.cellViewer.renderCells(this.grid.cells);
+    this.cellViewer.renderCells(this.field.grid.cells);
   }
 }
