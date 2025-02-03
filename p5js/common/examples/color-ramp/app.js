@@ -18,7 +18,7 @@ function setup(){
   rampPos.y = (height/2) - rampPos.height / 2;
 
   gui = P5JsSettings.addDatGui({autoPlace: false});
-  guiColorRamp = gui.add(settings, "color_ramp", 1, 3, 1);
+  guiColorRamp = gui.add(settings, "color_ramp", 1, 4, 1);
   guiBinCount = gui.add(settings, "bin_count", 5,40,1);
   addGuiListeners();
 }
@@ -28,6 +28,7 @@ function addGuiListeners(){
       case 1: colorRamp = P5jsColorRamp.elevation(); break;
       case 2: colorRamp = P5jsColorRamp.visibleSpectrum(); break;
       case 3: colorRamp = P5jsColorRamp.temperatureScale(); break;
+      case 4: colorRamp = P5jsColorRamp.colorColors(); break;
       default:
         colorRamp = P5jsColorRamp.visibleSpectrum();
     }

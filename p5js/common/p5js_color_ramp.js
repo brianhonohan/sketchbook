@@ -86,6 +86,21 @@ class P5jsColorRamp {
     return _newRamp;
   }
 
+  static colorColors(){
+    const _newRamp = new P5jsColorRamp();
+    _newRamp.setRange(0,1);
+
+    _newRamp.setColors(
+      [
+        {color: color(50, 200, 50)},
+        {color: color(50, 200, 200)},
+        {color: color(50, 50, 200)},
+        {color: color(200, 50, 200)},
+      ]
+    );
+    return _newRamp;
+  }
+
   constructor(range_mode, spacing_mode){
     this.rangeMode = range_mode || P5jsColorRamp.RANGE_MODE_NORMALIZED;
     this.spacingMode = spacing_mode|| P5jsColorRamp.SPACING_MODE_UNIFORM;
@@ -118,6 +133,8 @@ class P5jsColorRamp {
     }
 
     if (colors.constructor !== Array){ return; }
+    this.colors = [];
+    this.breakpoints = [];
 
     this.colorCount = colors.length;
     for(let i = 0; i<this.colorCount; i++){
@@ -131,18 +148,21 @@ class P5jsColorRamp {
         this.maxValue = max(this.maxValue || Number.MIN_VALUE, colors[i].breakpoint);
       }
     }
-    if (this.spacingMode == P5jsColorRamp.SPACING_MODE_BREAKPOINTS){
-      this._computeProporationalRanges();
+
+    if (this.spacingMode == P5jsColorRamp.SPACING_MODE_UNIFORM){
+      const bpStepSize = this.rangeMagnitude / (this.colorCount - 1);
+      for(let i = 0; i<this.colorCount; i++){
+        this.breakpoints[i] = i * bpStepSize;
+      }
     }
+
+    this._computeProporationalRanges();
     return this;
   }
 
   _computeProporationalRanges(){
     this._proporationalRanges = [];
-
-    if (this.spacingMode == P5jsColorRamp.SPACING_MODE_UNIFORM){
-      this._proporationalRanges.fill(1.0 / this.colorCount, 0, this.colorCount);
-    }
+    this._proporationalRanges.length = this.colorCount;
 
     for (let i = 0; i < this.colorCount; i++){
       let rangeBefore = (i == 0) ? 0 : (this.breakpoints[i] -this.breakpoints[i-1]) / 2.0;
