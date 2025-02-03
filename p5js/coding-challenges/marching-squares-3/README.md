@@ -5,12 +5,10 @@ This is a [p5.js][p5js-home] sketch implementing the basic Marching Squares algo
 ][coding-train-yt-marching-sq].
 
 In this iteration:
-* Enhance this by using interpolation to have smoother lines 
-* Optimize rendering to allow for smaller cell widths (ie. higher resolution)
+* Allow for multiple steps within the 2D value field
 
 Next steps in upcoming sketches / iterations
 * Fix the issue of not connecting the isolines to the left and top window edges.
-* Allow for multiple steps within the 2D value field
 
 
 ## Controls
