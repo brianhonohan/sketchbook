@@ -48,6 +48,6 @@ class System {
 
   render(){
     background(50);
-    this.cellViewer.renderCells(this.field.grid.cells);
+    this.cellViewer.renderField(this.field);
   }
 }

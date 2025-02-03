@@ -17,7 +17,6 @@ js_scripts:
 - /sketchbook/js/models/rect.js
 - /sketchbook/js/models/cell_grid.js
 - /sketchbook/vendor/parc6502__joshforisha/open_simplex_noise.js
-- classes/cell.js
 - classes/discrete_field.js
 - classes/cell_viewer.js
 - classes/system.js

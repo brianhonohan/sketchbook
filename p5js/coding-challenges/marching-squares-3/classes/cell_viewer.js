@@ -60,7 +60,7 @@ class CellViewer {
     this.renderMarchingGridTile(tmpCell, tmpX, tmpY);
   }
 
-  renderCells(cells){
+  renderField(field){
     if (this.system.settings.drawGrid){
       stroke(this.fillColor);
       strokeWeight(1);
@@ -73,31 +73,31 @@ class CellViewer {
     }
 
     if (this.system.settings.fillRect ) {
-      this.rectRenderFunction(cells);
+      this.rectRenderFunction(field);
     }
       
     if (this.system.settings.interpolate_lines){
-      this._drawInterpolatedLines(cells);
+      this._drawInterpolatedLines(field);
     } else {
-      this._drawSimpleLines(cells);
+      this._drawSimpleLines(field);
     }
   }
 
-  _fillCellsViaRect(cells){
+  _fillCellsViaRect(field){
     if (this.cellWidth <= 4){
       return;
     }
 
     fill(this.fillColor);
     noStroke();
-    for(let i=0; i<cells.length; i++){
-      if (cells[[i]].value == 0){ continue; }
+    for(let i=0; i<field.values.length; i++){
+      if (field.values[i] < 1){ continue; }
       rect( (i % this.grid.numCols) * this.cellWidth + 0.25 * this.cellWidth,
           Math.floor(i / this.grid.numCols) * this.cellHeight + 0.25 * this.cellHeight,
           this.halfCellWidth, this.halfCellHeight);
     }
   }
-  _fillCellsViaPixels(cells){
+  _fillCellsViaPixels(field){
     loadPixels();
     const r = red(this.fillColor);
     const g = green(this.fillColor);
@@ -111,9 +111,9 @@ class CellViewer {
     let pixelY;
     let pixelIndex;
 
-    for(let i=0; i<cells.length; i++){
-      if (cells[[i]].value == 0){ continue; }
-
+    for(let i=0; i<field.values.length; i++){
+      if (field.values[i] < 1){ continue; }
+      
       cellX = Math.floor((i % this.grid.numCols) * this.cellWidth + this.renderMarginX);
       cellY = Math.floor(Math.floor(i / this.grid.numCols) * this.cellHeight + this.renderMarginY);
 
@@ -132,11 +132,12 @@ class CellViewer {
     updatePixels();
   }
 
-  _drawSimpleLines(cells){
+  _drawSimpleLines(field){
     stroke(200, 200, 40);
     strokeWeight(2);
-    for(let i=0; i<cells.length; i++){
-      this.renderMarchingGridTile(cells[i], 
+
+    for(let i=0; i<field.values.length; i++){
+      this.renderMarchingGridTile(field.mgCase[i], 
         (i % this.grid.numCols) * this.cellWidth,
         Math.floor(i / this.grid.numCols) * this.cellWidth
       );
@@ -147,7 +148,7 @@ class CellViewer {
     line(v1.x, v1.y, v2.x, v2.y);
   }
 
-  _drawInterpolatedLines(cells){
+  _drawInterpolatedLines(field){
     stroke(200, 200, 40);
     strokeWeight(2);
 
@@ -164,18 +165,18 @@ class CellViewer {
 
     let debugged = false;
 
-    for(let i=0; i< (cells.length - numCols); i++){
-      if (cells[i].mgCase == undefined) { continue; }
-      if (cells[i].mgCase == 0 || cells[i].mgCase == 15) { 
+    for(let i=0; i< (field.values.length - numCols); i++){
+      if (field.mgCase[i] == undefined) { continue; }
+      if (field.mgCase[i] == 0 || field.mgCase[i] == 15) { 
         continue;
       }
 
       if ((i + 1) % numCols == 0) { continue; }
 
-      cellValue = cells[i].rawValue;
-      valueToRight = cells[i + 1].rawValue;
-      valueDownToRight = cells[i + numCols + 1].rawValue;
-      valueBelow = cells[i + numCols].rawValue;
+      cellValue = field.values[i];
+      valueToRight = field.values[i + 1];
+      valueDownToRight = field.values[i + numCols + 1];
+      valueBelow = field.values[i + numCols];
 
       // Need to add 'halfWdidth' because I treat the 'value' as existing
       // at the center point of the cell; might rethink that.
@@ -200,7 +201,7 @@ class CellViewer {
       this.pt3.x = cellX;
       this.pt3.y = lerp(cellY, cellY + this.cellWidth, interpAmt);
 
-      this._renderInterpolatedLines(cells[i]);
+      this._renderInterpolatedLines(field.mgCase[i]);
     }
   }
 
@@ -278,33 +279,33 @@ class CellViewer {
   }
 
   
-  renderMarchingGridTile(tmpCell, x, y){
-    if (tmpCell.mgCase == undefined) { return; }
-    if (tmpCell.mgCase == 0 || tmpCell.mgCase == 15) { 
+  renderMarchingGridTile(mgCase, x, y){
+    if (mgCase == undefined) { return; }
+    if (mgCase == 0 || mgCase == 15) { 
       return;
     }
 
-    if (tmpCell.mgCase == 5 || tmpCell.mgCase == 10) { 
-      this._drawFromTo(x, y, this.verticesForCase[tmpCell.mgCase][0][0], this.verticesForCase[tmpCell.mgCase][0][1]);
-      this._drawFromTo(x, y, this.verticesForCase[tmpCell.mgCase][1][0], this.verticesForCase[tmpCell.mgCase][1][1]);
+    if (mgCase == 5 || mgCase == 10) { 
+      this._drawFromTo(x, y, this.verticesForCase[mgCase][0][0], this.verticesForCase[mgCase][0][1]);
+      this._drawFromTo(x, y, this.verticesForCase[mgCase][1][0], this.verticesForCase[mgCase][1][1]);
       return;
     }
-    this._drawFromTo(x, y, this.verticesForCase[tmpCell.mgCase][0], this.verticesForCase[tmpCell.mgCase][1]);
+    this._drawFromTo(x, y, this.verticesForCase[mgCase][0], this.verticesForCase[mgCase][1]);
   }
 
   
-  _renderInterpolatedLines(cell){
-    if (cell.mgCase == undefined) { return; }
-    if (cell.mgCase == 0 || cell.mgCase == 15) { 
+  _renderInterpolatedLines(mgCase){
+    if (mgCase == undefined) { return; }
+    if (mgCase == 0 || mgCase == 15) { 
       return;
     }
 
-    if (cell.mgCase == 5 || cell.mgCase == 10) { 
-      this.drawLine(this.pointsForCase[cell.mgCase][0][0], this.pointsForCase[cell.mgCase][0][1]);
-      this.drawLine(this.pointsForCase[cell.mgCase][1][0], this.pointsForCase[cell.mgCase][1][1]);
+    if (mgCase == 5 || mgCase == 10) { 
+      this.drawLine(this.pointsForCase[mgCase][0][0], this.pointsForCase[mgCase][0][1]);
+      this.drawLine(this.pointsForCase[mgCase][1][0], this.pointsForCase[mgCase][1][1]);
       return;
     }
-    this.drawLine(this.pointsForCase[cell.mgCase][0], this.pointsForCase[cell.mgCase][1]);
+    this.drawLine(this.pointsForCase[mgCase][0], this.pointsForCase[mgCase][1]);
   }
 
   _drawFromTo(x, y, fromIdx, toIdx){
