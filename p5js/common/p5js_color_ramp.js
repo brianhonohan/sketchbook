@@ -190,8 +190,8 @@ class P5jsColorRamp {
   }
 
   getBinnedColorForValue(value){
-    if (value < this.minValue) { return this.getColorForBin(0); }
-    if (value > this.maxValue) { return this.getColorForBin(this.binCount - 1); }
+    if (value <= this.minValue) { return this.getColorForBin(0); }
+    if (value >= this.maxValue) { return this.getColorForBin(this.binCount - 1); }
     const binNumber = Math.floor((value - this.minValue)/this.binStepSize);
     return this.getColorForBin(binNumber);
   }
