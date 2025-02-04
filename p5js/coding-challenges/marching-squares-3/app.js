@@ -23,6 +23,7 @@ function setup() {
   gui.add(system.settings, "interpolate_lines").onChange(regenerateSystem);
   gui.add(system.settings, "fillRect");
   gui.add(system.settings, "drawGrid");
+  gui.add(system.settings, "num_levels", 2, 20, 1).onChange(updateRendering);
 }
 
 function regenerateSystem(){
@@ -31,6 +32,10 @@ function regenerateSystem(){
 
 function reinitSystem(){
   system.init();
+}
+
+function updateRendering(){
+  system.updateRendering();
 }
 
 function draw(){

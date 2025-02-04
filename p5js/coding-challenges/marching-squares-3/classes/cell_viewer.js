@@ -1,8 +1,9 @@
 class CellViewer {
-  constructor(cellWidth, cellHeight, grid){
+  constructor(cellWidth, cellHeight, grid, system){
     this.cellWidth = cellWidth;
     this.cellHeight = cellHeight;
     this.grid = grid;
+    this.system = system;
 
     this.halfCellWidth = cellWidth / 2;
     this.halfCellHeight = cellHeight / 2;
@@ -13,7 +14,7 @@ class CellViewer {
     this.isPixelRenderer = (cellWidth <= 6);
     this.rectRenderFunction = (this.isPixelRenderer) ? this._fillCellsViaPixels : this._fillCellsViaRect;
 
-    this.fillColor = color(50, 200, 200);
+    this.gridColor = color(50, 200, 200);
 
     this.mgXOffsets = [];
     this.mgYOffsets = [];
@@ -36,6 +37,34 @@ class CellViewer {
 
     this.precomputeVerticesForCase();
     this.precomputePointsForCase();
+    this.updateSettings();
+  }
+
+  updateSettings(){
+    if (this.system == undefined) { return; }
+
+    this.colorRamp = new P5jsColorRamp();
+    this.colorRamp.setRange(0,1);
+    this.colorRamp.setColors(
+      [
+        {color: color(50, 50, 50)},
+        {color: color(50, 200, 50)},
+        {color: color(50, 200, 200)},
+        {color: color(50, 50, 200)},
+        {color: color(200, 50, 200)},
+      ]
+    );
+    this.colorRamp.setBinCount(this.system.settings.num_levels);
+
+    this.isolines = new P5jsColorRamp();
+    this.isolines.setRange(0,1);
+    this.isolines.setColors(
+      [
+        {color: color(200, 200, 50)},
+        {color: color(200, 100, 40)}
+      ]
+    );
+    this.isolines.setBinCount(this.system.settings.num_levels);
   }
 
   renderCell(tmpCell, tmpX, tmpY, cellWidth, cellHeight){
@@ -62,7 +91,7 @@ class CellViewer {
 
   renderField(field){
     if (this.system.settings.drawGrid){
-      stroke(this.fillColor);
+      stroke(this.gridColor);
       strokeWeight(1);
       for(let i=1; i< (this.grid.numRows-1); i++){
         line(0, i * this.cellHeight, width, i * this.cellHeight);
@@ -88,10 +117,18 @@ class CellViewer {
       return;
     }
 
-    fill(this.fillColor);
     noStroke();
     for(let i=0; i<field.values.length; i++){
-      if (field.values[i] < 1){ continue; }
+      // if (field.values[i] < 1){ continue; }
+      // let c = this.colorRamp.getColorForValue(field.values[i]/2.0);
+      let c = this.colorRamp.getBinnedColorForValue(field.values[i]);
+
+      // if (c == undefined) {
+      //   console.log(`undefined for:${i}`);
+      //   console.log(field);
+      //   console.log(`undefined for: ${field.value[i]}`);
+      // }
+      fill( c );
       rect( (i % this.grid.numCols) * this.cellWidth + 0.25 * this.cellWidth,
           Math.floor(i / this.grid.numCols) * this.cellHeight + 0.25 * this.cellHeight,
           this.halfCellWidth, this.halfCellHeight);
@@ -136,11 +173,25 @@ class CellViewer {
     stroke(200, 200, 40);
     strokeWeight(2);
 
-    for(let i=0; i<field.values.length; i++){
-      this.renderMarchingGridTile(field.mgCase[i], 
-        (i % this.grid.numCols) * this.cellWidth,
-        Math.floor(i / this.grid.numCols) * this.cellWidth
-      );
+    // skip the first row
+    const firstIdxLastRow = field.values.length - this.grid.numCols;
+    for(let i=0; i<firstIdxLastRow; i++){
+      // skip the last column
+      if ((i % this.grid.numCols) == (this.grid.numCols - 1)) { continue; }
+
+      for(let j=0; j<this.system.settings.num_levels; j++){
+        if (   field.msquares[i][j] == undefined
+            || field.msquares[i][j] == 0 
+            || field.msquares[i][j] == 15){ 
+          continue;
+        }
+        stroke(this.isolines.getColorForBin(j));
+        
+        this.renderMarchingGridTile(field.msquares[i][j], 
+          (i % this.grid.numCols) * this.cellWidth,
+          Math.floor(i / this.grid.numCols) * this.cellWidth
+        );
+      }
     }
   }
 

@@ -23,16 +23,20 @@ class System {
       { name: "zOffset", type: "float", default: 0},
       { name: "zSpeed", type: "float", default: 0.001},
       { name: "open_simplex_noise", type: "bool", default: true},
-      { name: "interpolate_lines", type: "bool", default: true},
+      { name: "interpolate_lines", type: "bool", default: false},
+      { name: "num_levels", type: "integer", default: 3},
     ];
   }
 
   init(){
     this.field = new DiscreteField(this.sizeAndPosition, this);
     
-    this.cellViewer = new CellViewer(this.settings.cellWidth, this.settings.cellWidth);
-    this.cellViewer.system = this;
-    this.cellViewer.grid = this.field.grid;
+    this.cellViewer = new CellViewer(this.settings.cellWidth, this.settings.cellWidth,
+                                      this.field.grid, this);
+  }
+
+  updateRendering(){
+    this.cellViewer.updateSettings();
   }
   
   regenerate(){
