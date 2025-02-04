@@ -16,17 +16,25 @@ class DiscreteField {
       null
       );
     this.values = [];
-    this.mgCase = [];
+    this.tiers = [];
+    this.minValue = 0;
+    this.maxValue = 2;
+    this.msquares = [];
   }
 
   regenerate(){
     let cell;
     for(let i = 0; i < this.grid.numCells; i++){
       this.values[i] = this.getValueAt(Math.trunc(i / this.grid.numCols), i % this.grid.numCols);
+      this.tiers[i] = this.tierValue(this.values[i]);
     }
     for(let i = 0; i < this.grid.numCells; i++){
       this.computeMarchingSquareTile(i);
     }
+  }
+
+  tierValue(value){
+    return Math.trunc((value - this.minValue) / this.maxValue * this.settings.num_levels);
   }
 
   computeMarchingSquareTile(i){
@@ -39,16 +47,26 @@ class DiscreteField {
     const idxBelow = neighborsIdx[6];
     const idxDownToRight = neighborsIdx[7];
 
-    this.mgCase[i] = 0;
+    const neighborhoodVals = [
+      this.tiers[i],
+      this.tiers[idxToRight],
+      this.tiers[idxDownToRight],
+      this.tiers[idxBelow]
+    ];
+    // let minTier = Math.min( ...neighborhoodVals);
+    // let maxTier = Math.min( ...neighborhoodVals);
 
-    // We are able to multiply by true/false because JS will implicitly convert to 1/0
-    // and want to have a value from 0-15
-    // corresponding to the tile, 
-    // see basic algorithm: https://en.wikipedia.org/wiki/Marching_squares#Basic_algorithm
-    this.mgCase[i] += 1 * (this.values[i] >= 1);
-    this.mgCase[i] += 2 * (this.values[idxToRight] >= 1);
-    this.mgCase[i] += 4 * (this.values[idxDownToRight] >= 1);
-    this.mgCase[i] += 8 * (this.values[idxBelow] >= 1);
+    this.msquares[i] = [];
+    for (let j = 0; j < this.settings.num_levels; j++){
+      // if (j < minTier) { continue; } // could set it to 15, but (premature) memory optimzation
+      // if (j > maxTier) { continue; } // could set it to 0, but (premature) memory optimzation
+
+      this.msquares[i][j] = 0;
+      this.msquares[i][j] += 1 * (this.tiers[i] >= j);
+      this.msquares[i][j] += 2 * (this.tiers[idxToRight] >= j);
+      this.msquares[i][j] += 4 * (this.tiers[idxDownToRight] >= j);
+      this.msquares[i][j] += 8 * (this.tiers[idxBelow] >= j);
+    }
   }
 
   // returns value from [0, 2)

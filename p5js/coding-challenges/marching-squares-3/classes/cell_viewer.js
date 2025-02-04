@@ -55,6 +55,16 @@ class CellViewer {
       ]
     );
     this.colorRamp.setBinCount(this.system.settings.num_levels);
+
+    this.isolines = new P5jsColorRamp();
+    this.isolines.setRange(0,1);
+    this.isolines.setColors(
+      [
+        {color: color(200, 200, 50)},
+        {color: color(200, 100, 40)}
+      ]
+    );
+    this.isolines.setBinCount(this.system.settings.num_levels);
   }
 
   renderCell(tmpCell, tmpX, tmpY, cellWidth, cellHeight){
@@ -163,11 +173,25 @@ class CellViewer {
     stroke(200, 200, 40);
     strokeWeight(2);
 
-    for(let i=0; i<field.values.length; i++){
-      this.renderMarchingGridTile(field.mgCase[i], 
-        (i % this.grid.numCols) * this.cellWidth,
-        Math.floor(i / this.grid.numCols) * this.cellWidth
-      );
+    // skip the first row
+    const firstIdxLastRow = field.values.length - this.grid.numCols;
+    for(let i=0; i<firstIdxLastRow; i++){
+      // skip the last column
+      if ((i % this.grid.numCols) == (this.grid.numCols - 1)) { continue; }
+
+      for(let j=0; j<this.system.settings.num_levels; j++){
+        if (   field.msquares[i][j] == undefined
+            || field.msquares[i][j] == 0 
+            || field.msquares[i][j] == 15){ 
+          continue;
+        }
+        stroke(this.isolines.getColorForBin(j));
+        
+        this.renderMarchingGridTile(field.msquares[i][j], 
+          (i % this.grid.numCols) * this.cellWidth,
+          Math.floor(i / this.grid.numCols) * this.cellWidth
+        );
+      }
     }
   }
 
