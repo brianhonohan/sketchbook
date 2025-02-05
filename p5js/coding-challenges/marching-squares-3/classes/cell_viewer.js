@@ -172,12 +172,12 @@ class CellViewer {
   _drawSimpleLines(field){
     stroke(200, 200, 40);
     strokeWeight(2);
+    const numCols = this.grid.numCols;
 
-    // skip the first row
-    const firstIdxLastRow = field.values.length - this.grid.numCols;
-    for(let i=0; i<firstIdxLastRow; i++){
+    // skip the last row
+    for(let i=0; i< (field.values.length - numCols); i++){
       // skip the last column
-      if ((i % this.grid.numCols) == (this.grid.numCols - 1)) { continue; }
+      if ((i + 1) % numCols == 0) { continue; }
 
       for(let j=0; j<this.system.settings.num_levels; j++){
         if (   field.msquares[i][j] == undefined
