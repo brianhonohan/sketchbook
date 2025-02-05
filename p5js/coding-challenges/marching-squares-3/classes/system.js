@@ -21,6 +21,8 @@ class System {
       { name: "xOffset", type: "integer", default: 0},
       { name: "yOffset", type: "integer", default: 0},
       { name: "zOffset", type: "float", default: 0},
+      { name: "xSpeed", type: "float", default: 0.001},
+      { name: "ySpeed", type: "float", default: 0.001},
       { name: "zSpeed", type: "float", default: 0.001},
       { name: "open_simplex_noise", type: "bool", default: true},
       { name: "interpolate_lines", type: "bool", default: true},
@@ -46,6 +48,8 @@ class System {
 
   tick(){
     if (this.settings.zSpeed != 0) { 
+      this.settings.xOffset += this.settings.xSpeed;
+      this.settings.yOffset += this.settings.ySpeed;
       this.settings.zOffset += this.settings.zSpeed;
       this.field.regenerate();
     }
