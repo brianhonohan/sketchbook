@@ -16,6 +16,7 @@ class System {
     return [
       { name: "cellWidth", type: "integer", default: 12}, 
       { name: "fillRect", type: "bool", default: true}, 
+      { name: "rectPercent", type: "float", default: 0.5}, 
       { name: "drawGrid", type: "bool", default: false}, 
       { name: "drawLines", type: "bool", default: true}, 
       { name: "scale", type: "float", default: 0.1}, 

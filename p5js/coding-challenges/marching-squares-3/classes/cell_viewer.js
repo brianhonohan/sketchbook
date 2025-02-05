@@ -8,9 +8,6 @@ class CellViewer {
     this.halfCellWidth = cellWidth / 2;
     this.halfCellHeight = cellHeight / 2;
 
-    this.renderMarginX = Math.floor(0.25 * cellWidth);
-    this.renderMarginY = Math.floor(0.25 * cellHeight);
-
     this.isPixelRenderer = (cellWidth <= 6);
     this.rectRenderFunction = (this.isPixelRenderer) ? this._fillCellsViaPixels : this._fillCellsViaRect;
 
@@ -56,6 +53,11 @@ class CellViewer {
     );
     this.colorRamp.setBinCount(this.system.settings.num_levels);
 
+    this.rectRenderWidth = Math.floor(this.cellWidth * this.system.settings.rectPercent);
+    this.rectRenderHeight = Math.floor(this.cellHeight * this.system.settings.rectPercent);
+    this.renderMarginX = Math.floor((this.cellWidth-this.rectRenderWidth) / 2.0);
+    this.renderMarginY = Math.floor((this.cellHeight-this.rectRenderHeight) / 2.0);
+
     this.isolines = new P5jsColorRamp();
     this.isolines.setRange(0,1);
     this.isolines.setColors(
@@ -78,8 +80,8 @@ class CellViewer {
     
     if (tmpCell.value > 0 && tmpCell.system.settings.fillRect) {
       fill(50, 200, 200);
-      rect(tmpX + 0.25 * this.cellWidth, tmpY + 0.25 * this.cellHeight,
-                   this.halfCellWidth, this.halfCellHeight);
+      rect(tmpX + this.renderMarginX, tmpY + this.renderMarginY,
+                   this.rectRenderWidth, this.rectRenderHeight);
     }
     // noFill();
     // text("" + tmpCell.value, tmpX + cellWidth / 2, tmpY + cellHeight/2);
@@ -131,9 +133,9 @@ class CellViewer {
       //   console.log(`undefined for: ${field.value[i]}`);
       // }
       fill( c );
-      rect( (i % this.grid.numCols) * this.cellWidth + 0.25 * this.cellWidth,
-          Math.floor(i / this.grid.numCols) * this.cellHeight + 0.25 * this.cellHeight,
-          this.halfCellWidth, this.halfCellHeight);
+      rect( (i % this.grid.numCols) * this.cellWidth + this.renderMarginX,
+          Math.floor(i / this.grid.numCols) * this.cellHeight + this.renderMarginY,
+          this.rectRenderWidth, this.rectRenderHeight);
     }
   }
   _fillCellsViaPixels(field){
