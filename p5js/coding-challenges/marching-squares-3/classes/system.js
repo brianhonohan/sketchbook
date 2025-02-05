@@ -17,6 +17,7 @@ class System {
       { name: "cellWidth", type: "integer", default: 12}, 
       { name: "fillRect", type: "bool", default: true}, 
       { name: "drawGrid", type: "bool", default: false}, 
+      { name: "drawLines", type: "bool", default: true}, 
       { name: "scale", type: "float", default: 0.1}, 
       { name: "xOffset", type: "integer", default: 0},
       { name: "yOffset", type: "integer", default: 0},

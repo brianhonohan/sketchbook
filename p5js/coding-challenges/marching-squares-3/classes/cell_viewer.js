@@ -104,11 +104,13 @@ class CellViewer {
     if (this.system.settings.fillRect ) {
       this.rectRenderFunction(field);
     }
-      
-    if (this.system.settings.interpolate_lines){
-      this._drawInterpolatedLines(field);
-    } else {
-      this._drawSimpleLines(field);
+
+    if (this.system.settings.drawLines) { 
+      if (this.system.settings.interpolate_lines){
+        this._drawInterpolatedLines(field);
+      } else {
+        this._drawSimpleLines(field);
+      }  
     }
   }
 
