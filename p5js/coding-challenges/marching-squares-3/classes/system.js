@@ -14,7 +14,7 @@ class System {
   // supported types: integer, float, string, bool
   optionsMetadata(){
     return [
-      { name: "cellWidth", type: "integer", default: 20}, 
+      { name: "cellWidth", type: "integer", default: 12}, 
       { name: "fillRect", type: "bool", default: true}, 
       { name: "drawGrid", type: "bool", default: false}, 
       { name: "scale", type: "float", default: 0.1}, 

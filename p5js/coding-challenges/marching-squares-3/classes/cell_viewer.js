@@ -47,11 +47,11 @@ class CellViewer {
     this.colorRamp.setRange(0,2);
     this.colorRamp.setColors(
       [
-        {color: color(50, 50, 50)},
-        {color: color(50, 200, 50)},
-        {color: color(50, 200, 200)},
-        {color: color(50, 50, 200)},
-        {color: color(200, 50, 200)},
+        {color: color(100, 100, 100)},
+        {color: color(100, 220, 100)},
+        {color: color(100, 220, 220)},
+        {color: color(100, 100, 220)},
+        {color: color(220, 100, 220)},
       ]
     );
     this.colorRamp.setBinCount(this.system.settings.num_levels);
