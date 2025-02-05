@@ -16,12 +16,14 @@ function setup() {
   gui = P5JsSettings.addDatGui({autoPlace: false, bindOptions: true, callback: regenerateSystem});
   gui.add(system.settings, "cellWidth", 2, 40, 2).onChange(reinitSystem);
   gui.add(system.settings, "scale", 0.01, 0.5, 0.001).onChange(regenerateSystem);
-  gui.add(system.settings, "xOffset", -10000, 10000, 1).onChange(regenerateSystem);
-  gui.add(system.settings, "yOffset", -10000, 10000, 1).onChange(regenerateSystem);
+  gui.add(system.settings, "xSpeed", -0.5, 0.5, 0.01).onChange(regenerateSystem);
+  gui.add(system.settings, "ySpeed", -0.5, 0.5, 0.01).onChange(regenerateSystem);
   gui.add(system.settings, "zSpeed", -0.005, 0.005, 0.0001).onChange(regenerateSystem);
   gui.add(system.settings, "open_simplex_noise").onChange(regenerateSystem);
   gui.add(system.settings, "interpolate_lines").onChange(regenerateSystem);
+  gui.add(system.settings, "drawLines");
   gui.add(system.settings, "fillRect");
+  gui.add(system.settings, "rectPercent", 0.05, 1, 0.01).onChange(updateRendering);
   gui.add(system.settings, "drawGrid");
   gui.add(system.settings, "num_levels", 2, 20, 1).onChange(updateRendering);
 }

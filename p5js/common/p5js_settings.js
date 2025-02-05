@@ -54,9 +54,10 @@ class P5JsSettings {
       });
     }
     if (datGuiParams.bindOptions === true) {
-      const seedListener = datGui.add(this.optionsSet.settings, "seed", 1, Number.MAX_SAFE_INTEGER);
-      const noiseOctavesListener = datGui.add(this.optionsSet.settings, "noise_octaves", 1, 16);
-      const noiseFallOffListener = datGui.add(this.optionsSet.settings, "noise_falloff", 0.01, 1, 0.01);
+      const commonGui = datGui.addFolder("Common Settings");
+      const seedListener = commonGui.add(this.optionsSet.settings, "seed", 1, Number.MAX_SAFE_INTEGER);
+      const noiseOctavesListener = commonGui.add(this.optionsSet.settings, "noise_octaves", 1, 16);
+      const noiseFallOffListener = commonGui.add(this.optionsSet.settings, "noise_falloff", 0.01, 1, 0.01);
 
       const globalSettings = this;
       const handleDatGui = function(callback){

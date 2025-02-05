@@ -8,9 +8,6 @@ class CellViewer {
     this.halfCellWidth = cellWidth / 2;
     this.halfCellHeight = cellHeight / 2;
 
-    this.renderMarginX = Math.floor(0.25 * cellWidth);
-    this.renderMarginY = Math.floor(0.25 * cellHeight);
-
     this.isPixelRenderer = (cellWidth <= 6);
     this.rectRenderFunction = (this.isPixelRenderer) ? this._fillCellsViaPixels : this._fillCellsViaRect;
 
@@ -56,6 +53,11 @@ class CellViewer {
     );
     this.colorRamp.setBinCount(this.system.settings.num_levels);
 
+    this.rectRenderWidth = Math.floor(this.cellWidth * this.system.settings.rectPercent);
+    this.rectRenderHeight = Math.floor(this.cellHeight * this.system.settings.rectPercent);
+    this.renderMarginX = Math.floor((this.cellWidth-this.rectRenderWidth) / 2.0);
+    this.renderMarginY = Math.floor((this.cellHeight-this.rectRenderHeight) / 2.0);
+
     this.isolines = new P5jsColorRamp();
     this.isolines.setRange(0,1);
     this.isolines.setColors(
@@ -78,8 +80,8 @@ class CellViewer {
     
     if (tmpCell.value > 0 && tmpCell.system.settings.fillRect) {
       fill(50, 200, 200);
-      rect(tmpX + 0.25 * this.cellWidth, tmpY + 0.25 * this.cellHeight,
-                   this.halfCellWidth, this.halfCellHeight);
+      rect(tmpX + this.renderMarginX, tmpY + this.renderMarginY,
+                   this.rectRenderWidth, this.rectRenderHeight);
     }
     // noFill();
     // text("" + tmpCell.value, tmpX + cellWidth / 2, tmpY + cellHeight/2);
@@ -104,11 +106,13 @@ class CellViewer {
     if (this.system.settings.fillRect ) {
       this.rectRenderFunction(field);
     }
-      
-    if (this.system.settings.interpolate_lines){
-      this._drawInterpolatedLines(field);
-    } else {
-      this._drawSimpleLines(field);
+
+    if (this.system.settings.drawLines) { 
+      if (this.system.settings.interpolate_lines){
+        this._drawInterpolatedLines(field);
+      } else {
+        this._drawSimpleLines(field);
+      }  
     }
   }
 
@@ -129,16 +133,13 @@ class CellViewer {
       //   console.log(`undefined for: ${field.value[i]}`);
       // }
       fill( c );
-      rect( (i % this.grid.numCols) * this.cellWidth + 0.25 * this.cellWidth,
-          Math.floor(i / this.grid.numCols) * this.cellHeight + 0.25 * this.cellHeight,
-          this.halfCellWidth, this.halfCellHeight);
+      rect( (i % this.grid.numCols) * this.cellWidth + this.renderMarginX,
+          Math.floor(i / this.grid.numCols) * this.cellHeight + this.renderMarginY,
+          this.rectRenderWidth, this.rectRenderHeight);
     }
   }
   _fillCellsViaPixels(field){
     loadPixels();
-    const r = red(this.fillColor);
-    const g = green(this.fillColor);
-    const b = blue(this.fillColor);
 
     let cellX;
     let cellY;
@@ -147,12 +148,20 @@ class CellViewer {
     let pixelX;
     let pixelY;
     let pixelIndex;
-
+    let c;
+    let r;
+    let g;
+    let b;
+    
     for(let i=0; i<field.values.length; i++){
-      if (field.values[i] < 1){ continue; }
       
       cellX = Math.floor((i % this.grid.numCols) * this.cellWidth + this.renderMarginX);
       cellY = Math.floor(Math.floor(i / this.grid.numCols) * this.cellHeight + this.renderMarginY);
+
+      c = this.colorRamp.getBinnedColorForValue(field.values[i]);
+      r = red(c);
+      g = green(c);
+      b = blue(c);
 
       for (j = 0; j < this.halfCellWidth; j++){
         for (k = 0; k < this.halfCellHeight; k++){
