@@ -14,7 +14,7 @@ class System {
   // supported types: integer, float, string, bool
   optionsMetadata(){
     return [
-      { name: "cellWidth", type: "integer", default: 20}, 
+      { name: "cellWidth", type: "integer", default: 12}, 
       { name: "fillRect", type: "bool", default: true}, 
       { name: "drawGrid", type: "bool", default: false}, 
       { name: "scale", type: "float", default: 0.1}, 
@@ -23,8 +23,8 @@ class System {
       { name: "zOffset", type: "float", default: 0},
       { name: "zSpeed", type: "float", default: 0.001},
       { name: "open_simplex_noise", type: "bool", default: true},
-      { name: "interpolate_lines", type: "bool", default: false},
-      { name: "num_levels", type: "integer", default: 3},
+      { name: "interpolate_lines", type: "bool", default: true},
+      { name: "num_levels", type: "integer", default: 6},
     ];
   }
 
@@ -36,6 +36,7 @@ class System {
   }
 
   updateRendering(){
+    this.field.refreshTiers();
     this.cellViewer.updateSettings();
   }
   

@@ -44,14 +44,14 @@ class CellViewer {
     if (this.system == undefined) { return; }
 
     this.colorRamp = new P5jsColorRamp();
-    this.colorRamp.setRange(0,1);
+    this.colorRamp.setRange(0,2);
     this.colorRamp.setColors(
       [
-        {color: color(50, 50, 50)},
-        {color: color(50, 200, 50)},
-        {color: color(50, 200, 200)},
-        {color: color(50, 50, 200)},
-        {color: color(200, 50, 200)},
+        {color: color(100, 100, 100)},
+        {color: color(100, 220, 100)},
+        {color: color(100, 220, 220)},
+        {color: color(100, 100, 220)},
+        {color: color(220, 100, 220)},
       ]
     );
     this.colorRamp.setBinCount(this.system.settings.num_levels);
@@ -172,12 +172,12 @@ class CellViewer {
   _drawSimpleLines(field){
     stroke(200, 200, 40);
     strokeWeight(2);
+    const numCols = this.grid.numCols;
 
-    // skip the first row
-    const firstIdxLastRow = field.values.length - this.grid.numCols;
-    for(let i=0; i<firstIdxLastRow; i++){
+    // skip the last row
+    for(let i=0; i< (field.values.length - numCols); i++){
       // skip the last column
-      if ((i % this.grid.numCols) == (this.grid.numCols - 1)) { continue; }
+      if ((i + 1) % numCols == 0) { continue; }
 
       for(let j=0; j<this.system.settings.num_levels; j++){
         if (   field.msquares[i][j] == undefined
@@ -215,13 +215,9 @@ class CellViewer {
     const numCols = this.grid.numCols;
 
     let debugged = false;
+    let levelStart;
 
     for(let i=0; i< (field.values.length - numCols); i++){
-      if (field.mgCase[i] == undefined) { continue; }
-      if (field.mgCase[i] == 0 || field.mgCase[i] == 15) { 
-        continue;
-      }
-
       if ((i + 1) % numCols == 0) { continue; }
 
       cellValue = field.values[i];
@@ -234,25 +230,37 @@ class CellViewer {
       // ... causes 2 additional floating point operatinos per cell, per iteration
       cellX = (i % numCols) * this.cellWidth + this.halfCellWidth;
       cellY = Math.floor(i / numCols) * this.cellWidth + this.halfCellHeight;
+      
+      for(let j=1; j<this.system.settings.num_levels; j++){
+        if (   field.msquares[i][j] == undefined
+            || field.msquares[i][j] == 0 
+            || field.msquares[i][j] == 15){ 
+          continue;
+        }
+        stroke(this.isolines.getColorForBin(j));
 
-      // FROM https://editor.p5js.org/codingtrain/sketches/18cjVoAX1
-      interpAmt = (1 - cellValue) / (valueToRight - cellValue);
-      this.pt0.x = lerp(cellX, cellX + this.cellWidth, interpAmt);
-      this.pt0.y = cellY;
+        // BASE FROM https://editor.p5js.org/codingtrain/sketches/18cjVoAX1
+        // HAT-TIP TO: https://ambv.pyscriptapps.com/genuary-prompt-28-30/latest/
+        // ... for realizing need to use levelStart specfic to each level threshold
+        levelStart = field.tierBreakpoints[j]; 
+        interpAmt = (levelStart - cellValue) / (valueToRight - cellValue);
+        this.pt0.x = lerp(cellX, cellX + this.cellWidth, interpAmt);
+        this.pt0.y = cellY;
 
-      interpAmt = (1 - valueToRight) / (valueDownToRight - valueToRight);
-      this.pt1.x = cellX + this.cellWidth;
-      this.pt1.y = lerp(cellY, cellY + this.cellWidth, interpAmt);
+        interpAmt = (levelStart - valueToRight) / (valueDownToRight - valueToRight);
+        this.pt1.x = cellX + this.cellWidth;
+        this.pt1.y = lerp(cellY, cellY + this.cellWidth, interpAmt);
 
-      interpAmt = (1 - valueBelow) / (valueDownToRight - valueBelow);
-      this.pt2.x = lerp(cellX, cellX + this.cellWidth, interpAmt);
-      this.pt2.y = cellY + this.cellWidth;
+        interpAmt = (levelStart - valueBelow) / (valueDownToRight - valueBelow);
+        this.pt2.x = lerp(cellX, cellX + this.cellWidth, interpAmt);
+        this.pt2.y = cellY + this.cellWidth;
 
-      interpAmt = (1 - cellValue) / (valueBelow - cellValue);
-      this.pt3.x = cellX;
-      this.pt3.y = lerp(cellY, cellY + this.cellWidth, interpAmt);
-
-      this._renderInterpolatedLines(field.mgCase[i]);
+        interpAmt = (levelStart - cellValue) / (valueBelow - cellValue);
+        this.pt3.x = cellX;
+        this.pt3.y = lerp(cellY, cellY + this.cellWidth, interpAmt);
+        
+        this._renderInterpolatedLines(field.msquares[i][j]);
+      }
     }
   }
 

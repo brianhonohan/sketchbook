@@ -5,9 +5,9 @@ Collection of personal coding projects. They may or may not grow into individual
 
 ## Latest
 
-A p5.js sketch is an iteration to add features an earlier 'Friezes' sketch, to add improved drawing controls.
+A p5.js sketch is an iteration to of the Marching Squares sketch, adding suport for multiple level isolines and tiered coloring.
 
-[<img src="./p5js/friezes-2/screenshot-01.png" alt="blue and orange lines, in repeated pattern" width="150px" />][link-p5js-friezes-2]
+[<img src="./p5js/coding-challenges/marching-squares-3/screenshot-01.png" alt="marching-squares-3" width="150px" />][link-p5js-cc-marching-squares-3]
 
 ## LÖVE
 Collection of sketches using the [LÖVE][love2d] environment.
@@ -77,6 +77,7 @@ Collection of sketches using the [p5.js][p5js] Javascript library inspired by th
 [<img src="./p5js/coding-challenges/lorenz-attractor/screenshot-01.png" alt="lorenz-attractor looping lines" width="150px" />][link-p5js-cc-lorenz-attractor]
 [<img src="./p5js/coding-challenges/marching-squares/screenshot-01.png" alt="marching-squares" width="150px" />][link-p5js-cc-marching-squares]
 [<img src="./p5js/coding-challenges/marching-squares-2/screenshot-01.png" alt="marching-squares-2" width="150px" />][link-p5js-cc-marching-squares-2]
+[<img src="./p5js/coding-challenges/marching-squares-3/screenshot-01.png" alt="marching-squares-3" width="150px" />][link-p5js-cc-marching-squares-3]
 [<img src="./p5js/coding-challenges/maze-generator/screenshot-01.png" alt="maze-generator" width="150px" />][link-p5js-cc-maze-generator]
 [<img src="./p5js/coding-challenges/mitosis/screenshot-07.png" alt="mitosis" width="150px" />][link-p5js-cc-mitosis]
 [<img src="./p5js/coding-challenges/seven-segment-display/screenshot-01.png" alt="seven-segment-display" width="150px" />][link-p5js-cc-seven-segment-display]
@@ -171,6 +172,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-p5js-cc-lorenz-attractor]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/lorenz-attractor/
 [link-p5js-cc-marching-squares]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/marching-squares/
 [link-p5js-cc-marching-squares-2]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/marching-squares-2/
+[link-p5js-cc-marching-squares-3]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/marching-squares-3/
 [link-p5js-cc-maze-generator]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/maze-generator/
 [link-p5js-cc-mitosis]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/mitosis/
 [link-p5js-cc-seven-segment-display]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/seven-segment-display/

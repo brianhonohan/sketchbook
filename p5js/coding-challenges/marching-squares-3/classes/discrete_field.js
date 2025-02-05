@@ -20,6 +20,15 @@ class DiscreteField {
     this.minValue = 0;
     this.maxValue = 2;
     this.msquares = [];
+    this.refreshTiers();
+  }
+
+  refreshTiers(){
+    this.tierStep = (this.range / this.settings.num_levels);
+    this.tierBreakpoints = [];
+    for (let i = 0; i < this.settings.num_levels; i++){
+      this.tierBreakpoints[i] = this.tierStep * i; 
+    }
   }
 
   regenerate(){
@@ -31,6 +40,10 @@ class DiscreteField {
     for(let i = 0; i < this.grid.numCells; i++){
       this.computeMarchingSquareTile(i);
     }
+  }
+
+  get range(){ 
+    return this.maxValue - this.minValue;
   }
 
   tierValue(value){
