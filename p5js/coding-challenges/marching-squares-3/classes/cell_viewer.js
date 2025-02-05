@@ -44,7 +44,7 @@ class CellViewer {
     if (this.system == undefined) { return; }
 
     this.colorRamp = new P5jsColorRamp();
-    this.colorRamp.setRange(0,1);
+    this.colorRamp.setRange(0,2);
     this.colorRamp.setColors(
       [
         {color: color(50, 50, 50)},
