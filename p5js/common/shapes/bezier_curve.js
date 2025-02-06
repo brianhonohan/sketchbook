@@ -125,13 +125,13 @@ class BezierCurve {
 
   toCode(proportionalToCanvas = false){
     let code = []
+    const xJS = !proportionalToCanvas ? x => x : (x) => P5JsUtils.jsCodeAsWidthFraction(x);
+    const yJS = !proportionalToCanvas ? y => y : (y) => P5JsUtils.jsCodeAsHeightFraction(y);
 
-    if (proportionalToCanvas == false){
-      code.push(`let bezierCurve = new BezierCurve(${this.p1.x}, ${this.p1.y},`);
-      code.push(`                                  ${this.p2.x}, ${this.p2.y},`);
-      code.push(`                                  ${this.p3.x}, ${this.p3.y},`);
-      code.push(`                                  ${this.p4.x}, ${this.p4.y});`);
-      return code.join(char(10));
-    }
+    code.push(`let bezierCurve = new BezierCurve(${xJS(this.p1.x)}, ${yJS(this.p1.y)},`);
+    code.push(`                                  ${xJS(this.p2.x)}, ${yJS(this.p2.y)},`);
+    code.push(`                                  ${xJS(this.p3.x)}, ${yJS(this.p3.y)},`);
+    code.push(`                                  ${xJS(this.p4.x)}, ${yJS(this.p4.y)});`);
+    return code.join(char(10));
   }
 }
