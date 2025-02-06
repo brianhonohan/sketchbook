@@ -15,15 +15,40 @@ class LineSegment {
     this.isDragged = true;
   }
 
+  set startX(val) { this.start.x = val; }
+  set startY(val) { this.start.y = val; }
+  set endX(val) { this.end.x = val; }
+  set endY(val) { this.end.y = val; }
+  get startX() { return this.start.x; }
+  get startY() { return this.start.y; }
+  get endX() { return this.end.x; }
+  get endY() { return this.end.y; }
+
   dx() { return this.endX - this.startX; }
   dy() { return this.endY - this.startY; }
   get slope() { return this.dy() / this.dx(); }
+
+  centerX() { return (this.start.x + this.end.x) / 2; }
+  centerY() { return (this.start.y + this.end.y) / 2; }
+  centerPoint() { return new Point(this.centerX(), this.centerY()); }
 
   get offset() {
     if (this.slope == Infinity) {
       return undefined;
     }
     return this.startY + this.slope * (0 - this.startX);
+  }
+
+  asVector(){
+    return createVector(this.end.x - this.start.x,
+                          this.end.y - this.start.y);
+  }
+
+  setLength(newValue){
+    let delta = this.asVector();
+    delta.setMag(newValue);
+    this.end.x = this.start.x + delta.x;
+    this.end.y = this.start.y + delta.y;
   }
 
   getLine(){
@@ -44,15 +69,13 @@ class LineSegment {
     this.end.move(x, y);
   }
 
-  set startX(val) { this.start.x = val; }
-  set startY(val) { this.start.y = val; }
-  set endX(val) { this.end.x = val; }
-  set endY(val) { this.end.y = val; }
-  get startX() { return this.start.x; }
-  get startY() { return this.start.y; }
-  get endX() { return this.end.x; }
-  get endY() { return this.end.y; }
+  rotate90AroundStart(){
+    let deltaX = this.dx();
+    let deltaY = this.dy();
 
+    this.end.x = this.start.x - deltaY;
+    this.end.y = this.start.y + deltaX;
+  }
 
   handleMousePressed(){
     const pointPressed = this.points.find(p => p.containsXY(mouseX, mouseY));

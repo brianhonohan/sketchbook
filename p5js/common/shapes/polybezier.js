@@ -135,4 +135,22 @@ class Polybezier {
     });
     endShape();
   }
+
+  toCode(proportionalToCanvas = false){
+    let code = [];
+    const xJS = !proportionalToCanvas ? x => x : (x) => P5JsUtils.jsCodeAsWidthFraction(x);
+    const yJS = !proportionalToCanvas ? y => y : (y) => P5JsUtils.jsCodeAsHeightFraction(y);
+
+    code.push(`let polybezier = new Polybezier();`);
+    for (let i = 0; i < this.curves.length; i++){
+      let curve = this.curves[i];
+      code.push(`polybezier.append(new BezierCurve(${xJS(curve.p1.x)}, ${yJS(curve.p1.y)},`);
+      code.push(`                                  ${xJS(curve.p2.x)}, ${yJS(curve.p2.y)},`);
+      code.push(`                                  ${xJS(curve.p3.x)}, ${yJS(curve.p3.y)},`);
+      code.push(`                                  ${xJS(curve.p4.x)}, ${yJS(curve.p4.y)}));`);
+
+    }
+    code.push(`polybezier.close();`);
+    return code.join(char(10));
+  }
 }

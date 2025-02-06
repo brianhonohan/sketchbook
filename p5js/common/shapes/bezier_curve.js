@@ -24,6 +24,26 @@ class BezierCurve {
     return new BezierCurve(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y);
   }
 
+  pointAt(percent){
+    return new Point( bezierPoint(this.p1.x, this.p2.x, this.p3.x, this.p4.x, percent),
+                      bezierPoint(this.p1.y, this.p2.y, this.p3.y, this.p4.y, percent));
+  }
+
+  // returns a line, perpendicular to the curve at the point
+  perpendicularAt(percent){
+    let lineSeg = this.tangentAt(percent);
+    lineSeg.rotate90AroundStart();
+    return lineSeg;
+  }
+
+  tangentAt(percent){
+    const delta = 0.0001;
+    const pointJustBefore = this.pointAt(percent - delta);
+    const pointJustAfter = this.pointAt(percent + delta);
+
+    return new LineSegment(pointJustBefore, pointJustAfter);
+  }
+
   toggleDragEnabled(){
     this.dragEnabled = !this.dragEnabled;
   }
@@ -121,5 +141,17 @@ class BezierCurve {
     line(this.p1.x, this.p1.y, this.p2.x, this.p2.y);
     line(this.p4.x, this.p4.y, this.p3.x, this.p3.y);
     pop();
+  }
+
+  toCode(proportionalToCanvas = false){
+    let code = []
+    const xJS = !proportionalToCanvas ? x => x : (x) => P5JsUtils.jsCodeAsWidthFraction(x);
+    const yJS = !proportionalToCanvas ? y => y : (y) => P5JsUtils.jsCodeAsHeightFraction(y);
+
+    code.push(`let bezierCurve = new BezierCurve(${xJS(this.p1.x)}, ${yJS(this.p1.y)},`);
+    code.push(`                                  ${xJS(this.p2.x)}, ${yJS(this.p2.y)},`);
+    code.push(`                                  ${xJS(this.p3.x)}, ${yJS(this.p3.y)},`);
+    code.push(`                                  ${xJS(this.p4.x)}, ${yJS(this.p4.y)});`);
+    return code.join(char(10));
   }
 }
