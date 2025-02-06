@@ -1,10 +1,15 @@
 var system;
 var bezierCurve;
 let pointsAlongCurve;
+let tangentLine;
 
 const settings = {
   enable_drag: true,
   num_points: 5,
+  tangent: {
+    draw: true,
+    percent: 0.25
+  }
 }
 
 function setup() {
@@ -17,8 +22,15 @@ function setup() {
   
   gui = P5JsSettings.addDatGui({autoPlace: false});
   gui.add(settings, "enable_drag").onChange(updateDragEnabled);
-  gui.add(settings, "num_points", 0, 10, 1).onChange(drawIntermediatePoints);
+  let pointsGui = gui.addFolder("Points Along Curve Debug");
+  pointsGui.open();
+  pointsGui.add(settings, "num_points", 0, 10, 1).onChange(drawIntermediatePoints);
   
+  let tangentGui = gui.addFolder("Tangent Debug");
+  tangentGui.open();
+  tangentGui.add(settings.tangent, "draw");
+  tangentGui.add(settings.tangent, "percent", 0, 1, 0.02);
+
   drawIntermediatePoints();
 }
 
@@ -33,6 +45,14 @@ function draw(){
   fill(200, 200, 50);
   strokeWeight(12);
   pointsAlongCurve.forEach(p => p.draw());
+
+  if (settings.tangent.draw){
+    tangentLine = bezierCurve.tangentAt(settings.tangent.percent);
+    stroke(50, 200, 200);
+    strokeWeight(2);
+    tangentLine.setLength(50);
+    tangentLine.draw();
+  }
 }
 
 function updateDragEnabled(){
@@ -46,7 +66,7 @@ function drawIntermediatePoints(){
   const fraction = 1.0 / (settings.num_points + 1);
 
   for (let i = 1; i <= settings.num_points; i++){
-    pointsAlongCurve.push(bezierCurve.pointAlongCurve(fraction * i));
+    pointsAlongCurve.push(bezierCurve.pointAt(fraction * i));
   }
 }
 
