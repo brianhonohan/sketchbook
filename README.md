@@ -22,10 +22,11 @@ Collection of sketches using the [paper.js][paperjs] Javascript library.
 [<img src="./paperjs/interaction-of-color/screenshot-01.png" alt="interaction-of-color" width="150px" />][link-paperjs-interaction-of-color]
 [<img src="./paperjs/race-track/screenshot-01.png" alt="race-track" width="150px" />][link-paperjs-race-track]
 
-## p5.js
-Collection of sketches using the [p5.js][p5js] Javascript library.
+## p5.js Common Examples
+Collection of sketches using the [p5.js][p5js] Javascript library which demonstrate utility classes that this repo has in [p5js/common](https://github.com/brianhonohan/sketchbook/tree/main/p5js/common) to augment the built-in capability of p5.js library.
 
 [<img src="./p5js/common/examples/bezier/screenshot-01.png" alt="bezier" width="150px" />][link-p5js-bezier]
+[<img src="./p5js/common/examples/bezier-2/screenshot-01.png" alt="bezier" width="150px" />][link-p5js-bezier-2]
 [<img src="./p5js/common/examples/draggable/screenshot-01.png" alt="draggable" width="150px" />][link-p5js-draggable]
 [<img src="./p5js/common/examples/color-ramp/screenshot-01.png" alt="draggable" width="150px" />][link-p5js-color-ramp]
 [<img src="./p5js/common/examples/geometry-circle-line/screenshot-01.png" alt="draggable" width="150px" />][link-p5js-geometry-circle-line]
@@ -41,6 +42,17 @@ Collection of sketches using the [p5.js][p5js] Javascript library.
 [<img src="./p5js/common/examples/voronoi-2/screenshot-01.png" alt="voronoi second sketch" width="150px" />][link-p5js-voronoi-2]
 [<img src="./p5js/common/examples/voronoi-3/screenshot-01.png" alt="voronoi second sketch" width="150px" />][link-p5js-voronoi-3]
 [<img src="./p5js/common/examples/voronoi-4/screenshot-01.png" alt="voronoi second sketch" width="150px" />][link-p5js-voronoi-4]
+
+## p5.js Scales
+Collection of sketches using the [p5.js][p5js] Javascript library, which are my way of learning about how built-in p5.js functions work, by practicing my 'scales' (like learning to play the piano).
+
+[<img src="./p5js/scales/blendmode/screenshot-01.png" alt="blendmode" width="150px" />][link-p5js-scales-blendmode]
+[<img src="./p5js/scales/palettelerp/screenshot-01.png" alt="palettelerp" width="150px" />][link-p5js-scales-palettelerp]
+
+
+## p5.js
+Collection of sketches using the [p5.js][p5js] Javascript library.
+
 [<img src="./p5js/ecosystem/screenshot-01.png" alt="ecosystem" width="150px" />][link-p5js-ecosystem]
 [<img src="./p5js/forest-01/screenshot-01.png" alt="forest-01" width="150px" />][link-p5js-forest-01]
 [<img src="./p5js/forest-fires-02/screenshot-01.png" alt="forest-fires-02" width="150px" />][link-p5js-forest-fires-02]
@@ -61,8 +73,6 @@ Collection of sketches using the [p5.js][p5js] Javascript library.
 [<img src="./p5js/random/1/screenshot-01.png" alt="random-1" width="150px" />][link-p5js-random-1]
 [<img src="./p5js/random/2/screenshot-01.png" alt="random-2" width="150px" />][link-p5js-random-2]
 [<img src="./p5js/random/3/screenshot-01.png" alt="random-3" width="150px" />][link-p5js-random-3]
-[<img src="./p5js/scales/blendmode/screenshot-01.png" alt="thermal-cells" width="150px" />][link-p5js-scales-blendmode]
-[<img src="./p5js/scales/palettelerp/screenshot-01.png" alt="thermal-cells" width="150px" />][link-p5js-scales-palettelerp]
 [<img src="./p5js/tree-rings/screenshot-01.png" alt="tree-rings" width="150px" />][link-p5js-tree-rings]
 [<img src="./p5js/voronoi-herd/screenshot-01.png" alt="voronoi-herd" width="150px" />][link-p5js-voronoi-herd]
 
@@ -124,6 +134,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-paperjs-drawing-app]: https://github.com/brianhonohan/sketchbook/tree/master/paperjs/drawing-app
 
 [link-p5js-bezier]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/bezier/
+[link-p5js-bezier-2]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/bezier-2/
 [link-p5js-color-ramp]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/color-ramp/
 [link-p5js-draggable]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/draggable/
 [link-p5js-geometry-circle-line]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/geometry-circle-line/
