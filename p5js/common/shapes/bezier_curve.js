@@ -24,6 +24,11 @@ class BezierCurve {
     return new BezierCurve(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y);
   }
 
+  pointAlongCurve(percent){
+    return new Point( bezierPoint(this.p1.x, this.p2.x, this.p3.x, this.p4.x, percent),
+                      bezierPoint(this.p1.y, this.p2.y, this.p3.y, this.p4.y, percent));
+  }
+
   toggleDragEnabled(){
     this.dragEnabled = !this.dragEnabled;
   }
