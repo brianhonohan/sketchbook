@@ -135,4 +135,19 @@ class Polybezier {
     });
     endShape();
   }
+
+  toCode(){
+    let code = [];
+    code.push(`let polybezier = new Polybezier();`);
+    for (let i = 0; i < this.curves.length; i++){
+      let curve = this.curves[i];
+      code.push(`polybezier.append(new BezierCurve(${curve.p1.x}, ${curve.p1.y},`);
+      code.push(`                                  ${curve.p2.x}, ${curve.p2.y},`);
+      code.push(`                                  ${curve.p3.x}, ${curve.p3.y},`);
+      code.push(`                                  ${curve.p4.x}, ${curve.p4.y}));`);
+
+    }
+    code.push(`polybezier.close();`);
+    return code.join(char(10));
+  }
 }
