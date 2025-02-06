@@ -1,10 +1,10 @@
 ---
 layout: minimal
-title:  "p5.js - Common Examples - Bezier Shapes"
+title:  "p5.js - Common Examples - Ploybezier (Composite Bezier)"
 categories: p5js
 modal: true
 viewport_noscale: true
-excerpt: Demonstrates the display and interaction of a Bezier curve modeled as an object, with draggable control points.
+excerpt: Demonstrates the display and interaction of "PolyBezier" (aka Composite Bezier) which is a set of connected bezie-curves.
 
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/inobounce/0.2.0/inobounce.js
