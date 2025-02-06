@@ -4,8 +4,8 @@ var polybezier;
 var bezierCircle;
 
 function setup() {
-  // createCanvas(windowWidth, windowHeight-35);
-  createCanvas(500, 500);
+  createCanvas(windowWidth, windowHeight-35);
+  // createCanvas(500, 500);
   P5JsSettings.init();
   resetShapes();
 }
@@ -65,22 +65,22 @@ function resetShapes(){
   let _anyValue = 100;
 
   let polybezier = new Polybezier();
-  polybezier.append(new BezierCurve(0.3 * width, 0.4 * height,
-                                     0.15 * width, 0.45 * height,
-                                     0.1 * width, 0.65 * height,
-                                     0.2 * width, 0.7 * height));
+  polybezier.append(new BezierCurve(0.30 * width, 0.40 * height,
+                                    0.15 * width, 0.45 * height,
+                                    0.12 * width, 0.62 * height,
+                                    0.20 * width, 0.70 * height));
   polybezier.append(new BezierCurve(_anyValue, _anyValue,
-                                    0.3 * width, 0.8 * height,
-                                    0.5 * width, 0.8 * height,
-                                    0.6 * width, 0.8 * height));
+                                    0.30 * width, 0.80 * height,
+                                    0.51 * width, 0.84 * height,
+                                    0.60 * width, 0.80 * height));
   polybezier.append(new BezierCurve(_anyValue, _anyValue,
-                                    0.7 * width, 0.75 * height,
-                                    0.7 * width, 0.7 * height,
-                                    0.5 * width, 0.61 * height));
+                                    0.70 * width, 0.75 * height,
+                                    0.69 * width, 0.72 * height,
+                                    0.50 * width, 0.61 * height));
   polybezier.append(new BezierCurve(_anyValue, _anyValue,
-                                    0.4 * width, 0.55 * height,
-                                    0.4 * width, 0.3 * height,
-                                    0.3 * width, 0.4 * height));
+                                    0.40 * width, 0.55 * height,
+                                    0.43 * width, 0.36 * height,
+                                    0.30 * width, 0.40 * height));
   polybezier.close();
   polybezier.smooth(Polybezier.SMOOTH_MODE_TRAILING);
   polybezier.dragEnabled = true;
@@ -88,6 +88,6 @@ function resetShapes(){
   polybezier.strokeColor = color(255);
   shapes.push(polybezier);
 
-  bezierCircle = Polybezier.circle(0.7 * width, 0.3 * height, 0.15 * width);
+  bezierCircle = Polybezier.circle(0.7 * width, 0.3 * height, 0.10 * width);
   shapes.push(bezierCircle);
 }

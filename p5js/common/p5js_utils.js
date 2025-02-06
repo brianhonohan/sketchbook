@@ -222,4 +222,15 @@ class P5JsUtils {
     noStroke();
     ellipse(point.x, point.y, point.radius, point.radius);
   }
+
+  // Returns a string like "0.25 * width" 
+  // converting an input of 125 when canvas is 500px wide
+  static jsCodeAsWidthFraction(value, digits = 2){
+    let fract = (Math.round(value / width * (10 ** digits)) / (10 ** digits)).toFixed(digits);
+    return `${fract} * width`;
+  }
+  static jsCodeAsHeightFraction(value, digits = 2){
+    let fract = (Math.round(value / height * (10 ** digits)) / (10 ** digits)).toFixed(digits);
+    return `${fract} * height`;
+  }
 }

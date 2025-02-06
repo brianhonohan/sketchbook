@@ -123,12 +123,15 @@ class BezierCurve {
     pop();
   }
 
-  toCode(){
+  toCode(proportionalToCanvas = false){
     let code = []
-    code.push(`let bezierCurve = new BezierCurve(${this.p1.x}, ${this.p1.y},`);
-    code.push(`                                  ${this.p2.x}, ${this.p2.y},`);
-    code.push(`                                  ${this.p3.x}, ${this.p3.y},`);
-    code.push(`                                  ${this.p4.x}, ${this.p4.y});`);
-    return code.join(char(10));
+
+    if (proportionalToCanvas == false){
+      code.push(`let bezierCurve = new BezierCurve(${this.p1.x}, ${this.p1.y},`);
+      code.push(`                                  ${this.p2.x}, ${this.p2.y},`);
+      code.push(`                                  ${this.p3.x}, ${this.p3.y},`);
+      code.push(`                                  ${this.p4.x}, ${this.p4.y});`);
+      return code.join(char(10));
+    }
   }
 }
