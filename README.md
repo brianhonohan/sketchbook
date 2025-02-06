@@ -5,9 +5,9 @@ Collection of personal coding projects. They may or may not grow into individual
 
 ## Latest
 
-A p5.js sketch is an iteration to of the Marching Squares sketch, adding suport for multiple level isolines and tiered coloring.
+A p5.js sketch is an iteration to of the Bezier example sketch, showing some new capability to get points along the curve via `bezierPoint()` and from that compute tangents and perpendicular lines on the curve at any point.
 
-[<img src="./p5js/coding-challenges/marching-squares-3/screenshot-01.png" alt="marching-squares-3" width="150px" />][link-p5js-cc-marching-squares-3]
+[<img src="./p5js/common/examples/bezier-2/screenshot-01.png" alt="bezier" width="150px" />][link-p5js-bezier-2]
 
 ## LÖVE
 Collection of sketches using the [LÖVE][love2d] environment.

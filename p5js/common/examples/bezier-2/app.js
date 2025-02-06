@@ -2,13 +2,16 @@ var system;
 var bezierCurve;
 let pointsAlongCurve;
 let tangentLine;
+let perpendicularLine;
 
 const settings = {
   enable_drag: true,
-  num_points: 5,
+  num_points: 4,
   tangent: {
     draw: true,
-    percent: 0.25
+    percent: 0.25,
+    perpendicular: true,
+    perpendicular_length: 50
   }
 }
 
@@ -24,12 +27,14 @@ function setup() {
   gui.add(settings, "enable_drag").onChange(updateDragEnabled);
   let pointsGui = gui.addFolder("Points Along Curve Debug");
   pointsGui.open();
-  pointsGui.add(settings, "num_points", 0, 10, 1).onChange(drawIntermediatePoints);
+  pointsGui.add(settings, "num_points", 0, 20, 1).onChange(drawIntermediatePoints);
   
   let tangentGui = gui.addFolder("Tangent Debug");
   tangentGui.open();
   tangentGui.add(settings.tangent, "draw");
   tangentGui.add(settings.tangent, "percent", 0, 1, 0.02);
+  tangentGui.add(settings.tangent, "perpendicular");
+  tangentGui.add(settings.tangent, "perpendicular_length", 5, 200, 5);
 
   drawIntermediatePoints();
 }
@@ -41,17 +46,28 @@ function draw(){
   strokeWeight(1);
   shapes.forEach(s => s.draw());
 
-  stroke(200, 200, 50);
-  fill(200, 200, 50);
-  strokeWeight(12);
-  pointsAlongCurve.forEach(p => p.draw());
+  if (settings.num_points > 0){
+    drawIntermediatePoints();
+    stroke(200, 200, 50);
+    fill(200, 200, 50);
+    strokeWeight(12);
+    pointsAlongCurve.forEach(p => p.draw());
+  }
 
   if (settings.tangent.draw){
     tangentLine = bezierCurve.tangentAt(settings.tangent.percent);
     stroke(50, 200, 200);
-    strokeWeight(2);
+    strokeWeight(3);
     tangentLine.setLength(50);
     tangentLine.draw();
+
+    if (settings.tangent.perpendicular){
+      perpendicularLine = bezierCurve.perpendicularAt(settings.tangent.percent);
+      stroke(200, 50, 50);
+      strokeWeight(3);
+      perpendicularLine.setLength(settings.tangent.perpendicular_length);
+      perpendicularLine.draw();
+    }
   }
 }
 

@@ -28,6 +28,10 @@ class LineSegment {
   dy() { return this.endY - this.startY; }
   get slope() { return this.dy() / this.dx(); }
 
+  centerX() { return (this.start.x + this.end.x) / 2; }
+  centerY() { return (this.start.y + this.end.y) / 2; }
+  centerPoint() { return new Point(this.centerX(), this.centerY()); }
+
   get offset() {
     if (this.slope == Infinity) {
       return undefined;
@@ -63,6 +67,14 @@ class LineSegment {
   translate(x, y){
     this.start.move(x, y);
     this.end.move(x, y);
+  }
+
+  rotate90AroundStart(){
+    let deltaX = this.dx();
+    let deltaY = this.dy();
+
+    this.end.x = this.start.x - deltaY;
+    this.end.y = this.start.y + deltaX;
   }
 
   handleMousePressed(){

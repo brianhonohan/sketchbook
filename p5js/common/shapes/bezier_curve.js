@@ -31,6 +31,9 @@ class BezierCurve {
 
   // returns a line, perpendicular to the curve at the point
   perpendicularAt(percent){
+    let lineSeg = this.tangentAt(percent);
+    lineSeg.rotate90AroundStart();
+    return lineSeg;
   }
 
   tangentAt(percent){
