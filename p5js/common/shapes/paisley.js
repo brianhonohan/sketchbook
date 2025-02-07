@@ -29,6 +29,17 @@ class Paisley {
     this.points.push(this.tail);
     this.points.push(this.headingPt);
     this.points.push(this.radiusPt);
+
+    // Exterior Accent
+    // want a 'shape' that can be drawn
+    // want spacing between them
+    // want spacing from edge
+    // want toggling to display or not
+    // want it to handle styling based on percent around paisley side
+    // will want the same for 'interior' accent
+    // FOR NOW: Assume sensible defaults; and then iterate
+    // this paisley will likely handle rotation translation
+    this.exteriorAccent = undefined;
   }
 
   _constructorCall(){
@@ -63,6 +74,8 @@ class Paisley {
     if (this.polybezier == undefined){
       this.polybezier = new Polybezier();
     }
+
+    // TODO: Investigate moving existing curves rather than recreate them
     this.polybezier.clear();
     this.polybezier.append(BezierCurve.circularQuarterArc(this.x, this.y, this.bulbRadius, this.heading - HALF_PI));
     this.polybezier.append(BezierCurve.circularQuarterArc(this.x, this.y, this.bulbRadius, this.heading));
@@ -200,9 +213,29 @@ class Paisley {
   draw(){
     P5JsUtils.applyStyleSet(this);
     this.polybezier.draw();
+    this.drawExteriorAccent();
 
     if (this.dragEnabled) {
       P5JsUtils.drawControlPoints(this.points);
+    }
+  }
+
+  drawExteriorAccent(){
+    if (this.exteriorAccent == undefined){
+      return;
+    }
+    let curve;
+    let accentLocation;
+
+    for (let i = 0; i < this.polybezier.curves.length; i++){
+      curve = this.polybezier.curves[i];
+
+      for (let j = 0; j < 1; j += this.exteriorAccent.step){
+        accentLocation = curve.perpendicularAt(j, this.exteriorAccent.margin * -1).rotate180().start;
+        
+        this.exteriorAccent.moveTo(accentLocation.x, accentLocation.y);
+        this.exteriorAccent.draw();
+      }
     }
   }
 }

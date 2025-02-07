@@ -77,6 +77,18 @@ class LineSegment {
     this.end.y = this.start.y + deltaX;
   }
 
+  rotate180(){
+    const tempX = this.start.x;
+    const tempY = this.start.y;
+
+    this.start.x = this.end.x;
+    this.start.y = this.end.y;
+
+    this.end.x = tempX;
+    this.end.y = tempY;
+    return this;
+  }
+
   handleMousePressed(){
     const pointPressed = this.points.find(p => p.containsXY(mouseX, mouseY));
 

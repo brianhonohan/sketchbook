@@ -1,11 +1,13 @@
 var system;
 var paisley;
+var extAccent;
 
 
 const settings = {
 }
 
 function setup() {
+  // createCanvas(500, 500);
   createCanvas(windowWidth, windowHeight-35);
   P5JsSettings.init();
 
@@ -30,6 +32,19 @@ function setup() {
   gui.addColor(paisley, "strokeColor");
   gui.add(paisley, "strokeWeight", 0.5, 30, 0.5);
   gui.add(paisley, "dragEnabled");
+  
+  extAccent = new Rectangle(0,0, 10, 10);
+  extAccent.fillColor = "#8585d7";
+  extAccent.noStroke = true;
+  extAccent.margin = 10;
+  extAccent.step = 0.1;
+  paisley.exteriorAccent = extAccent;
+  
+  let extAccentGui = gui.addFolder("Exterior Accent");
+  extAccentGui.open();
+  extAccentGui.addColor(extAccent, "fillColor");
+  extAccentGui.add(extAccent, "margin", 0, 200, 1);
+  extAccentGui.add(extAccent, "step", 0.05, 1, 0.01);
 }
 
 function draw(){
