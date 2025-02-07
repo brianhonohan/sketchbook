@@ -1,17 +1,33 @@
 var system;
 var paisley;
 
+
+const settings = {
+  fill_color: "#5b85d7",
+  stroke_color: "#2251ac"
+}
+
 function setup() {
   createCanvas(windowWidth, windowHeight-35);
   P5JsSettings.init();
 
   shapes = [];
 
+  gui = P5JsSettings.addDatGui({autoPlace: false});
+  gui.addColor(settings, "fill_color").onChange(updateColors);
+  gui.addColor(settings, "stroke_color").onChange(updateColors);
+
   paisley = new Paisley(0.3 * width, 0.5 * height, HALF_PI + QUARTER_PI, 0.1 * width);
   paisley.dragEnabled = true;
-  paisley.noFill = true;
-  paisley.strokeColor = color(255);
+  paisley.fillColor = settings.fill_color;
+  paisley.strokeColor = settings.stroke_color;
   shapes.push(paisley);
+
+  gui.add(paisley, "dragEnabled");
+}
+
+function updateColors(){
+  paisley.fillColor = settings.fill_color;
 }
 
 function draw(){
