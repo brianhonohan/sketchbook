@@ -15,12 +15,20 @@ function setup() {
 
   paisley = new Paisley(0.3 * width, 0.5 * height, HALF_PI + QUARTER_PI, 0.1 * width);
   paisley.dragEnabled = true;
+  paisley.noFill = false
   paisley.fillColor = "#5b85d7";
+  paisley.noStroke = false;
   paisley.strokeColor = "#2251ac";
+  paisley.strokeWeight = 15;
   shapes.push(paisley);
 
+  let mainPaisleyGui = gui.addFolder("Base Paisley");
+  mainPaisleyGui.open();
+  gui.add(paisley, "noFill");
   gui.addColor(paisley, "fillColor");
+  gui.add(paisley, "noStroke");
   gui.addColor(paisley, "strokeColor");
+  gui.add(paisley, "strokeWeight", 0.5, 30, 0.5);
   gui.add(paisley, "dragEnabled");
 }
 
