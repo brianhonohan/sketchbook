@@ -8,6 +8,8 @@ class Rect {
 
   get x(){ return this._x; }
   get y(){ return this._y; }
+  set x(newVal){ this._x = newVal; }
+  set y(newVal){ this._y = newVal; }
   get width(){ return this._width; }
   get height(){ return this._height; }
   get minX(){ return this._x; }
@@ -20,6 +22,11 @@ class Rect {
   move(x, y){
     this._x += x;
     this._y += y;
+  }
+
+  moveTo(x, y){
+    this._x = x;
+    this._y = y;
   }
 
   copy(){

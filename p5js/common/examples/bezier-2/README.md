@@ -41,7 +41,7 @@ JS Console
 [p5js-home]: https://p5js.org/
 [p5js-bezier]: https://p5js.org/reference/p5/bezier/
 [p5js-bezierPoint]: https://p5js.org/reference/p5/bezierPoint/
-[source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/bezier/
+[source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/bezier-2/
 [source-line_segment]: https://github.com/brianhonohan/sketchbook/blob/main/p5js/common/shapes/line_segment.js
 [source-bezier_curve]: https://github.com/brianhonohan/sketchbook/blob/main/p5js/common/shapes/bezier_curve.js
 [live-view]: https://brianhonohan.com/sketchbook/p5js/common/examples/bezier/

@@ -30,13 +30,18 @@ class BezierCurve {
   }
 
   // returns a line, perpendicular to the curve at the point
-  perpendicularAt(percent){
+  perpendicularAt(percent, length = undefined){
     let lineSeg = this.tangentAt(percent);
     lineSeg.rotate90AroundStart();
+
+    if (length != undefined){
+      lineSeg.setLength(length);
+    }
     return lineSeg;
   }
 
   tangentAt(percent){
+    //  consider shifting to bezierTangent(...)
     const delta = 0.0001;
     const pointJustBefore = this.pointAt(percent - delta);
     const pointJustAfter = this.pointAt(percent + delta);
