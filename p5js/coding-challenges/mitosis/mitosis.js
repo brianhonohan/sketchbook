@@ -186,8 +186,10 @@ class Cell {
     strokeWeight(5);
     beginShape();
     for (var i = 0; i < this.membrane.length; i++){
-      vertex(this.membrane[i].x, this.membrane[i].y);
+      curveVertex(this.membrane[i].x, this.membrane[i].y);
     }
+    curveVertex(this.membrane[0].x, this.membrane[0].y);
+    curveVertex(this.membrane[1].x, this.membrane[1].y);
     endShape(CLOSE);
 
     this.drawNuclei();
