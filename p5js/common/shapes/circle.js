@@ -23,6 +23,11 @@ class Circle {
   get width() { return this.radius * 2; }
   get height() { return this.radius * 2; }
 
+  moveTo(x, y){
+    this.pos.x = x;
+    this.pos.y = y;
+  }
+
   setSize(newSize){
     this.radius = newSize / 2;
   }

@@ -8,6 +8,7 @@ class Paisley {
     this.rightShoulderPt = new Point(x, y);
     this.leftConstraint = createVector(0, 0);
     this.rightConstraint = createVector(0, 0);
+    this.spineConstraint = createVector(0, 0);
     this.tail = new Point(x, y);
 
     this.headingVec = createVector(1, 0);
@@ -21,9 +22,10 @@ class Paisley {
       this.tail.x = tailX;
       this.tail.y = tailY;
     }
-    this._calcHelperPoints();
 
+    this._calcHelperPoints();
     this._initPolyBezier();
+
     this.points = [];
     this.points.push(this.pos);
     this.points.push(this.tail);
@@ -40,6 +42,9 @@ class Paisley {
     // FOR NOW: Assume sensible defaults; and then iterate
     // this paisley will likely handle rotation translation
     this.exteriorAccent = undefined;
+    this.accentViaScaledPaisley = true;
+
+    this.drawSpine = false;
   }
 
   _constructorCall(){
@@ -60,6 +65,23 @@ class Paisley {
     this._heading = newVal;
   }
 
+  getScaledClone(scale){
+    const newRadius = this.bulbRadius * scale;
+    const newTail = this.spine.pointAt(scale);
+    if (scale > 1){
+      // WARNING: Napkin math ... actually didn't even use a napkin
+      const tangentNearTail = this.spine.tangentAt(0.999);
+      const spineApproxLength = this.spine.approximateLength(10);
+      const approxTailGrowth = spineApproxLength * (scale - 1);
+
+      tangentNearTail.setLength(approxTailGrowth);
+      newTail.x = this.tail.x + tangentNearTail.dx();
+      newTail.y = this.tail.y + tangentNearTail.dy();
+    }
+
+    return new Paisley(this.x, this.y, this.heading, newRadius, newTail.x, newTail.y);
+  }
+
   _updateHeadingPt(){
     this.headingPt.x = this.x + this.headingVec.x * this.bulbRadius;
     this.headingPt.y = this.y + this.headingVec.y * this.bulbRadius;
@@ -74,6 +96,8 @@ class Paisley {
     if (this.polybezier == undefined){
       this.polybezier = new Polybezier();
     }
+
+    this.spine = new BezierCurve(this.pos, this.spineConstraint, this.tail, this.tail);
 
     // TODO: Investigate moving existing curves rather than recreate them
     this.polybezier.clear();
@@ -114,6 +138,8 @@ class Paisley {
   _calcHelperPoints(){
     let step = this.headingVec.copy();
     step.mult(this.bulbRadius);
+     
+    this.spineConstraint.set(this.x - step.x * 2, this.y - step.y * 2);
 
     step.rotate(HALF_PI);
     this.rightShoulderPt.set(this.x + step.x, this.y + step.y);
@@ -213,6 +239,10 @@ class Paisley {
   draw(){
     P5JsUtils.applyStyleSet(this);
     this.polybezier.draw();
+
+    if (this.drawSpine){
+      this.spine.draw();
+    }
     this.drawExteriorAccent();
 
     if (this.dragEnabled) {
@@ -227,10 +257,29 @@ class Paisley {
     let curve;
     let accentLocation;
 
+    if (this.accentViaScaledPaisley){
+      let scale = 1 + this.exteriorAccent.margin / this.bulbRadius;
+      let paisleyClone = this.getScaledClone(scale);
+      
+      for (let i = 0; i < paisleyClone.polybezier.curves.length; i++){
+        curve = paisleyClone.polybezier.curves[i];
+        let stepSize = (i < 2) ? this.exteriorAccent.step * 2 : this.exteriorAccent.step;
+
+        for (let j = 0; j < 1; j += stepSize){
+          accentLocation = curve.pointAt(j);
+          
+          this.exteriorAccent.moveTo(accentLocation.x, accentLocation.y);
+          this.exteriorAccent.draw();
+        }
+      }
+      return;
+    }
+
     for (let i = 0; i < this.polybezier.curves.length; i++){
       curve = this.polybezier.curves[i];
+      let stepSize = (i < 2) ? this.exteriorAccent.step * 2 : this.exteriorAccent.step;
 
-      for (let j = 0; j < 1; j += this.exteriorAccent.step){
+      for (let j = 0; j < 1; j += stepSize){
         accentLocation = curve.perpendicularAt(j, this.exteriorAccent.margin * -1).rotate180().start;
         
         this.exteriorAccent.moveTo(accentLocation.x, accentLocation.y);

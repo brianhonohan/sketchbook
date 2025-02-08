@@ -24,6 +24,26 @@ class BezierCurve {
     return new BezierCurve(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y);
   }
 
+  // Expected range of numSumples 1+ 
+  // 1 would be very coarse, just the distance from start to end point
+  // 10 (default) would subdivide the curve into 10 steps and tally the segment lengths
+  approximateLength(numSamples = 10){
+    numSamples = Math.floor( (numSamples < 1) ? 1 : numSamples);
+
+    const stepSize = 1 / numSamples;
+    let lengthTally = 0;
+    let currentPoint = this.p1;
+    let samplePoint;
+
+    for (let i = 1; i <= numSamples; i++){
+      samplePoint = this.pointAt(i * stepSize);
+      lengthTally += currentPoint.distTo(samplePoint);
+
+      currentPoint = samplePoint;
+    }
+    return lengthTally;
+  }
+
   pointAt(percent){
     return new Point( bezierPoint(this.p1.x, this.p2.x, this.p3.x, this.p4.x, percent),
                       bezierPoint(this.p1.y, this.p2.y, this.p3.y, this.p4.y, percent));
