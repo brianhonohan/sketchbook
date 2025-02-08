@@ -260,10 +260,8 @@ class Paisley {
       for (let i = 0; i < paisleyClone.polybezier.curves.length; i++){
         curve = paisleyClone.polybezier.curves[i];
         let stepSize = (i < 2) ? this.exteriorAccent.step * 2 : this.exteriorAccent.step;
-        let curveStart = [0, 0, 0, 0.2][i];
-        let curveLimit = [1, 1, 0.8, 1][i];
-        
-        for (let j = curveStart; j < curveLimit; j += stepSize){
+
+        for (let j = 0; j < 1; j += stepSize){
           accentLocation = curve.pointAt(j);
           
           this.exteriorAccent.moveTo(accentLocation.x, accentLocation.y);

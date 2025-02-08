@@ -5,9 +5,9 @@ Collection of personal coding projects. They may or may not grow into individual
 
 ## Latest
 
-A p5.js sketch is an iteration to of the Bezier example sketch, showing some new capability to get points along the curve via `bezierPoint()` and from that compute tangents and perpendicular lines on the curve at any point.
+A p5.js sketch is an iteration of the Paisley example sketch, showing some new capability to draw 'accents' around the outer edge of a paisley shape.
 
-[<img src="./p5js/common/examples/bezier-2/screenshot-01.png" alt="bezier" width="150px" />][link-p5js-bezier-2]
+[<img src="./p5js/common/examples/paisley-2/screenshot-01.png" alt="paisley" width="150px" />][link-p5js-paisley-2]
 
 ## LÖVE
 Collection of sketches using the [LÖVE][love2d] environment.
@@ -32,6 +32,7 @@ Collection of sketches using the [p5.js][p5js] Javascript library which demonstr
 [<img src="./p5js/common/examples/geometry-circle-line/screenshot-01.png" alt="draggable" width="150px" />][link-p5js-geometry-circle-line]
 [<img src="./p5js/common/examples/geometry-point-to-line/screenshot-01.png" alt="draggable" width="150px" />][link-p5js-geometry-point-to-line]
 [<img src="./p5js/common/examples/paisley/screenshot-01.png" alt="paisley" width="150px" />][link-p5js-paisley]
+[<img src="./p5js/common/examples/paisley-2/screenshot-01.png" alt="paisley" width="150px" />][link-p5js-paisley-2]
 [<img src="./p5js/common/examples/quadtree/screenshot-01.png" alt="quadtree" width="150px" />][link-p5js-quadtree]
 [<img src="./p5js/common/examples/quadtree-2/screenshot-01.png" alt="quadtree" width="150px" />][link-p5js-quadtree-2]
 [<img src="./p5js/common/examples/rotation-between-vectors/screenshot-01.png" alt="quadtree" width="150px" />][link-p5js-rotation-between-vectors]
@@ -153,6 +154,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-p5js-nautical-flags-02]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/nautical-flags-02/
 [link-p5js-nautical-flags]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/nautical-flags/
 [link-p5js-paisley]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/paisley/
+[link-p5js-paisley-2]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/paisley-2/
 [link-p5js-paisley-01]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/paisley-01/
 [link-p5js-quadtree]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/quadtree/
 [link-p5js-quadtree-2]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/quadtree-2/

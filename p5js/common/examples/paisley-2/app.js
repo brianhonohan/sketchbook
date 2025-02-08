@@ -7,8 +7,8 @@ const settings = {
 }
 
 function setup() {
-  createCanvas(500, 500);
-  // createCanvas(windowWidth, windowHeight-35);
+  // createCanvas(500, 500);
+  createCanvas(windowWidth, windowHeight-35);
   P5JsSettings.init();
   rectMode(CENTER);
 
@@ -16,7 +16,8 @@ function setup() {
 
   gui = P5JsSettings.addDatGui({autoPlace: false});
 
-  paisley = new Paisley(0.3 * width, 0.5 * height, HALF_PI + QUARTER_PI, 0.1 * width);
+  paisley = new Paisley(0.3 * width, 0.5 * height, HALF_PI + QUARTER_PI, 0.08 * width,
+                            0.6 * width, 0.4 * height);
   paisley.dragEnabled = true;
   paisley.noFill = false
   paisley.fillColor = "#5b85d7";
@@ -35,12 +36,13 @@ function setup() {
   gui.add(paisley, "dragEnabled");
   gui.add(paisley, "accentViaScaledPaisley");
   
-  extAccent = new Rectangle(0,0, 10, 10);
+  // extAccent = new Rectangle(0,0, 10, 10);
+  extAccent = new Circle(0,0, 5);
   extAccent.noFill = false;
-  extAccent.fillColor = "#8585d7";
+  extAccent.fillColor = "#f5b567";
   extAccent.noStroke = true;
-  extAccent.margin = 10;
-  extAccent.step = 0.1;
+  extAccent.margin = 30;
+  extAccent.step = 0.05;
   paisley.exteriorAccent = extAccent;
   
   let extAccentGui = gui.addFolder("Exterior Accent");
@@ -48,7 +50,7 @@ function setup() {
   extAccentGui.add(extAccent, "noFill");
   extAccentGui.addColor(extAccent, "fillColor");
   extAccentGui.add(extAccent, "margin", 0, 200, 1);
-  extAccentGui.add(extAccent, "step", 0.05, 1, 0.01);
+  extAccentGui.add(extAccent, "step", 0.01, 1, 0.01);
 
   let paisleyClone = paisley.getScaledClone(1.5);
   paisleyClone.noFill = false
