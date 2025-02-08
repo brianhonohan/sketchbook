@@ -43,6 +43,8 @@ class Paisley {
     // this paisley will likely handle rotation translation
     this.exteriorAccent = undefined;
     this.accentViaScaledPaisley = true;
+
+    this.drawSpine = false;
   }
 
   _constructorCall(){
@@ -238,7 +240,9 @@ class Paisley {
     P5JsUtils.applyStyleSet(this);
     this.polybezier.draw();
 
-    this.spine.draw();
+    if (this.drawSpine){
+      this.spine.draw();
+    }
     this.drawExteriorAccent();
 
     if (this.dragEnabled) {
