@@ -254,8 +254,9 @@ class Paisley {
 
     for (let i = 0; i < this.polybezier.curves.length; i++){
       curve = this.polybezier.curves[i];
+      let stepSize = (i < 2) ? this.exteriorAccent.step * 2 : this.exteriorAccent.step;
 
-      for (let j = 0; j < 1; j += this.exteriorAccent.step){
+      for (let j = 0; j < 1; j += stepSize){
         accentLocation = curve.perpendicularAt(j, this.exteriorAccent.margin * -1).rotate180().start;
         
         this.exteriorAccent.moveTo(accentLocation.x, accentLocation.y);
