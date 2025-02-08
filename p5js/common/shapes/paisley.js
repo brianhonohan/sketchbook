@@ -42,6 +42,7 @@ class Paisley {
     // FOR NOW: Assume sensible defaults; and then iterate
     // this paisley will likely handle rotation translation
     this.exteriorAccent = undefined;
+    this.accentViaScaledPaisley = true;
   }
 
   _constructorCall(){
@@ -251,6 +252,25 @@ class Paisley {
     }
     let curve;
     let accentLocation;
+
+    if (this.accentViaScaledPaisley){
+      let scale = 1 + this.exteriorAccent.margin / this.bulbRadius;
+      let paisleyClone = this.getScaledClone(scale);
+      // console.log(paisleyClone);
+      
+      for (let i = 0; i < paisleyClone.polybezier.curves.length; i++){
+        curve = paisleyClone.polybezier.curves[i];
+        let stepSize = (i < 2) ? this.exteriorAccent.step * 2 : this.exteriorAccent.step;
+  
+        for (let j = 0; j < 1; j += stepSize){
+          accentLocation = curve.pointAt(j);
+          
+          this.exteriorAccent.moveTo(accentLocation.x, accentLocation.y);
+          this.exteriorAccent.draw();
+        }
+      }
+      return;
+    }
 
     for (let i = 0; i < this.polybezier.curves.length; i++){
       curve = this.polybezier.curves[i];

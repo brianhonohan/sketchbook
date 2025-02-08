@@ -10,6 +10,7 @@ function setup() {
   createCanvas(500, 500);
   // createCanvas(windowWidth, windowHeight-35);
   P5JsSettings.init();
+  rectMode(CENTER);
 
   shapes = [];
 
@@ -22,6 +23,7 @@ function setup() {
   paisley.noStroke = false;
   paisley.strokeColor = "#2251ac";
   paisley.strokeWeight = 15;
+  paisley.accentViaScaledPaisley = true;
 
   let mainPaisleyGui = gui.addFolder("Base Paisley");
   mainPaisleyGui.open();
@@ -31,9 +33,10 @@ function setup() {
   gui.addColor(paisley, "strokeColor");
   gui.add(paisley, "strokeWeight", 0.5, 30, 0.5);
   gui.add(paisley, "dragEnabled");
+  gui.add(paisley, "accentViaScaledPaisley");
   
   extAccent = new Rectangle(0,0, 10, 10);
-  extAccent.noFill = true;
+  extAccent.noFill = false;
   extAccent.fillColor = "#8585d7";
   extAccent.noStroke = true;
   extAccent.margin = 10;
@@ -57,7 +60,7 @@ function setup() {
   // Add the clone first, to draw it first in the simple shapes[]
   // TODO: enable basic layer stack of drawable objects
   // ... with send to back, bring to front, send to bottom, bring to top functions
-  shapes.push(paisleyClone);
+  // shapes.push(paisleyClone);
   shapes.push(paisley);
 }
 
