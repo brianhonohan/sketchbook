@@ -8,6 +8,7 @@ class Paisley {
     this.rightShoulderPt = new Point(x, y);
     this.leftConstraint = createVector(0, 0);
     this.rightConstraint = createVector(0, 0);
+    this.spineConstraint = createVector(0, 0);
     this.tail = new Point(x, y);
 
     this.headingVec = createVector(1, 0);
@@ -21,9 +22,10 @@ class Paisley {
       this.tail.x = tailX;
       this.tail.y = tailY;
     }
-    this._calcHelperPoints();
 
+    this._calcHelperPoints();
     this._initPolyBezier();
+
     this.points = [];
     this.points.push(this.pos);
     this.points.push(this.tail);
@@ -75,6 +77,8 @@ class Paisley {
       this.polybezier = new Polybezier();
     }
 
+    this.spine = new BezierCurve(this.pos, this.spineConstraint, this.tail, this.tail);
+
     // TODO: Investigate moving existing curves rather than recreate them
     this.polybezier.clear();
     this.polybezier.append(BezierCurve.circularQuarterArc(this.x, this.y, this.bulbRadius, this.heading - HALF_PI));
@@ -114,6 +118,8 @@ class Paisley {
   _calcHelperPoints(){
     let step = this.headingVec.copy();
     step.mult(this.bulbRadius);
+     
+    this.spineConstraint.set(this.x - step.x * 2, this.y - step.y * 2);
 
     step.rotate(HALF_PI);
     this.rightShoulderPt.set(this.x + step.x, this.y + step.y);
@@ -213,6 +219,8 @@ class Paisley {
   draw(){
     P5JsUtils.applyStyleSet(this);
     this.polybezier.draw();
+
+    this.spine.draw();
     this.drawExteriorAccent();
 
     if (this.dragEnabled) {
