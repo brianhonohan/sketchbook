@@ -186,8 +186,10 @@ class Cell {
     strokeWeight(5);
     beginShape();
     for (var i = 0; i < this.membrane.length; i++){
-      vertex(this.membrane[i].x, this.membrane[i].y);
+      curveVertex(this.membrane[i].x, this.membrane[i].y);
     }
+    curveVertex(this.membrane[0].x, this.membrane[0].y);
+    curveVertex(this.membrane[1].x, this.membrane[1].y);
     endShape(CLOSE);
 
     this.drawNuclei();
@@ -451,11 +453,23 @@ class CellMembraneSegment {
       let curDistToTarget = this.pos.dist(this.targetPos);
 
       if (curDistToTarget < 5){
+        // because we're taking fixed fractions of steps towards target
+        // as Zeno noted, it will never get there
+        // https://en.wikipedia.org/wiki/Zeno's_paradoxes
+        // so we have this 'close enough' check
         this.pos.x = this.targetPos.x;
         this.pos.y = this.targetPos.y;
         this.clearTarget();
       }else{
-        this.pos = p5.Vector.lerp(this.pos, this.targetPos, 1 / (1.2 * 200));
+        const targetFrames = 60; // hard coding instead of calling getTargetFrameRate()
+        // getTargetFrameRate() is not available in p5.js 0.7.2
+        // upgrading from p5.js 0.72 ==> 1.11.2 breaks this sketch; 
+        // the cells move towards each other after mitosis, as opposed to away
+        // I'm probably making some assumption in the vector directions that is no longer valid.
+
+        const desiredTime = 4; // want to want to get to target in 2 seconds, all else equal
+        const step = 1 / (desiredTime * targetFrames);
+        this.pos = p5.Vector.lerp(this.pos, this.targetPos, step);
       }
 
     }else {
