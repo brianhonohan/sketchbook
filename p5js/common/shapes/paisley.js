@@ -62,6 +62,23 @@ class Paisley {
     this._heading = newVal;
   }
 
+  getScaledClone(scale){
+    const newRadius = this.bulbRadius * scale;
+    const newTail = this.spine.pointAt(scale);
+    if (scale > 1){
+      // WARNING: Napkin math ... actually didn't even use a napkin
+      const tangentNearTail = this.spine.tangentAt(0.999);
+      const spineApproxLength = this.spine.approximateLength(10);
+      const approxTailGrowth = spineApproxLength * (scale - 1);
+
+      tangentNearTail.setLength(approxTailGrowth);
+      newTail.x = this.tail.x + tangentNearTail.dx();
+      newTail.y = this.tail.y + tangentNearTail.dy();
+    }
+
+    return new Paisley(this.x, this.y, this.heading, newRadius, newTail.x, newTail.y);
+  }
+
   _updateHeadingPt(){
     this.headingPt.x = this.x + this.headingVec.x * this.bulbRadius;
     this.headingPt.y = this.y + this.headingVec.y * this.bulbRadius;
