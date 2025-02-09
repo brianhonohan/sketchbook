@@ -5,9 +5,9 @@ Collection of personal coding projects. They may or may not grow into individual
 
 ## Latest
 
-A p5.js sketch is an iteration of the Paisley example sketch, showing some new capability to draw 'accents' around the outer edge of a paisley shape.
+A p5.js sketch is an iteration of the Ecosystem, adding in resource generation, rendering optimizatoins, and exploring OpenSimplexNoise.
 
-[<img src="./p5js/common/examples/paisley-2/screenshot-01.png" alt="paisley" width="150px" />][link-p5js-paisley-2]
+[<img src="./p5js/ecosystem-2/screenshot-01.png" alt="ecosystem" width="150px" />][link-p5js-ecosystem-2]
 
 ## LÖVE
 Collection of sketches using the [LÖVE][love2d] environment.
@@ -55,6 +55,7 @@ Collection of sketches using the [p5.js][p5js] Javascript library, which are my 
 Collection of sketches using the [p5.js][p5js] Javascript library.
 
 [<img src="./p5js/ecosystem/screenshot-01.png" alt="ecosystem" width="150px" />][link-p5js-ecosystem]
+[<img src="./p5js/ecosystem-2/screenshot-01.png" alt="ecosystem" width="150px" />][link-p5js-ecosystem-2]
 [<img src="./p5js/forest-01/screenshot-01.png" alt="forest-01" width="150px" />][link-p5js-forest-01]
 [<img src="./p5js/forest-fires-02/screenshot-01.png" alt="forest-fires-02" width="150px" />][link-p5js-forest-fires-02]
 [<img src="./p5js/forest-fires/screenshot-01.png" alt="forest-fires" width="150px" />][link-p5js-forest-fires]
@@ -141,6 +142,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-p5js-geometry-circle-line]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/geometry-circle-line/
 [link-p5js-geometry-point-to-line]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/geometry-point-to-line/
 [link-p5js-ecosystem]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/ecosystem/
+[link-p5js-ecosystem-2]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/ecosystem-2/
 [link-p5js-forest-01]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/forest-01/
 [link-p5js-forest-fires-02]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/forest-fires-02/
 [link-p5js-forest-fires]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/forest-fires/

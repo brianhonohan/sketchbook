@@ -16,10 +16,21 @@ The Javascript parses the following URL parameters:
 | percentWater | The approximate percent of area to cover with water.  | Float   | 0 - 1         | 0.5     |
 | erosionRate | The rate of erosion per cycle                        | Float   | 0 - 0.5         | 0     |
 
+# Links: 
 
+* [Live View][live-view]
+* [Source on Github][source-code]
 
 ## Snapshot:
 
 ![screenshot](docs/screenshot-02.png)
 
 
+v2 with Resources - ultimately, disabled this code
+
+![screenshot](docs/screenshot-01.png)
+
+[p5js-home]: https://p5js.org/
+[source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/ecosystem/
+[live-view]: https://brianhonohan.com/sketchbook/p5js/ecosystem/
+[screenshot-01]: ./screenshot-01.png
