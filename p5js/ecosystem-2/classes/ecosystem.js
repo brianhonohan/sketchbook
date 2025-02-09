@@ -3,6 +3,7 @@ class Ecosystem {
     this.sizeAndPosition = p_xSizeAndPos;
     this.optionsSet = new OptionsSet(this.optionsMetadata());
     this.settings = this.optionsSet.settings;
+    this.fullRedrawRequested = false;
     this.viewer = new CellViewer();
     this.generate();
   }
@@ -196,10 +197,11 @@ class Ecosystem {
   }
 
   draw(){
-    if (this.viewer.renderAsNeeded){
-      this.grid.renderViewsAsNeeded();
-    } else {
+    if (this.fullRedrawRequested){
       this.grid.renderViews();
+      this.fullRedrawRequested = false;
+    } else {
+      this.grid.renderViewsAsNeeded();
     }
   }
 

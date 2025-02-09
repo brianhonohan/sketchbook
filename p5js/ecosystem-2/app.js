@@ -10,6 +10,10 @@ function setup() {
   let rect = new Rect(0, 0, width, height);
   ecosystem = new Ecosystem(rect);
 
+  var guiProxy = {
+    "Request Redraw": () => {ecosystem.fullRedrawRequested = true; }
+  };
+
   gui = P5JsSettings.addDatGui({autoPlace: false, bindOptions: true, callback: regenerateSystem});
   genericGuiListeners.push(gui.add(ecosystem.settings, "cellWidth", 1, 100, 1));
   genericGuiListeners.push(gui.add(ecosystem.settings, "scale", 0.0001, 0.2, 0.0001));
@@ -21,7 +25,7 @@ function setup() {
   viewerGui.open();
   viewerGui.add(ecosystem.viewer, 'showResources');
   viewerGui.add(ecosystem.viewer, 'useColorRamp');
-  viewerGui.add(ecosystem.viewer, 'renderAsNeeded');
+  viewerGui.add(guiProxy,'Request Redraw');
   
   logSettings();
 }
