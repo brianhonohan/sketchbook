@@ -41,7 +41,7 @@ class System {
   }
 
   render(){
-    background(255);
+    background(50);
     this.forest.draw();
   }
 }
