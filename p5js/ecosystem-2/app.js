@@ -21,9 +21,9 @@ function setup() {
   viewerGui.open();
   viewerGui.add(ecosystem.viewer, 'showResources');
   viewerGui.add(ecosystem.viewer, 'useColorRamp');
+  viewerGui.add(ecosystem.viewer, 'renderAsNeeded');
   
   logSettings();
-  frameRate(1);
 }
 
 function addGuiListeners(){

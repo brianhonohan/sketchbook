@@ -196,7 +196,11 @@ class Ecosystem {
   }
 
   draw(){
-    this.grid.renderViews();
+    if (this.viewer.renderAsNeeded){
+      this.grid.renderViewsAsNeeded();
+    } else {
+      this.grid.renderViews();
+    }
   }
 
   createCell(row, col, index){

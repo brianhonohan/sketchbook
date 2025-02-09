@@ -13,6 +13,8 @@ class Cell {
     this.lowestNeighbor = undefined;
     this.cumulativeInfux = 0;
     this.influxFrom = [];
+
+    this._needsRender = true;
   }
 
   setLowestNeighbor(neighbor){
@@ -30,10 +32,12 @@ class Cell {
   }
 
   addToCumulativeInflux(influx){
+    this._needsRender = true;
     this.cumulativeInfux += influx;
   }
 
   addResource(resource){
+    this._needsRender = true;
     this.resources.push(resource);
   }
 

@@ -26,6 +26,7 @@ class CellViewer {
     ];
     this.showResources = false;
     this.useColorRamp = true;
+    this.renderAsNeeded = true;
     this.updateSettings();
   }
   
