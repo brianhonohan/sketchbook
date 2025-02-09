@@ -53,6 +53,10 @@ class P5JsSettings {
         }
       });
     }
+
+    if (datGuiParams.width !== undefined){
+      datGui.domElement.style['width'] = `${datGuiParams.width}px`;
+    }
     if (datGuiParams.bindOptions === true) {
       const commonGui = datGui.addFolder("Common Settings");
       const seedListener = commonGui.add(this.optionsSet.settings, "seed", 1, Number.MAX_SAFE_INTEGER);
