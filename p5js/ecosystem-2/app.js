@@ -19,6 +19,7 @@ function setup() {
   genericGuiListeners.push(gui.add(ecosystem.settings, "scale", 0.0001, 0.2, 0.0001));
   genericGuiListeners.push(gui.add(ecosystem.settings, "percentWater", 0, 1, 0.01));
   genericGuiListeners.push(gui.add(ecosystem.settings, "erosionRate", 0, 1, 0.0001));
+  gui.add(ecosystem, "useOpenSimplexNoise").onChange(regenerateSystem);
   addGuiListeners();
 
   const viewerGui = gui.addFolder('Display Settings');

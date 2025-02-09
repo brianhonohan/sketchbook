@@ -5,6 +5,10 @@ class Ecosystem {
     this.settings = this.optionsSet.settings;
     this.fullRedrawRequested = false;
     this.viewer = new CellViewer();
+    
+    this.useOpenSimplexNoise = false;
+    this.osNoise = new OpenSimplexNoise(P5JsSettings.getSeed());
+    
     this.generate();
   }
 
@@ -207,6 +211,8 @@ class Ecosystem {
 
   createCell(row, col, index){
     let newCell = new Cell(row, col, this, index);
+    newCell.elevation = this.getElevationAt(row, col);
+    
     if (newCell.elevation > 0 && newCell.elevation < 15) {
       newCell.addResource(Resource.SEA_LEVEL_RESOURCE);
     }
@@ -217,5 +223,19 @@ class Ecosystem {
       newCell.addResource(Resource.COASTAL_WATER_RESOURCE);
     }
     return newCell;
+  }
+
+  getElevationAt(row, col){
+    // Goal: return elevation between -500 => 500
+    // and factor in 'getPercentWater()
+    if (this.useOpenSimplexNoise) {
+      return 500  * this.osNoise.noise2D(col * this.settings.scale, 
+                                        row * this.settings.scale);
+    }
+    return 500 - 1000 *
+        (
+          noise(this.getScale() * row, this.getScale() * col)
+          + (this.getPercentWater() - 0.5)
+        );
   }
 }
