@@ -59,12 +59,12 @@ class Tree {
 
   draw(){
     noStroke();
-    fill(50, 120, 50);
+    fill(100, 200, 100);
     rectMode(CENTER);
     rect(this.x, this.y, 10, 10);
 
     let shadowWidth = this.shadowRadius() * 2;
-    fill(50, 50, 50, 50);
+    fill(200, 200, 200, 50);
     ellipse(this.x, this.y, shadowWidth, shadowWidth);
   }
 
