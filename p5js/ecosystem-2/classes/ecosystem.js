@@ -3,12 +3,13 @@ class Ecosystem {
     this.sizeAndPosition = p_xSizeAndPos;
     this.optionsSet = new OptionsSet(this.optionsMetadata());
     this.settings = this.optionsSet.settings;
+    this.viewer = new CellViewer();
     this.generate();
   }
 
   generate(){
     this.determineMagicWaterPercentageFactor();
-    this.grid = new CellGrid(this.sizeAndPosition, this, this.settings.cellWidth);
+    this.grid = new CellGrid(this.sizeAndPosition, this, this.settings.cellWidth, this.viewer);
     this.grid.initCells();
     this.addWindwardResources();
   }

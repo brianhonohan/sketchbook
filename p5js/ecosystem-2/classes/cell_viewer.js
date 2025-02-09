@@ -24,6 +24,7 @@ class CellViewer {
       color(230, 230, 0),
       color(230, 150, 0),
     ];
+    this.showResources = true;
   }
 
   renderCell(cell, x, y, p_nWidth, p_nHeight){
@@ -45,7 +46,7 @@ class CellViewer {
     fill(fillColor);
     rect(x, y, p_nWidth, p_nHeight);
 
-    if (cell.hasResource()){
+    if (this.showResources && cell.hasResource()){
       fill( this.resourceColors[ cell.resources[0] - 1]);
       ellipse(x + p_nWidth / 2, y  + p_nHeight / 2, 3, 3);
     }

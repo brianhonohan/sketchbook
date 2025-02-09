@@ -16,6 +16,10 @@ function setup() {
   genericGuiListeners.push(gui.add(ecosystem.settings, "percentWater", 0, 1, 0.01));
   genericGuiListeners.push(gui.add(ecosystem.settings, "erosionRate", 0, 1, 0.0001));
   addGuiListeners();
+
+  const viewerGui = gui.addFolder('Display Settings');
+  viewerGui.open();
+  viewerGui.add(ecosystem.viewer, 'showResources');
   
   logSettings();
   frameRate(1);
