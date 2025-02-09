@@ -61,7 +61,8 @@ class Tree {
     noStroke();
     fill(100, 200, 100);
     rectMode(CENTER);
-    rect(this.x, this.y, 10, 10);
+    let trunkSize = lerp(1, 10, this.age / Tree.MAX_AGE);
+    rect(this.x, this.y, trunkSize, trunkSize);
 
     let shadowWidth = this.shadowRadius() * 2;
     fill(200, 200, 200, 50);
