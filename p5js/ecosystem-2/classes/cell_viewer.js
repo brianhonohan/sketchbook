@@ -17,6 +17,13 @@ class CellViewer {
     this._minElev = -300;
     this._midPoint = 0;
     this._maxElev = 300;
+
+    this.resourceColors = [
+      color(230, 0, 0),
+      color(230, 0, 230),
+      color(230, 230, 0),
+      color(230, 150, 0),
+    ];
   }
 
   renderCell(cell, x, y, p_nWidth, p_nHeight){
@@ -39,9 +46,8 @@ class CellViewer {
     rect(x, y, p_nWidth, p_nHeight);
 
     if (cell.hasResource()){
-      fill(255, 0, 0);
-      // ellipseMode(CORNERS);
-      ellipse(x + p_nWidth / 2, y  + p_nHeight / 2, 2, 2);
+      fill( this.resourceColors[ cell.resources[0] - 1]);
+      ellipse(x + p_nWidth / 2, y  + p_nHeight / 2, 3, 3);
     }
   }
 

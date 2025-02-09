@@ -10,6 +10,7 @@ class Ecosystem {
     this.determineMagicWaterPercentageFactor();
     this.grid = new CellGrid(this.sizeAndPosition, this, this.settings.cellWidth);
     this.grid.initCells();
+    this.addWindwardResources();
   }
 
   getScale(){
@@ -63,6 +64,43 @@ class Ecosystem {
     ];
   }
 
+  addWindwardResources(){
+    let numCells = this.grid.cells.length;
+    let tmpCell;
+
+    for(var i = 0; i < numCells; i++){
+      tmpCell = this.grid.cells[i];
+
+      if (tmpCell.elevation <= 0){
+        continue;
+      }
+
+      let neighbors = this.grid.neighborsOfIdx(i);
+      let lowestNeighborElev = tmpCell.elevation;
+      let lowestNeighborIdx = undefined;
+
+      for(var j = 0; j < 8; j++){
+        if (!neighbors[j]) { continue; }
+        let tmpNeighbor = this.grid.cells[neighbors[j]];
+
+        if (tmpNeighbor.elevation < lowestNeighborElev) {
+          lowestNeighborIdx = j;
+          lowestNeighborElev = tmpNeighbor.elevation;
+        }
+      }
+
+      // TODO Compete the slope gradient per cell
+      // as a vector, and just use that rather than this odd hacky logic
+      // 
+      // 0, 3, 5 are the cells to the 'left' 
+      // ... simplifying to a West to East wind
+      // then that means this cells is up hill of them, and thus on the wind-ward side
+      if (lowestNeighborIdx == 0 || lowestNeighborIdx == 3 || lowestNeighborIdx == 5){
+        tmpCell.addResource(Resource.WINDWARD_MTN_RESOURCE);
+      }
+    }
+  }
+
   erode(){
     if (this.settings.erosionRate == 0) {
       return;
@@ -81,7 +119,9 @@ class Ecosystem {
       if (tmpCell.elevation <= 0){
         continue;
       }
-      let lowestNeighbor = undefined;
+      let lowestNeighborElev = tmpCell.elevation;
+      let lowestNeighborIdx = undefined;
+
 
       // TODO: Address the fact that this seems to favor finding
       // the lowest in the bottom-right (which doesn't make sense)
@@ -90,21 +130,20 @@ class Ecosystem {
         if (!neighbors[j]) { continue; }
         let tmpNeighbor = this.grid.cells[neighbors[j]];
 
-        if (lowestNeighbor && tmpNeighbor.elevation < lowestNeighbor.elevation){
-          lowestNeighbor = tmpNeighbor;
-        }
-        else if (tmpNeighbor.elevation < tmpCell.elevation)
-        {
-          lowestNeighbor = tmpNeighbor;
+        if (tmpNeighbor.elevation < lowestNeighborElev) {
+          lowestNeighborIdx = j;
+          lowestNeighborElev = tmpNeighbor.elevation;
         }
       }
 
-      if (lowestNeighbor) {
+      if (lowestNeighborIdx) {
+        let lowestNeighbor = this.grid.cells[neighbors[lowestNeighborIdx]];
         tmpCell.setLowestNeighbor(lowestNeighbor);
         lowestNeighbor.addInfluxFrom(tmpCell);
       } else {
         // add low-point to list
       }
+
     }
 
     this.grid.cells.sort(function(a, b) {
@@ -162,8 +201,13 @@ class Ecosystem {
   createCell(row, col, index){
     let newCell = new Cell(row, col, this, index);
     if (newCell.elevation > 0 && newCell.elevation < 15) {
-      // Disable for now, until we sort out timing of erosion and resource generation
-      // newCell.addResource(new Resource());
+      newCell.addResource(Resource.SEA_LEVEL_RESOURCE);
+    }
+    if (newCell.elevation > 15 && newCell.elevation < 100) {
+      newCell.addResource(Resource.PLAINS_RESOURCE);
+    }
+    if (newCell.elevation < -100 && newCell.elevation > -200) {
+      newCell.addResource(Resource.COASTAL_WATER_RESOURCE);
     }
     return newCell;
   }

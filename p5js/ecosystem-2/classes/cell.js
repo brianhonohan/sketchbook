@@ -22,6 +22,7 @@ class Cell {
   clearInflux(){
     this.cumulativeInfux = 0;
     this.influxFrom = [];
+    this.lowestNeighbor = undefined;
   }
 
   addInfluxFrom(otherCell){
