@@ -20,6 +20,7 @@ function setup() {
   const viewerGui = gui.addFolder('Display Settings');
   viewerGui.open();
   viewerGui.add(ecosystem.viewer, 'showResources');
+  viewerGui.add(ecosystem.viewer, 'useColorRamp');
   
   logSettings();
   frameRate(1);

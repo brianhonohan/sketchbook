@@ -24,22 +24,34 @@ class CellViewer {
       color(230, 230, 0),
       color(230, 150, 0),
     ];
-    this.showResources = true;
+    this.showResources = false;
+    this.useColorRamp = true;
+    this.updateSettings();
+  }
+  
+  updateSettings(){
+    this.colorRamp = P5jsColorRamp.elevation();
   }
 
   renderCell(cell, x, y, p_nWidth, p_nHeight){
     let fillColor = color(0);
     let normalizedTmp = 0;
 
-    if (cell.elevation < this._midPoint){
-      normalizedTmp = norm(cell.elevation, this._minElev, this._midPoint);
-      fillColor = lerpColor(this.minColor, this.color2, normalizedTmp);
-    }else if(cell.elevation < this._maxElev){
-      normalizedTmp = norm(cell.elevation, this._midPoint, this._maxElev);
-      fillColor = lerpColor(this.color4, this.color5, normalizedTmp);
-    } else{
-      normalizedTmp = norm(cell.elevation, this._maxElev, 500);
-      fillColor = lerpColor(this.color5, this.color6, normalizedTmp);
+    if (this.useColorRamp) {
+      normalizedTmp = cell.elevation < 0 ? -1 * cell.elevation / this._minElev 
+                                         : cell.elevation / 500;
+      fillColor = this.colorRamp.getColorForValue(normalizedTmp);
+    } else {
+      if (cell.elevation < this._midPoint){
+        normalizedTmp = norm(cell.elevation, this._minElev, this._midPoint);
+        fillColor = lerpColor(this.minColor, this.color2, normalizedTmp);
+      }else if(cell.elevation < this._maxElev){
+        normalizedTmp = norm(cell.elevation, this._midPoint, this._maxElev);
+        fillColor = lerpColor(this.color4, this.color5, normalizedTmp);
+      } else{
+        normalizedTmp = norm(cell.elevation, this._maxElev, 500);
+        fillColor = lerpColor(this.color5, this.color6, normalizedTmp);
+      }
     }
 
     noStroke();
