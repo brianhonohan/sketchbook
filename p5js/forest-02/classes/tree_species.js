@@ -3,8 +3,8 @@ class TreeSpecies {
     this.name = "Species 1";
     this.trunk_color = color(100, 200, 100);
     this.maxAge = 200;
-    this.years_as_sapling = 4;
-    this.years_as_mature = 140;
+    this.yearsAsSapling = 4;
+    this.yearsAsMature = 140;
     this.max_shadow_radius = 100;
     this.ageToMakeSeeds = 40;
     this.max_height = 15;

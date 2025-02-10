@@ -10,15 +10,13 @@ class Tree {
     this.species = species;
   }
 
-  static get YEARS_AS_SAPLING() { return systemParams.tree.years_as_sapling; }
-  static get YEARS_AS_MATURE() { return systemParams.tree.years_as_mature;  }
   static get MAX_SHADOW_RADIUS() { return 100; }
   static get MAX_HEIGHT() { return 15; } // in meters
-  static get IDEALIZED_GROWTH_WHILE_SAPLING() { 
-    return 0.2 * Tree.MAX_HEIGHT / (Tree.YEARS_AS_SAPLING / System.YEARS_PER_TICK);
+  get IDEALIZED_GROWTH_WHILE_SAPLING() { 
+    return 0.2 * Tree.MAX_HEIGHT / (this.species.yearsAsSapling / System.YEARS_PER_TICK);
   }
-  static get IDEALIZED_GROWTH_WHILE_MATURE() { 
-    return 0.8 * Tree.MAX_HEIGHT / (Tree.YEARS_AS_MATURE / System.YEARS_PER_TICK);
+  get IDEALIZED_GROWTH_WHILE_MATURE() { 
+    return 0.8 * Tree.MAX_HEIGHT / (this.species.yearsAsMature / System.YEARS_PER_TICK);
   }
   static get FULLNESS_RESILIENCY() { return 0.5 / (3 / System.YEARS_PER_TICK); }
   static get FULLNESS_VULNERABILITY() { return (2 / System.YEARS_PER_TICK); }
@@ -35,10 +33,10 @@ class Tree {
   }
 
   growthRate(){
-    if (this.age < Tree.YEARS_AS_SAPLING) {
-      return Tree.IDEALIZED_GROWTH_WHILE_SAPLING;
-    }else if (this.age < (Tree.YEARS_AS_SAPLING + Tree.YEARS_AS_MATURE)) {
-      return Tree.IDEALIZED_GROWTH_WHILE_MATURE;
+    if (this.age < this.species.yearsAsSapling) {
+      return this.IDEALIZED_GROWTH_WHILE_SAPLING;
+    }else if (this.age < (this.species.yearsAsSapling + this.species.yearsAsMature)) {
+      return this.IDEALIZED_GROWTH_WHILE_MATURE;
     }else {
       return 0;
     }
@@ -71,12 +69,12 @@ class Tree {
 
   shadowRadius(){
     let shadowFactor = 0;
-    if (this.age < Tree.YEARS_AS_SAPLING) {
-      shadowFactor = map(this.age, 0, Tree.YEARS_AS_SAPLING, 0.00001, 0.2);
-    } else if (this.age < Tree.YEARS_AS_MATURE) {
-      shadowFactor = map(this.age, Tree.YEARS_AS_SAPLING, Tree.YEARS_AS_MATURE, 0.2, 1);
+    if (this.age < this.species.yearsAsSapling) {
+      shadowFactor = map(this.age, 0, this.species.yearsAsSapling, 0.00001, 0.2);
+    } else if (this.age < this.species.yearsAsMature) {
+      shadowFactor = map(this.age, this.species.yearsAsSapling, this.species.yearsAsMature, 0.2, 1);
     } else {
-      shadowFactor = map(this.age, Tree.YEARS_AS_MATURE, this.species.maxAge, 1, 0.8);
+      shadowFactor = map(this.age, this.species.yearsAsMature, this.species.maxAge, 1, 0.8);
     }
     return shadowFactor * Tree.MAX_SHADOW_RADIUS;
   }
