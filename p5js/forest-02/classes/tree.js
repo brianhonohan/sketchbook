@@ -11,10 +11,10 @@ class Tree {
   }
 
   get IDEALIZED_GROWTH_WHILE_SAPLING() { 
-    return 0.2 * this.species.maxHeight / (this.species.yearsAsSapling / System.YEARS_PER_TICK);
+    return this.species.growRateWhileSapling * this.species.maxHeight / (this.species.yearsAsSapling / System.YEARS_PER_TICK);
   }
   get IDEALIZED_GROWTH_WHILE_MATURE() { 
-    return 0.8 * this.species.maxHeight / (this.species.yearsAsMature / System.YEARS_PER_TICK);
+    return this.species.growRateWhileMature * this.species.maxHeight / (this.species.yearsAsMature / System.YEARS_PER_TICK);
   }
   static get FULLNESS_RESILIENCY() { return 0.5 / (3 / System.YEARS_PER_TICK); }
   static get FULLNESS_VULNERABILITY() { return (2 / System.YEARS_PER_TICK); }

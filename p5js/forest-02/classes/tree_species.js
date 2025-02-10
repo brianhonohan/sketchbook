@@ -8,8 +8,8 @@ class TreeSpecies {
     this.maxShadowRadius = 100;
     this.ageToMakeSeeds = 40;
     this.maxHeight = 15;
-    this.grow_rate_while_sapling = 0.2;
-    this.grow_rate_while_mature = 0.8;
+    this.growRateWhileSapling = 0.2;
+    this.growRateWhileMature = 0.8;
     this.fullness_resilency_factor =  0.5;
     this.fullness_vulnerability = 2;
 
