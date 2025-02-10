@@ -10,8 +10,8 @@ class TreeSpecies {
     this.maxHeight = 15;
     this.growRateWhileSapling = 0.2;
     this.growRateWhileMature = 0.8;
-    this.fullness_resilency_factor =  0.5;
-    this.fullness_vulnerability = 2;
+    this.fullnessResilencyFactor =  0.5;
+    this.fullnessVulnerabilityFactor = 2;
 
     this.seeds_per_tree = 2;
     this.seed_drop_dist = 30;

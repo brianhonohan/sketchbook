@@ -10,14 +10,14 @@ class Tree {
     this.species = species;
   }
 
-  get IDEALIZED_GROWTH_WHILE_SAPLING() { 
+  idealizedGrowthAsSapling() { 
     return this.species.growRateWhileSapling * this.species.maxHeight / (this.species.yearsAsSapling / System.YEARS_PER_TICK);
   }
-  get IDEALIZED_GROWTH_WHILE_MATURE() { 
+  idealizedGrowthAsMature() { 
     return this.species.growRateWhileMature * this.species.maxHeight / (this.species.yearsAsMature / System.YEARS_PER_TICK);
   }
-  static get FULLNESS_RESILIENCY() { return 0.5 / (3 / System.YEARS_PER_TICK); }
-  static get FULLNESS_VULNERABILITY() { return (2 / System.YEARS_PER_TICK); }
+  fullnessResiliency() { return this.species.fullnessResilencyFactor / (3 / System.YEARS_PER_TICK); }
+  fullnessVulnerability() { return (this.species.fullnessVulnerabilityFactor / System.YEARS_PER_TICK); }
 
   tick(resources){
     this.age += System.YEARS_PER_TICK;
@@ -32,9 +32,9 @@ class Tree {
 
   growthRate(){
     if (this.age < this.species.yearsAsSapling) {
-      return this.IDEALIZED_GROWTH_WHILE_SAPLING;
+      return this.idealizedGrowthAsSapling();
     }else if (this.age < (this.species.yearsAsSapling + this.species.yearsAsMature)) {
-      return this.IDEALIZED_GROWTH_WHILE_MATURE;
+      return this.idealizedGrowthAsMature();
     }else {
       return 0;
     }
@@ -43,12 +43,12 @@ class Tree {
   adjustFullness(resources){
     let deltaFullness = 0;
     if (resources === 1){
-      deltaFullness = (1 - this.fullness) * Tree.FULLNESS_RESILIENCY;
+      deltaFullness = (1 - this.fullness) * this.fullnessResiliency();
     } else if (resources < 0){
-      deltaFullness = Tree.FULLNESS_VULNERABILITY * (resources - 1);
+      deltaFullness = this.fullnessVulnerability() * (resources - 1);
     } else {
       // between 0-1, fullness should tend towards the 'resources' its receiving
-      deltaFullness = (resources - this.fullness) * Tree.FULLNESS_RESILIENCY;
+      deltaFullness = (resources - this.fullness) * this.fullnessResiliency();
     }
     this.fullness = constrain(this.fullness + deltaFullness, 0, 1);
   }
