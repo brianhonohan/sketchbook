@@ -55,7 +55,7 @@ class Tree {
 
   draw(){
     noStroke();
-    fill(100, 200, 100);
+    fill(this.species.trunkColor);
     rectMode(CENTER);
     let trunkSize = lerp(1, 10, this.age / this.species.maxAge);
     rect(this.x, this.y, trunkSize, trunkSize);

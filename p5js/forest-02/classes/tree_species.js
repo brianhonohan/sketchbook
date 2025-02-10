@@ -1,7 +1,7 @@
 class TreeSpecies {
   constructor(){
     this.name = "Species 1";
-    this.trunk_color = color(100, 200, 100);
+    this.trunkColor = color(100, 200, 100);
     this.maxAge = 200;
     this.yearsAsSapling = 4;
     this.yearsAsMature = 140;
