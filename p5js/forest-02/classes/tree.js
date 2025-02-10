@@ -1,14 +1,15 @@
 class Tree {
-  constructor(x, y, age, id){
+  constructor(x, y, age, id, species){
     this.id = id;
     this.x = x;
     this.y = y;
     this.age = age;
     this.height = 0;
     this.fullness = 1;
+
+    this.species = species;
   }
 
-  static get MAX_AGE() { return systemParams.tree.max_age; } // in years
   static get YEARS_AS_SAPLING() { return systemParams.tree.years_as_sapling; }
   static get YEARS_AS_MATURE() { return systemParams.tree.years_as_mature;  }
   static get MAX_SHADOW_RADIUS() { return 100; }
@@ -61,7 +62,7 @@ class Tree {
     noStroke();
     fill(100, 200, 100);
     rectMode(CENTER);
-    let trunkSize = lerp(1, 10, this.age / Tree.MAX_AGE);
+    let trunkSize = lerp(1, 10, this.age / this.species.maxAge);
     rect(this.x, this.y, trunkSize, trunkSize);
 
     let shadowWidth = this.shadowRadius() * 2;
@@ -76,7 +77,7 @@ class Tree {
     } else if (this.age < Tree.YEARS_AS_MATURE) {
       shadowFactor = map(this.age, Tree.YEARS_AS_SAPLING, Tree.YEARS_AS_MATURE, 0.2, 1);
     } else {
-      shadowFactor = map(this.age, Tree.YEARS_AS_MATURE, Tree.MAX_AGE, 1, 0.8);
+      shadowFactor = map(this.age, Tree.YEARS_AS_MATURE, this.species.maxAge, 1, 0.8);
     }
     return shadowFactor * Tree.MAX_SHADOW_RADIUS;
   }

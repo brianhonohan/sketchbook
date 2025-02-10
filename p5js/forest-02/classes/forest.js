@@ -6,6 +6,9 @@ class Forest {
     this.trees = [];
     this.treeCounter = 0;
 
+    this.treeSpecies = [];
+    this.treeSpecies.push(new TreeSpecies());
+
     for (var i = 0; i < this.params.initial_trees; i++){
       let tmpX = this.centerX + (random() - 0.5) * this.width * 0.8;
       let tmpY = this.centerY + (random() - 0.5) * this.height * 0.8;
@@ -20,8 +23,9 @@ class Forest {
   get width()  { return this.area._width; }
   get height() { return this.area._height; }
 
-  sproutTree(x, y){
-    this.trees.push( new Tree(x, y, 0, this.treeCounter++) );
+  sproutTree(x, y, speciesIndex = 0){
+    this.trees.push( new Tree(x, y, 0, this.treeCounter++,
+                        this.treeSpecies[speciesIndex]) );
   }
 
   tick(){
@@ -38,7 +42,7 @@ class Forest {
   }
 
   lossDueToMaxAge(){
-    this.trees = this.trees.filter(t => t.age < Tree.MAX_AGE);
+    this.trees = this.trees.filter(t => t.age < t.species.maxAge);
   }
 
   lossDueToForaging(){

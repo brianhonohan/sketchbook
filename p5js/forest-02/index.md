@@ -19,6 +19,7 @@ js_scripts:
 - classes/cell_viewer.js
 - classes/system.js
 - classes/tree.js
+- classes/tree_species.js
 - classes/forest.js
 - classes/seasonal_time.js
 - app.js
