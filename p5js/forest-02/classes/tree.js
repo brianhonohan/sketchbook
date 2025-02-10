@@ -10,7 +10,6 @@ class Tree {
     this.species = species;
   }
 
-  static get MAX_SHADOW_RADIUS() { return 100; }
   static get MAX_HEIGHT() { return 15; } // in meters
   get IDEALIZED_GROWTH_WHILE_SAPLING() { 
     return 0.2 * Tree.MAX_HEIGHT / (this.species.yearsAsSapling / System.YEARS_PER_TICK);
@@ -76,6 +75,6 @@ class Tree {
     } else {
       shadowFactor = map(this.age, this.species.yearsAsMature, this.species.maxAge, 1, 0.8);
     }
-    return shadowFactor * Tree.MAX_SHADOW_RADIUS;
+    return shadowFactor * this.species.maxShadowRadius;
   }
 }
