@@ -7,7 +7,7 @@ class TreeSpecies {
     this.yearsAsMature = 140;
     this.maxShadowRadius = 100;
     this.ageToMakeSeeds = 40;
-    this.max_height = 15;
+    this.maxHeight = 15;
     this.grow_rate_while_sapling = 0.2;
     this.grow_rate_while_mature = 0.8;
     this.fullness_resilency_factor =  0.5;
