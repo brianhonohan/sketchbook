@@ -13,7 +13,6 @@ class Tree {
   static get YEARS_AS_SAPLING() { return systemParams.tree.years_as_sapling; }
   static get YEARS_AS_MATURE() { return systemParams.tree.years_as_mature;  }
   static get MAX_SHADOW_RADIUS() { return 100; }
-  static get AGE_TO_MAKE_SEEDS() { return systemParams.tree.age_to_make_seeds;  }
   static get MAX_HEIGHT() { return 15; } // in meters
   static get IDEALIZED_GROWTH_WHILE_SAPLING() { 
     return 0.2 * Tree.MAX_HEIGHT / (Tree.YEARS_AS_SAPLING / System.YEARS_PER_TICK);

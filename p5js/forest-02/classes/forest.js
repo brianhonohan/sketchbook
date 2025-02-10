@@ -120,7 +120,7 @@ class Forest {
   }
 
   tickStartOfSpringBehavior(){
-    this.trees.filter(t => t.age > Tree.AGE_TO_MAKE_SEEDS)
+    this.trees.filter(t => t.age > t.species.ageToMakeSeeds)
               .map(t => this.seedsForTree(t))
               .flat()
               .forEach(s => this.sproutTree(s.x, s.y));
