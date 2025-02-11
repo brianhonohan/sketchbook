@@ -34,6 +34,8 @@ class Forest {
   }
 
   sproutTreeForSpecies(x, y, species){
+    // TODO: Remove this cap, or make more prominent
+    if (this.trees.length > 700) { return; }
     this.trees.push( new Tree(x, y, 0, this.treeCounter++, species) );
   }
 
