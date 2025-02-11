@@ -2,10 +2,10 @@ var system;
 
 var gui;
 var systemParams = {
-  foraging_rate: 0.6,
+  foraging_rate: 0.8,
   seeds_per_tree: 2,
   seed_drop_dist: 70,
-  initial_trees: 10,
+  initial_trees: 100,
   paused: false,
   tree: {
     max_age: 200,
@@ -16,7 +16,8 @@ var systemParams = {
 };
 
 function setup() {
-  createCanvas(windowWidth, windowHeight-35);
+  createCanvas(500, 500);
+  // createCanvas(windowWidth, windowHeight-35);
   P5JsSettings.init();
 
   gui = P5JsSettings.addDatGui({autoPlace: false});

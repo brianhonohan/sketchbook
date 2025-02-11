@@ -1,10 +1,9 @@
 ---
 layout: minimal
-title:  "p5.js - Forest Simulation"
+title:  "p5.js - Forest Simulation 2"
 categories: p5js
 modal: true
-bh_page_type: draft
-excerpt: Simulates the life-cycle of individual trees in a small forest, as they compete over resources.
+excerpt: Simulates the life-cycle of individual trees of difference species, as they compete over resources.
 
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js

@@ -8,11 +8,17 @@ class Forest {
 
     this.treeSpecies = [];
     this.treeSpecies.push(new TreeSpecies());
+    this.treeSpecies.push(TreeSpecies.SlowAndResilient);
+    this.treeSpecies.push(TreeSpecies.FastShortWeak);
 
+
+    let speciesIndex;
     for (var i = 0; i < this.params.initial_trees; i++){
       let tmpX = this.centerX + (random() - 0.5) * this.width * 0.8;
       let tmpY = this.centerY + (random() - 0.5) * this.height * 0.8;
-      this.sproutTree(tmpX, tmpY);
+      speciesIndex = Math.floor(random(this.treeSpecies.length));
+
+      this.sproutTree(tmpX, tmpY, speciesIndex);
     }
 
     this.prevSeason = undefined;
@@ -24,8 +30,13 @@ class Forest {
   get height() { return this.area._height; }
 
   sproutTree(x, y, speciesIndex = 0){
-    this.trees.push( new Tree(x, y, 0, this.treeCounter++,
-                        this.treeSpecies[speciesIndex]) );
+    this.sproutTreeForSpecies(x, y, this.treeSpecies[speciesIndex]);
+  }
+
+  sproutTreeForSpecies(x, y, species){
+    // TODO: Remove this cap, or make more prominent
+    if (this.trees.length > 700) { return; }
+    this.trees.push( new Tree(x, y, 0, this.treeCounter++, species) );
   }
 
   tick(){
@@ -64,6 +75,8 @@ class Forest {
   }
 
   resourcesForTree(tree){
+    // TODO: Use QuadTree to efficiently isolate trees in competition
+    // TODO: Longer term, consider beneficial aspects of mother trees, and same species
     return this.trees.filter(t => t != tree)
                      .map(otherTree => this.resourcesClaimedByTree(otherTree, tree))
                      .reduce((remainder, val) => remainder - val, 1);
@@ -123,7 +136,7 @@ class Forest {
     this.trees.filter(t => t.age > t.species.ageToMakeSeeds)
               .map(t => this.seedsForTree(t))
               .flat()
-              .forEach(s => this.sproutTree(s.x, s.y));
+              .forEach(s => this.sproutTreeForSpecies(s.x, s.y, s.species));
   }
 
   seedsForTree(tree){
@@ -134,6 +147,7 @@ class Forest {
       seedLocations.push(
           {  x: randomGaussian(tree.x, stdDevDropDistance)
            , y: randomGaussian(tree.y, stdDevDropDistance)
+           , species: tree.species
           }
         );
     }
