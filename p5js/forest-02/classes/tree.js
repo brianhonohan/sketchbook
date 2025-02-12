@@ -4,11 +4,15 @@ class Tree {
     this.x = x;
     this.y = y;
     this.age = age;
-    this.height = 0;
+    this.verticalExtent = 0;
     this.fullness = 1;
 
     this.species = species;
+    this.computeShadowRadius();
   }
+
+  get width() { return this.shadowRadius(); }
+  get height() { return this.shadowRadius(); }
 
   idealizedGrowthAsSapling() { 
     return this.species.growRateWhileSapling * this.species.maxHeight / (this.species.yearsAsSapling / System.YEARS_PER_TICK);
@@ -28,8 +32,9 @@ class Tree {
   // values 0 - 1
   tick(resources){
     this.age += System.YEARS_PER_TICK;
-    this.height += Math.max(resources, 0) * this.growthRate();
+    this.verticalExtent += Math.max(resources, 0) * this.growthRate();
     this.adjustFullness(resources);
+    this.computeShadowRadius();
   }
 
   distFrom(otherTree){
@@ -74,7 +79,8 @@ class Tree {
     ellipse(this.x, this.y, shadowWidth, shadowWidth);
   }
 
-  shadowRadius(){
+  shadowRadius(){ return this._shadowRadius; }
+  computeShadowRadius(){
     // TODO: Factor in Fullness
     // TODO: Split from above and below ground
     let shadowFactor = 0;
@@ -85,6 +91,6 @@ class Tree {
     } else {
       shadowFactor = map(this.age, this.species.yearsAsMature, this.species.maxAge, 1, 0.8);
     }
-    return shadowFactor * this.species.maxShadowRadius;
+    this._shadowRadius =  shadowFactor * this.species.maxShadowRadius;
   }
 }
