@@ -1,10 +1,21 @@
 var canvas;
 var quadtree;
 let lastTouch;
+let gui; 
+
+let settings = {
+  check_by_point: false,
+  query_rect_size: 30
+}
+
 
 function setup() {
   createCanvas(windowWidth, windowHeight-35);
   P5JsSettings.init();
+
+  gui = P5JsSettings.addDatGui({autoPlace: false});
+  gui.add(settings, 'check_by_point');
+  gui.add(settings, 'query_rect_size', 6, 100, 2);
 
   let fullCanvas = new Rect(0, 0, width, height);
   quadtree = new Quadtree(fullCanvas, 5, false);
@@ -33,8 +44,8 @@ function touchMoved(){
 }
 
 function addRandomRects(){
+  let tmpRect;
   for (let i = 0; i < 300; i++){
-
     quadtree.add({x: randomGaussian(width/2, width/4),
                   y: randomGaussian(height/2, height/4),
                   width: 5 + random(40),
@@ -58,13 +69,21 @@ function drawQuadtree(qt){
 }
 
 function highlightUnderMouse(){
-  let objects;
-  if (lastTouch){
-    objects = quadtree.find(lastTouch);
-  } else {
-    objects = quadtree.find({x: mouseX, y: mouseY});
-  }
+  let cursorPt =  (lastTouch) ? lastTouch : {x: mouseX, y: mouseY};
+  let queryObj = cursorPt;
   
+  if (settings.check_by_point == false) {
+    
+    queryObj = new Rect(cursorPt.x - settings.query_rect_size / 2, 
+                        cursorPt.y - settings.query_rect_size / 2,
+                      settings.query_rect_size, settings.query_rect_size)
+    
+    strokeWeight(2);
+    stroke(230, 0, 0);
+    P5JsUtils.drawRect(queryObj);
+  }
+  let objects = quadtree.find(queryObj);
+
   strokeWeight(2);
   stroke(230, 230, 0);
 

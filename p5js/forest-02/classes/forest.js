@@ -11,6 +11,7 @@ class Forest {
     this.treeSpecies.push(TreeSpecies.SlowAndResilient);
     this.treeSpecies.push(TreeSpecies.FastShortWeak);
 
+    this.treeLimit = 1000;
 
     let speciesIndex;
     for (var i = 0; i < this.params.initial_trees; i++){
@@ -35,17 +36,28 @@ class Forest {
 
   sproutTreeForSpecies(x, y, species){
     // TODO: Remove this cap, or make more prominent
-    if (this.trees.length > 700) { return; }
+    if (this.trees.length > this.treeLimit) { 
+      // consol/e.log('no more room at the inn');
+      return; 
+    }
     this.trees.push( new Tree(x, y, 0, this.treeCounter++, species) );
   }
 
   tick(){
+    this.rebuildQuadSearchTree();
     this.trees.forEach(t => t.tick( this.resourcesForTree(t) ));
     this.lossDueToCompetition();
     this.lossDueToMaxAge();
     this.lossDueToForaging();
     this.triggerSeasonalBehavior();
     this.lossDueToOutOfBounds();
+  }
+
+  rebuildQuadSearchTree(){
+    this.quadtree = new Quadtree(this.area, 10, false);
+    for (let i = 0; i < this.trees.length; i++){
+      this.quadtree.add(this.trees[i]);
+    }
   }
 
   lossDueToCompetition(){
@@ -75,9 +87,10 @@ class Forest {
   }
 
   resourcesForTree(tree){
-    // TODO: Use QuadTree to efficiently isolate trees in competition
     // TODO: Longer term, consider beneficial aspects of mother trees, and same species
-    return this.trees.filter(t => t != tree)
+    const competingTrees = this.quadtree.find(tree);
+    
+    return competingTrees.filter(t => t != tree)
                      .map(otherTree => this.resourcesClaimedByTree(otherTree, tree))
                      .reduce((remainder, val) => remainder - val, 1);
   }
@@ -110,7 +123,7 @@ class Forest {
     }
 
     const rootCompFactor = 0.5;
-    const sunlightLossFactor = (losingTree.height < claimingTree.height) ? 0.5 : 0;
+    const sunlightLossFactor = (losingTree.verticalExtent < claimingTree.verticalExtent) ? 0.5 : 0;
     const combinedLossFactor = (rootCompFactor + sunlightLossFactor);
 
     // % Resource Loss = (% of Smaller Overlapping x Area of Smaller) / Area of Larger x Weighting Factors 
@@ -141,8 +154,8 @@ class Forest {
 
   seedsForTree(tree){
     let seedLocations = [];
-    let numSeeds = this.params.seeds_per_tree;
-    let stdDevDropDistance = this.params.seed_drop_dist;
+    let numSeeds = tree.species.seeds_per_tree;
+    let stdDevDropDistance = tree.species.seed_drop_dist;
     for (var i=0; i<numSeeds; i++){
       seedLocations.push(
           {  x: randomGaussian(tree.x, stdDevDropDistance)

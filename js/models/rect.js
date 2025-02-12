@@ -42,6 +42,14 @@ class Rect {
             && this.minY < otherRect.minY && this.maxY > otherRect.maxY;
   }
 
+  overlaps(otherRect){
+    if ((this._x + this._width) < otherRect._x) { return false; }
+    if ((this._y + this._height) < otherRect._y) { return false; }
+    if ((otherRect._x + otherRect._width) < this._x) { return false; }
+    if ((otherRect._y + otherRect._height) < this._y) { return false; }
+    return true;
+  }
+
   expandToIncludeRect(otherRect){
     let maxX = this.maxX;
     let maxY = this.maxY;
@@ -59,6 +67,15 @@ class Rect {
   static rectContainsXY(rect1, x, y){
     return rect1.x <= x && x < (rect1.x + rect1.width)
            && rect1.y <= y && y < (rect1.y + rect1.height);
+  }
+
+  // These merely need to be rect-ducks, responding to .x .y and .width and .height
+  static rectContainsObject(rect1, otherRect){
+    if ((rect1.x + rect1.width) < otherRect.x) { return false; }
+    if ((rect1.y + rect1.height) < otherRect.y) { return false; }
+    if ((otherRect.x + otherRect.width) < rect1.x) { return false; }
+    if ((otherRect.y + otherRect.height) < rect1.y) { return false; }
+    return true;
   }
 
   containsXY(x, y){ 
