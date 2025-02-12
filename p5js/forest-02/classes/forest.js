@@ -153,8 +153,8 @@ class Forest {
 
   seedsForTree(tree){
     let seedLocations = [];
-    let numSeeds = this.params.seeds_per_tree;
-    let stdDevDropDistance = this.params.seed_drop_dist;
+    let numSeeds = tree.species.seeds_per_tree;
+    let stdDevDropDistance = tree.species.seed_drop_dist;
     for (var i=0; i<numSeeds; i++){
       seedLocations.push(
           {  x: randomGaussian(tree.x, stdDevDropDistance)
