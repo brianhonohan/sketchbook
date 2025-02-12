@@ -11,6 +11,7 @@ class Forest {
     this.treeSpecies.push(TreeSpecies.SlowAndResilient);
     this.treeSpecies.push(TreeSpecies.FastShortWeak);
 
+    this.treeLimit = 1000;
 
     let speciesIndex;
     for (var i = 0; i < this.params.initial_trees; i++){
@@ -35,7 +36,7 @@ class Forest {
 
   sproutTreeForSpecies(x, y, species){
     // TODO: Remove this cap, or make more prominent
-    if (this.trees.length > 700) { 
+    if (this.trees.length > this.treeLimit) { 
       // consol/e.log('no more room at the inn');
       return; 
     }
