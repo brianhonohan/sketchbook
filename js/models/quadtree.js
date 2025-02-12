@@ -40,9 +40,8 @@ class Quadtree {
         return this.objects.filter(obj => Rect.rectContainsXY(obj, queryObj.x, queryObj.y));
         
       } else {
-        // Assume query object is a Rect {x, y, width, height}
-        // TODO: Add Rect.overlaps() UNSUPPORTED 
-        // return this.objects.filter(obj => queryObj.overlaps(obj));
+        // Assume query object is a Rect-duck {x, y, width, height}
+        return this.objects.filter(obj => Rect.rectContainsObject(queryObj, obj));
       }
     }
   }
