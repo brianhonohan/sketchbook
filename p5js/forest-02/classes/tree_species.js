@@ -13,8 +13,8 @@ class TreeSpecies {
     this.fullnessResilencyFactor =  0.5;
     this.fullnessVulnerabilityFactor = 2;
 
-    this.seeds_per_tree = 2;
-    this.seed_drop_dist = 30;
+    this.seedsPerTree = 2;
+    this.seedDropDist = 30;
     // this.is_foraged = true; // All trees are foraged for now
 
     // To Add
@@ -39,11 +39,11 @@ class TreeSpecies {
     species.maxHeight = 100;
     species.growRateWhileSapling = 0.01;
     species.growRateWhileMature = 0.02;
-    species.fullnessResilencyFactor =  3;
-    species.fullnessVulnerabilityFactor = 0.0001;
+    species.fullnessResilencyFactor =  2;
+    species.fullnessVulnerabilityFactor = 0.001;
 
-    species.seeds_per_tree = 2;
-    species.seed_drop_dist = 5;
+    species.seedsPerTree = 1;
+    species.seedDropDist = 30;
 
     return species;
   }
@@ -53,7 +53,7 @@ class TreeSpecies {
     const species = new TreeSpecies();
     species.name = "Fast-Short-Weak";
     species.trunkColor = color(200, 200, 100);
-    species.maxAge = 30;
+    species.maxAge = 50;
     species.yearsAsSapling = 5;
     species.yearsAsMature = 20;
     species.maxShadowRadius = 30;
@@ -62,10 +62,10 @@ class TreeSpecies {
     species.growRateWhileSapling = 0.4;
     species.growRateWhileMature = 0.2;
     species.fullnessResilencyFactor =  0.01;
-    species.fullnessVulnerabilityFactor = 1;
+    species.fullnessVulnerabilityFactor = 0.8;
 
-    species.seeds_per_tree = 5;
-    species.seed_drop_dist = 40;
+    species.seedsPerTree = 5;
+    species.seedDropDist = 100;
 
     return species;
   }
