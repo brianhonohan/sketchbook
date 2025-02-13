@@ -12,7 +12,9 @@ const settings = {
     percent: 0.25,
     perpendicular: true,
     perpendicular_length: 50
-  }
+  },
+  reset: resetShapes,
+  makeCircleArc: makeCircleArc
 }
 
 function setup() {
@@ -23,8 +25,10 @@ function setup() {
 
   pointsAlongCurve = [];
   
-  gui = P5JsSettings.addDatGui({autoPlace: false});
+  gui = P5JsSettings.addGui({autoPlace: false});
   gui.add(settings, "enable_drag").onChange(updateDragEnabled);
+  gui.add(settings, "reset");
+  gui.add(settings, "makeCircleArc");
   let pointsGui = gui.addFolder("Points Along Curve Debug");
   pointsGui.open();
   pointsGui.add(settings, "num_points", 0, 20, 1).onChange(drawIntermediatePoints);
@@ -69,6 +73,11 @@ function draw(){
       perpendicularLine.draw();
     }
   }
+}
+
+function makeCircleArc(){
+  const radius = 0.3 * width;
+  shapes[0].makeCircleQuarterArc(width/2 - radius/2, height/2 + radius / 2, radius,- HALF_PI);
 }
 
 function updateDragEnabled(){

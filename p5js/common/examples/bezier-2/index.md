@@ -9,7 +9,7 @@ excerpt: Demonstrates the additional functionality of a Bezier curve, to get poi
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/inobounce/0.2.0/inobounce.js
 - https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.2/p5.min.js
-- /sketchbook/vendor/dat.gui/0.7.7/dat.gui.js
+- https://cdn.jsdelivr.net/npm/lil-gui@0.20
 - /sketchbook/p5js/common/p5js_settings.js
 - /sketchbook/p5js/common/p5js_utils.js
 - /sketchbook/js/util_functions.js
