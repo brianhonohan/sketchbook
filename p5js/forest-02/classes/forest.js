@@ -54,6 +54,7 @@ class Forest {
   }
 
   rebuildQuadSearchTree(){
+    // TODO: Avoid rebuilding the Quadtree every frame
     this.quadtree = new Quadtree(this.area, 10, false);
     for (let i = 0; i < this.trees.length; i++){
       this.quadtree.add(this.trees[i]);
@@ -88,6 +89,7 @@ class Forest {
 
   resourcesForTree(tree){
     // TODO: Longer term, consider beneficial aspects of mother trees, and same species
+    // TODO: Consider caching neighbors for a few cycles; would have to mark trees as dead
     const competingTrees = this.quadtree.find(tree);
     
     return competingTrees.filter(t => t != tree)
@@ -154,8 +156,8 @@ class Forest {
 
   seedsForTree(tree){
     let seedLocations = [];
-    let numSeeds = tree.species.seeds_per_tree;
-    let stdDevDropDistance = tree.species.seed_drop_dist;
+    let numSeeds = tree.species.seedsPerTree;
+    let stdDevDropDistance = tree.species.seedDropDist;
     for (var i=0; i<numSeeds; i++){
       seedLocations.push(
           {  x: randomGaussian(tree.x, stdDevDropDistance)

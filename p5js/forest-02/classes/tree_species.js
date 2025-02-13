@@ -1,20 +1,20 @@
 class TreeSpecies {
   constructor(){
     this.name = "Species 1";
-    this.trunkColor = color(100, 200, 100);
+    this.trunkColor = P5JsUtils.rgbColorToHex(color(100, 200, 100));
     this.maxAge = 200;
     this.yearsAsSapling = 4;
     this.yearsAsMature = 140;
     this.maxShadowRadius = 100;
     this.ageToMakeSeeds = 40;
-    this.maxHeight = 15; // in meter
-    this.growRateWhileSapling = 0.2;
-    this.growRateWhileMature = 0.8;
+    this.maxHeight = 15;
+    this.growRateWhileSapling = 0.2; // Percent of maxHeight grown as sapling, if full resources
+    this.growRateWhileMature = 0.8; // Percent of maxHeight grown as mature tree, if full resources
     this.fullnessResilencyFactor =  0.5;
     this.fullnessVulnerabilityFactor = 2;
 
-    this.seeds_per_tree = 2;
-    this.seed_drop_dist = 30;
+    this.seedsPerTree = 2;
+    this.seedDropDist = 30;
     // this.is_foraged = true; // All trees are foraged for now
 
     // To Add
@@ -30,7 +30,7 @@ class TreeSpecies {
     // GIST: 
     const species = new TreeSpecies();
     species.name = "Slow Poke";
-    species.trunkColor = color(200, 100, 100);
+    species.trunkColor = P5JsUtils.rgbColorToHex(color(200, 100, 100));
     species.maxAge = 800;
     species.yearsAsSapling = 40;
     species.yearsAsMature = 600;
@@ -39,11 +39,11 @@ class TreeSpecies {
     species.maxHeight = 100;
     species.growRateWhileSapling = 0.01;
     species.growRateWhileMature = 0.02;
-    species.fullnessResilencyFactor =  3;
-    species.fullnessVulnerabilityFactor = 0.0001;
+    species.fullnessResilencyFactor =  2;
+    species.fullnessVulnerabilityFactor = 0.001;
 
-    species.seeds_per_tree = 2;
-    species.seed_drop_dist = 5;
+    species.seedsPerTree = 1;
+    species.seedDropDist = 30;
 
     return species;
   }
@@ -52,8 +52,8 @@ class TreeSpecies {
     // GIST: Invasive species; quick growing
     const species = new TreeSpecies();
     species.name = "Fast-Short-Weak";
-    species.trunkColor = color(200, 200, 100);
-    species.maxAge = 30;
+    species.trunkColor = P5JsUtils.rgbColorToHex(color(200, 200, 100));
+    species.maxAge = 50;
     species.yearsAsSapling = 5;
     species.yearsAsMature = 20;
     species.maxShadowRadius = 30;
@@ -62,10 +62,10 @@ class TreeSpecies {
     species.growRateWhileSapling = 0.4;
     species.growRateWhileMature = 0.2;
     species.fullnessResilencyFactor =  0.01;
-    species.fullnessVulnerabilityFactor = 1;
+    species.fullnessVulnerabilityFactor = 0.8;
 
-    species.seeds_per_tree = 5;
-    species.seed_drop_dist = 40;
+    species.seedsPerTree = 5;
+    species.seedDropDist = 100;
 
     return species;
   }

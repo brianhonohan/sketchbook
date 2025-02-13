@@ -20,26 +20,45 @@ function setup() {
   createCanvas(windowWidth, windowHeight-35);
   P5JsSettings.init();
 
-  gui = P5JsSettings.addDatGui({autoPlace: false});
-  gui.add(systemParams, "paused");
-  let forestGui = gui.addFolder('Forest Attributes');
-  forestGui.open();
-  forestGui.add(systemParams, 'foraging_rate').min(0.1).max(0.9).step(0.05);
-  forestGui.add(systemParams, 'initial_trees').min(1).max(50).step(1);
 
-  // let treeCfg = gui.addFolder('Tree Attributes');
-  // treeCfg.add(systemParams.tree, 'max_age').min(20).max(500).step(5);
-  // treeCfg.add(systemParams.tree, 'years_as_sapling').min(3).max(30).step(1);
-  // treeCfg.add(systemParams.tree, 'years_as_mature').min(15).max(300).step(5);
-  // treeCfg.add(systemParams.tree, 'age_to_make_seeds').min(3).max(60).step(3);
-  // treeCfg.add(systemParams, 'seed_drop_dist').min(1).max(150).step(10);
-  // treeCfg.add(systemParams, 'seeds_per_tree').min(1).max(20).step(1);
-  
   let rect = new Rect(0, 0, width, height);
   system = new System(rect, systemParams);
   system.init();
 
+  gui = P5JsSettings.addGui({autoPlace: false});
+  gui.add(systemParams, "paused");
+  gui.add(system, "init").name('Restart');
+
+  let forestGui = gui.addFolder("Forest Attributes");
+  forestGui.open();
+  forestGui.add(systemParams, 'foraging_rate').min(0.1).max(0.9).step(0.05);
+  forestGui.add(systemParams, 'initial_trees').min(1).max(50).step(1);
+
   forestGui.add(system.forest, 'treeLimit', 50, 5000, 50);
+  addGuiForSpecies(system.forest.treeSpecies[0]);
+  addGuiForSpecies(system.forest.treeSpecies[1]);
+  addGuiForSpecies(system.forest.treeSpecies[2]);
+}
+
+function addGuiForSpecies(species){
+  let treeCfg = gui.addFolder(`${species.name} Traits`);
+  treeCfg.addColor(species, 'trunkColor');
+  treeCfg.add(species, 'maxAge', 20, 1000, 1);
+  treeCfg.add(species, 'yearsAsSapling', 4, 40, 1);
+  treeCfg.add(species, 'yearsAsMature', 5, 1000, 1);
+  treeCfg.add(species, 'maxShadowRadius', 5, 150, 1);
+  treeCfg.add(species, 'ageToMakeSeeds', 5, 100, 1);
+  treeCfg.add(species, 'maxHeight', 20, 500, 1); // in feet
+
+  // TODO: Need to refactor how these behave, not easy to configure
+  treeCfg.add(species, 'growRateWhileSapling', 0.01, 0.5, 0.01); 
+  treeCfg.add(species, 'growRateWhileMature', 0.5, 1, 0.01);
+  treeCfg.add(species, 'fullnessResilencyFactor',  0.01, 4, 0.01);
+  treeCfg.add(species, 'fullnessVulnerabilityFactor', 0.01, 4, 0.01);
+
+  treeCfg.add(species, 'seedsPerTree', 1, 30, 1);
+  treeCfg.add(species, 'seedDropDist', 5, 300, 5);
+  treeCfg.close();
 }
 
 function keyPressed() {
