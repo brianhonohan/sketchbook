@@ -1,15 +1,15 @@
 class TreeSpecies {
   constructor(){
     this.name = "Species 1";
-    this.trunkColor = color(100, 200, 100);
+    this.trunkColor = P5JsUtils.rgbColorToHex(color(100, 200, 100));
     this.maxAge = 200;
     this.yearsAsSapling = 4;
     this.yearsAsMature = 140;
     this.maxShadowRadius = 100;
     this.ageToMakeSeeds = 40;
-    this.maxHeight = 15; // in meter
-    this.growRateWhileSapling = 0.2;
-    this.growRateWhileMature = 0.8;
+    this.maxHeight = 15;
+    this.growRateWhileSapling = 0.2; // Percent of maxHeight grown as sapling, if full resources
+    this.growRateWhileMature = 0.8; // Percent of maxHeight grown as mature tree, if full resources
     this.fullnessResilencyFactor =  0.5;
     this.fullnessVulnerabilityFactor = 2;
 
@@ -30,7 +30,7 @@ class TreeSpecies {
     // GIST: 
     const species = new TreeSpecies();
     species.name = "Slow Poke";
-    species.trunkColor = color(200, 100, 100);
+    species.trunkColor = P5JsUtils.rgbColorToHex(color(200, 100, 100));
     species.maxAge = 800;
     species.yearsAsSapling = 40;
     species.yearsAsMature = 600;
@@ -52,7 +52,7 @@ class TreeSpecies {
     // GIST: Invasive species; quick growing
     const species = new TreeSpecies();
     species.name = "Fast-Short-Weak";
-    species.trunkColor = color(200, 200, 100);
+    species.trunkColor = P5JsUtils.rgbColorToHex(color(200, 200, 100));
     species.maxAge = 50;
     species.yearsAsSapling = 5;
     species.yearsAsMature = 20;

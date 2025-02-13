@@ -33,6 +33,9 @@ class P5JsUtils {
              && alpha(c1) == alpha(c2);
   }
 
+  static rgbColorToHex(c1){
+    return `#${red(c1).toString(16)}${green(c1).toString(16)}${blue(c1).toString(16)}`;
+  }
 
   static get COLOR_ID_RED(){ return 0; }
   static get COLOR_ID_GREEN(){ return 1; }
