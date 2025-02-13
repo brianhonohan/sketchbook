@@ -11,7 +11,7 @@ function setup() {
   let rect = new Rect(0, 0, width, height);
   system = new System(rect);
 
-  gui = new lil.GUI();
+  gui = P5JsSettings.addGui({autoPlace: false});
   gui.add(system.settings, 'cellWidth', 5, 200, 5).onChange(regenerate);
 }
 

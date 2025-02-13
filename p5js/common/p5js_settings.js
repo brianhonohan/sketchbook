@@ -40,54 +40,58 @@ class P5JsSettings {
   }
 
   static addDatGui(datGuiParams){
-    datGuiParams = datGuiParams || {};
-    const datGui = new dat.gui.GUI(datGuiParams);
+    return this.addGui(datGuiParams);
+  }
+    
+  static addGui(guiParams){
+    guiParams = guiParams || {};
+    const gui = (typeof lil === 'object') ? new lil.GUI(guiParams) : new dat.gui.GUI(guiParams);
 
-    if (datGuiParams.autoPlace === false) {
-      this.datGuiContainer = this.createDatGuiContainer();
-      this.datGuiContainer.appendChild(datGui.domElement);
+    if (guiParams.autoPlace === false) {
+      this.guiContainer = this.createGuiContainer();
+      this.guiContainer.appendChild(gui.domElement);
 
       document.addEventListener('keyup', function(event){
         if (event.key === 'h') {
-          P5JsSettings.toggleDatGuiHide();
+          P5JsSettings.toggleGuiHide();
         }
       });
     }
 
-    if (datGuiParams.width !== undefined){
-      datGui.domElement.style['width'] = `${datGuiParams.width}px`;
+    if (guiParams.width !== undefined){
+      gui.domElement.style['width'] = `${guiParams.width}px`;
     }
-    if (datGuiParams.bindOptions === true) {
-      const commonGui = datGui.addFolder("Common Settings");
+    if (guiParams.bindOptions === true) {
+      const commonGui = gui.addFolder("Common Settings");
       const seedListener = commonGui.add(this.optionsSet.settings, "seed", 1, Number.MAX_SAFE_INTEGER);
       const noiseOctavesListener = commonGui.add(this.optionsSet.settings, "noise_octaves", 1, 16);
       const noiseFallOffListener = commonGui.add(this.optionsSet.settings, "noise_falloff", 0.01, 1, 0.01);
 
       const globalSettings = this;
-      const handleDatGui = function(callback){
+      const handleGuiChanges = function(callback){
         globalSettings.applySettings();
         if (callback !== undefined){
           callback();
         }
       }
-      seedListener.onFinishChange(() => handleDatGui(datGuiParams.callback));
-      noiseOctavesListener.onFinishChange(() => handleDatGui(datGuiParams.callback));
-      noiseFallOffListener.onFinishChange(() => handleDatGui(datGuiParams.callback));
+      seedListener.onFinishChange(() => handleGuiChanges(guiParams.callback));
+      noiseOctavesListener.onFinishChange(() => handleGuiChanges(guiParams.callback));
+      noiseFallOffListener.onFinishChange(() => handleGuiChanges(guiParams.callback));
     }
-    return datGui;
+    return gui;
   }
 
-  static toggleDatGuiHide(){
-    if (this.datGuiContainer.style.display === "none") {
-      this.datGuiContainer.style.display = "block";
+  static toggleGuiHide(){
+    if (this.guiContainer.style.display === "none") {
+      this.guiContainer.style.display = "block";
     } else {
-      this.datGuiContainer.style.display = "none";
+      this.guiContainer.style.display = "none";
     }
   }
 
-  static createDatGuiContainer(){
+  static createGuiContainer(){
     let container = document.createElement("div"); 
-    container.setAttribute('id', 'datGuiContainer');
+    container.setAttribute('id', 'guiContainer');
     container.style.position = 'absolute';
     container.style.right = '0px';
     container.style.bottom = '20px';
