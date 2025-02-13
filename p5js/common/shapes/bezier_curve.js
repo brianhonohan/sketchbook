@@ -3,21 +3,36 @@ class BezierCurve {
   // Point1, Point2, Point3, Point4
   // x1, y1, x2, y2, x3, y3, x4, y4
   constructor(a, b, c, d, x3, y3, x4, y4){
-    if (a.x && a.y){
-      this.p1 = new Point(a.x, a.y);
-      this.p2 = new Point(b.x, b.y);
-      this.p3 = new Point(c.x, c.y);
-      this.p4 = new Point(d.x, d.y);
-    } else {
-      this.p1 = new Point(a, b);
-      this.p2 = new Point(c, d);
-      this.p3 = new Point(x3, y3);
-      this.p4 = new Point(x4, y4);
-    }
+    this.p1 = new Point(0, 0);
+    this.p2 = new Point(0, 0);
+    this.p3 = new Point(0, 0);
+    this.p4 = new Point(0, 0);
+    this.updatePoints(a, b, c, d, x3, y3, x4, y4);
 
     this.dragEnabled = false;
     this.noFill = true;
     this.initPoints();
+  }
+
+  updatePoints(a, b, c, d, x3, y3, x4, y4){
+    if (a.x && a.y){
+      this.p1.set(a.x, a.y);
+      this.p2.set(b.x, b.y);
+      this.p3.set(c.x, c.y);
+      this.p4.set(d.x, d.y);
+    } else {
+      this.p1.set(a, b);
+      this.p2.set(c, d);
+      this.p3.set(x3, y3);
+      this.p4.set(x4, y4);
+    }
+  }
+
+  static defaultCurve(){
+    return new BezierCurve(0.2 * width, 0.8 * height,
+                            0.4 * width, 0.8 * height,
+                            0.6 * width, 0.2 * height,
+                            0.8 * width, 0.2 * height);
   }
 
   static fromPoints(p1, p2, p3, p4){
@@ -74,6 +89,12 @@ class BezierCurve {
   }
 
   static circularQuarterArc(x, y, radius, startAt){
+    let curve = new BezierCurve(0,0,0,0,0,0,0,0);
+    curve.makeCircleQuarterArc(x, y, radius, startAt);
+    return curve;
+  }
+
+  makeCircleQuarterArc(x, y, radius, startAt){
     // From: https://spencermortensen.com/articles/bezier-circle/
     // P0=(0,1), P1=(c,1), P2=(1,c), P3=(1,0)
     // c=0.551915024494
@@ -82,9 +103,9 @@ class BezierCurve {
     let c = scaledC;
     let l = radius;
 
-    let curve = new BezierCurve( l,  0,  l,  c,  c,  l,  0,  l);
-    curve.rotateAbout(0, 0, startAt);
-    curve.move(x, y);
+    this.updatePoints( l,  0,  l,  c,  c,  l,  0,  l);
+    this.rotateAbout(0, 0, startAt);
+    this.move(x, y);
     return curve;
   }
 
