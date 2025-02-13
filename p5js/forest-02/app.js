@@ -20,16 +20,19 @@ function setup() {
   createCanvas(windowWidth, windowHeight-35);
   P5JsSettings.init();
 
-  gui = P5JsSettings.addGui({autoPlace: false});
-  gui.add(systemParams, "paused");
-  let forestGui = gui.addFolder("Forest Attributes");
-  forestGui.open();
-  forestGui.add(systemParams, 'foraging_rate').min(0.1).max(0.9).step(0.05);
-  forestGui.add(systemParams, 'initial_trees').min(1).max(50).step(1);
 
   let rect = new Rect(0, 0, width, height);
   system = new System(rect, systemParams);
   system.init();
+
+  gui = P5JsSettings.addGui({autoPlace: false});
+  gui.add(systemParams, "paused");
+  gui.add(system, "init").name('Restart');
+
+  let forestGui = gui.addFolder("Forest Attributes");
+  forestGui.open();
+  forestGui.add(systemParams, 'foraging_rate').min(0.1).max(0.9).step(0.05);
+  forestGui.add(systemParams, 'initial_trees').min(1).max(50).step(1);
 
   forestGui.add(system.forest, 'treeLimit', 50, 5000, 50);
   addGuiForSpecies(system.forest.treeSpecies[0]);
