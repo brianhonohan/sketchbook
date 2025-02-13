@@ -1,15 +1,24 @@
 let grid;
 var canvas;
+let gui;
 
 function setup() {
   var canvas = createCanvas(windowWidth, windowHeight-35);
   grid = new GridViewController(0, 0, width, height);
   frameRate(30);
+
+  gui = P5JsSettings.addGui({autoPlace: false});
+  gui.add(grid, 'cellWidth', 5, 100, 1).onChange(reinit);
+  gui.add(grid, 'cellHeight', 5, 100, 1).onChange(reinit);
 }
 
 function draw() {
   grid.step();
   grid.renderViews();
+}
+
+function reinit(){
+  grid.initCells();
 }
 
 function mouseDragged(){

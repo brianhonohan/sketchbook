@@ -7,9 +7,9 @@ class CellViewer {
     this.cell = p_xCell;
 
     // TODO: Move this into a config / style
-    this.minColor = color(0,0,255);
-    this.midColor = color(255);
-    this.maxColor = color(255,0,0);
+    this.minColor = color(0,0,230);
+    this.midColor = color(50);
+    this.maxColor = color(230,0,0);
   }
 
   renderOnScale(minTemp, midPoint, maxTemp){
