@@ -92,29 +92,35 @@ class Paisley {
     this.radiusPt.y = this.leftShoulderPt.y;
   }
 
+  get leftBulbCurve() { return this.polybezier[0]; }
+  get rightBulbCurve() { return this.polybezier[1]; }
+  get rightTailCurve() { return this.polybezier[2]; }
+  get leftTailCurve() { return this.polybezier[3]; }
+
   _initPolyBezier() {
     if (this.polybezier == undefined){
       this.polybezier = new Polybezier();
+      this.polybezier.push(BezierCurve.defaultCurve());
+      this.polybezier.push(BezierCurve.defaultCurve());
+      this.polybezier.push(BezierCurve.defaultCurve());
+      this.polybezier.push(BezierCurve.defaultCurve());
+
+      this.spine = BezierCurve.defaultCurve();
     }
 
-    this.spine = new BezierCurve(this.pos, this.spineConstraint, this.tail, this.tail);
+    this.spine.updatePoints(this.pos, this.spineConstraint, this.tail, this.tail);
+    this.leftBulbCurve.makeCircleQuarterArc(this.x, this.y, this.bulbRadius, this.heading - HALF_PI);
+    this.rightBulbCurve.makeCircleQuarterArc(this.x, this.y, this.bulbRadius, this.heading);
 
-    // TODO: Investigate moving existing curves rather than recreate them
-    this.polybezier.clear();
-    this.polybezier.append(BezierCurve.circularQuarterArc(this.x, this.y, this.bulbRadius, this.heading - HALF_PI));
-    this.polybezier.append(BezierCurve.circularQuarterArc(this.x, this.y, this.bulbRadius, this.heading));
-
-    let rightTail = new BezierCurve(this.rightShoulderPt,
+    this.rightTailCurve.updatePoints(this.rightShoulderPt,
                                     this.rightConstraint,
                                     this.tail,
                                     this.tail);
-    this.polybezier.append(rightTail);
 
-    let leftTail = new BezierCurve(this.tail, this.tail,
+    this.leftTailCurve.updatePoints(this.tail, this.tail,
                                     this.leftConstraint,
                                     this.leftShoulderPt
                                     );
-    this.polybezier.append(leftTail);
   }
 
   _initDefaultTail(){

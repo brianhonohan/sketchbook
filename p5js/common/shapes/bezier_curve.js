@@ -28,6 +28,13 @@ class BezierCurve {
     }
   }
 
+  static defaultCurve(){
+    return new BezierCurve(0.2 * width, 0.8 * height,
+                            0.4 * width, 0.8 * height,
+                            0.6 * width, 0.2 * height,
+                            0.8 * width, 0.2 * height);
+  }
+
   static fromPoints(p1, p2, p3, p4){
     return new BezierCurve(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y);
   }
