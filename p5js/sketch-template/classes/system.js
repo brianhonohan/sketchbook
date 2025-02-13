@@ -3,7 +3,10 @@ class System {
     this.sizeAndPosition = p_xSizeAndPos;
     this.optionsSet = new OptionsSet(this.optionsMetadata());
     this.settings = this.optionsSet.settings;
+    this.regenerate();
+  }
 
+  regenerate(){
     this.cellViewer = new CellViewer();
     this.grid = new CellGrid(this.sizeAndPosition, 
                              this, 
