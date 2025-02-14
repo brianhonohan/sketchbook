@@ -28,9 +28,12 @@ And implemented as
 
 ## Controls
 
-Mouse / Keyboard
+Mouse / 
 
-`Click & Drag` will modify the cell at the mouse location based on key pressed:
+`Click & Drag` will modify the cell at the mouse location based on the active mode (changable via button and keys).
+
+Keyboard
+Switch the mode of the mouse cursor.
 
 - `W` will add a Wall cell
 - `Q` will restore the cell to a plain cell (removing any Wall, Sink or Source)
