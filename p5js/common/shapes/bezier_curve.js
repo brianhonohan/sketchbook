@@ -127,12 +127,12 @@ class BezierCurve {
 
   attachHeadTo(curve){
     this.p1 = curve.p4;
-    this.points.shift();
+    this.points[0] = this.p1;
   }
 
   attachTailTo(curve){
     this.p4 = curve.p1;
-    this.points.pop();
+    this.points[4] = this.p4;
   }
 
   makeLinear(){
@@ -141,6 +141,9 @@ class BezierCurve {
   }
 
   handleMousePressed(){
+    // HMMM: Consider how to handle draggable points when curves are attached
+    // and they share points; risk is two curves response TRUE (eg. handling mouse input)
+    // but maybe non-issue if once the first curve responds true, processing stops
     const pointPressed = this.points.find(p => p.containsXY(mouseX, mouseY));
 
     if (pointPressed){

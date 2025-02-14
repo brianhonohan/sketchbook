@@ -112,8 +112,6 @@ class Paisley {
 
     this.leftBulbCurve.makeCircleQuarterArc(this.x, this.y, this.bulbRadius, this.heading - HALF_PI);
     this.rightBulbCurve.makeCircleQuarterArc(this.x, this.y, this.bulbRadius, this.heading);
-    // HACK: For some reason, the shared point ends up (0.08 * width, 0), the default location
-    this.leftBulbCurve.p4.set( this.headingPt.x, this.headingPt.y );
 
     this.rightTailCurve.updatePoints(this.rightShoulderPt,
                                     this.rightConstraint,
