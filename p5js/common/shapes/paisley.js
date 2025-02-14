@@ -92,23 +92,24 @@ class Paisley {
     this.radiusPt.y = this.leftShoulderPt.y;
   }
 
-  get leftBulbCurve() { return this.polybezier[0]; }
-  get rightBulbCurve() { return this.polybezier[1]; }
-  get rightTailCurve() { return this.polybezier[2]; }
-  get leftTailCurve() { return this.polybezier[3]; }
+  get leftBulbCurve() { return this.polybezier.curves[0]; }
+  get rightBulbCurve() { return this.polybezier.curves[1]; }
+  get rightTailCurve() { return this.polybezier.curves[2]; }
+  get leftTailCurve() { return this.polybezier.curves[3]; }
 
   _initPolyBezier() {
     if (this.polybezier == undefined){
       this.polybezier = new Polybezier();
-      this.polybezier.push(BezierCurve.defaultCurve());
-      this.polybezier.push(BezierCurve.defaultCurve());
-      this.polybezier.push(BezierCurve.defaultCurve());
-      this.polybezier.push(BezierCurve.defaultCurve());
+      this.polybezier.append(BezierCurve.defaultCurve());
+      this.polybezier.append(BezierCurve.defaultCurve());
+      this.polybezier.append(BezierCurve.defaultCurve());
+      this.polybezier.append(BezierCurve.defaultCurve());
 
       this.spine = BezierCurve.defaultCurve();
     }
 
     this.spine.updatePoints(this.pos, this.spineConstraint, this.tail, this.tail);
+
     this.leftBulbCurve.makeCircleQuarterArc(this.x, this.y, this.bulbRadius, this.heading - HALF_PI);
     this.rightBulbCurve.makeCircleQuarterArc(this.x, this.y, this.bulbRadius, this.heading);
 
