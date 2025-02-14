@@ -16,6 +16,7 @@ js_scripts:
 - ./classes/cell.js
 - ./classes/cell_viewer.js
 - ./classes/grid_view_controller.js
+- ./classes/simple_ui.js
 - ./thermal_cells.js
 
 ---
