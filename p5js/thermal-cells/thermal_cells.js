@@ -16,12 +16,12 @@ function setup() {
   simpleUI = new SimpleUI(grid);
 
   let toolGui = gui.addFolder('Tools');
-  toolGui.add(simpleUI, 'setModeAddWall').name('ADD_WALL');
-  toolGui.add(simpleUI, 'setModeRemoveWall').name('REMOVE_WALL');
-  toolGui.add(simpleUI, 'setModeAddHeatSource').name('ADD_HEAT_SOURCE');
-  toolGui.add(simpleUI, 'setModeAddHeatSink').name('ADD_HEAT_SINK');
-  toolGui.add(simpleUI, 'setModeRemoveHeat').name('REMOVE_HEAT');
-  toolGui.add(simpleUI, 'setModeAddHeat').name('ADD_HEAT');
+  toolGui.add(simpleUI, 'setModeAddWall').name('ADD WALL (W)');
+  toolGui.add(simpleUI, 'setModeRemoveWall').name('REMOVE WALL (Q)');
+  toolGui.add(simpleUI, 'setModeAddHeatSource').name('ADD HEAT SOURCE (A)');
+  toolGui.add(simpleUI, 'setModeAddHeatSink').name('ADD HEAT SINK (S)');
+  toolGui.add(simpleUI, 'setModeRemoveHeat').name('REMOVE HEAT (D)');
+  toolGui.add(simpleUI, 'setModeAddHeat').name('ADD HEAT (E)');
 }
 
 function draw() {
@@ -35,23 +35,29 @@ function reinit(){
 
 function mouseDragged(){
   simpleUI.handleMouseDrag();
-  // if(keyIsDown(87)){  // 'W'.charCodeAt(0)
-  //   grid.addWallAt(mouseX, mouseY);
-  // }else if(keyIsDown(81)){  // 'Q'.charCodeAt(0)
-  //   grid.removeWallAt(mouseX, mouseY);
-  // }else if(keyIsDown(65)){  // 'A'.charCodeAt(0)
-  //   grid.addSourceAt(mouseX, mouseY);
-  // }else if(keyIsDown(83)){  // 'S'.charCodeAt(0)
-  //   grid.addSinkAt(mouseX, mouseY);
-  // }else if(keyIsPressed == true){
-  //   grid.removeHeatAt(mouseX, mouseY);
-  // }else{
-  //   grid.addHeatAt(mouseX, mouseY);
-  // }
 }
 
 function keyTyped(){
   switch(key) {
+    case 'w':
+      simpleUI.setModeAddWall();
+      break;
+    case 'q':
+      simpleUI.setModeRemoveWall();
+      break;
+    case 'a':
+      simpleUI.setModeAddHeatSource();
+      break;
+    case 's':
+      simpleUI.setModeAddHeatSink();
+      break;
+    case 'd':
+      simpleUI.setModeRemoveHeat();
+      break;
+    case 'e':
+      simpleUI.setModeAddHeat();
+      break;
+    
     case 'p':
       saveCanvas(canvas, 'screenshot', 'png');
       break;
