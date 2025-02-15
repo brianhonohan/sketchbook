@@ -23,6 +23,6 @@ Click on squares of matching colors to remove them.
 ![screenshot][screenshot-01]
 
 [p5js-home]: https://p5js.org/
-[source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/grid_puzzle/
-[live-view]: https://brianhonohan.com/sketchbook/p5js/grid_puzzle/
+[source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/grid-puzzle/
+[live-view]: https://brianhonohan.com/sketchbook/p5js/grid-puzzle/
 [screenshot-01]: ./screenshot-01.png

@@ -7,7 +7,7 @@ Collection of personal coding projects. They may or may not grow into individual
 
 A very simple puzzle where you need to click pairs of tiles to match colors of background and nested squares to clear the board.
 
-[<img src="./p5js/grid_puzzle/screenshot-01.png" alt="colorful square tiles in grid" width="150px" />][link-p5js-grid-puzzle]
+[<img src="./p5js/grid-puzzle/screenshot-01.png" alt="colorful square tiles in grid" width="150px" />][link-p5js-grid-puzzle]
 
 ## LÖVE
 Collection of sketches using the [LÖVE][love2d] environment.
@@ -62,7 +62,7 @@ Collection of sketches using the [p5.js][p5js] Javascript library.
 [<img src="./p5js/forest-fires/screenshot-01.png" alt="forest-fires" width="150px" />][link-p5js-forest-fires]
 [<img src="./p5js/friezes/screenshot-01.png" alt="friezes" width="150px" />][link-p5js-friezes]
 [<img src="./p5js/friezes-2/screenshot-01.png" alt="blue and orange lines, in repeated pattern" width="150px" />][link-p5js-friezes-2]
-[<img src="./p5js/grid_puzzle/screenshot-01.png" alt="colorful square tiles in grid" width="150px" />][link-p5js-grid-puzzle]
+[<img src="./p5js/grid-puzzle/screenshot-01.png" alt="colorful square tiles in grid" width="150px" />][link-p5js-grid-puzzle]
 [<img src="./p5js/hello_world/screenshot-01.png" alt="hello_world" width="150px" />][link-p5js-hello_world]
 [<img src="./p5js/josef-albers-homage-to-a-square/screenshot-01.png" alt="homage-to-a-square" width="150px" />][link-p5js-josef-albers-homage-to-a-square]
 [<img src="./p5js/keyviz/screenshot-01.png" alt="keyviz" width="150px" />][link-p5js-keyviz]

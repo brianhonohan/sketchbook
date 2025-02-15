@@ -2,6 +2,12 @@ const numRows = 6;
 const numCols = 6;
 const boxPadding = 8;
 
+
+let displayWidth;
+let displayHeight;
+let gridMarginX;
+let gridMarginY;
+
 const numBoxes = numRows * numCols;
 let boxWidth;
 let boxHeight;
@@ -23,7 +29,8 @@ const fadeInSteps = 12;
 
 
 function setup() {
-  createCanvas(600, 600);
+  createCanvas(windowWidth, windowHeight-35);
+  // createCanvas(500, 500);
 
   colorMode(HSB, 100);
   generatePalette();
@@ -31,12 +38,18 @@ function setup() {
   assignMgTileColors();
   assignFgTileColors();
 
-  boxWidth   = (width - ((numCols + 1) * boxPadding))/ numCols;
-  boxHeight  = (height - ((numRows + 1) * boxPadding)) / numRows;
+  displayWidth = min(min(width, height), 500);
+  displayHeight = displayWidth;
+
+  gridMarginX = (width - displayWidth) / 2;
+  gridMarginY = (height - displayHeight) / 2;
+
+  boxWidth   = (displayWidth - ((numCols + 1) * boxPadding))/ numCols;
+  boxHeight  = (displayHeight - ((numRows + 1) * boxPadding)) / numRows;
 }
 
 function draw() {
-  background(120);
+  background(20);
   renderGrid();
   
   if (firstBoxFadeIn != undefined){
@@ -101,11 +114,28 @@ function drawHighlightAroundBox(x, y, fadeInProgress){
 }
     
 function getX(colIndex){
-  return colIndex * boxWidth + boxPadding + colIndex * boxPadding;
+  return gridMarginX + colIndex * boxWidth + boxPadding + colIndex * boxPadding;
 }
    
 function getY(rowIndex){
-  return rowIndex * boxHeight + boxPadding + rowIndex * boxPadding;
+  return gridMarginY +  rowIndex * boxHeight + boxPadding + rowIndex * boxPadding;
+}
+
+function getBoxNumberFromXY(x, y){
+  x = x - gridMarginX;
+  y = y - gridMarginY;
+
+  if (x < 0 || y < 0) {
+    return;
+  }
+
+  if (x > displayWidth || y > displayHeight){
+    return;
+  }
+
+  let col = floor((x - boxPadding) / (boxWidth  + boxPadding));
+  let row = floor((y - boxPadding) / (boxHeight + boxPadding));
+  return getBoxNumberForRowCol(row, col);
 }
 
 function getBgColor(colIndex, rowIndex){
@@ -178,12 +208,6 @@ function getRandomTileOrder(){
 
 function getBoxNumberForRowCol(row, col){
   return row * numCols + col;
-}
-
-function getBoxNumberFromXY(x, y){
-  let col = floor((x - boxPadding) / (boxWidth  + boxPadding));
-  let row = floor((y - boxPadding) / (boxHeight + boxPadding));
-  return getBoxNumberForRowCol(row, col);
 }
 
 function mousePressed(){
