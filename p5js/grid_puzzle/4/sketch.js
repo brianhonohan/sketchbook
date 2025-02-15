@@ -133,9 +133,12 @@ function generatePalette(){
   let hueStepSize = 8;
   for(let i = 0; i < numColors; i++){
     let hue = (randomStartingPoint + hueStepSize * i) % 100;
-    colorList[i] = color(hue, 30 + (floor(i/numSets) * 25), 85);
+    if (hue > 90){
+      hue = (hue + 20 + random(20)) % 100;
+    }
+    // colorList[i] = color(hue, 30 + (floor(i/numSets) * 25), 85);
     // colorList[i] = color(hue, 20 + random(80), 90);
-    // colorList[i] = color(hue, 50 + (floor(i/numSets) * 15), 90 - (floor(i/numSets) * 10));
+    colorList[i] = color(hue, 50 + (floor(i/numSets) * 15), 90 - (floor(i/numSets) * 3));
     // colorList[i] = color(hue, 50, 50);
   }
 }
