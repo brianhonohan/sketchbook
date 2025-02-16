@@ -1,22 +1,23 @@
 class System {
   constructor(){
-    let rect = new Rect(0, 0, width/2, height/2);
+    // let rect = new Rect(0, 0, width/2, height/2);
+    let rect = new Rect(0, 0, width, height);
     this.terrain = new Terrain2D(rect);
     this.cellWidth = 10;
 
-    let weatherPos = new Rect(width/2, 0, width/2, height/2);
-    this.weatherGrid = new CellGrid(weatherPos, WeatherCell, this.cellWidth);
-    this.weatherGrid.initCells();
-    this.initCellsViaTerrain();
+    // let weatherPos = new Rect(width/2, 0, width/2, height/2);
+    // let weatherPos = rect;
+    // this.weatherGrid = new CellGrid(weatherPos, WeatherCell, this.cellWidth);
+    // this.weatherGrid.initCells();
+    // this.initCellsViaTerrain();
   }
 
   tick(){
-    console.log("tock");
   }
 
   draw(){
     this.terrain.draw();
-    this.weatherGrid.renderViews();
+    // this.weatherGrid.renderViews();
   }
 
   initCellsViaTerrain(){
