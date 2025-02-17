@@ -100,6 +100,7 @@ Collection of sketches using the [p5.js][p5js] Javascript library inspired by th
 [<img src="./p5js/coding-challenges/solar-system-3d/screenshot-01.png" alt="solar-system-3d" width="150px" />][link-p5js-cc-solar-system-3d]
 [<img src="./p5js/coding-challenges/solar-system/screenshot-01.png" alt="solar-system" width="150px" />][link-p5js-cc-solar-system]
 [<img src="./p5js/coding-challenges/space-invaders/screenshot-01.png" alt="space-invaders" width="150px" />][link-p5js-cc-space-invaders]
+[<img src="./p5js/coding-challenges/terrain-3d-flyover/screenshot-01.png" alt="terrain-3d-flyover" width="150px" />][link-p5js-cc-terrain-3d-flyover]
 
 ## Processing
 Collection of sketches using the [Processing (P3)][processing] environment.
@@ -200,6 +201,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-p5js-cc-solar-system-3d]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/solar-system-3d/
 [link-p5js-cc-solar-system]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/solar-system/
 [link-p5js-cc-space-invaders]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/space-invaders/
+[link-p5js-cc-terrain-3d-flyover]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/terrain-3d-flyover/
 
 [link-attractors]: https://github.com/brianhonohan/sketchbook/tree/master/processing/attractors
 [link-dodgeball]: https://github.com/brianhonohan/sketchbook/tree/master/processing/dodgeball
