@@ -7,10 +7,10 @@ var cameraYaw = 0;
 var generatedTerrain;
 var terrain;
 var cellSize;
-let gui;
 
 function setup(){
-  createCanvas(windowWidth, windowHeight, WEBGL);
+  createCanvas(500, 500, WEBGL);
+  // createCanvas(windowWidth, windowHeight, WEBGL);
 
   terrain = new Terrain();
   cameraLoc = createVector(0, 0, 0);
@@ -18,21 +18,13 @@ function setup(){
 
   cellSize = map(width, 300, 3000, 20, 100);
   stroke(50, 200, 50);
-  // draw();
-  // noLoop();
-  // frameRate(0.005);
-  // frameRate(5);
 }
 
 function draw(){
-  background(45);
-
-  let baseColor = color(30, 90, 30);
-  let maxColor = color(230, 240, 230);
+  background(50);
 
   let renderDepth = 95;
   let renderWidth = 3 * (width / cellSize);
-  // console.log("Render Width: "+ renderWidth);
 
   generatedTerrain = [];
 
