@@ -7,6 +7,7 @@ var cameraYaw = 0;
 var generatedTerrain;
 var terrain;
 var cellSize;
+let gui;
 
 function setup(){
   createCanvas(windowWidth, windowHeight, WEBGL);
