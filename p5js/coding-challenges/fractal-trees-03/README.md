@@ -38,7 +38,7 @@ Mouse:
 ![screenshot][screenshot]
 
 
-[p5js-home]: http://p5js.org/
+[p5js-home]: https://p5js.org/
 [coding-train]: https://thecodingtrain.com/
 [ct-challenge-15]: https://www.youtube.com/watch?v=fcdNSZ9IzJM&index=18&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH
 [source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/fractal-trees-03/

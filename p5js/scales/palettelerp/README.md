@@ -26,7 +26,7 @@ What is exercised in this sketch is the [p5.js paletteLerp()][p5js-palettelerp] 
 
 
 
-[p5js-home]: http://p5js.org/
+[p5js-home]: https://p5js.org/
 [p5js-palettelerp]: https://p5js.org/reference/p5/paletteLerp/
 [source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/scales/palettelerp/
 [live-view]: https://brianhonohan.com/sketchbook/p5js/scales/palettelerp/

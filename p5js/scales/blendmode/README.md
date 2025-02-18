@@ -26,7 +26,7 @@ What is exercised in this sketch is the [p5.js blendMode()][p5js-blendmode] func
 
 
 
-[p5js-home]: http://p5js.org/
+[p5js-home]: https://p5js.org/
 [p5js-blendmode]: https://p5js.org/reference/p5/blendMode/
 [source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/scales/blendmode/
 [live-view]: https://brianhonohan.com/sketchbook/p5js/scales/blendmode/

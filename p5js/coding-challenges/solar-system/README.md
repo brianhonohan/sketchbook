@@ -33,7 +33,7 @@ Caveat: The objects only experience the gravitational attraction of the "sun" at
 
 ![screenshot][screenshot-01]
 
-[p5js-home]: http://p5js.org/
+[p5js-home]: https://p5js.org/
 [source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/solar-system/
 [source-pull-request]: https://github.com/brianhonohan/sketchbook/pull/33
 [live-view]: https://brianhonohan.com/sketchbook/p5js/coding-challenges/solar-system/

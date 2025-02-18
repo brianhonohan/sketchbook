@@ -21,7 +21,7 @@ This is a [p5.js][p5js-home] sketch of a Seven-Segment digital display.
 
 ![screencapture][screencapture-01]
 
-[p5js-home]: http://p5js.org/
+[p5js-home]: https://p5js.org/
 [source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/seven-segment-display/
 [live-view]: https://brianhonohan.com/sketchbook/p5js/coding-challenges/seven-segment-display/
 [screenshot-01]: ./screenshot-01.png

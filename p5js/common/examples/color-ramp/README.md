@@ -37,7 +37,7 @@ Via Settings Panel
 ### Temperature Scale
 ![screenshot-03][screenshot-03]
 
-[p5js-home]: http://p5js.org/
+[p5js-home]: https://p5js.org/
 [source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/color-ramp/
 [live-view]: https://brianhonohan.com/sketchbook/p5js/common/examples/color-ramp/
 [screenshot-01]: ./screenshot-01.png

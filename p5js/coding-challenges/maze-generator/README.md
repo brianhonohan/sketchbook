@@ -30,7 +30,7 @@ Another aspect to note is that `MazeCell` objects only directly own the walls to
 [code-cell-grid]: https://github.com/brianhonohan/sketchbook/blob/master/js/models/cell_grid.js
 [code-solid-edges]: https://github.com/brianhonohan/sketchbook/pull/36/commits/d45c2a33dbd929542cb049cd362b93cc19d83254#diff-3aaf45e2829e81db9f98500685d1d96fR31
 
-[p5js-home]: http://p5js.org/
+[p5js-home]: https://p5js.org/
 [source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/maze-generator/
 [live-view]: https://brianhonohan.com/sketchbook/p5js/coding-challenges/maze-generator/
 [source-pull-request]: https://github.com/brianhonohan/sketchbook/pull/36

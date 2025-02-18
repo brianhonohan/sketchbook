@@ -22,7 +22,7 @@ This is a [p5.js][p5js-home] sketch intended to explore modeling the trunk of a 
 
 ![screenshot][screenshot-01]
 
-[p5js-home]: http://p5js.org/
+[p5js-home]: https://p5js.org/
 [source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/tree-rings/
 [live-view]: https://brianhonohan.com/sketchbook/p5js/tree-rings/
 [screenshot-01]: ./screenshot-01.png
