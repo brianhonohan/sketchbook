@@ -35,7 +35,7 @@ Mouse
 ![screenshot][screenshot-01]
 ![screenshot][screenshot-02]
 
-[p5js-home]: http://p5js.org/
+[p5js-home]: https://p5js.org/
 [source-code]: https://github.com/brianhonohan/sketchbook/tree/main/p5js/common/examples/rotation-between-vectors/
 [live-view]: https://brianhonohan.com/sketchbook/p5js/common/examples/rotation-between-vectors/
 [screenshot-01]: ./screenshot-01.png

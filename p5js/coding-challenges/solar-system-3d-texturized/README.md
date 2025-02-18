@@ -29,7 +29,7 @@ Key learnings:
 
 [screenshot-01]: ./screenshot-01.png
 [sketch-solar-system-3D]: https://brianhonohan.com/sketchbook/p5js/coding-challenges/2018/10/07/coding-challenge-8-solar-system-3d.html
-[p5js-home]: http://p5js.org/
+[p5js-home]: https://p5js.org/
 [p5js-preload]: https://p5js.org/reference/#/p5/preload
 [p5js-texture]: https://p5js.org/reference/#/p5/texture
 [source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/solar-system-3d-texturized/

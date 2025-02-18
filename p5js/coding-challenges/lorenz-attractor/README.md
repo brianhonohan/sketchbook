@@ -28,7 +28,7 @@ Keyboard:
 
 ![screenshot][screenshot-01]
 
-[p5js-home]: http://p5js.org/
+[p5js-home]: https://p5js.org/
 [source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/lorenz-attractor/
 [live-view]: https://brianhonohan.com/sketchbook/p5js/coding-challenges/lorenz-attractor/
 [source-pull-request]: https://github.com/brianhonohan/sketchbook/pull/44

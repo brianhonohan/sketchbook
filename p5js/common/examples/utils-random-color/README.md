@@ -27,7 +27,7 @@ Mouse
 ![screenshot][screenshot-blue]
 ![screenshot][screenshot-violet]
 
-[p5js-home]: http://p5js.org/
+[p5js-home]: https://p5js.org/
 [source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/utils-random-color/
 [live-view]: https://brianhonohan.com/sketchbook/p5js/common/examples/utils-random-color/
 [screenshot-red]: ./screenshot-01-red.png

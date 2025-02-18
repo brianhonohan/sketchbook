@@ -31,8 +31,8 @@ Next steps in upcoming sketches / iterations
 ![screenshot][screenshot-01]
 
 [p5js-home]: https://p5js.org/
-[source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/marching-squares/
-[live-view]: https://brianhonohan.com/sketchbook/p5js/coding-challenges/marching-squares/
+[source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/marching-squares-2/
+[live-view]: https://brianhonohan.com/sketchbook/p5js/coding-challenges/marching-squares-2/
 [screenshot-01]: ./screenshot-01.png
 
 [coding-train-yt-marching-sq]: https://www.youtube.com/watch?v=0ZONMNUKTfU

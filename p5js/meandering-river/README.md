@@ -31,7 +31,7 @@ Note: If you max out the `num_segments` you can see a clear depiction of the und
 
 ![screenshot][screenshot-01]
 
-[p5js-home]: http://p5js.org/
+[p5js-home]: https://p5js.org/
 [source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/meandering-river/
 [main-pr]: https://github.com/brianhonohan/sketchbook/pull/77
 [live-view]: https://brianhonohan.com/sketchbook/p5js/meandering-river/

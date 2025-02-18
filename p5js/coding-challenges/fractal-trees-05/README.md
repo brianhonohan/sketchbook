@@ -34,7 +34,7 @@ Keyboard:
 
 ![screenshot][screenshot-01]
 
-[p5js-home]: http://p5js.org/
+[p5js-home]: https://p5js.org/
 [p5js-saveCanvas]: https://p5js.org/reference/#/p5/saveCanvas
 [source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/fractal-trees-05/
 [live-view]: https://brianhonohan.com/sketchbook/p5js/coding-challenges/fractal-trees-05/

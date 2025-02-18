@@ -27,9 +27,9 @@ Touch
 
 ![screenshot][screenshot-01]
 
-[p5js-home]: http://p5js.org/
-[source-code]: https://github.com/brianhonohan/sketchbook/blob/master/js/models/quadtree.js
-[live-view]: https://brianhonohan.com/sketchbook/p5js/common/examples/quadtree/
+[p5js-home]: https://p5js.org/
+[source-code]: https://github.com/brianhonohan/sketchbook/tree/main/p5js/common/examples/quadtree-2/
+[live-view]: https://brianhonohan.com/sketchbook/p5js/common/examples/quadtree-2/
 [screenshot-01]: ./screenshot-01.png
 
 [wikipedia-quadtree-pm]: https://en.wikipedia.org/wiki/Quadtree#Polygonal_map_(PM)_quadtree
