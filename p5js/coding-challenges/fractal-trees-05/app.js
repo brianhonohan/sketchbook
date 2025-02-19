@@ -1,7 +1,7 @@
 var groundLevel;
 var soil;
 var canvas;
-let modes = ['cross-section', 'top-down-random'];
+let modes = ['cross-section', 'top-down-random', 'top-down-orderly-rows'];
 
 var gui;
 var params = {
@@ -18,6 +18,7 @@ var guiNumNutrients;
 
 function setup() {
   canvas = createCanvas(windowWidth, windowHeight-40);
+  P5JsSettings.init();
   // canvas = createCanvas(500, 500); // for consistent screenshots
 
   // Need to dynamically compute nutrient count, otherwise
@@ -28,12 +29,12 @@ function setup() {
 
   gui = P5JsSettings.addDatGui({autoPlace: false});
   gui.add(params, "mode", modes).onFinishChange(initSystem);
-  guiNumNutrients = gui.add(params, "num_nutrients").min(50).max(4000).step(50);
+  guiNumNutrients = gui.add(params, "num_nutrients", 50, 10000, 50);
   gui.add(params, "draw_plant_areas");
   gui.add(params, "draw_segment_areas");
   gui.add(params, "grow_root_tips");
-  guiDetectionRange= gui.add(params, "detection_range").min(10).max(505).step(10);
-  guiNumPlants= gui.add(params, "num_plants").min(1).max(20).step(1);
+  guiDetectionRange= gui.add(params, "detection_range",10, 505, 10);
+  guiNumPlants= gui.add(params, "num_plants", 1, 100, 1);
   gui.add(params, "random_colors_per_plant");
   addGuiListeners();
   // gui.close();
@@ -64,7 +65,6 @@ function keyTyped(){
 }
 
 function initSystem(){
-  P5JsSettings.init();
   var groundArea = new Rect(0.1 * width, groundLevel, 
                             0.8 * width, 0.8 * height);
   soil = new Soil(groundArea, params);
