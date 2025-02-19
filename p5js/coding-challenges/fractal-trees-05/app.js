@@ -16,6 +16,13 @@ var guiNumNutrients;
 
 function setup() {
   canvas = createCanvas(windowWidth, windowHeight-40);
+  // canvas = createCanvas(800, 800);
+
+  // Need to dynamically compute nutrient count, otherwise
+  // on larger screens the roots won't consume them all
+   // 1500 nutrients on an 800x800 are often completely consumed
+  let minDensity = 1.2 * 1500 / (800*800);
+  params.num_nutrients = minDensity * width * height;
 
   gui = P5JsSettings.addDatGui({autoPlace: false});
   guiNumNutrients = gui.add(params, "num_nutrients").min(50).max(4000).step(50);
