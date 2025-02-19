@@ -13,6 +13,8 @@ js_scripts:
 - /sketchbook/js/util_functions.js
 - /sketchbook/js/options_set.js
 - /sketchbook/js/models/rect.js
+- /sketchbook/js/models/quadratic_equation.js
+- /sketchbook/js/layout_util_functions.js
 - classes/root_tip.js
 - classes/root_segment.js
 - classes/plant.js

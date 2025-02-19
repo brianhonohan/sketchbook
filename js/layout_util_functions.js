@@ -41,4 +41,63 @@ class LayoutUtilFunctions {
   _aspectRatioOf(rect){
     return rect.width / rect.height;
   }
+
+  static computeRowsColsSpacing(rectA, numObjects){
+    // Solution:
+    // Given width, height (as rect) and number of objects (n)
+    // Compute number of rows and colns and spacing to arrive at even spacing
+    // where spacing between rows and columns is the same, 
+    // and a margin equal to the spacing is produced
+    // (cols + 1) * spacing = width
+    // (rows + 1) * spacing = height
+    // cols * rows = numObjects
+
+    // treats above as 3-equations with 3 varliables
+    // arriving at quadratic equation for cols
+    // 0 = h/w * cols^2   + (h/w -1) * cols - n
+    // 0 = a * x^2  + b * x + c
+
+    const aTerm = rectA.height / rectA.width;
+    const bTerm = (rectA.height / rectA.width - 1);
+    const cTerm = -1 * numObjects;
+    const quadEq = new QuadraticEquation(aTerm, bTerm, cTerm);
+    // console.log(`a[${aTerm}] b[${bTerm}] c[${cTerm}]`);
+
+    // TOOD: Can probably start with constraint
+    // cols * rows = numObjects
+    // and that the ratio of cols:rows ~= height * width
+    // alas. here we are, with fractional cols
+
+    let soln1_Cols = quadEq.root(1);
+    let soln2_Cols = quadEq.root(-1);
+
+    // These functions allow for fractional rows/cols (nonsensical)
+    // missing the integer constraint in the solving equations.
+    // const funcRows = (cols) => { return numObjects / cols };
+    // const funcSpacing = (cols) => { return rectA.width / (cols + 1) };
+
+    const funcRows = (cols) => { return Math.ceil(numObjects / cols) };
+    const funcSpacing = (cols) => { return rectA.width / (cols + 1) };
+    
+    const solutions = [];
+
+    if (soln1_Cols != QuadraticEquation.IMAGINARY && soln1_Cols > 0) {
+      soln1_Cols = Math.ceil(soln1_Cols);
+      solutions.push({
+        cols: soln1_Cols,
+        rows: funcRows(soln1_Cols),
+        spacing: funcSpacing(soln1_Cols),
+      });
+    }
+    if (soln2_Cols != QuadraticEquation.IMAGINARY && soln2_Cols > 0) {
+      soln2_Cols = Math.ceil(soln2_Cols);
+      solutions.push({
+        cols: soln2_Cols,
+        rows: funcRows(soln2_Cols),
+        spacing: funcSpacing(soln2_Cols),
+      });
+    }
+    return solutions; 
+  }
+
 }

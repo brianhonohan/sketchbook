@@ -14,6 +14,8 @@ class Soil {
       this.placePlantsAtGroundLevel();
     } else if (this.params.mode == 'top-down-random'){
       this.placePlantsRandomly();
+    } else if (this.params.mode == 'top-down-orderly-rows'){
+      this.placePlantsInRows();
     }
   }
 
@@ -32,6 +34,24 @@ class Soil {
       let yPos = random(this.area.height);
       let newPlant = new Plant(xPos, yPos, this.params);
       this.plant(newPlant);
+    }
+  }
+
+  placePlantsInRows(){
+    const solutions = LayoutUtilFunctions.computeRowsColsSpacing(this.area, this.params.num_plants);
+
+    if (solutions.length ==0){
+      console.error('Unable to compute layout');
+      return;
+    }
+
+    for (var i = 0; i< solutions[0].cols; i++){
+      for (var j = 0; j< solutions[0].rows; j++){
+        let xPos = (1 + i) * solutions[0].spacing;
+        let yPos = (1 + j) * solutions[0].spacing;
+        let newPlant = new Plant(xPos, yPos, this.params);
+        this.plant(newPlant);
+      }
     }
   }
 
