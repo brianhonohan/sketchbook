@@ -1,9 +1,11 @@
 var groundLevel;
 var soil;
 var canvas;
+let modes = ['cross-section', 'top-down-random'];
 
 var gui;
 var params = {
+  mode: 'cross-section',
   num_nutrients: 1500,
   draw_plant_areas: false,
   draw_segment_areas: false,
@@ -16,8 +18,16 @@ var guiNumNutrients;
 
 function setup() {
   canvas = createCanvas(windowWidth, windowHeight-40);
+  // canvas = createCanvas(500, 500); // for consistent screenshots
+
+  // Need to dynamically compute nutrient count, otherwise
+  // on larger screens the roots won't consume them all
+   // 1500 nutrients on an 800x800 are often completely consumed
+  let minDensity = 1.2 * 1500 / (800*800);
+  params.num_nutrients = Math.floor(minDensity * width * height);
 
   gui = P5JsSettings.addDatGui({autoPlace: false});
+  gui.add(params, "mode", modes).onFinishChange(initSystem);
   guiNumNutrients = gui.add(params, "num_nutrients").min(50).max(4000).step(50);
   gui.add(params, "draw_plant_areas");
   gui.add(params, "draw_segment_areas");
@@ -26,7 +36,7 @@ function setup() {
   guiNumPlants= gui.add(params, "num_plants").min(1).max(20).step(1);
   gui.add(params, "random_colors_per_plant");
   addGuiListeners();
-  gui.close();
+  // gui.close();
 
   groundLevel = floor(height * 0.1);
   initSystem();
@@ -34,7 +44,9 @@ function setup() {
 
 function draw(){
   background(50);
-  drawGround(groundLevel);
+  if (params.mode == 'cross-section'){
+    drawGround(groundLevel);
+  }
 
   soil.tick();
   soil.draw();

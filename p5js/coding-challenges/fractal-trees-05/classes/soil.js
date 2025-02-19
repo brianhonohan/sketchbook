@@ -10,10 +10,27 @@ class Soil {
     }
 
     this.plants = [];
+    if (this.params.mode == 'cross-section'){
+      this.placePlantsAtGroundLevel();
+    } else if (this.params.mode == 'top-down-random'){
+      this.placePlantsRandomly();
+    }
+  }
+
+  placePlantsAtGroundLevel(){
     let spacing = this.area.width / (1 + this.params.num_plants);
     for (var i = 0; i< this.params.num_plants; i++){
       let xPos = floor(spacing * (i + 1));
       let newPlant = new Plant(xPos, 0, this.params);
+      this.plant(newPlant);
+    }
+  }
+
+  placePlantsRandomly(){
+    for (var i = 0; i< this.params.num_plants; i++){
+      let xPos = random(this.area.width);
+      let yPos = random(this.area.height);
+      let newPlant = new Plant(xPos, yPos, this.params);
       this.plant(newPlant);
     }
   }
