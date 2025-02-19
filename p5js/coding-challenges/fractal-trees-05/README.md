@@ -34,12 +34,16 @@ Keyboard:
 
 ![screenshot][screenshot-01]
 
+## Top-Down Random Mode: 
+![screenshot-02][screenshot-02]
+
 [p5js-home]: https://p5js.org/
 [p5js-saveCanvas]: https://p5js.org/reference/#/p5/saveCanvas
 [source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/fractal-trees-05/
 [live-view]: https://brianhonohan.com/sketchbook/p5js/coding-challenges/fractal-trees-05/
 [source-pull-request]: https://github.com/brianhonohan/sketchbook/pull/69
 [screenshot-01]: ./screenshot-01.png
+[screenshot-02]: ./screenshot-02.png
 
 [coding-train]: https://thecodingtrain.com/
 [ct-challenge-17]: https://www.youtube.com/watch?v=kKT0v3qhIQY&index=20&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH
