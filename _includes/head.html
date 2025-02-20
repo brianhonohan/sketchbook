@@ -12,9 +12,17 @@
 
     {% if page.excerpt %}
     <meta name="description" content="{{ page.excerpt }}">
+    <meta property="og:image" content="{{ site.url }}{{ site.baseurl }}{{ page.url }}screenshot-01.png">
     {% else %}
     <meta name="description" content="{{ site.description }}">
+    <meta property="og:image" content="https://brianhonohan.com/sketchbook/assets/images/default_og_image.png">
     {% endif %}
+
+    <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
+    <meta property="og:description" content="{% if page.excerpt %}{{ page.excerpt }}{% else %}{{ site.description }}{% endif %}">
+    <meta property="og:url" content="{{ site.url }}{{ site.baseurl }}{{ page.url }}">
+    <meta property="og:site_name" content="BrianHonohan.com">
+    <meta property="og:type" content="website">
 
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
 
