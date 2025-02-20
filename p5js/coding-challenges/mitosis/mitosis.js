@@ -2,6 +2,8 @@ var cells;
 
 function setup(){
   createCanvas(windowWidth, windowHeight-45);
+  // createCanvas(500, 500); // for screenshots
+  
 
   cells = []
   cells.push(new Cell(width/2, height/2));
