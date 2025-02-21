@@ -52,17 +52,24 @@ function setup() {
   extAccentGui.add(extAccent, "margin", 0, 200, 1);
   extAccentGui.add(extAccent, "step", 0.01, 1, 0.01);
 
-  let paisleyClone = paisley.getScaledClone(1.5);
+  let paisleyClone = paisley.createBaseLayer(1.5);
   paisleyClone.noFill = false
   paisleyClone.fillColor = "#f5d597";
   paisleyClone.noStroke = false;
   paisleyClone.strokeColor = "#fdb555";
-  paisleyClone.strokeWeight = 15;
+  paisleyClone.strokeWeight = 4;
+
+  
+  let baseOfClone = paisleyClone.createBaseLayer(1.2);
+  baseOfClone.noFill = false
+  baseOfClone.fillColor = "#f58547";
+  baseOfClone.noStroke = false;
+  baseOfClone.strokeColor = "#fd6535";
+  baseOfClone.strokeWeight = 4;
 
   // Add the clone first, to draw it first in the simple shapes[]
   // TODO: enable basic layer stack of drawable objects
   // ... with send to back, bring to front, send to bottom, bring to top functions
-  // shapes.push(paisleyClone);
   shapes.push(paisley);
 }
 

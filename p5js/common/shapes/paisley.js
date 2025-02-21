@@ -65,6 +65,15 @@ class Paisley {
     this._heading = newVal;
   }
 
+  createBaseLayer(scale){
+    this.baseLayer = this.getScaledClone(scale);
+    this.baseLayer.parent = this;
+    return this.baseLayer;
+  }
+  clearBaseLayer(){
+    this.baseLayer = undefined;
+  }
+
   getScaledClone(scale){
     const newRadius = this.bulbRadius * scale;
     const newTail = this.spine.pointAt(scale);
@@ -244,6 +253,10 @@ class Paisley {
   }
 
   draw(){
+    if (this.baseLayer){
+      this.baseLayer.draw();
+    }
+
     P5JsUtils.applyStyleSet(this);
     this.polybezier.draw();
 
