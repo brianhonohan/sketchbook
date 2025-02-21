@@ -92,14 +92,28 @@ class Paisley {
     this._heading = newVal;
   }
 
+  // Scale should be a value greater than 1, otherwise this effectively not be shown
+  // See createInnerPaisley if you want an nested inner object
   createOuterPaisley(scale){
     this.outerPaisley = this.getScaledClone(scale);
     this.outerPaisley.parent = this;
     this.outerPaisley.scale = scale;
     return this.outerPaisley;
   }
-  clearPaisley(){
+  clearOuterPaisley(){
     this.outerPaisley = undefined;
+  }
+
+  // Scale should be a value less than 1, otherwise this will effectively cover this object
+  // See createOuterPaisley if you want an outer object
+  createInnerPaisley(scale){
+    this.innerPaisley = this.getScaledClone(scale);
+    this.innerPaisley.parent = this;
+    this.innerPaisley.scale = scale;
+    return this.innerPaisley;
+  }
+  clearInnerPaisley(){
+    this.innerPaisley = undefined;
   }
 
   getScaledClone(scale){
@@ -283,6 +297,10 @@ class Paisley {
     if (this.outerPaisley){
       this.outerPaisley.cascadeDrag();
     }
+
+    if (this.innerPaisley){
+      this.innerPaisley.cascadeDrag();
+    }
   }
   handleMouseReleased(){
     this.isDragged = false;
@@ -298,6 +316,9 @@ class Paisley {
     if (this.outerPaisley){
       this.outerPaisley.cascadeDrag()
     }
+    if (this.innerPaisley){
+      this.innerPaisley.cascadeDrag()
+    }
   }
 
   draw(){
@@ -312,6 +333,11 @@ class Paisley {
       this.spine.draw();
     }
     this.drawExteriorAccent();
+
+    
+    if (this.innerPaisley){
+      this.innerPaisley.draw();
+    }
 
     if (this.dragEnabled) {
       P5JsUtils.drawControlPoints(this.points);

@@ -67,6 +67,14 @@ function setup() {
   baseOfClone.strokeColor = "#fd6535";
   baseOfClone.strokeWeight = 4;
 
+  
+  let innerPaisley = paisley.createInnerPaisley(0.5);
+  innerPaisley.noFill = false
+  innerPaisley.fillColor = "#abc5f7";
+  innerPaisley.noStroke = false;
+  innerPaisley.strokeColor = "#8bA5f7";
+  innerPaisley.strokeWeight = 4;
+
   // Add the clone first, to draw it first in the simple shapes[]
   // TODO: enable basic layer stack of drawable objects
   // ... with send to back, bring to front, send to bottom, bring to top functions
