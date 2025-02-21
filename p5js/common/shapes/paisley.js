@@ -47,6 +47,33 @@ class Paisley {
     this.drawSpine = false;
   }
 
+  static defaultPaisley(){
+    return new Paisley(0.3 * width, 0.5 * height, 
+                        HALF_PI + QUARTER_PI, 0.08 * width,
+                        0.6 * width, 0.4 * height );
+  }
+
+  updatePoints(arg_list_or_x, y, heading, bulbRadius, tailX, tailY){
+    if (arg_list_or_x.constructor === Array){
+      this.pos.x = arg_list_or_x[0];
+      this.pos.y = arg_list_or_x[1];
+      this.bulbRadius = arg_list_or_x[3];
+      this.tail.x = arg_list_or_x[4];
+      this.tail.y = arg_list_or_x[5];
+      
+      this.heading = arg_list_or_x[2]; // this will trigger _calcHelperPoints()
+    } else {
+      this.pos.x = arg_list_or_x;
+      this.pos.y = y;
+      this.bulbRadius = bulbRadius;
+      this.tail.x = tailX;
+      this.tail.y = tailY;
+      
+      this.heading = heading; // this will trigger _calcHelperPoints()
+    }
+    this._initPolyBezier();
+  }
+
   _constructorCall(){
     return `new Paisley(${this.x}, ${this.y}, `
             + `${this.heading}, ${this.bulbRadius},`
@@ -75,6 +102,13 @@ class Paisley {
   }
 
   getScaledClone(scale){
+    const scaledClone = Paisley.defaultPaisley();
+    let scaledPoints = this.getScaledClonePoints(scale);
+    scaledClone.updatePoints(scaledPoints);
+    return scaledClone;
+  }
+
+  getScaledClonePoints(scale){
     const newRadius = this.bulbRadius * scale;
     const newTail = this.spine.pointAt(scale);
     if (scale > 1){
@@ -88,8 +122,9 @@ class Paisley {
       newTail.y = this.tail.y + tangentNearTail.dy();
     }
 
-    return new Paisley(this.x, this.y, this.heading, newRadius, newTail.x, newTail.y);
+    return [this.x, this.y, this.heading, newRadius, newTail.x, newTail.y];
   }
+
 
   _updateHeadingPt(){
     this.headingPt.x = this.x + this.headingVec.x * this.bulbRadius;
