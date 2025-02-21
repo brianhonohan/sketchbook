@@ -52,7 +52,7 @@ function setup() {
   extAccentGui.add(extAccent, "margin", 0, 200, 1);
   extAccentGui.add(extAccent, "step", 0.01, 1, 0.01);
 
-  let paisleyClone = paisley.createBaseLayer(1.5);
+  let paisleyClone = paisley.createOuterPaisley(1.5);
   paisleyClone.noFill = false
   paisleyClone.fillColor = "#f5d597";
   paisleyClone.noStroke = false;
@@ -60,7 +60,7 @@ function setup() {
   paisleyClone.strokeWeight = 4;
 
   
-  let baseOfClone = paisleyClone.createBaseLayer(1.2);
+  let baseOfClone = paisleyClone.createOuterPaisley(1.2);
   baseOfClone.noFill = false
   baseOfClone.fillColor = "#f58547";
   baseOfClone.noStroke = false;

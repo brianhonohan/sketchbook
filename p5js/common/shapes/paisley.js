@@ -92,14 +92,14 @@ class Paisley {
     this._heading = newVal;
   }
 
-  createBaseLayer(scale){
-    this.baseLayer = this.getScaledClone(scale);
-    this.baseLayer.parent = this;
-    this.baseLayer.scale = scale;
-    return this.baseLayer;
+  createOuterPaisley(scale){
+    this.outerPaisley = this.getScaledClone(scale);
+    this.outerPaisley.parent = this;
+    this.outerPaisley.scale = scale;
+    return this.outerPaisley;
   }
-  clearBaseLayer(){
-    this.baseLayer = undefined;
+  clearPaisley(){
+    this.outerPaisley = undefined;
   }
 
   getScaledClone(scale){
@@ -280,8 +280,8 @@ class Paisley {
     this._calcHelperPoints();
     this._initPolyBezier();
 
-    if (this.baseLayer){
-      this.baseLayer.cascadeDrag();
+    if (this.outerPaisley){
+      this.outerPaisley.cascadeDrag();
     }
   }
   handleMouseReleased(){
@@ -295,14 +295,14 @@ class Paisley {
   cascadeDrag(){
     this.updatePoints( this.parent.getScaledClonePoints(this.scale) )
 
-    if (this.baseLayer){
-      this.baseLayer.cascadeDrag()
+    if (this.outerPaisley){
+      this.outerPaisley.cascadeDrag()
     }
   }
 
   draw(){
-    if (this.baseLayer){
-      this.baseLayer.draw();
+    if (this.outerPaisley){
+      this.outerPaisley.draw();
     }
 
     P5JsUtils.applyStyleSet(this);
