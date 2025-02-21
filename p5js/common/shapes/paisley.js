@@ -95,6 +95,7 @@ class Paisley {
   createBaseLayer(scale){
     this.baseLayer = this.getScaledClone(scale);
     this.baseLayer.parent = this;
+    this.baseLayer.scale = scale;
     return this.baseLayer;
   }
   clearBaseLayer(){
@@ -278,12 +279,24 @@ class Paisley {
     }
     this._calcHelperPoints();
     this._initPolyBezier();
+
+    if (this.baseLayer){
+      this.baseLayer.cascadeDrag();
+    }
   }
   handleMouseReleased(){
     this.isDragged = false;
     if (this.pressedElement) {
       this.pressedElement.handleMouseReleased();
       this.pressedElement = undefined;
+    }
+  }
+
+  cascadeDrag(){
+    this.updatePoints( this.parent.getScaledClonePoints(this.scale) )
+
+    if (this.baseLayer){
+      this.baseLayer.cascadeDrag()
     }
   }
 
