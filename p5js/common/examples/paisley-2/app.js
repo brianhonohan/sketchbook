@@ -36,14 +36,38 @@ function setup() {
   gui.add(paisley, "dragEnabled");
   gui.add(paisley, "accentViaScaledPaisley");
   
+
+  let paisleyClone = paisley.createOuterPaisley(1.4);
+  paisleyClone.noFill = false
+  paisleyClone.fillColor = "#f5d597";
+  paisleyClone.noStroke = false;
+  paisleyClone.strokeColor = "#fdb555";
+  paisleyClone.strokeWeight = 4;
+
+  
+  let baseOfClone = paisleyClone.createOuterPaisley(1.2);
+  baseOfClone.noFill = false
+  baseOfClone.fillColor = "#f58547";
+  baseOfClone.noStroke = false;
+  baseOfClone.strokeColor = "#fd6535";
+  baseOfClone.strokeWeight = 3;
+
+  
+  let innerPaisley = paisley.createInnerPaisley(0.4);
+  innerPaisley.noFill = false
+  innerPaisley.fillColor = "#abc5f7";
+  innerPaisley.noStroke = false;
+  innerPaisley.strokeColor = "#8bA5f7";
+  innerPaisley.strokeWeight = 4;
+
   // extAccent = new Rectangle(0,0, 10, 10);
-  extAccent = new Circle(0,0, 5);
+  extAccent = new Circle(0,0, 3);
   extAccent.noFill = false;
   extAccent.fillColor = "#f5b567";
   extAccent.noStroke = true;
-  extAccent.margin = 30;
+  extAccent.margin = 15;
   extAccent.step = 0.05;
-  paisley.exteriorAccent = extAccent;
+  baseOfClone.exteriorAccent = extAccent;
   
   let extAccentGui = gui.addFolder("Exterior Accent");
   extAccentGui.open();
@@ -52,17 +76,9 @@ function setup() {
   extAccentGui.add(extAccent, "margin", 0, 200, 1);
   extAccentGui.add(extAccent, "step", 0.01, 1, 0.01);
 
-  let paisleyClone = paisley.getScaledClone(1.5);
-  paisleyClone.noFill = false
-  paisleyClone.fillColor = "#f5d597";
-  paisleyClone.noStroke = false;
-  paisleyClone.strokeColor = "#fdb555";
-  paisleyClone.strokeWeight = 15;
-
   // Add the clone first, to draw it first in the simple shapes[]
   // TODO: enable basic layer stack of drawable objects
   // ... with send to back, bring to front, send to bottom, bring to top functions
-  // shapes.push(paisleyClone);
   shapes.push(paisley);
 }
 

@@ -47,6 +47,33 @@ class Paisley {
     this.drawSpine = false;
   }
 
+  static defaultPaisley(){
+    return new Paisley(0.3 * width, 0.5 * height, 
+                        HALF_PI + QUARTER_PI, 0.08 * width,
+                        0.6 * width, 0.4 * height );
+  }
+
+  updatePoints(arg_list_or_x, y, heading, bulbRadius, tailX, tailY){
+    if (arg_list_or_x.constructor === Array){
+      this.pos.x = arg_list_or_x[0];
+      this.pos.y = arg_list_or_x[1];
+      this.bulbRadius = arg_list_or_x[3];
+      this.tail.x = arg_list_or_x[4];
+      this.tail.y = arg_list_or_x[5];
+      
+      this.heading = arg_list_or_x[2]; // this will trigger _calcHelperPoints()
+    } else {
+      this.pos.x = arg_list_or_x;
+      this.pos.y = y;
+      this.bulbRadius = bulbRadius;
+      this.tail.x = tailX;
+      this.tail.y = tailY;
+      
+      this.heading = heading; // this will trigger _calcHelperPoints()
+    }
+    this._initPolyBezier();
+  }
+
   _constructorCall(){
     return `new Paisley(${this.x}, ${this.y}, `
             + `${this.heading}, ${this.bulbRadius},`
@@ -65,7 +92,38 @@ class Paisley {
     this._heading = newVal;
   }
 
+  // Scale should be a value greater than 1, otherwise this effectively not be shown
+  // See createInnerPaisley if you want an nested inner object
+  createOuterPaisley(scale){
+    this.outerPaisley = this.getScaledClone(scale);
+    this.outerPaisley.parent = this;
+    this.outerPaisley.scale = scale;
+    return this.outerPaisley;
+  }
+  clearOuterPaisley(){
+    this.outerPaisley = undefined;
+  }
+
+  // Scale should be a value less than 1, otherwise this will effectively cover this object
+  // See createOuterPaisley if you want an outer object
+  createInnerPaisley(scale){
+    this.innerPaisley = this.getScaledClone(scale);
+    this.innerPaisley.parent = this;
+    this.innerPaisley.scale = scale;
+    return this.innerPaisley;
+  }
+  clearInnerPaisley(){
+    this.innerPaisley = undefined;
+  }
+
   getScaledClone(scale){
+    const scaledClone = Paisley.defaultPaisley();
+    let scaledPoints = this.getScaledClonePoints(scale);
+    scaledClone.updatePoints(scaledPoints);
+    return scaledClone;
+  }
+
+  getScaledClonePoints(scale){
     const newRadius = this.bulbRadius * scale;
     const newTail = this.spine.pointAt(scale);
     if (scale > 1){
@@ -79,8 +137,9 @@ class Paisley {
       newTail.y = this.tail.y + tangentNearTail.dy();
     }
 
-    return new Paisley(this.x, this.y, this.heading, newRadius, newTail.x, newTail.y);
+    return [this.x, this.y, this.heading, newRadius, newTail.x, newTail.y];
   }
+
 
   _updateHeadingPt(){
     this.headingPt.x = this.x + this.headingVec.x * this.bulbRadius;
@@ -234,6 +293,14 @@ class Paisley {
     }
     this._calcHelperPoints();
     this._initPolyBezier();
+
+    if (this.outerPaisley){
+      this.outerPaisley.cascadeDrag();
+    }
+
+    if (this.innerPaisley){
+      this.innerPaisley.cascadeDrag();
+    }
   }
   handleMouseReleased(){
     this.isDragged = false;
@@ -243,7 +310,22 @@ class Paisley {
     }
   }
 
+  cascadeDrag(){
+    this.updatePoints( this.parent.getScaledClonePoints(this.scale) )
+
+    if (this.outerPaisley){
+      this.outerPaisley.cascadeDrag()
+    }
+    if (this.innerPaisley){
+      this.innerPaisley.cascadeDrag()
+    }
+  }
+
   draw(){
+    if (this.outerPaisley){
+      this.outerPaisley.draw();
+    }
+
     P5JsUtils.applyStyleSet(this);
     this.polybezier.draw();
 
@@ -251,6 +333,11 @@ class Paisley {
       this.spine.draw();
     }
     this.drawExteriorAccent();
+
+    
+    if (this.innerPaisley){
+      this.innerPaisley.draw();
+    }
 
     if (this.dragEnabled) {
       P5JsUtils.drawControlPoints(this.points);
