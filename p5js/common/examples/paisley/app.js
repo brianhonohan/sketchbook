@@ -45,8 +45,7 @@ function touchEnded(){
 function keyPressed(){
   switch(key){
     case 'c':
-      shapes.filter(s => s.isDragged == true)
-            .forEach(s => console.log(s._constructorCall()));
+      shapes.forEach(s => console.log(s.toCode()));
       break;
   }
 }

@@ -74,10 +74,18 @@ class Paisley {
     this._initPolyBezier();
   }
 
-  _constructorCall(){
-    return `new Paisley(${this.x}, ${this.y}, `
-            + `${this.heading}, ${this.bulbRadius},`
-            + `${this.tail.x}, ${this.tail.y});`;
+  toCode(proportionalToCanvas = false){
+    let code = []
+    const toTenths = (num) => (Math.round(num * 10) / 10).toFixed(1);
+    const xJS = !proportionalToCanvas ? x => toTenths(x) : (x) => P5JsUtils.jsCodeAsWidthFraction(x);
+    const yJS = !proportionalToCanvas ? y => toTenths(y) : (y) => P5JsUtils.jsCodeAsHeightFraction(y);
+    const indentation = !proportionalToCanvas ? '' : '                             ';
+    const joinChar = !proportionalToCanvas ? ' ' : char(10);
+
+    code.push(`const paisley = new Paisley(${xJS(this.x)}, ${yJS(this.y)},`);
+    code.push(`${indentation}${toTenths(this.heading)}, ${xJS(this.bulbRadius)},`);
+    code.push(`${indentation}${xJS(this.tail.x)}, ${yJS(this.tail.y)});`);
+    return code.join(joinChar);
   }
 
   get x() { return this.pos.x; }
