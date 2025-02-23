@@ -34,7 +34,7 @@ class System {
 
   init(){
     this.field = new DiscreteField(this.sizeAndPosition, this);
-    
+    this.applyNoiseSettings();
     this.cellViewer = new CellViewer(this.settings.cellWidth, this.settings.cellWidth,
                                       this.field.grid, this);
   }
@@ -43,8 +43,17 @@ class System {
     this.field.refreshTiers();
     this.cellViewer.updateSettings();
   }
+
+  applyNoiseSettings(){
+    if (this.settings.open_simplex_noise){
+      this.field.resetToDefaultNoise();
+    } else {
+      this.field.setNoiseFunction( (x,y,z) => { return 2 * noise(x,y,z);} );
+    }
+  }
   
   regenerate(){
+    this.applyNoiseSettings();
     this.field.regenerate();
   }
 
