@@ -1,4 +1,4 @@
-class CellViewer {
+class TerrainViewer {
   constructor(cellWidth, cellHeight, grid, system){
     this.cellWidth = cellWidth;
     this.cellHeight = cellHeight;

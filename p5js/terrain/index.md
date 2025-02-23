@@ -20,7 +20,7 @@ js_scripts:
 - /sketchbook/js/models/cell_grid.js
 - /sketchbook/js/models/fields/discrete_field.js
 - /sketchbook/vendor/parc6502__joshforisha/open_simplex_noise.js
-- classes/cell_viewer.js
+- classes/terrain_viewer.js
 - classes/system.js
 - app.js
 

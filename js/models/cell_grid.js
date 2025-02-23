@@ -29,7 +29,11 @@ class CellGrid {
     this.effectCellWidth = this.cellWidth + this.cellSpacing;
     this.effectCellHeight = this.cellHeight + this.cellSpacing;
 
-    this.cellViewer = cellViewer || new CellViewer(cellWidth, this.cellHeight, this);
+    if (cellViewer){ 
+      this.cellViewer = cellViewer;
+    } else if (typeof CellViewer === 'function'){
+      this.cellViewer = new CellViewer(cellWidth, this.cellHeight, this);
+    }
 
     this.wrap = false;
 
