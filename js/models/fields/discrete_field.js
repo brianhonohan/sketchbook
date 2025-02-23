@@ -3,6 +3,7 @@ class DiscreteField {
     this.sizeAndPosition = sizeAndPos;
     this.settings = settings;
 
+    this.isolines = new Isolines(this, this.settings);
     this.init();
     this.regenerate();
   }
@@ -34,11 +35,9 @@ class DiscreteField {
   }
 
   refreshTiers(){
-    this.tierStep = (this.range / this.settings.num_levels);
-    this.tierBreakpoints = [];
-    for (let i = 0; i < this.settings.num_levels; i++){
-      this.tierBreakpoints[i] = this.tierStep * i; 
-    }
+    this.isolines.refreshTiers();
+    this.tierBreakpoints = this.isolines.tierBreakpoints;
+    this.tierStep = this.isolines.tierStep;
   }
 
   regenerate(){
