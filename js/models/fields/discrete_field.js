@@ -1,8 +1,7 @@
 class DiscreteField {
-  constructor(sizeAndPos, system){
+  constructor(sizeAndPos, settings){
     this.sizeAndPosition = sizeAndPos;
-    this.system = system;
-    this.settings = system.settings;
+    this.settings = settings;
 
     this.init();
     this.regenerate();
