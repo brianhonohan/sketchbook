@@ -35,13 +35,13 @@ class System {
   init(){
     this.field = new DiscreteField(this.sizeAndPosition, this);
     this.applyNoiseSettings();
-    this.cellViewer = new CellViewer(this.settings.cellWidth, this.settings.cellWidth,
+    this.terrainViewer = new TerrainViewer(this.settings.cellWidth, this.settings.cellWidth,
                                       this.field.grid, this);
   }
 
   updateRendering(){
     this.field.refreshTiers();
-    this.cellViewer.updateSettings();
+    this.terrainViewer.updateSettings();
   }
 
   applyNoiseSettings(){
@@ -68,6 +68,6 @@ class System {
 
   render(){
     background(50);
-    this.cellViewer.renderField(this.field);
+    this.terrainViewer.renderField(this.field);
   }
 }
