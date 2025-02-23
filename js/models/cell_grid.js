@@ -37,10 +37,17 @@ class CellGrid {
 
     this.wrap = false;
 
-    // Note, by using 'ceil' we will overstep the bounds of the width/height;
-    this.numCols = Math.ceil( (1.0 * this._width)  / this.effectCellWidth );
-    this.numRows = Math.ceil( (1.0 * this._height) / this.effectCellHeight );
+    this.numCols = CellGrid.getColCount(rect, this.effectCellWidth);
+    this.numRows = CellGrid.getRowCount(rect, this.effectCellHeight);
     this.numCells = this.numCols * this.numRows;
+  }
+
+  // Note, by using 'ceil' we will overstep the bounds of the width/height;
+  static getColCount(rect, cellSize){
+    return Math.ceil( (1.0 * rect.width)  / cellSize );
+  }
+  static getRowCount(rect, cellSize){
+    return Math.ceil( (1.0 * rect.width)  / cellSize );
   }
 
   initCells() {
