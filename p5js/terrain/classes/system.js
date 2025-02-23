@@ -33,7 +33,7 @@ class System {
   }
 
   init(){
-    this.field = new DiscreteField(this.sizeAndPosition, this);
+    this.field = new Terrain(this.sizeAndPosition, this);
     this.applyNoiseSettings();
     this.terrainViewer = new TerrainViewer(this.settings.cellWidth, this.settings.cellWidth,
                                       this.field.grid, this);

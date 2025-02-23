@@ -19,6 +19,7 @@ js_scripts:
 - /sketchbook/js/models/rect.js
 - /sketchbook/js/models/cell_grid.js
 - /sketchbook/js/models/fields/discrete_field.js
+- /sketchbook/js/models/fields/terrain.js
 - /sketchbook/vendor/parc6502__joshforisha/open_simplex_noise.js
 - classes/terrain_viewer.js
 - classes/system.js
