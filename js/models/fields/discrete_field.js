@@ -9,7 +9,7 @@ class DiscreteField {
   }
 
   init(){
-    this.osNoise = new OpenSimplexNoise(P5JsSettings.getSeed());
+    this.resetToDefaultNoise();
     this.grid = new CellGrid(this.sizeAndPosition, 
       this, 
       this.settings.cellWidth,
@@ -21,6 +21,17 @@ class DiscreteField {
     this.maxValue = 2;
     this.msquares = [];
     this.refreshTiers();
+  }
+
+  resetToDefaultNoise(){
+    this.osNoise = new OpenSimplexNoise(P5JsSettings.getSeed());
+    this.noiseFunction = (x,y,z) => { return 1 + this.osNoise.noise3D(x,y,z);} ;
+  }
+
+  // Expectation: function takes 3 values, x,y,z, 
+  // and returns values between [0,2)
+  setNoiseFunction(noiseFunction){
+    this.noiseFunction = noiseFunction;
   }
 
   refreshTiers(){
@@ -84,14 +95,8 @@ class DiscreteField {
 
   // returns value from [0, 2)
   getValueAt(row,col){
-    if (this.settings.open_simplex_noise){ 
-      return 1 + this.osNoise.noise3D(
-            (this.settings.yOffset + row) * this.settings.scale, 
-            (this.settings.xOffset + col) * this.settings.scale,
-            this.settings.zOffset);
-    }
-    return 2 * noise((this.settings.yOffset + row) * this.settings.scale, 
-                                (this.settings.xOffset + col) * this.settings.scale,
+    return this.noiseFunction((this.settings.yOffset + row) * this.settings.scale, 
+                              (this.settings.xOffset + col) * this.settings.scale,
                                this.settings.zOffset);
   }
 }
