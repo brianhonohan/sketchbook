@@ -58,15 +58,15 @@ class TerrainViewer {
     this.renderMarginX = Math.floor((this.cellWidth-this.rectRenderWidth) / 2.0);
     this.renderMarginY = Math.floor((this.cellHeight-this.rectRenderHeight) / 2.0);
 
-    this.isolines = new P5jsColorRamp();
-    this.isolines.setRange(0,1);
-    this.isolines.setColors(
+    this.isolineColorRamp = new P5jsColorRamp();
+    this.isolineColorRamp.setRange(0,1);
+    this.isolineColorRamp.setColors(
       [
         {color: color(200, 200, 50)},
         {color: color(200, 100, 40)}
       ]
     );
-    this.isolines.setBinCount(this.system.settings.num_levels);
+    this.isolineColorRamp.setBinCount(this.system.settings.num_levels);
   }
 
   renderCell(tmpCell, tmpX, tmpY, cellWidth, cellHeight){
@@ -194,7 +194,7 @@ class TerrainViewer {
             || field.msquares[i][j] == 15){ 
           continue;
         }
-        stroke(this.isolines.getColorForBin(j));
+        stroke(this.isolineColorRamp.getColorForBin(j));
         
         this.renderMarchingGridTile(field.msquares[i][j], 
           (i % this.grid.numCols) * this.cellWidth,
@@ -246,7 +246,7 @@ class TerrainViewer {
             || field.msquares[i][j] == 15){ 
           continue;
         }
-        stroke(this.isolines.getColorForBin(j));
+        stroke(this.isolineColorRamp.getColorForBin(j));
 
         // BASE FROM https://editor.p5js.org/codingtrain/sketches/18cjVoAX1
         // HAT-TIP TO: https://ambv.pyscriptapps.com/genuary-prompt-28-30/latest/
