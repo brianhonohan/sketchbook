@@ -13,25 +13,6 @@ class TerrainViewer {
 
     this.gridColor = color(50, 200, 200);
 
-    this.mgXOffsets = [];
-    this.mgYOffsets = [];
-    this.mgXOffsets[0] = cellWidth;
-    this.mgXOffsets[1] = cellWidth + this.halfCellWidth;
-    this.mgXOffsets[2] = cellWidth;
-    this.mgXOffsets[3] = this.halfCellWidth;
-    
-    this.mgYOffsets[0] = this.halfCellHeight;
-    this.mgYOffsets[1] = cellHeight;
-    this.mgYOffsets[2] = cellHeight + this.halfCellHeight;
-    this.mgYOffsets[3] = cellHeight;
-
-    // class variables to avoid garbage collection
-    // should not be used outside of this._drawInterpolatedLines()
-    this.pt0 = createVector();
-    this.pt1 = createVector();
-    this.pt2 = createVector();
-    this.pt3 = createVector();
-
     this.precomputeVerticesForCase();
     this.precomputePointsForCase();
     this.updateSettings();
@@ -274,6 +255,18 @@ class TerrainViewer {
   }
 
   precomputeVerticesForCase(){
+    this.mgXOffsets = [];
+    this.mgYOffsets = [];
+    this.mgXOffsets[0] = this.cellWidth;
+    this.mgXOffsets[1] = this.cellWidth + this.halfCellWidth;
+    this.mgXOffsets[2] = this.cellWidth;
+    this.mgXOffsets[3] = this.halfCellWidth;
+    
+    this.mgYOffsets[0] = this.halfCellHeight;
+    this.mgYOffsets[1] = this.cellHeight;
+    this.mgYOffsets[2] = this.cellHeight + this.halfCellHeight;
+    this.mgYOffsets[3] = this.cellHeight;
+
     // 0  nothing
     // 1  /..
     // 2  ..\
@@ -319,6 +312,13 @@ class TerrainViewer {
   }
 
   precomputePointsForCase(){
+    // class variables to avoid garbage collection
+    // should not be used outside of this._drawInterpolatedLines()
+    this.pt0 = createVector();
+    this.pt1 = createVector();
+    this.pt2 = createVector();
+    this.pt3 = createVector();
+
     this.pointsForCase = [];
 
     this.pointsForCase[0] = [];
