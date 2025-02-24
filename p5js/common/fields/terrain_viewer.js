@@ -21,17 +21,7 @@ class TerrainViewer {
   updateSettings(){
     if (this.system == undefined) { return; }
 
-    this.colorRamp = new P5jsColorRamp();
-    this.colorRamp.setRange(0,2);
-    this.colorRamp.setColors(
-      [
-        {color: color(100, 100, 100)},
-        {color: color(100, 220, 100)},
-        {color: color(100, 220, 220)},
-        {color: color(100, 100, 220)},
-        {color: color(220, 100, 220)},
-      ]
-    );
+    this.colorRamp = P5jsColorRamp.elevation();
     this.colorRamp.setBinCount(this.system.settings.num_levels);
 
     this.rectRenderWidth = Math.floor(this.cellWidth * this.system.settings.rectPercent);

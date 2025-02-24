@@ -8,16 +8,16 @@ function setup() {
   // canvas = createCanvas(500, 500); // for screenshots
   // canvas = createCanvas(900, 900); // consistent, medium sizae for perf optimziation
   canvas = createCanvas(windowWidth, windowHeight-vertMargin);
-  P5JsSettings.init({'noise_falloff': 0.4});
+  P5JsSettings.init({'noise_falloff': 0.6});
   
   let rect = new Rect(0, 0, width, height);
   system = new System(rect);
   
   gui = P5JsSettings.addDatGui({autoPlace: false, bindOptions: true, callback: regenerateSystem});
   gui.add(system.settings, "cellWidth", 2, 40, 2).onChange(reinitSystem);
-  gui.add(system.settings, "scale", 0.01, 0.5, 0.001).onChange(regenerateSystem);
-  gui.add(system.settings, "xSpeed", -0.5, 0.5, 0.01).onChange(regenerateSystem);
-  gui.add(system.settings, "ySpeed", -0.5, 0.5, 0.01).onChange(regenerateSystem);
+  gui.add(system.settings, "scale", 0.0001, 0.5, 0.0001).onChange(regenerateSystem);
+  gui.add(system.settings, "xSpeed", -5, 5, 0.01).onChange(regenerateSystem);
+  gui.add(system.settings, "ySpeed", -5, 5, 0.01).onChange(regenerateSystem);
   gui.add(system.settings, "zSpeed", -0.005, 0.005, 0.0001).onChange(regenerateSystem);
   gui.add(system.settings, "open_simplex_noise").onChange(regenerateSystem);
   gui.add(system.settings, "interpolate_lines").onChange(regenerateSystem);

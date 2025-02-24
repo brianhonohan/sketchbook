@@ -4,7 +4,6 @@ title:  "p5.js - Terrain"
 categories: p5js
 modal: true
 viewport_noscale: true
-bh_page_type: draft
 excerpt: A sketch to focus on and explore alternate ways of generating terrain.
 
 js_scripts:
