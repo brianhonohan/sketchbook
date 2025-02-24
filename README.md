@@ -5,9 +5,9 @@ Collection of personal coding projects. They may or may not grow into individual
 
 ## Latest
 
-A very simple puzzle where you need to click pairs of tiles to match colors of background and nested squares to clear the board.
+An example of emerge reusable Terrain component, with computed isolines (refactored from Marching Squares sketch).
 
-[<img src="./p5js/grid-puzzle/screenshot-01.png" alt="colorful square tiles in grid" width="150px" />][link-p5js-grid-puzzle]
+[<img src="./p5js/common/examples/terrain/screenshot-01.png" alt="terrain" width="150px" />][link-p5js-terrain]
 
 ## LÖVE
 Collection of sketches using the [LÖVE][love2d] environment.
@@ -38,6 +38,7 @@ Collection of sketches using the [p5.js][p5js] Javascript library which demonstr
 [<img src="./p5js/common/examples/rotation-between-vectors/screenshot-01.png" alt="quadtree" width="150px" />][link-p5js-rotation-between-vectors]
 [<img src="./p5js/common/examples/shapes-tangents-between-circles/screenshot-01.png" alt="quadtree" width="150px" />][link-p5js-shapes-tangents-between-circles]
 [<img src="./p5js/common/examples/teardrops/screenshot-01.png" alt="teardrops" width="150px" />][link-p5js-teardrops]
+[<img src="./p5js/common/examples/terrain/screenshot-01.png" alt="terrain" width="150px" />][link-p5js-terrain]
 [<img src="./p5js/common/examples/utils-random-color/screenshot-01.png" alt="teardrops" width="150px" />][link-p5js-utils-random-color]
 [<img src="./p5js/common/examples/voronoi/screenshot-01.png" alt="voronoi" width="150px" />][link-p5js-voronoi]
 [<img src="./p5js/common/examples/voronoi-2/screenshot-01.png" alt="voronoi second sketch" width="150px" />][link-p5js-voronoi-2]
@@ -179,6 +180,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-p5js-slippy-map]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/slippy-map/
 [link-p5js-snowflake-pen]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/snowflake-pen/
 [link-p5js-teardrops]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/teardrops/
+[link-p5js-terrain]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/terrain/
 [link-p5js-utils-random-color]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/utils-random-color/
 [link-p5js-thermal-cells]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/thermal-cells/
 [link-p5js-tree-rings]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/tree-rings/

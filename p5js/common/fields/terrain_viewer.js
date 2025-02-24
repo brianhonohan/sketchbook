@@ -1,4 +1,4 @@
-class CellViewer {
+class TerrainViewer {
   constructor(cellWidth, cellHeight, grid, system){
     this.cellWidth = cellWidth;
     this.cellHeight = cellHeight;
@@ -13,25 +13,6 @@ class CellViewer {
 
     this.gridColor = color(50, 200, 200);
 
-    this.mgXOffsets = [];
-    this.mgYOffsets = [];
-    this.mgXOffsets[0] = cellWidth;
-    this.mgXOffsets[1] = cellWidth + this.halfCellWidth;
-    this.mgXOffsets[2] = cellWidth;
-    this.mgXOffsets[3] = this.halfCellWidth;
-    
-    this.mgYOffsets[0] = this.halfCellHeight;
-    this.mgYOffsets[1] = cellHeight;
-    this.mgYOffsets[2] = cellHeight + this.halfCellHeight;
-    this.mgYOffsets[3] = cellHeight;
-
-    // class variables to avoid garbage collection
-    // should not be used outside of this._drawInterpolatedLines()
-    this.pt0 = createVector();
-    this.pt1 = createVector();
-    this.pt2 = createVector();
-    this.pt3 = createVector();
-
     this.precomputeVerticesForCase();
     this.precomputePointsForCase();
     this.updateSettings();
@@ -40,17 +21,7 @@ class CellViewer {
   updateSettings(){
     if (this.system == undefined) { return; }
 
-    this.colorRamp = new P5jsColorRamp();
-    this.colorRamp.setRange(0,2);
-    this.colorRamp.setColors(
-      [
-        {color: color(100, 100, 100)},
-        {color: color(100, 220, 100)},
-        {color: color(100, 220, 220)},
-        {color: color(100, 100, 220)},
-        {color: color(220, 100, 220)},
-      ]
-    );
+    this.colorRamp = P5jsColorRamp.elevation();
     this.colorRamp.setBinCount(this.system.settings.num_levels);
 
     this.rectRenderWidth = Math.floor(this.cellWidth * this.system.settings.rectPercent);
@@ -58,15 +29,15 @@ class CellViewer {
     this.renderMarginX = Math.floor((this.cellWidth-this.rectRenderWidth) / 2.0);
     this.renderMarginY = Math.floor((this.cellHeight-this.rectRenderHeight) / 2.0);
 
-    this.isolines = new P5jsColorRamp();
-    this.isolines.setRange(0,1);
-    this.isolines.setColors(
+    this.isolineColorRamp = new P5jsColorRamp();
+    this.isolineColorRamp.setRange(0,1);
+    this.isolineColorRamp.setColors(
       [
         {color: color(200, 200, 50)},
         {color: color(200, 100, 40)}
       ]
     );
-    this.isolines.setBinCount(this.system.settings.num_levels);
+    this.isolineColorRamp.setBinCount(this.system.settings.num_levels);
   }
 
   renderCell(tmpCell, tmpX, tmpY, cellWidth, cellHeight){
@@ -194,7 +165,7 @@ class CellViewer {
             || field.msquares[i][j] == 15){ 
           continue;
         }
-        stroke(this.isolines.getColorForBin(j));
+        stroke(this.isolineColorRamp.getColorForBin(j));
         
         this.renderMarchingGridTile(field.msquares[i][j], 
           (i % this.grid.numCols) * this.cellWidth,
@@ -246,7 +217,7 @@ class CellViewer {
             || field.msquares[i][j] == 15){ 
           continue;
         }
-        stroke(this.isolines.getColorForBin(j));
+        stroke(this.isolineColorRamp.getColorForBin(j));
 
         // BASE FROM https://editor.p5js.org/codingtrain/sketches/18cjVoAX1
         // HAT-TIP TO: https://ambv.pyscriptapps.com/genuary-prompt-28-30/latest/
@@ -274,6 +245,18 @@ class CellViewer {
   }
 
   precomputeVerticesForCase(){
+    this.mgXOffsets = [];
+    this.mgYOffsets = [];
+    this.mgXOffsets[0] = this.cellWidth;
+    this.mgXOffsets[1] = this.cellWidth + this.halfCellWidth;
+    this.mgXOffsets[2] = this.cellWidth;
+    this.mgXOffsets[3] = this.halfCellWidth;
+    
+    this.mgYOffsets[0] = this.halfCellHeight;
+    this.mgYOffsets[1] = this.cellHeight;
+    this.mgYOffsets[2] = this.cellHeight + this.halfCellHeight;
+    this.mgYOffsets[3] = this.cellHeight;
+
     // 0  nothing
     // 1  /..
     // 2  ..\
@@ -319,6 +302,13 @@ class CellViewer {
   }
 
   precomputePointsForCase(){
+    // class variables to avoid garbage collection
+    // should not be used outside of this._drawInterpolatedLines()
+    this.pt0 = createVector();
+    this.pt1 = createVector();
+    this.pt2 = createVector();
+    this.pt3 = createVector();
+
     this.pointsForCase = [];
 
     this.pointsForCase[0] = [];

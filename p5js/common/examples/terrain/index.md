@@ -4,7 +4,6 @@ title:  "p5.js - Terrain"
 categories: p5js
 modal: true
 viewport_noscale: true
-bh_page_type: draft
 excerpt: A sketch to focus on and explore alternate ways of generating terrain.
 
 js_scripts:
@@ -18,9 +17,11 @@ js_scripts:
 - /sketchbook/js/options_set.js
 - /sketchbook/js/models/rect.js
 - /sketchbook/js/models/cell_grid.js
+- /sketchbook/js/models/fields/discrete_field.js
+- /sketchbook/js/models/fields/isolines.js
+- /sketchbook/js/models/fields/terrain.js
 - /sketchbook/vendor/parc6502__joshforisha/open_simplex_noise.js
-- classes/discrete_field.js
-- classes/cell_viewer.js
+- /sketchbook/p5js/common/fields/terrain_viewer.js
 - classes/system.js
 - app.js
 
