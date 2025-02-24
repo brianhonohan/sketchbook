@@ -22,7 +22,7 @@ js_scripts:
 - /sketchbook/js/models/fields/isolines.js
 - /sketchbook/js/models/fields/terrain.js
 - /sketchbook/vendor/parc6502__joshforisha/open_simplex_noise.js
-- classes/terrain_viewer.js
+- /sketchbook/p5js/common/fields/terrain_viewer.js
 - classes/system.js
 - app.js
 
