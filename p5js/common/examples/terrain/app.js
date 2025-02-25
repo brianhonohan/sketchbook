@@ -25,6 +25,7 @@ function setup() {
   gui.add(system.settings, "fillRect");
   gui.add(system.settings, "rectPercent", 0.05, 1, 0.01).onChange(updateRendering);
   gui.add(system.settings, "drawGrid");
+  gui.add(system.settings, "gridResolution", 1, 40, 1);
   gui.add(system.settings, "num_levels", 2, 20, 1).onChange(updateRendering);
   gui.add(system.settings, "bin_colors", 2, 20, 1).onChange(updateRendering);
 }

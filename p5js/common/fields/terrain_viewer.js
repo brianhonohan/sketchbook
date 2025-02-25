@@ -63,19 +63,22 @@ class TerrainViewer {
   }
 
   renderField(field){
+    if (this.system.settings.fillRect ) {
+      this.rectRenderFunction(field);
+    }
+    
     if (this.system.settings.drawGrid){
       stroke(this.gridColor);
       strokeWeight(1);
-      for(let i=1; i< (this.grid.numRows-1); i++){
+      if (this.system.settings.gridResolution <= 2) {
+        strokeWeight(0.5);
+      }
+      for(let i=1; i< (this.grid.numRows-1); i += this.system.settings.gridResolution){
         line(0, i * this.cellHeight, width, i * this.cellHeight);
       }
-      for(let i=1; i< (this.grid.numCols-1); i++){
+      for(let i=1; i< (this.grid.numCols-1); i += this.system.settings.gridResolution){
         line(i * this.cellWidth, 0, i * this.cellWidth, height);
       }
-    }
-
-    if (this.system.settings.fillRect ) {
-      this.rectRenderFunction(field);
     }
 
     if (this.system.settings.drawLines) { 

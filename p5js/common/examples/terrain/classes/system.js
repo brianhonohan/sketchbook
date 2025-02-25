@@ -18,6 +18,7 @@ class System {
       { name: "fillRect", type: "bool", default: true}, 
       { name: "rectPercent", type: "float", default: 1}, 
       { name: "drawGrid", type: "bool", default: false}, 
+      { name: "gridResolution", type: "integer", default: 10}, 
       { name: "drawLines", type: "bool", default: true}, 
       { name: "scale", type: "float", default: 0.01}, 
       { name: "xOffset", type: "integer", default: 0},
