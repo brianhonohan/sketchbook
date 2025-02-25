@@ -13,7 +13,7 @@ class TerrainViewer {
 
     this.gridColor = color(50, 200, 200);
 
-    this.precomputeVerticesForCase();
+    this.precomputeVerticesForCase(); 
     this.precomputePointsForCase();
     this.updateSettings();
   }
@@ -91,12 +91,17 @@ class TerrainViewer {
     if (this.cellWidth <= 4){
       return;
     }
+    
+    const colorForValueFunc = (this.system.settings.bin_colors) ?
+            (val) => { return this.colorRamp.getBinnedColorForValue(val) } :
+            (val) => { return this.colorRamp.getColorForValue(val) };
 
     noStroke();
     for(let i=0; i<field.values.length; i++){
       // if (field.values[i] < 1){ continue; }
-      // let c = this.colorRamp.getColorForValue(field.values[i]/2.0);
-      let c = this.colorRamp.getBinnedColorForValue(field.values[i]);
+      // let c = this.colorRamp.getColorForValue(field.values[i]);
+      // let c = this.colorRamp.getBinnedColorForValue(field.values[i])
+      let c = colorForValueFunc(field.values[i]);
 
       // if (c == undefined) {
       //   console.log(`undefined for:${i}`);

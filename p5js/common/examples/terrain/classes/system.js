@@ -29,6 +29,7 @@ class System {
       { name: "open_simplex_noise", type: "bool", default: false},
       { name: "interpolate_lines", type: "bool", default: true},
       { name: "num_levels", type: "integer", default: 16},
+      { name: "bin_colors", type: "bool", default: false},
     ];
   }
 
