@@ -4,6 +4,6 @@ class Terrain extends DiscreteField {
     for(let i = 0; i < this.grid.numCells; i++){
       this.values[i] = -1 + this.getValueAt(Math.trunc(i / this.grid.numCols), i % this.grid.numCols);
     }
-    this.isolines.compute();
+    this.refreshTiers();
   }
 }

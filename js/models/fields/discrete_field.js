@@ -18,7 +18,6 @@ class DiscreteField {
     this.values = [];
     this.minValue = 0;
     this.maxValue = 2;
-    this.refreshTiers();
   }
 
   resetToDefaultNoise(){
@@ -32,19 +31,20 @@ class DiscreteField {
     this.noiseFunction = noiseFunction;
   }
 
-  refreshTiers(){
-    this.isolines.refreshTiers();
-    this.tierBreakpoints = this.isolines.tierBreakpoints;
-    this.tierStep = this.isolines.tierStep;
-    this.tiers = this.isolines.tiers;
-    this.msquares = this.isolines.msquares;
-  }
-
   regenerate(){
     for(let i = 0; i < this.grid.numCells; i++){
       this.values[i] = this.getValueAt(Math.trunc(i / this.grid.numCols), i % this.grid.numCols);
     }
+    this.refreshTiers();
+  }
+
+  refreshTiers(){
+    this.isolines.refreshTiers();
     this.isolines.compute();
+    this.tierBreakpoints = this.isolines.tierBreakpoints;
+    this.tierStep = this.isolines.tierStep;
+    this.tiers = this.isolines.tiers;
+    this.msquares = this.isolines.msquares;
   }
 
   get range(){ 
