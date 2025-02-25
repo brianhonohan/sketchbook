@@ -47,7 +47,7 @@ class CellGrid {
     return Math.ceil( (1.0 * rect.width)  / cellSize );
   }
   static getRowCount(rect, cellSize){
-    return Math.ceil( (1.0 * rect.width)  / cellSize );
+    return Math.ceil( (1.0 * rect.height)  / cellSize );
   }
 
   initCells() {
