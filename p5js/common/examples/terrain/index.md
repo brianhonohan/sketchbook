@@ -9,7 +9,7 @@ excerpt: A sketch to focus on and explore alternate ways of generating terrain.
 js_scripts:
 - /sketchbook/vendor/inobounce/0.2.0/inobounce.js
 - /sketchbook/vendor/p5.js/1.11.2/p5.min.js
-- /sketchbook/vendor/dat.gui/0.7.7/dat.gui.js
+- /sketchbook/vendor/lil-gui/0.20.0/lil-gui.min.js
 - /sketchbook/p5js/common/p5js_settings.js
 - /sketchbook/p5js/common/p5js_utils.js
 - /sketchbook/p5js/common/p5js_color_ramp.js
