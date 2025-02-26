@@ -3,6 +3,10 @@ var canvas;
 var vertMargin = determineVerticalMargin();
 
 let gui;
+let scaleSettings = {
+  scale_coarse: 0,
+  scale_fine: 0.00001,
+}
 
 function setup() {
   // canvas = createCanvas(500, 500); // for screenshots
@@ -15,9 +19,10 @@ function setup() {
   
   gui = P5JsSettings.addDatGui({autoPlace: false, bindOptions: true, callback: regenerateSystem});
   gui.add(system.settings, "cellWidth", 2, 40, 2).onChange(reinitSystem);
-  gui.add(system.settings, "scale", 0.0001, 0.5, 0.0001).onChange(regenerateSystem);
-  gui.add(system.settings, "xSpeed", -5, 5, 0.01).onChange(regenerateSystem);
-  gui.add(system.settings, "ySpeed", -5, 5, 0.01).onChange(regenerateSystem);
+  gui.add(scaleSettings, "scale_coarse", 0, 1, 0.01).onChange(updateScale);
+  gui.add(scaleSettings, "scale_fine", 0.000001, 0.01, 0.000001).onChange(updateScale);
+  gui.add(system.settings, "xSpeed", -5, 5, 0.25).onChange(regenerateSystem);
+  gui.add(system.settings, "ySpeed", -5, 5, 0.25).onChange(regenerateSystem);
   gui.add(system.settings, "zSpeed", -0.005, 0.005, 0.0001).onChange(regenerateSystem);
   gui.add(system.settings, "open_simplex_noise").onChange(regenerateSystem);
   gui.add(system.settings, "interpolate_lines").onChange(regenerateSystem);
@@ -28,6 +33,11 @@ function setup() {
   gui.add(system.settings, "gridResolution", 1, 40, 1);
   gui.add(system.settings, "num_levels", 2, 20, 1).onChange(updateRendering);
   gui.add(system.settings, "bin_colors", 2, 20, 1).onChange(updateRendering);
+}
+
+function updateScale(){
+  system.settings.scale = scaleSettings.scale_coarse + scaleSettings.scale_fine;
+  system.regenerate();
 }
 
 function regenerateSystem(){
