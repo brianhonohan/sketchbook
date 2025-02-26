@@ -32,7 +32,8 @@ function setup() {
   gui.add(system.settings, "drawGrid");
   gui.add(system.settings, "gridResolution", 1, 40, 1);
   gui.add(system.settings, "num_levels", 2, 20, 1).onChange(updateRendering);
-  gui.add(system.settings, "bin_colors", 2, 20, 1).onChange(updateRendering);
+  gui.add(system.settings, "bin_colors", 2, 20, 1).onChange(updateRendering); 
+  gui.add(P5JsUtils, "toggleLoop").name('Pause'); // not great UI, for static sketches, it is unclear if paused or not.
 }
 
 function updateScale(){
@@ -53,7 +54,6 @@ function updateRendering(){
 }
 
 function draw(){
-  background(50);
   system.tick();
   system.render();
 }
