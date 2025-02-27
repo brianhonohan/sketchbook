@@ -34,6 +34,8 @@ class TerrainViewer {
     this.isolineColorRamp.setRange(0,1);
     this.isolineColorRamp.setColors(
       [
+        {color: color(255, 255, 255)},
+        {color: color(255, 255, 255)},
         {color: color(200, 200, 50)},
         {color: color(200, 100, 40)}
       ]
