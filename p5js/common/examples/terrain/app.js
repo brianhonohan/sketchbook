@@ -70,12 +70,18 @@ function draw(){
   system.render();
 }
 
-function mousePressed(){
+function mousePressed(event){
+  if (event.target.nodeName != "CANVAS") {
+    return;
+  }
   basicUI.dragStartX = mouseX;
   basicUI.dragStartY = mouseY;
 }
 
-function mouseDragged(){
+function mouseDragged(event){
+  if (event.target.nodeName != "CANVAS") {
+    return;
+  }
   const deltaX = mouseX - basicUI.dragStartX;
   const deltaY = mouseY - basicUI.dragStartY;
   
@@ -89,6 +95,7 @@ function mouseReleased(){
     system.settings.xSpeed = 0;
     system.settings.ySpeed = 0;
   }
+  basicUI.isDragging = false;
 }
 
 
