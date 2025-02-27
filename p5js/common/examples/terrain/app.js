@@ -86,8 +86,8 @@ function mouseDragged(event){
   const deltaY = mouseY - basicUI.dragStartY;
   
   basicUI.isDragging = true;
-  system.settings.xSpeed = deltaX / 10;
-  system.settings.ySpeed = deltaY / 10;
+  system.settings.xSpeed = -1 * deltaX / 50;
+  system.settings.ySpeed = -1 * deltaY / 50;
 }
 
 function mouseReleased(){
@@ -97,7 +97,6 @@ function mouseReleased(){
   }
   basicUI.isDragging = false;
 }
-
 
 function determineVerticalMargin(){
   let fullUrl = window.location.href;
