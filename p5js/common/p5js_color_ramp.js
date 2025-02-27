@@ -112,11 +112,26 @@ class P5jsColorRamp {
     return this;
   }
 
-  // This should be set before setting breakpoints
   setRange(minValue, maxValue){
-    this.rangeMode = P5jsColorRamp.RANGE_MODE_MIN_MAX;
+    this.rangeMode = P5jsColorRamp.RANGE_MODE_MIN_MAX; 
+
+    let oldRange = this.rangeMagnitude;
+    let oldMin = this.minValue;
+
+
     this.minValue = minValue;
     this.maxValue = maxValue;
+
+    if (oldRange == undefined){
+      return;
+    }
+
+    const newRange = this.rangeMagnitude;
+    
+    for (let i = 0; i < this.breakpoints.length; i++){
+      let oldBP = this.breakpoints[i];
+      this.breakpoints[i] = this.minValue + (oldBP - oldMin) / oldRange * newRange;
+    }
   }
 
   get rangeMagnitude(){ return this.maxValue - this.minValue; }
