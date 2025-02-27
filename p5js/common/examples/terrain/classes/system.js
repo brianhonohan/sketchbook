@@ -3,6 +3,7 @@ class System {
     this.sizeAndPosition = p_xSizeAndPos;
     this.optionsSet = new OptionsSet(this.optionsMetadata());
     this.settings = this.optionsSet.settings;
+    this.redraw = true;
 
     this.init();
   }
@@ -52,6 +53,7 @@ class System {
   updateRendering(){
     this.field.refreshTiers();
     this.terrainViewer.updateSettings();
+    this.redraw = true;
   }
 
   applyNoiseSettings(){
@@ -65,6 +67,7 @@ class System {
   regenerate(){
     this.applyNoiseSettings();
     this.field.regenerate();
+    this.redraw = true;
   }
 
   tick(){
@@ -73,11 +76,16 @@ class System {
       this.settings.yOffset += this.settings.ySpeed;
       this.settings.zOffset += this.settings.zSpeed;
       this.field.regenerate();
+      this.redraw = true;
     }
   }
 
   render(){
+    if (this.redraw == false) {
+      return;
+    }
     background(50);
     this.terrainViewer.renderField(this.field);
+    this.redraw = false;
   }
 }
