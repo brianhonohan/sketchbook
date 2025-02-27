@@ -7,6 +7,11 @@ let scaleSettings = {
   scale_coarse: 0,
   scale_fine: 0.005,
 }
+let basicUI = {
+  dragStartX: undefined,
+  dragStartY: undefined,
+  isDragging: false
+}
 
 function setup() {
   // canvas = createCanvas(500, 500); // for screenshots
@@ -64,6 +69,28 @@ function draw(){
   system.tick();
   system.render();
 }
+
+function mousePressed(){
+  basicUI.dragStartX = mouseX;
+  basicUI.dragStartY = mouseY;
+}
+
+function mouseDragged(){
+  const deltaX = mouseX - basicUI.dragStartX;
+  const deltaY = mouseY - basicUI.dragStartY;
+  
+  basicUI.isDragging = true;
+  system.settings.xSpeed = deltaX / 10;
+  system.settings.ySpeed = deltaY / 10;
+}
+
+function mouseReleased(){
+  if (basicUI.isDragging) {
+    system.settings.xSpeed = 0;
+    system.settings.ySpeed = 0;
+  }
+}
+
 
 function determineVerticalMargin(){
   let fullUrl = window.location.href;
