@@ -43,7 +43,7 @@ function setup() {
   displayGui.add(system.settings, "bin_colors", 2, 20, 1).onChange(updateRendering); 
   gui.add(P5JsUtils, "toggleLoop").name('Pause'); // not great UI, for static sketches, it is unclear if paused or not.
 
-  if (width < 400){
+  if (width < 800){
     gui.close();
   }
 }
