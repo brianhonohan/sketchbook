@@ -43,7 +43,7 @@ function setup() {
   displayGui.add(system.settings, "bin_colors", 2, 20, 1).onChange(updateRendering); 
   gui.add(P5JsUtils, "toggleLoop").name('Pause'); // not great UI, for static sketches, it is unclear if paused or not.
 
-  if (width < 400){
+  if (width < 800){
     gui.close();
   }
 }
@@ -82,6 +82,11 @@ function mouseDragged(event){
   if (event.target.nodeName != "CANVAS") {
     return;
   }
+
+  if (basicUI.dragStartX == undefined || basicUI.dragStartY == undefined) {
+    basicUI.dragStartX = mouseX;
+    basicUI.dragStartY = mouseY;
+  } 
   const deltaX = mouseX - basicUI.dragStartX;
   const deltaY = mouseY - basicUI.dragStartY;
   
@@ -94,6 +99,16 @@ function mouseReleased(){
   if (basicUI.isDragging) {
     system.settings.xSpeed = 0;
     system.settings.ySpeed = 0;
+  }
+  basicUI.isDragging = false;
+}
+
+function touchEnded(){
+  if (basicUI.isDragging) {
+    system.settings.xSpeed = 0;
+    system.settings.ySpeed = 0;
+    basicUI.dragStartX = undefined;
+    basicUI.dragStartY = undefined;
   }
   basicUI.isDragging = false;
 }
