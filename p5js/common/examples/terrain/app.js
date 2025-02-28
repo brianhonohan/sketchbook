@@ -34,11 +34,11 @@ function setup() {
   terrainGui.add(system.settings, "open_simplex_noise").onChange(regenerateSystem);
   const displayGui = gui.addFolder('Display Settings');
   displayGui.add(system.settings, "interpolate_lines").onChange(regenerateSystem);
-  displayGui.add(system.settings, "drawLines");
-  displayGui.add(system.settings, "fillRect");
+  displayGui.add(system.settings, "drawLines").onChange(updateRendering);
+  displayGui.add(system.settings, "fillRect").onChange(updateRendering);
   displayGui.add(system.settings, "rectPercent", 0.05, 1, 0.01).onChange(updateRendering);
-  displayGui.add(system.settings, "drawGrid");
-  displayGui.add(system.settings, "gridResolution", 1, 40, 1);
+  displayGui.add(system.settings, "drawGrid").onChange(updateRendering);
+  displayGui.add(system.settings, "gridResolution", 1, 40, 1).onChange(updateRendering);
   displayGui.add(system.settings, "num_levels", 2, 20, 1).onChange(updateRendering);
   displayGui.add(system.settings, "bin_colors", 2, 20, 1).onChange(updateRendering); 
   gui.add(P5JsUtils, "toggleLoop").name('Pause'); // not great UI, for static sketches, it is unclear if paused or not.
