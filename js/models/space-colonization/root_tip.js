@@ -1,6 +1,6 @@
 class RootTip {
   constructor(x, y, parent, primaryDirection, plant){
-    this.pos = createVector(x, y);
+    this.pos = new Vector2D(x, y);
     this.parent = parent;
     this.direction = primaryDirection;
     this.plant = plant;
@@ -10,7 +10,7 @@ class RootTip {
   get y(){ return this.pos.y; }
 
   length(){
-    return p5.Vector.mag( p5.Vector.sub(this.pos, this.parent.pos) );
+    return Vector2D.mag( Vector2D.sub(this.pos, this.parent.pos) );
   }
 
   tick(){

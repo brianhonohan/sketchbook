@@ -15,7 +15,7 @@ class Plant {
     let firstSegment = new RootSegment(this.x, this.y + 10, this, this);
     this.addRootSegment(firstSegment);
 
-    let downward = createVector(0, 1);
+    let downward = new Vector2D(0, 1);
     let firstTip = new RootTip(this.x, this.y+10, firstSegment, downward, this);
 
     this.tips.push(firstTip);

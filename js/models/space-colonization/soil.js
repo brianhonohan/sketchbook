@@ -1,3 +1,4 @@
+
 class Soil {
   constructor(sizeAndPos, params){
     this.area = sizeAndPos;
@@ -5,7 +6,7 @@ class Soil {
 
     this.nutrients = [];
     for (var i = 0; i< this.params.num_nutrients; i++){
-      let pos = createVector(random(this.area.width), random(this.area.height));
+      let pos = new Vector2D(random(this.area.width), random(this.area.height));
       this.nutrients.push(new Nutrient(pos));
     }
 
@@ -88,7 +89,7 @@ class Soil {
       let idxOfClosest = null;
       for(var i = 0; i < nSeg.segments.length; i++){
         let segment = nSeg.segments[i];
-        let dist = p5.Vector.dist(nSeg.nutrient.pos, segment.pos);
+        let dist = Vector2D.dist(nSeg.nutrient.pos, segment.pos);
         if (dist < segment.nutrientDectionRange && dist < closest){
           idxOfClosest = i;
           closest = dist;
