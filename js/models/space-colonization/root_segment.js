@@ -1,6 +1,6 @@
 class RootSegment {
   constructor(x, y, parent, plant){
-    this.pos = createVector(x, y);
+    this.pos = new Vector2D(x, y);
     this.parent = parent;
     this.plant = plant;
     this.nutrientDectionRange = this.plant.params.detection_range;
@@ -27,14 +27,14 @@ class RootSegment {
       return;
     }
 
-    let totalPos = createVector(0, 0);
-    let randomModifier = function(vector, delta) { vector.mult(random(1-delta, 1+delta)); return vector; }
+    let totalPos = new Vector2D(0, 0);
+    let randomModifier = function(vector, delta) { vector.mult(UtilFunctions.random(1-delta, 1+delta)); return vector; }
     let vectorAdder = function(total, vector) { total.add(vector); return total; };
     this.targetNutrients
         .map(nutrient => randomModifier(nutrient.pos.copy(), 0.008))
         .reduce(vectorAdder, totalPos);
 
-    let avgPos = p5.Vector.div(totalPos, this.targetNutrients.length);
+    let avgPos = Vector2D.div(totalPos, this.targetNutrients.length);
 
     if (abs(avgPos.x - this.x) > 1 || abs(avgPos.y - this.y) > 1){
       this.addBranch(avgPos);

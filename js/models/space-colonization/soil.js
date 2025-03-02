@@ -1,3 +1,4 @@
+
 class Soil {
   constructor(sizeAndPos, params){
     this.area = sizeAndPos;
@@ -5,7 +6,7 @@ class Soil {
 
     this.nutrients = [];
     for (var i = 0; i< this.params.num_nutrients; i++){
-      let pos = createVector(random(this.area.width), random(this.area.height));
+      let pos = new Vector2D(UtilFunctions.random(this.area.width), UtilFunctions.random(this.area.height));
       this.nutrients.push(new Nutrient(pos));
     }
 
@@ -22,7 +23,7 @@ class Soil {
   placePlantsAtGroundLevel(){
     let spacing = this.area.width / (1 + this.params.num_plants);
     for (var i = 0; i< this.params.num_plants; i++){
-      let xPos = floor(spacing * (i + 1));
+      let xPos = Math.floor(spacing * (i + 1));
       let newPlant = new Plant(xPos, 0, this.params);
       this.plant(newPlant);
     }
@@ -30,8 +31,8 @@ class Soil {
 
   placePlantsRandomly(){
     for (var i = 0; i< this.params.num_plants; i++){
-      let xPos = random(this.area.width);
-      let yPos = random(this.area.height);
+      let xPos = UtilFunctions.random(this.area.width);
+      let yPos = UtilFunctions.random(this.area.height);
       let newPlant = new Plant(xPos, yPos, this.params);
       this.plant(newPlant);
     }
@@ -88,7 +89,7 @@ class Soil {
       let idxOfClosest = null;
       for(var i = 0; i < nSeg.segments.length; i++){
         let segment = nSeg.segments[i];
-        let dist = p5.Vector.dist(nSeg.nutrient.pos, segment.pos);
+        let dist = Vector2D.dist(nSeg.nutrient.pos, segment.pos);
         if (dist < segment.nutrientDectionRange && dist < closest){
           idxOfClosest = i;
           closest = dist;

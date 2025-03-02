@@ -20,6 +20,7 @@ function setup() {
   canvas = createCanvas(windowWidth, windowHeight-40);
   P5JsSettings.init();
   // canvas = createCanvas(500, 500); // for consistent screenshots
+  UtilFunctions.random = random;
 
   // Need to dynamically compute nutrient count, otherwise
   // on larger screens the roots won't consume them all
