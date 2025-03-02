@@ -23,7 +23,7 @@ class Soil {
   placePlantsAtGroundLevel(){
     let spacing = this.area.width / (1 + this.params.num_plants);
     for (var i = 0; i< this.params.num_plants; i++){
-      let xPos = floor(spacing * (i + 1));
+      let xPos = Math.floor(spacing * (i + 1));
       let newPlant = new Plant(xPos, 0, this.params);
       this.plant(newPlant);
     }
