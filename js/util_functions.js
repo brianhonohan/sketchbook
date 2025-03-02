@@ -98,4 +98,20 @@ class UtilFunctions {
   static round(value, increment = 1){
     return Math.round(value / increment) * increment;
   }
+
+  // match p5.js random() parameter options
+  // see: https://p5js.org/reference/p5/random/
+  //
+  // pass a single number to get a random number between 0 and that number
+  // pass two numbers to get a random number between those two numbers
+  // pass an array to get a random number from that array
+  static random(arg1, arg2){
+    if (Array.isArray(arg1)){
+      return arg1[Math.floor(Math.random() * arg1.length)];
+    }else if (arg2 === undefined){
+      return Math.random() * arg1;
+    }else{
+      return Math.random() * (arg2 - arg1) + arg1;
+    }
+  }
 }

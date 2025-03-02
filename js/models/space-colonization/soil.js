@@ -6,7 +6,7 @@ class Soil {
 
     this.nutrients = [];
     for (var i = 0; i< this.params.num_nutrients; i++){
-      let pos = new Vector2D(random(this.area.width), random(this.area.height));
+      let pos = new Vector2D(UtilFunctions.random(this.area.width), UtilFunctions.random(this.area.height));
       this.nutrients.push(new Nutrient(pos));
     }
 
@@ -31,8 +31,8 @@ class Soil {
 
   placePlantsRandomly(){
     for (var i = 0; i< this.params.num_plants; i++){
-      let xPos = random(this.area.width);
-      let yPos = random(this.area.height);
+      let xPos = UtilFunctions.random(this.area.width);
+      let yPos = UtilFunctions.random(this.area.height);
       let newPlant = new Plant(xPos, yPos, this.params);
       this.plant(newPlant);
     }

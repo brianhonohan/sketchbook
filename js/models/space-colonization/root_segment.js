@@ -28,7 +28,7 @@ class RootSegment {
     }
 
     let totalPos = new Vector2D(0, 0);
-    let randomModifier = function(vector, delta) { vector.mult(random(1-delta, 1+delta)); return vector; }
+    let randomModifier = function(vector, delta) { vector.mult(UtilFunctions.random(1-delta, 1+delta)); return vector; }
     let vectorAdder = function(total, vector) { total.add(vector); return total; };
     this.targetNutrients
         .map(nutrient => randomModifier(nutrient.pos.copy(), 0.008))
