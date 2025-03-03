@@ -5,10 +5,10 @@ class Space {
     this.area = sizeAndPos;
     this.params = params;
 
-    this.nutrients = [];
-    for (var i = 0; i< this.params.num_nutrients; i++){
+    this.influencers = [];
+    for (var i = 0; i< this.params.num_influencers; i++){
       let pos = new Vector2D(UtilFunctions.random(this.area.width), UtilFunctions.random(this.area.height));
-      this.nutrients.push(new Nutrient(pos));
+      this.influencers.push(new Influencer(pos));
     }
 
     this.networks = [];
@@ -62,36 +62,36 @@ class Space {
   }
 
   tick(){
-    this.transmitNutrients();
+    this.transmitInfluence();
     this.networks.forEach(p => p.tick());
   }
 
-  transmitNutrients(){
-    if (this.nutrients.length == 0){
+  transmitInfluence(){
+    if (this.influencers.length == 0){
       return;
     }
 
-    let nearbyNutrients = this.nutrients.filter(n => {
+    let nearbyInfluencers = this.influencers.filter(n => {
       return this.networks.some(p => p.detectionArea.containsXY(n.x, n.y));
     });
 
     let allSegments = this.networks.map(p => p.segments).flat();
 
-    let nutrientsWithSeg = nearbyNutrients.map(n => {
+    let influencersWithSeg = nearbyInfluencers.map(inf => {
       return {
-        nutrient: n,
-        segments: allSegments.filter(seg => seg.detectionArea.containsXY(n.x, n.y))
+        influencer: inf,
+        segments: allSegments.filter(seg => seg.detectionArea.containsXY(inf.x, inf.y))
       };
     });
-    nutrientsWithSeg = nutrientsWithSeg.filter(nSeg => nSeg.segments.length > 0);
+    influencersWithSeg = influencersWithSeg.filter(infSeg => infSeg.segments.length > 0);
 
-    nutrientsWithSeg.forEach(nSeg => {
+    influencersWithSeg.forEach(infSeg => {
       let closest = Number.POSITIVE_INFINITY; // intentially very large number
       let idxOfClosest = null;
-      for(var i = 0; i < nSeg.segments.length; i++){
-        let segment = nSeg.segments[i];
-        let dist = Vector2D.dist(nSeg.nutrient.pos, segment.pos);
-        if (dist < segment.nutrientDectionRange && dist < closest){
+      for(var i = 0; i < infSeg.segments.length; i++){
+        let segment = infSeg.segments[i];
+        let dist = Vector2D.dist(infSeg.influencer.pos, segment.pos);
+        if (dist < segment.detectionRange && dist < closest){
           idxOfClosest = i;
           closest = dist;
         }
@@ -101,22 +101,22 @@ class Space {
         return;
       }
 
-      let closestSeg = nSeg.segments[idxOfClosest];
-      closestSeg.addTargetNutrient(nSeg.nutrient);
+      let closestSeg = infSeg.segments[idxOfClosest];
+      closestSeg.addInfluencer(infSeg.influencer);
 
       if (closest < 10){
-        this.depleteNutrient(nSeg.nutrient);
+        this.removeInfluencer(infSeg.influencer);
       }
     });
   }
 
-  depleteNutrient(nutrient){
-    for (var i = 0; i < this.nutrients.length; i++){
-      if (this.nutrients[i] != nutrient){
+  removeInfluencer(influencer){
+    for (var i = 0; i < this.influencers.length; i++){
+      if (this.influencers[i] != influencer){
         continue;
       }
 
-      this.nutrients.splice(i, 1);
+      this.influencers.splice(i, 1);
       break;
     }
   }
@@ -125,10 +125,10 @@ class Space {
     push();
     translate(this.area.x, this.area.y);
 
-    Nutrient.setStyles();
-    this.nutrients.forEach(n => n.draw());
+    Influencer.setStyles();
+    this.influencers.forEach(influencer => influencer.draw());
 
-    this.networks.forEach(p => p.draw());
+    this.networks.forEach(network => network.draw());
     pop();
   }
 }

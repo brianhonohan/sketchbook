@@ -1,4 +1,4 @@
-class Nutrient {
+class Influencer {
   constructor(pos) {
     this.pos = pos;
     this.width = 5;

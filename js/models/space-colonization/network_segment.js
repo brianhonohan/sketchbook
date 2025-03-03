@@ -3,12 +3,12 @@ class NetworkSegment {
     this.pos = new Vector2D(x, y);
     this.parent = parent;
     this.network = network;
-    this.nutrientDectionRange = this.network.params.detection_range;
-    this.detectionArea = new Rect(this.x - this.nutrientDectionRange / 2, 
-                                  this.y - this.nutrientDectionRange / 2,
-                                  this.nutrientDectionRange,
-                                  this.nutrientDectionRange);
-    this.targetNutrients = [];
+    this.detectionRange = this.network.params.detection_range;
+    this.detectionArea = new Rect(this.x - this.detectionRange / 2, 
+                                  this.y - this.detectionRange / 2,
+                                  this.detectionRange,
+                                  this.detectionRange);
+    this.influencers = [];
     this.fillColor = color(red(this.network.fillColor),
                            green(this.network.fillColor),
                            blue(this.network.fillColor),
@@ -18,23 +18,23 @@ class NetworkSegment {
   get x(){ return this.pos.x; }
   get y(){ return this.pos.y; }
 
-  addTargetNutrient(nutrient){
-    this.targetNutrients.push(nutrient);
+  addInfluencer(influencer){
+    this.influencers.push(influencer);
   }
 
   tick(){
-    if (this.targetNutrients.length == 0){
+    if (this.influencers.length == 0){
       return;
     }
 
     let totalPos = new Vector2D(0, 0);
     let randomModifier = function(vector, delta) { vector.mult(UtilFunctions.random(1-delta, 1+delta)); return vector; }
     let vectorAdder = function(total, vector) { total.add(vector); return total; };
-    this.targetNutrients
-        .map(nutrient => randomModifier(nutrient.pos.copy(), 0.008))
+    this.influencers
+        .map(influencer => randomModifier(influencer.pos.copy(), 0.008))
         .reduce(vectorAdder, totalPos);
 
-    let avgPos = Vector2D.div(totalPos, this.targetNutrients.length);
+    let avgPos = Vector2D.div(totalPos, this.influencers.length);
 
     if (abs(avgPos.x - this.x) > 1 || abs(avgPos.y - this.y) > 1){
       this.addSegment(avgPos);
@@ -69,9 +69,9 @@ class NetworkSegment {
     line(this.parent.x, this.parent.y, this.x, this.y);
 
     stroke(50, 220, 240);
-    this.targetNutrients.forEach(n => {
+    this.influencers.forEach(n => {
       line(this.x, this.y, n.x, n.y);
     });
-    this.targetNutrients = []; // clear it out for next tick/draw cycle.
+    this.influencers = []; // clear it out for next tick/draw cycle.
   }
 }
