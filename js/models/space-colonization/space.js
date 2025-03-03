@@ -1,5 +1,6 @@
 
-class Soil {
+
+class Space {
   constructor(sizeAndPos, params){
     this.area = sizeAndPos;
     this.params = params;

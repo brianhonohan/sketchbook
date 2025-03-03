@@ -1,5 +1,5 @@
 var groundLevel;
-var soil;
+var space;
 var canvas;
 let modes = ['cross-section', 'top-down-random', 'top-down-orderly-rows'];
 
@@ -48,8 +48,8 @@ function draw(){
     drawGround(groundLevel);
   }
 
-  soil.tick();
-  soil.draw();
+  space.tick();
+  space.draw();
 }
 
 function drawGround(y){
@@ -66,7 +66,7 @@ function keyTyped(){
 function initSystem(){
   var groundArea = new Rect(0.1 * width, groundLevel, 
                             0.8 * width, 0.8 * height);
-  soil = new Soil(groundArea, params);
+  space = new Space(groundArea, params);
 }
 
 function addGuiListeners(){
