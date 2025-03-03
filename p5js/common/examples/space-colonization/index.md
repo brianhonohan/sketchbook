@@ -17,7 +17,7 @@ js_scripts:
 - /sketchbook/js/models/rect.js
 - /sketchbook/js/models/quadratic_equation.js
 - /sketchbook/js/layout_util_functions.js
-- /sketchbook/js/models/space-colonization/root_segment.js
+- /sketchbook/js/models/space-colonization/network_segment.js
 - /sketchbook/js/models/space-colonization/network_root.js
 - /sketchbook/js/models/space-colonization/nutrient.js
 - /sketchbook/js/models/space-colonization/space.js

@@ -1,4 +1,4 @@
-class RootSegment {
+class NetworkSegment {
   constructor(x, y, parent, network){
     this.pos = new Vector2D(x, y);
     this.parent = parent;
@@ -37,13 +37,13 @@ class RootSegment {
     let avgPos = Vector2D.div(totalPos, this.targetNutrients.length);
 
     if (abs(avgPos.x - this.x) > 1 || abs(avgPos.y - this.y) > 1){
-      this.addBranch(avgPos);
+      this.addSegment(avgPos);
     }
   }
 
-  addBranch(atPos){
-    let rootSeg = new RootSegment(atPos.x, atPos.y, this, this.network);
-    this.network.addRootSegment(rootSeg);
+  addSegment(atPos){
+    let networkSeg = new NetworkSegment(atPos.x, atPos.y, this, this.network);
+    this.network.addSegment(networkSeg);
   }
 
   static setStyle(){

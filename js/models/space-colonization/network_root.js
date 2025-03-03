@@ -11,11 +11,11 @@ class NetworkRoot {
     this.color = color(random(50, 220), random(50, 220), random(50, 220));
     this.fillColor = color(red(this.color), green(this.color), blue(this.color), 80);
 
-    let firstSegment = new RootSegment(this.x, this.y + 10, this, this);
-    this.addRootSegment(firstSegment);
+    let firstSegment = new NetworkSegment(this.x, this.y + 10, this, this);
+    this.addSegment(firstSegment);
   }
 
-  addRootSegment(segment){
+  addSegment(segment){
     this.segments.push(segment);
     this.detectionArea.expandToIncludeRect(segment.detectionArea);
   }
