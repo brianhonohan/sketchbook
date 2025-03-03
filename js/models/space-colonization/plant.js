@@ -5,7 +5,6 @@ class Plant {
     this.params = params;
 
     this.segments = [];
-    this.tips = [];
     this.detectionArea = new Rect(this.x, this.y, 0, 0);
 
     // Only used if: params.random_colors_per_plant == true
@@ -14,11 +13,6 @@ class Plant {
 
     let firstSegment = new RootSegment(this.x, this.y + 10, this, this);
     this.addRootSegment(firstSegment);
-
-    let downward = new Vector2D(0, 1);
-    let firstTip = new RootTip(this.x, this.y+10, firstSegment, downward, this);
-
-    this.tips.push(firstTip);
   }
 
   addRootSegment(segment){
@@ -28,7 +22,6 @@ class Plant {
 
   tick(){
     this.segments.forEach(s => s.tick());
-    this.tips.forEach(t => t.tick());
   }
 
   draw(){
@@ -43,8 +36,5 @@ class Plant {
     }
 
     this.segments.forEach(s => s.draw());
-    
-    RootTip.setStyle();
-    this.tips.forEach(t => t.draw());
   }
 }

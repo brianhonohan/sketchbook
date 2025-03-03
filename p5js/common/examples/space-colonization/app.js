@@ -9,7 +9,6 @@ var params = {
   num_nutrients: 1500,
   draw_plant_areas: false,
   draw_segment_areas: false,
-  grow_root_tips: false,
   detection_range: 50,
   num_plants: 9,
   random_colors_per_plant: true
@@ -33,7 +32,6 @@ function setup() {
   guiNumNutrients = gui.add(params, "num_nutrients", 50, 10000, 50);
   gui.add(params, "draw_plant_areas");
   gui.add(params, "draw_segment_areas");
-  gui.add(params, "grow_root_tips");
   guiDetectionRange= gui.add(params, "detection_range",10, 505, 10);
   guiNumPlants= gui.add(params, "num_plants", 1, 100, 1);
   gui.add(params, "random_colors_per_plant");
