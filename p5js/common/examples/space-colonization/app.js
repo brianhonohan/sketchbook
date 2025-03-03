@@ -7,11 +7,11 @@ var gui;
 var params = {
   mode: 'cross-section',
   num_nutrients: 1500,
-  draw_plant_areas: false,
+  draw_network_areas: false,
   draw_segment_areas: false,
   detection_range: 50,
-  num_plants: 9,
-  random_colors_per_plant: true
+  num_networks: 9,
+  random_colors_per_network: true
 };
 var guiNumNutrients;
 
@@ -30,11 +30,11 @@ function setup() {
   gui = P5JsSettings.addDatGui({autoPlace: false});
   gui.add(params, "mode", modes).onFinishChange(initSystem);
   guiNumNutrients = gui.add(params, "num_nutrients", 50, 10000, 50);
-  gui.add(params, "draw_plant_areas");
+  gui.add(params, "draw_network_areas");
   gui.add(params, "draw_segment_areas");
   guiDetectionRange= gui.add(params, "detection_range",10, 505, 10);
-  guiNumPlants= gui.add(params, "num_plants", 1, 100, 1);
-  gui.add(params, "random_colors_per_plant");
+  guiNumNetworks= gui.add(params, "num_networks", 1, 100, 1);
+  gui.add(params, "random_colors_per_network");
   addGuiListeners();
   // gui.close();
 
@@ -76,7 +76,7 @@ function addGuiListeners(){
   guiDetectionRange.onFinishChange(function(value) {
     initSystem();
   });
-  guiNumPlants.onFinishChange(function(value) {
+  guiNumNetworks.onFinishChange(function(value) {
     initSystem();
   });
 }

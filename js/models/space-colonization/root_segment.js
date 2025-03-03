@@ -1,17 +1,17 @@
 class RootSegment {
-  constructor(x, y, parent, plant){
+  constructor(x, y, parent, network){
     this.pos = new Vector2D(x, y);
     this.parent = parent;
-    this.plant = plant;
-    this.nutrientDectionRange = this.plant.params.detection_range;
+    this.network = network;
+    this.nutrientDectionRange = this.network.params.detection_range;
     this.detectionArea = new Rect(this.x - this.nutrientDectionRange / 2, 
                                   this.y - this.nutrientDectionRange / 2,
                                   this.nutrientDectionRange,
                                   this.nutrientDectionRange);
     this.targetNutrients = [];
-    this.fillColor = color(red(this.plant.fillColor),
-                           green(this.plant.fillColor),
-                           blue(this.plant.fillColor),
+    this.fillColor = color(red(this.network.fillColor),
+                           green(this.network.fillColor),
+                           blue(this.network.fillColor),
                            20);
   }
 
@@ -42,8 +42,8 @@ class RootSegment {
   }
 
   addBranch(atPos){
-    let rootSeg = new RootSegment(atPos.x, atPos.y, this, this.plant);
-    this.plant.addRootSegment(rootSeg);
+    let rootSeg = new RootSegment(atPos.x, atPos.y, this, this.network);
+    this.network.addRootSegment(rootSeg);
   }
 
   static setStyle(){
@@ -51,9 +51,9 @@ class RootSegment {
   }
 
   draw(){
-    if (this.plant.params.draw_segment_areas){
+    if (this.network.params.draw_segment_areas){
       noStroke();
-      if (this.plant.params.random_colors_per_plant){
+      if (this.network.params.random_colors_per_network){
         fill(this.fillColor);
       }else{
         fill(50,200,50,20);
@@ -61,8 +61,8 @@ class RootSegment {
       P5JsUtils.drawRect(this.detectionArea);
     }
 
-    if (this.plant.params.random_colors_per_plant){
-      stroke(this.plant.color);
+    if (this.network.params.random_colors_per_network){
+      stroke(this.network.color);
     }else{
       stroke(230);
     }

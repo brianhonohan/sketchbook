@@ -11,36 +11,36 @@ class Space {
       this.nutrients.push(new Nutrient(pos));
     }
 
-    this.plants = [];
+    this.networks = [];
     if (this.params.mode == 'cross-section'){
-      this.placePlantsAtGroundLevel();
+      this.placeNetworksAtGroundLevel();
     } else if (this.params.mode == 'top-down-random'){
-      this.placePlantsRandomly();
+      this.placeNetworksRandomly();
     } else if (this.params.mode == 'top-down-orderly-rows'){
-      this.placePlantsInRows();
+      this.placeNetworksInRows();
     }
   }
 
-  placePlantsAtGroundLevel(){
-    let spacing = this.area.width / (1 + this.params.num_plants);
-    for (var i = 0; i< this.params.num_plants; i++){
+  placeNetworksAtGroundLevel(){
+    let spacing = this.area.width / (1 + this.params.num_networks);
+    for (var i = 0; i< this.params.num_networks; i++){
       let xPos = Math.floor(spacing * (i + 1));
-      let newPlant = new Plant(xPos, 0, this.params);
-      this.plant(newPlant);
+      let newNetwork = new NetworkRoot(xPos, 0, this.params);
+      this.addNetwork(newNetwork);
     }
   }
 
-  placePlantsRandomly(){
-    for (var i = 0; i< this.params.num_plants; i++){
+  placeNetworksRandomly(){
+    for (var i = 0; i< this.params.num_networks; i++){
       let xPos = UtilFunctions.random(this.area.width);
       let yPos = UtilFunctions.random(this.area.height);
-      let newPlant = new Plant(xPos, yPos, this.params);
-      this.plant(newPlant);
+      let newNetwork = new NetworkRoot(xPos, yPos, this.params);
+      this.addNetwork(newNetwork);
     }
   }
 
-  placePlantsInRows(){
-    const solutions = LayoutUtilFunctions.computeRowsColsSpacing(this.area, this.params.num_plants);
+  placeNetworksInRows(){
+    const solutions = LayoutUtilFunctions.computeRowsColsSpacing(this.area, this.params.num_networks);
 
     if (solutions.length ==0){
       console.error('Unable to compute layout');
@@ -51,19 +51,19 @@ class Space {
       for (var j = 0; j< solutions[0].rows; j++){
         let xPos = (1 + i) * solutions[0].spacing;
         let yPos = (1 + j) * solutions[0].spacing;
-        let newPlant = new Plant(xPos, yPos, this.params);
-        this.plant(newPlant);
+        let newNetwork = new NetworkRoot(xPos, yPos, this.params);
+        this.addNetwork(newNetwork);
       }
     }
   }
 
-  plant(newPlant){
-    this.plants.push(newPlant);
+  addNetwork(newNetwork){
+    this.networks.push(newNetwork);
   }
 
   tick(){
     this.transmitNutrients();
-    this.plants.forEach(p => p.tick());
+    this.networks.forEach(p => p.tick());
   }
 
   transmitNutrients(){
@@ -72,10 +72,10 @@ class Space {
     }
 
     let nearbyNutrients = this.nutrients.filter(n => {
-      return this.plants.some(p => p.detectionArea.containsXY(n.x, n.y));
+      return this.networks.some(p => p.detectionArea.containsXY(n.x, n.y));
     });
 
-    let allSegments = this.plants.map(p => p.segments).flat();
+    let allSegments = this.networks.map(p => p.segments).flat();
 
     let nutrientsWithSeg = nearbyNutrients.map(n => {
       return {
@@ -128,7 +128,7 @@ class Space {
     Nutrient.setStyles();
     this.nutrients.forEach(n => n.draw());
 
-    this.plants.forEach(p => p.draw());
+    this.networks.forEach(p => p.draw());
     pop();
   }
 }
