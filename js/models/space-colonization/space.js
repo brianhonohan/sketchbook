@@ -14,6 +14,10 @@ class Space {
     this.networks = [];
     if (this.params.mode == 'along-top-edge'){
       this.placeNetworksAlongTopEdge();
+    } else if (this.params.mode == 'along-all-edges'){
+      this.placeNetworksAllEdges();
+    } else if (this.params.mode == 'along-top-bottom-edges'){
+      this.placeNetworksTopBottomEdges();
     } else if (this.params.mode == 'along-left-right-edges'){
       this.placeNetworksLeftRightEdges();
     } else if (this.params.mode == 'top-down-random'){
@@ -28,6 +32,24 @@ class Space {
     for (var i = 0; i< this.params.num_networks; i++){
       let xPos = Math.floor(spacing * (i + 1));
       let newNetwork = new NetworkRoot(xPos, 0, this.params);
+      this.addNetwork(newNetwork);
+    }
+  }
+
+  placeNetworksAllEdges(){
+    let relativeRect = new Rect(0, 0, this.area.width, this.area.height);
+    const locations = LayoutUtilFunctions.alongEdges(relativeRect, this.params.num_networks, ['top', 'right', 'bottom', 'left']);
+    for (var i = 0; i< locations.length; i++){
+      let newNetwork = new NetworkRoot(locations[i][0], locations[i][1], this.params);
+      this.addNetwork(newNetwork);
+    }
+  }
+
+  placeNetworksTopBottomEdges(){
+    let relativeRect = new Rect(0, 0, this.area.width, this.area.height);
+    const locations = LayoutUtilFunctions.alongEdges(relativeRect, this.params.num_networks, ['top', 'bottom']);
+    for (var i = 0; i< locations.length; i++){
+      let newNetwork = new NetworkRoot(locations[i][0], locations[i][1], this.params);
       this.addNetwork(newNetwork);
     }
   }

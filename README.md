@@ -7,7 +7,7 @@ Collection of personal coding projects. They may or may not grow into individual
 
 An example of emerge reusable Terrain component, with computed isolines (refactored from Marching Squares sketch).
 
-[<img src="./p5js/common/examples/terrain/screenshot-01.png" alt="terrain" width="150px" />][link-p5js-terrain]
+[<img src="./p5js/common/examples/space-colonization/screenshot-01.png" alt="quadtree" width="150px" />][link-p5js-space-colonization]
 
 ## LÖVE
 Collection of sketches using the [LÖVE][love2d] environment.
@@ -37,6 +37,7 @@ Collection of sketches using the [p5.js][p5js] Javascript library which demonstr
 [<img src="./p5js/common/examples/quadtree-2/screenshot-01.png" alt="quadtree" width="150px" />][link-p5js-quadtree-2]
 [<img src="./p5js/common/examples/rotation-between-vectors/screenshot-01.png" alt="quadtree" width="150px" />][link-p5js-rotation-between-vectors]
 [<img src="./p5js/common/examples/shapes-tangents-between-circles/screenshot-01.png" alt="quadtree" width="150px" />][link-p5js-shapes-tangents-between-circles]
+[<img src="./p5js/common/examples/space-colonization/screenshot-01.png" alt="quadtree" width="150px" />][link-p5js-space-colonization]
 [<img src="./p5js/common/examples/teardrops/screenshot-01.png" alt="teardrops" width="150px" />][link-p5js-teardrops]
 [<img src="./p5js/common/examples/terrain/screenshot-01.png" alt="terrain" width="150px" />][link-p5js-terrain]
 [<img src="./p5js/common/examples/utils-random-color/screenshot-01.png" alt="teardrops" width="150px" />][link-p5js-utils-random-color]
@@ -168,6 +169,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-p5js-quadtree-2]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/quadtree-2/
 [link-p5js-rotation-between-vectors]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/rotation-between-vectors/
 [link-p5js-shapes-tangents-between-circles]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/shapes-tangents-between-circles/
+[link-p5js-space-colonization]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/space-colonization/
 [link-p5js-voronoi]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/voronoi/
 [link-p5js-voronoi-2]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/voronoi-2/
 [link-p5js-voronoi-3]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/voronoi-3/

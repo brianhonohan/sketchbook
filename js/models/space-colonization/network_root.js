@@ -11,7 +11,7 @@ class NetworkRoot {
     this.color = color(random(50, 220), random(50, 220), random(50, 220));
     this.fillColor = color(red(this.color), green(this.color), blue(this.color), 80);
 
-    let firstSegment = new NetworkSegment(this.x, this.y + 10, this, this);
+    let firstSegment = new NetworkSegment(this.x, this.y, this, this);
     this.addSegment(firstSegment);
   }
 
