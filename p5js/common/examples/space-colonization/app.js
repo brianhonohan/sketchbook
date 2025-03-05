@@ -1,10 +1,10 @@
 var system;
 var canvas;
-let modes = ['cross-section', 'top-down-random', 'top-down-orderly-rows'];
+let modes = ['along-top-edge', 'top-down-random', 'top-down-orderly-rows'];
 
 var gui;
 var params = {
-  mode: 'cross-section',
+  mode: 'along-top-edge',
   num_influencers: 1500,
   draw_network_areas: false,
   draw_segment_areas: false,

@@ -12,8 +12,8 @@ class Space {
     }
 
     this.networks = [];
-    if (this.params.mode == 'cross-section'){
-      this.placeNetworksAtGroundLevel();
+    if (this.params.mode == 'along-top-edge'){
+      this.placeNetworksAlongTopEdge();
     } else if (this.params.mode == 'top-down-random'){
       this.placeNetworksRandomly();
     } else if (this.params.mode == 'top-down-orderly-rows'){
@@ -21,7 +21,7 @@ class Space {
     }
   }
 
-  placeNetworksAtGroundLevel(){
+  placeNetworksAlongTopEdge(){
     let spacing = this.area.width / (1 + this.params.num_networks);
     for (var i = 0; i< this.params.num_networks; i++){
       let xPos = Math.floor(spacing * (i + 1));
