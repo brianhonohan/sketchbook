@@ -1,5 +1,5 @@
 var groundLevel;
-var space;
+var system;
 var canvas;
 let modes = ['cross-section', 'top-down-random', 'top-down-orderly-rows'];
 
@@ -37,8 +37,11 @@ function setup() {
   gui.add(params, "random_colors_per_network");
   addGuiListeners();
   // gui.close();
-
+  
   groundLevel = floor(height * 0.1);
+
+  var area = new Rect(0.1 * width, groundLevel, 0.8 * width, 0.8 * height);
+  system = new System(area, params);
   initSystem();
 }
 
@@ -48,8 +51,8 @@ function draw(){
     drawGround(groundLevel);
   }
 
-  space.tick();
-  space.draw();
+  system.tick();
+  system.draw();
 }
 
 function drawGround(y){
@@ -64,9 +67,7 @@ function keyTyped(){
 }
 
 function initSystem(){
-  var groundArea = new Rect(0.1 * width, groundLevel, 
-                            0.8 * width, 0.8 * height);
-  space = new Space(groundArea, params);
+  system.init();
 }
 
 function addGuiListeners(){

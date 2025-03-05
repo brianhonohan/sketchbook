@@ -21,6 +21,7 @@ js_scripts:
 - /sketchbook/js/models/space-colonization/network_root.js
 - /sketchbook/js/models/space-colonization/influencer.js
 - /sketchbook/js/models/space-colonization/space.js
+- classes/system.js
 - app.js
 
 ---
