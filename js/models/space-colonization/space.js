@@ -12,8 +12,10 @@ class Space {
     }
 
     this.networks = [];
-    if (this.params.mode == 'cross-section'){
-      this.placeNetworksAtGroundLevel();
+    if (this.params.mode == 'along-top-edge'){
+      this.placeNetworksAlongTopEdge();
+    } else if (this.params.mode == 'along-left-right-edges'){
+      this.placeNetworksLeftRightEdges();
     } else if (this.params.mode == 'top-down-random'){
       this.placeNetworksRandomly();
     } else if (this.params.mode == 'top-down-orderly-rows'){
@@ -21,7 +23,7 @@ class Space {
     }
   }
 
-  placeNetworksAtGroundLevel(){
+  placeNetworksAlongTopEdge(){
     let spacing = this.area.width / (1 + this.params.num_networks);
     for (var i = 0; i< this.params.num_networks; i++){
       let xPos = Math.floor(spacing * (i + 1));
@@ -30,30 +32,28 @@ class Space {
     }
   }
 
+  placeNetworksLeftRightEdges(){
+    let relativeRect = new Rect(0, 0, this.area.width, this.area.height);
+    const locations = LayoutUtilFunctions.alongEdges(relativeRect, this.params.num_networks, ['right', 'left']);
+    for (var i = 0; i< locations.length; i++){
+      let newNetwork = new NetworkRoot(locations[i][0], locations[i][1], this.params);
+      this.addNetwork(newNetwork);
+    }
+  }
+
   placeNetworksRandomly(){
-    for (var i = 0; i< this.params.num_networks; i++){
-      let xPos = UtilFunctions.random(this.area.width);
-      let yPos = UtilFunctions.random(this.area.height);
-      let newNetwork = new NetworkRoot(xPos, yPos, this.params);
+    const locations = LayoutUtilFunctions.randomPlacement(this.area, this.params.num_networks);
+    for (var i = 0; i< locations.length; i++){
+      let newNetwork = new NetworkRoot(locations[i][0], locations[i][1], this.params);
       this.addNetwork(newNetwork);
     }
   }
 
   placeNetworksInRows(){
-    const solutions = LayoutUtilFunctions.computeRowsColsSpacing(this.area, this.params.num_networks);
-
-    if (solutions.length ==0){
-      console.error('Unable to compute layout');
-      return;
-    }
-
-    for (var i = 0; i< solutions[0].cols; i++){
-      for (var j = 0; j< solutions[0].rows; j++){
-        let xPos = (1 + i) * solutions[0].spacing;
-        let yPos = (1 + j) * solutions[0].spacing;
-        let newNetwork = new NetworkRoot(xPos, yPos, this.params);
-        this.addNetwork(newNetwork);
-      }
+    const locations = LayoutUtilFunctions.rowsColumnsEvenPadding(this.area, this.params.num_networks);
+    for (var i = 0; i< locations.length; i++){
+      let newNetwork = new NetworkRoot(locations[i][0], locations[i][1], this.params);
+      this.addNetwork(newNetwork);
     }
   }
 
