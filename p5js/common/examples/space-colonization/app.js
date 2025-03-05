@@ -1,4 +1,3 @@
-var groundLevel;
 var system;
 var canvas;
 let modes = ['cross-section', 'top-down-random', 'top-down-orderly-rows'];
@@ -38,26 +37,16 @@ function setup() {
   addGuiListeners();
   // gui.close();
   
-  groundLevel = floor(height * 0.1);
-
-  var area = new Rect(0.1 * width, groundLevel, 0.8 * width, 0.8 * height);
+  var area = new Rect(0.1 * width, height * 0.1, 0.8 * width, 0.8 * height);
   system = new System(area, params);
   initSystem();
 }
 
 function draw(){
   background(50);
-  if (params.mode == 'cross-section'){
-    drawGround(groundLevel);
-  }
 
   system.tick();
   system.draw();
-}
-
-function drawGround(y){
-  stroke(230);
-  P5JsUtils.drawSolidBoundary(0.1 * width, y, 0.9 * width, y);
 }
 
 function keyTyped(){
