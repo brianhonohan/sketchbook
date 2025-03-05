@@ -31,10 +31,9 @@ class Space {
   }
 
   placeNetworksRandomly(){
-    for (var i = 0; i< this.params.num_networks; i++){
-      let xPos = UtilFunctions.random(this.area.width);
-      let yPos = UtilFunctions.random(this.area.height);
-      let newNetwork = new NetworkRoot(xPos, yPos, this.params);
+    const locations = LayoutUtilFunctions.randomPlacement(this.area, this.params.num_networks);
+    for (var i = 0; i< locations.length; i++){
+      let newNetwork = new NetworkRoot(locations[i][0], locations[i][1], this.params);
       this.addNetwork(newNetwork);
     }
   }

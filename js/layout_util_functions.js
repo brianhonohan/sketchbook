@@ -42,6 +42,16 @@ class LayoutUtilFunctions {
     return rect.width / rect.height;
   }
 
+  static randomPlacement(rectA, numObjects){
+    const layout = [];
+    for (let i = 0; i < numObjects; i++){ 
+      let xPos = UtilFunctions.random(rectA.width);
+      let yPos = UtilFunctions.random(rectA.height);  
+      layout.push([xPos, yPos]);
+    }
+    return layout;
+  }
+
   static computeRowsColsSpacing(rectA, numObjects){
     // Solution:
     // Given width, height (as rect) and number of objects (n)
