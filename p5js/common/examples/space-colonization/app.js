@@ -1,10 +1,16 @@
 var system;
 var canvas;
-let modes = ['along-top-edge', 'along-left-right-edges', 'top-down-random', 'top-down-orderly-rows'];
+let modes = ['along-top-edge', 
+  'along-all-edges',
+  'along-top-bottom-edges',
+  'along-left-right-edges',
+  'top-down-random',
+  'top-down-orderly-rows'
+];
 
 var gui;
 var params = {
-  mode: 'along-top-edge',
+  mode: 'along-all-edges',
   num_influencers: 1500,
   draw_network_areas: false,
   draw_segment_areas: false,
