@@ -1,6 +1,6 @@
 var system;
 var canvas;
-let modes = ['along-top-edge', 'top-down-random', 'top-down-orderly-rows'];
+let modes = ['along-top-edge', 'along-left-right-edges', 'top-down-random', 'top-down-orderly-rows'];
 
 var gui;
 var params = {

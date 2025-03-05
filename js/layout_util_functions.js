@@ -42,6 +42,120 @@ class LayoutUtilFunctions {
     return rect.width / rect.height;
   }
 
+  // Returns x,y positions of objects around the borders of the rectA
+  // rectA is the bounding box
+  // numObjects is the number of objects to place
+  // edges is an array of strings indicating which edges to place objects on
+  // e.g. ['top', 'bottom', 'left', 'right'] 
+  static alongEdges(rectA, numObjects, edges){
+    if (numObjects == 0){
+      console.error('No objects specified');  
+      return;
+    }
+
+    let totalEdgeLength = 0;
+    let edgeLengths = []; 
+    for (let i = 0; i < edges.length; i++){
+      let edge = edges[i];
+      if (edge == 'top' || edge == 'bottom'){
+        edgeLengths.push(rectA.width);
+        totalEdgeLength += rectA.width;
+      } else if (edge == 'left' || edge == 'right'){
+        edgeLengths.push(rectA.height);
+        totalEdgeLength += rectA.height;
+      }
+    }
+
+    if (totalEdgeLength == 0){
+      console.error('No edges specified');
+      return;
+    }
+
+    // Compute edge breakpoints as sum of edgeLengths up to that index
+    const edgeBreakpoints = [];
+    let edgeSum = 0;  
+    for (let i = 0; i < edgeLengths.length; i++){
+      edgeSum += edgeLengths[i];
+      edgeBreakpoints.push(edgeSum);
+    }
+
+    const spacing = totalEdgeLength / (numObjects + edges.length);
+    let cursor = 0;
+    let partialStepTaken = 0;
+
+    const layout = [];
+    let xLimit = 0;
+    let yLimit = 0;
+    let baseX = 0;
+    let baseY = 0;
+    let stepX = 0;
+    let stepY = 0;
+    let partialStepMultiplierX = 0;
+    let partialStepMultiplierY = 0;
+
+    // EGADS ... SORRY
+    for (let i = 0; i < edges.length; i++){
+      let edge = edges[i];
+      if (edge == 'top') {
+        baseX = rectA.x;
+        baseY = rectA.y;
+        stepX = spacing;
+        stepY = 0;
+        // xLimit = rectA.x + rectA.width;
+        partialStepMultiplierX = 1;
+        partialStepMultiplierY = 0;
+      } else if (edge == 'right'){
+        baseX = rectA.x + rectA.width;
+        baseY = rectA.y;
+        stepX = 0;
+        stepY = spacing;
+        // yLimit = rectA.y + rectA.height;
+        partialStepMultiplierX = 0;
+        partialStepMultiplierY = 1;
+      } else if (edge == 'bottom'){
+        baseX = rectA.x + rectA.width;
+        baseY = rectA.y + rectA.height;
+        stepX = -spacing;
+        stepY = 0;
+        // xLimit = rectA.x;
+        partialStepMultiplierX = 1;
+        partialStepMultiplierY = 0;
+      } else if (edge == 'left'){
+        baseX = rectA.x;
+        baseY = rectA.y + rectA.height;
+        stepX = 0;
+        stepY = -spacing;
+        // yLimit = rectA.y;
+        partialStepMultiplierX = 0;
+        partialStepMultiplierY = 1;
+      }
+      let xPos = baseX;
+      let yPos = baseY;
+
+      while (cursor < totalEdgeLength){
+        if ((cursor + spacing) > edgeBreakpoints[i]){
+          partialStepTaken = edgeBreakpoints[i] - cursor;
+          cursor += partialStepTaken;
+          break;
+        }
+        if (partialStepTaken > 0){
+          xPos += partialStepMultiplierX * partialStepTaken;
+          yPos += partialStepMultiplierY * partialStepTaken;
+          partialStepTaken = 0;
+        }
+        xPos += stepX;
+        yPos += stepY;
+        layout.push([xPos, yPos]);
+        
+        if (layout.length >= numObjects){
+          break;
+        }
+        cursor += spacing;
+      }
+    }
+    return layout;
+  }
+
   static randomPlacement(rectA, numObjects){
     const layout = [];
     for (let i = 0; i < numObjects; i++){ 
