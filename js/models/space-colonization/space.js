@@ -39,20 +39,10 @@ class Space {
   }
 
   placeNetworksInRows(){
-    const solutions = LayoutUtilFunctions.computeRowsColsSpacing(this.area, this.params.num_networks);
-
-    if (solutions.length ==0){
-      console.error('Unable to compute layout');
-      return;
-    }
-
-    for (var i = 0; i< solutions[0].cols; i++){
-      for (var j = 0; j< solutions[0].rows; j++){
-        let xPos = (1 + i) * solutions[0].spacing;
-        let yPos = (1 + j) * solutions[0].spacing;
-        let newNetwork = new NetworkRoot(xPos, yPos, this.params);
-        this.addNetwork(newNetwork);
-      }
+    const locations = LayoutUtilFunctions.rowsColumnsEvenPadding(this.area, this.params.num_networks);
+    for (var i = 0; i< locations.length; i++){
+      let newNetwork = new NetworkRoot(locations[i][0], locations[i][1], this.params);
+      this.addNetwork(newNetwork);
     }
   }
 

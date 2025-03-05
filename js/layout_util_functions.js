@@ -52,6 +52,25 @@ class LayoutUtilFunctions {
     return layout;
   }
 
+  static rowsColumnsEvenPadding(rectA, numObjects){
+    const solutions = LayoutUtilFunctions.computeRowsColsSpacing(rectA, numObjects);
+
+    if (solutions.length ==0){
+      console.error('Unable to compute rowsColumnsEvenPadding layout');
+      return [];
+    }
+
+    const layout = [];
+    for (var i = 0; i< solutions[0].cols; i++){
+      for (var j = 0; j< solutions[0].rows; j++){
+        let xPos = (1 + i) * solutions[0].spacing;
+        let yPos = (1 + j) * solutions[0].spacing;
+        layout.push([xPos, yPos]);
+      }
+    }
+    return layout;
+  }
+
   static computeRowsColsSpacing(rectA, numObjects){
     // Solution:
     // Given width, height (as rect) and number of objects (n)
