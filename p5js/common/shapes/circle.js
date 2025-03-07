@@ -97,6 +97,7 @@ class Circle {
     return  dist(x, y, this.x, this.y) < this.radius;
   }
 
+  // To consider: refactor to base js/models/circle.js
   tangentPoint(point, clockwiseWrap = true){
     const vec = createVector(this.x - point.x, this.y - point.y);
     const dist = vec.mag();
@@ -111,6 +112,7 @@ class Circle {
     return {x: point.x + vec.x, y: point.y + vec.y};
   }
 
+  // To consider: refactor to base js/models/circle.js
   radialVector(point){
     return createVector(point.x - this.x, point.y - this.y);
   }
@@ -120,6 +122,7 @@ class Circle {
   static get TANGENT_MODE_NEG_TO_POS() { return -2; }
   static get TANGENT_MODE_NEG_TO_NEG() { return 2; }
 
+  // To consider: refactor to base js/models/circle.js
   tangentToCircle(other, mode = Circle.TANGENT_MODE_POS_TO_POS){
     const wrap = (mode == Circle.TANGENT_MODE_POS_TO_POS 
                     || mode == Circle.TANGENT_MODE_NEG_TO_POS);

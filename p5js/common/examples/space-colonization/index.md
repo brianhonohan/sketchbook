@@ -16,6 +16,7 @@ js_scripts:
 - /sketchbook/js/options_set.js
 - /sketchbook/js/models/vector_2d.js
 - /sketchbook/js/models/rect.js
+- /sketchbook/js/models/circle.js
 - /sketchbook/js/models/quadratic_equation.js
 - /sketchbook/js/layout_util_functions.js
 - /sketchbook/js/models/space-colonization/network_segment.js

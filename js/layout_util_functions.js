@@ -60,6 +60,9 @@ class LayoutUtilFunctions {
         return this.randomPlacement(region, numPoints, options);
       case 'orderly-rows':
         return this.rowsColumnsEvenPadding(region, numPoints, options);
+      case 'around-circle':
+        console.log('around-circle');
+        return this.aroundCircle(region, numPoints, options);
       default:
         console.error('Invalid mode specified');
         return [];
@@ -269,4 +272,14 @@ class LayoutUtilFunctions {
     return solutions; 
   }
 
+  static aroundCircle(circle, numPoints, options){
+    const layout = [];
+    for (let i = 0; i < numPoints; i++){
+      let angle = (i / numPoints) * 2 * Math.PI;
+      let xPos = circle.x + circle.radius * Math.cos(angle);
+      let yPos = circle.y + circle.radius * Math.sin(angle);
+      layout.push([xPos, yPos]);
+    }
+    return layout;
+  }
 }
