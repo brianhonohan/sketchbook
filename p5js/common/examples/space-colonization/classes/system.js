@@ -6,6 +6,28 @@ class System {
 
   init(){
     this.space = new Space(this.area, this.params);
+    let relativeRect = new Rect(0, 0, this.area.width, this.area.height);
+    let relativeCircle = new Circle(this.area.width / 2,
+                                    this.area.height / 2,
+                                    Math.min(this.area.width, this.area.height) / 2);
+    let region = relativeRect;
+    if (this.params.mode == 'around-circle'){
+      region = relativeCircle;
+    }
+
+    this.space.placeNetworks(
+      LayoutUtilFunctions.getPoints(params.mode, 
+        region, params.num_networks));
+
+    region = relativeRect;
+    // if (this.params.influencer_mode == 'around-circle'){
+    //   region = relativeCircle;
+    // }
+    this.space.placeInfluencers(
+      LayoutUtilFunctions.getPoints(params.influencer_mode, 
+              relativeRect, params.num_influencers)
+        );
+
   }
 
   tick(){
