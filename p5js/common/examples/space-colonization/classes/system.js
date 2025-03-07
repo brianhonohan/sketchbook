@@ -6,6 +6,13 @@ class System {
 
   init(){
     this.space = new Space(this.area, this.params);
+    let relativeRect = new Rect(0, 0, this.area.width, this.area.height);
+
+    this.space.placeNetworks(
+          LayoutUtilFunctions.getPoints(params.mode, 
+                  relativeRect, params.num_networks)
+            );
+
   }
 
   tick(){

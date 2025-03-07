@@ -4,8 +4,8 @@ let modes = ['along-top-edge',
   'along-all-edges',
   'along-top-bottom-edges',
   'along-left-right-edges',
-  'top-down-random',
-  'top-down-orderly-rows'
+  'random',
+  'orderly-rows'
 ];
 
 var gui;

@@ -42,17 +42,43 @@ class LayoutUtilFunctions {
     return rect.width / rect.height;
   }
 
+  static getPoints(mode, region, numPoints, options = {}){
+    switch (mode) {
+      case 'along-top-edge':
+        options.edges = ['top'];
+        return this.alongEdges(region, numPoints, options);
+      case 'along-all-edges':
+        options.edges = ['top', 'right', 'bottom', 'left'];
+        return this.alongEdges(region, numPoints, options);
+      case 'along-top-bottom-edges':
+        options.edges = ['top', 'bottom'];
+        return this.alongEdges(region, numPoints, options);
+      case 'along-left-right-edges':
+        options.edges = ['left', 'right'];
+        return this.alongEdges(region, numPoints, options);
+      case 'random':
+        return this.randomPlacement(region, numPoints, options);
+      case 'orderly-rows':
+        return this.rowsColumnsEvenPadding(region, numPoints, options);
+      default:
+        console.error('Invalid mode specified');
+        return [];
+    }
+  }
+
   // Returns x,y positions of objects around the borders of the rectA
   // rectA is the bounding box
   // numObjects is the number of objects to place
-  // edges is an array of strings indicating which edges to place objects on
+  // options is an object of options
+  // otpions.edges is an array of strings indicating which edges to place objects on
   // e.g. ['top', 'bottom', 'left', 'right'] 
-  static alongEdges(rectA, numObjects, edges){
+  static alongEdges(rectA, numObjects, options = {}){
     if (numObjects == 0){
       console.error('No objects specified');  
       return;
     }
 
+    let edges = options.edges || ['top', 'bottom', 'left', 'right'];
     let totalEdgeLength = 0;
     let edgeLengths = []; 
     for (let i = 0; i < edges.length; i++){

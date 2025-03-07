@@ -12,56 +12,6 @@ class Space {
     }
 
     this.networks = [];
-    if (this.params.mode == 'along-top-edge'){
-      this.placeNetworksAlongTopEdge();
-    } else if (this.params.mode == 'along-all-edges'){
-      this.placeNetworksAllEdges();
-    } else if (this.params.mode == 'along-top-bottom-edges'){
-      this.placeNetworksTopBottomEdges();
-    } else if (this.params.mode == 'along-left-right-edges'){
-      this.placeNetworksLeftRightEdges();
-    } else if (this.params.mode == 'top-down-random'){
-      this.placeNetworksRandomly();
-    } else if (this.params.mode == 'top-down-orderly-rows'){
-      this.placeNetworksInRows();
-    }
-  }
-
-  placeNetworksAlongTopEdge(){
-    let spacing = this.area.width / (1 + this.params.num_networks);
-    for (var i = 0; i< this.params.num_networks; i++){
-      let xPos = Math.floor(spacing * (i + 1));
-      let newNetwork = new NetworkRoot(xPos, 0, this.params);
-      this.addNetwork(newNetwork);
-    }
-  }
-
-  placeNetworksAllEdges(){
-    let relativeRect = new Rect(0, 0, this.area.width, this.area.height);
-    const locations = LayoutUtilFunctions.alongEdges(relativeRect, this.params.num_networks, ['top', 'right', 'bottom', 'left']);
-    this.placeNetworks(locations);
-  }
-
-  placeNetworksTopBottomEdges(){
-    let relativeRect = new Rect(0, 0, this.area.width, this.area.height);
-    const locations = LayoutUtilFunctions.alongEdges(relativeRect, this.params.num_networks, ['top', 'bottom']);
-    this.placeNetworks(locations);
-  }
-
-  placeNetworksLeftRightEdges(){
-    let relativeRect = new Rect(0, 0, this.area.width, this.area.height);
-    const locations = LayoutUtilFunctions.alongEdges(relativeRect, this.params.num_networks, ['right', 'left']);
-    this.placeNetworks(locations);
-  }
-
-  placeNetworksRandomly(){
-    const locations = LayoutUtilFunctions.randomPlacement(this.area, this.params.num_networks);
-    this.placeNetworks(locations);
-  }
-
-  placeNetworksInRows(){
-    const locations = LayoutUtilFunctions.rowsColumnsEvenPadding(this.area, this.params.num_networks);
-    this.placeNetworks(locations);
   }
 
   placeNetworks(locations){
