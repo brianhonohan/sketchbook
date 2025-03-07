@@ -39,40 +39,32 @@ class Space {
   placeNetworksAllEdges(){
     let relativeRect = new Rect(0, 0, this.area.width, this.area.height);
     const locations = LayoutUtilFunctions.alongEdges(relativeRect, this.params.num_networks, ['top', 'right', 'bottom', 'left']);
-    for (var i = 0; i< locations.length; i++){
-      let newNetwork = new NetworkRoot(locations[i][0], locations[i][1], this.params);
-      this.addNetwork(newNetwork);
-    }
+    this.placeNetworks(locations);
   }
 
   placeNetworksTopBottomEdges(){
     let relativeRect = new Rect(0, 0, this.area.width, this.area.height);
     const locations = LayoutUtilFunctions.alongEdges(relativeRect, this.params.num_networks, ['top', 'bottom']);
-    for (var i = 0; i< locations.length; i++){
-      let newNetwork = new NetworkRoot(locations[i][0], locations[i][1], this.params);
-      this.addNetwork(newNetwork);
-    }
+    this.placeNetworks(locations);
   }
 
   placeNetworksLeftRightEdges(){
     let relativeRect = new Rect(0, 0, this.area.width, this.area.height);
     const locations = LayoutUtilFunctions.alongEdges(relativeRect, this.params.num_networks, ['right', 'left']);
-    for (var i = 0; i< locations.length; i++){
-      let newNetwork = new NetworkRoot(locations[i][0], locations[i][1], this.params);
-      this.addNetwork(newNetwork);
-    }
+    this.placeNetworks(locations);
   }
 
   placeNetworksRandomly(){
     const locations = LayoutUtilFunctions.randomPlacement(this.area, this.params.num_networks);
-    for (var i = 0; i< locations.length; i++){
-      let newNetwork = new NetworkRoot(locations[i][0], locations[i][1], this.params);
-      this.addNetwork(newNetwork);
-    }
+    this.placeNetworks(locations);
   }
 
   placeNetworksInRows(){
     const locations = LayoutUtilFunctions.rowsColumnsEvenPadding(this.area, this.params.num_networks);
+    this.placeNetworks(locations);
+  }
+
+  placeNetworks(locations){
     for (var i = 0; i< locations.length; i++){
       let newNetwork = new NetworkRoot(locations[i][0], locations[i][1], this.params);
       this.addNetwork(newNetwork);
