@@ -9,9 +9,14 @@ class System {
     let relativeRect = new Rect(0, 0, this.area.width, this.area.height);
 
     this.space.placeNetworks(
-          LayoutUtilFunctions.getPoints(params.mode, 
-                  relativeRect, params.num_networks)
-            );
+      LayoutUtilFunctions.getPoints(params.mode, 
+              relativeRect, params.num_networks)
+        );
+
+    this.space.placeInfluencers(
+      LayoutUtilFunctions.getPoints(params.influencer_mode, 
+              relativeRect, params.num_influencers)
+        );
 
   }
 

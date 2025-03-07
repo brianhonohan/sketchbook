@@ -6,11 +6,6 @@ class Space {
     this.params = params;
 
     this.influencers = [];
-    for (var i = 0; i< this.params.num_influencers; i++){
-      let pos = new Vector2D(UtilFunctions.random(this.area.width), UtilFunctions.random(this.area.height));
-      this.influencers.push(new Influencer(pos));
-    }
-
     this.networks = [];
   }
 
@@ -18,6 +13,13 @@ class Space {
     for (var i = 0; i< locations.length; i++){
       let newNetwork = new NetworkRoot(locations[i][0], locations[i][1], this.params);
       this.addNetwork(newNetwork);
+    }
+  }
+
+  placeInfluencers(locations){
+    for (var i = 0; i< this.params.num_influencers; i++){
+      let pos = new Vector2D(locations[i][0], locations[i][1]);
+      this.influencers.push(new Influencer(pos));
     }
   }
 

@@ -7,10 +7,17 @@ let modes = ['along-top-edge',
   'random',
   'orderly-rows'
 ];
+let influencer_modes = [
+  'random',
+  'orderly-rows'
+];
+
+
 
 var gui;
 var params = {
   mode: 'along-all-edges',
+  influencer_mode: 'random',
   num_influencers: 1500,
   draw_network_areas: false,
   draw_segment_areas: false,
@@ -34,6 +41,7 @@ function setup() {
 
   gui = P5JsSettings.addDatGui({autoPlace: false});
   gui.add(params, "mode", modes).onFinishChange(initSystem);
+  gui.add(params, "influencer_mode", influencer_modes).onFinishChange(initSystem);
   guiNumNutrients = gui.add(params, "num_influencers", 50, 10000, 50);
   gui.add(params, "draw_network_areas");
   gui.add(params, "draw_segment_areas");
