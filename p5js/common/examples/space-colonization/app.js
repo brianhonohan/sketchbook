@@ -10,7 +10,8 @@ let modes = ['along-top-edge',
 ];
 let influencer_modes = [
   'random',
-  'orderly-rows'
+  'orderly-rows',
+  'within-circle'
 ];
 
 
@@ -18,7 +19,7 @@ let influencer_modes = [
 var gui;
 var params = {
   mode: 'around-circle',
-  influencer_mode: 'random',
+  influencer_mode: 'within-circle',
   num_influencers: 1500,
   draw_network_areas: false,
   draw_segment_areas: false,
