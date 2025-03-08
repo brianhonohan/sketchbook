@@ -11,7 +11,7 @@ class System {
                                     this.area.height / 2,
                                     Math.min(this.area.width, this.area.height) / 2);
     let region = relativeRect;
-    if (this.params.mode == 'around-circle'){
+    if (this.params.mode == 'around-circle' || this.params.mode == 'within-circle'){
       region = relativeCircle;
     }
 
@@ -20,12 +20,16 @@ class System {
         region, params.num_networks));
 
     region = relativeRect;
-    // if (this.params.influencer_mode == 'around-circle'){
-    //   region = relativeCircle;
-    // }
+    console.log(this.params.influencer_mode);
+    if (this.params.influencer_mode == 'around-circle' 
+        || this.params.influencer_mode == 'within-circle')
+    {
+      region = relativeCircle;
+    }
+
     this.space.placeInfluencers(
       LayoutUtilFunctions.getPoints(params.influencer_mode, 
-              relativeRect, params.num_influencers)
+           region, params.num_influencers)
         );
 
   }
