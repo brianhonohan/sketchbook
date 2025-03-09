@@ -158,4 +158,35 @@ class UtilFunctions {
     if (num > 1 || num < 0) return UtilFunctions.randomGaussianConstrained() // resample between 0 and 1
     return num;
   }
+
+  static gaussianFalloffFromZero() {
+    const gaussian = UtilFunctions.randomGaussianConstrained();
+    return Math.abs( gaussian - 0.5 ) * 2;
+
+  }
+
+  static gaussianBuildUpToOne() {
+    return 1 - UtilFunctions.gaussianFalloffFromZero();
+  }
+
+  // returns a random number between 0 and 1
+  // based on gaussian distribution constrained to a range length of 1
+  // 
+  // but the offset is the shift from the mean of 0.5
+  // and probabaly distribution 'wraps' around
+  // could turn:
+  //  _/\_   (bell curve)
+  // \__/    (u-shaped curve) with offset of -0.5
+  static offsetConstraineddGaussian(offset){
+    return UtilFunctions.flooredMod( (UtilFunctions.randomGaussianConstrained() + offset), 1);
+  }
+
+  // Floored division
+  // Wikipedia: https://en.wikipedia.org/wiki/Modulo
+  // 
+  // Adapted from: https://stackoverflow.com/a/17323608
+  // Adaption of https://web.archive.org/web/20090717035140if_/javascript.about.com/od/problemsolving/a/modulobug.htm
+  static flooredMod(num, mod) {
+    return ((num % mod) + mod) % mod;
+  }
 }
