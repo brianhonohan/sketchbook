@@ -139,8 +139,8 @@ class UtilFunctions {
   // UtilFunctions.gaussianRandom = randomGaussian;
   // to use the randomSeed() behavior in p5.js for reproducible random results
   static randomGaussian(mean=0, stdev=1) {
-      const u = 1 - Math.random(); // Converting [0,1) to (0,1]
-      const v = Math.random();
+      const u = 1 - UtilFunctions.random(); // Converting [0,1) to (0,1]
+      const v = UtilFunctions.random();
       const z = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v );
       // Transform to the desired mean and standard deviation:
       return z * stdev + mean;
@@ -151,8 +151,8 @@ class UtilFunctions {
   // via: https://stackoverflow.com/a/49434653
   static randomGaussianConstrained() {
     let u = 0, v = 0;
-    while(u === 0) u = Math.random(); //Converting [0,1) to (0,1)
-    while(v === 0) v = Math.random();
+    while(u === 0) u = UtilFunctions.random(); //Converting [0,1) to (0,1)
+    while(v === 0) v = UtilFunctions.random();
     let num = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v );
     num = num / 10.0 + 0.5; // Translate to 0 -> 1
     if (num > 1 || num < 0) return UtilFunctions.randomGaussianConstrained() // resample between 0 and 1
