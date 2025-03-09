@@ -285,15 +285,32 @@ class LayoutUtilFunctions {
   }
 
   static withinCircle(circle, numPoints, options){
+    let _randFunction = UtilFunctions.random;
+    
+    if (options.randFunc == 'gaussianConstrained'){
+      switch (options.gaussianShape){
+        case 'u-shape':
+          _randFunction = function () { return UtilFunctions.offsetConstraineddGaussian(-0.5); };
+          break;
+        case 'falloff-from-center':
+          _randFunction = UtilFunctions.gaussianFalloffFromZero;
+          break;
+        case 'build-up-to-radius':
+          _randFunction = UtilFunctions.gaussianBuildUpToOne;
+          break;
+        default:
+          _randFunction = UtilFunctions.randomGaussianConstrained;
+      }
+    }
+
     const layout = [];
     for (let i = 0; i < numPoints; i++){
       let angle = UtilFunctions.random() * 2 * Math.PI;
-      let radius = UtilFunctions.random() * circle.radius;
+      let radius = _randFunction() * circle.radius;
       let xPos = circle.x + radius * Math.cos(angle);
       let yPos = circle.y + radius * Math.sin(angle);
       layout.push([xPos, yPos]);
     }
-    console.log(circle);
     return layout;
   }
 }

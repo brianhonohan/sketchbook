@@ -99,13 +99,25 @@ class UtilFunctions {
     return Math.round(value / increment) * increment;
   }
 
-  // match p5.js random() parameter options
+  static clamp(value, min, max){
+    return Math.max(min, Math.min(max, value));
+  }
+
+  // Default to returing a value between 0 and 1
+  // but can be used to return a value between min and max
+  // Or randomly select among an array of values
+  // 
+  // Strives to matches p5.js random() parameter options
   // see: https://p5js.org/reference/p5/random/
+  // 
+  // This class can be monkey-patched in context of p5.js sketch
+  // UtilFunctions.random = random;
+  // to use the randomSeed() behavior in p5.js for reproducible random results
   //
   // pass a single number to get a random number between 0 and that number
   // pass two numbers to get a random number between those two numbers
   // pass an array to get a random number from that array
-  static random(arg1, arg2){
+  static random(arg1 = 1, arg2){
     if (Array.isArray(arg1)){
       return arg1[Math.floor(Math.random() * arg1.length)];
     }else if (arg2 === undefined){
@@ -113,5 +125,68 @@ class UtilFunctions {
     }else{
       return Math.random() * (arg2 - arg1) + arg1;
     }
+  }
+
+  // Returns normal distribution centered on mean, with specified standard deviation
+  // 
+  // match p5.js random() parameter options
+  // see: https://p5js.org/reference/p5/randomGaussian/
+  // 
+  // Standard Normal variate using Box-Muller transform.
+  // via: https://stackoverflow.com/a/36481059
+  // 
+  // This class can be monkey-patched in context of p5.js sketch
+  // UtilFunctions.gaussianRandom = randomGaussian;
+  // to use the randomSeed() behavior in p5.js for reproducible random results
+  static randomGaussian(mean=0, stdev=1) {
+      const u = 1 - UtilFunctions.random(); // Converting [0,1) to (0,1]
+      const v = UtilFunctions.random();
+      const z = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v );
+      // Transform to the desired mean and standard deviation:
+      return z * stdev + mean;
+  }
+
+  // returns normal distribution with mean of 0.5
+  // and guaranteed range of 0 to 1
+  // via: https://stackoverflow.com/a/49434653
+  static randomGaussianConstrained() {
+    let u = 0, v = 0;
+    while(u === 0) u = UtilFunctions.random(); //Converting [0,1) to (0,1)
+    while(v === 0) v = UtilFunctions.random();
+    let num = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v );
+    num = num / 10.0 + 0.5; // Translate to 0 -> 1
+    if (num > 1 || num < 0) return UtilFunctions.randomGaussianConstrained() // resample between 0 and 1
+    return num;
+  }
+
+  static gaussianFalloffFromZero() {
+    const gaussian = UtilFunctions.randomGaussianConstrained();
+    return Math.abs( gaussian - 0.5 ) * 2;
+
+  }
+
+  static gaussianBuildUpToOne() {
+    return 1 - UtilFunctions.gaussianFalloffFromZero();
+  }
+
+  // returns a random number between 0 and 1
+  // based on gaussian distribution constrained to a range length of 1
+  // 
+  // but the offset is the shift from the mean of 0.5
+  // and probabaly distribution 'wraps' around
+  // could turn:
+  //  _/\_   (bell curve)
+  // \__/    (u-shaped curve) with offset of -0.5
+  static offsetConstraineddGaussian(offset){
+    return UtilFunctions.flooredMod( (UtilFunctions.randomGaussianConstrained() + offset), 1);
+  }
+
+  // Floored division
+  // Wikipedia: https://en.wikipedia.org/wiki/Modulo
+  // 
+  // Adapted from: https://stackoverflow.com/a/17323608
+  // Adaption of https://web.archive.org/web/20090717035140if_/javascript.about.com/od/problemsolving/a/modulobug.htm
+  static flooredMod(num, mod) {
+    return ((num % mod) + mod) % mod;
   }
 }

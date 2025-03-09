@@ -11,7 +11,8 @@ let modes = ['along-top-edge',
 let influencer_modes = [
   'random',
   'orderly-rows',
-  'within-circle'
+  'within-circle',
+  'within-circle-gaussian'
 ];
 
 
@@ -19,7 +20,7 @@ let influencer_modes = [
 var gui;
 var params = {
   mode: 'around-circle',
-  influencer_mode: 'within-circle',
+  influencer_mode: 'within-circle-gaussian',
   num_influencers: 1500,
   draw_network_areas: false,
   draw_segment_areas: false,
@@ -50,7 +51,7 @@ function setup() {
   guiNumNutrients = gui.add(params, "num_influencers", 50, 10000, 50);
   gui.add(params, "draw_network_areas");
   gui.add(params, "draw_segment_areas");
-  guiDetectionRange= gui.add(params, "detection_range",10, 505, 10);
+  guiDetectionRange= gui.add(params, "detection_range",10, 100, 2);
   guiNumNetworks= gui.add(params, "num_networks", 1, 100, 1);
   gui.add(params, "random_colors_per_network");
   gui.add(system, 'init').name('Reset');

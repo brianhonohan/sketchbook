@@ -20,18 +20,32 @@ class System {
         region, params.num_networks));
 
     region = relativeRect;
-    console.log(this.params.influencer_mode);
+    let influencerMode = params.influencer_mode;
+    let infuencerLayoutOptions = {};
     if (this.params.influencer_mode == 'around-circle' 
-        || this.params.influencer_mode == 'within-circle')
+        || this.params.influencer_mode == 'within-circle'
+        || this.params.influencer_mode == 'within-circle-gaussian')
     {
       region = relativeCircle;
     }
 
-    this.space.placeInfluencers(
-      LayoutUtilFunctions.getPoints(params.influencer_mode, 
-           region, params.num_influencers)
-        );
+    if (this.params.influencer_mode == 'within-circle-gaussian'){
+      // Wrong way to go about this;
+      // should push the sub-params back up to the UI
+      // to select the specific config for 'within-circle'
+      // 
+      // otherwise commit to just having very specific modes
+      // and not rely on the options object for significant behavior changes
+      influencerMode = 'within-circle';
+      // infuencerLayoutOptions = {randFunc: 'gaussianConstrained', gaussianShape:'u-shape'}
+      // infuencerLayoutOptions = {randFunc: 'randomGaussian', gaussianShape:'falloff-from-center'};
+      infuencerLayoutOptions = {randFunc: 'gaussianConstrained', gaussianShape:'build-up-to-radius'};
+    }
 
+    this.space.placeInfluencers(
+      LayoutUtilFunctions.getPoints(influencerMode, 
+           region, params.num_influencers, infuencerLayoutOptions)
+        );
   }
 
   tick(){
