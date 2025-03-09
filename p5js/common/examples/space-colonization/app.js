@@ -28,7 +28,6 @@ var params = {
   num_networks: 40,
   random_colors_per_network: true
 };
-var guiNumNutrients;
 
 function setup() {
   canvas = createCanvas(windowWidth, windowHeight-40);
@@ -48,7 +47,7 @@ function setup() {
   gui = P5JsSettings.addDatGui({autoPlace: false});
   gui.add(params, "mode", modes).onFinishChange(initSystem);
   gui.add(params, "influencer_mode", influencer_modes).onFinishChange(initSystem);
-  guiNumNutrients = gui.add(params, "num_influencers", 50, 10000, 50);
+  gui.add(params, "num_influencers", 50, 10000, 50).onFinishChange(initSystem);
   gui.add(params, "draw_network_areas");
   gui.add(params, "draw_segment_areas");
   guiDetectionRange= gui.add(params, "detection_range",10, 100, 2);
@@ -79,9 +78,6 @@ function initSystem(){
 }
 
 function addGuiListeners(){
-  guiNumNutrients.onFinishChange(function(value) {
-    initSystem();
-  });
   guiDetectionRange.onFinishChange(function(value) {
     initSystem();
   });
