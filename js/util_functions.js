@@ -99,6 +99,10 @@ class UtilFunctions {
     return Math.round(value / increment) * increment;
   }
 
+  static clamp(value, min, max){
+    return Math.max(min, Math.min(max, value));
+  }
+
   // match p5.js random() parameter options
   // see: https://p5js.org/reference/p5/random/
   // 
