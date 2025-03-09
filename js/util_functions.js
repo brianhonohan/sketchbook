@@ -103,18 +103,21 @@ class UtilFunctions {
     return Math.max(min, Math.min(max, value));
   }
 
-  // match p5.js random() parameter options
+  // Default to returing a value between 0 and 1
+  // but can be used to return a value between min and max
+  // Or randomly select among an array of values
+  // 
+  // Strives to matches p5.js random() parameter options
   // see: https://p5js.org/reference/p5/random/
   // 
   // This class can be monkey-patched in context of p5.js sketch
   // UtilFunctions.random = random;
   // to use the randomSeed() behavior in p5.js for reproducible random results
-  // 
   //
   // pass a single number to get a random number between 0 and that number
   // pass two numbers to get a random number between those two numbers
   // pass an array to get a random number from that array
-  static random(arg1, arg2){
+  static random(arg1 = 1, arg2){
     if (Array.isArray(arg1)){
       return arg1[Math.floor(Math.random() * arg1.length)];
     }else if (arg2 === undefined){
