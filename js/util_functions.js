@@ -101,6 +101,11 @@ class UtilFunctions {
 
   // match p5.js random() parameter options
   // see: https://p5js.org/reference/p5/random/
+  // 
+  // This class can be monkey-patched in context of p5.js sketch
+  // UtilFunctions.random = random;
+  // to use the randomSeed() behavior in p5.js for reproducible random results
+  // 
   //
   // pass a single number to get a random number between 0 and that number
   // pass two numbers to get a random number between those two numbers
@@ -113,5 +118,37 @@ class UtilFunctions {
     }else{
       return Math.random() * (arg2 - arg1) + arg1;
     }
+  }
+
+  // Returns normal distribution centered on mean, with specified standard deviation
+  // 
+  // match p5.js random() parameter options
+  // see: https://p5js.org/reference/p5/randomGaussian/
+  // 
+  // Standard Normal variate using Box-Muller transform.
+  // via: https://stackoverflow.com/a/36481059
+  // 
+  // This class can be monkey-patched in context of p5.js sketch
+  // UtilFunctions.gaussianRandom = randomGaussian;
+  // to use the randomSeed() behavior in p5.js for reproducible random results
+  static randomGaussian(mean=0, stdev=1) {
+      const u = 1 - Math.random(); // Converting [0,1) to (0,1]
+      const v = Math.random();
+      const z = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v );
+      // Transform to the desired mean and standard deviation:
+      return z * stdev + mean;
+  }
+
+  // returns normal distribution with mean of 0.5
+  // and guaranteed range of 0 to 1
+  // via: https://stackoverflow.com/a/49434653
+  static randomGaussianConstrained() {
+    let u = 0, v = 0;
+    while(u === 0) u = Math.random(); //Converting [0,1) to (0,1)
+    while(v === 0) v = Math.random();
+    let num = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v );
+    num = num / 10.0 + 0.5; // Translate to 0 -> 1
+    if (num > 1 || num < 0) return UtilFunctions.randomGaussianConstrained() // resample between 0 and 1
+    return num;
   }
 }
