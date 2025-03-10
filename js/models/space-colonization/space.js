@@ -17,7 +17,7 @@ class Space {
   }
 
   placeInfluencers(locations){
-    for (var i = 0; i< this.params.num_influencers; i++){
+    for (var i = 0; i< locations.length; i++){
       let pos = new Vector2D(locations[i][0], locations[i][1]);
       this.influencers.push(new Influencer(pos));
     }

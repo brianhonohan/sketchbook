@@ -45,20 +45,29 @@ function setup() {
   system = new System(area, params);
 
   gui = P5JsSettings.addDatGui({autoPlace: false});
-  guiFolders.network = gui.addFolder('Network Settings');
-  guiFolders.network.add(params, "network_mode", network_modes).onFinishChange(randomizeSystem);
-  guiFolders.network.add(params, "num_networks", 1, 100, 1).onFinishChange(randomizeSystem);
-  
-  guiFolders.influencer = gui.addFolder('Influencer Settings');
-  guiFolders.influencer.add(params, "influencer_mode", influencer_modes).onFinishChange(randomizeSystem);
-  guiFolders.influencer.add(params, "num_influencers", 50, 10000, 50).onFinishChange(randomizeSystem);
+  guiFolders.init = gui.addFolder('Initialization Settings');
+  guiFolders.init.add(params, "network_mode", network_modes).onFinishChange(randomizeSystem);
+  guiFolders.init.add(params, "num_networks", 1, 100, 1).onFinishChange(randomizeSystem);
+  guiFolders.init.add(params, "influencer_mode", influencer_modes).onFinishChange(randomizeSystem);
+  guiFolders.init.add(params, "num_influencers", 50, 10000, 50).onFinishChange(randomizeSystem);
   
   guiFolders.system = gui.addFolder('System Controls');
+
   guiFolders.system.add(system, 'inactivateCurrentNetworks').name('Inactivate Networks');
-  guiFolders.system.add(params, "draw_network_areas");
-  guiFolders.system.add(params, "draw_segment_areas");
-  guiFolders.system.add(params, "color_per_network");
-  guiFolders.system.add(params, "detection_range",10, 100, 2).onFinishChange(randomizeSystem);
+  
+  guiFolders.init = guiFolders.system.addFolder('New Networks/Influencers');
+  guiFolders.init.add(system.newComponents, "network_mode", network_modes);
+  guiFolders.init.add(system.newComponents, "num_networks", 1, 100, 1);
+  guiFolders.init.add(system.newComponents, "influencer_mode", influencer_modes);
+  guiFolders.init.add(system.newComponents, "num_influencers", 50, 10000, 50);
+  guiFolders.init.add(system, "addNewComponents").name('Add New Components');
+
+  guiFolders.other = gui.addFolder('Other Options (Display');
+  guiFolders.other.add(params, "draw_network_areas");
+  guiFolders.other.add(params, "draw_segment_areas");
+  guiFolders.other.add(params, "color_per_network");
+  guiFolders.other.add(params, "detection_range",10, 100, 2).onFinishChange(randomizeSystem);
+  guiFolders.other.close()
 
   guiFolders.run = gui.addFolder('Run Controls');
   guiFolders.run.add(system, 'autoRun').name('Auto Run');
