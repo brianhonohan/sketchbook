@@ -1,5 +1,5 @@
 class P5JsSettings {
-  static applySettings(newSettings){
+  static applySettings(){
     this.setSeed(this.optionsSet.settings.seed);
     noiseDetail(this.optionsSet.settings.noise_octaves, this.optionsSet.settings.noise_falloff);
   }

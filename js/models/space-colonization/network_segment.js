@@ -51,9 +51,9 @@ class NetworkSegment {
   }
 
   draw(){
-    if (this.network.params.draw_segment_areas){
+    if (this.network.isActive && this.network.params.draw_segment_areas){
       noStroke();
-      if (this.network.params.random_colors_per_network){
+      if (this.network.params.color_per_network){
         fill(this.fillColor);
       }else{
         fill(50,200,50,20);
@@ -61,7 +61,7 @@ class NetworkSegment {
       P5JsUtils.drawRect(this.detectionArea);
     }
 
-    if (this.network.params.random_colors_per_network){
+    if (this.network.isActive && this.network.params.color_per_network){
       stroke(this.network.color);
     }else{
       stroke(230);

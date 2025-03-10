@@ -1,6 +1,6 @@
 var system;
 var canvas;
-let modes = ['along-top-edge', 
+let network_modes = ['along-top-edge', 
   'along-all-edges',
   'along-top-bottom-edges',
   'along-left-right-edges',
@@ -16,19 +16,18 @@ let influencer_modes = [
 ];
 
 
-
 var gui;
 var params = {
-  mode: 'around-circle',
+  network_mode: 'around-circle',
   influencer_mode: 'within-circle-gaussian',
   num_influencers: 1500,
   draw_network_areas: false,
   draw_segment_areas: false,
   detection_range: 50,
   num_networks: 40,
-  random_colors_per_network: true
+  color_per_network: true
 };
-var guiNumNutrients;
+var guiFolders = {};
 
 function setup() {
   canvas = createCanvas(windowWidth, windowHeight-40);
@@ -46,16 +45,34 @@ function setup() {
   system = new System(area, params);
 
   gui = P5JsSettings.addDatGui({autoPlace: false});
-  gui.add(params, "mode", modes).onFinishChange(initSystem);
-  gui.add(params, "influencer_mode", influencer_modes).onFinishChange(initSystem);
-  guiNumNutrients = gui.add(params, "num_influencers", 50, 10000, 50);
-  gui.add(params, "draw_network_areas");
-  gui.add(params, "draw_segment_areas");
-  guiDetectionRange= gui.add(params, "detection_range",10, 100, 2);
-  guiNumNetworks= gui.add(params, "num_networks", 1, 100, 1);
-  gui.add(params, "random_colors_per_network");
-  gui.add(system, 'init').name('Reset');
-  addGuiListeners();
+  guiFolders.init = gui.addFolder('Initialization Settings');
+  guiFolders.init.add(params, "network_mode", network_modes).onFinishChange(randomizeSystem);
+  guiFolders.init.add(params, "num_networks", 1, 100, 1).onFinishChange(randomizeSystem);
+  guiFolders.init.add(params, "influencer_mode", influencer_modes).onFinishChange(randomizeSystem);
+  guiFolders.init.add(params, "num_influencers", 50, 10000, 50).onFinishChange(randomizeSystem);
+  
+  guiFolders.system = gui.addFolder('System Controls');
+  
+  guiFolders.init = guiFolders.system.addFolder('New Networks/Influencers');
+  guiFolders.init.add(system.newComponents, "network_mode", network_modes);
+  guiFolders.init.add(system.newComponents, "num_networks", 1, 100, 1);
+  guiFolders.init.add(system.newComponents, "influencer_mode", influencer_modes);
+  guiFolders.init.add(system.newComponents, "num_influencers", 50, 10000, 50);
+  guiFolders.init.add(system, "inactivateBeforeAddingMore").name('Inactivate Existing');
+  guiFolders.init.add(system, "addNewComponents").name('Add New Components');
+
+  guiFolders.other = gui.addFolder('Other Options (Display');
+  guiFolders.other.add(params, "draw_network_areas");
+  guiFolders.other.add(params, "draw_segment_areas");
+  guiFolders.other.add(params, "color_per_network");
+  guiFolders.other.add(params, "detection_range",10, 100, 2).onFinishChange(randomizeSystem);
+  guiFolders.other.close()
+
+  guiFolders.run = gui.addFolder('Run Controls');
+  guiFolders.run.add(system, 'autoRun').name('Auto Run');
+  guiFolders.run.add(system, 'requestTick').name('Step');
+  guiFolders.run.add(system, 'resetSeedAndReinit').name('Run Again');
+  guiFolders.run.add(system, 'randomizeAndReinit').name('Randomize');
   // gui.close();
   
   initSystem();
@@ -74,18 +91,10 @@ function keyTyped(){
   }
 }
 
-function initSystem(){
-  system.init();
+function randomizeSystem(){
+  system.randomizeAndReinit();
 }
 
-function addGuiListeners(){
-  guiNumNutrients.onFinishChange(function(value) {
-    initSystem();
-  });
-  guiDetectionRange.onFinishChange(function(value) {
-    initSystem();
-  });
-  guiNumNetworks.onFinishChange(function(value) {
-    initSystem();
-  });
+function initSystem(){
+  system.init();
 }
