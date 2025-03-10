@@ -60,6 +60,10 @@ class System {
         );
   }
 
+  inactivateCurrentNetworks(){
+    this.space.activeNetworks().forEach(n => n.isActive = false);
+  }
+
   tick(){
     if (this.autoRun){
       this.space.tick();

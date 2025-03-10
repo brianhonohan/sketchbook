@@ -3,6 +3,7 @@ class NetworkRoot {
     this.x = x;
     this.y = y;
     this.params = params;
+    this.isActive = true; 
 
     this.segments = [];
     this.detectionArea = new Rect(this.x, this.y, 0, 0);

@@ -27,9 +27,13 @@ class Space {
     this.networks.push(newNetwork);
   }
 
+  activeNetworks(){
+    return this.networks.filter(n => n.isActive);
+  }
+
   tick(){
     this.transmitInfluence();
-    this.networks.forEach(p => p.tick());
+    this.activeNetworks().forEach(p => p.tick());
   }
 
   transmitInfluence(){
@@ -38,10 +42,10 @@ class Space {
     }
 
     let nearbyInfluencers = this.influencers.filter(n => {
-      return this.networks.some(p => p.detectionArea.containsXY(n.x, n.y));
+      return this.activeNetworks().some(p => p.detectionArea.containsXY(n.x, n.y));
     });
 
-    let allSegments = this.networks.map(p => p.segments).flat();
+    let allSegments = this.activeNetworks().map(p => p.segments).flat();
 
     let influencersWithSeg = nearbyInfluencers.map(inf => {
       return {

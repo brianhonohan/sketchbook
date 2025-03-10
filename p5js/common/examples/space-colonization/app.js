@@ -56,6 +56,9 @@ function setup() {
   guiFolders.influencer.add(params, "influencer_mode", influencer_modes).onFinishChange(randomizeSystem);
   guiFolders.influencer.add(params, "num_influencers", 50, 10000, 50).onFinishChange(randomizeSystem);
   guiFolders.influencer.add(params, "detection_range",10, 100, 2).onFinishChange(randomizeSystem);
+  
+  guiFolders.system = gui.addFolder('System Controls');
+  guiFolders.system.add(system, 'inactivateCurrentNetworks').name('Inactivate Networks');
 
   gui.add(system, 'autoRun').name('Auto Run');
   gui.add(system, 'requestTick').name('Step');
