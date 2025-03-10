@@ -1,6 +1,6 @@
 var system;
 var canvas;
-let modes = ['along-top-edge', 
+let network_modes = ['along-top-edge', 
   'along-all-edges',
   'along-top-bottom-edges',
   'along-left-right-edges',
@@ -16,18 +16,18 @@ let influencer_modes = [
 ];
 
 
-
 var gui;
 var params = {
-  mode: 'around-circle',
+  network_mode: 'around-circle',
   influencer_mode: 'within-circle-gaussian',
   num_influencers: 1500,
   draw_network_areas: false,
   draw_segment_areas: false,
   detection_range: 50,
   num_networks: 40,
-  random_colors_per_network: true
+  color_per_network: true
 };
+var guiFolders = {};
 
 function setup() {
   canvas = createCanvas(windowWidth, windowHeight-40);
@@ -45,16 +45,19 @@ function setup() {
   system = new System(area, params);
 
   gui = P5JsSettings.addDatGui({autoPlace: false});
-  gui.add(params, "mode", modes).onFinishChange(initSystem);
-  gui.add(params, "influencer_mode", influencer_modes).onFinishChange(initSystem);
-  gui.add(params, "num_influencers", 50, 10000, 50).onFinishChange(initSystem);
-  gui.add(params, "draw_network_areas");
-  gui.add(params, "draw_segment_areas");
-  guiDetectionRange= gui.add(params, "detection_range",10, 100, 2);
-  guiNumNetworks= gui.add(params, "num_networks", 1, 100, 1);
-  gui.add(params, "random_colors_per_network");
+  guiFolders.network = gui.addFolder('Network Settings');
+  guiFolders.network.add(params, "network_mode", network_modes).onFinishChange(initSystem);
+  guiFolders.network.add(params, "draw_network_areas");
+  guiFolders.network.add(params, "draw_segment_areas");
+  guiFolders.network.add(params, "num_networks", 1, 100, 1).onFinishChange(initSystem);
+  guiFolders.network.add(params, "color_per_network");
+  
+  guiFolders.influencer = gui.addFolder('Influencer Settings');
+  guiFolders.influencer.add(params, "influencer_mode", influencer_modes).onFinishChange(initSystem);
+  guiFolders.influencer.add(params, "num_influencers", 50, 10000, 50).onFinishChange(initSystem);
+  guiFolders.influencer.add(params, "detection_range",10, 100, 2).onFinishChange(initSystem);
+
   gui.add(system, 'init').name('Reset');
-  addGuiListeners();
   // gui.close();
   
   initSystem();
@@ -75,13 +78,4 @@ function keyTyped(){
 
 function initSystem(){
   system.init();
-}
-
-function addGuiListeners(){
-  guiDetectionRange.onFinishChange(function(value) {
-    initSystem();
-  });
-  guiNumNetworks.onFinishChange(function(value) {
-    initSystem();
-  });
 }

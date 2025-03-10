@@ -11,12 +11,12 @@ class System {
                                     this.area.height / 2,
                                     Math.min(this.area.width, this.area.height) / 2);
     let region = relativeRect;
-    if (this.params.mode == 'around-circle' || this.params.mode == 'within-circle'){
+    if (this.params.network_mode == 'around-circle' || this.params.network_mode == 'within-circle'){
       region = relativeCircle;
     }
 
     this.space.placeNetworks(
-      LayoutUtilFunctions.getPoints(params.mode, 
+      LayoutUtilFunctions.getPoints(params.network_mode, 
         region, params.num_networks));
 
     region = relativeRect;
