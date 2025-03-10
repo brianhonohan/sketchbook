@@ -26,7 +26,7 @@ class NetworkRoot {
   }
 
   draw(){
-    if (this.params.draw_network_areas){
+    if (this.isActive && this.params.draw_network_areas){
       noStroke();
       if (this.params.color_per_network){
         fill(this.fillColor);
