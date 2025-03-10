@@ -46,18 +46,21 @@ function setup() {
 
   gui = P5JsSettings.addDatGui({autoPlace: false});
   guiFolders.network = gui.addFolder('Network Settings');
-  guiFolders.network.add(params, "network_mode", network_modes).onFinishChange(initSystem);
+  guiFolders.network.add(params, "network_mode", network_modes).onFinishChange(randomizeSystem);
   guiFolders.network.add(params, "draw_network_areas");
   guiFolders.network.add(params, "draw_segment_areas");
-  guiFolders.network.add(params, "num_networks", 1, 100, 1).onFinishChange(initSystem);
+  guiFolders.network.add(params, "num_networks", 1, 100, 1).onFinishChange(randomizeSystem);
   guiFolders.network.add(params, "color_per_network");
   
   guiFolders.influencer = gui.addFolder('Influencer Settings');
-  guiFolders.influencer.add(params, "influencer_mode", influencer_modes).onFinishChange(initSystem);
-  guiFolders.influencer.add(params, "num_influencers", 50, 10000, 50).onFinishChange(initSystem);
-  guiFolders.influencer.add(params, "detection_range",10, 100, 2).onFinishChange(initSystem);
+  guiFolders.influencer.add(params, "influencer_mode", influencer_modes).onFinishChange(randomizeSystem);
+  guiFolders.influencer.add(params, "num_influencers", 50, 10000, 50).onFinishChange(randomizeSystem);
+  guiFolders.influencer.add(params, "detection_range",10, 100, 2).onFinishChange(randomizeSystem);
 
-  gui.add(system, 'init').name('Reset');
+  gui.add(system, 'autoRun').name('Auto Run');
+  gui.add(system, 'requestTick').name('Step');
+  gui.add(system, 'resetSeedAndReinit').name('Run Again');
+  gui.add(system, 'randomizeAndReinit').name('Randomize');
   // gui.close();
   
   initSystem();
@@ -74,6 +77,10 @@ function keyTyped(){
   if (key == 'p'){
     saveCanvas(canvas, 'screenshot', 'png');
   }
+}
+
+function randomizeSystem(){
+  system.randomizeAndReinit();
 }
 
 function initSystem(){

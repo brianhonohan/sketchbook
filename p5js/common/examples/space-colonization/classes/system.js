@@ -2,7 +2,19 @@ class System {
   constructor(p_xSizeAndPos, params){
     this.area = p_xSizeAndPos;
     this.params = params;
+
+    this.autoRun = true;
   } 
+
+  resetSeedAndReinit(){
+    P5JsSettings.applySettings();
+    this.init();
+  }
+
+  randomizeAndReinit(){
+    P5JsSettings.setSeed(random(1000));
+    this.init();
+  }
 
   init(){
     this.space = new Space(this.area, this.params);
@@ -49,6 +61,12 @@ class System {
   }
 
   tick(){
+    if (this.autoRun){
+      this.space.tick();
+    }
+  }
+
+  requestTick(){
     this.space.tick();
   }
 
