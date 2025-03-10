@@ -4,6 +4,7 @@ class System {
     this.params = params;
 
     this.autoRun = true;
+    this.inactivateBeforeAddingMore = true;
 
     this.newComponents = {        
         network_mode: 'around-circle',
@@ -72,6 +73,9 @@ class System {
   }
 
   addNewComponents(){
+    if (this.inactivateBeforeAddingMore){
+      this.inactivateCurrentNetworks();
+    }
     this.addNetworkAndInfluencers(this.newComponents);
   }
 

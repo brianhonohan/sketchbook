@@ -52,14 +52,13 @@ function setup() {
   guiFolders.init.add(params, "num_influencers", 50, 10000, 50).onFinishChange(randomizeSystem);
   
   guiFolders.system = gui.addFolder('System Controls');
-
-  guiFolders.system.add(system, 'inactivateCurrentNetworks').name('Inactivate Networks');
   
   guiFolders.init = guiFolders.system.addFolder('New Networks/Influencers');
   guiFolders.init.add(system.newComponents, "network_mode", network_modes);
   guiFolders.init.add(system.newComponents, "num_networks", 1, 100, 1);
   guiFolders.init.add(system.newComponents, "influencer_mode", influencer_modes);
   guiFolders.init.add(system.newComponents, "num_influencers", 50, 10000, 50);
+  guiFolders.init.add(system, "inactivateBeforeAddingMore").name('Inactivate Existing');
   guiFolders.init.add(system, "addNewComponents").name('Add New Components');
 
   guiFolders.other = gui.addFolder('Other Options (Display');
