@@ -47,23 +47,24 @@ function setup() {
   gui = P5JsSettings.addDatGui({autoPlace: false});
   guiFolders.network = gui.addFolder('Network Settings');
   guiFolders.network.add(params, "network_mode", network_modes).onFinishChange(randomizeSystem);
-  guiFolders.network.add(params, "draw_network_areas");
-  guiFolders.network.add(params, "draw_segment_areas");
   guiFolders.network.add(params, "num_networks", 1, 100, 1).onFinishChange(randomizeSystem);
-  guiFolders.network.add(params, "color_per_network");
   
   guiFolders.influencer = gui.addFolder('Influencer Settings');
   guiFolders.influencer.add(params, "influencer_mode", influencer_modes).onFinishChange(randomizeSystem);
   guiFolders.influencer.add(params, "num_influencers", 50, 10000, 50).onFinishChange(randomizeSystem);
-  guiFolders.influencer.add(params, "detection_range",10, 100, 2).onFinishChange(randomizeSystem);
   
   guiFolders.system = gui.addFolder('System Controls');
   guiFolders.system.add(system, 'inactivateCurrentNetworks').name('Inactivate Networks');
+  guiFolders.system.add(params, "draw_network_areas");
+  guiFolders.system.add(params, "draw_segment_areas");
+  guiFolders.system.add(params, "color_per_network");
+  guiFolders.system.add(params, "detection_range",10, 100, 2).onFinishChange(randomizeSystem);
 
-  gui.add(system, 'autoRun').name('Auto Run');
-  gui.add(system, 'requestTick').name('Step');
-  gui.add(system, 'resetSeedAndReinit').name('Run Again');
-  gui.add(system, 'randomizeAndReinit').name('Randomize');
+  guiFolders.run = gui.addFolder('Run Controls');
+  guiFolders.run.add(system, 'autoRun').name('Auto Run');
+  guiFolders.run.add(system, 'requestTick').name('Step');
+  guiFolders.run.add(system, 'resetSeedAndReinit').name('Run Again');
+  guiFolders.run.add(system, 'randomizeAndReinit').name('Randomize');
   // gui.close();
   
   initSystem();
