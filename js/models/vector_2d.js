@@ -4,6 +4,19 @@ class Vector2D {
     this.y = y;
   }
 
+  get r() { return this.mag(); }
+  set r(newVal) {
+    let theta = this.theta;
+    this.x = newVal * Math.cos(theta);
+    this.y = newVal * Math.sin(theta);
+  }
+  get theta() { return Math.atan2(this.y, this.x); }
+  set theta(newVal) {
+    let mag = this.mag();
+    this.x = mag * Math.cos(newVal);
+    this.y = mag * Math.sin(newVal);
+  }
+
   copy() {
     return new Vector2D(this.x, this.y);
   }

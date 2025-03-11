@@ -10,7 +10,8 @@ let modes = ['along-top-edge',
   'orderly-rows',
   'around-circle',
   'within-circle',
-  'within-circle-gaussian'
+  'within-circle-gaussian',
+  'spiral-fermat'
 ];
 
 var gui;

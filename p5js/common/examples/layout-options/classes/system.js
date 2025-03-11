@@ -23,7 +23,8 @@ class System {
 
     if (layoutOptions.mode == 'around-circle' 
       || layoutOptions.mode == 'within-circle'
-      || layoutOptions.mode == 'within-circle-gaussian')
+      || layoutOptions.mode == 'within-circle-gaussian'
+      || layoutOptions.mode == 'spiral-fermat')
     {
       region = relativeCircle;
     }
@@ -62,7 +63,7 @@ class System {
   optionsMetadata(){
     return [
       { name: "num_points", type: "integer", default: 500},
-      { name: "mode", type: "String", default: 'random'},
+      { name: "mode", type: "String", default: 'spiral-fermat'},
       
       // { name: "varname2", type: "string", default: 'Lorem Ipsum'}, 
       // { name: "varname3", type: "float", default: 0.6}
@@ -77,7 +78,7 @@ class System {
     push();
     translate(this.area.x, this.area.y);
     stroke(180);
-    strokeWeight(5);
+    strokeWeight(6);
     for (let i = 0; i < this.points.length; i++){
       this.points[i].draw();
     }

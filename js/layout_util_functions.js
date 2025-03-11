@@ -65,6 +65,8 @@ class LayoutUtilFunctions {
         return this.aroundCircle(region, numPoints, options);
       case 'within-circle':
         return this.withinCircle(region, numPoints, options);
+      case 'spiral-fermat':
+        return this.fermatSpiral(region, numPoints, options);
       default:
         console.error('Invalid mode specified');
         return [];
@@ -311,6 +313,24 @@ class LayoutUtilFunctions {
       let xPos = circle.x + radius * Math.cos(angle);
       let yPos = circle.y + radius * Math.sin(angle);
       layout.push([xPos, yPos]);
+    }
+    return layout;
+  }
+
+  static fermatSpiral(circle, numPoints, options){
+    const layout = [];
+    const point = new Vector2D(0, 0);
+    let scalingFactor = 10;
+    // VOGEL_ANGLE = 137.508
+    let separationAngle = 137.508; 
+    
+    // Based on: http://en.wikipedia.org/wiki/Fermat%27s_spiral 
+    for(let i=1; i<=numPoints; i++){
+      point.r = scalingFactor * Math.sqrt(i);
+      point.theta = (i * separationAngle) * Math.PI / 180.0;
+      
+      layout.push([circle.x + point.x, 
+                   circle.y + point.y]);
     }
     return layout;
   }
