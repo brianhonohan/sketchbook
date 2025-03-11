@@ -42,6 +42,20 @@ class LayoutUtilFunctions {
     return rect.width / rect.height;
   }
 
+  static getPointModes(){
+    return ['along-top-edge', 
+      'along-all-edges',
+      'along-top-bottom-edges',
+      'along-left-right-edges',
+      'random',
+      'orderly-rows',
+      'around-circle',
+      'within-circle',
+      'within-circle-gaussian',
+      'spiral-fermat'
+    ];
+  }
+
   // TODO: Refactor, number of points should be second param
   static getPoints(mode, region, numPoints, options = {}){
     switch (mode) {
