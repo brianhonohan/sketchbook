@@ -1,6 +1,6 @@
 ---
 layout: minimal
-title:  "p5.js - examples - Layout Options"
+title:  "p5.js - Common Examples - Layout Options"
 categories: p5js
 modal: true
 viewport_noscale: true
@@ -13,6 +13,8 @@ js_scripts:
 - /sketchbook/p5js/common/p5js_settings.js
 - /sketchbook/p5js/common/p5js_utils.js
 - /sketchbook/js/util_functions.js
+- /sketchbook/js/models/quadratic_equation.js
+- /sketchbook/js/layout_util_functions.js
 - /sketchbook/js/options_set.js
 - /sketchbook/js/models/vector_2d.js
 - /sketchbook/js/models/rect.js
