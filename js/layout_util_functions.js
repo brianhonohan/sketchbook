@@ -42,6 +42,7 @@ class LayoutUtilFunctions {
     return rect.width / rect.height;
   }
 
+  // TODO: Refactor, number of points should be second param
   static getPoints(mode, region, numPoints, options = {}){
     switch (mode) {
       case 'along-top-edge':

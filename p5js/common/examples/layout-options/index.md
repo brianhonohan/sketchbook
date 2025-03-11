@@ -14,8 +14,10 @@ js_scripts:
 - /sketchbook/p5js/common/p5js_utils.js
 - /sketchbook/js/util_functions.js
 - /sketchbook/js/options_set.js
+- /sketchbook/js/models/vector_2d.js
 - /sketchbook/js/models/rect.js
-- /sketchbook/js/models/cell_grid.js
+- /sketchbook/js/models/circle.js
+- /sketchbook/p5js/common/shapes/point.js
 - classes/system.js
 - app.js
 
