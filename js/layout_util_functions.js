@@ -51,9 +51,28 @@ class LayoutUtilFunctions {
       'orderly-rows',
       'around-circle',
       'within-circle',
-      'within-circle-gaussian',
       'spiral-fermat'
     ];
+  }
+
+  static getOptionsForMode(mode){
+    switch (mode) {
+      case 'within-circle': 
+        return [
+          {
+            name:'randFunc', type: 'list',
+            options: ['random', 'gaussianConstrained'],
+            default: 'random'
+          },
+          {
+            name:'gaussianShape', type: 'list',
+            options: ['u-shape', 'falloff-from-center', 'build-up-to-radius'],
+            default: 'build-up-to-radius'
+          }
+        ];
+      default:
+        return [];
+    }
   }
 
   // TODO: Refactor, number of points should be second param
