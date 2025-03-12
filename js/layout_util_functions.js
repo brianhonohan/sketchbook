@@ -70,6 +70,22 @@ class LayoutUtilFunctions {
             default: 'build-up-to-radius'
           }
         ];
+      case 'spiral-fermat': 
+        return [
+          {
+            name:'scalingFactor', type: 'integer',
+            minValue: 1,
+            maxValue: 30,
+            default: 10
+          },
+          {
+            // In degrees (not radians)
+            name:'separationAngle', type: 'float',
+            minValue: 0.001,
+            maxValue: 360,
+            default: 137.508
+          }
+        ];
       default:
         return [];
     }
@@ -350,12 +366,12 @@ class LayoutUtilFunctions {
     return layout;
   }
 
-  static fermatSpiral(circle, numPoints, options){
+  static fermatSpiral(circle, numPoints, options = {}){
     const layout = [];
     const point = new Vector2D(0, 0);
-    let scalingFactor = 10;
+    const scalingFactor = options.scalingFactor || 10;
     // VOGEL_ANGLE = 137.508
-    let separationAngle = 137.508; 
+    const separationAngle = options.separationAngle || 137.508;
     
     // Based on: http://en.wikipedia.org/wiki/Fermat%27s_spiral 
     for(let i=1; i<=numPoints; i++){

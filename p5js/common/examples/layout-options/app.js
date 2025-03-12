@@ -16,6 +16,7 @@ function setup() {
   gui = P5JsSettings.addGui({autoPlace: false});
   gui.add(system.settings, "mode", LayoutUtilFunctions.getPointModes()).onFinishChange(handleModeChange);
   gui.add(system.settings, "num_points", 1, 3000, 1).onFinishChange(regenerate);
+  handleModeChange();
   system.regenerate();
 }
 
@@ -39,6 +40,13 @@ function handleModeChange(){
     switch (option.type) {
       case 'list':
         folder.add(modeOptions, option.name, option.options).onFinishChange(regenerate);
+        break;  
+      case 'integer':
+        folder.add(modeOptions, option.name, option.minValue, option.maxValue).onChange(regenerate);
+        break;
+      case 'float':
+        folder.add(modeOptions, option.name, option.minValue, option.maxValue).onChange(regenerate);
+        break;
     }
   }
   regenerate();
