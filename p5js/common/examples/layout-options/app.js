@@ -2,20 +2,8 @@ var system;
 var canvas;
 var vertMargin = determineVerticalMargin();
 
-let modes = ['along-top-edge', 
-  'along-all-edges',
-  'along-top-bottom-edges',
-  'along-left-right-edges',
-  'random',
-  'orderly-rows',
-  'around-circle',
-  'within-circle',
-  'within-circle-gaussian',
-  'spiral-fermat'
-];
-
 var gui;
-var guiFolders = {};
+var modeOptions;
 
 function setup() {
   // canvas = createCanvas(500, 500); // for screenshots
@@ -26,14 +14,73 @@ function setup() {
   system = new System(rect);
 
   gui = P5JsSettings.addGui({autoPlace: false});
-  gui.add(system.settings, "mode", modes).onFinishChange(regenerate);
+  gui.add(system.settings, "mode", LayoutUtilFunctions.getPointModes()).onFinishChange(handleModeChange);
   gui.add(system.settings, "num_points", 1, 3000, 1).onFinishChange(regenerate);
-
+  handleModeChange();
   system.regenerate();
 }
 
+// TODO: Move this dynamic UI mgmt into common GuiUtils
+function handleModeChange(){
+  removeControlersFromFolder('Mode Options');
+
+  let optionsForMode = LayoutUtilFunctions.getOptionsForMode(system.settings.mode);
+  if (optionsForMode.length == 0){
+    modeOptions = {}
+    regenerate();
+    return;
+  }
+
+  const folder = findOrCreateFolder('Mode Options');
+
+  modeOptions = {}
+  for(let i = 0; i < optionsForMode.length; i++){
+    let option = optionsForMode[i];
+    modeOptions[option.name] = option.default;
+    switch (option.type) {
+      case 'list':
+        folder.add(modeOptions, option.name, option.options).onFinishChange(regenerate);
+        break;  
+      case 'integer':
+        folder.add(modeOptions, option.name, option.minValue, option.maxValue).onChange(regenerate);
+        break;
+      case 'float':
+        folder.add(modeOptions, option.name, option.minValue, option.maxValue).onChange(regenerate);
+        break;
+    }
+  }
+  regenerate();
+}
+
+
+// TODO: Move this dynamic UI mgmt into common GuiUtils
+function findOrCreateFolder(folderName){
+  return findFolder(folderName) || gui.addFolder(folderName);
+}
+// TODO: Move this dynamic UI mgmt into common GuiUtils
+function findFolder(folderName){
+  for (let i = 0; i < gui.folders.length; i++){
+    if (gui.folders[i]._title === folderName){
+      return gui.folders[i];
+    }
+  }
+  return undefined;
+}
+// TODO: Move this dynamic UI mgmt into common GuiUtils
+function removeControlersFromFolder(folderName){
+  const folder = findFolder(folderName);
+  if (undefined == folder){
+    return;
+  }
+
+  const childControllers = folder.controllersRecursive();
+  for (let i = childControllers.length - 1; i >= 0; i--) {
+    childControllers[i].destroy();
+  }
+}
+
 function regenerate(){
-  system.regenerate()
+  system.regenerate(modeOptions)
 }
 
 function draw(){

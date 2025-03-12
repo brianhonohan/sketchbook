@@ -8,35 +8,25 @@ class System {
     this.regenerate();
   }
 
-  regenerate(){
+  regenerate(modeOptions){
     let relativeRect = new Rect(0, 0, this.area.width, this.area.height);
     let relativeCircle = new Circle(this.area.width / 2,
                                     this.area.height / 2,
                                     Math.min(this.area.width, this.area.height) / 2);
     let region = relativeRect;
-    if (this.settings.mode == 'around-circle' || this.settings.mode == 'within-circle'){
-      region = relativeCircle;
-    }
     
     const layoutOptions = {};
     layoutOptions.mode = this.settings.mode;
 
     if (layoutOptions.mode == 'around-circle' 
       || layoutOptions.mode == 'within-circle'
-      || layoutOptions.mode == 'within-circle-gaussian'
       || layoutOptions.mode == 'spiral-fermat')
     {
       region = relativeCircle;
     }
-    // hacky way to handle the 'within-circle-gaussian' case
-    if (layoutOptions.mode == 'within-circle-gaussian'){
-      layoutOptions.mode = 'within-circle';
-      layoutOptions.randFunc = 'gaussianConstrained';
-      layoutOptions.gaussianShape = 'build-up-to-radius';
-    }
 
     const locations = LayoutUtilFunctions.getPoints(layoutOptions.mode, region,
-                                               this.settings.num_points, layoutOptions);
+                                               this.settings.num_points, modeOptions);
     this.placePoints(locations);
   }
 
