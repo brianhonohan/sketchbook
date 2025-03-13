@@ -15,6 +15,7 @@ js_scripts:
 - /sketchbook/js/util_functions.js
 - /sketchbook/js/options_set.js
 - /sketchbook/js/models/line.js
+- /sketchbook/js/models/rect.js
 - /sketchbook/p5js/common/geometry/point_to_line.js
 - /sketchbook/p5js/common/shapes/line_segment.js
 - /sketchbook/p5js/common/shapes/point.js

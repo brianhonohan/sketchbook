@@ -4,9 +4,17 @@ var lineSegment2;
 var shapes;
 var vertMargin = determineVerticalMargin();
 
+var gui;
+var guiOptions = {
+  treat_as: "Line Segments"
+}
+
 function setup(){
   // canvas =   createCanvas(500, 500);
   canvas = createCanvas(windowWidth, windowHeight-vertMargin);
+
+  gui = P5JsSettings.addDatGui({autoPlace: false});
+  gui.add(guiOptions, "treat_as", ["Lines", "Line Segments"]);
 
   lineSeg = new LineSegment(0.2 * width, 0.8 * height,
                             0.8 * width, 0.2 * height);
@@ -61,7 +69,20 @@ function mouseReleased(){
 }
 
 function highlightIntersectionPoint(){
-  let intersectionCoords = Line.intersectionPoint(lineSeg.getLine(), lineSeg2.getLine());
+  let intersectionCoords;
+  switch(guiOptions.treat_as){
+    case "Lines":
+      intersectionCoords = Line.intersectionPoint(lineSeg.getLine(), lineSeg2.getLine());
+      break;
+    case "Line Segments":
+      intersectionCoords = lineSeg.intersectionPoint(lineSeg2);
+      break;
+    default:
+      console.error("Unexpected mode: " + guiOptions.treat_as);
+      return;
+  }
+
+   
   if (intersectionCoords == undefined) {
     console.log(intersectionCoords);
     return;
