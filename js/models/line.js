@@ -27,10 +27,55 @@ class Line {
   perpendicularBisector(){
     return new Line(-1 / this.slope, undefined);
   }
+
+  intersectionPoint(otherLine){
+    return Line.intersectionPoint(this, otherLine);
+  }
+
+  isVertical() {
+    return this.slope == Infinity && this.offset == undefined;
+  }
+
+  isHorizontal() {
+    return this.slope == 0;
+  }
+
+  static intersectionPoint(line1, line2){
+    // from: https://en.wikipedia.org/wiki/Line%E2%80%93line_intersection#Given_two_line_equations
+    // and related: https://www.omnicalculator.com/math/intersection-of-two-lines
+    // Given two lines
+    // y = a * x + b       aka:  y = slope * x + offset
+    //
+    // Intersection:
+    // x0 = (b2 - b1) / (a1 - a2)
+    // y0 = a1 * (b2 - b1) / (a1 - a2) + b1
+
+    const a1a2Diff = line1.slope - line2.slope;
+    if (a1a2Diff == 0 || isNaN(a1a2Diff)) {
+      // lines do not intersect; both vertical, both horizontal, or slopes match
+      return undefined;
+    }
+
+    // Handle case where one is vertical
+    if (line1.isVertical()){
+      // solve for line2 at line1.xOffset
+      return {x: line1.xOffset, y: line2.valueAt(line1.xOffset)};
+    } else if (line2.isVertical()) {
+      // solve for line1 at line2.xOffset
+      return {x: line2.xOffset, y: line1.valueAt(line2.xOffset)};
+    }
+
+    const b2b1Diff = line2.offset - line1.offset;
+    
+    const x0 = b2b1Diff / a1a2Diff;
+    const y0 = line1.valueAt(x0);
+    return {x: x0, y: y0};
+  }
 }
 
 // Special Cases below - to avoid divide-by-zero cases.
-
+// TODO: Roll this into Line; so lines can become vertical, and still behave correctly
+// Add Line.verticalLineAt(xOffset)
 class VerticalLine {
   constructor(xOffset){
     this.slope = Infinity;
@@ -48,6 +93,14 @@ class VerticalLine {
 
   perpendicularBisector(){
     return new HorizontalLine(0, undefined);
+  }
+
+  isVertical() {
+    return this.slope == Infinity && this.offset == undefined;
+  }
+
+  isHorizontal() {
+    return this.slope == 0;
   }
 }
 
@@ -68,6 +121,14 @@ class HorizontalLine {
 
   perpendicularBisector(){
     return new VerticalLine(undefined);
+  }
+
+  isVertical() {
+    return this.slope == Infinity && this.offset == undefined;
+  }
+
+  isHorizontal() {
+    return this.slope == 0;
   }
 }
 

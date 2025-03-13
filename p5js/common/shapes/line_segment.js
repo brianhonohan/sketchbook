@@ -68,6 +68,30 @@ class LineSegment {
     return line;
   }
 
+  intersectionPoint(otherLineSegment){
+    const coord = Line.intersectionPoint(this.getLine(), otherLineSegment.getLine());
+    if (coord == undefined) {
+      return undefined;
+    }
+
+    // TODO: consider implemented lineSegment.containsXY() 
+    // only true if the line is along the segment (not beyond its bounds)
+    const inThisBounds = Rect.pointsContainXY(this.startX, this.startY,
+                                      this.endX, this.endY, 
+                                      coord.x, coord.y);
+    if (!inThisBounds){
+      return undefined;
+    }
+
+    const inOtherBounds = Rect.pointsContainXY(otherLineSegment.startX, otherLineSegment.startY,
+                                      otherLineSegment.endX, otherLineSegment.endY, 
+                                      coord.x, coord.y);
+    if (!inOtherBounds){
+      return undefined;
+    }
+    return coord;
+  }
+
   translate(x, y){
     this.start.move(x, y);
     this.end.move(x, y);

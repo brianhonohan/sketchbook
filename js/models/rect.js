@@ -88,4 +88,9 @@ class Rect {
     let newY = this.y - (scale - 1) * this.height / 2;
     return new Rect(newX, newY, this.width * scale, this.height * scale);
   }
+
+  static pointsContainXY(p1x, p1y, p2x, p2y, x, y){
+    return Math.min(p1x, p2x) <= x && x <= Math.max(p1x, p2x)
+          && Math.min(p1y, p2y) <= y && y <= Math.max(p1y, p2y);
+  }
 }
