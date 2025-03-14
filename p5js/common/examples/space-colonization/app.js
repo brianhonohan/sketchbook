@@ -59,6 +59,7 @@ function setup() {
   guiFolders.init.add(system.newComponents, "influencer_mode", influencer_modes);
   guiFolders.init.add(system.newComponents, "num_influencers", 50, 10000, 50);
   guiFolders.init.add(system, "inactivateBeforeAddingMore").name('Inactivate Existing');
+  guiFolders.init.add(system, "preventOverlappingLines").name('Prevent Line Overlap');
   guiFolders.init.add(system, "addNewComponents").name('Add New Components');
 
   guiFolders.other = gui.addFolder('Other Options (Display');

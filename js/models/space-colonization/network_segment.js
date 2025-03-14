@@ -22,6 +22,16 @@ class NetworkSegment {
     this.influencers.push(influencer);
   }
 
+  getLineSeg(){
+    if (this.lineSeg != null){
+      return this.lineSeg;
+    }
+
+    this.lineSeg = new LineSeg(this.x, this.y, this.parent.x, this.parent.y);
+    this.lineSeg.networkSeg = this;
+    return this.lineSeg;
+  }
+
   tick(){
     if (this.influencers.length == 0){
       return;
