@@ -1,6 +1,6 @@
 ---
 layout: minimal
-title:  "p5.js - Bouncing"
+title:  "p5.js - Common Examples - Bouncing"
 categories: p5js
 modal: true
 viewport_noscale: true
