@@ -15,6 +15,7 @@ js_scripts:
 - /sketchbook/js/util_functions.js
 - /sketchbook/js/options_set.js
 - /sketchbook/js/models/vector_2d.js
+- /sketchbook/js/models/line.js
 - /sketchbook/js/models/line_seg.js
 - /sketchbook/js/models/rect.js
 - /sketchbook/js/models/quadtree.js

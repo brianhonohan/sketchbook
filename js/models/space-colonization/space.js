@@ -41,6 +41,9 @@ class Space {
     this.allSegments().map(seg => seg.getLineSeg())
                       .forEach(seg => this.constraints.add(seg));
   }
+  clearConstraints(){
+    this.constraints = null;
+  }
 
   tick(){
     this.transmitInfluence();
@@ -52,19 +55,32 @@ class Space {
       return;
     }
 
+    // Quick, simple search of influencers within detection area of active networks
     let nearbyInfluencers = this.influencers.filter(n => {
-      // TODO: check that line-of-sight is not blocked by other segments
       return this.activeNetworks().some(p => p.detectionArea.containsXY(n.x, n.y));
-    });
+    }); 
 
     let allSegments = this.activeNetworks().map(p => p.segments).flat();
+
+    let lineOfSighCheckFunc = () => { return true };
+    if (this.constraints != null){
+      lineOfSighCheckFunc = function(inf, seg){
+        const lineOfSightSeg = new LineSeg(inf.x, inf.y, seg.x, seg.y);
+        const nearbySegments = this.constraints.find(lineOfSightSeg);
+        const blocked = nearbySegments.some(s => s.intersects(lineOfSightSeg));
+        return !blocked;
+      }.bind(this);
+    }
 
     let influencersWithSeg = nearbyInfluencers.map(inf => {
       return {
         influencer: inf,
-        segments: allSegments.filter(seg => seg.detectionArea.containsXY(inf.x, inf.y))
+        segments: allSegments.filter(seg => {
+            return seg.detectionArea.containsXY(inf.x, inf.y) && lineOfSighCheckFunc(inf, seg);
+          })
       };
     });
+    
     influencersWithSeg = influencersWithSeg.filter(infSeg => infSeg.segments.length > 0);
 
     influencersWithSeg.forEach(infSeg => {

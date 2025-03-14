@@ -69,6 +69,11 @@ class LineSeg {
     return line;
   }
 
+  intersects(otherLineSegment){
+    const coord = Line.intersectionPoint(this.getLine(), otherLineSegment.getLine());
+    return !(coord == undefined);
+  }
+
   intersectionPoint(otherLineSegment){
     const coord = Line.intersectionPoint(this.getLine(), otherLineSegment.getLine());
     if (coord == undefined) {
