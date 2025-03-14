@@ -31,6 +31,17 @@ class Space {
     return this.networks.filter(n => n.isActive);
   }
 
+  allSegments(){
+    return this.networks.map(network => network.segments).flat();
+  }
+
+  turnSegmentsIntoConstraints(){
+    this.constraints = new Quadtree(this.area, 4, false);
+
+    this.allSegments().map(seg => seg.getLineSeg())
+                      .forEach(seg => this.constraints.add(seg));
+  }
+
   tick(){
     this.transmitInfluence();
     this.activeNetworks().forEach(p => p.tick());
@@ -42,6 +53,7 @@ class Space {
     }
 
     let nearbyInfluencers = this.influencers.filter(n => {
+      // TODO: check that line-of-sight is not blocked by other segments
       return this.activeNetworks().some(p => p.detectionArea.containsXY(n.x, n.y));
     });
 
