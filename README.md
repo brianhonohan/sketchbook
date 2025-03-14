@@ -27,6 +27,7 @@ Collection of sketches using the [p5.js][p5js] Javascript library which demonstr
 
 [<img src="./p5js/common/examples/bezier/screenshot-01.png" alt="bezier" width="150px" />][link-p5js-bezier]
 [<img src="./p5js/common/examples/bezier-2/screenshot-01.png" alt="bezier" width="150px" />][link-p5js-bezier-2]
+[<img src="./p5js/common/examples/bouncing/screenshot-01.png" alt="bouncing-ball" width="150px" />][link-p5js-bouncing]
 [<img src="./p5js/common/examples/draggable/screenshot-01.png" alt="draggable" width="150px" />][link-p5js-draggable]
 [<img src="./p5js/common/examples/color-ramp/screenshot-01.png" alt="draggable" width="150px" />][link-p5js-color-ramp]
 [<img src="./p5js/common/examples/geometry-circle-line/screenshot-01.png" alt="draggable" width="150px" />][link-p5js-geometry-circle-line]
@@ -144,6 +145,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 
 [link-p5js-bezier]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/bezier/
 [link-p5js-bezier-2]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/bezier-2/
+[link-p5js-bouncing]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/bouncing/
 [link-p5js-color-ramp]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/color-ramp/
 [link-p5js-draggable]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/draggable/
 [link-p5js-geometry-circle-line]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/geometry-circle-line/
