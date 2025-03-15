@@ -33,11 +33,15 @@ class System {
   placePoints(locations){
     for (let i = 0; i < locations.length; i++){
       if (this.points[i]){
-        this.points[i].x = locations[i][0];
-        this.points[i].y = locations[i][1];
+        if (this.settings.homing_points){
+          this.points[i].setTarget(new Point(locations[i][0], locations[i][1]));
+        } else {
+          this.points[i].x = locations[i][0];
+          this.points[i].y = locations[i][1];
+        }
       }
       else{
-        this.points.push(new Point(locations[i][0], locations[i][1]));
+        this.points.push(new HomingPoint(locations[i][0], locations[i][1]));
       }
     }
     if (this.points.length > locations.length){
@@ -54,6 +58,7 @@ class System {
     return [
       { name: "num_points", type: "integer", default: 500},
       { name: "mode", type: "String", default: 'spiral-fermat'},
+      { name: "homing_points", type: "bool", default: true},
       
       // { name: "varname2", type: "string", default: 'Lorem Ipsum'}, 
       // { name: "varname3", type: "float", default: 0.6}
@@ -62,6 +67,11 @@ class System {
   }
 
   tick(){
+    if (this.settings.homing_points){
+      for (let i = 0; i < this.points.length; i++){
+        this.points[i].update();
+      }
+    }
   }
 
   render(){
