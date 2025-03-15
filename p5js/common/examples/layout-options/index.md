@@ -20,6 +20,7 @@ js_scripts:
 - /sketchbook/js/models/rect.js
 - /sketchbook/js/models/circle.js
 - /sketchbook/p5js/common/shapes/point.js
+- /sketchbook/p5js/common/shapes/homing_point.js
 - classes/system.js
 - app.js
 
