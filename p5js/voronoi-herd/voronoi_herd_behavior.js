@@ -9,6 +9,7 @@ var systemParams = {
 
   flocking: {
     maxSpeed: 0.5,
+    fleeSpeed: 0.5,
     desiredSeparation: 10,
     grazing:
        {
@@ -40,6 +41,7 @@ function setup(){
 
   let flocking = gui.addFolder('Flocking');
   flocking.add(systemParams.flocking, 'maxSpeed').min(0.25).max(5).step(0.25);
+  flocking.add(systemParams.flocking, 'fleeSpeed').min(0.25).max(5).step(0.25);
   flocking.add(systemParams.flocking, 'desiredSeparation').min(10).max(120).step(5);
 
   let grazingGui = flocking.addFolder('Grazing');
@@ -74,6 +76,12 @@ function addGuiListeners(){
 }
 
 function mouseDragged(){
-  grassland.herd.predator.loc = createVector(constrain(mouseX, 0, width),
-                                             constrain(mouseY, 0, height));
+  if (event.target.nodeName != "CANVAS") {
+    return;
+  }
+  const locX = constrain(mouseX, 1, width - 1) ;
+  const locY = constrain(mouseY, 1, height - 1);
+
+  grassland.herd.predator.loc = createVector(constrain(locX, 0, width),
+                                             constrain(locY, 0, height));
 }
