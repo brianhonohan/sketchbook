@@ -37,6 +37,14 @@ class Flocking {
     return config;
   }
 
+  getWeightsFor(behavior){
+    switch (behavior){
+      case 'grazing': return this.config.grazing;
+      case 'avoiding': return this.config.avoiding;
+      default: return this.config;
+    }
+  }
+
   // Params:
   // boid - the object that we're getting the Flocking acceleration for
   // neighboringBoids - array of other Boids nearby that will influence the boid

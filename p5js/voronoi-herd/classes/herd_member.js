@@ -39,12 +39,8 @@ class HerdMember {
   }
 
   updateBehavior(neighbors){
-    let weights;
-    if (this.state === HerdMember.STATE_AVOIDING_PREDATOR){
-      weights = this.avoidingFlockingWeights();
-    }else {
-      weights = this.grazingFlockingWeights();
-    }
+    const behaviorName = this.isGrazing() ? 'grazing' : 'avoiding';
+    let weights = this.herd.flocking.getWeightsFor(behaviorName)
 
     this.accel.add(this.herd.flocking.calcAccel(this, neighbors, weights));
     if (!this.herd.params.wrapEdges){ this.accel.add(this.steerFromBorders()); }
