@@ -74,6 +74,9 @@ function addGuiListeners(){
 }
 
 function mouseDragged(){
-  grassland.herd.predator.loc = createVector(constrain(mouseX, 0, width),
-                                             constrain(mouseY, 0, height));
+  const locX = constrain(mouseX, 1, width - 1) ;
+  const locY = constrain(mouseY, 1, height - 1);
+
+  grassland.herd.predator.loc = createVector(constrain(locX, 0, width),
+                                             constrain(locY, 0, height));
 }
