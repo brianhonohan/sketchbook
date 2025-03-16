@@ -30,6 +30,21 @@ function determineVerticalMargin(){
   return (fullUrl.indexOf(".html") > 0) ? 0 : 37;
 }
 
+function mousePressed(event){
+  if (event.target.nodeName != "CANVAS") {
+    return;
+  }
+  // ...
+}
+
+function mouseDragged(event){
+  if (event.target.nodeName != "CANVAS") {
+    return;
+  }
+  // ...
+
+}
+
 function keyTyped(){
   switch (key) {
     case 'P':

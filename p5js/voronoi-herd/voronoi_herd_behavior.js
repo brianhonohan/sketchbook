@@ -74,6 +74,9 @@ function addGuiListeners(){
 }
 
 function mouseDragged(){
+  if (event.target.nodeName != "CANVAS") {
+    return;
+  }
   const locX = constrain(mouseX, 1, width - 1) ;
   const locY = constrain(mouseY, 1, height - 1);
 
