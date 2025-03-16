@@ -9,8 +9,21 @@ var systemParams = {
 
   flocking: {
     maxSpeed: 0.5,
-    desiredSeparation: 10
+    desiredSeparation: 10,
+    grazing:
+       {
+        separationFactor: 2,
+        alignFactor: 1.0,
+        cohesionFactor: 1.0,
+      },
+    avoiding: {
+        separationFactor: 1.0,
+        alignFactor: 0.0,
+        cohesionFactor: 2.0,
+    }
   }
+
+
 };
 var guiHerdCount;
 
@@ -28,6 +41,16 @@ function setup(){
   let flocking = gui.addFolder('Flocking');
   flocking.add(systemParams.flocking, 'maxSpeed').min(0.25).max(5).step(0.25);
   flocking.add(systemParams.flocking, 'desiredSeparation').min(10).max(120).step(5);
+
+  let grazingGui = flocking.addFolder('Grazing');
+  grazingGui.add(systemParams.flocking.grazing, 'separationFactor').min(0).max(5).step(0.25);
+  grazingGui.add(systemParams.flocking.grazing, 'alignFactor').min(0).max(5).step(0.25);  
+  grazingGui.add(systemParams.flocking.grazing, 'cohesionFactor').min(0).max(5).step(0.25);
+
+  let avoidingGui = flocking.addFolder('Avoiding');
+  avoidingGui.add(systemParams.flocking.avoiding, 'separationFactor').min(0).max(5).step(0.25);
+  avoidingGui.add(systemParams.flocking.avoiding, 'alignFactor').min(0).max(5).step(0.25);  
+  avoidingGui.add(systemParams.flocking.avoiding, 'cohesionFactor').min(0.25).max(5).step(0.25);
 
   addGuiListeners();
 
