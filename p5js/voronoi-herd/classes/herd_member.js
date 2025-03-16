@@ -32,7 +32,7 @@ class HerdMember {
     this.fear = constrain((this.fear + 0.03), 0, 1);
 
     let vecAwayFromPredator = p5.Vector.sub(this.loc, this.herd.predator.loc);
-    vecAwayFromPredator.setMag(0.5);
+    vecAwayFromPredator.setMag(this.herd.params.flocking.fleeSpeed);
     this.accel.add(vecAwayFromPredator);
     this.state = HerdMember.STATE_AVOIDING_PREDATOR;
   }
