@@ -35,7 +35,6 @@ class Herd {
     }
 
     let membersCloseToPredator = this.neighborMembers(closestCellId);
-    let countBefore = membersCloseToPredator.length;
     membersCloseToPredator = membersCloseToPredator.filter(el => {
       let dist = p5.Vector.dist(this.predator.loc, el.loc);
       return (dist < this.params.flocking.fearRange)
