@@ -34,12 +34,17 @@ class Herd {
       closestMember.returnToGrazing();
     }
 
-    let membersCloseToPredator = this.neighborMembers(closestCellId);
-    membersCloseToPredator = membersCloseToPredator.filter(el => {
-      let dist = p5.Vector.dist(this.predator.loc, el.loc);
-      return (dist < this.params.flocking.fearRange)
-    });
-    membersCloseToPredator.forEach(el => el.avoidPredator());
+    let membersCloseToPredator = []
+
+    if (!this.params.flocking.onlyClosestIsAfraid){
+      membersCloseToPredator = this.neighborMembers(closestCellId);
+      membersCloseToPredator = membersCloseToPredator.filter(el => {
+        let dist = p5.Vector.dist(this.predator.loc, el.loc);
+        return (dist < this.params.flocking.fearRange)
+      });
+      membersCloseToPredator.forEach(el => el.avoidPredator());
+    }
+
     const others = this.members.filter(el => !membersCloseToPredator.includes(el) 
                                               && el != closestMember);
     others.forEach(el => el.returnToGrazing());

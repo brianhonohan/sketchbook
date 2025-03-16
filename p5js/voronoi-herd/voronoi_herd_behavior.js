@@ -2,7 +2,7 @@ var grassland;
 
 var gui;
 var systemParams = {
-  herd_count: 30,
+  herd_count: 40,
   memberSize: 5,
   drawVoronoi: true,
   wrapEdges: false,
@@ -10,8 +10,9 @@ var systemParams = {
   flocking: {
     maxSpeed: 0.5,
     fleeSpeed: 0.5,
-    desiredSeparation: 10,
-    fearRange: 200,
+    desiredSeparation: 40,
+    fearRange: 400,
+    onlyClosestIsAfraid: true,
     grazing:
        {
         separationFactor: 2,
@@ -45,7 +46,8 @@ function setup(){
   flocking.add(systemParams.flocking, 'fleeSpeed').min(0.25).max(5).step(0.25);
   flocking.add(systemParams.flocking, 'desiredSeparation').min(10).max(120).step(5);
   flocking.add(systemParams.flocking, 'fearRange').min(0).max(500).step(5);
-  
+  flocking.add(systemParams.flocking, 'onlyClosestIsAfraid');
+
   let grazingGui = flocking.addFolder('Grazing');
   grazingGui.add(systemParams.flocking.grazing, 'separationFactor').min(0).max(5).step(0.25);
   grazingGui.add(systemParams.flocking.grazing, 'alignFactor').min(0).max(5).step(0.25);  
