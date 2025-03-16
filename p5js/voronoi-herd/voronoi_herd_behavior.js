@@ -11,6 +11,7 @@ var systemParams = {
     maxSpeed: 0.5,
     fleeSpeed: 0.5,
     desiredSeparation: 10,
+    fearRange: 200,
     grazing:
        {
         separationFactor: 2,
@@ -43,7 +44,8 @@ function setup(){
   flocking.add(systemParams.flocking, 'maxSpeed').min(0.25).max(5).step(0.25);
   flocking.add(systemParams.flocking, 'fleeSpeed').min(0.25).max(5).step(0.25);
   flocking.add(systemParams.flocking, 'desiredSeparation').min(10).max(120).step(5);
-
+  flocking.add(systemParams.flocking, 'fearRange').min(0).max(500).step(5);
+  
   let grazingGui = flocking.addFolder('Grazing');
   grazingGui.add(systemParams.flocking.grazing, 'separationFactor').min(0).max(5).step(0.25);
   grazingGui.add(systemParams.flocking.grazing, 'alignFactor').min(0).max(5).step(0.25);  
