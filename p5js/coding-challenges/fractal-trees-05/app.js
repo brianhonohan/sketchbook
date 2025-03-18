@@ -15,6 +15,9 @@ var params = {
   random_colors_per_plant: true
 };
 var guiNumNutrients;
+var guiButtons = {
+  restart: initSystem
+};
 
 function setup() {
   canvas = createCanvas(windowWidth, windowHeight-40);
@@ -36,6 +39,7 @@ function setup() {
   guiDetectionRange= gui.add(params, "detection_range",10, 505, 10);
   guiNumPlants= gui.add(params, "num_plants", 1, 100, 1);
   gui.add(params, "random_colors_per_plant");
+  gui.add(guiButtons, "restart").name("Restart");
   addGuiListeners();
   // gui.close();
 
