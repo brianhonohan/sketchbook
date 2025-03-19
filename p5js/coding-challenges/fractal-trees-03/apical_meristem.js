@@ -15,7 +15,7 @@ class ApicalMeristem {
   }
 
   tick(){
-    if (frameCount % 200 == 0){
+    if (frameCount % 200 == 0 && this.segment.reachedMaxGrowth == false){
       this.addBranch();
       this.startNewSegment();
     }
