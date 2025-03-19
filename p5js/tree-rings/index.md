@@ -3,6 +3,7 @@ layout: minimal
 title:  "p5.js - Tree Rings"
 categories: p5js
 modal: true
+bh_non_interactive: true
 viewport_noscale: true
 excerpt: Preliminary sketch that establishes cells of a tree trunk cross-section to represent the growth rings experienced in different seasons.
 
