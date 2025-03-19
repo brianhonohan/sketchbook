@@ -3,6 +3,8 @@ class Tree {
     this.x = x;
     this.y = y;
 
+    this.maxTrunkWidth = 50;
+
     this.segments = [];
     let firstShoot = new TreeSegment(-PI/2, this);
     let firstRoot = new TreeSegment(PI/2, this);
@@ -22,6 +24,10 @@ class Tree {
 
   receiveAuxin(auxin){
     // do nothing
+  }
+
+  lengthFromSurface(){
+    return 0;
   }
 
   tick(){

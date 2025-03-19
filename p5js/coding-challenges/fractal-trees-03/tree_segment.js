@@ -11,9 +11,12 @@ class TreeSegment {
     this.leaves = [];
     this.bud = null;
     this.auxinLevel = 0;
+    this.reachedMaxGrowth = false;
+    this.maxTrunkWidth = this.parent.maxTrunkWidth * 0.8;
   }
 
   static get MAX_LENGTH() { return 20; } // Purely in terms of data modeling
+  static get MAX_GROWTH_FROM_SURFACE() { return 400; }
 
   attachAM(apicalMeristem){
     this.apicalMeristem = apicalMeristem;
@@ -51,7 +54,15 @@ class TreeSegment {
     this.parent.receiveAuxin(auxinAmt);
   }
 
+  lengthFromSurface(){
+    return this.length + this.parent.lengthFromSurface();
+  }
+
   lengthen(delta){
+    if (this.lengthFromSurface() > TreeSegment.MAX_GROWTH_FROM_SURFACE) {
+      this.reachedMaxGrowth = true;
+      return;
+    }
     this.length += delta;
   }
 
@@ -63,10 +74,12 @@ class TreeSegment {
       this.childSegments.forEach(cS => cS.tick());
     }
 
-    if (this.auxinLevel > 0.95){
+    if (this.auxinLevel > 0.95 && !this.reachedMaxGrowth) {
       this.lengthen(0.2);
     }else{
-      this.width += 0.005;
+      if (this.width < this.maxTrunkWidth) {
+        this.width += 0.005;
+      }
     }
     this.auxinLevel *= 0.85;
     this.transmitAuxin();

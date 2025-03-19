@@ -45,7 +45,6 @@ class ApicalMeristem {
   startNewSegment(){
     let angleRange = random(-0.4, 0.4) * this.attachDir;
     const childSeg = new TreeSegment(angleRange, this.segment);
-    this.segment.attachToSegment
     this.attachToSegment(childSeg);
   }
 
