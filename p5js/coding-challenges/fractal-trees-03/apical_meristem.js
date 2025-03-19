@@ -15,7 +15,7 @@ class ApicalMeristem {
   }
 
   tick(){
-    if (frameCount % 200 == 0){
+    if (frameCount % 200 == 0 && this.segment.reachedMaxGrowth == false){
       this.addBranch();
       this.startNewSegment();
     }
@@ -29,6 +29,7 @@ class ApicalMeristem {
 
   addBranch(){
     let branch = new TreeSegment(this.attachAngle * this.attachDir, this.segment);
+    branch.maxTrunkLength *= 0.95;
     let meristem = this.meristemOfSameType(branch);
     tree.addApicalMeristem(meristem);
     this.attachDir *= -1;
@@ -45,7 +46,6 @@ class ApicalMeristem {
   startNewSegment(){
     let angleRange = random(-0.4, 0.4) * this.attachDir;
     const childSeg = new TreeSegment(angleRange, this.segment);
-    this.segment.attachToSegment
     this.attachToSegment(childSeg);
   }
 
