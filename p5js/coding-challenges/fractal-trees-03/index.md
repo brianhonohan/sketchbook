@@ -3,6 +3,7 @@ layout: minimal
 title:  "p5.js - Fractal Trees - Coding Challenge #15"
 categories: p5js
 modal: true
+bh_non_interactive: true
 viewport_noscale: true
 excerpt: Simulates tree growth with apical meristem cells driving growth at the end of branches, which secrete auxin, a growth inhibitor (shown as pink) which prevents lateral growth for little while.
 

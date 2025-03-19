@@ -17,6 +17,9 @@
       <input type="checkbox" id="tm">
       <ul class="main-menu clearfix">
         {% if page.modal %}
+          {% if page.bh_non_interactive %}
+            <li><a class="page-link" style="text-decoration: none;">(non-interactive)</a></li>
+          {% endif %}
         <li><a class="page-link js-modal" href="#"
            data-modal-prefix-class="simple"
            data-modal-content-id="modal-content"
