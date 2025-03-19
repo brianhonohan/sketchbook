@@ -14,6 +14,7 @@ class AxillaryBud {
 
   startShoot(){
     let branch = new TreeSegment(this.attachAngle, this.segment);
+    branch.maxTrunkLength *= 0.95;
     let meristem = new ShootApicalMeristem(branch);
     tree.addApicalMeristem(meristem);
     this.segment.bud = null;

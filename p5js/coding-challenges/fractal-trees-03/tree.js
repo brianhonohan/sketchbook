@@ -4,6 +4,7 @@ class Tree {
     this.y = y;
 
     this.maxTrunkWidth = 50;
+    this.maxTrunkLength = 500;
 
     this.segments = [];
     let firstShoot = new TreeSegment(-PI/2, this);

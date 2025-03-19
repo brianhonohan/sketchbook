@@ -29,6 +29,7 @@ class ApicalMeristem {
 
   addBranch(){
     let branch = new TreeSegment(this.attachAngle * this.attachDir, this.segment);
+    branch.maxTrunkLength *= 0.95;
     let meristem = this.meristemOfSameType(branch);
     tree.addApicalMeristem(meristem);
     this.attachDir *= -1;

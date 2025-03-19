@@ -12,6 +12,8 @@ class TreeSegment {
     this.bud = null;
     this.auxinLevel = 0;
     this.reachedMaxGrowth = false;
+
+    this.maxTrunkLength = this.parent.maxTrunkLength; 
     this.maxTrunkWidth = this.parent.maxTrunkWidth * 0.8;
   }
 
@@ -59,7 +61,11 @@ class TreeSegment {
   }
 
   lengthen(delta){
-    if (this.lengthFromSurface() > TreeSegment.MAX_GROWTH_FROM_SURFACE) {
+    // if (this.lengthFromSurface() > TreeSegment.MAX_GROWTH_FROM_SURFACE) {
+    //   this.reachedMaxGrowth = true;
+    //   return;
+    // }
+    if (this.lengthFromSurface() > this.maxTrunkLength) {
       this.reachedMaxGrowth = true;
       return;
     }
