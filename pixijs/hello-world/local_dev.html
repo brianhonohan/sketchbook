@@ -12,6 +12,7 @@
     const app = new PIXI.Application();
     await app.init({ width: window.innerWidth, height: window.innerHeight})
     document.body.appendChild(app.canvas);
+    app.canvas.style.setProperty('position', 'absolute');
 
     // Create the sprite and add it to the stage
     await PIXI.Assets.load('/sketchbook/assets/images/sketchbook.png');
@@ -24,17 +25,14 @@
       elapsed += ticker.deltaTime;
       sprite.x = 100.0 + Math.cos(elapsed/50.0) * 100.0;
     });
+
+    window.app = app; // for debugging
   </script>
 <style>
 body {
   margin: 0;
   padding:0;
   font-family: Sans-Serif;
-}
-canvas {
-  margin:0; padding:0; 
-  position:absolute; 
-  top:0; left:0
 }
 </style>
 </body>
