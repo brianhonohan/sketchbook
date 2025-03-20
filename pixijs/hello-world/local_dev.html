@@ -10,7 +10,7 @@
   <script type="module">
     // Create the application helper and add its render target to the page
     const app = new PIXI.Application();
-    await app.init({ width: 640, height: 360 })
+    await app.init({ width: window.innerWidth, height: window.innerHeight})
     document.body.appendChild(app.canvas);
 
     // Create the sprite and add it to the stage
@@ -25,5 +25,17 @@
       sprite.x = 100.0 + Math.cos(elapsed/50.0) * 100.0;
     });
   </script>
+<style>
+body {
+  margin: 0;
+  padding:0;
+  font-family: Sans-Serif;
+}
+canvas {
+  margin:0; padding:0; 
+  position:absolute; 
+  top:0; left:0
+}
+</style>
 </body>
 </html>
