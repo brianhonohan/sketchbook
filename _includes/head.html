@@ -35,4 +35,6 @@
     {% endfor %}
     {% for js in page.js_scripts %}<script src="{{ js }}" charset="utf-8"></script>
     {% endfor %}
+    {% for mjs in page.js_modules %}<script type="module" src="{{ mjs }}" charset="utf-8"></script>
+    {% endfor %}
 </head>
