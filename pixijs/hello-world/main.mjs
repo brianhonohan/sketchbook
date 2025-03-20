@@ -1,3 +1,4 @@
+
 // Create the application helper and add its render target to the page
 const app = new PIXI.Application();
 await app.init({ width: window.innerWidth, height: window.innerHeight})
@@ -8,6 +9,11 @@ app.canvas.style.setProperty('position', 'absolute');
 await PIXI.Assets.load('/sketchbook/assets/images/sketchbook.png');
 let sprite = PIXI.Sprite.from('/sketchbook/assets/images/sketchbook.png');
 app.stage.addChild(sprite);
+
+let obj = new Graphics()
+  .rect(0, 0, 200, 100)
+  .fill(0xff0000);
+app.stage.addChild(obj);
 
 // Add a ticker callback to move the sprite back and forth
 let elapsed = 0.0;

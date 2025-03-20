@@ -9,7 +9,7 @@ layout: default
 
   {{ content }}
 
-  {% assign categories = "p5js, paperjs, processing, ruby" | split: ", " | sort: 'title', 'first' %}
+  {% assign categories = "p5js, paperjs, processing, pixijs, ruby" | split: ", " | sort: 'title', 'first' %}
 
   {% assign all_filtered_pages = site.pages | where: 'bh_page_type', "sketch" %}
 
