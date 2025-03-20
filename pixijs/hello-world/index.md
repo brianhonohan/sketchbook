@@ -4,6 +4,7 @@ title:  "pixiJS - Hello World"
 categories: pixijs
 modal: true
 viewport_noscale: true
+bh_page_type: draft
 excerpt: A rudimentary sketch using the pixiJS rendering library.
 
 js_scripts:

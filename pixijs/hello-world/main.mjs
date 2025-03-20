@@ -10,7 +10,7 @@ await PIXI.Assets.load('/sketchbook/assets/images/sketchbook.png');
 let sprite = PIXI.Sprite.from('/sketchbook/assets/images/sketchbook.png');
 app.stage.addChild(sprite);
 
-let obj = new Graphics()
+let obj = new PIXI.Graphics()
   .rect(0, 0, 200, 100)
   .fill(0xff0000);
 app.stage.addChild(obj);
