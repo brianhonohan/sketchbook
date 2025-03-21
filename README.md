@@ -5,9 +5,9 @@ Collection of personal coding projects. They may or may not grow into individual
 
 ## Latest
 
-A [p5.js][p5js] sketch demonstrate determination of intersection of lines.
+A [pixiJS][pixijs] sketch as a basic sketch-template to use as starting point in future sketches.
 
-[<img src="./p5js/common/examples/geometry-line-to-line/screenshot-01.png" alt="line intersection" width="150px" />][link-p5js-geometry-line-to-line]
+[<img src="./pixijs/sketch-template/screenshot-01.png" alt="rainbox dots in circle" width="150px" />][link-pixijs-sketch-template]
 
 ## LÖVE
 Collection of sketches using the [LÖVE][love2d] environment.
@@ -107,6 +107,13 @@ Collection of sketches using the [p5.js][p5js] Javascript library inspired by th
 [<img src="./p5js/coding-challenges/space-invaders/screenshot-01.png" alt="space-invaders" width="150px" />][link-p5js-cc-space-invaders]
 [<img src="./p5js/coding-challenges/terrain-3d-flyover/screenshot-01.png" alt="terrain-3d-flyover" width="150px" />][link-p5js-cc-terrain-3d-flyover]
 
+
+## pixiJS
+Collection of sketches using the [pixiJS][pixijs] Javascript library.
+
+
+[<img src="./pixijs/sketch-template/screenshot-01.png" alt="rainbox dots in circle" width="150px" />][link-pixijs-sketch-template]
+
 ## Processing
 Collection of sketches using the [Processing (P3)][processing] environment.
 
@@ -132,6 +139,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [love2d]: https://love2d.org/
 [p5js]: https://p5js.org/
 [paperjs]: http://paperjs.org/
+[pixijs]: https://pixijs.com/
 [processing]: https://processing.org/
 [coding-train]: https://www.youtube.com/channel/UCvjgXvBlbQiydffZU7m1_aw
 [coding-train-cc]: https://www.youtube.com/watch?v=17WoOqgXsRM&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=1
@@ -212,6 +220,8 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-p5js-cc-solar-system]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/solar-system/
 [link-p5js-cc-space-invaders]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/space-invaders/
 [link-p5js-cc-terrain-3d-flyover]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/terrain-3d-flyover/
+
+[link-pixijs-sketch-template]: https://github.com/brianhonohan/sketchbook/tree/master/pixijs/sketch-template/
 
 [link-attractors]: https://github.com/brianhonohan/sketchbook/tree/master/processing/attractors
 [link-dodgeball]: https://github.com/brianhonohan/sketchbook/tree/master/processing/dodgeball
