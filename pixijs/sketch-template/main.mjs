@@ -21,6 +21,6 @@ import {Application, Graphics} from 'https://cdn.jsdelivr.net/npm/pixi.js@8/dist
     elapsed += ticker.deltaTime;
   });
 
+  window.__PIXI_DEVTOOLS__ = { app };
   window.app = app; // for debugging
-  window.rectObj = obj; // for debugging
 })();
