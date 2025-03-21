@@ -1,24 +1,24 @@
-import {Application, Graphics} from 'https://cdn.jsdelivr.net/npm/pixi.js@8/dist/pixi.min.mjs';
- 
+import {Application} from 'https://cdn.jsdelivr.net/npm/pixi.js@8/dist/pixi.min.mjs';
+import {System} from './modules/system.mjs';
+
 (async () => {
   const app = new Application();
   await app.init({ 
-      // width: window.innerWidth, height: window.innerHeight
-      width: 500, height: 500,
+      width: window.innerWidth, height: window.innerHeight,
+      // width: 500, height: 500, // for screenshot
       background: 0x323232,
+      antialias: true,
     });
   document.body.appendChild(app.canvas);
   app.canvas.style.position = 'absolute';
 
-  let obj = new Graphics()
-    .rect(0, 0, 200, 100)
-    .fill(0xff0000);
-  app.stage.addChild(obj);
+  const system = new System(app);
+  system.init();
 
-  // Add a ticker callback to move the sprite back and forth
-  let elapsed = 0.0;
+  let totalElapsedMS = 0.0;
   app.ticker.add((ticker) => {
-    elapsed += ticker.deltaTime;
+    totalElapsedMS += ticker.elapsedMS;
+    system.tick(ticker, totalElapsedMS);
   });
 
   window.__PIXI_DEVTOOLS__ = { app };
