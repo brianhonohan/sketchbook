@@ -1,11 +1,10 @@
 ---
 layout: minimal
-title:  "pixiJS - sketch_template"
+title:  "pixiJS - Sketch Template"
 categories: pixijs
 modal: true
 viewport_noscale: true
-bh_page_type: draft
-excerpt: Description of this sketch.
+excerpt: A basic sketch to establish a template for creating more pixiJS sketches.
 
 js_modules:
 - main.mjs
