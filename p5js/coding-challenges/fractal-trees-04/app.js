@@ -61,6 +61,7 @@ function draw(){
   push();
   translate(width/2, height * 0.8);
   scale(visualScale);
+  rotate(PI);
   systemViewer.draw(system);
   pop();
 }
