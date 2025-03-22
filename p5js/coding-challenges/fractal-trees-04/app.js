@@ -21,6 +21,7 @@ function setup(){
   gui.add(settings, "axiom").onChange(regenerate);
   gui.add(settings, "rule").onChange(regenerate);
   gui.add(settings, "angle", 0, 180, 1);
+  gui.add(settings, "segment_length", 0, 50, 1);
   gui.add(buttonFunc, "step");
   gui.add(buttonFunc, "regenerate");
 
@@ -73,6 +74,7 @@ function optionsMetadata(){
     { name: "axiom", type: "string", default: 'F'},
     { name: "rule", type: "string", default: 'FF[+F][-F+F]F'},
     { name: "angle", type: "float", default: 45},
+    { name: "segment_length", type: "float", default: 20},
     // { name: "horizReflect", type: "bool", default: true},
     // { name: "strokeWeight", type: "float", default: '2'},
   ];

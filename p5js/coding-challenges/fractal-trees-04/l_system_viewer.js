@@ -8,8 +8,8 @@ class LSystemViewer{
     for(var i = 0; i < system.instructions.length; i++){
       switch(system.instructions[i]) {
         case 'F':
-          line(0, 0, 0, -20);
-          translate(0, -20);
+          line(0, 0, 0, -1 * this.settings.segment_length);
+          translate(0, -1 * this.settings.segment_length);
           break;
         case '+':
           rotate(this.settings.angle * PI/180);
