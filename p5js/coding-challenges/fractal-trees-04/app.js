@@ -20,11 +20,12 @@ function setup(){
   gui = P5JsSettings.addDatGui({autoPlace: false});
   gui.add(settings, "axiom").onChange(regenerate);
   gui.add(settings, "rule").onChange(regenerate);
+  gui.add(settings, "angle", 0, 180, 1);
   gui.add(buttonFunc, "step");
   gui.add(buttonFunc, "regenerate");
 
   system = new LSystem(settings);
-  systemViewer = new LSystemViewer();
+  systemViewer = new LSystemViewer(settings);
   stroke(255);
 }  
 
@@ -40,6 +41,9 @@ function draw(){
 
 function regenerate(){
   system = new LSystem(settings);
+}
+
+function redraw(){
 }
 
 function stepFunc(){
@@ -68,6 +72,7 @@ function optionsMetadata(){
     // { name: "axiom", type: "integer", default: 0.2 * width},
     { name: "axiom", type: "string", default: 'F'},
     { name: "rule", type: "string", default: 'FF[+F][-F+F]F'},
+    { name: "angle", type: "float", default: 45},
     // { name: "horizReflect", type: "bool", default: true},
     // { name: "strokeWeight", type: "float", default: '2'},
   ];
