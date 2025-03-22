@@ -2,22 +2,28 @@ var system;
 var systemViewer;
 var visualScale;
 var log10 = Math.log(10);
+var settings;
 
-var params = {
-  axiom: 'F',
-  rule: 'FF[+F][-F+F]F'
-}
+const buttonFunc = {
+  'step': stepFunc,
+  'regenerate': regenerate
+};
 
 function setup(){
   createCanvas(windowWidth, windowHeight-40);
+  P5JsSettings.init();
   visualScale = 1;
 
-  gui = new dat.gui.GUI();
-  guiAxiom = gui.add(params, "axiom");
-  gui.add(params, "rule");
-  addGuiListeners();
+  optionsSet = new OptionsSet(optionsMetadata());
+  settings = optionsSet.settings;
 
-  system = new LSystem(params);
+  gui = P5JsSettings.addDatGui({autoPlace: false});
+  gui.add(settings, "axiom").onChange(regenerate);
+  gui.add(settings, "rule").onChange(regenerate);
+  gui.add(buttonFunc, "step");
+  gui.add(buttonFunc, "regenerate");
+
+  system = new LSystem(settings);
   systemViewer = new LSystemViewer();
   stroke(255);
 }  
@@ -32,10 +38,12 @@ function draw(){
   pop();
 }
 
-function addGuiListeners(){
-  guiAxiom.onFinishChange(function(value) {
-    system = new LSystem(params);
-  });
+function regenerate(){
+  system = new LSystem(settings);
+}
+
+function stepFunc(){
+  system.step();
 }
 
 function keyPressed(){
@@ -53,4 +61,14 @@ function mouseWheel(event){
                       * Math.log( abs(event.delta) )
                       / log10;
   visualScale = Math.max(0.1, visualScale + zoomDelta);
+}
+
+function optionsMetadata(){
+  return [
+    // { name: "axiom", type: "integer", default: 0.2 * width},
+    { name: "axiom", type: "string", default: 'F'},
+    { name: "rule", type: "string", default: 'FF[+F][-F+F]F'},
+    // { name: "horizReflect", type: "bool", default: true},
+    // { name: "strokeWeight", type: "float", default: '2'},
+  ];
 }
