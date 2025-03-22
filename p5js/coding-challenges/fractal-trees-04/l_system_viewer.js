@@ -1,17 +1,21 @@
 class LSystemViewer{
+  constructor(settings){
+    this.settings = settings;
+  } 
+
   draw(system){
     push();
     for(var i = 0; i < system.instructions.length; i++){
       switch(system.instructions[i]) {
         case 'F':
-          line(0, 0, 0, -20);
-          translate(0, -20);
+          line(0, 0, 0, this.settings.segment_length);
+          translate(0, this.settings.segment_length);
           break;
         case '+':
-          rotate(PI/4);
+          rotate(this.settings.angle * PI/180);
           break;
         case '-':
-          rotate(-PI/4);
+          rotate(-1 * this.settings.angle * PI/180);
           break;
         case '[':
           push();
