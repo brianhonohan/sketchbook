@@ -22,10 +22,11 @@ function setup(){
   gui.add(settings, "rule").onChange(regenerate);
   gui.add(settings, "angle", 0, 180, 1);
   gui.add(settings, "segment_length", 0, 50, 1);
+  gui.add(settings, "auto_step", 0, 20, 1).onChange(regenerate);
   gui.add(buttonFunc, "step");
   gui.add(buttonFunc, "regenerate");
 
-  system = new LSystem(settings);
+  regenerate();
   systemViewer = new LSystemViewer(settings);
   stroke(255);
 }  
@@ -42,6 +43,9 @@ function draw(){
 
 function regenerate(){
   system = new LSystem(settings);
+  for (let i = 0; i < settings.auto_step; i++){
+    system.step();
+  }
 }
 
 function redraw(){
@@ -75,6 +79,7 @@ function optionsMetadata(){
     { name: "rule", type: "string", default: 'FF[+F][-F+F]F'},
     { name: "angle", type: "float", default: 45},
     { name: "segment_length", type: "float", default: 20},
+    { name: "auto_step", type: "integer", default: 5},
     // { name: "horizReflect", type: "bool", default: true},
     // { name: "strokeWeight", type: "float", default: '2'},
   ];
