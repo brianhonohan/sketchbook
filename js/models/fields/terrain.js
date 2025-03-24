@@ -27,6 +27,12 @@ class Terrain extends DiscreteField {
   computeSlopeAndAspect(idx){
     const neighborsIdx = this.grid.neighborsOfIdx(idx);
 
+    // TODO: Formalize the 'sealevel' value; remove majic number of 1
+    if (this.values[idx] < 1){
+      this.aspects[idx] = -1; // below sea level
+      return;
+    }
+
     // Neighborhood is:
     //   0 1 2
     //   3 - 4

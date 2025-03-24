@@ -22,10 +22,12 @@ class P5jsColorRamp {
   
   static terrainAspect(){
     const _newRamp = new P5jsColorRamp();
-    _newRamp.setRange(0,360);
+    _newRamp.setRange(-1,360);
     _newRamp.setColors(
       [
-        {color: color(220, 0, 0), breakpoint: _newRamp.minValue},
+        {color: color(150, 150, 150), breakpoint: _newRamp.minValue},
+        {color: color(150, 150, 150), breakpoint: 0},
+        {color: color(220, 0, 0), breakpoint: 0},
         {color: color(220, 110, 0), breakpoint: 45},
         {color: color(220, 220, 0), breakpoint: 90},
         {color: color(0, 220, 0), breakpoint: 135},
