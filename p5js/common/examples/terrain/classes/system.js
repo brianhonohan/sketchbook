@@ -29,10 +29,15 @@ class System {
       { name: "ySpeed", type: "float", default: 0},
       { name: "zSpeed", type: "float", default: 0.0000},
       { name: "open_simplex_noise", type: "bool", default: false},
+      { name: "base_layer", type: "string", default: 'Elevation'},
       { name: "interpolate_lines", type: "bool", default: true},
       { name: "num_levels", type: "integer", default: 16},
       { name: "bin_colors", type: "bool", default: false},
     ];
+  }
+
+  getBaseLayerOptions(){
+    return this.terrainViewer.getBaseLayerOptions();
   }
 
   init(){
