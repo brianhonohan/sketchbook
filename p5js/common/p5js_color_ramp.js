@@ -19,6 +19,25 @@ class P5jsColorRamp {
     );
     return _newRamp;
   }
+  
+  static terrainAspect(){
+    const _newRamp = new P5jsColorRamp();
+    _newRamp.setRange(0,360);
+    _newRamp.setColors(
+      [
+        {color: color(220, 0, 0), breakpoint: _newRamp.minValue},
+        {color: color(220, 110, 0), breakpoint: 45},
+        {color: color(220, 220, 0), breakpoint: 90},
+        {color: color(0, 220, 0), breakpoint: 135},
+        {color: color(0, 220, 220), breakpoint: 180},
+        {color: color(0, 180, 180), breakpoint: 225},
+        {color: color(0, 0, 160), breakpoint: 270},
+        {color: color(220, 0, 220), breakpoint: 315},
+        {color: color(230, 0, 0), breakpoint: _newRamp.maxValue}
+      ]
+    );
+    return _newRamp;
+  }
 
   static visibleSpectrum(){
     const _newRamp = new P5jsColorRamp();

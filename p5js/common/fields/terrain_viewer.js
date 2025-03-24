@@ -15,20 +15,13 @@ class TerrainViewer {
 
     this.precomputeVerticesForCase(); 
     this.precomputePointsForCase();
+    this.setupColorRamps();
     this.updateSettings();
   }
 
-  updateSettings(){
-    if (this.system == undefined) { return; }
-
-    this.colorRamp = P5jsColorRamp.elevation();
-    this.colorRamp.setRange(0,2);
-    this.colorRamp.setBinCount(this.system.settings.num_levels);
-
-    this.rectRenderWidth = Math.floor(this.cellWidth * this.system.settings.rectPercent);
-    this.rectRenderHeight = Math.floor(this.cellHeight * this.system.settings.rectPercent);
-    this.renderMarginX = Math.floor((this.cellWidth-this.rectRenderWidth) / 2.0);
-    this.renderMarginY = Math.floor((this.cellHeight-this.rectRenderHeight) / 2.0);
+  setupColorRamps(){
+    this.elevationRamp = P5jsColorRamp.elevation();
+    this.elevationRamp.setRange(0,2);
 
     this.isolineColorRamp = new P5jsColorRamp();
     this.isolineColorRamp.setRange(0,1);
@@ -40,7 +33,40 @@ class TerrainViewer {
         {color: color(200, 100, 40)}
       ]
     );
+
+    this.aspectRamp = P5jsColorRamp.terrainAspect();
+  }
+
+  updateSettings(){
+    if (this.system == undefined) { return; }
+
+    this.elevationRamp.setBinCount(this.system.settings.num_levels);
     this.isolineColorRamp.setBinCount(this.system.settings.num_levels);
+
+    this.rectRenderWidth = Math.floor(this.cellWidth * this.system.settings.rectPercent);
+    this.rectRenderHeight = Math.floor(this.cellHeight * this.system.settings.rectPercent);
+    this.renderMarginX = Math.floor((this.cellWidth-this.rectRenderWidth) / 2.0);
+    this.renderMarginY = Math.floor((this.cellHeight-this.rectRenderHeight) / 2.0);
+
+    switch (this.system.settings.base_layer){
+      case 'Elevation':
+        this.colorRamp = this.elevationRamp;
+        this.dataToRender = this.system.field.values;
+        break;
+      case 'Aspect':
+        this.colorRamp = this.aspectRamp;
+        this.dataToRender = this.system.field.aspects;
+        break;
+      default:
+        console.log(`Unknown baseLayer: ${this.system.settings.baseLayer}`);
+    }
+  }
+  
+  getBaseLayerOptions(){
+    if (this.baseLayerOptions == undefined){
+      this.baseLayerOptions = ['Elevation',  'Aspect'];
+    }
+    return this.baseLayerOptions;
   }
 
   renderCell(tmpCell, tmpX, tmpY, cellWidth, cellHeight){
@@ -103,11 +129,11 @@ class TerrainViewer {
             (val) => { return this.colorRamp.getColorForValue(val) };
 
     noStroke();
-    for(let i=0; i<field.values.length; i++){
-      // if (field.values[i] < 1){ continue; }
-      // let c = this.colorRamp.getColorForValue(field.values[i]);
-      // let c = this.colorRamp.getBinnedColorForValue(field.values[i])
-      let c = colorForValueFunc(field.values[i]);
+    for(let i=0; i< this.dataToRender.length; i++){
+      // if (this.dataToRender[i] < 1){ continue; }
+      // let c = this.colorRamp.getColorForValue(this.dataToRender[i]);
+      // let c = this.colorRamp.getBinnedColorForValue(this.dataToRender[i])
+      let c = colorForValueFunc(this.dataToRender[i]);
 
       // if (c == undefined) {
       //   console.log(`undefined for:${i}`);
@@ -135,12 +161,12 @@ class TerrainViewer {
     let g;
     let b;
     
-    for(let i=0; i<field.values.length; i++){
+    for(let i=0; i<this.dataToRender.length; i++){
       
       cellX = Math.floor((i % this.grid.numCols) * this.cellWidth + this.renderMarginX);
       cellY = Math.floor(Math.floor(i / this.grid.numCols) * this.cellHeight + this.renderMarginY);
 
-      c = this.colorRamp.getBinnedColorForValue(field.values[i]);
+      c = this.colorRamp.getBinnedColorForValue(this.dataToRender[i]);
       r = red(c);
       g = green(c);
       b = blue(c);

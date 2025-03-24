@@ -33,6 +33,12 @@ class Isolines {
 
     const neighborsIdx = this.field.grid.neighborsOfIdx(i);
 
+    // Neighborhood is:
+    //   0 1 2
+    //   3 - 4
+    //   5 6 7
+    // where '-' is the current cell
+
     const idxToRight = neighborsIdx[4];
     const idxBelow = neighborsIdx[6];
     const idxDownToRight = neighborsIdx[7];

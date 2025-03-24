@@ -32,7 +32,9 @@ function setup() {
   terrainGui.add(system.settings, "ySpeed", -5, 5, 0.25).onChange(regenerateSystem);
   terrainGui.add(system.settings, "zSpeed", -0.005, 0.005, 0.0001).onChange(regenerateSystem);
   terrainGui.add(system.settings, "open_simplex_noise").onChange(regenerateSystem);
+  
   const displayGui = gui.addFolder('Display Settings');
+  displayGui.add(system.settings, "base_layer", system.getBaseLayerOptions()).onChange(updateRendering);
   displayGui.add(system.settings, "interpolate_lines").onChange(regenerateSystem);
   displayGui.add(system.settings, "drawLines").onChange(updateRendering);
   displayGui.add(system.settings, "fillRect").onChange(updateRendering);
