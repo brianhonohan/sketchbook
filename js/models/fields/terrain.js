@@ -1,4 +1,8 @@
 class Terrain extends DiscreteField {
+  init(){
+    super.init();
+    this.aspects = [];
+  }
   
   regenerate(){
     for(let i = 0; i < this.grid.numCells; i++){
@@ -9,12 +13,11 @@ class Terrain extends DiscreteField {
 
   refreshTiers(){
     super.refreshTiers();
+    this.aspects.length = this.values.length;
     this.computeSlopesAndAspects();
   }
 
   computeSlopesAndAspects(){
-    this.aspects = [];
-
     // start at secondRow, secondCol
     // end at secondToLastRow, secondToLastCol
     let firstIdx = this.grid.numCols + 1;
