@@ -35,6 +35,17 @@ class TerrainViewer {
     );
 
     this.aspectRamp = P5jsColorRamp.terrainAspect();
+
+    this.slopeRamp = new P5jsColorRamp();
+    this.slopeRamp.setRange(0,90);
+    this.slopeRamp.setColors(
+      [
+        {color: color(150, 150, 150), breakpoint: -1},
+        {color: color(150, 150, 150), breakpoint: 0},
+        {color: color(230, 230, 230), breakpoint: 0},
+        {color: color(10, 10, 80), breakpoint: 90}
+      ]
+    );
   }
 
   updateSettings(){
@@ -57,6 +68,10 @@ class TerrainViewer {
         this.colorRamp = this.aspectRamp;
         this.dataToRender = this.system.field.aspects;
         break;
+      case 'Slope':
+        this.colorRamp = this.slopeRamp;
+        this.dataToRender = this.system.field.slopes;
+        break;
       default:
         console.log(`Unknown baseLayer: ${this.system.settings.baseLayer}`);
     }
@@ -64,7 +79,7 @@ class TerrainViewer {
   
   getBaseLayerOptions(){
     if (this.baseLayerOptions == undefined){
-      this.baseLayerOptions = ['Elevation',  'Aspect'];
+      this.baseLayerOptions = ['Elevation',  'Aspect', 'Slope'];
     }
     return this.baseLayerOptions;
   }

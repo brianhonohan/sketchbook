@@ -2,6 +2,7 @@ class Terrain extends DiscreteField {
   init(){
     super.init();
     this.aspects = [];
+    this.slopes = [];
   }
   
   regenerate(){
@@ -33,6 +34,7 @@ class Terrain extends DiscreteField {
     // TODO: Formalize the 'sealevel' value; remove majic number of 1
     if (this.values[idx] < 1){
       this.aspects[idx] = -1; // below sea level
+      this.slopes[idx] = -1; // below sea level
       return;
     }
 
@@ -48,6 +50,8 @@ class Terrain extends DiscreteField {
     //   d - f
     //   g h i
     // where '-' is the current cell
+
+    // ASPECT calculation
     // https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/how-aspect-works.htm
     //    [dz/dx] = ((c + 2f + i)*4/wght1 - (a + 2d + g)*4/wght2) / 8
     //    [dz/dy] = ((g + 2h + i)*4/wght3 - (a + 2b + c)*4/wght4 ) / 8
@@ -74,6 +78,20 @@ class Terrain extends DiscreteField {
     const aspect = 57.29578 * Math.atan2(dzdy, -dzdx); // in degrees  
 
     this.aspects[idx] = this.convertDegreesToCompassHeading(aspect);
+
+    // SLOPE calculation
+    // https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/how-slope-works.htm
+    //   [dz/dx] = ((c + 2f + i)*4/wght1 - (a + 2d + g)*4/wght2) / (8 * x_cellsize)
+    //   [dz/dy] = ((g + 2h + i)*4/wght3 - (a + 2b + c)*4/wght4) / (8 * y_cellsize)
+    // 
+    //  slope_radians = ATAN ( √ ([dz/dx]^2 + [dz/dy]^2) )
+    //  slope_degrees = ATAN ( √ ([dz/dx]^2 + [dz/dy]^2) ) * 57.29578
+
+    const xCellsize = this.grid.cellWidth / 400.0; // this.grid.cellWidth;
+    const dzdxSlope = dzdx / xCellsize;
+    const dzdySlope = dzdy / xCellsize;
+    const slopeDegrees = Math.atan(Math.sqrt(dzdxSlope*dzdxSlope + dzdySlope*dzdySlope)) * 57.29578; 
+    this.slopes[idx] = slopeDegrees;
   }
 
   // TODO: Move to common JS utils
