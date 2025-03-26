@@ -29,6 +29,15 @@ class Terrain extends DiscreteField {
   }
   
   computeSlopeAndAspect(idx){
+    const isBorder = ( idx % this.grid.numCols == 0) 
+                  || ( idx % this.grid.numCols == (this.grid.numCols - 1) )
+                  || ( Math.trunc(idx / this.grid.numCols) ==  (this.grid.numRows - 1));
+    if (isBorder) { 
+      this.aspects[idx] = undefined;
+      this.slopes[idx] = undefined;
+      return;
+    }
+
     const neighborsIdx = this.grid.neighborsOfIdx(idx);
 
     // TODO: Formalize the 'sealevel' value; remove majic number of 1
