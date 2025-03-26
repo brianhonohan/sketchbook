@@ -53,6 +53,8 @@ class TerrainViewer {
 
     this.elevationRamp.setBinCount(this.system.settings.num_levels);
     this.isolineColorRamp.setBinCount(this.system.settings.num_levels);
+    this.slopeRamp.setBinCount(20);
+    this.aspectRamp.setBinCount(24);
 
     this.rectRenderWidth = Math.floor(this.cellWidth * this.system.settings.rectPercent);
     this.rectRenderHeight = Math.floor(this.cellHeight * this.system.settings.rectPercent);
@@ -164,6 +166,7 @@ class TerrainViewer {
   _fillCellsViaPixels(field){
     loadPixels();
 
+    let cellValue
     let cellX;
     let cellY;
     let j;
@@ -177,11 +180,15 @@ class TerrainViewer {
     let b;
     
     for(let i=0; i<this.dataToRender.length; i++){
+      cellValue = this.dataToRender[i];
+      if (undefined == cellValue){
+        continue;
+      }
       
       cellX = Math.floor((i % this.grid.numCols) * this.cellWidth + this.renderMarginX);
       cellY = Math.floor(Math.floor(i / this.grid.numCols) * this.cellHeight + this.renderMarginY);
 
-      c = this.colorRamp.getBinnedColorForValue(this.dataToRender[i]);
+      c = this.colorRamp.getBinnedColorForValue(cellValue);
       r = red(c);
       g = green(c);
       b = blue(c);
