@@ -17,7 +17,7 @@ function setup() {
   // canvas = createCanvas(500, 500); // for screenshots
   // canvas = createCanvas(900, 900); // consistent, medium sizae for perf optimziation
   canvas = createCanvas(windowWidth, windowHeight-vertMargin);
-  P5JsSettings.init({'noise_falloff': 0.6});
+  P5JsSettings.init({'noise_octaves': 5.5, 'noise_falloff': 0.6});
   
   let rect = new Rect(0, 0, width, height);
   system = new System(rect);
