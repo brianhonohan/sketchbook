@@ -41,6 +41,8 @@ class Quadtree {
         
       } else {
         // Assume query object is a Rect-duck {x, y, width, height}
+        // TODO: Consider more generalized support for intersection of different shapes
+        // ... Because this currently returns LineSegments that *may* intersect with the query object.
         return this.objects.filter(obj => Rect.rectContainsObject(queryObj, obj));
       }
     }

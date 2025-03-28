@@ -5,9 +5,9 @@ Collection of personal coding projects. They may or may not grow into individual
 
 ## Latest
 
-A [pixiJS][pixijs] sketch as a basic sketch-template to use as starting point in future sketches.
+A [p5js][p5js] sketch which demonstrates adding LineSegments to a Quadtree.
 
-[<img src="./pixijs/sketch-template/screenshot-01.png" alt="rainbox dots in circle" width="150px" />][link-pixijs-sketch-template]
+[<img src="./p5js/common/examples/quadtree-3/screenshot-01.png" alt="quadtree" width="150px" />][link-p5js-quadtree-3]
 
 ## LÖVE
 Collection of sketches using the [LÖVE][love2d] environment.
@@ -38,6 +38,7 @@ Collection of sketches using the [p5.js][p5js] Javascript library which demonstr
 [<img src="./p5js/common/examples/paisley-2/screenshot-01.png" alt="paisley" width="150px" />][link-p5js-paisley-2]
 [<img src="./p5js/common/examples/quadtree/screenshot-01.png" alt="quadtree" width="150px" />][link-p5js-quadtree]
 [<img src="./p5js/common/examples/quadtree-2/screenshot-01.png" alt="quadtree" width="150px" />][link-p5js-quadtree-2]
+[<img src="./p5js/common/examples/quadtree-3/screenshot-01.png" alt="quadtree" width="150px" />][link-p5js-quadtree-3]
 [<img src="./p5js/common/examples/rotation-between-vectors/screenshot-01.png" alt="quadtree" width="150px" />][link-p5js-rotation-between-vectors]
 [<img src="./p5js/common/examples/shapes-tangents-between-circles/screenshot-01.png" alt="quadtree" width="150px" />][link-p5js-shapes-tangents-between-circles]
 [<img src="./p5js/common/examples/space-colonization/screenshot-01.png" alt="quadtree" width="150px" />][link-p5js-space-colonization]
@@ -181,6 +182,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-p5js-paisley-01]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/paisley-01/
 [link-p5js-quadtree]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/quadtree/
 [link-p5js-quadtree-2]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/quadtree-2/
+[link-p5js-quadtree-3]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/quadtree-3/
 [link-p5js-rotation-between-vectors]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/rotation-between-vectors/
 [link-p5js-shapes-tangents-between-circles]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/shapes-tangents-between-circles/
 [link-p5js-space-colonization]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/space-colonization/
