@@ -30,9 +30,13 @@ var params = {
 var guiFolders = {};
 
 function setup() {
-  canvas = createCanvas(windowWidth, windowHeight-40);
+  let debugging = false; 
+  if (debugging == true) {
+    canvas = createCanvas(500, 500); // for consistent screenshots
+  } else {
+    canvas = createCanvas(windowWidth, windowHeight-40);
+  }
   P5JsSettings.init();
-  // canvas = createCanvas(500, 500); // for consistent screenshots
   UtilFunctions.random = random;
 
   // Need to dynamically compute influencer count, otherwise
@@ -59,6 +63,7 @@ function setup() {
   guiFolders.init.add(system.newComponents, "influencer_mode", influencer_modes);
   guiFolders.init.add(system.newComponents, "num_influencers", 50, 10000, 50);
   guiFolders.init.add(system, "inactivateBeforeAddingMore").name('Inactivate Existing');
+  guiFolders.init.add(system, "preventOverlappingLines").name('Prevent Line Overlap');
   guiFolders.init.add(system, "addNewComponents").name('Add New Components');
 
   guiFolders.other = gui.addFolder('Other Options (Display');
@@ -75,7 +80,27 @@ function setup() {
   guiFolders.run.add(system, 'randomizeAndReinit').name('Randomize');
   // gui.close();
   
+  
+  if (debugging == true) {
+    params.network_mode = 'random';
+    params.influencer_mode = 'random';
+  }
+
   initSystem();
+
+  if (debugging == true) {
+    for (let i = 0; i < 100; i++){
+      background(50);
+      system.tick();
+      system.draw();
+    }
+    system.autoRun = false;
+    system.newComponents.num_networks = 6;
+    system.newComponents.num_influencers = 200;
+    // params.detection_range = 200;
+    system.addNewComponents();
+
+  }
 }
 
 function draw(){

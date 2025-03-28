@@ -1,18 +1,12 @@
-class LineSegment {
+class LineSeg {
   constructor(x1, y1, x2, y2){
     if (typeof x1 == "object" && typeof y1){
       this.start = x1;
       this.end = y1;
     } else {
-      this.start = new Point(x1, y1);
-      this.end = new Point(x2, y2);
+      this.start = new Vector2D(x1, y1);
+      this.end = new Vector2D(x2, y2);
     }
-    this.points = [];
-    this.points.push(this.start);
-    this.points.push(this.end);
-
-    this.dragEnabled = false;
-    this.isDragged = true;
   }
 
   set startX(val) { this.start.x = val; }
@@ -36,7 +30,7 @@ class LineSegment {
 
   centerX() { return (this.start.x + this.end.x) / 2; }
   centerY() { return (this.start.y + this.end.y) / 2; }
-  centerPoint() { return new Point(this.centerX(), this.centerY()); }
+  centerPoint() { return new Vector2D(this.centerX(), this.centerY()); }
   boundingRect(){ return new Rect(this.x, this.y, this.width, this.width); }
 
   get offset() {
@@ -73,6 +67,11 @@ class LineSegment {
     let line = new Line(slope);
     line.offset = this.startY + slope * (0 - this.startX);
     return line;
+  }
+
+  intersects(otherLineSegment){
+    const coord = Line.intersectionPoint(this.getLine(), otherLineSegment.getLine());
+    return !(coord == undefined);
   }
 
   intersectionPoint(otherLineSegment){
@@ -122,38 +121,5 @@ class LineSegment {
     this.end.x = tempX;
     this.end.y = tempY;
     return this;
-  }
-
-  handleMousePressed(){
-    const pointPressed = this.points.find(p => p.containsXY(mouseX, mouseY));
-
-    if (pointPressed){
-      pointPressed.isBeingDragged = true;
-      this.isDragged = true;
-      return true;
-    }
-    return false;
-  }
-
-  handleMouseDragged(){
-    const pointDragged = this.points.find(p => p.isBeingDragged);
-
-    if (pointDragged) {
-      pointDragged.set(mouseX, mouseY);
-    }
-  }
-
-  handleMouseReleased(){
-    this.points.forEach(p => { p.isBeingDragged = false; });
-    this.isDragged = false;
-  }
-
-  draw(){
-    P5JsUtils.applyStyleSet(this);
-    line(this.startX, this.startY, this.endX, this.endY);
-
-    if (this.dragEnabled) {
-      P5JsUtils.drawControlPoints(this.points);
-    }
   }
 }
