@@ -1,7 +1,7 @@
 ---
 layout: minimal
 title:  "p5.js - Maze Generator - Coding Challenge #10"
-categories: p5js
+categories: p5js/coding-challenges
 modal: true
 bh_non_interactive: true
 excerpt: Sketch that generates a maze by randomly walking through a grid of cells, creating walls as it goes.

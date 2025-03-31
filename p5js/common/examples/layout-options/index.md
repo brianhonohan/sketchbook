@@ -1,7 +1,7 @@
 ---
 layout: minimal
 title:  "p5.js - Common Examples - Layout Options"
-categories: p5js
+categories: p5js/common/examples
 modal: true
 viewport_noscale: true
 excerpt: A demonstration of the options for laying out objects using LayoutUtils.

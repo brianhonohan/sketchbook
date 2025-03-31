@@ -1,7 +1,7 @@
 ---
 layout: minimal
 title:  "p5.js - Solar System 3D - Coding Challenge #8"
-categories: p5js
+categories: p5js/coding-challenges
 modal: true
 excerpt: Added 3D support to the basic solar system sketch simulating gravity of n-bodies.
 

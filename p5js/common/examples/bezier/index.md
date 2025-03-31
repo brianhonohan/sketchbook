@@ -1,7 +1,7 @@
 ---
 layout: minimal
 title:  "p5.js - Common Examples - Bezier Shapes"
-categories: p5js
+categories: p5js/common/examples
 modal: true
 viewport_noscale: true
 excerpt: Demonstrates the display and interaction of a Bezier curve modeled as an object, with draggable control points.

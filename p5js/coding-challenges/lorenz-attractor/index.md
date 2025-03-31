@@ -1,7 +1,7 @@
 ---
 layout: minimal
 title:  "p5.js - Lorenz Attactor Coding Challenge "
-categories: p5js
+categories: p5js/coding-challenges
 modal: true
 excerpt: Lorenz attractor sketch, following along the Coding Challenge #12
 

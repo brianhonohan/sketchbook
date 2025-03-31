@@ -1,7 +1,7 @@
 ---
 layout: minimal
 title:  "p5.js - Common Examples - Voronoi 2"
-categories: p5js
+categories: p5js/common/examples
 modal: true
 viewport_noscale: true
 excerpt: Demonstrates the modified p5.voronoi to have multiple interactive diagrams in one sketch.

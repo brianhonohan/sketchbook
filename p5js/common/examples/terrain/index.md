@@ -1,7 +1,7 @@
 ---
 layout: minimal
 title:  "p5.js - Terrain"
-categories: p5js
+categories: p5js/common/examples
 modal: true
 viewport_noscale: true
 excerpt: A sketch to focus on and explore alternate ways of generating terrain.
