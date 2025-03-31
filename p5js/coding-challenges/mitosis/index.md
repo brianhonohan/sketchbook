@@ -1,7 +1,7 @@
 ---
 layout: minimal
 title:  "p5.js - Mitosis - Coding Challenge #6"
-categories: p5js
+categories: p5js/coding-challenges
 modal: true
 bh_non_interactive: true
 excerpt: Initial sketch that demonstrates the stages of mitosis as a cell divides, inspired by a video on the 'Coding Train' YouTube channel.

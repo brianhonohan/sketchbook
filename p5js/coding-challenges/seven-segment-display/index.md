@@ -1,7 +1,7 @@
 ---
 layout: minimal
 title:  "p5.js - Seven Segment Display"
-categories: p5js
+categories: p5js/coding-challenges
 modal: true
 viewport_noscale: true
 excerpt: Simple rendering of seven-segment digital display (from old clocks / calculators), as you type, the sketch translates the digit into a series of bits, which in turn activates different segments of the display.

@@ -1,7 +1,7 @@
 ---
 layout: minimal
 title:  "p5.js - Fractal Trees - Coding Challenge #16"
-categories: p5js
+categories: p5js/coding-challenges
 modal: true
 viewport_noscale: true
 excerpt: Coding Challenge (via Coding Train) to implement L-System (Lindenmayer System) tree generation.

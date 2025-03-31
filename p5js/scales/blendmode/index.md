@@ -1,7 +1,7 @@
 ---
 layout: minimal
 title:  "p5.js - Scales - blendMode"
-categories: p5js
+categories: p5js/scales
 modal: true
 viewport_noscale: true
 excerpt: Sketch to get acquainted with blendMode() function in p5.js, and see how the background color impacts how the modes work.

@@ -15,29 +15,38 @@ layout: default
 
   {%- for category in categories -%}
     {% assign filtered_pages = all_filtered_pages | where: "categories", category | sort: 'title', 'first' %}
-    {% assign category_path = category  %}
-    {% assign category_path2 = category | replace: "-", "/" %}
 
     {%- if filtered_pages.size > 0 -%}
-    <div class="section">
-      <h2 class="section-heading">{{ category }} Sketches</h2>
-      <div class="thumbnail-grid">
-        {% assign item_limit = site.bh_thumbs_per_section %}
-        {%- for page in filtered_pages limit: item_limit -%}
-        <div class="thumbnail"><a class="post-link" href="{{ page.url | relative_url }}">
-          <img src="{{ page.url | relative_url }}screenshot-01.png" class="img-thumbnail" />
-        </a></div>
+      <h2 class="post-list-heading util-clear">{{ category }} Sketches</h2>
+      <ul class="post-list util-clear">
+        {%- for page in filtered_pages -%}
+        <li class="util-clear">
+
+          <div class="listing-thumbnail">
+            <a class="post-link" href="{{ page.url | relative_url }}">
+              <img src="{{ page.url | relative_url }}screenshot-01.png" align="center" class="img-thumbnail" />
+            </a>
+          </div>
+
+          {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+          <span class="post-meta">{{ page.date | date: date_format }}</span>
+          <h3>
+            <a class="post-link" href="{{ page.url | relative_url }}">
+              {{ page.title | escape }}
+            </a>
+          </h3>
+          {%- if site.show_excerpts -%}
+            {{ page.excerpt }}
+          {%- endif -%}
+        </li>
         {%- endfor -%}
-        {% if filtered_pages.size > item_limit %}
-        <div class="thumbnail">
-          <a href="{{category_path | relative_url}}/">View All</a>
-        </div>
-        {% endif %}
-      </div>
-    </div>
+      </ul>
+
     {%- endif -%}
 
   {%- endfor -%}
+
+
 
 
   {%- if site.posts.size > 0 -%}

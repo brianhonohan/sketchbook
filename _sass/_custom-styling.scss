@@ -88,3 +88,39 @@
   padding-right: 8px;
   text-decoration: none !important;
 }
+
+.section {
+  margin: 40px 0;
+}
+
+.section-heading {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #e8e8e8;
+  padding-bottom: 5px;
+}
+
+.thumbnail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+}
+
+.thumbnail {
+  width: 100%;
+  aspect-ratio: 1; /* Makes thumbnails square */
+  background-color: #ddd; /* Placeholder */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

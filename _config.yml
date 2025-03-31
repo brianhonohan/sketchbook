@@ -22,6 +22,8 @@ twitter_username: brianhonohan
 github_username:  brianhonohan
 flickr_username:  brian-honohan
 
+bh_thumbs_per_section: 5
+
 # Build settings
 markdown: kramdown
 theme: minima

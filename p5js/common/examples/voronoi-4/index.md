@@ -1,7 +1,7 @@
 ---
 layout: minimal
 title:  "p5.js - Common Examples - Voronoi 4"
-categories: p5js
+categories: p5js/common/examples
 modal: true
 viewport_noscale: true
 excerpt: Explores using the d3-delaunay library to generate the voronoi diagram.

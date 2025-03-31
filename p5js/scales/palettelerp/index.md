@@ -1,7 +1,7 @@
 ---
 layout: minimal
 title:  "p5.js - Scales - paletteLerp"
-categories: p5js
+categories: p5js/scales
 modal: true
 viewport_noscale: true
 excerpt: Sketch to get acquainted with paletteLerp() function in p5.js, and see how flexible it is to have multi-segmented color spectrum.
