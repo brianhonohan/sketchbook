@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Common Examples - Paisley"
 categories: p5js/common/examples
+date: 2021-01-02
 modal: true
 viewport_noscale: true
 excerpt: Demonstrates the drawing of a simple Paisley shape.

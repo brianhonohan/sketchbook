@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Common Examples - Point to Line"
 categories: p5js/common/examples
+date: 2025-01-09
 modal: true
 viewport_noscale: true
 excerpt: Demonstrates the point-to-line (nearest point).

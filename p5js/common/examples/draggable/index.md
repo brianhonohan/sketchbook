@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Common Examples - Draggable Shapes"
 categories: p5js/common/examples
+date: 2019-02-09
 modal: true
 viewport_noscale: true
 excerpt: Implements draggable shapes for use in other sketches.

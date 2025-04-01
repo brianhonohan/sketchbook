@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Common Examples - Ploybezier (Composite Bezier)"
 categories: p5js/common/examples
+date: 2025-02-05
 modal: true
 viewport_noscale: true
 excerpt: Demonstrates the display and interaction of "PolyBezier" (aka Composite Bezier) which is a set of connected bezie-curves.

@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Common Examples - Space Colonization"
 categories: p5js/common/examples
+date: 2025-03-02
 modal: true
 viewport_noscale: true
 excerpt: Demonstrates a generalized implementation of the 'space colonization' algorithm, for use in non-botany related contexts and with addtional layout options.
