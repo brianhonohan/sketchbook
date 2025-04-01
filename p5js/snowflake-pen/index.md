@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Snowflake Pen"
 categories: p5js
+date: 2018-12-05
 modal: true
 viewport_noscale: true
 excerpt: Allows you to draw a snowflake by repeating and reflecting the lines you draw around a circle.

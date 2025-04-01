@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Voronoi Herd"
 categories: p5js
+date: 2018-10-19
 modal: true
 viewport_noscale: true
 excerpt: Simulates members of a herd avoiding a predator (that you click and drag) using mix of a Voronoi diagram (for fear modeling) and Boid modeling of movement.

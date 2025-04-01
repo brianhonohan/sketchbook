@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Frieze Pen 2"
 categories: p5js
+date: 2025-02-01
 modal: true
 viewport_noscale: true
 excerpt: Allows you to draw a frieze, reflecting and translating the lines; with improved drawing features of undo/redo, stroke color and weight, and an animation to redraw the sketch.

@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Grid Puzzle"
 categories: p5js
+date: 2025-02-14
 modal: true
 viewport_noscale: true
 excerpt: A very simple puzzle where you need to click pairs of tiles to match colors of background and nested squares to clear the board.
