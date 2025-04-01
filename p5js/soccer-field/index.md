@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Soccer Field"
 categories: p5js
+date: 2025-03-28
 modal: true
 viewport_noscale: true
 excerpt: A sketch series to serve as an introduction to drawing shapes with p5.js to draw a soccer field.

@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Slippy Map"
 categories: p5js
+date: 2021-04-30
 modal: true
 viewport_noscale: true
 excerpt: An exploration of implementing Slippy-Map tile manager and rendering for pannable / zoomable view.

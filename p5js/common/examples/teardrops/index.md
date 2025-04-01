@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Common Examples - Teardrop Shapes"
 categories: p5js/common/examples
+date: 2022-01-15
 modal: true
 viewport_noscale: true
 excerpt: Demonstrates the display and interaction of teardrop shapes.

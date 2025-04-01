@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Forest Simulation 2"
 categories: p5js
+date: 2025-02-12
 modal: true
 excerpt: Simulates the life-cycle of individual trees of difference species, as they compete over resources.
 

@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Marching Squares"
 categories: p5js/coding-challenges
+date: 2025-01-21
 modal: true
 viewport_noscale: true
 excerpt: A basic implementation of the 'Marching Squares' algorithm to plot the division line between 0 and 1 values in a 2D-field.

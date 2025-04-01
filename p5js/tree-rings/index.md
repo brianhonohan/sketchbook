@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Tree Rings"
 categories: p5js
+date: 2019-06-25
 modal: true
 bh_non_interactive: true
 viewport_noscale: true

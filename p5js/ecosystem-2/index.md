@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Ecosystem 2"
 categories: p5js
+date: 2025-02-08
 modal: true
 viewport_noscale: true
 excerpt: An iteration on generated terrain, which adds in resources at different elevations.

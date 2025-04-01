@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Ecosystem"
 categories: p5js
+date: 2017-10-11
 modal: true
 viewport_noscale: true
 excerpt: Randomly generated terrain, with the intention of creating an environment in which an ecosystem can be modeled.

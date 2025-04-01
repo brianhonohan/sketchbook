@@ -14,7 +14,7 @@ layout: default
   {% assign all_filtered_pages = site.pages | where: 'bh_page_type', "sketch" %}
 
   {%- for category in categories -%}
-    {% assign filtered_pages = all_filtered_pages | where: "categories", category | sort: 'title', 'first' %}
+    {% assign filtered_pages = all_filtered_pages | where: "categories", category | sort: 'date' | reverse %}
     {% assign category_path = category  %}
     {% assign category_path2 = category | replace: "-", "/" %}
 

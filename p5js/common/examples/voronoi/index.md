@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Common Examples - Voronoi"
 categories: p5js/common/examples
+date: 2025-01-04
 modal: true
 excerpt: Demonstrates preliminary modified p5.voronoi, working towards multiple interactive diagrams in one sketch.
 

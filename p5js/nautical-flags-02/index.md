@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Nautical Flags - Part 2"
 categories: p5js
+date: 2019-09-13
 modal: true
 viewport_noscale: true
 excerpt: Sketch that allows you to compose a message in nautical flags and get a shareable URL that will re-render the message on a friend's computer.

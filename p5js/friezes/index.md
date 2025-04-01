@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Frieze Pen"
 categories: p5js
+date: 2019-01-28
 modal: true
 viewport_noscale: true
 excerpt: Allows you to draw a frieze, reflecting the lines you draw through a horizontal line, and repeating off to the right.

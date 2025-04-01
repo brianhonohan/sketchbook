@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Common Examples - Line to Line"
 categories: p5js/common/examples
+date: 2025-03-25
 modal: true
 viewport_noscale: true
 excerpt: Demonstrates determination of line-to-line intersection.

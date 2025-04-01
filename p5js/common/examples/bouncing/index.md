@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Common Examples - Bouncing"
 categories: p5js/common/examples
+date: 2018-12-03
 modal: true
 viewport_noscale: true
 excerpt: Very simple introductory sketch to demonstrate basic animation of a ball bouncing around the canvas.

@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Paisley Spiral"
 categories: p5js
+date: 2022-01-17
 modal: true
 viewport_noscale: true
 excerpt: Demo of drawing multiple Paisley shapes in a spiral pattern to explore controlled generation of head/tail/heading parameters.

@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Common Examples - Voronoi 3"
 categories: p5js/common/examples
+date: 2025-01-08
 modal: true
 viewport_noscale: true
 excerpt: Explores some optimizations in regards to Voronoi diagrams.

@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Forest Fire Simulation - Part 2"
 categories: p5js
+date: 2019-07-06
 modal: true
 viewport_noscale: true
 excerpt: Adds interaction to the forest fire simulation sketch, with limits to amount of fire breaks that can be added, and ability to load different scenarios.

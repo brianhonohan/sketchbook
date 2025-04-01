@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Logic Gates"
 categories: p5js
+date: 2019-10-02
 modal: true
 viewport_noscale: true
 excerpt: Basic simulation of logic gates, switches, and clock signal inputs, along with a set of scenarios to load.

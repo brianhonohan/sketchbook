@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Common Examples - Random Colors"
 categories: p5js/common/examples
+date: 2019-02-06
 modal: true
 viewport_noscale: true
 excerpt: Demonstrates P5jsUtils.getRandomColorByID() to get one of the 6 primary and secondary colors (in RGB mode; HSB mode this is trivial);

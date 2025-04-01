@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Marching Squares 3"
 categories: p5js/coding-challenges
+date: 2025-02-04
 modal: true
 viewport_noscale: true
 excerpt: An iteration of the 'Marching Squares' to add in multi-level isolines.
