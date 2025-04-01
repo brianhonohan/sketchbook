@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Space Invaders - Coding Challenge #5"
 categories: p5js/coding-challenges
+date: 2018-10-04
 modal: true
 excerpt: Basic implementation of the classic arcade game, Space Invaders, inspired by the 'Coding Train' YouTube channel.
 

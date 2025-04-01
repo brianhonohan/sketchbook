@@ -23,8 +23,6 @@ layout: default
           </a>
         </div>
 
-        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-        <span class="post-meta">{{ page.date | date: date_format }}</span>
         <h3>
           <a class="post-link" href="{{ page.url | relative_url }}">
             {{ page.title | escape }}

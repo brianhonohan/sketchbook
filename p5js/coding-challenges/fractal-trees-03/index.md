@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Fractal Trees - Coding Challenge #15"
 categories: p5js/coding-challenges
+date: 2018-11-11
 modal: true
 bh_non_interactive: true
 viewport_noscale: true

@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Fractal Trees - Coding Challenge #14"
 categories: p5js/coding-challenges
+date: 2018-10-26
 modal: true
 viewport_noscale: true
 excerpt: An interactive iteration on Factal Trees 01, to allow for configuration of branching parameters.

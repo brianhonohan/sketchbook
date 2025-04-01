@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Marching Squares 2"
 categories: p5js/coding-challenges
+date: 2025-01-28
 modal: true
 viewport_noscale: true
 excerpt: An iteration of the 'Marching Squares' to do a bit of optimization and add in interpolation.

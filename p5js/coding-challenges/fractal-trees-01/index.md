@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Fractal Trees - Coding Challenge #14"
 categories: p5js/coding-challenges
+date: 2018-10-22
 modal: true
 viewport_noscale: true
 excerpt: A basic fractal tree, drawn recursively.
