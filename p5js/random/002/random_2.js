@@ -3,7 +3,8 @@ var particles;
 var shapeMode;
 
 function setup(){
-  canvas = createCanvas(500, 500);
+  // canvas = createCanvas(500, 500);
+  canvas = createCanvas(windowWidth, windowHeight);
   particles = [];
 
   shapeMode = 'vertex';
@@ -34,6 +35,11 @@ function draw(){
         break;
     }
   }
+}
+
+function determineVerticalMargin(){
+  let fullUrl = window.location.href;
+  return (fullUrl.indexOf(".html") > 0) ? 0 : 37;
 }
 
 function drawLines(){

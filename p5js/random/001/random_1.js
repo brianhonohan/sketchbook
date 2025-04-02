@@ -4,7 +4,9 @@ var shapes;
 var drawModeMgr;
 
 function setup(){
-  canvas = createCanvas(500, 500);
+  // canvas = createCanvas(500, 500);
+  canvas = createCanvas(windowWidth, windowHeight - determineVerticalMargin());
+
   drawModeMgr = new DrawModeManager();
   colorMode(HSB);
 
@@ -32,6 +34,11 @@ function keyTyped(){
     default:
       // do nothing
   }
+}
+
+function determineVerticalMargin(){
+  let fullUrl = window.location.href;
+  return (fullUrl.indexOf(".html") > 0) ? 0 : 37;
 }
 
 function mousePressed(){
