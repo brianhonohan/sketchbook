@@ -2,27 +2,32 @@ var canvas;
 var gui;
 
 var systemParams = {
-  xStepSize: 0.009,
+  xStepSize: 0.01,
   yStepSize: 0.03,
   yWaveFactor: 0.35,
   useFrameCountInX: true,
   useFrameCountInY: true,
+  hsbStart: 0,
+  hsbEnd: 150,
 };
 
 function setup(){
   // canvas = createCanvas(500, 500);
   canvas = createCanvas(windowWidth, windowHeight-determineVerticalMargin());
+  colorMode(HSB);
 
   gui = P5JsSettings.addDatGui({autoPlace: false});
-  gui.add(systemParams, 'xStepSize').min(0.001).max(0.1).step(0.001);
+  gui.add(systemParams, 'xStepSize').min(0.01).max(0.1).step(0.001);
   gui.add(systemParams, 'yStepSize').min(0.01).max(0.1).step(0.01);
   gui.add(systemParams, 'yWaveFactor').min(0.01).max(1).step(0.01);
-  gui.add(systemParams, 'useFrameCountInX')
-  gui.add(systemParams, 'useFrameCountInY')
+  gui.add(systemParams, 'useFrameCountInX');
+  gui.add(systemParams, 'useFrameCountInY');
+  gui.add(systemParams, 'hsbStart', 0, 360, 1);
+  gui.add(systemParams, 'hsbEnd', 0, 360, 1);
 }
 
 function draw(){
-  background(50);
+  background(0, 0, 20);
 
   let yIncrement = systemParams.yStepSize * height;
 
@@ -67,7 +72,9 @@ function drawLine(y){
     // tmpY = y + yWaveHeight * (noise(xStart / 100, y) - 0.5);
     tmpY = yVal(xStart, 0);
 
-    strokeWeightVal = lerp(0, 10,  Math.abs(tmpY - y) / yWaveHeight);
+    let proportion = Math.abs(tmpY - y) / yWaveHeight;
+    strokeWeightVal = lerp(0, 10,  proportion);
+    stroke( color( lerp(  systemParams.hsbStart, systemParams.hsbEnd, proportion), 100, 100)  ); 
     strokeWeight(strokeWeightVal);
     line(xStart, prevY, xStart + xIncrement, tmpY);
     // strokeWeightVal = lerp(10, 0, xStart / (0.8 * width));
