@@ -4,8 +4,7 @@ title:  "p5.js - Gradient Shader"
 categories: p5js/shader-examples
 modal: true
 viewport_noscale: true
-excerpt: Demonstrates as basic gradient and in doing so, visualizes the transformation performed in the vertex shader to move the origin to the top-left corner.
-
+excerpt: Demonstrates a basic gradient and in doing so, visualizes the transformation performed in the vertex shader to move the origin to the top-left corner.
 js_scripts:
 - /sketchbook/vendor/inobounce/0.2.0/inobounce.js
 - https://cdn.jsdelivr.net/npm/p5@1.11.2/lib/p5.min.js
