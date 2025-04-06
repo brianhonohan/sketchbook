@@ -25,7 +25,7 @@ function setup() {
   cells.noSmooth();
   
   stroke(255);
-  finalScreen = createGraphics(width, height, WEBGL);
+  let finalScreen = createGraphics(width, height, WEBGL);
   finalScreen.shader(gradientShader);
   gradientShader.setUniform("normalRes", [1.0/width, 1.0/height]);
   
