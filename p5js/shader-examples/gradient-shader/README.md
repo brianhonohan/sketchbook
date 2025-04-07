@@ -20,6 +20,6 @@ A [p5.js][p5js-home] sketch which uses a shader to draw a basic gradient and in 
 ![screenshot][screenshot-01]
 
 [p5js-home]: https://p5js.org/
-[source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/shader-examples/game-of-life-shader/
-[live-view]: https://brianhonohan.com/sketchbook/p5js/shader-examples/game-of-life-shader/
+[source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/shader-examples/gradient-shader/
+[live-view]: https://brianhonohan.com/sketchbook/p5js/shader-examples/gradient-shader/
 [screenshot-01]: ./screenshot-01.png
