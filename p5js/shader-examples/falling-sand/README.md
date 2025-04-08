@@ -1,4 +1,3 @@
-
 ## Overview
 
 The start of a 'falling sand' shader using cellular automaton modeling.
