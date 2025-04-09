@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Gradient Shader"
 categories: p5js/shader-examples
+date: 2025-04-05
 modal: true
 viewport_noscale: true
 excerpt: Demonstrates a basic gradient and in doing so, visualizes the transformation performed in the vertex shader to move the origin to the top-left corner.

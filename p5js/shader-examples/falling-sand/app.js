@@ -1,16 +1,21 @@
 let canvas;
 let vertMargin = determineVerticalMargin();
 let gui;
+const shaderList = ['v1', 'v1b', 'v2'];
+const shaderLookup = {};
 
 const guiOptions = {
-  'clear': clearBackground
+  'clear': clearBackground,
+  'shader': shaderList[2],
 }
 
 let sketchShader;
 let cells;
 
 function preload() {
-  sketchShader = loadShader("shaders/generic_shader.vert", "shaders/falling-sand-v2.frag");
+  shaderLookup['v1']  = loadShader("shaders/generic_shader.vert", "shaders/falling-sand-v1.frag");
+  shaderLookup['v2']  = loadShader("shaders/generic_shader.vert", "shaders/falling-sand-v2.frag");
+  shaderLookup['v1b']  = loadShader("shaders/generic_shader.vert", "shaders/falling-sand-v1b.frag");
 }
 
 function setup() {
@@ -22,6 +27,7 @@ function setup() {
 
   gui = P5JsSettings.addGui({autoPlace: false});
   gui.add(guiOptions, 'clear').name("Clear Background (C)");
+  gui.add(guiOptions, 'shader', shaderList).name("Shader").onChange(updateShader);
 
   // pixelDensity(1);
   // noSmooth();
@@ -33,8 +39,7 @@ function setup() {
   // clearBackground();
   stroke(255);
   finalScreen = createGraphics(width, height, WEBGL);
-  finalScreen.shader(sketchShader);
-  sketchShader.setUniform("normalRes", [1.0/width, 1.0/height]);
+  updateShader();
   // frameRate(1); // Slow down for screenshots
 
   cells.stroke(255);
@@ -47,6 +52,12 @@ function setup() {
   cells.image(get(), 0, 0);
 
   cells.strokeWeight(1);
+}
+
+function updateShader() {
+  sketchShader = shaderLookup[guiOptions.shader];
+  finalScreen.shader(sketchShader);
+  sketchShader.setUniform("normalRes", [1.0/width, 1.0/height]);
 }
 
 function clearBackground(){
@@ -72,7 +83,7 @@ function draw() {
 
 function determineVerticalMargin(){
   let fullUrl = window.location.href;
-  return (fullUrl.indexOf(".html") > 0) ? 0 : 37;
+  return (fullUrl.indexOf(".html") > 0) ? 0 : 62;
 }
 
 function mousePressed(event){

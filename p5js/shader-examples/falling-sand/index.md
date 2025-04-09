@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Falling Sand Shader"
 categories: p5js/shader-examples
+date: 2025-04-06
 modal: true
 viewport_noscale: true
 excerpt: A falling sand shader.
