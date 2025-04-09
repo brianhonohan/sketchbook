@@ -2,6 +2,7 @@
 layout: minimal
 title:  "p5.js - Game of Life Shader"
 categories: p5js/shader-examples
+date: 2025-04-03
 modal: true
 viewport_noscale: true
 excerpt: Refactored version of Barney Codes' Game of Life shader example, updating to use p5.js v 1.11 and take alternate approach with graphics buffer as WEBGL layer.
