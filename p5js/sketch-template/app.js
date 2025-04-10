@@ -1,11 +1,10 @@
 var system;
 var canvas;
-var vertMargin = determineVerticalMargin();
 var gui;
 
 function setup() {
   // canvas = createCanvas(500, 500); // for screenshots
-  canvas = createCanvas(windowWidth, windowHeight-vertMargin);
+  canvas = createCanvas(windowWidth, windowHeight-vertMargin());
   P5JsSettings.init();
 
   let rect = new Rect(0, 0, width, height);
@@ -25,9 +24,9 @@ function draw(){
   system.render();
 }
 
-function determineVerticalMargin(){
+function vertMargin(){
   let fullUrl = window.location.href;
-  return (fullUrl.indexOf(".html") > 0) ? 0 : 37;
+  return (fullUrl.indexOf(".html") > 0) ? 0 : 62;
 }
 
 function mousePressed(event){
