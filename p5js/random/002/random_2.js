@@ -1,15 +1,34 @@
 var canvas;
 var particles;
-var shapeMode;
+let shapeModes = ['vertex', 'curveVertex', 'bezierVertex'];
+
+let gui;
+let guiOptions = {
+  'screenshot': screenshot,
+  'clear': clearPoints,
+  'clear_and_redraw': clearAndRedraw,
+  'redraw_bg': drawBackground,
+  'shape_mode': 'vertex'
+}
 
 function setup(){
   // canvas = createCanvas(500, 500);
-  canvas = createCanvas(windowWidth, windowHeight);
+  canvas = createCanvas(windowWidth, windowHeight - determineVerticalMargin());
   particles = [];
 
-  shapeMode = 'vertex';
+  gui = P5JsSettings.addDatGui({autoPlace: false});
+  gui.add(guiOptions, "screenshot").name("Screenshot (P)");
+  gui.add(guiOptions, "clear").name("Clear Points (C)");
+  gui.add(guiOptions, "clear_and_redraw").name("Clear & Redraw (X)");
+  gui.add(guiOptions, "redraw_bg").name("Redraw BG (R)");
+  gui.add(guiOptions, "shape_mode", shapeModes);
+
   colorMode(HSB);
   drawBackground();
+
+  addPointAt(random(width), random(height));
+  addPointAt(random(width), random(height));
+  addPointAt(random(width), random(height));
 }
 
 function drawBackground(){
@@ -23,7 +42,7 @@ function draw(){
   fill(frameCount % 360, 80, 90, 0.2);
 
   if (frameCount % 5 == 0){
-    switch(shapeMode){
+    switch(guiOptions.shape_mode){
       case 'vertex':
         drawLines();
         break;
@@ -72,10 +91,20 @@ function drawBeziers(){
 function keyTyped(){
   switch(key) {
     case 'p':
-      saveCanvas(canvas, 'screenshot', 'png');
+    case 'P':
+      screenshot();
       break;
-    case 'c':
+    case 'R':
+    case 'r':
       drawBackground();
+      break;
+    case 'C':
+    case 'c':
+      clearPoints();
+      break;
+    case 'X':
+    case 'x':
+      clearAndRedraw();
       break;
     case 'l':
       shapeMode = 'vertex';
@@ -89,9 +118,26 @@ function keyTyped(){
   }
 }
 
-function mouseReleased(){
-  let particle = new Particle(mouseX, mouseY);
+function screenshot(){
+  saveCanvas(canvas, 'screenshot', 'png');
+}
+
+function clearPoints(){
+  particles = [];
+}
+
+function clearAndRedraw(){
+  clearPoints();
+  drawBackground();
+}
+
+function addPointAt(x, y){
+  let particle = new Particle(x, y);
   particle.boundaryMode = Particle.BOUNDARY_MODE_BOUNCE;
   particle.vel = createVector(random(-2, 2), random(-2, 2));
   particles.push(particle);
+}
+
+function mouseReleased(){
+  addPointAt(mouseX, mouseY);
 }
