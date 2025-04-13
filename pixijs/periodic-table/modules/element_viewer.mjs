@@ -3,6 +3,7 @@ import {Container, Graphics, Text} from 'https://cdn.jsdelivr.net/npm/pixi.js@8/
 export class ElementViewer {
   constructor(elementData){
     this.elementData = elementData;
+    this.initTrivialGroupColorMap();
 
     this.container = new Container({isRendererGroup: true});
 
@@ -12,27 +13,57 @@ export class ElementViewer {
         .stroke({color: 0xFFFFFF, width: 4 });
     this.container.addChild(this.mainRect);
 
-    this.atomicNumber = new Text(this.elementData.atomicNumber, {fontSize: 40, fill: 0xFFFFFF});
-    this.atomicNumber.x = 10;
-    this.atomicNumber.y = 10;
+    this.atomicNumber = new Text(this.elementData.atomic_number, {fontSize: 40, fill: 0xFFFFFF});
     this.container.addChild(this.atomicNumber);
 
     this.elementSymbol = new Text(this.elementData.symbol, {fontSize: 130, fill: 0xFFFFFF, fontWeight: 'bold'});
-    this.elementSymbol.x = 50;
-    this.elementSymbol.y = 50;
     this.container.addChild(this.elementSymbol);
 
     this.elementName = new Text(this.elementData.name, {fontSize: 32, fill: 0xFFFFFF});
-    this.elementName.x = 10;
-    this.elementName.y = 100;
     this.container.addChild(this.elementName);
 
-    this.elementMass = new Text(this.elementData.atomicMass, {fontSize: 24, fill: 0xFFFFFF, align: 'center'});
-    this.elementMass.x = 10; 
-    this.elementMass.y = 150;
-    this.container.addChild(this.elementMass);
+    this.atomicWeight = new Text(this.elementData.atomic_weight, {fontSize: 24, fill: 0xFFFFFF, align: 'center'});
+    this.container.addChild(this.atomicWeight);
     
     this.setSize({width: 200, height: 200});
+  }
+
+  setElement(elementData) {
+    this.elementData = elementData;
+
+    let hexColor = 0xAAAAAA;
+    if (this.elementData.trivial_group) { 
+      hexColor = this.trivialGroupColorMap[this.elementData.trivial_group];
+    }
+    this.mainRect.clear();
+    this.mainRect.rect(0, 0, 200, 200)
+            .fill(hexColor)
+            .stroke({color: 0xFFFFFF, width: 4 });
+
+    this.atomicNumber.text = this.elementData['atomic_number'];
+    this.elementSymbol.text = this.elementData['symbol'];
+    this.elementName.text = this.elementData['name'];
+    this.atomicWeight.text = this.elementData['atomic_weight'];
+    this.relayout();
+  }
+
+  initTrivialGroupColorMap(){
+    this.trivialGroupColorMap = {
+      'Noble Gas': 0x70ADAD,
+      'Nonmetal': 0x5f7f7f,
+      'Alkali Metal': 0xdd6666,
+      'Alkaline Earth': 0xddaa55,
+      'Semimetal': 0xAA9955,
+      'Halogen': 0x3587BD,
+      'Post-transition metals': 0x444444,
+      'Transition Metal': 0x888844,
+      'Lanthanides': 0xFF99FF,
+      'Actinides': 0xFF5599,
+    };
+  }
+
+  relayout() {
+    this.setSize({width: this.width, height: this.height});
   }
 
   setSize(size) {
@@ -51,9 +82,9 @@ export class ElementViewer {
     this.elementName.x = size.width / 2 - this.elementName.width / 2;
     this.elementName.y = size.height * 0.72;
 
-    this.elementMass.style.fontSize = size.width * 0.08;
-    this.elementMass.x = size.width / 2 - this.elementMass.width / 2;
-    this.elementMass.y = size.height * 0.85;
+    this.atomicWeight.style.fontSize = size.width * 0.08;
+    this.atomicWeight.x = size.width / 2 - this.atomicWeight.width / 2;
+    this.atomicWeight.y = size.height * 0.85;
   }
 
   get x() { return this.container.x; }
