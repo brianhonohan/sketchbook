@@ -1,9 +1,21 @@
 import {Container, Graphics, Text} from 'https://cdn.jsdelivr.net/npm/pixi.js@8/dist/pixi.min.mjs';
 
 export class ElementViewer {
+  static COLOR_MAP_TRIVIAL_GROUP = {
+                                  'Noble Gas': 0x70ADAD,
+                                  'Nonmetal': 0x5f7f7f,
+                                  'Alkali Metal': 0xdd6666,
+                                  'Alkaline Earth': 0xddaa55,
+                                  'Semimetal': 0xAA9955,
+                                  'Halogen': 0x3587BD,
+                                  'Post-transition metals': 0x444444,
+                                  'Transition Metal': 0x888844,
+                                  'Lanthanides': 0xFF99FF,
+                                  'Actinides': 0xFF5599,
+                                };
+
   constructor(elementData){
     this.elementData = elementData;
-    this.initTrivialGroupColorMap();
 
     this.container = new Container({isRendererGroup: true});
 
@@ -26,6 +38,7 @@ export class ElementViewer {
     this.container.addChild(this.atomicWeight);
     
     this.setSize({width: 200, height: 200});
+    this.setElement(elementData)
   }
 
   setElement(elementData) {
@@ -33,7 +46,7 @@ export class ElementViewer {
 
     let hexColor = 0xAAAAAA;
     if (this.elementData.trivial_group) { 
-      hexColor = this.trivialGroupColorMap[this.elementData.trivial_group];
+      hexColor = ElementViewer.COLOR_MAP_TRIVIAL_GROUP[this.elementData.trivial_group];
     }
     this.mainRect.clear();
     this.mainRect.rect(0, 0, 200, 200)
@@ -45,21 +58,6 @@ export class ElementViewer {
     this.elementName.text = this.elementData['name'];
     this.atomicWeight.text = this.elementData['atomic_weight'];
     this.relayout();
-  }
-
-  initTrivialGroupColorMap(){
-    this.trivialGroupColorMap = {
-      'Noble Gas': 0x70ADAD,
-      'Nonmetal': 0x5f7f7f,
-      'Alkali Metal': 0xdd6666,
-      'Alkaline Earth': 0xddaa55,
-      'Semimetal': 0xAA9955,
-      'Halogen': 0x3587BD,
-      'Post-transition metals': 0x444444,
-      'Transition Metal': 0x888844,
-      'Lanthanides': 0xFF99FF,
-      'Actinides': 0xFF5599,
-    };
   }
 
   relayout() {
