@@ -4,8 +4,8 @@ import {System} from './modules/system.mjs';
 (async () => {
   const app = new Application();
   await app.init({ 
-      // width: window.innerWidth, height: window.innerHeight,
-      width: 500, height: 500, // for screenshot
+      width: window.innerWidth, height: window.innerHeight,
+      // width: 500, height: 500, // for screenshot
       background: 0x323232,
       antialias: true,
     });

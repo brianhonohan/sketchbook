@@ -31,21 +31,29 @@ export class ElementViewer {
     this.elementMass.x = 10; 
     this.elementMass.y = 150;
     this.container.addChild(this.elementMass);
+    
+    this.setSize({width: 200, height: 200});
   }
 
   setSize(size) {
     this.mainRect.width = size.width;
     this.mainRect.height = size.height;
     
+    this.atomicNumber.style.fontSize = size.width * 0.15;
     this.atomicNumber.x = size.width * 0.05;
     this.atomicNumber.y = size.height * 0.05;
 
-    this.elementSymbol.x = size.width * 0.17;
+    this.elementSymbol.style.fontSize = size.width * 0.45;
+    this.elementSymbol.x = size.width / 2 - this.elementSymbol.width / 2;
     this.elementSymbol.y = size.height * 0.21;
 
+    this.elementName.style.fontSize = size.width * 0.1;
+    this.elementName.x = size.width / 2 - this.elementName.width / 2;
     this.elementName.x = size.width * 0.3;
     this.elementName.y = size.height * 0.72;
 
+    this.elementMass.style.fontSize = size.width * 0.08;
+    this.elementMass.x = size.width / 2 - this.elementMass.width / 2;
     this.elementMass.x = size.width * 0.4;
     this.elementMass.y = size.height * 0.85;
   }
