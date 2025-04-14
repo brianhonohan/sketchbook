@@ -27,9 +27,9 @@ export class System {
     let minDim = 0.6 * Math.min(this.width, this.height);
     this.elementViewer.setSize({width: minDim, height: minDim});
 
-    this.elementViewer.x = this.width / 2 - this.elementViewer.container.width / 2;
-    this.elementViewer.y = this.height / 2 - this.elementViewer.container.height / 2;
-    this.app.stage.addChild(this.elementViewer.container);
+    this.elementViewer.x = this.width / 2 - this.elementViewer.width / 2;
+    this.elementViewer.y = this.height / 2 - this.elementViewer.height / 2;
+    this.app.stage.addChild(this.elementViewer);
     
     const dataUrl = '/sketchbook/assets/data/chemical_elements.csv';
     papaparse.parse(dataUrl, {
@@ -43,8 +43,8 @@ export class System {
     this.elementsData = this.csvToObjects(results.data);
     this.periodicTableViewer = new PeriodicTableViewer(this.elementsData);
     
-    this.app.stage.addChild(this.periodicTableViewer.container);
-    this.app.stage.removeChild(this.elementViewer.container);
+    this.app.stage.addChild(this.periodicTableViewer);
+    this.app.stage.removeChild(this.elementViewer);
     
     this.periodicTableViewer.setSize(this.width * 0.8, this.height * 0.8);
     this.periodicTableViewer.x = this.width / 2 - this.periodicTableViewer.width / 2;

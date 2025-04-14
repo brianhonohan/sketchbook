@@ -1,6 +1,6 @@
 import {Container, Graphics, Text} from 'https://cdn.jsdelivr.net/npm/pixi.js@8/dist/pixi.min.mjs';
 
-export class ElementViewer {
+export class ElementViewer extends Container {
   static COLOR_MAP_TRIVIAL_GROUP = {
                                   'Noble Gas': 0x5f7f7f,
                                   'Nonmetal': 0x3587BD,
@@ -15,27 +15,28 @@ export class ElementViewer {
                                 };
 
   constructor(elementData){
+    super({isRendererGroup: true});
     this.elementData = elementData;
 
-    this.container = new Container({isRendererGroup: true});
+    this.container = this;
 
     this.mainRect = new Graphics()
         .rect(0, 0, 200, 200)
         .fill(0xDD65A5)
         .stroke({color: 0xFFFFFF, width: 4 });
-    this.container.addChild(this.mainRect);
+    this.addChild(this.mainRect);
 
     this.atomicNumber = new Text(this.elementData.atomic_number, {fontSize: 40, fill: 0xFFFFFF});
-    this.container.addChild(this.atomicNumber);
+    this.addChild(this.atomicNumber);
 
     this.elementSymbol = new Text(this.elementData.symbol, {fontSize: 130, fill: 0xFFFFFF, fontWeight: 'bold'});
-    this.container.addChild(this.elementSymbol);
+    this.addChild(this.elementSymbol);
 
     this.elementName = new Text(this.elementData.name, {fontSize: 32, fill: 0xFFFFFF});
-    this.container.addChild(this.elementName);
+    this.addChild(this.elementName);
 
     this.atomicWeight = new Text(this.elementData.atomic_weight, {fontSize: 24, fill: 0xFFFFFF, align: 'center'});
-    this.container.addChild(this.atomicWeight);
+    this.addChild(this.atomicWeight);
     
     this.setSize({width: 200, height: 200});
     this.setElement(elementData)
@@ -85,15 +86,9 @@ export class ElementViewer {
     this.atomicWeight.y = size.height * 0.85;
   }
 
-  get x() { return this.container.x; }
-  set x(value) { this.container.x = value; }
-  get y() { return this.container.y; }
-  set y(value) { this.container.y = value; }
-  get scale() { return this.container.scale; }
-  set scale(value) { this.container.scale = value; }
-
-  get width() { return this.container.width; }
-  get height() { return this.container.height; }
+  onclick(){
+    console.log(`clicked on: ${this.elementData.name}`);
+  }
 
   set targetX(value) { this.targetX = value; }
   set targetY(value) { this.targetY = value; }

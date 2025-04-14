@@ -1,12 +1,12 @@
 import {ElementViewer} from './element_viewer.mjs';
 import {Container} from 'https://cdn.jsdelivr.net/npm/pixi.js@8/dist/pixi.min.mjs';
 
-export class PeriodicTableViewer {
+export class PeriodicTableViewer extends Container {
   static LAYOUT_STANDARD = 0;
 
   constructor(elements){
+    super({isRendererGroup: true});
     this.elements = elements;
-    this.container = new Container({isRendererGroup: true});
     
     this.elementViewers = [];
     this.buildElementViewers();
@@ -21,8 +21,10 @@ export class PeriodicTableViewer {
   buildElementViewers(){
     for (let i = 0; i < this.elements.length; i++){
       let elemViewer = new ElementViewer(this.elements[i]);
+
+      elemViewer.eventMode = 'static';
       this.elementViewers.push( elemViewer);
-      this.container.addChild(elemViewer.container);
+      this.addChild(elemViewer);
     }
   }
 
@@ -88,12 +90,4 @@ export class PeriodicTableViewer {
       elemViewer.y = y;
     }
   }
-
-  get x() { return this.container.x; }
-  set x(value) { this.container.x = value; }
-  get y() { return this.container.y; }
-  set y(value) { this.container.y = value; }
-
-  get width() { return this.container.width; }
-  get height() { return this.container.height; }
 }
