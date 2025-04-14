@@ -1,4 +1,5 @@
 import {ElementViewer} from './element_viewer.mjs';
+import {PeriodicTableViewer} from './periodic_table_viewer.mjs';
 import papaparse from 'https://cdn.jsdelivr.net/npm/papaparse@5.5.2/+esm';
 
 export class System {
@@ -26,8 +27,6 @@ export class System {
     let minDim = 0.6 * Math.min(this.width, this.height);
     this.elementViewer.setSize({width: minDim, height: minDim});
 
-    // Scaling a container with text has the effect of stretching the text
-    // this.elementViewer.scale(0.5, 0.5);
     this.elementViewer.x = this.width / 2 - this.elementViewer.container.width / 2;
     this.elementViewer.y = this.height / 2 - this.elementViewer.container.height / 2;
     this.app.stage.addChild(this.elementViewer.container);
@@ -42,7 +41,14 @@ export class System {
   handleCsvParse(results) {
     window.csvResults = results;
     this.elementsData = this.csvToObjects(results.data);
-    this.displayElement(0);
+    this.periodicTableViewer = new PeriodicTableViewer(this.elementsData);
+    
+    this.app.stage.addChild(this.periodicTableViewer.container);
+    this.app.stage.removeChild(this.elementViewer.container);
+    
+    this.periodicTableViewer.setSize(this.width * 0.8, this.height * 0.8);
+    this.periodicTableViewer.x = this.width / 2 - this.periodicTableViewer.width / 2;
+    this.periodicTableViewer.y = this.height / 2 - this.periodicTableViewer.height / 2;
   }
 
   csvToObjects(csvData) {

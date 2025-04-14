@@ -2,15 +2,15 @@ import {Container, Graphics, Text} from 'https://cdn.jsdelivr.net/npm/pixi.js@8/
 
 export class ElementViewer {
   static COLOR_MAP_TRIVIAL_GROUP = {
-                                  'Noble Gas': 0x70ADAD,
-                                  'Nonmetal': 0x5f7f7f,
+                                  'Noble Gas': 0x5f7f7f,
+                                  'Nonmetal': 0x3587BD,
                                   'Alkali Metal': 0xdd6666,
                                   'Alkaline Earth': 0xddaa55,
-                                  'Semimetal': 0xAA9955,
-                                  'Halogen': 0x3587BD,
-                                  'Post-transition metals': 0x444444,
-                                  'Transition Metal': 0x888844,
-                                  'Lanthanides': 0xFF99FF,
+                                  'Semimetal': 0x70ADAD,
+                                  'Halogen': 0x5599AA,
+                                  'Post-transition metals': 0x44AA44,
+                                  'Transition Metal': 0x9B9B8A,
+                                  'Lanthanides': 0xCC88CC,
                                   'Actinides': 0xFF5599,
                                 };
 
@@ -94,4 +94,8 @@ export class ElementViewer {
 
   get width() { return this.container.width; }
   get height() { return this.container.height; }
+
+  set targetX(value) { this.targetX = value; }
+  set targetY(value) { this.targetY = value; }
+  set targetSize(value) { this.targetSize = value; }
 }
