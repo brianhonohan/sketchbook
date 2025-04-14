@@ -1,4 +1,3 @@
-import {Graphics} from 'https://cdn.jsdelivr.net/npm/pixi.js@8/dist/pixi.min.mjs';
 import {ElementViewer} from './element_viewer.mjs';
 
 export class System {

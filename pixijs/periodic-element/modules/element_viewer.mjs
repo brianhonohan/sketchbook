@@ -49,12 +49,10 @@ export class ElementViewer {
 
     this.elementName.style.fontSize = size.width * 0.1;
     this.elementName.x = size.width / 2 - this.elementName.width / 2;
-    this.elementName.x = size.width * 0.3;
     this.elementName.y = size.height * 0.72;
 
     this.elementMass.style.fontSize = size.width * 0.08;
     this.elementMass.x = size.width / 2 - this.elementMass.width / 2;
-    this.elementMass.x = size.width * 0.4;
     this.elementMass.y = size.height * 0.85;
   }
 
