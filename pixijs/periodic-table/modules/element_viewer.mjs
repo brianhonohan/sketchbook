@@ -22,7 +22,7 @@ export class ElementViewer extends Container {
 
     this.mainRect = new Graphics()
         .rect(0, 0, 200, 200)
-        .fill(0xDD65A5)
+        .fill(0xFF5599)
         .stroke({color: 0xFFFFFF, width: 4 });
     this.addChild(this.mainRect);
 
@@ -39,7 +39,7 @@ export class ElementViewer extends Container {
     this.addChild(this.atomicWeight);
     
     this.setSize({width: 200, height: 200});
-    this.setElement(elementData)
+    this.setElement(elementData);
   }
 
   setElement(elementData) {

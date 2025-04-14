@@ -9,7 +9,11 @@ This is a [pixiJS][pixijs-home] sketch to render an element of the Periodic Tabl
 
 ## References 
 
-* [YouTube - minutephysics - Reimagining the Periodic Table][yt-minminutephysics-pt]
+* [YouTube - minutephysics - Reimagining the Periodic Table][yt-minutephysics-pt]
+* [YouTube - SciShow - 5 Periodic Tables We Don't Use and Why][yt-scishow-other-periodic-tables]
+* [YouTube - BobbyBroccoli - The man who tried to fake an element][yt-bobbybroccoli-fake-element]
+* [YouTube - Search for 'periodic table of elements'][yt_search_periodic_table]
+
 
 # Links:
 
@@ -28,3 +32,5 @@ This is a [pixiJS][pixijs-home] sketch to render an element of the Periodic Tabl
 
 [yt-minutephysics-pt]: https://www.youtube.com/watch?v=2WLYukAH-eY
 [yt-bobbybroccoli-fake-element]: https://www.youtube.com/watch?v=Qe5WT22-AO8
+[yt-scishow-other-periodic-tables]: https://www.youtube.com/watch?v=nk--R-IGwvo
+[yt_search_periodic_table]: https://www.youtube.com/results?search_query=periodic+table+of+elements
