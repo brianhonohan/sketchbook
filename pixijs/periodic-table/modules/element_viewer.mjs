@@ -66,8 +66,15 @@ export class ElementViewer extends Container {
   }
 
   setSize(size) {
-    this.mainRect.width = size.width;
-    this.mainRect.height = size.height;
+    if (typeof size === 'object'){
+      this.mainRect.width = size.width;
+      this.mainRect.height = size.height;  
+    } else if (typeof size === 'number'){
+      this.mainRect.width = size;
+      this.mainRect.height = size;
+    } else {
+      console.error(`Unexpected type for setSize(), expecting number or object: ${typeof size}`);
+    }
     
     this.atomicNumber.style.fontSize = size.width * 0.15;
     this.atomicNumber.x = size.width * 0.05;
@@ -87,7 +94,7 @@ export class ElementViewer extends Container {
   }
 
   onclick(){
-    console.log(`clicked on: ${this.elementData.name}`);
+    this.parent.bubbleUpClickedElement(this.elementData);
   }
 
   set targetX(value) { this.targetX = value; }

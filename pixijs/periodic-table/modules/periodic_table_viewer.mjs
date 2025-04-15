@@ -7,12 +7,14 @@ export class PeriodicTableViewer extends Container {
   constructor(elements){
     super({isRendererGroup: true});
     this.elements = elements;
+    this.system = undefined;
     
     this.elementViewers = [];
     this.buildElementViewers();
 
     this._width = 360;
     this._height = 200;
+    this.eventMode = 'static';
 
     this.layoutMode = PeriodicTableViewer.LAYOUT_STANDARD;
     this.setLayoutMode(this.layoutMode);
@@ -66,6 +68,7 @@ export class PeriodicTableViewer extends Container {
     } else {
       elementSize = this._width / numCols;
     }
+    this.elementSize = elementSize;
     const elemSizeObj = {width: elementSize, height: elementSize};
 
     let fBlockAtomWeightOffset = {'6': 57, '7': 89};
@@ -89,5 +92,9 @@ export class PeriodicTableViewer extends Container {
       elemViewer.x = x;
       elemViewer.y = y;
     }
+  }
+
+  bubbleUpClickedElement(element){
+    this.system.highlightElement(element);
   }
 }
