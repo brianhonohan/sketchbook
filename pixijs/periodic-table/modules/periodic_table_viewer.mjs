@@ -6,17 +6,18 @@ export class PeriodicTableViewer extends Container {
 
   constructor(elements){
     super({isRendererGroup: true});
-    this.elements = elements;
     this.system = undefined;
-    
-    this.elementViewers = [];
-    this.buildElementViewers();
-
     this._width = 360;
     this._height = 200;
     this.eventMode = 'static';
-
     this.layoutMode = PeriodicTableViewer.LAYOUT_STANDARD;
+  }
+
+  setElements(elements){
+    this.elements = elements;
+    this.elementViewers = [];
+    this.buildElementViewers();
+
     this.setLayoutMode(this.layoutMode);
   }
 

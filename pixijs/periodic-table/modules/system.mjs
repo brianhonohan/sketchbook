@@ -39,6 +39,9 @@ export class System {
       download: true,
       complete: this.handleCsvParse.bind(this)
     });
+
+    this.periodicTableViewer = new PeriodicTableViewer();
+    this.periodicTableViewer.system = this;
   }
 
   addBackground(){
@@ -60,8 +63,7 @@ export class System {
   handleCsvParse(results) {
     window.csvResults = results;
     this.elementsData = this.csvToObjects(results.data);
-    this.periodicTableViewer = new PeriodicTableViewer(this.elementsData);
-    this.periodicTableViewer.system = this;
+    this.periodicTableViewer.setElements(this.elementsData);
     
     this.app.stage.addChild(this.periodicTableViewer);
 
@@ -103,7 +105,6 @@ export class System {
       this.elementViewer.x = 0.5 * this.width - 0.5 * this.elementViewer.width;
       this.elementViewer.y = this.periodicTableViewer.y / 2  - this.elementViewer.height / 2;
     }
-
   }
   
   highlightElement(element){    
