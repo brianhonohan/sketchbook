@@ -6,7 +6,7 @@ import {System} from './modules/system.mjs';
   await app.init({ 
       width: window.innerWidth, height: window.innerHeight,
       // width: 500, height: 500, // for screenshot
-      background: 0x323232,
+      background: 0x323232,  // this is overridden within System.addBackground()
       antialias: true,
     });
   document.body.appendChild(app.canvas);

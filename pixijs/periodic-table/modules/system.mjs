@@ -1,3 +1,4 @@
+import {Sprite, Texture} from 'https://cdn.jsdelivr.net/npm/pixi.js@8/dist/pixi.min.mjs';
 import {ElementViewer} from './element_viewer.mjs';
 import {PeriodicTableViewer} from './periodic_table_viewer.mjs';
 import papaparse from 'https://cdn.jsdelivr.net/npm/papaparse@5.5.2/+esm';
@@ -12,7 +13,9 @@ export class System {
   get width() { return this.app.screen.width; }
   get height() { return this.app.screen.height; }
 
-  init(){    
+  init(){
+    this.addBackground();
+
     this.elementDetails = {
       name: 'Fermium',
       symbol: 'Fm',
@@ -38,17 +41,38 @@ export class System {
     });
   }
 
+  addBackground(){
+    let background = new Sprite(Texture.WHITE);
+    background.tint = 0x323232;
+
+    background.width = this.width;
+    background.height = this.height;
+    
+    background.interactive = true;
+    background.onclick = this.backgroundClick.bind(this);
+    this.app.stage.addChild(background);
+  }
+
+  backgroundClick(){
+    this.elementViewer.visible = false;
+  }
+
   handleCsvParse(results) {
     window.csvResults = results;
     this.elementsData = this.csvToObjects(results.data);
     this.periodicTableViewer = new PeriodicTableViewer(this.elementsData);
+    this.periodicTableViewer.system = this;
     
     this.app.stage.addChild(this.periodicTableViewer);
-    this.app.stage.removeChild(this.elementViewer);
+
+    // this.app.stage.removeChild(this.elementViewer);
     
     this.periodicTableViewer.setSize(this.width * 0.8, this.height * 0.8);
     this.periodicTableViewer.x = this.width / 2 - this.periodicTableViewer.width / 2;
     this.periodicTableViewer.y = this.height / 2 - this.periodicTableViewer.height / 2;
+    
+    this.repositionElementViewer();
+    this.elementViewer.visible = false;
   }
 
   csvToObjects(csvData) {
@@ -65,18 +89,34 @@ export class System {
     return objects;
   }
 
+  repositionElementViewer(){
+    if (this.width > this.height){
+      // WARNING THIS only works in the 'standard' layout mode
+      let size = this.periodicTableViewer.y + this.periodicTableViewer.elementSize;
+      this.elementViewer.setSize( size );
+      this.elementViewer.y = this.periodicTableViewer.elementSize;
+      this.elementViewer.x = this.periodicTableViewer.x + 4 * this.periodicTableViewer.elementSize;
+
+    } else {
+      const minDim = Math.min(this.width * 0.8, this.periodicTableViewer.y -  0.1 * this.height);
+      this.elementViewer.setSize( minDim );
+      this.elementViewer.x = 0.5 * this.width - 0.5 * this.elementViewer.width;
+      this.elementViewer.y = this.periodicTableViewer.y / 2  - this.elementViewer.height / 2;
+    }
+
+  }
+  
+  highlightElement(element){    
+    this.elementViewer.setElement(element);
+    this.elementViewer.visible = true;
+  }
+
   displayElement(idx) {
     this.currentElementIdx = idx;
     this.elementViewer.setElement( this.elementsData[idx] );
   }
 
   tick(ticker, totalElapsedMS) {
-    if (!this.elementsData) return;
-    
 
-    let idxToShow = Math.floor(totalElapsedMS / 1000) % this.elementsData.length;
-    if (idxToShow !== this.currentElementIdx) {
-      this.displayElement(idxToShow);
-    }
   }
 }
