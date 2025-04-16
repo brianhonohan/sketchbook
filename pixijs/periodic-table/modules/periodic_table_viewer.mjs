@@ -63,6 +63,7 @@ export class PeriodicTableViewer extends Container {
       let newColor = 0xFF00FF;
       if (this.colorizeDim == PeriodicTableViewer.COLOR_VIA_TRIVIAL_GROUP){
         newColor = ElementViewer.COLOR_MAP_TRIVIAL_GROUP[dimVal];
+        elemViewer.setBackgroundColor( newColor );
         continue;
       } 
       
