@@ -55,17 +55,23 @@ export class PeriodicTableViewer extends Container {
   applyColorDim(){
     let dim = PeriodicTableViewer.dimForColorOption(this.colorizeDim);
     let summary = this.getSummaryStats(dim);
-
+    
     for (let i = 0; i < this.elements.length; i++){
       let elemViewer = this.elementViewers[i];
       let dimVal = elemViewer.elementData[dim];
 
       let newColor = 0xFF00FF;
       if (this.colorizeDim == PeriodicTableViewer.COLOR_VIA_TRIVIAL_GROUP){
-        newColor = ElementViewer.COLOR_MAP_TRIVIAL_GROUP[dimVal];;
+        newColor = ElementViewer.COLOR_MAP_TRIVIAL_GROUP[dimVal];
+        continue;
+      } 
+      
+      dimVal = this.cleanNumericValue(dimVal);
+      if ( isNaN(dimVal) ) {
+        newColor = new Color({ h: 0, s: 0, l: 25, a: 1 });
       } else {
         let percentAlongRange = (dimVal - summary['min']) / ( summary['max'] -  summary['min']);
-        newColor = new Color({ h: percentAlongRange * 360, s: 100, l: 25, a: 1 });
+        newColor = new Color({ h: 100 + percentAlongRange * 260, s: 100, l: 25, a: 1 });
       }
       elemViewer.setBackgroundColor( newColor );
     }
@@ -111,7 +117,7 @@ export class PeriodicTableViewer extends Container {
     if ( cleanedVal.indexOf('±') > 0){
       cleanedVal = (cleanedVal.split("±"))[0];
     }
-    cleanedVal = cleanedVal.replace(/\(|\)|\[|\]/g,'');
+    cleanedVal = cleanedVal.replace(/>|\(|\)|\[|\]/g,'');
     let numericVal = Number(cleanedVal);
       
     return numericVal;
