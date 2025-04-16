@@ -1,5 +1,7 @@
 import {Application, Container} from 'https://cdn.jsdelivr.net/npm/pixi.js@8/dist/pixi.min.mjs';
 import {System} from './modules/system.mjs';
+import {PixiJsSettings} from '/sketchbook/pixijs/common/pixi_settings.mjs';
+import { PeriodicTableViewer } from './modules/periodic_table_viewer.mjs';
 
 (async () => {
   const app = new Application();
@@ -20,6 +22,12 @@ import {System} from './modules/system.mjs';
     totalElapsedMS += ticker.elapsedMS;
     system.tick(ticker, totalElapsedMS);
   });
+
+  const gui = PixiJsSettings.addGui({autoPlace: false});
+  gui.add(system.periodicTableViewer, "colorizeDim",
+      PeriodicTableViewer.COLOR_OPTIONS)
+      .name("Color elements by ...")
+      .onFinishChange(system.periodicTableViewer.applyColorDim.bind(system.periodicTableViewer));
 
   // for debugging
   window.__PIXI_DEVTOOLS__ = { app };

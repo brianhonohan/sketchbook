@@ -42,6 +42,19 @@ export class ElementViewer extends Container {
     this.setElement(elementData);
   }
 
+  setBackgroundColor(newColor){
+    // THERE HAS TO BE AN EASIER WAY TO PRESERVE THE SCALE
+    let cacheWidth = this.mainRect.width;
+    let cacheHeight = this.mainRect.height;
+    let tmpScale = this.mainRect.scale;;
+
+    this.mainRect.clear();
+    this.mainRect.beginFill(newColor)
+            .rect(0, 0, cacheWidth / tmpScale.x, cacheHeight / tmpScale.y)
+            .endFill()
+            .stroke({color: 0xFFFFFF, width: 4 });
+  }
+
   setElement(elementData) {
     this.elementData = elementData;
 
