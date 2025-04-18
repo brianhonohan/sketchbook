@@ -4,11 +4,11 @@ import {Container, Color} from 'https://cdn.jsdelivr.net/npm/pixi.js@8/dist/pixi
 export class PeriodicTableViewer extends Container {
   static LAYOUT_STANDARD = 0;
 
-  static COLOR_VIA_TRIVIAL_GROUP = 'Trivial Group';
-  static COLOR_VIA_ATOMIC_WEIGHT = 'Atomic Weight';
-  static COLOR_VIA_MELTING_POINT = 'Melting Point';
-  static COLOR_VIA_BOILING_POINT = 'Boiling Point';
-  static COLOR_VIA_SPECIFIC_HEAT = 'Specific Heat';
+  static COLOR_VIA_TRIVIAL_GROUP = 'trivial_group';
+  static COLOR_VIA_ATOMIC_WEIGHT = 'atomic_weight';
+  static COLOR_VIA_MELTING_POINT = 'melting_point';
+  static COLOR_VIA_BOILING_POINT = 'boiling_point';
+  static COLOR_VIA_SPECIFIC_HEAT = 'specific_heat';
 
   static dimForColorOption(colorOption){ 
     return (this.colorOptionLookup())[colorOption];
@@ -22,20 +22,21 @@ export class PeriodicTableViewer extends Container {
     if (this._colorOpts){ return this._colorOpts; }
 
     this._colorOpts = [];
-    this._colorOpts[this.COLOR_VIA_TRIVIAL_GROUP] = this.snake_case(this.COLOR_VIA_TRIVIAL_GROUP);
-    this._colorOpts[this.COLOR_VIA_ATOMIC_WEIGHT] = this.snake_case(this.COLOR_VIA_ATOMIC_WEIGHT);
-    this._colorOpts[this.COLOR_VIA_MELTING_POINT] = this.snake_case(this.COLOR_VIA_MELTING_POINT);
-    this._colorOpts[this.COLOR_VIA_BOILING_POINT] = this.snake_case(this.COLOR_VIA_BOILING_POINT);
-    this._colorOpts[this.COLOR_VIA_SPECIFIC_HEAT] = this.snake_case(this.COLOR_VIA_SPECIFIC_HEAT);
+    this._colorOpts[this.titleCase(this.COLOR_VIA_TRIVIAL_GROUP)] = this.COLOR_VIA_TRIVIAL_GROUP;
+    this._colorOpts[this.titleCase(this.COLOR_VIA_ATOMIC_WEIGHT)] = this.COLOR_VIA_ATOMIC_WEIGHT;
+    this._colorOpts[this.titleCase(this.COLOR_VIA_MELTING_POINT)] = this.COLOR_VIA_MELTING_POINT;
+    this._colorOpts[this.titleCase(this.COLOR_VIA_BOILING_POINT)] = this.COLOR_VIA_BOILING_POINT;
+    this._colorOpts[this.titleCase(this.COLOR_VIA_SPECIFIC_HEAT)] = this.COLOR_VIA_SPECIFIC_HEAT;
     return this._colorOpts;
   }
 
-  static trivGroup(){
-    return this.COLOR_VIA_TRIVIAL_GROUP;
-  }
-
-  static snake_case(string){
-    return "".concat(string).toLowerCase().replace(" ", "_");
+  static titleCase(string) {
+    // CREDIT: https://www.geeksforgeeks.org/convert-string-to-title-case-in-javascript/
+    return string.toLowerCase()
+            .replace('_', ' ')
+            .split(' ')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
   }
 
   constructor(elements){
@@ -46,7 +47,7 @@ export class PeriodicTableViewer extends Container {
     this.eventMode = 'static';
     this.layoutMode = PeriodicTableViewer.LAYOUT_STANDARD;
 
-    this.colorizeDim = PeriodicTableViewer.COLOR_VIA_TRIVIAL_GROUP;
+    this.colorizeDim = PeriodicTableViewer.titleCase(PeriodicTableViewer.COLOR_VIA_TRIVIAL_GROUP);
   }
 
   setElements(elements){
@@ -77,7 +78,7 @@ export class PeriodicTableViewer extends Container {
       let dimVal = elemViewer.elementData[dim];
 
       let newColor = 0xFF00FF;
-      if (this.colorizeDim == PeriodicTableViewer.COLOR_VIA_TRIVIAL_GROUP){
+      if (dim == PeriodicTableViewer.COLOR_VIA_TRIVIAL_GROUP){
         newColor = ElementViewer.COLOR_MAP_TRIVIAL_GROUP[dimVal];
         elemViewer.setBackgroundColor( newColor );
         continue;
