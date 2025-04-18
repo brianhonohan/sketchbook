@@ -6,9 +6,13 @@ export class PeriodicTableViewer extends Container {
 
   static COLOR_VIA_TRIVIAL_GROUP = 'trivial_group';
   static COLOR_VIA_ATOMIC_WEIGHT = 'atomic_weight';
+  static COLOR_VIA_DENSITY = 'density';
   static COLOR_VIA_MELTING_POINT = 'melting_point';
   static COLOR_VIA_BOILING_POINT = 'boiling_point';
   static COLOR_VIA_SPECIFIC_HEAT = 'specific_heat';
+  static COLOR_VIA_ELECTRONEGATIVITY = 'electronegativity';
+  static COLOR_VIA_ABUNDANCE_IN_EARTHS_CRUST = 'abundance_in_earths_crust';
+  
   static COLOR_VIA_ORIGIN_BIG_BANG_FUSION = 'origin_big_bang_fusion';
   static COLOR_VIA_ORIGIN_DYING_LOW_MASS_STARS = 'origin_dying_low_mass_stars';
   static COLOR_VIA_ORIGIN_EXPLODING_MASSIVE_STARS = 'origin_exploding_massive_stars';
@@ -31,9 +35,12 @@ export class PeriodicTableViewer extends Container {
     this._colorOpts = [];
     this._colorOpts[this.titleCase(this.COLOR_VIA_TRIVIAL_GROUP)] = this.COLOR_VIA_TRIVIAL_GROUP;
     this._colorOpts[this.titleCase(this.COLOR_VIA_ATOMIC_WEIGHT)] = this.COLOR_VIA_ATOMIC_WEIGHT;
+    this._colorOpts[this.titleCase(this.COLOR_VIA_DENSITY)] = this.COLOR_VIA_DENSITY;
     this._colorOpts[this.titleCase(this.COLOR_VIA_MELTING_POINT)] = this.COLOR_VIA_MELTING_POINT;
     this._colorOpts[this.titleCase(this.COLOR_VIA_BOILING_POINT)] = this.COLOR_VIA_BOILING_POINT;
     this._colorOpts[this.titleCase(this.COLOR_VIA_SPECIFIC_HEAT)] = this.COLOR_VIA_SPECIFIC_HEAT;
+    this._colorOpts[this.titleCase(this.COLOR_VIA_ELECTRONEGATIVITY)] = this.COLOR_VIA_ELECTRONEGATIVITY;
+    this._colorOpts[this.titleCase(this.COLOR_VIA_ABUNDANCE_IN_EARTHS_CRUST)] = this.COLOR_VIA_ABUNDANCE_IN_EARTHS_CRUST;
     this._colorOpts[this.titleCase(this.COLOR_VIA_ORIGIN_BIG_BANG_FUSION)] = this.COLOR_VIA_ORIGIN_BIG_BANG_FUSION;
     this._colorOpts[this.titleCase(this.COLOR_VIA_ORIGIN_DYING_LOW_MASS_STARS)] = this.COLOR_VIA_ORIGIN_DYING_LOW_MASS_STARS;
     this._colorOpts[this.titleCase(this.COLOR_VIA_ORIGIN_EXPLODING_MASSIVE_STARS)] = this.COLOR_VIA_ORIGIN_EXPLODING_MASSIVE_STARS;
@@ -149,7 +156,7 @@ export class PeriodicTableViewer extends Container {
     if ( cleanedVal.indexOf('±') > 0){
       cleanedVal = (cleanedVal.split("±"))[0];
     }
-    cleanedVal = cleanedVal.replace(/>|\(|\)|\[|\]/g,'');
+    cleanedVal = cleanedVal.replace(/≤|~|>|\(|\)|\[|\]/g,'');
     let numericVal = Number(cleanedVal);
       
     return numericVal;
