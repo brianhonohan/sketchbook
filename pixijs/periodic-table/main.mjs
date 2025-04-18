@@ -25,7 +25,7 @@ import { PeriodicTableViewer } from './modules/periodic_table_viewer.mjs';
 
   const gui = PixiJsSettings.addGui({autoPlace: false});
   gui.add(system.periodicTableViewer, "colorizeDim",
-      PeriodicTableViewer.COLOR_OPTIONS)
+      PeriodicTableViewer.colorOptions())
       .name("Color elements by ...")
       .onFinishChange(system.periodicTableViewer.applyColorDim.bind(system.periodicTableViewer));
 

@@ -4,22 +4,53 @@ import {Container, Color} from 'https://cdn.jsdelivr.net/npm/pixi.js@8/dist/pixi
 export class PeriodicTableViewer extends Container {
   static LAYOUT_STANDARD = 0;
 
-  static COLOR_VIA_TRIVIAL_GROUP = 'Trivial Group';
-  static COLOR_VIA_MELTING_POINT = 'Melting Point';
-  static COLOR_VIA_BOILING_POINT = 'Boiling Point';
-
-  static COLOR_OPTIONS = [
-    PeriodicTableViewer.COLOR_VIA_TRIVIAL_GROUP,
-    PeriodicTableViewer.COLOR_VIA_MELTING_POINT,
-    PeriodicTableViewer.COLOR_VIA_BOILING_POINT
-   ];
+  static COLOR_VIA_TRIVIAL_GROUP = 'trivial_group';
+  static COLOR_VIA_ATOMIC_WEIGHT = 'atomic_weight';
+  static COLOR_VIA_MELTING_POINT = 'melting_point';
+  static COLOR_VIA_BOILING_POINT = 'boiling_point';
+  static COLOR_VIA_SPECIFIC_HEAT = 'specific_heat';
+  static COLOR_VIA_ORIGIN_BIG_BANG_FUSION = 'origin_big_bang_fusion';
+  static COLOR_VIA_ORIGIN_DYING_LOW_MASS_STARS = 'origin_dying_low_mass_stars';
+  static COLOR_VIA_ORIGIN_EXPLODING_MASSIVE_STARS = 'origin_exploding_massive_stars';
+  static COLOR_VIA_ORIGIN_COSMIC_RAY_FISSION = 'origin_cosmic_ray_fission';
+  static COLOR_VIA_ORIGIN_MERGING_NEUTRON_STARS = 'origin_merging_neutron_stars';
+  static COLOR_VIA_ORIGIN_EXPLODING_WHITE_DWARFS = 'origin_exploding_white_dwarfs';
+  static COLOR_VIA_ORIGIN_HUMAN_SYNTHESIS = 'origin_human_synthesis';
 
   static dimForColorOption(colorOption){ 
-    switch(colorOption){
-      case PeriodicTableViewer.COLOR_VIA_TRIVIAL_GROUP: return 'trivial_group';
-      case PeriodicTableViewer.COLOR_VIA_MELTING_POINT: return 'melting_point';
-      case PeriodicTableViewer.COLOR_VIA_BOILING_POINT: return 'boiling_point';
-    }
+    return (this.colorOptionLookup())[colorOption];
+  }
+
+  static colorOptions(){
+    return Object.keys(this.colorOptionLookup());
+  }
+
+  static colorOptionLookup(){
+    if (this._colorOpts){ return this._colorOpts; }
+
+    this._colorOpts = [];
+    this._colorOpts[this.titleCase(this.COLOR_VIA_TRIVIAL_GROUP)] = this.COLOR_VIA_TRIVIAL_GROUP;
+    this._colorOpts[this.titleCase(this.COLOR_VIA_ATOMIC_WEIGHT)] = this.COLOR_VIA_ATOMIC_WEIGHT;
+    this._colorOpts[this.titleCase(this.COLOR_VIA_MELTING_POINT)] = this.COLOR_VIA_MELTING_POINT;
+    this._colorOpts[this.titleCase(this.COLOR_VIA_BOILING_POINT)] = this.COLOR_VIA_BOILING_POINT;
+    this._colorOpts[this.titleCase(this.COLOR_VIA_SPECIFIC_HEAT)] = this.COLOR_VIA_SPECIFIC_HEAT;
+    this._colorOpts[this.titleCase(this.COLOR_VIA_ORIGIN_BIG_BANG_FUSION)] = this.COLOR_VIA_ORIGIN_BIG_BANG_FUSION;
+    this._colorOpts[this.titleCase(this.COLOR_VIA_ORIGIN_DYING_LOW_MASS_STARS)] = this.COLOR_VIA_ORIGIN_DYING_LOW_MASS_STARS;
+    this._colorOpts[this.titleCase(this.COLOR_VIA_ORIGIN_EXPLODING_MASSIVE_STARS)] = this.COLOR_VIA_ORIGIN_EXPLODING_MASSIVE_STARS;
+    this._colorOpts[this.titleCase(this.COLOR_VIA_ORIGIN_COSMIC_RAY_FISSION)] = this.COLOR_VIA_ORIGIN_COSMIC_RAY_FISSION;
+    this._colorOpts[this.titleCase(this.COLOR_VIA_ORIGIN_MERGING_NEUTRON_STARS)] = this.COLOR_VIA_ORIGIN_MERGING_NEUTRON_STARS;
+    this._colorOpts[this.titleCase(this.COLOR_VIA_ORIGIN_EXPLODING_WHITE_DWARFS)] = this.COLOR_VIA_ORIGIN_EXPLODING_WHITE_DWARFS;
+    this._colorOpts[this.titleCase(this.COLOR_VIA_ORIGIN_HUMAN_SYNTHESIS)] = this.COLOR_VIA_ORIGIN_HUMAN_SYNTHESIS;
+    return this._colorOpts;
+  }
+
+  static titleCase(string) {
+    // CREDIT: https://www.geeksforgeeks.org/convert-string-to-title-case-in-javascript/
+    return string.toLowerCase()
+            .replaceAll('_', ' ')
+            .split(' ')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
   }
 
   constructor(elements){
@@ -30,7 +61,7 @@ export class PeriodicTableViewer extends Container {
     this.eventMode = 'static';
     this.layoutMode = PeriodicTableViewer.LAYOUT_STANDARD;
 
-    this.colorizeDim = PeriodicTableViewer.COLOR_VIA_TRIVIAL_GROUP;
+    this.colorizeDim = PeriodicTableViewer.titleCase(PeriodicTableViewer.COLOR_VIA_TRIVIAL_GROUP);
   }
 
   setElements(elements){
@@ -61,8 +92,9 @@ export class PeriodicTableViewer extends Container {
       let dimVal = elemViewer.elementData[dim];
 
       let newColor = 0xFF00FF;
-      if (this.colorizeDim == PeriodicTableViewer.COLOR_VIA_TRIVIAL_GROUP){
+      if (dim == PeriodicTableViewer.COLOR_VIA_TRIVIAL_GROUP){
         newColor = ElementViewer.COLOR_MAP_TRIVIAL_GROUP[dimVal];
+        elemViewer.setBackgroundColor( newColor );
         continue;
       } 
       

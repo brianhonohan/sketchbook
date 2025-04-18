@@ -110,6 +110,10 @@ export class ElementViewer extends Container {
     this.parent.bubbleUpClickedElement(this.elementData);
   }
 
+  ontouchend(event){
+    this.parent.bubbleUpClickedElement(this.elementData);
+  }
+
   set targetX(value) { this.targetX = value; }
   set targetY(value) { this.targetY = value; }
   set targetSize(value) { this.targetSize = value; }
