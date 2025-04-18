@@ -10,23 +10,32 @@ export class PeriodicTableViewer extends Container {
   static COLOR_VIA_BOILING_POINT = 'Boiling Point';
   static COLOR_VIA_SPECIFIC_HEAT = 'Specific Heat';
 
-  static COLOR_OPTIONS = [
-    PeriodicTableViewer.COLOR_VIA_TRIVIAL_GROUP,
-    PeriodicTableViewer.COLOR_VIA_ATOMIC_WEIGHT,
-    PeriodicTableViewer.COLOR_VIA_MELTING_POINT,
-    PeriodicTableViewer.COLOR_VIA_BOILING_POINT,
-    PeriodicTableViewer.COLOR_VIA_SPECIFIC_HEAT
-   ];
-
   static dimForColorOption(colorOption){ 
-    switch(colorOption){
-      case PeriodicTableViewer.COLOR_VIA_TRIVIAL_GROUP: return 'trivial_group';
-      case PeriodicTableViewer.COLOR_VIA_ATOMIC_WEIGHT: return 'atomic_weight';
-      case PeriodicTableViewer.COLOR_VIA_MELTING_POINT: return 'melting_point';
-      case PeriodicTableViewer.COLOR_VIA_BOILING_POINT: return 'boiling_point';
-      case PeriodicTableViewer.COLOR_VIA_SPECIFIC_HEAT: return 'specific_heat';
-      case PeriodicTableViewer.COLOR_VIA_SPECIFIC_HEAT: return 'specific_heat';
-    }
+    return (this.colorOptionLookup())[colorOption];
+  }
+
+  static colorOptions(){
+    return Object.keys(this.colorOptionLookup());
+  }
+
+  static colorOptionLookup(){
+    if (this._colorOpts){ return this._colorOpts; }
+
+    this._colorOpts = [];
+    this._colorOpts[this.COLOR_VIA_TRIVIAL_GROUP] = this.snake_case(this.COLOR_VIA_TRIVIAL_GROUP);
+    this._colorOpts[this.COLOR_VIA_ATOMIC_WEIGHT] = this.snake_case(this.COLOR_VIA_ATOMIC_WEIGHT);
+    this._colorOpts[this.COLOR_VIA_MELTING_POINT] = this.snake_case(this.COLOR_VIA_MELTING_POINT);
+    this._colorOpts[this.COLOR_VIA_BOILING_POINT] = this.snake_case(this.COLOR_VIA_BOILING_POINT);
+    this._colorOpts[this.COLOR_VIA_SPECIFIC_HEAT] = this.snake_case(this.COLOR_VIA_SPECIFIC_HEAT);
+    return this._colorOpts;
+  }
+
+  static trivGroup(){
+    return this.COLOR_VIA_TRIVIAL_GROUP;
+  }
+
+  static snake_case(string){
+    return "".concat(string).toLowerCase().replace(" ", "_");
   }
 
   constructor(elements){
