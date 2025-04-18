@@ -9,6 +9,13 @@ export class PeriodicTableViewer extends Container {
   static COLOR_VIA_MELTING_POINT = 'melting_point';
   static COLOR_VIA_BOILING_POINT = 'boiling_point';
   static COLOR_VIA_SPECIFIC_HEAT = 'specific_heat';
+  static COLOR_VIA_ORIGIN_BIG_BANG_FUSION = 'origin_big_bang_fusion';
+  static COLOR_VIA_ORIGIN_DYING_LOW_MASS_STARS = 'origin_dying_low_mass_stars';
+  static COLOR_VIA_ORIGIN_EXPLODING_MASSIVE_STARS = 'origin_exploding_massive_stars';
+  static COLOR_VIA_ORIGIN_COSMIC_RAY_FISSION = 'origin_cosmic_ray_fission';
+  static COLOR_VIA_ORIGIN_MERGING_NEUTRON_STARS = 'origin_merging_neutron_stars';
+  static COLOR_VIA_ORIGIN_EXPLODING_WHITE_DWARFS = 'origin_exploding_white_dwarfs';
+  static COLOR_VIA_ORIGIN_HUMAN_SYNTHESIS = 'origin_human_synthesis';
 
   static dimForColorOption(colorOption){ 
     return (this.colorOptionLookup())[colorOption];
@@ -27,13 +34,20 @@ export class PeriodicTableViewer extends Container {
     this._colorOpts[this.titleCase(this.COLOR_VIA_MELTING_POINT)] = this.COLOR_VIA_MELTING_POINT;
     this._colorOpts[this.titleCase(this.COLOR_VIA_BOILING_POINT)] = this.COLOR_VIA_BOILING_POINT;
     this._colorOpts[this.titleCase(this.COLOR_VIA_SPECIFIC_HEAT)] = this.COLOR_VIA_SPECIFIC_HEAT;
+    this._colorOpts[this.titleCase(this.COLOR_VIA_ORIGIN_BIG_BANG_FUSION)] = this.COLOR_VIA_ORIGIN_BIG_BANG_FUSION;
+    this._colorOpts[this.titleCase(this.COLOR_VIA_ORIGIN_DYING_LOW_MASS_STARS)] = this.COLOR_VIA_ORIGIN_DYING_LOW_MASS_STARS;
+    this._colorOpts[this.titleCase(this.COLOR_VIA_ORIGIN_EXPLODING_MASSIVE_STARS)] = this.COLOR_VIA_ORIGIN_EXPLODING_MASSIVE_STARS;
+    this._colorOpts[this.titleCase(this.COLOR_VIA_ORIGIN_COSMIC_RAY_FISSION)] = this.COLOR_VIA_ORIGIN_COSMIC_RAY_FISSION;
+    this._colorOpts[this.titleCase(this.COLOR_VIA_ORIGIN_MERGING_NEUTRON_STARS)] = this.COLOR_VIA_ORIGIN_MERGING_NEUTRON_STARS;
+    this._colorOpts[this.titleCase(this.COLOR_VIA_ORIGIN_EXPLODING_WHITE_DWARFS)] = this.COLOR_VIA_ORIGIN_EXPLODING_WHITE_DWARFS;
+    this._colorOpts[this.titleCase(this.COLOR_VIA_ORIGIN_HUMAN_SYNTHESIS)] = this.COLOR_VIA_ORIGIN_HUMAN_SYNTHESIS;
     return this._colorOpts;
   }
 
   static titleCase(string) {
     // CREDIT: https://www.geeksforgeeks.org/convert-string-to-title-case-in-javascript/
     return string.toLowerCase()
-            .replace('_', ' ')
+            .replaceAll('_', ' ')
             .split(' ')
             .map(word => word.charAt(0).toUpperCase() + word.slice(1))
             .join(' ');
