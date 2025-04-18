@@ -7,11 +7,13 @@ export class PeriodicTableViewer extends Container {
   static COLOR_VIA_TRIVIAL_GROUP = 'Trivial Group';
   static COLOR_VIA_MELTING_POINT = 'Melting Point';
   static COLOR_VIA_BOILING_POINT = 'Boiling Point';
+  static COLOR_VIA_SPECIFIC_HEAT = 'Specific Heat';
 
   static COLOR_OPTIONS = [
     PeriodicTableViewer.COLOR_VIA_TRIVIAL_GROUP,
     PeriodicTableViewer.COLOR_VIA_MELTING_POINT,
-    PeriodicTableViewer.COLOR_VIA_BOILING_POINT
+    PeriodicTableViewer.COLOR_VIA_BOILING_POINT,
+    PeriodicTableViewer.COLOR_VIA_SPECIFIC_HEAT
    ];
 
   static dimForColorOption(colorOption){ 
@@ -19,6 +21,7 @@ export class PeriodicTableViewer extends Container {
       case PeriodicTableViewer.COLOR_VIA_TRIVIAL_GROUP: return 'trivial_group';
       case PeriodicTableViewer.COLOR_VIA_MELTING_POINT: return 'melting_point';
       case PeriodicTableViewer.COLOR_VIA_BOILING_POINT: return 'boiling_point';
+      case PeriodicTableViewer.COLOR_VIA_SPECIFIC_HEAT: return 'specific_heat';
     }
   }
 
