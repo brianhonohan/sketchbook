@@ -6,13 +6,14 @@ let blendModeOptions;
 
 var systemParams = {
   xStepSize: 0.01,
-  yStepSize: 0.03,
-  yWaveFactor: 0.35,
-  useFrameCountInX: true,
+  yStepSize: 0.07,
+  yWaveFactor: 0.7,
+  useFrameCountInX: false,
   useFrameCountInY: true,
   hsbStart: 0,
   hsbEnd: 150,
-  blendMode: 'BLEND'
+  blendMode: 'BLEND',
+  blendModeIdx: 0
 };
 
 function setup(){
@@ -33,13 +34,12 @@ function setup(){
 }
 
 function draw(){
+  blendMode(BLEND);
   background(0, 0, 20);
 
   let yIncrement = systemParams.yStepSize * height;
 
-  // setBlendMode();
-  // blendMode(BURN);
-
+  setBlendModeByFrame();
   updateHSBStartEnd();
 
   for(let y = 0.1 * height; y <= 0.9 * height; y += yIncrement){
@@ -61,12 +61,12 @@ function initBlendModeOptions(){
   blendModesDetails = {
     'BLEND': {p5jsID: BLEND, description: 'color values from the source overwrite the canvas. This is the default mode.'},
     'ADD': {p5jsID: ADD, description: 'color values from the source are added to values from the canvas.'},
-    'DARKEST': {p5jsID: DARKEST, description: 'keeps the darkest color value.'},
+    // 'DARKEST': {p5jsID: DARKEST, description: 'keeps the darkest color value.'},
     'LIGHTEST': {p5jsID: LIGHTEST, description: 'keeps the lightest color value.'},
     'EXCLUSION': {p5jsID: EXCLUSION, description: 'similar to DIFFERENCE but with less contrast.'},
     'MULTIPLY': {p5jsID: MULTIPLY, description: 'color values from the source are multiplied with values from the canvas. The result is always darker.'},
-    'SCREEN': {p5jsID: SCREEN, description: 'all color values are inverted, then multiplied, then inverted again. The result is always lighter. (Opposite of MULTIPLY)'},
-    'REPLACE': {p5jsID: REPLACE, description: 'the last source drawn completely replaces the rest of the canvas.'},
+    // 'SCREEN': {p5jsID: SCREEN, description: 'all color values are inverted, then multiplied, then inverted again. The result is always lighter. (Opposite of MULTIPLY)'},
+    // 'REPLACE': {p5jsID: REPLACE, description: 'the last source drawn completely replaces the rest of the canvas.'},
     'REMOVE': {p5jsID: REMOVE, description: 'overlapping pixels are removed by making them completely transparent.'},
     'DIFFERENCE': {p5jsID: DIFFERENCE, description: 'color values from the source are subtracted from the values from the canvas. If the difference is a negative number, it is made positive.'},
     'OVERLAY': {p5jsID: OVERLAY, description: 'combines MULTIPLY and SCREEN. Dark values in the canvas get darker and light values get lighter.'},
@@ -78,15 +78,27 @@ function initBlendModeOptions(){
   blendModeOptions = Object.keys(blendModesDetails);  
 }
 
-function setBlendMode(){
-  let newBlendMode = blendModeOptions[Math.floor(frameCount / 60) % blendModeOptions.length];
+function setBlendModeByFrame(){
+  setBlendModeIdx(Math.floor(frameCount / 60) % blendModeOptions.length);
+}
 
-  if (newBlendMode != systemParams.blendMode){
-    console.log(`Switching to: ${systemParams.blendMode}`);
-    systemParams.blendMode = newBlendMode;
-  }
+function incrementBlendMode(){
+  let newIdx = (systemParams.blendModeIdx + 1) % blendModeOptions.length;
+  setBlendModeIdx(newIdx);
+}
+
+function setBlendModeIdx(newIdx){
+  let isNewIdxValue = (newIdx != systemParams.blendModeIdx);
+  systemParams.blendModeIdx = newIdx;
+
+  let newBlendMode = blendModeOptions[systemParams.blendModeIdx];
+  systemParams.blendMode = newBlendMode;
+
+  // if (isNewIdxValue){
+    // console.log(`Switching to: ${systemParams.blendMode}`);
+  // }
+  
   let blendModeRecord = blendModesDetails[systemParams.blendMode];
-
   blendMode( blendModeRecord.p5jsID );
 }
 
@@ -118,6 +130,8 @@ function drawLine(y){
   for(let xStart = 0.1 * width; xStart < 0.9 * width; xStart += xIncrement){
     // tmpY = y + yWaveHeight * (noise(xStart / 100, y) - 0.5);
     tmpY = yVal(xStart, 0);
+
+    // incrementBlendMode();
 
     let proportion = Math.abs(tmpY - y) / yWaveHeight;
     strokeWeightVal = lerp(0, 10,  proportion);
