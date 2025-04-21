@@ -64,6 +64,29 @@ class SlippyMap {
     this.prevOffsetY = this.offsetY;
   }
 
+
+  handleMouseWheel(event){
+    if (false === this.containsXY(event.x, event.y)){
+      return false;
+    }
+    // not sure why my browser is returning +/- 68 when scrolling with mouse wheel,
+    // and values closer to +/- 1 when two-finger scrolling with track pad
+    // related to browser zoom level; maybe some OS level settings.
+    // 
+    // FINDING: 
+    // Mouse scroll wheel sends through a set scroll-speed (between 67 - 133 or more)
+    // Trackpad sends through numerous events with values with abs values of 1-60
+    // ... a avlaue of 60 is a strong 'flick' on my trackpack
+    // ... most values are between 1-10 with sensitive scrolling
+    let zoomDelta = event.delta;
+    if (Math.abs(zoomDelta) > 50) {
+      zoomDelta = 1 * Math.sign(event.delta);
+    }
+
+    this.adjustZoom(zoomDelta);
+    return true;
+  }
+
   handleMouseReleased(x,y){
     this.uiIsDragging = false;
   }
