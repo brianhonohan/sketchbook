@@ -6,6 +6,7 @@ class SlippyMap {
     this.tileSets = {};
 
     this.zoom = 0;
+    this.targetZoom = 0;
     this.maxZoom = 5 + 0.999;
 
 
@@ -44,7 +45,7 @@ class SlippyMap {
   }
 
   adjustZoom(zoomDelta){
-    this.zoom = constrain(this._zoom + zoomDelta, 0, this.maxZoom);
+    this.targetZoom = constrain(this._zoom + zoomDelta, 0, this.maxZoom);
     this.uiNeedsRendering = true;
   }
 
@@ -77,6 +78,13 @@ class SlippyMap {
     if (this.uiNeedsRendering == false){
       return;
     }
+
+    if ( Math.abs(this.targetZoom - this.zoom) < 2){
+      this.zoom = this.targetZoom;
+    } else {
+      this.zoom = this._zoom + (this.targetZoom - this._zoom) / 30;  
+    }
+    
     push();
     translate(this.x, this.y);
     this.fillBackground();
@@ -92,7 +100,10 @@ class SlippyMap {
     }
 
     pop();
-    this.uiNeedsRendering = false;
+
+    if (this.zoom == this.targetZoom){
+      this.uiNeedsRendering = false;
+    }
   }
 
   colsToShow(){
