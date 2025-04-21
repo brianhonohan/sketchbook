@@ -5,7 +5,7 @@ class System {
     this.settings = this.optionsSet.settings;
 
     this.tileRenderer = new TileRenderer();
-    this.slippyMap = new SlippyMap(this.utilRectWithMargin(0.3), this.tileRenderer);
+    this.slippyMap = new SlippyMap(this.utilRectWithMargin(0.1), this.tileRenderer);
   }
 
   get x() { return this.sizeAndPosition.x; }
