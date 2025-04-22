@@ -124,9 +124,7 @@ class SlippyMap {
 
     pop();
 
-    if (this.zoom == this.targetZoom){
-      this.uiNeedsRendering = false;
-    }
+    this.uiNeedsRendering = (2 < Math.abs(this._zoom - this.targetZoom));
   }
 
   colsToShow(){
