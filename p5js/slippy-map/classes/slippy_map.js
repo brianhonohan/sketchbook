@@ -32,6 +32,7 @@ class SlippyMap {
     return this.sizeAndPosition.containsXY(x, y);
   }
 
+  get zoom(){ return this._zoom; }
   set zoom(z) {
     this._zoom = z;
     this.visualScale = 1 + this._zoom % 1;
