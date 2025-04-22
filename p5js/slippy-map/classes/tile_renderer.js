@@ -10,7 +10,12 @@ class TileRenderer {
   }
 
   renderSimpleTileLabel(x, y, zoom, graphics){
-    graphics.fill(255, 255, 0);
+    let r = 30;
+    let b = 50 + 180 * ((x + y) % 2);
+    let g = 180 * ((1 + x + y) % 2) + 20 * ((x + y) % 2);
+
+    graphics.noStroke();
+    graphics.fill(r, g, b);
     graphics.rect(0,0, this.tileSize, this.tileSize);
 
     graphics.textAlign(CENTER, CENTER);

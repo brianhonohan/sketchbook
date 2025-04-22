@@ -5,7 +5,7 @@ class System {
     this.settings = this.optionsSet.settings;
 
     this.tileRenderer = new TileRenderer();
-    this.slippyMap = new SlippyMap(this.utilRectWithMargin(0.3), this.tileRenderer);
+    this.slippyMap = new SlippyMap(this.utilRectWithMargin(0.1), this.tileRenderer);
   }
 
   get x() { return this.sizeAndPosition.x; }
@@ -39,15 +39,9 @@ class System {
   }
 
   ui_controller__mouseWheel(event){
-    if (this.slippyMap.containsXY(mouseX, mouseY)){
-      // not sure why my browser is returning +/- 68 when scrolling with mouse wheel,
-      // and values closer to +/- 1 when two-finger scrolling with track pad
-      // related to browser zoom level; maybe some OS level settings.
-      this.slippyMap.adjustZoom(event.delta / 68);
-      return false;
+    if (this.slippyMap.handleMouseWheel(event)){
+      return true;
     }
-
-    return true; // Propagate the event if not handled.
   }
 
   ui_controller__mousePressed(x,y){

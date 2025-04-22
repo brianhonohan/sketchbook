@@ -6,6 +6,7 @@ class SlippyMap {
     this.tileSets = {};
 
     this.zoom = 0;
+    this.targetZoom = 0;
     this.maxZoom = 5 + 0.999;
 
 
@@ -44,7 +45,7 @@ class SlippyMap {
   }
 
   adjustZoom(zoomDelta){
-    this.zoom = constrain(this._zoom + zoomDelta, 0, this.maxZoom);
+    this.targetZoom = constrain(this._zoom + zoomDelta, 0, this.maxZoom);
     this.uiNeedsRendering = true;
   }
 
@@ -63,6 +64,29 @@ class SlippyMap {
     this.prevOffsetY = this.offsetY;
   }
 
+
+  handleMouseWheel(event){
+    if (false === this.containsXY(event.x, event.y)){
+      return false;
+    }
+    // not sure why my browser is returning +/- 68 when scrolling with mouse wheel,
+    // and values closer to +/- 1 when two-finger scrolling with track pad
+    // related to browser zoom level; maybe some OS level settings.
+    // 
+    // FINDING: 
+    // Mouse scroll wheel sends through a set scroll-speed (between 67 - 133 or more)
+    // Trackpad sends through numerous events with values with abs values of 1-60
+    // ... a avlaue of 60 is a strong 'flick' on my trackpack
+    // ... most values are between 1-10 with sensitive scrolling
+    let zoomDelta = event.delta;
+    if (Math.abs(zoomDelta) > 50) {
+      zoomDelta = 1 * Math.sign(event.delta);
+    }
+
+    this.adjustZoom(zoomDelta);
+    return true;
+  }
+
   handleMouseReleased(x,y){
     this.uiIsDragging = false;
   }
@@ -77,6 +101,13 @@ class SlippyMap {
     if (this.uiNeedsRendering == false){
       return;
     }
+
+    if ( Math.abs(this.targetZoom - this.zoom) < 2){
+      this.zoom = this.targetZoom;
+    } else {
+      this.zoom = this._zoom + (this.targetZoom - this._zoom) / 30;  
+    }
+    
     push();
     translate(this.x, this.y);
     this.fillBackground();
@@ -92,7 +123,8 @@ class SlippyMap {
     }
 
     pop();
-    this.uiNeedsRendering = false;
+
+    this.uiNeedsRendering = (2 < Math.abs(this._zoom - this.targetZoom));
   }
 
   colsToShow(){
