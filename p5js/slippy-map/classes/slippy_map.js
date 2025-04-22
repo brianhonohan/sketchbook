@@ -104,14 +104,7 @@ class SlippyMap {
       return;
     }
 
-    let zoomDiffToTarget = Math.abs(this.targetZoom - this.zoom);
-    if (zoomDiffToTarget < 0.00001 ) {
-      // do nothing 
-    } else if (zoomDiffToTarget < 2) { 
-      this.zoom = this.targetZoom;
-    } else {
-      this.zoom = this._zoom + (this.targetZoom - this._zoom) / 30;  
-    }
+    this.tickToUpdateZoom();
     
     push();
     translate(this.x, this.y);
@@ -130,6 +123,17 @@ class SlippyMap {
     pop();
 
     this.uiNeedsRendering = (2 < Math.abs(this._zoom - this.targetZoom));
+  }
+
+  tickToUpdateZoom(){
+    let zoomDiffToTarget = Math.abs(this.targetZoom - this.zoom);
+    if (zoomDiffToTarget < 0.00001 ) {
+      // do nothing 
+    } else if (zoomDiffToTarget < 2) { 
+      this.zoom = this.targetZoom;
+    } else {
+      this.zoom = this._zoom + (this.targetZoom - this._zoom) / 300;  
+    }
   }
 
   colsToShow(){
