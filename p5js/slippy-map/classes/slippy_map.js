@@ -98,12 +98,16 @@ class SlippyMap {
     this.uiNeedsRendering = true;
   }
 
+  // called once per frame, so dual purpose tick() and draw()
   render(){
     if (this.uiNeedsRendering == false){
       return;
     }
 
-    if ( Math.abs(this.targetZoom - this.zoom) < 2){
+    let zoomDiffToTarget = Math.abs(this.targetZoom - this.zoom);
+    if (zoomDiffToTarget < 0.00001 ) {
+      // do nothing 
+    } else if (zoomDiffToTarget < 2) { 
       this.zoom = this.targetZoom;
     } else {
       this.zoom = this._zoom + (this.targetZoom - this._zoom) / 30;  
