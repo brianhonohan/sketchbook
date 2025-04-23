@@ -9,6 +9,7 @@ class SlippyMap {
     this.targetZoom = 0;
     this.maxZoom = 5 + 0.999;
 
+    this.zoomDiffThreshold = 0.05;
 
     this.startDragX = undefined;
     this.startDragY = undefined;
@@ -32,6 +33,7 @@ class SlippyMap {
     return this.sizeAndPosition.containsXY(x, y);
   }
 
+  get zoom(){ return this._zoom; }
   set zoom(z) {
     this._zoom = z;
     this.visualScale = 1 + this._zoom % 1;
@@ -76,14 +78,29 @@ class SlippyMap {
     // FINDING: 
     // Mouse scroll wheel sends through a set scroll-speed (between 67 - 133 or more)
     // Trackpad sends through numerous events with values with abs values of 1-60
-    // ... a avlaue of 60 is a strong 'flick' on my trackpack
+    // ... a value of 60 is a strong 'flick' on my trackpack
     // ... most values are between 1-10 with sensitive scrolling
+
+    let scrollWheelSpeed = 0.4;
+    if (this.prevScrollTimestamp != undefined){
+      let diff = event.timeStamp - this.prevScrollTimestamp;
+
+      // THIS SPEEDS UP SCROLLING IF the user uses scroll wheel quickly
+      // because we want to mimic a flick to scroll on the trackpad
+      if (diff < 200){
+        scrollWheelSpeed += (50 / diff) ;
+      }
+    }
+    
     let zoomDelta = event.delta;
     if (Math.abs(zoomDelta) > 50) {
-      zoomDelta = 1 * Math.sign(event.delta);
+      zoomDelta = scrollWheelSpeed * Math.sign(event.delta);
+    } else {
+      zoomDelta *= 0.25;
     }
 
     this.adjustZoom(zoomDelta);
+    this.prevScrollTimestamp = event.timeStamp;
     return true;
   }
 
@@ -97,16 +114,13 @@ class SlippyMap {
     this.uiNeedsRendering = true;
   }
 
+  // called once per frame, so dual purpose tick() and draw()
   render(){
     if (this.uiNeedsRendering == false){
       return;
     }
 
-    if ( Math.abs(this.targetZoom - this.zoom) < 2){
-      this.zoom = this.targetZoom;
-    } else {
-      this.zoom = this._zoom + (this.targetZoom - this._zoom) / 30;  
-    }
+    this.tickToUpdateZoom();
     
     push();
     translate(this.x, this.y);
@@ -124,7 +138,20 @@ class SlippyMap {
 
     pop();
 
-    this.uiNeedsRendering = (2 < Math.abs(this._zoom - this.targetZoom));
+    this.uiNeedsRendering = (this.zoomDiffThreshold < Math.abs(this._zoom - this.targetZoom));
+  }
+
+  tickToUpdateZoom(){
+    let zoomDiffToTarget = Math.abs(this.targetZoom - this.zoom);
+    if (zoomDiffToTarget < 0.00001 ) {
+      // do nothing 
+    } else if (zoomDiffToTarget < this.zoomDiffThreshold) { 
+      this.zoom = this.targetZoom;
+    } else {
+      let newZoom = this._zoom + (this.targetZoom - this._zoom) / 5;
+      // console.log(`zoom is: ${this.zoom}  ... target: ${this.targetZoom}   newZoom: ${newZoom}`)
+      this.zoom = newZoom;  
+    }
   }
 
   colsToShow(){
