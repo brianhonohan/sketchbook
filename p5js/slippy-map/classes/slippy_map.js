@@ -22,6 +22,10 @@ class SlippyMap {
     this.uiNeedsRendering = true;
 
     this.finiteWorld = true;
+
+    this.worldFocalX = this.tileRenderer.tileSize / 2;
+    this.worldFocalY = this.tileRenderer.tileSize / 2;
+    this.focusOnWorld();
   }
 
   get x() { return this.sizeAndPosition.x; }
@@ -35,20 +39,83 @@ class SlippyMap {
 
   get zoom(){ return this._zoom; }
   set zoom(z) {
+    let prevZoom = this._zoom;
+    let deltaZoom = z - this._zoom;
     this._zoom = z;
     this.visualScale = 1 + this._zoom % 1;
+
+    if (this.worldFocalX != undefined){
+      let magicHalf = 2;
+      let prevScreenWidth = this.screenWidthForWorldAtZoom(prevZoom);
+      let newScreenWidth = this.screenWidthForWorldAtZoom(z);
+      this.offsetX = this.offsetX - (newScreenWidth - prevScreenWidth) / magicHalf;
+      this.offsetY =  this.offsetY - (newScreenWidth - prevScreenWidth) / magicHalf;
+
+      const debugZoom = false;
+      if (debugZoom){
+        let worldExtentX = this.x + this.offsetX + newScreenWidth;
+        let viewportExtentX = this.x + this.width;
+
+        console.log('---');
+        // console.log(`map width: ${this.width}`);
+        console.log(`zoom: ${this.zoom}`);
+        console.log(`offsetX: ${this.offsetX}`);
+        console.log(`x + offset: ${this.x + this.offsetX}`);
+        console.log(`prevScreenWidth : ${prevScreenWidth}`);
+        console.log(`newScreenWidth : ${newScreenWidth}`);
+        // console.log(`viewportExtentX: ${viewportExtentX}`);
+        console.log(`diff offsetX ${this.offsetX}  vs worldExtentX->Width ${viewportExtentX - worldExtentX} `);
+
+        background(50);
+
+        strokeWeight(5);
+        
+        stroke(255, 255, 0);
+        point(this.x, 10);
+        
+        stroke(255, 0, 255);
+        point(this.x + this.offsetX, 30);
+        
+        stroke(0, 200, 255);
+        point(worldExtentX, 10);
+        
+        stroke(255, 255, 0);
+        point(viewportExtentX, 10);
+      }
+
+    }
+
     this.scaledWidth = this.width / this.visualScale;
     this.scaledHeight = this.height / this.visualScale;
-
     this.numScaledTilesWide = this.scaledWidth / this.tileSize;
     this.numScaledTilesHigh = this.scaledHeight / this.tileSize;
 
     this.tileSet = this.getTilesetForZoom(Math.floor(z));
   }
 
+
   adjustZoom(zoomDelta){
     this.targetZoom = constrain(this._zoom + zoomDelta, 0, this.maxZoom);
     this.uiNeedsRendering = true;
+  }
+
+  focusOnWorld(){
+    this.offsetX = (this.width / 2) - (this.worldFocalX);
+    this.offsetY = (this.height / 2) - (this.worldFocalY);
+  }
+
+  numberOfTilesForZoom(zoom){
+    return Math.pow(2, Math.floor(zoom));
+  }
+
+  visualScaleForZoom(zoom){
+    return 1 + zoom % 1;
+  }
+
+  screenWidthForWorldAtZoom(zoom){
+    return this.tileRenderer.tileSize 
+                * this.numberOfTilesForZoom(zoom) 
+                * this.visualScaleForZoom(zoom);
   }
 
   handleMousePressed(x,y){
@@ -78,9 +145,8 @@ class SlippyMap {
     // FINDING: 
     // Mouse scroll wheel sends through a set scroll-speed (between 67 - 133 or more)
     // Trackpad sends through numerous events with values with abs values of 1-60
-    // ... a value of 60 is a strong 'flick' on my trackpack
+    // ... a avlaue of 60 is a strong 'flick' on my trackpack
     // ... most values are between 1-10 with sensitive scrolling
-
     let scrollWheelSpeed = 0.4;
     if (this.prevScrollTimestamp != undefined){
       let diff = event.timeStamp - this.prevScrollTimestamp;
@@ -119,7 +185,6 @@ class SlippyMap {
     if (this.uiNeedsRendering == false){
       return;
     }
-
     this.tickToUpdateZoom();
     
     push();
@@ -137,7 +202,6 @@ class SlippyMap {
     }
 
     pop();
-
     this.uiNeedsRendering = (this.zoomDiffThreshold < Math.abs(this._zoom - this.targetZoom));
   }
 
