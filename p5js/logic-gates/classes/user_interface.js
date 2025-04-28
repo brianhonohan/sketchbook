@@ -28,6 +28,8 @@ class UserInterface {
     this.p5Dom_positionToRightOf(this.runButton, this.scenarioSelector);
     this.runButton.mousePressed(this.handleRunScenario);
 
+    this.scenarioSelector.elt.addEventListener('change', this.handleRunScenario.bind(this) );
+
     this.componentRow = [];
     this.componentRow.push(this.scenarioSelector);
     this.componentRow.push(this.runButton);
