@@ -27,16 +27,4 @@ js_scripts:
 
 ---
 
-# Ecosystem
-
-## Idea:
-Randomly generate a terrain with a set of resources that organisms will compete over.
-
-
-## Config Options
-The Javascript parses the following URL parameters:
-
-## Snapshot:
-![screenshot](docs/screenshot-02.png)
-
-
+{% include_relative README.md %}
