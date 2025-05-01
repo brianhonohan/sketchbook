@@ -1,8 +1,8 @@
 ---
 layout: minimal
-title:  "p5.js - Random 009"
+title:  "p5.js - Random 010"
 categories: p5js/random
-date: 2025-04-26
+date: 2025-04-29
 modal: true
 viewport_noscale: true
 excerpt: Perlin noise curves via TRIANGLE_STRIP.
