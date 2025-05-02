@@ -1,11 +1,11 @@
 ---
 layout: minimal
-title:  "p5.js - Random 010"
+title:  "p5.js - Random 011"
 categories: p5js/random
-date: 2025-04-29
+date: 2025-04-30
 modal: true
 viewport_noscale: true
-excerpt: Perlin noise curves via TRIANGLE_STRIP.
+excerpt: Perlin noise curves via LINES.
 
 js_scripts:
 - /sketchbook/vendor/inobounce/0.2.0/inobounce.js
