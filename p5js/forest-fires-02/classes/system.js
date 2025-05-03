@@ -57,7 +57,7 @@ class System {
   // supported types: integer, float, string
   optionsMetadata(){
     return [
-      { name: "cellWidth", type: "integer", default: 20}, 
+      { name: "cellWidth", type: "integer", default: 5}, 
       { name: "scale", type: "float", default: 0.02}, 
       { name: "lightning_at", type: "array:string", default: [], delimiter: "|"},
       { name: "seed", type: "integer", default: P5JsSettings.getSeed() },
