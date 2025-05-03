@@ -286,7 +286,9 @@ class System {
 
     const cell = this.grid.cellForXY(x, y);
 
-    if (!cell.isBurning() && cell.terrainType == System.TERRAIN_FOLIAGE){
+    if (!cell.isBurning() && cell.terrainType != System.TERRAIN_WATER){
+      // TODO: Need to think of cost to creating firebreak per terrain type
+      // .. logic: a lot easier to cut into grass, shrub vs. foliage/confier
       cell.setType(System.TERRAIN_SOIL);
       cell.fuelAmount = 0;
       this.resources.use(Resources.RES_FIRE_BREAK);
@@ -304,9 +306,12 @@ class System {
   }
 
   lightningStrike(){
-    let firstFoliage = this.grid.cells.find(c => c.terrainType == System.TERRAIN_FOLIAGE);
-    if (firstFoliage) {
-      firstFoliage.startBurning();
+    // TODO: Change lightning 
+    // idea: random (up to 100 tries) ... hit non-water
+    // and based on fire risk, maybe start burning
+    let hitFuelCell = this.grid.cells.find(c => (!c.isBurning() && c.fuelAmount > 0));
+    if (hitFuelCell) {
+      hitFuelCell.startBurning();
     }
   }
 
