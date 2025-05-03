@@ -5,21 +5,24 @@
       "seed" : 117,
       "scale": 0.02,
       "cellWidth" : 5,
-      "lightning_at" : ["128,198","134,199"]
+      "lightning_at" : ["128,198","134,199"],
+      "terrainVersion": 1
     },
     {
       "name" : "Scenario 2",
       "seed" : 404,
       "scale": 0.02,
       "cellWidth" : 20,
-      "lightning_at" : ["564,436","596,449"]
+      "lightning_at" : ["564,436","596,449"],
+      "terrainVersion": 1
     },
     {
       "name" : "Scenario 0",
       "seed" : 31473,
       "scale": 0.02,
       "cellWidth" : 20,
-      "lightning_at" : ["245,390"]
+      "lightning_at" : ["245,390"],
+      "terrainVersion": 1
     }
   ]
 }

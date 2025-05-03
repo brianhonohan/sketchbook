@@ -15,6 +15,7 @@ class System {
     this.scale =  this.settings.scale;
     this.baseImage = this.settings.baseImage;
     this.cellWidth = this.settings.cellWidth;
+    this.terrainVersion = this.settings.terrainVersion;
 
     this.internalTicksPerFrame = 1;
     this.speedIdx = 1;
@@ -59,7 +60,8 @@ class System {
       { name: "cellWidth", type: "integer", default: 20}, 
       { name: "scale", type: "float", default: 0.02}, 
       { name: "lightning_at", type: "array:string", default: [], delimiter: "|"},
-      { name: "seed", type: "integer", default: P5JsSettings.getSeed() }
+      { name: "seed", type: "integer", default: P5JsSettings.getSeed() },
+      { name: "terrainVersion", type: "integer", default: 2 },
       // { name: "varname3", type: "float", default: 0.6}
     ];
   }
@@ -185,6 +187,31 @@ class System {
   }
 
   getTerrainTypeFromNoise(x, y){
+    if (this.terrainVersion == undefined || this.terrainVersion == 1){
+      return this._v1_getTerrainTypeFromNoise(x, y);
+    }
+    return this._v2_getTerrainTypeFromNoise(x, y);
+  }
+
+  _v1_getTerrainTypeFromNoise(x, y){
+    const waterOrLand = noise(this.scale * x, this.scale * y);
+
+    if (waterOrLand < 0.5){
+      return System.TERRAIN_WATER;
+
+    } else {
+      const largeOffset = 100000;
+      const landOrFoliage = noise(this.scale * (x + largeOffset),
+                                   this.scale * (y + largeOffset));
+      if (landOrFoliage < 0.6) {
+        return System.TERRAIN_SOIL;
+      } else {
+        return System.TERRAIN_FOLIAGE;
+      }
+    }
+  }
+
+  _v2_getTerrainTypeFromNoise(x, y){
     const waterOrLand = noise(this.scale * x, this.scale * y);
 
     if (waterOrLand < 0.5){
