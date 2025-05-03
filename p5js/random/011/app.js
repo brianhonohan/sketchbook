@@ -5,7 +5,7 @@ let blendModesDetails;
 let blendModeOptions;
 
 var systemParams = {
-  xStepSize: 0.01,
+  xStepSize: 10,
   yStepSize: 0.07,
   yWaveFactor: 0.7,
   useFrameCountInX: false,
@@ -18,14 +18,14 @@ var systemParams = {
 };
 
 function setup(){
-  canvas = createCanvas(500, 500);
-  // canvas = createCanvas(windowWidth, windowHeight-determineVerticalMargin());
+  // canvas = createCanvas(500, 500);
+  canvas = createCanvas(windowWidth, windowHeight-determineVerticalMargin());
   colorMode(HSB);
 
   initBlendModeOptions();
 
   gui = P5JsSettings.addDatGui({autoPlace: false});
-  gui.add(systemParams, 'xStepSize').min(0.001).max(0.1).step(0.001);
+  gui.add(systemParams, 'xStepSize', 1, 200, 1);
   gui.add(systemParams, 'yStepSize').min(0.001).max(0.1).step(0.001);
   gui.add(systemParams, 'yWaveFactor').min(0.01).max(1).step(0.01);
   gui.add(systemParams, 'useFrameCountInX');
@@ -117,7 +117,7 @@ function updateHSBStartEnd(){
 function drawLine(y){
   stroke(250);
   let xStart = 0.1 * width;
-  let xIncrement =  systemParams.xStepSize * width;
+  let xIncrement =  systemParams.xStepSize;
   let yWaveHeight =  systemParams.yWaveFactor * height / 2;
   let frameCountFactorX = systemParams.useFrameCountInX ? frameCount/100.0 : 0;
   let frameCountFactorY = systemParams.useFrameCountInY ? frameCount/100.0 : 0;
