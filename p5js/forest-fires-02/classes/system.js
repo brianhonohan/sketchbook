@@ -99,12 +99,17 @@ class System {
 
   static get TERRAIN_SOIL(){ return 0; }
   static get TERRAIN_WATER(){ return 1; }
-  static get TERRAIN_FOLIAGE(){ return 2; }
+  static get TERRAIN_FOLIAGE(){ return 2; } // TREATING as MOSTLY DECIDUOUS 
   static get TERRAIN_BURNING(){ return 3; }
   static get TERRAIN_ENGULFED(){ return 4; }
   static get TERRAIN_SMOLDERING(){ return 5; }
   static get TERRAIN_BURNT(){ return 6; }
   static get TERRAIN_PARTIAL_BURN(){ return 7; }
+  static get TERRAIN_GRASS_DRY(){ return 8; }
+  static get TERRAIN_GRASS_WET(){ return 9; }
+  static get TERRAIN_SHRUB(){ return 10; }
+  static get TERRAIN_CONIFER(){ return 11; }
+  static get TERRAIN_DECID_CONIF(){ return 12; }
 
   static get BASE_INFLUENCE_MATRIX(){ 
     return [
@@ -122,16 +127,22 @@ class System {
       ];
   }
 
+  // This is the risk that a given cell 
   initFireRisks(){
     this.terrainFireRisks = [];
-    this.terrainFireRisks[System.TERRAIN_SOIL]       = 0;
-    this.terrainFireRisks[System.TERRAIN_WATER]      = -0.1;
-    this.terrainFireRisks[System.TERRAIN_FOLIAGE]   = 0;
-    this.terrainFireRisks[System.TERRAIN_BURNING]    = 1.0;
-    this.terrainFireRisks[System.TERRAIN_ENGULFED]   = 2.0;
-    this.terrainFireRisks[System.TERRAIN_SMOLDERING] = 0.3;
-    this.terrainFireRisks[System.TERRAIN_BURNT]      = 0.05;
-    this.terrainFireRisks[System.TERRAIN_PARTIAL_BURN] = 0;
+    this.terrainFireRisks[System.TERRAIN_SOIL]          = 0;
+    this.terrainFireRisks[System.TERRAIN_WATER]         = -0.1;
+    this.terrainFireRisks[System.TERRAIN_FOLIAGE]       = 0;
+    this.terrainFireRisks[System.TERRAIN_BURNING]       = 1.0;
+    this.terrainFireRisks[System.TERRAIN_ENGULFED]      = 2.0;
+    this.terrainFireRisks[System.TERRAIN_SMOLDERING]    = 0.3;
+    this.terrainFireRisks[System.TERRAIN_BURNT]         = 0.05;
+    this.terrainFireRisks[System.TERRAIN_PARTIAL_BURN]  = 0;
+    this.terrainFireRisks[System.TERRAIN_GRASS_DRY]     = 0.08;
+    this.terrainFireRisks[System.TERRAIN_GRASS_WET]     = 0.0005;
+    this.terrainFireRisks[System.TERRAIN_SHRUB]         = 0.012;
+    this.terrainFireRisks[System.TERRAIN_CONIFER]       = 0.002;
+    this.terrainFireRisks[System.TERRAIN_DECID_CONIF]   = 0.008;
   }
 
   initFuelLookup(){
@@ -144,6 +155,11 @@ class System {
     this.fuelLookup[System.TERRAIN_SMOLDERING]    = 0;
     this.fuelLookup[System.TERRAIN_BURNT]         = 0;
     this.fuelLookup[System.TERRAIN_PARTIAL_BURN]  = 20;
+    this.fuelLookup[System.TERRAIN_GRASS_DRY]     = 2;
+    this.fuelLookup[System.TERRAIN_GRASS_WET]     = 0.5;
+    this.fuelLookup[System.TERRAIN_SHRUB]         = 5;
+    this.fuelLookup[System.TERRAIN_CONIFER]       = 200;
+    this.fuelLookup[System.TERRAIN_DECID_CONIF]   = 150;
   }
 
   initFireIntensitylLookup(){
@@ -156,6 +172,11 @@ class System {
     this.initialFire[System.TERRAIN_SMOLDERING]    = 15;
     this.initialFire[System.TERRAIN_BURNT]         = 0;
     this.initialFire[System.TERRAIN_PARTIAL_BURN]  = 0;
+    this.initialFire[System.TERRAIN_GRASS_DRY]     = 0;
+    this.initialFire[System.TERRAIN_GRASS_WET]     = 0;
+    this.initialFire[System.TERRAIN_SHRUB]         = 0;
+    this.initialFire[System.TERRAIN_CONIFER]       = 0;
+    this.initialFire[System.TERRAIN_DECID_CONIF]   = 0;
   }
 
   togglePause(){
@@ -218,13 +239,77 @@ class System {
       return System.TERRAIN_WATER;
 
     } else {
-      const largeOffset = 100000;
-      const landOrFoliage = noise(this.scale * (x + largeOffset),
-                                   this.scale * (y + largeOffset));
-      if (landOrFoliage < 0.6) {
-        return System.TERRAIN_SOIL;
-      } else {
-        return System.TERRAIN_FOLIAGE;
+      // TODO: In separate sketch, explore biome generation
+      const biomeNoiseOffset = 100000;
+      const biomeNoise = noise(this.scale * (x + biomeNoiseOffset),
+                                   this.scale * (y + biomeNoiseOffset));
+      let landNoiseNormalized = (waterOrLand - 0.5) / 0.5;
+
+      // TODO: Add in climate noise, (larger scale areas) to control 
+      // distribution of dry/wet grass
+
+      if (landNoiseNormalized < 0.3) {
+        // LOWER VALLEYS
+        if (biomeNoise < 0.05){
+          return System.TERRAIN_CONIFER;
+        } else if (biomeNoise < 0.2){
+          return System.TERRAIN_DECID_CONIF;
+ 
+        } else if (biomeNoise < 0.4){
+          return System.TERRAIN_FOLIAGE;
+ 
+        } else if (biomeNoise < 0.6){
+          return System.TERRAIN_GRASS_WET;
+ 
+        } else if (biomeNoise < 0.7){
+          return System.TERRAIN_SHRUB;
+ 
+        } else {
+          return System.TERRAIN_GRASS_DRY;
+          
+        }
+
+      } else if (landNoiseNormalized < 0.7) {
+        // MID ELEVATION - HILLS, lower foothills
+        if (biomeNoise < 0.3){
+          return System.TERRAIN_CONIFER;
+        } else if (biomeNoise < 0.4){
+          return System.TERRAIN_DECID_CONIF;
+ 
+        } else if (biomeNoise < 0.5){
+          return System.TERRAIN_FOLIAGE;
+ 
+        } else if (biomeNoise < 0.55){
+          return System.TERRAIN_GRASS_WET;
+ 
+        } else if (biomeNoise < 0.8){
+          return System.TERRAIN_SHRUB;
+ 
+        } else {
+          return System.TERRAIN_GRASS_DRY;
+          
+        }
+
+      }  else {
+        // Higher elevation, Mountains
+        if (biomeNoise < 0.5){
+          return System.TERRAIN_CONIFER;
+        } else if (biomeNoise < 0.7){
+          return System.TERRAIN_DECID_CONIF;
+ 
+        } else if (biomeNoise < 0.73){
+          return System.TERRAIN_FOLIAGE;
+ 
+        } else if (biomeNoise < 0.8){
+          return System.TERRAIN_GRASS_WET;
+ 
+        } else if (biomeNoise < 0.9){
+          return System.TERRAIN_SHRUB;
+ 
+        } else {
+          return System.TERRAIN_GRASS_DRY;
+          
+        }
       }
     }
   }
