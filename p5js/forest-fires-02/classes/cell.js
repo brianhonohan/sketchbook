@@ -21,7 +21,8 @@ class Cell {
   isBurning(){
     return [
       System.TERRAIN_BURNING,
-      System.TERRAIN_ENGULFED
+      System.TERRAIN_ENGULFED,
+      System.TERRAIN_SMOLDERING
     ].includes(this.terrainType); 
   }
 

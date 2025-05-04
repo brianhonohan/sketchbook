@@ -15,6 +15,7 @@ class System {
     this.scale =  this.settings.scale;
     this.baseImage = this.settings.baseImage;
     this.cellWidth = this.settings.cellWidth;
+    this.terrainVersion = this.settings.terrainVersion;
 
     this.internalTicksPerFrame = 1;
     this.speedIdx = 1;
@@ -56,10 +57,11 @@ class System {
   // supported types: integer, float, string
   optionsMetadata(){
     return [
-      { name: "cellWidth", type: "integer", default: 20}, 
+      { name: "cellWidth", type: "integer", default: 5}, 
       { name: "scale", type: "float", default: 0.02}, 
       { name: "lightning_at", type: "array:string", default: [], delimiter: "|"},
-      { name: "seed", type: "integer", default: P5JsSettings.getSeed() }
+      { name: "seed", type: "integer", default: P5JsSettings.getSeed() },
+      { name: "terrainVersion", type: "integer", default: 2 },
       // { name: "varname3", type: "float", default: 0.6}
     ];
   }
@@ -97,12 +99,17 @@ class System {
 
   static get TERRAIN_SOIL(){ return 0; }
   static get TERRAIN_WATER(){ return 1; }
-  static get TERRAIN_FOLIAGE(){ return 2; }
+  static get TERRAIN_FOLIAGE(){ return 2; } // TREATING as MOSTLY DECIDUOUS 
   static get TERRAIN_BURNING(){ return 3; }
   static get TERRAIN_ENGULFED(){ return 4; }
   static get TERRAIN_SMOLDERING(){ return 5; }
   static get TERRAIN_BURNT(){ return 6; }
   static get TERRAIN_PARTIAL_BURN(){ return 7; }
+  static get TERRAIN_GRASS_DRY(){ return 8; }
+  static get TERRAIN_GRASS_WET(){ return 9; }
+  static get TERRAIN_SHRUB(){ return 10; }
+  static get TERRAIN_CONIFER(){ return 11; }
+  static get TERRAIN_DECID_CONIF(){ return 12; }
 
   static get BASE_INFLUENCE_MATRIX(){ 
     return [
@@ -120,16 +127,22 @@ class System {
       ];
   }
 
+  // This is the risk that a given cell 
   initFireRisks(){
     this.terrainFireRisks = [];
-    this.terrainFireRisks[System.TERRAIN_SOIL]       = 0;
-    this.terrainFireRisks[System.TERRAIN_WATER]      = -0.1;
-    this.terrainFireRisks[System.TERRAIN_FOLIAGE]   = 0;
-    this.terrainFireRisks[System.TERRAIN_BURNING]    = 1.0;
-    this.terrainFireRisks[System.TERRAIN_ENGULFED]   = 2.0;
-    this.terrainFireRisks[System.TERRAIN_SMOLDERING] = 0.3;
-    this.terrainFireRisks[System.TERRAIN_BURNT]      = 0.05;
-    this.terrainFireRisks[System.TERRAIN_PARTIAL_BURN] = 0;
+    this.terrainFireRisks[System.TERRAIN_SOIL]          = 0;
+    this.terrainFireRisks[System.TERRAIN_WATER]         = -0.1;
+    this.terrainFireRisks[System.TERRAIN_FOLIAGE]       = 0;
+    this.terrainFireRisks[System.TERRAIN_BURNING]       = 1.0;
+    this.terrainFireRisks[System.TERRAIN_ENGULFED]      = 2.0;
+    this.terrainFireRisks[System.TERRAIN_SMOLDERING]    = 0.3;
+    this.terrainFireRisks[System.TERRAIN_BURNT]         = 0.05;
+    this.terrainFireRisks[System.TERRAIN_PARTIAL_BURN]  = 0;
+    this.terrainFireRisks[System.TERRAIN_GRASS_DRY]     = 0.08;
+    this.terrainFireRisks[System.TERRAIN_GRASS_WET]     = 0.0005;
+    this.terrainFireRisks[System.TERRAIN_SHRUB]         = 0.012;
+    this.terrainFireRisks[System.TERRAIN_CONIFER]       = 0.002;
+    this.terrainFireRisks[System.TERRAIN_DECID_CONIF]   = 0.008;
   }
 
   initFuelLookup(){
@@ -142,6 +155,11 @@ class System {
     this.fuelLookup[System.TERRAIN_SMOLDERING]    = 0;
     this.fuelLookup[System.TERRAIN_BURNT]         = 0;
     this.fuelLookup[System.TERRAIN_PARTIAL_BURN]  = 20;
+    this.fuelLookup[System.TERRAIN_GRASS_DRY]     = 2;
+    this.fuelLookup[System.TERRAIN_GRASS_WET]     = 0.5;
+    this.fuelLookup[System.TERRAIN_SHRUB]         = 5;
+    this.fuelLookup[System.TERRAIN_CONIFER]       = 200;
+    this.fuelLookup[System.TERRAIN_DECID_CONIF]   = 150;
   }
 
   initFireIntensitylLookup(){
@@ -154,6 +172,11 @@ class System {
     this.initialFire[System.TERRAIN_SMOLDERING]    = 15;
     this.initialFire[System.TERRAIN_BURNT]         = 0;
     this.initialFire[System.TERRAIN_PARTIAL_BURN]  = 0;
+    this.initialFire[System.TERRAIN_GRASS_DRY]     = 0;
+    this.initialFire[System.TERRAIN_GRASS_WET]     = 0;
+    this.initialFire[System.TERRAIN_SHRUB]         = 0;
+    this.initialFire[System.TERRAIN_CONIFER]       = 0;
+    this.initialFire[System.TERRAIN_DECID_CONIF]   = 0;
   }
 
   togglePause(){
@@ -185,6 +208,13 @@ class System {
   }
 
   getTerrainTypeFromNoise(x, y){
+    if (this.terrainVersion == undefined || this.terrainVersion == 1){
+      return this._v1_getTerrainTypeFromNoise(x, y);
+    }
+    return this._v2_getTerrainTypeFromNoise(x, y);
+  }
+
+  _v1_getTerrainTypeFromNoise(x, y){
     const waterOrLand = noise(this.scale * x, this.scale * y);
 
     if (waterOrLand < 0.5){
@@ -198,6 +228,88 @@ class System {
         return System.TERRAIN_SOIL;
       } else {
         return System.TERRAIN_FOLIAGE;
+      }
+    }
+  }
+
+  _v2_getTerrainTypeFromNoise(x, y){
+    const waterOrLand = noise(this.scale * x, this.scale * y);
+
+    if (waterOrLand < 0.5){
+      return System.TERRAIN_WATER;
+
+    } else {
+      // TODO: In separate sketch, explore biome generation
+      const biomeNoiseOffset = 100000;
+      const biomeNoise = noise(this.scale * (x + biomeNoiseOffset),
+                                   this.scale * (y + biomeNoiseOffset));
+      let landNoiseNormalized = (waterOrLand - 0.5) / 0.5;
+
+      // TODO: Add in climate noise, (larger scale areas) to control 
+      // distribution of dry/wet grass
+
+      if (landNoiseNormalized < 0.2) {
+        // LOWER VALLEYS
+        if (biomeNoise < 0.05){
+          return System.TERRAIN_CONIFER;
+        } else if (biomeNoise < 0.2){
+          return System.TERRAIN_DECID_CONIF;
+ 
+        } else if (biomeNoise < 0.4){
+          return System.TERRAIN_FOLIAGE;
+ 
+        } else if (biomeNoise < 0.6){
+          return System.TERRAIN_GRASS_WET;
+ 
+        } else if (biomeNoise < 0.7){
+          return System.TERRAIN_SHRUB;
+ 
+        } else {
+          return System.TERRAIN_GRASS_DRY;
+          
+        }
+
+      } else if (landNoiseNormalized < 0.6) {
+        // MID ELEVATION - HILLS, lower foothills
+        if (biomeNoise < 0.3){
+          return System.TERRAIN_CONIFER;
+        } else if (biomeNoise < 0.4){
+          return System.TERRAIN_DECID_CONIF;
+ 
+        } else if (biomeNoise < 0.5){
+          return System.TERRAIN_FOLIAGE;
+ 
+        } else if (biomeNoise < 0.55){
+          return System.TERRAIN_GRASS_WET;
+ 
+        } else if (biomeNoise < 0.8){
+          return System.TERRAIN_SHRUB;
+ 
+        } else {
+          return System.TERRAIN_GRASS_DRY;
+          
+        }
+
+      }  else {
+        // Higher elevation, Mountains
+        if (biomeNoise < 0.5){
+          return System.TERRAIN_CONIFER;
+        } else if (biomeNoise < 0.7){
+          return System.TERRAIN_DECID_CONIF;
+ 
+        } else if (biomeNoise < 0.73){
+          return System.TERRAIN_FOLIAGE;
+ 
+        } else if (biomeNoise < 0.8){
+          return System.TERRAIN_GRASS_WET;
+ 
+        } else if (biomeNoise < 0.9){
+          return System.TERRAIN_SHRUB;
+ 
+        } else {
+          return System.TERRAIN_GRASS_DRY;
+          
+        }
       }
     }
   }
@@ -251,6 +363,12 @@ class System {
     this.resources.use(Resources.RES_KNOCK_DOWN);
   }
 
+  infoAt(x, y){
+    return { 
+      cell: this.grid.cellForXY(x, y)
+    };
+  }
+
   fireBreakAt(x, y){
     if (!this.resources.has(Resources.RES_FIRE_BREAK)){
       console.log("Out of: fire_break");
@@ -259,7 +377,9 @@ class System {
 
     const cell = this.grid.cellForXY(x, y);
 
-    if (!cell.isBurning() && cell.terrainType == System.TERRAIN_FOLIAGE){
+    if (!cell.isBurning() && cell.terrainType != System.TERRAIN_WATER){
+      // TODO: Need to think of cost to creating firebreak per terrain type
+      // .. logic: a lot easier to cut into grass, shrub vs. foliage/confier
       cell.setType(System.TERRAIN_SOIL);
       cell.fuelAmount = 0;
       this.resources.use(Resources.RES_FIRE_BREAK);
@@ -277,9 +397,12 @@ class System {
   }
 
   lightningStrike(){
-    let firstFoliage = this.grid.cells.find(c => c.terrainType == System.TERRAIN_FOLIAGE);
-    if (firstFoliage) {
-      firstFoliage.startBurning();
+    // TODO: Change lightning 
+    // idea: random (up to 100 tries) ... hit non-water
+    // and based on fire risk, maybe start burning
+    let hitFuelCell = this.grid.cells.find(c => (!c.isBurning() && c.fuelAmount > 0));
+    if (hitFuelCell) {
+      hitFuelCell.startBurning();
     }
   }
 

@@ -26,11 +26,12 @@ class UserInterface {
   static get TOOL_FIRE_BREAK(){ return 1; }
   static get TOOL_KNOCK_DOWN(){ return 2; }
   static get TOOL_DRAW(){ return 3; }
-
+  static get TOOL_INFO(){ return 4; }
 
   static get BTN_LIGHTNING() { return 0; }
   static get BTN_FIRE_BREAK() { return 1; }
   static get BTN_KNOCK_DOWN() { return 2; }
+  static get BTN_INFO() { return 3; }
 
   static get DIALOG_NONE() { return 0; }
   static get DIALOG_UPLOAD() { return 1; }
@@ -42,7 +43,7 @@ class UserInterface {
     this.marginX = 25;
     let buttonConfigs = this.configForButtons();
 
-    let buttonYPos = this.y + 70;
+    let buttonYPos = this.y + 130;
     buttonConfigs.forEach(btnConfig => {
       let newButton = createButton(btnConfig.label);
       newButton.position(this.x + this.marginX, buttonYPos);
@@ -57,12 +58,14 @@ class UserInterface {
       {id: UserInterface.BTN_LIGHTNING, label: 'Lightning', callback: this.handleBtnLightning},
       {id: UserInterface.BTN_FIRE_BREAK, label: 'Fire Break', callback: this.handleBtnFireBreak},
       {id: UserInterface.BTN_KNOCK_DOWN, label: 'Knock Down', callback: this.handleBtnKnockDown},
+      {id: UserInterface.BTN_INFO, label: 'Info', callback: this.handleBtnInfo},
     ];
   }
 
   handleBtnLightning(){ ui.setTool(UserInterface.TOOL_LIGHTNING); }
   handleBtnFireBreak(){ ui.setTool(UserInterface.TOOL_FIRE_BREAK); }
   handleBtnKnockDown(){ ui.setTool(UserInterface.TOOL_KNOCK_DOWN); }
+  handleBtnInfo(){ ui.setTool(UserInterface.TOOL_INFO); }
 
   initScenarioUI(){
     this.scenarioSelector = createSelect();
@@ -117,6 +120,7 @@ class UserInterface {
         case 'l': this.triggerLightning(); break;
         case 'L': this.setTool(UserInterface.TOOL_LIGHTNING); break;
         case 'D': this.setTool(UserInterface.TOOL_DRAW); break;
+        case 'i': this.setTool(UserInterface.TOOL_INFO); break;
         case 'f': this.setTool(UserInterface.TOOL_FIRE_BREAK); break;
         case 'k': this.setTool(UserInterface.TOOL_KNOCK_DOWN); break;
         case 'O': this.showDialog(UserInterface.DIALOG_UPLOAD);
@@ -166,6 +170,11 @@ class UserInterface {
     switch (this.tool) {
       case UserInterface.TOOL_KNOCK_DOWN:
         this.system.knockDownAt(systemX, systemY);
+        break;
+      case UserInterface.TOOL_INFO:
+        let info = this.system.infoAt(systemX, systemY);
+        // TODO: Have an info panel; and bind to update as data changes
+        console.log(info);
         break;
       case UserInterface.TOOL_LIGHTNING:
         this.system.lightningAt(systemX, systemY);

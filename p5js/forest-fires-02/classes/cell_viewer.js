@@ -49,7 +49,12 @@ class CellViewer {
       engulfed: color(245, 50, 50),
       smoldering: color(230, 100, 50),
       burnt: color(50, 50, 50),
-      partial_burn: color(70, 70, 70)
+      partial_burn: color(70, 70, 70),
+      grass_dry: color(150, 150, 90),
+      grass_wet: color(70, 160, 70),
+      shrub: color(90, 150, 90),
+      conifer: color(10, 70, 20),
+      decid_conif: color(70, 110, 90)
     };
   }
   
@@ -69,6 +74,11 @@ class CellViewer {
     this.colorLookup[System.TERRAIN_SMOLDERING] = this._colors.smoldering;
     this.colorLookup[System.TERRAIN_BURNT] = this._colors.burnt;
     this.colorLookup[System.TERRAIN_PARTIAL_BURN] = this._colors.partial_burn;
+    this.colorLookup[System.TERRAIN_GRASS_DRY]     = this._colors.grass_dry;
+    this.colorLookup[System.TERRAIN_GRASS_WET]     = this._colors.grass_wet;
+    this.colorLookup[System.TERRAIN_SHRUB]         = this._colors.shrub;
+    this.colorLookup[System.TERRAIN_CONIFER]       = this._colors.conifer;
+    this.colorLookup[System.TERRAIN_DECID_CONIF]   = this._colors.decid_conif;
 
     this.redLookup    = this.colorLookup.map(c => red(c));
     this.greenLookup  = this.colorLookup.map(c => green(c));
