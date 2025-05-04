@@ -363,6 +363,12 @@ class System {
     this.resources.use(Resources.RES_KNOCK_DOWN);
   }
 
+  infoAt(x, y){
+    return { 
+      cell: this.grid.cellForXY(x, y)
+    };
+  }
+
   fireBreakAt(x, y){
     if (!this.resources.has(Resources.RES_FIRE_BREAK)){
       console.log("Out of: fire_break");
