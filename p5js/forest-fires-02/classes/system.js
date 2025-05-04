@@ -248,7 +248,7 @@ class System {
       // TODO: Add in climate noise, (larger scale areas) to control 
       // distribution of dry/wet grass
 
-      if (landNoiseNormalized < 0.3) {
+      if (landNoiseNormalized < 0.2) {
         // LOWER VALLEYS
         if (biomeNoise < 0.05){
           return System.TERRAIN_CONIFER;
@@ -269,7 +269,7 @@ class System {
           
         }
 
-      } else if (landNoiseNormalized < 0.7) {
+      } else if (landNoiseNormalized < 0.6) {
         // MID ELEVATION - HILLS, lower foothills
         if (biomeNoise < 0.3){
           return System.TERRAIN_CONIFER;
