@@ -55,10 +55,10 @@ class UserInterface {
 
   configForButtons(){
     return [
-      {id: UserInterface.BTN_LIGHTNING, label: 'Lightning', callback: this.handleBtnLightning},
-      {id: UserInterface.BTN_FIRE_BREAK, label: 'Fire Break', callback: this.handleBtnFireBreak},
-      {id: UserInterface.BTN_KNOCK_DOWN, label: 'Knock Down', callback: this.handleBtnKnockDown},
-      {id: UserInterface.BTN_INFO, label: 'Info', callback: this.handleBtnInfo},
+      {id: UserInterface.BTN_LIGHTNING, label: '🌩️ Lightning', callback: this.handleBtnLightning},
+      {id: UserInterface.BTN_FIRE_BREAK, label: '⛏️ Fire Break', callback: this.handleBtnFireBreak},
+      {id: UserInterface.BTN_KNOCK_DOWN, label: '🧯 Knock Down', callback: this.handleBtnKnockDown},
+      {id: UserInterface.BTN_INFO, label: 'ℹ️ Info', callback: this.handleBtnInfo},
     ];
   }
 
