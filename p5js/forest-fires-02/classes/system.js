@@ -252,8 +252,9 @@ class System {
 
   _v2_getTerrainTypeFromNoise(x, y){
     const waterOrLand = noise(this.scale * x, this.scale * y);
+    let landWaterThreshold = 0.38;
 
-    if (waterOrLand < 0.5){
+    if (waterOrLand < landWaterThreshold){
       return System.TERRAIN_WATER;
 
     } else {
@@ -261,7 +262,7 @@ class System {
       const biomeNoiseOffset = 100000;
       const biomeNoise = noise(this.scale * (x + biomeNoiseOffset),
                                    this.scale * (y + biomeNoiseOffset));
-      let landNoiseNormalized = (waterOrLand - 0.5) / 0.5;
+      let landNoiseNormalized = (waterOrLand - landWaterThreshold) / landWaterThreshold;
 
       // TODO: Add in climate noise, (larger scale areas) to control 
       // distribution of dry/wet grass
