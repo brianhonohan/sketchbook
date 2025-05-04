@@ -2,6 +2,7 @@ class System {
   constructor(p_xSizeAndPos){
     this.sizeAndPosition = p_xSizeAndPos;
     this.initFireIntensitylLookup();
+    this.initTerrainLabelLookup();
   }
 
   init(p_xSettings){
@@ -177,6 +178,23 @@ class System {
     this.initialFire[System.TERRAIN_SHRUB]         = 0;
     this.initialFire[System.TERRAIN_CONIFER]       = 0;
     this.initialFire[System.TERRAIN_DECID_CONIF]   = 0;
+  }
+  
+  initTerrainLabelLookup(){
+    this.terrainName = [];
+    this.terrainName[System.TERRAIN_SOIL]          = 'Soil';
+    this.terrainName[System.TERRAIN_WATER]         = 'Water';
+    this.terrainName[System.TERRAIN_FOLIAGE]       = 'Foliage';
+    this.terrainName[System.TERRAIN_BURNING]       = 'Burning';
+    this.terrainName[System.TERRAIN_ENGULFED]      = 'Engulfed';
+    this.terrainName[System.TERRAIN_SMOLDERING]    = 'Smoldering';
+    this.terrainName[System.TERRAIN_BURNT]         = 'Burnt';
+    this.terrainName[System.TERRAIN_PARTIAL_BURN]  = 'Partial Burn';
+    this.terrainName[System.TERRAIN_GRASS_DRY]     = 'Grass Dry';
+    this.terrainName[System.TERRAIN_GRASS_WET]     = 'Grass Wet';
+    this.terrainName[System.TERRAIN_SHRUB]         = 'Shrub';
+    this.terrainName[System.TERRAIN_CONIFER]       = 'Conifer';
+    this.terrainName[System.TERRAIN_DECID_CONIF]   = 'Decidious / Conifer Mix';
   }
 
   togglePause(){

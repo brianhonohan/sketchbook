@@ -174,7 +174,8 @@ class UserInterface {
       case UserInterface.TOOL_INFO:
         let info = this.system.infoAt(systemX, systemY);
         // TODO: Have an info panel; and bind to update as data changes
-        console.log(info);
+        console.log( this.system.terrainName[info.cell.terrainType] );
+        console.log(info.cell);
         break;
       case UserInterface.TOOL_LIGHTNING:
         this.system.lightningAt(systemX, systemY);
