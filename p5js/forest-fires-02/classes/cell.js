@@ -36,6 +36,10 @@ class Cell {
       this.fuelAmount -= 0.3;
       this.fireIntensity += 0.3;
 
+      if (this.fuelAmount < 0){
+        this.setType(System.TERRAIN_SMOLDERING);
+      }
+
       if (this.fireIntensity > 20){
         this.setType(System.TERRAIN_ENGULFED);
       }
