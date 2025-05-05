@@ -127,6 +127,7 @@ class UserInterface {
         case '[':  this.system.slowDown(); break;
         case ']':  this.system.speedUp(); break;
         case "\\": this.system.togglePause(); break;
+        case "=": this.system.requestTick(); break;
       }
     }
     this.prevKey = key;

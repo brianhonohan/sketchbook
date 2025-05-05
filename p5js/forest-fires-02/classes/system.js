@@ -21,6 +21,7 @@ class System {
     this.internalTicksPerFrame = 1;
     this.speedIdx = 1;
     this.paused = false;
+    this.ticksToStepThru = 0;
     this.tickCount = 0;
     this.initFireRisks();
     this.initFuelLookup();
@@ -205,6 +206,8 @@ class System {
 
   slowDown(){ this.setSpeed(this.speedIdx - 1) }
   speedUp(){ this.setSpeed(this.speedIdx + 1) }
+
+  requestTick() { this.ticksToStepThru += 1;}
 
   setSpeed(newIndex){
     const speedLookup = [0,
@@ -429,6 +432,13 @@ class System {
 
   tick(){
     // console.log("tock");
+    if (this.ticksToStepThru > 0){
+      while (this.ticksToStepThru > 0){
+        this.internalTick();
+        this.ticksToStepThru -= 1;
+      }
+    }
+
     if (this.paused){
       return;
     }
