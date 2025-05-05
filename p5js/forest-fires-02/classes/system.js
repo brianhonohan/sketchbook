@@ -128,7 +128,8 @@ class System {
       ];
   }
 
-  // This is the risk that a given cell 
+  // This is the risk that a given cell is likely to start burning
+  // lower numbers mean the terrain type is less susceptible to burning
   initFireRisks(){
     this.terrainFireRisks = [];
     this.terrainFireRisks[System.TERRAIN_SOIL]          = 0;
@@ -267,7 +268,8 @@ class System {
       // TODO: Add in climate noise, (larger scale areas) to control 
       // distribution of dry/wet grass
 
-      if (landNoiseNormalized < 0.2) {
+      // TODO: Terrain generation should be scenario controlled via parameters
+      if (landNoiseNormalized < 0.15) {
         // LOWER VALLEYS
         if (biomeNoise < 0.05){
           return System.TERRAIN_CONIFER;
@@ -288,7 +290,7 @@ class System {
           
         }
 
-      } else if (landNoiseNormalized < 0.6) {
+      } else if (landNoiseNormalized < 0.55) {
         // MID ELEVATION - HILLS, lower foothills
         if (biomeNoise < 0.3){
           return System.TERRAIN_CONIFER;
@@ -298,22 +300,22 @@ class System {
         } else if (biomeNoise < 0.5){
           return System.TERRAIN_FOLIAGE;
  
-        } else if (biomeNoise < 0.55){
-          return System.TERRAIN_GRASS_WET;
+        } else if (biomeNoise < 0.75){
+          return System.TERRAIN_GRASS_DRY;
  
         } else if (biomeNoise < 0.8){
-          return System.TERRAIN_SHRUB;
+          return System.TERRAIN_GRASS_WET;
  
         } else {
-          return System.TERRAIN_GRASS_DRY;
-          
+          return System.TERRAIN_SHRUB;
+
         }
 
       }  else {
         // Higher elevation, Mountains
-        if (biomeNoise < 0.5){
+        if (biomeNoise < 0.45){
           return System.TERRAIN_CONIFER;
-        } else if (biomeNoise < 0.7){
+        } else if (biomeNoise < 0.6){
           return System.TERRAIN_DECID_CONIF;
  
         } else if (biomeNoise < 0.73){
