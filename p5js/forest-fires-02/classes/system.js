@@ -129,8 +129,8 @@ class System {
       ];
   }
 
-  // This is the risk that a given cell is likely to start burning
-  // lower numbers mean the terrain type is less susceptible to burning
+  // This is the risk that a fire will spread from cells of this type 
+  // outware to surrounding cells (factoring in the BASE_INFLUENCE_MATRIX)
   initFireRisks(){
     this.terrainFireRisks = [];
     this.terrainFireRisks[System.TERRAIN_SOIL]          = 0;
@@ -141,11 +141,11 @@ class System {
     this.terrainFireRisks[System.TERRAIN_SMOLDERING]    = 0.3;
     this.terrainFireRisks[System.TERRAIN_BURNT]         = 0.05;
     this.terrainFireRisks[System.TERRAIN_PARTIAL_BURN]  = 0;
-    this.terrainFireRisks[System.TERRAIN_GRASS_DRY]     = 0.08;
-    this.terrainFireRisks[System.TERRAIN_GRASS_WET]     = 0.0005;
-    this.terrainFireRisks[System.TERRAIN_SHRUB]         = 0.012;
-    this.terrainFireRisks[System.TERRAIN_CONIFER]       = 0.002;
-    this.terrainFireRisks[System.TERRAIN_DECID_CONIF]   = 0.008;
+    this.terrainFireRisks[System.TERRAIN_GRASS_DRY]     = 0;
+    this.terrainFireRisks[System.TERRAIN_GRASS_WET]     = 0;
+    this.terrainFireRisks[System.TERRAIN_SHRUB]         = 0;
+    this.terrainFireRisks[System.TERRAIN_CONIFER]       = 0;
+    this.terrainFireRisks[System.TERRAIN_DECID_CONIF]   = 0;
   }
 
   initFuelLookup(){
