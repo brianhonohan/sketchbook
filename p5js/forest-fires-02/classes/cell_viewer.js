@@ -50,11 +50,11 @@ class CellViewer {
       smoldering: color(230, 100, 50),
       burnt: color(50, 50, 50),
       partial_burn: color(70, 70, 70),
-      grass_dry: color(150, 150, 90),
+      grass_dry: color(125, 150, 90),
       grass_wet: color(70, 160, 70),
-      shrub: color(90, 150, 90),
-      conifer: color(10, 70, 20),
-      decid_conif: color(70, 110, 90)
+      shrub: color(70, 110, 90),
+      conifer: color(10, 70, 40),
+      decid_conif: color(50, 120, 70)
     };
   }
   
