@@ -55,10 +55,10 @@ class UserInterface {
 
   configForButtons(){
     return [
-      {id: UserInterface.BTN_LIGHTNING, label: 'Lightning', callback: this.handleBtnLightning},
-      {id: UserInterface.BTN_FIRE_BREAK, label: 'Fire Break', callback: this.handleBtnFireBreak},
-      {id: UserInterface.BTN_KNOCK_DOWN, label: 'Knock Down', callback: this.handleBtnKnockDown},
-      {id: UserInterface.BTN_INFO, label: 'Info', callback: this.handleBtnInfo},
+      {id: UserInterface.BTN_LIGHTNING, label: '🌩️ Lightning', callback: this.handleBtnLightning},
+      {id: UserInterface.BTN_FIRE_BREAK, label: '⛏️ Fire Break', callback: this.handleBtnFireBreak},
+      {id: UserInterface.BTN_KNOCK_DOWN, label: '🧯 Knock Down', callback: this.handleBtnKnockDown},
+      {id: UserInterface.BTN_INFO, label: 'ℹ️ Info', callback: this.handleBtnInfo},
     ];
   }
 
@@ -127,6 +127,7 @@ class UserInterface {
         case '[':  this.system.slowDown(); break;
         case ']':  this.system.speedUp(); break;
         case "\\": this.system.togglePause(); break;
+        case "=": this.system.requestTick(); break;
       }
     }
     this.prevKey = key;
@@ -174,7 +175,8 @@ class UserInterface {
       case UserInterface.TOOL_INFO:
         let info = this.system.infoAt(systemX, systemY);
         // TODO: Have an info panel; and bind to update as data changes
-        console.log(info);
+        console.log( this.system.terrainName[info.cell.terrainType] );
+        console.log(info.cell);
         break;
       case UserInterface.TOOL_LIGHTNING:
         this.system.lightningAt(systemX, systemY);

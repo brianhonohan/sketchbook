@@ -2,6 +2,7 @@ class System {
   constructor(p_xSizeAndPos){
     this.sizeAndPosition = p_xSizeAndPos;
     this.initFireIntensitylLookup();
+    this.initTerrainLabelLookup();
   }
 
   init(p_xSettings){
@@ -20,6 +21,7 @@ class System {
     this.internalTicksPerFrame = 1;
     this.speedIdx = 1;
     this.paused = false;
+    this.ticksToStepThru = 0;
     this.tickCount = 0;
     this.initFireRisks();
     this.initFuelLookup();
@@ -127,7 +129,8 @@ class System {
       ];
   }
 
-  // This is the risk that a given cell 
+  // This is the risk that a given cell is likely to start burning
+  // lower numbers mean the terrain type is less susceptible to burning
   initFireRisks(){
     this.terrainFireRisks = [];
     this.terrainFireRisks[System.TERRAIN_SOIL]          = 0;
@@ -178,6 +181,23 @@ class System {
     this.initialFire[System.TERRAIN_CONIFER]       = 0;
     this.initialFire[System.TERRAIN_DECID_CONIF]   = 0;
   }
+  
+  initTerrainLabelLookup(){
+    this.terrainName = [];
+    this.terrainName[System.TERRAIN_SOIL]          = 'Soil';
+    this.terrainName[System.TERRAIN_WATER]         = 'Water';
+    this.terrainName[System.TERRAIN_FOLIAGE]       = 'Foliage';
+    this.terrainName[System.TERRAIN_BURNING]       = 'Burning';
+    this.terrainName[System.TERRAIN_ENGULFED]      = 'Engulfed';
+    this.terrainName[System.TERRAIN_SMOLDERING]    = 'Smoldering';
+    this.terrainName[System.TERRAIN_BURNT]         = 'Burnt';
+    this.terrainName[System.TERRAIN_PARTIAL_BURN]  = 'Partial Burn';
+    this.terrainName[System.TERRAIN_GRASS_DRY]     = 'Grass Dry';
+    this.terrainName[System.TERRAIN_GRASS_WET]     = 'Grass Wet';
+    this.terrainName[System.TERRAIN_SHRUB]         = 'Shrub';
+    this.terrainName[System.TERRAIN_CONIFER]       = 'Conifer';
+    this.terrainName[System.TERRAIN_DECID_CONIF]   = 'Decidious / Conifer Mix';
+  }
 
   togglePause(){
     this.paused = !this.paused;
@@ -186,6 +206,8 @@ class System {
 
   slowDown(){ this.setSpeed(this.speedIdx - 1) }
   speedUp(){ this.setSpeed(this.speedIdx + 1) }
+
+  requestTick() { this.ticksToStepThru += 1;}
 
   setSpeed(newIndex){
     const speedLookup = [0,
@@ -234,8 +256,9 @@ class System {
 
   _v2_getTerrainTypeFromNoise(x, y){
     const waterOrLand = noise(this.scale * x, this.scale * y);
+    let landWaterThreshold = 0.38;
 
-    if (waterOrLand < 0.5){
+    if (waterOrLand < landWaterThreshold){
       return System.TERRAIN_WATER;
 
     } else {
@@ -243,12 +266,13 @@ class System {
       const biomeNoiseOffset = 100000;
       const biomeNoise = noise(this.scale * (x + biomeNoiseOffset),
                                    this.scale * (y + biomeNoiseOffset));
-      let landNoiseNormalized = (waterOrLand - 0.5) / 0.5;
+      let landNoiseNormalized = (waterOrLand - landWaterThreshold) / landWaterThreshold;
 
       // TODO: Add in climate noise, (larger scale areas) to control 
       // distribution of dry/wet grass
 
-      if (landNoiseNormalized < 0.2) {
+      // TODO: Terrain generation should be scenario controlled via parameters
+      if (landNoiseNormalized < 0.15) {
         // LOWER VALLEYS
         if (biomeNoise < 0.05){
           return System.TERRAIN_CONIFER;
@@ -269,7 +293,7 @@ class System {
           
         }
 
-      } else if (landNoiseNormalized < 0.6) {
+      } else if (landNoiseNormalized < 0.55) {
         // MID ELEVATION - HILLS, lower foothills
         if (biomeNoise < 0.3){
           return System.TERRAIN_CONIFER;
@@ -279,22 +303,22 @@ class System {
         } else if (biomeNoise < 0.5){
           return System.TERRAIN_FOLIAGE;
  
-        } else if (biomeNoise < 0.55){
-          return System.TERRAIN_GRASS_WET;
+        } else if (biomeNoise < 0.75){
+          return System.TERRAIN_GRASS_DRY;
  
         } else if (biomeNoise < 0.8){
-          return System.TERRAIN_SHRUB;
+          return System.TERRAIN_GRASS_WET;
  
         } else {
-          return System.TERRAIN_GRASS_DRY;
-          
+          return System.TERRAIN_SHRUB;
+
         }
 
       }  else {
         // Higher elevation, Mountains
-        if (biomeNoise < 0.5){
+        if (biomeNoise < 0.45){
           return System.TERRAIN_CONIFER;
-        } else if (biomeNoise < 0.7){
+        } else if (biomeNoise < 0.6){
           return System.TERRAIN_DECID_CONIF;
  
         } else if (biomeNoise < 0.73){
@@ -408,6 +432,13 @@ class System {
 
   tick(){
     // console.log("tock");
+    if (this.ticksToStepThru > 0){
+      while (this.ticksToStepThru > 0){
+        this.internalTick();
+        this.ticksToStepThru -= 1;
+      }
+    }
+
     if (this.paused){
       return;
     }
