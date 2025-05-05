@@ -24,6 +24,7 @@ class System {
     this.ticksToStepThru = 0;
     this.tickCount = 0;
     this.initFireRisks();
+    this.initFireThresholds();
     this.initFuelLookup();
     this.fireRiskThreshold = 0.1;
     this.resources = new Resources();
@@ -129,8 +130,6 @@ class System {
       ];
   }
 
-  // This is the risk that a fire will spread from cells of this type 
-  // outware to surrounding cells (factoring in the BASE_INFLUENCE_MATRIX)
   initFireRisks(){
     this.terrainFireRisks = [];
     this.terrainFireRisks[System.TERRAIN_SOIL]          = 0;
@@ -146,6 +145,24 @@ class System {
     this.terrainFireRisks[System.TERRAIN_SHRUB]         = 0;
     this.terrainFireRisks[System.TERRAIN_CONIFER]       = 0;
     this.terrainFireRisks[System.TERRAIN_DECID_CONIF]   = 0;
+  }
+
+  // This is the threshold level at which this cell will catch fire
+  initFireThresholds(){
+    this.terrainFireThreshold = [];
+    this.terrainFireThreshold[System.TERRAIN_SOIL]          = Number.POSITIVE_INFINITY;
+    this.terrainFireThreshold[System.TERRAIN_WATER]         = Number.POSITIVE_INFINITY;
+    this.terrainFireThreshold[System.TERRAIN_FOLIAGE]       = 1.0;
+    this.terrainFireThreshold[System.TERRAIN_BURNING]       = 0;
+    this.terrainFireThreshold[System.TERRAIN_ENGULFED]      = 0;
+    this.terrainFireThreshold[System.TERRAIN_SMOLDERING]    = 0.001;
+    this.terrainFireThreshold[System.TERRAIN_BURNT]         = 0;
+    this.terrainFireThreshold[System.TERRAIN_PARTIAL_BURN]  = 0.0001;
+    this.terrainFireThreshold[System.TERRAIN_GRASS_DRY]     = 0.0010;
+    this.terrainFireThreshold[System.TERRAIN_GRASS_WET]     = 0.1;
+    this.terrainFireThreshold[System.TERRAIN_SHRUB]         = 0.5;
+    this.terrainFireThreshold[System.TERRAIN_CONIFER]       = 2.3;
+    this.terrainFireThreshold[System.TERRAIN_DECID_CONIF]   = 1.0;
   }
 
   initFuelLookup(){
@@ -491,28 +508,52 @@ class System {
                   }
                 });
     })
-    cellsAtRisk.forEach(c => this.setNextTypeForCell(c));
+    cellsAtRisk.forEach(c => this.v2_setNextTypeForCell(c));
   }
 
-  setNextTypeForCell(cell){
+  v1_setNextTypeForCell(cell){
     if(this.fireRiskFromNeighbors(cell) >= this.fireRiskThreshold){
       cell.nextFrameType = System.TERRAIN_BURNING;
     }
   }
 
-  fireRiskFromNeighbors(cell){
+  v1_fireRiskFromNeighbors(cell){
     const neighbors = this.grid.cellNeighborsOfIdx(cell._idx);
 
-    return  neighbors.map(this.fireRisk, this)
+    return  neighbors.map(this.v1_fireRisk, this)
                      .reduce((total, riskFactor) => total + riskFactor, 0);
   }
 
-  fireRisk(cell, neighborIdx){
+  v1_fireRisk(cell, neighborIdx){
     if (cell == undefined) {
+      // This is to be expected if the original cell is along a screen border
       return 0;
     }
-
+    
     return this.terrainFireRisks[cell.terrainType]
+              * this.firePropagationMatrix[neighborIdx];
+  }
+
+  v2_setNextTypeForCell(cell){
+    if(this.v2_fireRiskFromNeighbors(cell) >= this.terrainFireThreshold[cell.terrainType]){
+      cell.nextFrameType = System.TERRAIN_BURNING;
+    }
+  }
+
+  v2_fireRiskFromNeighbors(cell){
+    const neighbors = this.grid.cellNeighborsOfIdx(cell._idx);
+
+    return  neighbors.map(this.v2_fireRisk, this)
+                     .reduce((total, riskFactor) => total + riskFactor, 0);
+  }
+
+  v2_fireRisk(cell, neighborIdx){
+    if (cell == undefined) {
+      // This is to be expected if the original cell is along a screen border
+      return 0;
+    }
+    
+    return cell.fireIntensity
               * this.firePropagationMatrix[neighborIdx];
   }
 
