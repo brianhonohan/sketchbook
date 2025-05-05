@@ -98,6 +98,8 @@ class System {
 
   get x(){ return this.sizeAndPosition.x; }
   get y(){ return this.sizeAndPosition.y; }
+  get width(){ return this.sizeAndPosition.width; }
+  get height(){ return this.sizeAndPosition.height; }
   containsXY(x, y){ return this.sizeAndPosition.containsXY(x, y); }
 
   static get TERRAIN_SOIL(){ return 0; }
@@ -438,12 +440,16 @@ class System {
   }
 
   lightningStrike(){
-    // TODO: Change lightning 
-    // idea: random (up to 100 tries) ... hit non-water
-    // and based on fire risk, maybe start burning
-    let hitFuelCell = this.grid.cells.find(c => (!c.isBurning() && c.fuelAmount > 0));
-    if (hitFuelCell) {
-      hitFuelCell.startBurning();
+    let numberOfTries = 100;
+    for (let i = 0; i < numberOfTries; i++){
+      let randX = Math.floor(random(0, this.width));
+      let randY = Math.floor(random(0, this.height));
+
+      let cell = this.grid.cellForXY(randX, randY);
+      if (!cell.isBurning() && cell.fuelAmount > 0){
+        cell.startBurning();
+        return;
+      }
     }
   }
 
