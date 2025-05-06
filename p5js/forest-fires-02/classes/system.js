@@ -514,6 +514,8 @@ class System {
     }
     this.grid.cells.forEach(cell => cell.tick());
     this.resources.tick();
+
+    this.wind.tick();
   }
 
   assignNextTypes(){
