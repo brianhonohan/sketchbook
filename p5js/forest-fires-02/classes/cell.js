@@ -14,6 +14,9 @@ class Cell {
     this.fireIntensity = 0;
   }
 
+  get x() { return this._col * this.system.cellWidth; }
+  get y() { return this._row * this.system.cellWidth; }
+
   startBurning(){
     this.setType(System.TERRAIN_BURNING);
   }
@@ -35,6 +38,10 @@ class Cell {
     if (this.terrainType == System.TERRAIN_BURNING){
       this.fuelAmount -= 0.3;
       this.fireIntensity += 0.3;
+
+      if (this.fuelAmount < 0){
+        this.setType(System.TERRAIN_SMOLDERING);
+      }
 
       if (this.fireIntensity > 20){
         this.setType(System.TERRAIN_ENGULFED);

@@ -93,6 +93,7 @@ class UserInterface {
   }
 
   handleRunScenario(){
+    ui.closeDialog();
     let selectedScenario = ui.scenarioSelector.selected();
     ui.scenarioMgr.loadScenarioByName(selectedScenario);
   }
@@ -103,6 +104,7 @@ class UserInterface {
   }
 
   handleRandomize(){
+    ui.closeDialog();
     ui.system.randomize();
   }
 

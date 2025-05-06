@@ -24,7 +24,9 @@ class System {
     this.ticksToStepThru = 0;
     this.tickCount = 0;
     this.initFireRisks();
+    this.initFireThresholds();
     this.initFuelLookup();
+    this.initWind();
     this.fireRiskThreshold = 0.1;
     this.resources = new Resources();
     this.cellViewer = new CellViewer();
@@ -97,6 +99,8 @@ class System {
 
   get x(){ return this.sizeAndPosition.x; }
   get y(){ return this.sizeAndPosition.y; }
+  get width(){ return this.sizeAndPosition.width; }
+  get height(){ return this.sizeAndPosition.height; }
   containsXY(x, y){ return this.sizeAndPosition.containsXY(x, y); }
 
   static get TERRAIN_SOIL(){ return 0; }
@@ -129,8 +133,25 @@ class System {
       ];
   }
 
-  // This is the risk that a given cell is likely to start burning
-  // lower numbers mean the terrain type is less susceptible to burning
+  static get SIN_45() { return 0.70710678119; }
+  static get NEG_SIN_45() { return 0 - 0.70710678119; }
+
+  static get UNIT_VECTOR_FROM_NEIGHBORS(){ 
+    return [
+        createVector(0.70710678119, 0.70710678119),
+        createVector(0, 1),
+        createVector(-0.70710678119, -0.70710678119),
+
+        createVector(1, 0),
+        // cell
+        createVector(-1, 0),
+
+        createVector(0.70710678119, -0.70710678119),
+        createVector(0, -1),
+        createVector(-0.70710678119, -0.70710678119)
+      ];
+  }
+
   initFireRisks(){
     this.terrainFireRisks = [];
     this.terrainFireRisks[System.TERRAIN_SOIL]          = 0;
@@ -141,11 +162,29 @@ class System {
     this.terrainFireRisks[System.TERRAIN_SMOLDERING]    = 0.3;
     this.terrainFireRisks[System.TERRAIN_BURNT]         = 0.05;
     this.terrainFireRisks[System.TERRAIN_PARTIAL_BURN]  = 0;
-    this.terrainFireRisks[System.TERRAIN_GRASS_DRY]     = 0.08;
-    this.terrainFireRisks[System.TERRAIN_GRASS_WET]     = 0.0005;
-    this.terrainFireRisks[System.TERRAIN_SHRUB]         = 0.012;
-    this.terrainFireRisks[System.TERRAIN_CONIFER]       = 0.002;
-    this.terrainFireRisks[System.TERRAIN_DECID_CONIF]   = 0.008;
+    this.terrainFireRisks[System.TERRAIN_GRASS_DRY]     = 0;
+    this.terrainFireRisks[System.TERRAIN_GRASS_WET]     = 0;
+    this.terrainFireRisks[System.TERRAIN_SHRUB]         = 0;
+    this.terrainFireRisks[System.TERRAIN_CONIFER]       = 0;
+    this.terrainFireRisks[System.TERRAIN_DECID_CONIF]   = 0;
+  }
+
+  // This is the threshold level at which this cell will catch fire
+  initFireThresholds(){
+    this.terrainFireThreshold = [];
+    this.terrainFireThreshold[System.TERRAIN_SOIL]          = Number.POSITIVE_INFINITY;
+    this.terrainFireThreshold[System.TERRAIN_WATER]         = Number.POSITIVE_INFINITY;
+    this.terrainFireThreshold[System.TERRAIN_FOLIAGE]       = 1.0;
+    this.terrainFireThreshold[System.TERRAIN_BURNING]       = 0;
+    this.terrainFireThreshold[System.TERRAIN_ENGULFED]      = 0;
+    this.terrainFireThreshold[System.TERRAIN_SMOLDERING]    = 0.001;
+    this.terrainFireThreshold[System.TERRAIN_BURNT]         = 0;
+    this.terrainFireThreshold[System.TERRAIN_PARTIAL_BURN]  = 0.0001;
+    this.terrainFireThreshold[System.TERRAIN_GRASS_DRY]     = 0.0010;
+    this.terrainFireThreshold[System.TERRAIN_GRASS_WET]     = 0.1;
+    this.terrainFireThreshold[System.TERRAIN_SHRUB]         = 0.5;
+    this.terrainFireThreshold[System.TERRAIN_CONIFER]       = 2.3;
+    this.terrainFireThreshold[System.TERRAIN_DECID_CONIF]   = 1.0;
   }
 
   initFuelLookup(){
@@ -197,6 +236,11 @@ class System {
     this.terrainName[System.TERRAIN_SHRUB]         = 'Shrub';
     this.terrainName[System.TERRAIN_CONIFER]       = 'Conifer';
     this.terrainName[System.TERRAIN_DECID_CONIF]   = 'Decidious / Conifer Mix';
+  }
+
+  initWind(){
+    this.wind = new WindField(this.sizeAndPosition);
+    this.wind.setCellWidth(this.cellWidth * 4);
   }
 
   togglePause(){
@@ -421,12 +465,16 @@ class System {
   }
 
   lightningStrike(){
-    // TODO: Change lightning 
-    // idea: random (up to 100 tries) ... hit non-water
-    // and based on fire risk, maybe start burning
-    let hitFuelCell = this.grid.cells.find(c => (!c.isBurning() && c.fuelAmount > 0));
-    if (hitFuelCell) {
-      hitFuelCell.startBurning();
+    let numberOfTries = 100;
+    for (let i = 0; i < numberOfTries; i++){
+      let randX = Math.floor(random(0, this.width));
+      let randY = Math.floor(random(0, this.height));
+
+      let cell = this.grid.cellForXY(randX, randY);
+      if (!cell.isBurning() && cell.fuelAmount > 0){
+        cell.startBurning();
+        return;
+      }
     }
   }
 
@@ -466,6 +514,8 @@ class System {
     }
     this.grid.cells.forEach(cell => cell.tick());
     this.resources.tick();
+
+    this.wind.tick();
   }
 
   assignNextTypes(){
@@ -491,29 +541,95 @@ class System {
                   }
                 });
     })
-    cellsAtRisk.forEach(c => this.setNextTypeForCell(c));
+    cellsAtRisk.forEach(c => this.v3_setNextTypeForCell(c));
   }
 
-  setNextTypeForCell(cell){
+  v1_setNextTypeForCell(cell){
     if(this.fireRiskFromNeighbors(cell) >= this.fireRiskThreshold){
       cell.nextFrameType = System.TERRAIN_BURNING;
     }
   }
 
-  fireRiskFromNeighbors(cell){
+  v1_fireRiskFromNeighbors(cell){
     const neighbors = this.grid.cellNeighborsOfIdx(cell._idx);
 
-    return  neighbors.map(this.fireRisk, this)
+    return  neighbors.map(this.v1_fireRisk, this)
                      .reduce((total, riskFactor) => total + riskFactor, 0);
   }
 
-  fireRisk(cell, neighborIdx){
+  v1_fireRisk(cell, neighborIdx){
     if (cell == undefined) {
+      // This is to be expected if the original cell is along a screen border
+      return 0;
+    }
+    
+    return this.terrainFireRisks[cell.terrainType]
+              * this.firePropagationMatrix[neighborIdx];
+  }
+
+  v2_setNextTypeForCell(cell){
+    if(this.v2_fireRiskFromNeighbors(cell) >= this.terrainFireThreshold[cell.terrainType]){
+      cell.nextFrameType = System.TERRAIN_BURNING;
+    }
+  }
+
+  v2_fireRiskFromNeighbors(cell){
+    const neighbors = this.grid.cellNeighborsOfIdx(cell._idx);
+
+    return  neighbors.map(this.v2_fireRisk, this)
+                     .reduce((total, riskFactor) => total + riskFactor, 0);
+  }
+
+  v2_fireRisk(cell, neighborIdx){
+    if (cell == undefined) {
+      // This is to be expected if the original cell is along a screen border
+      return 0;
+    }
+    
+    return cell.fireIntensity
+              * this.firePropagationMatrix[neighborIdx];
+  }
+
+  v3_setNextTypeForCell(cell){
+    if(this.v3_fireRiskFromNeighbors(cell) >= this.terrainFireThreshold[cell.terrainType]){
+      cell.nextFrameType = System.TERRAIN_BURNING;
+    }
+  }
+
+  v3_fireRiskFromNeighbors(cell){
+    const neighbors = this.grid.cellNeighborsOfIdx(cell._idx);
+
+    return  neighbors.map(this.v3_fireRisk, this)
+                     .reduce((total, riskFactor) => total + riskFactor, 0);
+  }
+
+  v3_fireRisk(cell, neighborIdx){
+    if (cell == undefined) {
+      // This is to be expected if the original cell is along a screen border
       return 0;
     }
 
-    return this.terrainFireRisks[cell.terrainType]
-              * this.firePropagationMatrix[neighborIdx];
+    return cell.fireIntensity
+              * this.firePropagationMatrix[neighborIdx]
+              * this.windFactor(cell, neighborIdx);
+  }
+
+  windFactor(atCell, neighborIdx){
+    let windVec= this.wind.fetchWindAtXY(atCell.x, atCell.y);
+    let windMagSq = windVec.magSq(); // think this will be between [0,2], given normalized noise
+    let unitVec = System.UNIT_VECTOR_FROM_NEIGHBORS[neighborIdx];
+
+    // Boost fire influence in direction of wind
+    let alignment = windVec.dot(unitVec); // returns values in range [-1, 1]
+    let relativeWind = alignment * windMagSq / 2.0; // should be [-1, 1] with magSq factored in
+
+    if (relativeWind < 0){
+      // wind is blowing away from the current cell, towards the 'atCell'
+      // thus effect of 'atCell' should be greatly reduced' but maybe non-zero
+      // console.log('blowing away from cell');
+      return 0;
+    }
+    return map(relativeWind, 0, 1, 1, 4.5);
   }
 
   detectFireSuppressed(){
