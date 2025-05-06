@@ -22,6 +22,7 @@ js_scripts:
 - classes/cell_viewer.js
 - classes/resources.js
 - classes/scenario_manager.js
+- classes/wind.js
 - classes/system.js
 - classes/user_interface.js
 - app.js

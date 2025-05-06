@@ -14,6 +14,9 @@ class Cell {
     this.fireIntensity = 0;
   }
 
+  get x() { return this._col * this.system.cellWidth; }
+  get y() { return this._row * this.system.cellWidth; }
+
   startBurning(){
     this.setType(System.TERRAIN_BURNING);
   }
