@@ -81,11 +81,25 @@ Collection of sketches using the [p5.js][p5js] Javascript library.
 [<img src="./p5js/snowflake-pen/screenshot-01.png" alt="snowflake-pen" width="150px" />][link-p5js-snowflake-pen]
 [<img src="./p5js/soccer-field/screenshot-01.png" alt="series of sketches to draw a soccer field" width="150px" />][link-p5js-soccer-field]
 [<img src="./p5js/thermal-cells/screenshot-01.png" alt="thermal-cells" width="150px" />][link-p5js-thermal-cells]
-[<img src="./p5js/random/1/screenshot-01.png" alt="random-1" width="150px" />][link-p5js-random-1]
-[<img src="./p5js/random/2/screenshot-01.png" alt="random-2" width="150px" />][link-p5js-random-2]
-[<img src="./p5js/random/3/screenshot-01.png" alt="random-3" width="150px" />][link-p5js-random-3]
 [<img src="./p5js/tree-rings/screenshot-01.png" alt="tree-rings" width="150px" />][link-p5js-tree-rings]
 [<img src="./p5js/voronoi-herd/screenshot-01.png" alt="voronoi-herd" width="150px" />][link-p5js-voronoi-herd]
+
+## p5.js - Random Sketches
+Collection of sketches using the [p5.js][p5js] Javascript library, created without any specific intent, often iterating on earlier versions.
+
+[<img src="./p5js/random/001/screenshot-01.png" alt="random-001" width="150px" />][link-p5js-random-001]
+[<img src="./p5js/random/002/screenshot-01.png" alt="random-002" width="150px" />][link-p5js-random-002]
+[<img src="./p5js/random/003/screenshot-01.png" alt="random-003" width="150px" />][link-p5js-random-003]
+[<img src="./p5js/random/004/screenshot-01.png" alt="random-004" width="150px" />][link-p5js-random-004]
+[<img src="./p5js/random/005/screenshot-01.png" alt="random-005" width="150px" />][link-p5js-random-005]
+[<img src="./p5js/random/006/screenshot-01.png" alt="random-006" width="150px" />][link-p5js-random-006]
+[<img src="./p5js/random/007/screenshot-01.png" alt="random-007" width="150px" />][link-p5js-random-007]
+[<img src="./p5js/random/008/screenshot-01.png" alt="random-008" width="150px" />][link-p5js-random-008]
+[<img src="./p5js/random/009/screenshot-01.png" alt="random-009" width="150px" />][link-p5js-random-009]
+[<img src="./p5js/random/010/screenshot-01.png" alt="random-010" width="150px" />][link-p5js-random-010]
+[<img src="./p5js/random/011/screenshot-01.png" alt="random-011" width="150px" />][link-p5js-random-011]
+[<img src="./p5js/random/012/screenshot-01.png" alt="random-012" width="150px" />][link-p5js-random-012]
+[<img src="./p5js/random/013/screenshot-01.png" alt="random-013" width="150px" />][link-p5js-random-013]
 
 ## p5.js - Coding Challenges
 Collection of sketches using the [p5.js][p5js] Javascript library inspired by the [Coding Train's][coding-train] [Coding Challenges][coding-train-cc].
@@ -191,9 +205,21 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-p5js-voronoi-2]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/voronoi-2/
 [link-p5js-voronoi-3]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/voronoi-3/
 [link-p5js-voronoi-4]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/voronoi-4/
-[link-p5js-random-1]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/1/
-[link-p5js-random-2]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/2/
-[link-p5js-random-3]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/3/
+
+[link-p5js-random-001]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/001/
+[link-p5js-random-002]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/002/
+[link-p5js-random-003]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/003/
+[link-p5js-random-004]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/004/
+[link-p5js-random-005]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/005/
+[link-p5js-random-006]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/006/
+[link-p5js-random-007]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/007/
+[link-p5js-random-008]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/008/
+[link-p5js-random-009]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/009/
+[link-p5js-random-010]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/010/
+[link-p5js-random-011]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/011/
+[link-p5js-random-012]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/012/
+[link-p5js-random-013]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/013/
+
 [link-p5js-soccer-field]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/soccer-field/
 [link-p5js-scales-blendmode]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/scales/blendmode/
 [link-p5js-scales-palettelerp]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/scales/palettelerp/
