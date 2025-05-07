@@ -22,5 +22,5 @@ This is a [p5.js][p5js-home] sketch exploring a basic implementation of zooming 
 
 [p5js-home]: https://p5js.org/
 [source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/slippy-map/
-[live-view]: https://brianhonohan.com/sketchbook/p5js/slippy-map/live-view.html
+[live-view]: https://brianhonohan.com/sketchbook/p5js/slippy-map/
 [screenshot-01]: ./screenshot-01.png
