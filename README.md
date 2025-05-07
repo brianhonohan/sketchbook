@@ -128,7 +128,9 @@ Collection of sketches using the [p5.js][p5js] Javascript library inspired by th
 Collection of sketches using the [pixiJS][pixijs] Javascript library.
 
 
-[<img src="./pixijs/sketch-template/screenshot-01.png" alt="rainbox dots in circle" width="150px" />][link-pixijs-sketch-template]
+[<img src="./pixijs/sketch-template/screenshot-01.png" alt="rainbow dots in circle" width="150px" />][link-pixijs-sketch-template]
+[<img src="./pixijs/periodic-element/screenshot-01.png" alt="visualization of single Periodic Element" width="150px" />][link-pixijs-periodic-element]
+[<img src="./pixijs/periodic-table/screenshot-01.png" alt="periodic table, colored based on trivial grouping" width="150px" />][link-pixijs-periodic-table]
 
 ## Processing
 Collection of sketches using the [Processing (P3)][processing] environment.
@@ -252,6 +254,8 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-p5js-cc-terrain-3d-flyover]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/coding-challenges/terrain-3d-flyover/
 
 [link-pixijs-sketch-template]: https://github.com/brianhonohan/sketchbook/tree/master/pixijs/sketch-template/
+[link-pixijs-periodic-table]: https://github.com/brianhonohan/sketchbook/tree/master/pixijs/periodic-table/
+[link-pixijs-periodic-element]: https://github.com/brianhonohan/sketchbook/tree/master/pixijs/periodic-element/
 
 [link-attractors]: https://github.com/brianhonohan/sketchbook/tree/master/processing/attractors
 [link-dodgeball]: https://github.com/brianhonohan/sketchbook/tree/master/processing/dodgeball
