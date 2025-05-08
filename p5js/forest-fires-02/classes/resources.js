@@ -12,14 +12,14 @@ class Resources {
 
   initResources(){
     this.resources = [];
-    this.resources[Resources.RES_FIRE_BREAK] = 10;
-    this.resources[Resources.RES_KNOCK_DOWN] = 20;
+    this.resources[Resources.RES_FIRE_BREAK] = 40;
+    this.resources[Resources.RES_KNOCK_DOWN] = 10;
   }
 
   initReplenishRates(){
     this.rates = [];
-    this.rates[Resources.RES_FIRE_BREAK] = 0.025;
-    this.rates[Resources.RES_KNOCK_DOWN] = 0.05;
+    this.rates[Resources.RES_FIRE_BREAK] = 0.05;
+    this.rates[Resources.RES_KNOCK_DOWN] = 0.025;
   }
 
   has(resource){
