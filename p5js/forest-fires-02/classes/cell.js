@@ -29,6 +29,10 @@ class Cell {
     ].includes(this.terrainType); 
   }
 
+  isIgnitable(){
+    return this.fuelAmount > 0 && !this.isBurning();
+  }
+
   setType(type){
     this.terrainType = type;
     this._needsRender = true;

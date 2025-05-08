@@ -61,7 +61,7 @@ class System {
   // supported types: integer, float, string
   optionsMetadata(){
     return [
-      { name: "cellWidth", type: "integer", default: 5}, 
+      { name: "cellWidth", type: "integer", default: 2}, 
       { name: "scale", type: "float", default: 0.02}, 
       { name: "lightning_at", type: "array:string", default: [], delimiter: "|"},
       { name: "seed", type: "integer", default: P5JsSettings.getSeed() },
@@ -508,6 +508,7 @@ class System {
 
     if (this.tickCount % 5 == 0) {
       this.calcNextCellTypes();
+      this.triggerSpotFires();
       this.assignNextTypes();
 
       this.detectFireSuppressed();
@@ -540,8 +541,36 @@ class System {
                     cellsAtRisk.push(neighbor);
                   }
                 });
-    })
+    });
     cellsAtRisk.forEach(c => this.v3_setNextTypeForCell(c));
+  }
+
+  triggerSpotFires(){
+    // Find engulfed cells, which have an intensity over X
+    // and has a wind value over Y
+    this.windyEngulfedCells = this.grid.cells.filter(c => {
+        return c.terrainType === System.TERRAIN_ENGULFED
+              && this.wind.fetchWindAtXY(c.x, c.y).magSq() > 0.35
+      });
+
+    this.windyEngulfedCells.forEach(cell => {
+        if (random() > 0.999){
+          // Spot a fire down wind
+          let windVec = this.wind.fetchWindAtXY(cell.x, cell.y);
+          let spotFireLoc = windVec.copy().mult(15 * this.cellWidth);
+          spotFireLoc.x += cell.x;
+          spotFireLoc.y += cell.y;
+
+          let cellAtLoc = this.grid.cellForXY(spotFireLoc.x, spotFireLoc.y);
+          if (cellAtLoc == undefined){
+            return;
+          }
+
+          if (cellAtLoc.isIgnitable()){
+            cellAtLoc.nextFrameType = System.TERRAIN_BURNING;
+          }
+        }
+      });
   }
 
   v1_setNextTypeForCell(cell){
