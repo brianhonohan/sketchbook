@@ -82,6 +82,9 @@ class CellGrid {
   }
 
   idxForRowCol(row, col){
+    if (row >= this.numRows || col >= this.numCols){
+      return undefined;
+    }
     return row * this.numCols + col;
   }
 
