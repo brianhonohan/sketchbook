@@ -464,6 +464,14 @@ class System {
     this.hadLightning = true;
   }
 
+  igniteAt(x, y){
+    const cell = this.grid.cellForXY(x, y);
+
+    if (!cell.isBurning() && cell.fuelAmount > 0){
+      cell.startBurning();
+    }
+  }
+
   lightningStrike(){
     let numberOfTries = 100;
     for (let i = 0; i < numberOfTries; i++){
