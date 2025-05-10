@@ -24,6 +24,9 @@ class LineSegment {
   get endX() { return this.end.x; }
   get endY() { return this.end.y; }
 
+  get minX() { return Math.min(this.startX, this.endX); }
+  get maxX() { return Math.max(this.startX, this.endX); }
+
   // So that it can be used as a Rect
   get x() { return Math.min(this.startX, this.endX); }
   get y() { return Math.min(this.startY, this.endY); }

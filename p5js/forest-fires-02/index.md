@@ -18,6 +18,9 @@ js_scripts:
 - /sketchbook/js/options_set.js
 - /sketchbook/js/models/rect.js
 - /sketchbook/js/models/cell_grid.js
+- /sketchbook/js/models/line.js
+- /sketchbook/p5js/common/shapes/line_segment.js
+- /sketchbook/p5js/common/shapes/point.js
 - classes/cell.js
 - classes/cell_viewer.js
 - classes/resources.js
