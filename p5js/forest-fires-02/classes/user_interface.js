@@ -274,7 +274,9 @@ class UserInterface {
   }
 
   render(){
-    this.updateButtonLabels();
+    if (frameCount % 15 == 0){
+      this.updateButtonLabels();
+    }
 
     this.renderCurrentDialog();
   }
