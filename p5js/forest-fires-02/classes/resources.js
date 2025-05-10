@@ -12,8 +12,8 @@ class Resources {
 
   initResources(){
     this.resources = [];
-    this.resources[Resources.RES_FIRE_BREAK] = 40;
-    this.resources[Resources.RES_KNOCK_DOWN] = 10;
+    this.resources[Resources.RES_FIRE_BREAK] = Number.POSITIVE_INFINITY;
+    this.resources[Resources.RES_KNOCK_DOWN] = Number.POSITIVE_INFINITY;
   }
 
   initReplenishRates(){

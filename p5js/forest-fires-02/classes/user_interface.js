@@ -27,11 +27,15 @@ class UserInterface {
   static get TOOL_KNOCK_DOWN(){ return 2; }
   static get TOOL_DRAW(){ return 3; }
   static get TOOL_INFO(){ return 4; }
+  static get TOOL_FIRE(){ return 5; }
+  static get TOOL_PLANE_WATER_DROP(){ return 6; }
 
   static get BTN_LIGHTNING() { return 0; }
   static get BTN_FIRE_BREAK() { return 1; }
   static get BTN_KNOCK_DOWN() { return 2; }
   static get BTN_INFO() { return 3; }
+  static get BTN_FIRE() { return 4; }
+  static get BTN_PLANE_WATER_DROP() { return 5; }
 
   static get DIALOG_NONE() { return 0; }
   static get DIALOG_UPLOAD() { return 1; }
@@ -43,29 +47,34 @@ class UserInterface {
     this.marginX = 25;
     let buttonConfigs = this.configForButtons();
 
-    let buttonYPos = this.y + 130;
+    let buttonYPos = this.y + 50;
     buttonConfigs.forEach(btnConfig => {
       let newButton = createButton(btnConfig.label);
       newButton.position(this.x + this.marginX, buttonYPos);
       newButton.mousePressed(btnConfig.callback);
       this.buttons.push(newButton);
-      buttonYPos += 50;
+      buttonYPos += 40;
     });
   }
 
   configForButtons(){
     return [
+      {id: UserInterface.BTN_FIRE, label: '🔥 Fire', callback: this.handleBtnFire},
       {id: UserInterface.BTN_LIGHTNING, label: '🌩️ Lightning', callback: this.handleBtnLightning},
       {id: UserInterface.BTN_FIRE_BREAK, label: '⛏️ Fire Break', callback: this.handleBtnFireBreak},
       {id: UserInterface.BTN_KNOCK_DOWN, label: '🧯 Knock Down', callback: this.handleBtnKnockDown},
+      {id: UserInterface.BTN_PLANE_WATER_DROP, label: '✈️💧 Water Drop', callback: this.handlePlaneWaterDrop},
       {id: UserInterface.BTN_INFO, label: 'ℹ️ Info', callback: this.handleBtnInfo},
     ];
   }
 
-  handleBtnLightning(){ ui.setTool(UserInterface.TOOL_LIGHTNING); }
+  handleBtnFire(){ ui.setTool(UserInterface.TOOL_FIRE); }
+  handleBtnLightning(){ system.lightningStrike(); }
   handleBtnFireBreak(){ ui.setTool(UserInterface.TOOL_FIRE_BREAK); }
   handleBtnKnockDown(){ ui.setTool(UserInterface.TOOL_KNOCK_DOWN); }
   handleBtnInfo(){ ui.setTool(UserInterface.TOOL_INFO); }
+  handlePlaneWaterDrop(){ ui.setTool(UserInterface.TOOL_PLANE_WATER_DROP); }
+  
 
   initScenarioUI(){
     this.scenarioSelector = createSelect();
@@ -120,6 +129,7 @@ class UserInterface {
     } else {
       switch (key) {
         case 'l': this.triggerLightning(); break;
+        case 'F': this.setTool(UserInterface.TOOL_FIRE); break;
         case 'L': this.setTool(UserInterface.TOOL_LIGHTNING); break;
         case 'D': this.setTool(UserInterface.TOOL_DRAW); break;
         case 'i': this.setTool(UserInterface.TOOL_INFO); break;
@@ -180,12 +190,18 @@ class UserInterface {
         console.log( this.system.terrainName[info.cell.terrainType] );
         console.log(info.cell);
         break;
-      case UserInterface.TOOL_LIGHTNING:
-        this.system.lightningAt(systemX, systemY);
+      case UserInterface.TOOL_FIRE:
+        this.system.igniteAt(systemX, systemY);
         break;
       case UserInterface.TOOL_FIRE_BREAK:
         this.system.fireBreakAt(systemX, systemY);
+        break;      
+      case UserInterface.TOOL_PLANE_WATER_DROP:
+        if (this.lineToolStart === undefined){
+          this.lineToolStart = {x: systemX, y: systemY};
+        }
         break;
+
       case UserInterface.TOOL_DRAW:
         this.system.setTerrainType(systemX, systemY, this.toolMode);
         break;
@@ -196,6 +212,30 @@ class UserInterface {
     if (!this.system.containsXY(mouseX, mouseY)){
       return;
     }
+
+    const systemX = mouseX - system.x;
+    const systemY = mouseY - system.y;
+
+    switch (this.tool) {
+      case UserInterface.TOOL_PLANE_WATER_DROP:
+        let toolPath = new LineSegment(this.lineToolStart.x, this.lineToolStart.y, systemX, systemY);
+        toolPath.setLength(100);
+
+        let toolPathAsLine = toolPath.getLine();
+        let minX = toolPath.minX;
+        let maxX = toolPath.maxX;
+        let tmpY;
+
+        for (let xVal = minX; xVal < maxX; xVal++){
+          tmpY = Math.round(toolPathAsLine.valueAt(xVal));
+          // console.log(`dropping water at: (${xVal}, ${tmpY})`);
+          this.system.knockDownAt(xVal, tmpY);
+        }
+        break;
+    }
+
+
+    this.lineToolStart = undefined;
   }
 
   mouseDragged(){
@@ -203,8 +243,8 @@ class UserInterface {
   }
 
   updateButtonLabels(){
-    this.buttons[1].html( this.initialBtnConfig[1].label + " - " + Math.floor(this.resources.fire_break));
-    this.buttons[2].html( this.initialBtnConfig[2].label + " - " + Math.floor(this.resources.knock_down));
+    this.buttons[2].html( this.initialBtnConfig[2].label + " - " + Math.floor(this.resources.fire_break));
+    this.buttons[3].html( this.initialBtnConfig[3].label + " - " + Math.floor(this.resources.knock_down));
   }
 
   showDialog(dialog){
@@ -251,6 +291,19 @@ class UserInterface {
     text(`Foliage Loss: ${foliageLoss}`, 125, tmpY);
   }
 
+  renderLineTool(){
+    if (this.lineToolStart === undefined){
+      return;
+    }
+
+    const systemX = mouseX - system.x;
+    const systemY = mouseY - system.y;
+
+    stroke(190, 190, 20);
+    strokeWeight(3);
+    line(this.lineToolStart.x, this.lineToolStart.y, systemX, systemY);
+  }
+
   setTool(tool){
     this.tool = tool;
   }
@@ -269,8 +322,10 @@ class UserInterface {
   }
 
   render(){
-    this.updateButtonLabels();
-
+    if (frameCount % 15 == 0){
+      this.updateButtonLabels();
+    }
+    // this.renderLineTool(); // NEED TO REFACTOR to layered graphics
     this.renderCurrentDialog();
   }
 }
