@@ -17,9 +17,10 @@ function preload(){
 }
 
 function setup() {
-  canvas = createCanvas(windowWidth, windowHeight-35);
+  canvas = createCanvas(windowWidth, windowHeight- vertMargin());
   P5JsSettings.init();
   urlParams = getURLParams();
+  background(50);
 
   let uiPanelWidth = 200;
 
@@ -37,8 +38,6 @@ function setup() {
 
   system.ui = ui;
   canvas.drop(handleFile);
-  background(50);
-  ui.initialRender();
 }
 
 function draw(){
@@ -46,6 +45,11 @@ function draw(){
   system.render();
   ui.render();
   // displayFrameRate();
+}
+
+function vertMargin(){
+  let fullUrl = window.location.href;
+  return (fullUrl.indexOf(".html") > 0) ? 0 : 62;
 }
 
 function keyPressed(){

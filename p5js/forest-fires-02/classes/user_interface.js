@@ -9,7 +9,14 @@ class UserInterface {
     this.prevKey = undefined;
     this.scenarioMgr = p_xScenarioMgr;
 
+    this.ySpacing = 20;
+    this.yButtonSpacing = 10;
+
+    this.canvasRect = drawingContext.canvas.getBoundingClientRect();
+
     this.dialog = UserInterface.DIALOG_NONE;
+
+    this.renderBackgroundAndTitle();
 
     this.initialBtnConfig = this.configForButtons();
     this.initButtons();
@@ -41,19 +48,32 @@ class UserInterface {
   static get DIALOG_UPLOAD() { return 1; }
   static get DIALOG_END_SCENARIO() { return 2; }
 
+  renderBackgroundAndTitle(){
+    fill(255);
+    noStroke();
+    rect(this.x, this.y, this.width, this.height);
+    fill(0);
+    this.titleFontSize = 20;
+    textSize(this.titleFontSize);
+    textAlign(LEFT, TOP);
+    text('FOREST FIRE SIM', this.x + 14, this.y + this.ySpacing);
+
+    this.titleExtentY = this.y + this.ySpacing + this.titleFontSize;
+  }
+
   initButtons(){
     this.buttons = [];
     let buttonWidth = 150;
     this.marginX = 25;
     let buttonConfigs = this.configForButtons();
 
-    let buttonYPos = this.y + 50;
+    let buttonYPos = this.canvasRect.top + this.titleExtentY + this.ySpacing;
     buttonConfigs.forEach(btnConfig => {
       let newButton = createButton(btnConfig.label);
       newButton.position(this.x + this.marginX, buttonYPos);
       newButton.mousePressed(btnConfig.callback);
       this.buttons.push(newButton);
-      buttonYPos += 40;
+      buttonYPos += this.yButtonSpacing + newButton.elt.getBoundingClientRect().height;
     });
   }
 
@@ -254,7 +274,7 @@ class UserInterface {
 
   closeDialog(){
     this.dialog = UserInterface.DIALOG_NONE;
-    this.initialRender();
+    this.renderBackgroundAndTitle();
     this.system.requestFullRedraw();
   }
 
@@ -310,15 +330,6 @@ class UserInterface {
 
   triggerLightning(){
     system.lightningStrike();
-  }
-
-  initialRender(){
-    fill(255);
-    noStroke();
-    rect(this.x, this.y, this.width, this.height);
-    fill(0);
-    textSize(20);
-    text('FOREST FIRE SIM', this.x + 14, this.y + 30);
   }
 
   render(){
