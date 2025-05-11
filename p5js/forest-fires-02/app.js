@@ -22,9 +22,37 @@ function setup() {
   urlParams = getURLParams();
   background(50);
 
-  let uiPanelWidth = 200;
+  // Dynamically switch between panel on right side bar
+  // and bottom of screen based on overall window dimensions
 
-  let rect = new Rect(0, 0, width - uiPanelWidth, height);
+  let uiSize = { x: width - 200, y: 0, width: 200, height: height };
+  let uiConfig = {};
+  uiConfig.panelPos = UserInterface.PANEL_POS_RIGHT;
+  uiConfig.mode = UserInterface.UI_MODE_NORMAL;
+
+  let ratioWidthToHeight = width / height;
+
+  let sysWidthAdj = uiSize.width;
+  let sysHeightAdj = 0;
+
+  if (ratioWidthToHeight < 1 && width < (4 * uiSize.width) ){
+    uiSize.width = width;
+    uiSize.height = 70;
+    uiSize.x = 0;
+    uiSize.y = height - uiSize.height;
+    uiConfig.panelPos = UserInterface.PANEL_POS_BOTTOM;
+    uiConfig.mode = UserInterface.UI_MODE_COMPACT;
+
+    sysWidthAdj = 0;
+    sysHeightAdj = uiSize.height;
+  } else if (width < (4 * uiSize.width)) {
+    uiSize.width = 100;
+    uiSize.x = width - uiSize.width
+    sysWidthAdj = uiSize.width;
+    uiConfig.mode = UserInterface.UI_MODE_COMPACT;
+  }
+
+  let rect = new Rect(0, 0, width - sysWidthAdj, height - sysHeightAdj);
   system = new System(rect);
 
   if (urlParams.scenario){
@@ -33,8 +61,8 @@ function setup() {
     system.init();
   }
 
-  let uiRect = new Rect(width - uiPanelWidth, 0, uiPanelWidth, height);
-  ui = new UserInterface(uiRect, system, scenarioMgr);
+  console.log(uiSize);
+  ui = new UserInterface(uiSize, system, scenarioMgr, uiConfig);
 
   system.ui = ui;
   canvas.drop(handleFile);
