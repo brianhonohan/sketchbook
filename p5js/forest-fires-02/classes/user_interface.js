@@ -1,6 +1,7 @@
 class UserInterface {
-  constructor(p_xSizeAndPos, system, p_xScenarioMgr){
+  constructor(p_xSizeAndPos, system, p_xScenarioMgr, config){
     this.sizeAndPosition = p_xSizeAndPos;
+    this.config = config;
     this.marginX = 25;
 
     this.system = system;
@@ -9,11 +10,28 @@ class UserInterface {
     this.prevKey = undefined;
     this.scenarioMgr = p_xScenarioMgr;
 
+    this.ySpacing = 20;
+    this.yButtonSpacing = 10;
+    this.xButtonSpacing = 0;
+    this.xButtonWidthFactor = 0;
+    this.yButtonHeghtFactor = 1;
+
+    if (this.config.panelPos === UserInterface.PANEL_POS_BOTTOM){
+      this.yButtonSpacing = 0;
+      this.xButtonSpacing = 10;
+      this.xButtonWidthFactor = 1;
+      this.yButtonHeghtFactor = 0;
+    }
+
+    this.canvasRect = drawingContext.canvas.getBoundingClientRect();
+
     this.dialog = UserInterface.DIALOG_NONE;
+
+    this.renderBackgroundAndTitle();
 
     this.initialBtnConfig = this.configForButtons();
     this.initButtons();
-    this.initScenarioUI();
+    // this.initScenarioUI();
   }
 
   get x(){ return this.sizeAndPosition.x; }
@@ -21,6 +39,12 @@ class UserInterface {
   get width(){ return this.sizeAndPosition.width; }
   get height(){ return this.sizeAndPosition.height; }
   get resources() { return this.system.resources; }
+
+  static get UI_MODE_NORMAL() { return 0; }
+  static get UI_MODE_COMPACT() { return 1; }
+
+  static get PANEL_POS_RIGHT() { return 0; }
+  static get PANEL_POS_BOTTOM() { return 1; }
 
   static get TOOL_LIGHTNING(){ return 0; }
   static get TOOL_FIRE_BREAK(){ return 1; }
@@ -41,30 +65,59 @@ class UserInterface {
   static get DIALOG_UPLOAD() { return 1; }
   static get DIALOG_END_SCENARIO() { return 2; }
 
+  renderBackgroundAndTitle(){
+    fill(255);
+    noStroke();
+    rect(this.x, this.y, this.width, this.height);
+    this.renderTitle();
+  }
+
+  renderTitle(){
+    if (this.config.mode === UserInterface.UI_MODE_COMPACT){
+      this.titleExtentY = this.y;
+      return;
+    }
+    fill(0);
+    this.titleFontSize = 20;
+    textSize(this.titleFontSize);
+    textAlign(LEFT, TOP);
+    text('FOREST FIRE SIM', this.x + 14, this.y + this.ySpacing);
+
+    this.titleExtentY = this.y + this.ySpacing + this.titleFontSize;
+  }
+
   initButtons(){
     this.buttons = [];
     let buttonWidth = 150;
     this.marginX = 25;
     let buttonConfigs = this.configForButtons();
 
-    let buttonYPos = this.y + 50;
+    let buttonXPos = this.x + this.marginX;
+    let buttonYPos = this.canvasRect.top + this.titleExtentY + this.ySpacing;
+    
     buttonConfigs.forEach(btnConfig => {
-      let newButton = createButton(btnConfig.label);
-      newButton.position(this.x + this.marginX, buttonYPos);
+      let label = btnConfig.emoji + ' ' + btnConfig.label;
+      if (this.config.mode === UserInterface.UI_MODE_COMPACT){
+        label = btnConfig.emoji;
+      }
+      let newButton = createButton(label);
+      newButton.position(buttonXPos, buttonYPos);
       newButton.mousePressed(btnConfig.callback);
       this.buttons.push(newButton);
-      buttonYPos += 40;
+
+      buttonXPos += this.xButtonSpacing + this.xButtonWidthFactor * newButton.elt.getBoundingClientRect().width;
+      buttonYPos += this.yButtonSpacing + this.yButtonHeghtFactor * newButton.elt.getBoundingClientRect().height;
     });
   }
 
   configForButtons(){
     return [
-      {id: UserInterface.BTN_FIRE, label: '🔥 Fire', callback: this.handleBtnFire},
-      {id: UserInterface.BTN_LIGHTNING, label: '🌩️ Lightning', callback: this.handleBtnLightning},
-      {id: UserInterface.BTN_FIRE_BREAK, label: '⛏️ Fire Break', callback: this.handleBtnFireBreak},
-      {id: UserInterface.BTN_KNOCK_DOWN, label: '🧯 Knock Down', callback: this.handleBtnKnockDown},
-      {id: UserInterface.BTN_PLANE_WATER_DROP, label: '✈️💧 Water Drop', callback: this.handlePlaneWaterDrop},
-      {id: UserInterface.BTN_INFO, label: 'ℹ️ Info', callback: this.handleBtnInfo},
+      {id: UserInterface.BTN_FIRE, emoji: '🔥', label: 'Fire', callback: this.handleBtnFire},
+      {id: UserInterface.BTN_LIGHTNING, emoji: '🌩️', label: 'Lightning', callback: this.handleBtnLightning},
+      {id: UserInterface.BTN_FIRE_BREAK, emoji: '⛏️', label: 'Fire Break', callback: this.handleBtnFireBreak},
+      {id: UserInterface.BTN_KNOCK_DOWN, emoji: '🧯', label: 'Knock Down', callback: this.handleBtnKnockDown},
+      {id: UserInterface.BTN_PLANE_WATER_DROP, emoji: '✈️', label: 'Water Drop', callback: this.handlePlaneWaterDrop},
+      {id: UserInterface.BTN_INFO, emoji: 'ℹ️', label: 'Info', callback: this.handleBtnInfo},
     ];
   }
 
@@ -243,8 +296,15 @@ class UserInterface {
   }
 
   updateButtonLabels(){
-    this.buttons[2].html( this.initialBtnConfig[2].label + " - " + Math.floor(this.resources.fire_break));
-    this.buttons[3].html( this.initialBtnConfig[3].label + " - " + Math.floor(this.resources.knock_down));
+    if (this.config.mode === UserInterface.UI_MODE_COMPACT){
+      return;
+    }
+
+    let btn2BaseLabel = this.initialBtnConfig[2].emoji + ' ' + this.initialBtnConfig[2].label;
+    this.buttons[2].html(  btn2BaseLabel + " - " + Math.floor(this.resources.fire_break));
+    
+    let btn3BaseLabel = this.initialBtnConfig[3].emoji + ' ' + this.initialBtnConfig[2].label;
+    this.buttons[3].html( btn3BaseLabel + " - " + Math.floor(this.resources.knock_down));
   }
 
   showDialog(dialog){
@@ -254,7 +314,7 @@ class UserInterface {
 
   closeDialog(){
     this.dialog = UserInterface.DIALOG_NONE;
-    this.initialRender();
+    this.renderBackgroundAndTitle();
     this.system.requestFullRedraw();
   }
 
@@ -310,15 +370,6 @@ class UserInterface {
 
   triggerLightning(){
     system.lightningStrike();
-  }
-
-  initialRender(){
-    fill(255);
-    noStroke();
-    rect(this.x, this.y, this.width, this.height);
-    fill(0);
-    textSize(20);
-    text('FOREST FIRE SIM', this.x + 14, this.y + 30);
   }
 
   render(){
