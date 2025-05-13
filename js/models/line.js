@@ -5,6 +5,7 @@ class Line {
   }
 
   valueAt(x){ return this.slope * x + this.offset; }
+  xValueAt(y) { return (y - this.offset) / this.slope; }
 
   reflectPoint(point){
     // following this simple explanation:
@@ -84,6 +85,7 @@ class VerticalLine {
   }
 
   valueAt(x){ return undefined; }
+  xValueAt(y) { return this.xOffset; }
 
   reflectPoint(point){
     let reflectedPoint = {x: point.x, y: point.y};
@@ -112,6 +114,7 @@ class HorizontalLine {
   }
 
   valueAt(x){ return this.offset; }
+  xValueAt(y) { return undefined; }
 
   reflectPoint(point){
     let reflectedPoint = {x: point.x, y: point.y};

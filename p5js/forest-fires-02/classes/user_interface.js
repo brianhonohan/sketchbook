@@ -248,6 +248,11 @@ class UserInterface {
         break;
       case UserInterface.TOOL_FIRE_BREAK:
         this.system.fireBreakAt(systemX, systemY);
+
+        if (this.lineToolStart !== undefined){
+          this.applyToolFromStartToCurrent();
+        }
+        this.lineToolStart = {x: systemX, y: systemY};
         break;      
       case UserInterface.TOOL_PLANE_WATER_DROP:
         if (this.lineToolStart === undefined){
@@ -295,13 +300,26 @@ class UserInterface {
     }
 
     let toolPathAsLine = toolPath.getLine();
-    let minX = toolPath.minX;
-    let maxX = toolPath.maxX;
-    let tmpY;
+    
+    if (Math.abs(toolPathAsLine.slope) > 1){
+      // Walk along the yRange, find the x value
+      let tmpX;
+      let minY = toolPath.minY;
+      let maxY = toolPath.maxY;
+      for (let yVal = minY; yVal < maxY; yVal++){
+        tmpX = Math.round(toolPathAsLine.xValueAt(yVal));
+        this._applyToolAtXY(tmpX, yVal);
+      }
 
-    for (let xVal = minX; xVal < maxX; xVal++){
-      tmpY = Math.round(toolPathAsLine.valueAt(xVal));
-      this._applyToolAtXY(xVal, tmpY);
+    } else {
+      // Walk along the xDomain, find the y value
+      let tmpY;
+      let minX = toolPath.minX;
+      let maxX = toolPath.maxX;
+      for (let xVal = minX; xVal < maxX; xVal++){
+        tmpY = Math.round(toolPathAsLine.valueAt(xVal));
+        this._applyToolAtXY(xVal, tmpY);
+      }
     }
   }
 
