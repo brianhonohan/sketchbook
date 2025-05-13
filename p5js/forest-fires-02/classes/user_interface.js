@@ -248,6 +248,11 @@ class UserInterface {
         break;
       case UserInterface.TOOL_FIRE_BREAK:
         this.system.fireBreakAt(systemX, systemY);
+
+        if (this.lineToolStart !== undefined){
+          this.applyToolFromStartToCurrent();
+        }
+        this.lineToolStart = {x: systemX, y: systemY};
         break;      
       case UserInterface.TOOL_PLANE_WATER_DROP:
         if (this.lineToolStart === undefined){
@@ -263,36 +268,79 @@ class UserInterface {
 
   mouseReleased(){
     if (!this.system.containsXY(mouseX, mouseY)){
+      this.lineToolStart = undefined;
       return;
     }
 
-    const systemX = mouseX - system.x;
-    const systemY = mouseY - system.y;
-
     switch (this.tool) {
       case UserInterface.TOOL_PLANE_WATER_DROP:
-        let toolPath = new LineSegment(this.lineToolStart.x, this.lineToolStart.y, systemX, systemY);
-        toolPath.setLength(100);
-
-        let toolPathAsLine = toolPath.getLine();
-        let minX = toolPath.minX;
-        let maxX = toolPath.maxX;
-        let tmpY;
-
-        for (let xVal = minX; xVal < maxX; xVal++){
-          tmpY = Math.round(toolPathAsLine.valueAt(xVal));
-          // console.log(`dropping water at: (${xVal}, ${tmpY})`);
-          this.system.knockDownAt(xVal, tmpY);
-        }
+        this.applyToolFromStartToCurrent(100);
         break;
     }
-
 
     this.lineToolStart = undefined;
   }
 
   mouseDragged(){
     this.mousePressed(mouseX, mouseY);
+  }
+
+  applyToolFromStartToCurrent(lengthLimit = undefined){
+    const systemX = mouseX - this.system.x;
+    const systemY = mouseY - this.system.y;
+    this.applyToolAlongLine(this.lineToolStart.x, this.lineToolStart.y,
+                                systemX, systemY, lengthLimit);
+  }
+
+  applyToolAlongLine(startX, startY, endX, endY, lengthLimit = undefined){
+    let toolPath = new LineSegment(startX, startY, endX, endY);
+
+    if (lengthLimit != undefined && toolPath.getLength() > lengthLimit){
+      toolPath.setLength(lengthLimit);
+    }
+
+    let toolPathAsLine = toolPath.getLine();
+    
+    if (Math.abs(toolPathAsLine.slope) > 1){
+      // Walk along the yRange, find the x value
+      let tmpX;
+      let minY = toolPath.minY;
+      let maxY = toolPath.maxY;
+      for (let yVal = minY; yVal < maxY; yVal++){
+        tmpX = Math.round(toolPathAsLine.xValueAt(yVal));
+        this._applyToolAtXY(tmpX, yVal);
+      }
+
+    } else {
+      // Walk along the xDomain, find the y value
+      let tmpY;
+      let minX = toolPath.minX;
+      let maxX = toolPath.maxX;
+      for (let xVal = minX; xVal < maxX; xVal++){
+        tmpY = Math.round(toolPathAsLine.valueAt(xVal));
+        this._applyToolAtXY(xVal, tmpY);
+      }
+    }
+  }
+
+  _applyToolAtXY(x, y){
+    switch (this.tool) {
+      case UserInterface.TOOL_KNOCK_DOWN:
+        this.system.knockDownAt(x, y);
+        break;
+      case UserInterface.TOOL_FIRE:
+        this.system.igniteAt(x, y);
+        break;
+      case UserInterface.TOOL_FIRE_BREAK:
+        this.system.fireBreakAt(x, y);
+        break;      
+      case UserInterface.TOOL_PLANE_WATER_DROP:
+        this.system.knockDownAt(x, y);
+        break;
+      case UserInterface.TOOL_DRAW:
+        this.system.setTerrainType(x, y, this.toolMode);
+        break;
+    }
   }
 
   updateButtonLabels(){
