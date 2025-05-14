@@ -61,6 +61,12 @@ class UserInterface {
   static get BTN_FIRE() { return 4; }
   static get BTN_PLANE_WATER_DROP() { return 5; }
 
+  static get BTN_PLAY_PAUSE() { return 6; }
+  static get BTN_SLOW_DOWN() { return 7; }
+  static get BTN_SPEED_UP() { return 8; }
+  static get BTN_RESTART() { return 9; }
+  static get BTN_RANDOMIZE() { return 10; }
+
   static get DIALOG_NONE() { return 0; }
   static get DIALOG_UPLOAD() { return 1; }
   static get DIALOG_END_SCENARIO() { return 2; }
@@ -90,14 +96,26 @@ class UserInterface {
     this.buttons = {};
     let buttonConfigs = this.configForButtons();
 
+    if (this.config.panelPos == UserInterface.PANEL_POS_BOTTOM){
+      this.ySpacing = 8;
+    }
+
     let buttonXPos = this.x + this.marginX;
     let buttonYPos = this.canvasRect.top + this.titleExtentY + this.ySpacing;
+    let prevBtnHeight = 0;
     
     buttonConfigs.forEach(btnConfig => {
       let label = btnConfig.emoji + ' ' + btnConfig.label;
       if (this.config.mode === UserInterface.UI_MODE_COMPACT){
         label = btnConfig.emoji;
       }
+      
+      if (btnConfig.id == UserInterface.BTN_SLOW_DOWN && this.config.panelPos == UserInterface.PANEL_POS_BOTTOM){
+        buttonXPos = this.x + this.marginX;
+        buttonYPos = buttonYPos + prevBtnHeight + this.ySpacing;
+        console.log('SLOW DOWN button Y: ', buttonYPos);
+      }
+
       let newButton = createButton(label);
       newButton.position(buttonXPos, buttonYPos);
       newButton.mousePressed(btnConfig.callback);
@@ -106,7 +124,10 @@ class UserInterface {
 
       buttonXPos += this.xButtonSpacing + this.xButtonWidthFactor * newButton.elt.getBoundingClientRect().width;
       buttonYPos += this.yButtonSpacing + this.yButtonHeghtFactor * newButton.elt.getBoundingClientRect().height;
+
+      prevBtnHeight = newButton.elt.getBoundingClientRect().height;
     });
+
   }
 
   configForButtons(){
@@ -117,6 +138,11 @@ class UserInterface {
       {id: UserInterface.BTN_PLANE_WATER_DROP, emoji: '✈️', label: 'Water Drop', callback: this.handlePlaneWaterDrop},
       {id: UserInterface.BTN_LIGHTNING, emoji: '🌩️', label: 'Lightning', callback: this.handleBtnLightning},
       {id: UserInterface.BTN_INFO, emoji: 'ℹ️', label: 'Info', callback: this.handleBtnInfo},
+      {id: UserInterface.BTN_SLOW_DOWN, emoji: '⏪', label: 'Slow Down', callback: this.handleBtnSlowDown},
+      {id: UserInterface.BTN_PLAY_PAUSE, emoji: '⏸️', label: 'Pause', callback: this.handleBtnPlayPause},
+      {id: UserInterface.BTN_SPEED_UP, emoji: '⏩', label: 'Speed Up', callback: this.handleBtnSpeedUp},
+      {id: UserInterface.BTN_RESTART, emoji: '🔄', label: 'Restart', callback: this.handleRestart},
+      {id: UserInterface.BTN_RANDOMIZE, emoji: '🎲', label: 'Randomize', callback: this.handleRandomize},
     ];
   }
 
@@ -127,6 +153,13 @@ class UserInterface {
   handleBtnInfo(){ ui.setTool(UserInterface.TOOL_INFO); }
   handlePlaneWaterDrop(){ ui.setTool(UserInterface.TOOL_PLANE_WATER_DROP); }
   
+  handleBtnPlayPause(){ 
+    system.togglePause(); 
+    let label = system.paused ? '▶️ Play' : '⏸️ Pause';
+    ui.buttons[`${UserInterface.BTN_PLAY_PAUSE}`].html(label );
+  }
+  handleBtnSlowDown(){ system.slowDown(); }  
+  handleBtnSpeedUp(){ system.speedUp(); }
 
   initScenarioUI(){
     this.scenarioSelector = createSelect();
