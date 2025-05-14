@@ -2,7 +2,7 @@ class UserInterface {
   constructor(p_xSizeAndPos, system, p_xScenarioMgr, config){
     this.sizeAndPosition = p_xSizeAndPos;
     this.config = config;
-    this.marginX = 25;
+    this.marginX = 15;
 
     this.system = system;
     this.tool = -1;
@@ -81,15 +81,13 @@ class UserInterface {
     this.titleFontSize = 20;
     textSize(this.titleFontSize);
     textAlign(LEFT, TOP);
-    text('FOREST FIRE SIM', this.x + 14, this.y + this.ySpacing);
+    text('WILDFIRE SIM', this.x + this.marginX, this.y + this.ySpacing);
 
     this.titleExtentY = this.y + this.ySpacing + this.titleFontSize;
   }
 
   initButtons(){
     this.buttons = [];
-    let buttonWidth = 150;
-    this.marginX = 25;
     let buttonConfigs = this.configForButtons();
 
     let buttonXPos = this.x + this.marginX;
