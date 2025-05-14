@@ -2,7 +2,7 @@ class UserInterface {
   constructor(p_xSizeAndPos, system, p_xScenarioMgr, config){
     this.sizeAndPosition = p_xSizeAndPos;
     this.config = config;
-    this.marginX = 25;
+    this.marginX = 15;
 
     this.system = system;
     this.tool = -1;
@@ -61,6 +61,12 @@ class UserInterface {
   static get BTN_FIRE() { return 4; }
   static get BTN_PLANE_WATER_DROP() { return 5; }
 
+  static get BTN_PLAY_PAUSE() { return 6; }
+  static get BTN_SLOW_DOWN() { return 7; }
+  static get BTN_SPEED_UP() { return 8; }
+  static get BTN_RESTART() { return 9; }
+  static get BTN_RANDOMIZE() { return 10; }
+
   static get DIALOG_NONE() { return 0; }
   static get DIALOG_UPLOAD() { return 1; }
   static get DIALOG_END_SCENARIO() { return 2; }
@@ -81,43 +87,62 @@ class UserInterface {
     this.titleFontSize = 20;
     textSize(this.titleFontSize);
     textAlign(LEFT, TOP);
-    text('FOREST FIRE SIM', this.x + 14, this.y + this.ySpacing);
+    text('WILDFIRE SIM', this.x + this.marginX, this.y + this.ySpacing);
 
     this.titleExtentY = this.y + this.ySpacing + this.titleFontSize;
   }
 
   initButtons(){
-    this.buttons = [];
-    let buttonWidth = 150;
-    this.marginX = 25;
+    this.buttons = {};
     let buttonConfigs = this.configForButtons();
+
+    if (this.config.panelPos == UserInterface.PANEL_POS_BOTTOM){
+      this.ySpacing = 8;
+    }
 
     let buttonXPos = this.x + this.marginX;
     let buttonYPos = this.canvasRect.top + this.titleExtentY + this.ySpacing;
+    let prevBtnHeight = 0;
     
     buttonConfigs.forEach(btnConfig => {
       let label = btnConfig.emoji + ' ' + btnConfig.label;
       if (this.config.mode === UserInterface.UI_MODE_COMPACT){
         label = btnConfig.emoji;
       }
+      
+      if (btnConfig.id == UserInterface.BTN_SLOW_DOWN && this.config.panelPos == UserInterface.PANEL_POS_BOTTOM){
+        buttonXPos = this.x + this.marginX;
+        buttonYPos = buttonYPos + prevBtnHeight + this.ySpacing;
+        console.log('SLOW DOWN button Y: ', buttonYPos);
+      }
+
       let newButton = createButton(label);
       newButton.position(buttonXPos, buttonYPos);
       newButton.mousePressed(btnConfig.callback);
-      this.buttons.push(newButton);
+      newButton.btnConfig = btnConfig;
+      this.buttons[`${btnConfig.id}`] = newButton;
 
       buttonXPos += this.xButtonSpacing + this.xButtonWidthFactor * newButton.elt.getBoundingClientRect().width;
       buttonYPos += this.yButtonSpacing + this.yButtonHeghtFactor * newButton.elt.getBoundingClientRect().height;
+
+      prevBtnHeight = newButton.elt.getBoundingClientRect().height;
     });
+
   }
 
   configForButtons(){
     return [
       {id: UserInterface.BTN_FIRE, emoji: '🔥', label: 'Fire', callback: this.handleBtnFire},
-      {id: UserInterface.BTN_LIGHTNING, emoji: '🌩️', label: 'Lightning', callback: this.handleBtnLightning},
       {id: UserInterface.BTN_FIRE_BREAK, emoji: '⛏️', label: 'Fire Break', callback: this.handleBtnFireBreak},
       {id: UserInterface.BTN_KNOCK_DOWN, emoji: '🧯', label: 'Knock Down', callback: this.handleBtnKnockDown},
       {id: UserInterface.BTN_PLANE_WATER_DROP, emoji: '✈️', label: 'Water Drop', callback: this.handlePlaneWaterDrop},
+      {id: UserInterface.BTN_LIGHTNING, emoji: '🌩️', label: 'Lightning', callback: this.handleBtnLightning},
       {id: UserInterface.BTN_INFO, emoji: 'ℹ️', label: 'Info', callback: this.handleBtnInfo},
+      {id: UserInterface.BTN_SLOW_DOWN, emoji: '⏪', label: 'Slow Down', callback: this.handleBtnSlowDown},
+      {id: UserInterface.BTN_PLAY_PAUSE, emoji: '⏸️', label: 'Pause', callback: this.handleBtnPlayPause},
+      {id: UserInterface.BTN_SPEED_UP, emoji: '⏩', label: 'Speed Up', callback: this.handleBtnSpeedUp},
+      {id: UserInterface.BTN_RESTART, emoji: '🔄', label: 'Restart', callback: this.handleRestart},
+      {id: UserInterface.BTN_RANDOMIZE, emoji: '🎲', label: 'Randomize', callback: this.handleRandomize},
     ];
   }
 
@@ -128,6 +153,13 @@ class UserInterface {
   handleBtnInfo(){ ui.setTool(UserInterface.TOOL_INFO); }
   handlePlaneWaterDrop(){ ui.setTool(UserInterface.TOOL_PLANE_WATER_DROP); }
   
+  handleBtnPlayPause(){ 
+    system.togglePause(); 
+    let label = system.paused ? '▶️ Play' : '⏸️ Pause';
+    ui.buttons[`${UserInterface.BTN_PLAY_PAUSE}`].html(label );
+  }
+  handleBtnSlowDown(){ system.slowDown(); }  
+  handleBtnSpeedUp(){ system.speedUp(); }
 
   initScenarioUI(){
     this.scenarioSelector = createSelect();
@@ -347,12 +379,15 @@ class UserInterface {
     if (this.config.mode === UserInterface.UI_MODE_COMPACT){
       return;
     }
-
-    let btn2BaseLabel = this.initialBtnConfig[2].emoji + ' ' + this.initialBtnConfig[2].label;
-    this.buttons[2].html(  btn2BaseLabel + " - " + Math.floor(this.resources.fire_break));
     
-    let btn3BaseLabel = this.initialBtnConfig[3].emoji + ' ' + this.initialBtnConfig[2].label;
-    this.buttons[3].html( btn3BaseLabel + " - " + Math.floor(this.resources.knock_down));
+    this.updateResourceButton(UserInterface.BTN_FIRE_BREAK, this.resources.fire_break);
+    this.updateResourceButton(UserInterface.BTN_KNOCK_DOWN, this.resources.knock_down);
+  }
+
+  updateResourceButton(id, quantity){
+    let button = this.buttons[id];
+    let label = `${button.btnConfig.emoji} ${button.btnConfig.label} - ${quantity}`;
+    button.html(label);
   }
 
   showDialog(dialog){
