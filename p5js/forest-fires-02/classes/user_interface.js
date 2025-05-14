@@ -87,7 +87,7 @@ class UserInterface {
   }
 
   initButtons(){
-    this.buttons = [];
+    this.buttons = {};
     let buttonConfigs = this.configForButtons();
 
     let buttonXPos = this.x + this.marginX;
@@ -101,7 +101,8 @@ class UserInterface {
       let newButton = createButton(label);
       newButton.position(buttonXPos, buttonYPos);
       newButton.mousePressed(btnConfig.callback);
-      this.buttons.push(newButton);
+      newButton.btnConfig = btnConfig;
+      this.buttons[`${btnConfig.id}`] = newButton;
 
       buttonXPos += this.xButtonSpacing + this.xButtonWidthFactor * newButton.elt.getBoundingClientRect().width;
       buttonYPos += this.yButtonSpacing + this.yButtonHeghtFactor * newButton.elt.getBoundingClientRect().height;
@@ -111,10 +112,10 @@ class UserInterface {
   configForButtons(){
     return [
       {id: UserInterface.BTN_FIRE, emoji: '🔥', label: 'Fire', callback: this.handleBtnFire},
-      {id: UserInterface.BTN_LIGHTNING, emoji: '🌩️', label: 'Lightning', callback: this.handleBtnLightning},
       {id: UserInterface.BTN_FIRE_BREAK, emoji: '⛏️', label: 'Fire Break', callback: this.handleBtnFireBreak},
       {id: UserInterface.BTN_KNOCK_DOWN, emoji: '🧯', label: 'Knock Down', callback: this.handleBtnKnockDown},
       {id: UserInterface.BTN_PLANE_WATER_DROP, emoji: '✈️', label: 'Water Drop', callback: this.handlePlaneWaterDrop},
+      {id: UserInterface.BTN_LIGHTNING, emoji: '🌩️', label: 'Lightning', callback: this.handleBtnLightning},
       {id: UserInterface.BTN_INFO, emoji: 'ℹ️', label: 'Info', callback: this.handleBtnInfo},
     ];
   }
@@ -345,12 +346,15 @@ class UserInterface {
     if (this.config.mode === UserInterface.UI_MODE_COMPACT){
       return;
     }
-
-    let btn2BaseLabel = this.initialBtnConfig[2].emoji + ' ' + this.initialBtnConfig[2].label;
-    this.buttons[2].html(  btn2BaseLabel + " - " + Math.floor(this.resources.fire_break));
     
-    let btn3BaseLabel = this.initialBtnConfig[3].emoji + ' ' + this.initialBtnConfig[2].label;
-    this.buttons[3].html( btn3BaseLabel + " - " + Math.floor(this.resources.knock_down));
+    this.updateResourceButton(UserInterface.BTN_FIRE_BREAK, this.resources.fire_break);
+    this.updateResourceButton(UserInterface.BTN_KNOCK_DOWN, this.resources.knock_down);
+  }
+
+  updateResourceButton(id, quantity){
+    let button = this.buttons[id];
+    let label = `${button.btnConfig.emoji} ${button.btnConfig.label} - ${quantity}`;
+    button.html(label);
   }
 
   showDialog(dialog){
