@@ -155,7 +155,12 @@ class UserInterface {
   
   handleBtnPlayPause(){ 
     system.togglePause(); 
-    let label = system.paused ? '▶️ Play' : '⏸️ Pause';
+    let label;
+    if (ui.config.mode === UserInterface.UI_MODE_COMPACT){
+      label = system.paused ? '▶️' : '⏸️';
+    } else {
+      label = system.paused ? '▶️ Play' : '⏸️ Pause';
+    }
     ui.buttons[`${UserInterface.BTN_PLAY_PAUSE}`].html(label );
   }
   handleBtnSlowDown(){ system.slowDown(); }  
