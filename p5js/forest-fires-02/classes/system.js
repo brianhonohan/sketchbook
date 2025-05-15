@@ -26,6 +26,7 @@ class System {
     this.initFireRisks();
     this.initFireThresholds();
     this.initFuelLookup();
+    this.initMoistureLookup();
     this.initWind();
     this.fireRiskThreshold = 0.1;
     this.resources = new Resources();
@@ -75,6 +76,7 @@ class System {
     tmpCell.setType(this.terrainTypeForPos(tmpRow, tmpCol));
     tmpCell.fuelAmount = this.fuelLookup[tmpCell.terrainType];
     tmpCell.fireIntensity = this.initialFire[tmpCell.terrainType];
+    tmpCell.moistureLevel = this.moistureLookup[tmpCell.terrainType];
     return tmpCell;
   }
 
@@ -238,6 +240,24 @@ class System {
     this.terrainName[System.TERRAIN_DECID_CONIF]   = 'Decidious / Conifer Mix';
   }
 
+  initMoistureLookup(){
+    // values ranging from 0.3 to 3 (30% to 300%)
+    this.moistureLookup = [];
+    this.moistureLookup[System.TERRAIN_SOIL]          = 0;
+    this.moistureLookup[System.TERRAIN_WATER]         = 0;
+    this.moistureLookup[System.TERRAIN_FOLIAGE]       = 1.4;
+    this.moistureLookup[System.TERRAIN_BURNING]       = 0;
+    this.moistureLookup[System.TERRAIN_ENGULFED]      = 0;
+    this.moistureLookup[System.TERRAIN_SMOLDERING]    = 0;
+    this.moistureLookup[System.TERRAIN_BURNT]         = 0;
+    this.moistureLookup[System.TERRAIN_PARTIAL_BURN]  = 0;
+    this.moistureLookup[System.TERRAIN_GRASS_DRY]     = 0.4;
+    this.moistureLookup[System.TERRAIN_GRASS_WET]     = 1.2;
+    this.moistureLookup[System.TERRAIN_SHRUB]         = 0.7;
+    this.moistureLookup[System.TERRAIN_CONIFER]       = 1;
+    this.moistureLookup[System.TERRAIN_DECID_CONIF]   = 1.2;
+  }
+
   initWind(){
     this.wind = new WindField(this.sizeAndPosition);
     this.wind.setCellWidth(this.cellWidth * 4);
@@ -399,6 +419,7 @@ class System {
     cell.setType(type);
     cell.fuelAmount = this.fuelLookup[type];
     cell.fireIntensity = this.initialFire[type];
+    cell.moistureLevel = this.moistureLookup[type];
   }
 
   initializeFromImage(image){
@@ -628,8 +649,11 @@ class System {
   }
 
   v3_setNextTypeForCell(cell){
-    if(this.v3_fireRiskFromNeighbors(cell) >= this.terrainFireThreshold[cell.terrainType]){
+    let heatFromNeighors = this.v3_fireRiskFromNeighbors(cell);
+    if(heatFromNeighors >= this.terrainFireThreshold[cell.terrainType] * cell.moistureLevel){
       cell.nextFrameType = System.TERRAIN_BURNING;
+    } else {
+      cell.moistureLevel -= heatFromNeighors / 10;
     }
   }
 
