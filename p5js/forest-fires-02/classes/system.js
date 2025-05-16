@@ -658,11 +658,11 @@ class System {
   }
 
   v3_setNextTypeForCell(cell){
-    let heatFromNeighors = this.v3_fireRiskFromNeighbors(cell);
-    if(heatFromNeighors >= this.terrainFireThreshold[cell.terrainType] * cell.moistureLevel * cell.moistureLevel){
+    let heatFromNeighbors = this.v3_fireRiskFromNeighbors(cell);
+    if(heatFromNeighbors >= this.terrainFireThreshold[cell.terrainType] * cell.moistureLevel * cell.moistureLevel){
       cell.nextFrameType = System.TERRAIN_BURNING;
     } else {
-      cell.moistureLevel -= heatFromNeighors / 10;
+      cell.moistureLevel -= heatFromNeighbors / 10;
     }
   }
 
