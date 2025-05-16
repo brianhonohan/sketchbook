@@ -386,7 +386,7 @@ class UserInterface {
         this.system.fireBreakAt(x, y);
         break;      
       case UserInterface.TOOL_PLANE_WATER_DROP:
-        this.system.knockDownAt(x, y);
+        this.system.waterDropAt(x, y);
         break;
       case UserInterface.TOOL_DRAW:
         this.system.setTerrainType(x, y, this.toolMode);

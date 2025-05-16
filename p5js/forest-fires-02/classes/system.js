@@ -452,6 +452,15 @@ class System {
     this.resources.use(Resources.RES_KNOCK_DOWN);
   }
 
+  waterDropAt(x, y){
+    // if (!this.resources.has(Resources.RES_WATER_DROP)){
+      // console.log("Out of: water_drop");
+    // }
+    const cell = this.grid.cellForXY(x, y);
+    cell.receiveWaterDrop();
+    // this.resources.use(Resources.RES_WATER_DROP);
+  }
+
   infoAt(x, y){
     return { 
       cell: this.grid.cellForXY(x, y)
