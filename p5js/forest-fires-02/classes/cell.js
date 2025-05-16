@@ -81,26 +81,6 @@ class Cell {
       this.setType(System.TERRAIN_ENGULFED);
       return;
     }
-
-    // NOT SURE WHY LOGIC IS NOT WORKING
-    //  It had the effect of always shifting out burning
-    //  Leaving for one commit before removing.
-
-    // if (this.fuelAmount <= 0){
-    //   if (this.fireIntensity > 0){
-    //     this.setType(System.TERRAIN_SMOLDERING);
-    //   } else {
-    //     this.setType(System.TERRAIN_BURNT);
-    //   }
-    // } else {
-    //   if (this.fireIntensity <= 0){
-    //     this.setType(System.TERRAIN_PARTIAL_BURN);
-    //   } else if (this.fireIntensity > 20){
-    //     this.setType(System.TERRAIN_ENGULFED);
-    //   } else if (this.fireIntensity > 0){
-    //     this.setType(System.TERRAIN_BURNING);
-    //   }
-    // }
   }
 
   tick(){
