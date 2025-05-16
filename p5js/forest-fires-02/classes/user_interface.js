@@ -311,7 +311,7 @@ class UserInterface {
 
     switch (this.tool) {
       case UserInterface.TOOL_PLANE_WATER_DROP:
-        this.applyToolFromStartToCurrent(100);
+        this.applyToolFromStartToCurrent(100, 3);
         break;
     }
 
@@ -322,14 +322,14 @@ class UserInterface {
     this.mousePressed(mouseX, mouseY);
   }
 
-  applyToolFromStartToCurrent(lengthLimit = undefined){
+  applyToolFromStartToCurrent(lengthLimit = undefined, lineWidth = 1){
     const systemX = mouseX - this.system.x;
     const systemY = mouseY - this.system.y;
     this.applyToolAlongLine(this.lineToolStart.x, this.lineToolStart.y,
-                                systemX, systemY, lengthLimit);
+                                systemX, systemY, lengthLimit, lineWidth);
   }
 
-  applyToolAlongLine(startX, startY, endX, endY, lengthLimit = undefined){
+  applyToolAlongLine(startX, startY, endX, endY, lengthLimit = undefined, lineWidth = 1){
     let toolPath = new LineSegment(startX, startY, endX, endY);
 
     if (lengthLimit != undefined && toolPath.getLength() > lengthLimit){
@@ -346,6 +346,13 @@ class UserInterface {
       for (let yVal = minY; yVal < maxY; yVal++){
         tmpX = Math.round(toolPathAsLine.xValueAt(yVal));
         this._applyToolAtXY(tmpX, yVal);
+
+        if (lineWidth > 1){
+          let offset = [1, -1];
+          for (let i = 1; i < lineWidth; i++){
+            this._applyToolAtXY(tmpX + i * offset[i % 2], yVal);
+          }
+        } 
       }
 
     } else {
@@ -356,6 +363,13 @@ class UserInterface {
       for (let xVal = minX; xVal < maxX; xVal++){
         tmpY = Math.round(toolPathAsLine.valueAt(xVal));
         this._applyToolAtXY(xVal, tmpY);
+
+        if (lineWidth > 1){
+          let offset = [1, -1];
+          for (let i = 1; i < lineWidth; i++){
+            this._applyToolAtXY(xVal, tmpY + i * offset[i % 2]);
+          }
+        }
       }
     }
   }
@@ -372,7 +386,7 @@ class UserInterface {
         this.system.fireBreakAt(x, y);
         break;      
       case UserInterface.TOOL_PLANE_WATER_DROP:
-        this.system.knockDownAt(x, y);
+        this.system.waterDropAt(x, y);
         break;
       case UserInterface.TOOL_DRAW:
         this.system.setTerrainType(x, y, this.toolMode);

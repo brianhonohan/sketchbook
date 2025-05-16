@@ -12,6 +12,8 @@ class Cell {
     this.nextFrameType = undefined;
     this.fuelAmount = 0;
     this.fireIntensity = 0;
+    this.moistureLevel = 1.0;
+    this.wasIgnited = false;
   }
 
   get x() { return this._col * this.system.cellWidth; }
@@ -34,38 +36,63 @@ class Cell {
   }
 
   setType(type){
+    this._needsRender |= this.terrainType != type;
     this.terrainType = type;
-    this._needsRender = true;
+    this.wasIgnited = this.wasIgnited || this.isBurning();
+  }
+
+  receiveWaterDrop(){
+    let waterFactor = 50;
+
+    if (this.isBurning()){      
+      if (waterFactor > this.fireIntensity){
+        this.fireIntensity = 0;
+        let leftoverWater = waterFactor - this.fireIntensity;
+        this.moistureLevel = Math.min(3.0, this.moistureLevel + leftoverWater / 5);
+      } else {
+        this.fireIntensity -= waterFactor;
+      }
+      this._updateTerrainType();
+    } else {
+      this.moistureLevel = Math.min(3.0, this.moistureLevel + 2.5);
+    }
+  }
+
+  _updateTerrainType(){
+    if (this.wasIgnited == false){
+      return;
+    }
+
+    if (this.fireIntensity < 0){
+      if (this.fuelAmount > 0){
+        this.setType(System.TERRAIN_PARTIAL_BURN);
+      } else {
+        this.setType(System.TERRAIN_BURNT);
+      }
+      return;
+    }
+
+    if (this.fuelAmount < 0){
+      this.setType(System.TERRAIN_SMOLDERING);
+      return;
+    }
+
+    if (this.fireIntensity > 20){
+      this.setType(System.TERRAIN_ENGULFED);
+      return;
+    }
   }
 
   tick(){
     if (this.terrainType == System.TERRAIN_BURNING){
       this.fuelAmount -= 0.3;
       this.fireIntensity += 0.3;
-
-      if (this.fuelAmount < 0){
-        this.setType(System.TERRAIN_SMOLDERING);
-      }
-
-      if (this.fireIntensity > 20){
-        this.setType(System.TERRAIN_ENGULFED);
-      }
     } else if (this.terrainType == System.TERRAIN_ENGULFED){
       this.fuelAmount -= 1;
-      if (this.fuelAmount < 0){
-        this.setType(System.TERRAIN_SMOLDERING);
-      }
     } else if (this.terrainType == System.TERRAIN_SMOLDERING){
       this.fireIntensity -= 0.05;
-
-      if (this.fireIntensity < 0){
-        if (this.fuelAmount > 0){
-          this.setType(System.TERRAIN_PARTIAL_BURN);
-        } else {
-          this.setType(System.TERRAIN_BURNT);
-        }
-      }
     }
+    this._updateTerrainType();
   }
 
   get cellAbove() { return this.grid.cellAbove(this._idx); }
