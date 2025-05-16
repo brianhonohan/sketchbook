@@ -662,7 +662,7 @@ class System {
     if(heatFromNeighors >= this.terrainFireThreshold[cell.terrainType] * cell.moistureLevel * cell.moistureLevel){
       cell.nextFrameType = System.TERRAIN_BURNING;
     } else {
-      cell.moistureLevel -= heatFromNeighors / 10;
+      cell.moistureLevel = Math.max(0, cell.moistureLevel - heatFromNeighors / 10);
     }
   }
 
