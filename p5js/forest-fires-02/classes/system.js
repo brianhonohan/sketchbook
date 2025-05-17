@@ -182,7 +182,7 @@ class System {
     this.terrainFireThreshold[System.TERRAIN_SMOLDERING]    = 0.001;
     this.terrainFireThreshold[System.TERRAIN_BURNT]         = 0;
     this.terrainFireThreshold[System.TERRAIN_PARTIAL_BURN]  = 0.0001;
-    this.terrainFireThreshold[System.TERRAIN_GRASS_DRY]     = 0.0010;
+    this.terrainFireThreshold[System.TERRAIN_GRASS_DRY]     = 0.1;
     this.terrainFireThreshold[System.TERRAIN_GRASS_WET]     = 0.1;
     this.terrainFireThreshold[System.TERRAIN_SHRUB]         = 0.5;
     this.terrainFireThreshold[System.TERRAIN_CONIFER]       = 2.3;
