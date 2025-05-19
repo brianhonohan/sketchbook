@@ -38,7 +38,10 @@ class Cell {
   setType(type){
     this._needsRender |= this.terrainType != type;
     this.terrainType = type;
-    this.wasIgnited = this.wasIgnited || this.isBurning();
+    if (this.wasIgnited === false && this.isBurning()){
+      this.wasIgnited = true;
+      this.fireArrivalTime = this.system.tickCount;
+    }
   }
 
   receiveWaterDrop(){
