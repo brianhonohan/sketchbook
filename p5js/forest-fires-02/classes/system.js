@@ -199,7 +199,7 @@ class System {
     this.fuelLookup[System.TERRAIN_SMOLDERING]    = 0;
     this.fuelLookup[System.TERRAIN_BURNT]         = 0;
     this.fuelLookup[System.TERRAIN_PARTIAL_BURN]  = 20;
-    this.fuelLookup[System.TERRAIN_GRASS_DRY]     = 2;
+    this.fuelLookup[System.TERRAIN_GRASS_DRY]     = 4;
     this.fuelLookup[System.TERRAIN_GRASS_WET]     = 0.5;
     this.fuelLookup[System.TERRAIN_SHRUB]         = 5;
     this.fuelLookup[System.TERRAIN_CONIFER]       = 200;
@@ -347,13 +347,13 @@ class System {
           return System.TERRAIN_FOLIAGE;
  
         } else if (biomeNoise < 0.6){
-          return System.TERRAIN_GRASS_WET;
+          return System.TERRAIN_GRASS_DRY;
  
         } else if (biomeNoise < 0.7){
           return System.TERRAIN_SHRUB;
  
         } else {
-          return System.TERRAIN_GRASS_DRY;
+          return System.TERRAIN_GRASS_WET;
           
         }
 
@@ -368,10 +368,10 @@ class System {
           return System.TERRAIN_FOLIAGE;
  
         } else if (biomeNoise < 0.75){
-          return System.TERRAIN_GRASS_DRY;
+          return System.TERRAIN_GRASS_WET;
  
         } else if (biomeNoise < 0.8){
-          return System.TERRAIN_GRASS_WET;
+          return System.TERRAIN_GRASS_DRY;
  
         } else {
           return System.TERRAIN_SHRUB;
@@ -490,8 +490,10 @@ class System {
 
     if (!cell.isBurning() && cell.fuelAmount > 0){
       cell.startBurning();
+      this.hadLightning = true;
+      return true;
     }
-    this.hadLightning = true;
+    return false;
   }
 
   igniteAt(x, y){
@@ -508,11 +510,10 @@ class System {
       let randX = Math.floor(random(0, this.width));
       let randY = Math.floor(random(0, this.height));
 
-      let cell = this.grid.cellForXY(randX, randY);
-      if (!cell.isBurning() && cell.fuelAmount > 0){
-        cell.startBurning();
+      if (this.lightningAt(randX, randY)){
         return;
       }
+      console.log(`Lightning strike failed at ${randX},${randY}`);
     }
   }
 
