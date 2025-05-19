@@ -490,8 +490,10 @@ class System {
 
     if (!cell.isBurning() && cell.fuelAmount > 0){
       cell.startBurning();
+      this.hadLightning = true;
+      return true;
     }
-    this.hadLightning = true;
+    return false;
   }
 
   igniteAt(x, y){
@@ -508,11 +510,10 @@ class System {
       let randX = Math.floor(random(0, this.width));
       let randY = Math.floor(random(0, this.height));
 
-      let cell = this.grid.cellForXY(randX, randY);
-      if (!cell.isBurning() && cell.fuelAmount > 0){
-        cell.startBurning();
+      if (this.lightningAt(randX, randY)){
         return;
       }
+      console.log(`Lightning strike failed at ${randX},${randY}`);
     }
   }
 
