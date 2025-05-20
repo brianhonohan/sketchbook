@@ -717,7 +717,7 @@ class System {
   showFireArrivalTime(){
     let maxTick = 0;
 
-    let ignitedCells = this.grid.cells.filter(c => c.wasIgnited);
+    const ignitedCells = this.grid.cells.filter(c => c.wasIgnited);
     if (ignitedCells.length == 0){
       console.log("No ignited cells found");
       return;

@@ -1,7 +1,7 @@
 class CellViewerFireArrivalTime extends CellViewer {
   constructor (maxArrivalTime){
     super();
-    this.maxArrivalTime = maxArrivalTime;
+    this.maxArrivalTime = Math.min(1, maxArrivalTime); // ensure non-zero time, to avoid DivByZero
     this.minColor = color(180, 180, 0);
     this.maxColor = color(180, 0, 0);
     this.isPixelRenderer = false;
