@@ -709,7 +709,27 @@ class System {
       this.stats.final = this.getCurrentCellTypeCounts();
       console.log('Fire has been fully suppressed');
       this.ui.showDialog(UserInterface.DIALOG_END_SCENARIO);
+
+      this.showFireArrivalTime();
     }
+  }
+
+  showFireArrivalTime(){
+    let maxTick = 0;
+
+    const ignitedCells = this.grid.cells.filter(c => c.wasIgnited);
+    if (ignitedCells.length == 0){
+      console.log("No ignited cells found");
+      return;
+    }
+    
+    ignitedCells.forEach(cell => {
+      maxTick = max(maxTick, cell.fireArrivalTime);
+      cell._needsRender = true;
+    });
+
+    this.grid.cellViewer = new CellViewerFireArrivalTime(maxTick);
+    this.grid.renderViewsAsNeeded();
   }
 
   requestFullRedraw(){

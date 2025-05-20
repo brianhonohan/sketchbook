@@ -22,6 +22,7 @@ js_scripts:
 - /sketchbook/p5js/common/shapes/point.js
 - classes/cell.js
 - classes/cell_viewer.js
+- classes/cell_viewer_fire_arrival_time.js
 - classes/resources.js
 - classes/scenario_manager.js
 - classes/wind.js
