@@ -730,7 +730,6 @@ class System {
 
     this.grid.cellViewer = new CellViewerFireArrivalTime(maxTick);
     this.grid.renderViewsAsNeeded();
-    this.grid.cellViewer = this.cellViewer;
   }
 
   requestFullRedraw(){
