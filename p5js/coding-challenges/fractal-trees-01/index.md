@@ -5,6 +5,7 @@ categories: p5js/coding-challenges
 date: 2018-10-22
 modal: true
 viewport_noscale: true
+next_sketch: /sketchbook/p5js/coding-challenges/fractal-trees-02/
 excerpt: A basic fractal tree, drawn recursively.
 
 js_scripts:

@@ -5,6 +5,7 @@ categories: p5js/coding-challenges
 date: 2025-02-04
 modal: true
 viewport_noscale: true
+prev_sketch: /sketchbook/p5js/coding-challenges/marching-squares-2/
 excerpt: An iteration of the 'Marching Squares' to add in multi-level isolines.
 
 js_scripts:

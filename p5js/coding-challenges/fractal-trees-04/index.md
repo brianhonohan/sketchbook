@@ -5,6 +5,8 @@ categories: p5js/coding-challenges
 date: 2018-11-13
 modal: true
 viewport_noscale: true
+prev_sketch: /sketchbook/p5js/coding-challenges/fractal-trees-03/
+next_sketch: /sketchbook/p5js/coding-challenges/fractal-trees-05/
 excerpt: Coding Challenge (via Coding Train) to implement L-System (Lindenmayer System) tree generation.
 
 js_scripts:

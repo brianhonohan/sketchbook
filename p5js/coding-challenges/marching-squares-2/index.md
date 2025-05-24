@@ -5,6 +5,8 @@ categories: p5js/coding-challenges
 date: 2025-01-28
 modal: true
 viewport_noscale: true
+prev_sketch: /sketchbook/p5js/coding-challenges/marching-squares/
+next_sketch: /sketchbook/p5js/coding-challenges/marching-squares-3/
 excerpt: An iteration of the 'Marching Squares' to do a bit of optimization and add in interpolation.
 
 js_scripts:

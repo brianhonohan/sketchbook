@@ -5,6 +5,7 @@ categories: p5js/coding-challenges
 date: 2018-10-06
 modal: true
 bh_non_interactive: true
+next_sketch: /sketchbook/p5js/coding-challenges/solar-system-3d/
 excerpt: Basic implementation of an n-body gravity simulation; calculates initial orbital velocity of planets to get things going.
 
 js_scripts:

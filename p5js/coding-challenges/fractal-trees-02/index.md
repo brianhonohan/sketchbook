@@ -5,6 +5,8 @@ categories: p5js/coding-challenges
 date: 2018-10-26
 modal: true
 viewport_noscale: true
+prev_sketch: /sketchbook/p5js/coding-challenges/fractal-trees-01/
+next_sketch: /sketchbook/p5js/coding-challenges/fractal-trees-03/
 excerpt: An interactive iteration on Factal Trees 01, to allow for configuration of branching parameters.
 
 js_scripts:
