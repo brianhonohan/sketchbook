@@ -5,6 +5,8 @@ categories: p5js/random
 date: 2025-05-02
 modal: true
 viewport_noscale: true
+prev_sketch: /sketchbook/p5js/random/012/
+next_sketch: /sketchbook/p5js/random/014/
 excerpt: Perlin noise curves via TRIANGLES, resulting in something similar to a bar chart, but where each bar is a triangle instead of a rectangle.
 
 js_scripts:

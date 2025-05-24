@@ -5,6 +5,8 @@ categories: p5js/random
 date: 2025-04-29
 modal: true
 viewport_noscale: true
+prev_sketch: /sketchbook/p5js/random/009/
+next_sketch: /sketchbook/p5js/random/011/
 excerpt: Perlin noise curves via TRIANGLE_STRIP.
 
 js_scripts:

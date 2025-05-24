@@ -5,6 +5,8 @@ categories: p5js/random
 date: 2025-04-19
 modal: true
 viewport_noscale: true
+prev_sketch: /sketchbook/p5js/random/005/
+next_sketch: /sketchbook/p5js/random/007/
 excerpt: Perlin noise cirlces, with size and color based on noise value.
 
 js_scripts:

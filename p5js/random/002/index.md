@@ -5,6 +5,8 @@ categories: p5js/random
 date: 2018-12-11
 modal: true
 viewport_noscale: true
+prev_sketch: /sketchbook/p5js/random/001/
+next_sketch: /sketchbook/p5js/random/003/
 excerpt: Polygons that bounce around the canvas, reminiscent of some Windows 3.1 screensavers. Click to add new vertex, Press c redraw background, and v, b, l to cycle through vertex modes. 
 
 js_scripts:

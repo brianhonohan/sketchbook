@@ -5,6 +5,8 @@ categories: p5js/random
 date: 2025-04-02
 modal: true
 viewport_noscale: true
+prev_sketch: /sketchbook/p5js/random/003/
+next_sketch: /sketchbook/p5js/random/005/
 excerpt: Perlin noise lines, but strokeWeight is based on the noise value.
 
 js_scripts:

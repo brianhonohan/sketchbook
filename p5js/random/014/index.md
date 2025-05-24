@@ -5,6 +5,8 @@ categories: p5js/random
 date: 2025-05-22
 modal: true
 viewport_noscale: true
+prev_sketch: /sketchbook/p5js/random/013/
+next_sketch: /sketchbook/p5js/random/015/
 excerpt: Perlin noise curves via quad(), resulting in something similar to previous triangle variation, similar to bar chart, but where each bar is a trapezoid instead of a rectangle.
 
 js_scripts:
