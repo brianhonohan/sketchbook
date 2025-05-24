@@ -5,6 +5,7 @@ categories: p5js/common/examples
 date: 2025-02-05
 modal: true
 viewport_noscale: true
+prev_sketch: /sketchbook/p5js/common/examples/bezier/
 excerpt: Demonstrates the additional functionality of a Bezier curve, to get points along the curve and other features.
 
 js_scripts:

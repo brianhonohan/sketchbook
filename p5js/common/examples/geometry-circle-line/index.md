@@ -5,6 +5,8 @@ categories: p5js/common/examples
 date: 2025-01-06
 modal: true
 viewport_noscale: true
+prev_sketch: /sketchbook/p5js/common/examples/geometry-line-to-line/
+next_sketch: /sketchbook/p5js/common/examples/shapes-tangents-between-circles/
 excerpt: Demonstration of the algorithm to find intersection of a line with a circle.
 
 js_scripts:

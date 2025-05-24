@@ -5,6 +5,8 @@ categories: p5js/common/examples
 date: 2025-01-08
 modal: true
 viewport_noscale: true
+prev_sketch: /sketchbook/p5js/common/examples/voronoi-2/
+next_sketch: /sketchbook/p5js/common/examples/voronoi-4/
 excerpt: Explores some optimizations in regards to Voronoi diagrams.
 
 js_scripts:

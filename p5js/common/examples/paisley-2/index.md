@@ -5,6 +5,7 @@ categories: p5js/common/examples
 date: 2025-02-07
 modal: true
 viewport_noscale: true
+prev_sketch: /sketchbook/p5js/common/examples/paisley/
 excerpt: Demonstrates the drawing of a simple Paisley shape.
 
 js_scripts:

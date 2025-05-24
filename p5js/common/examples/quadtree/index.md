@@ -4,6 +4,7 @@ title:  "p5.js - Common Examples - Quadtree"
 categories: p5js/common/examples
 date: 2019-02-11
 modal: true
+next_sketch: /sketchbook/p5js/common/examples/quadtree-2/
 excerpt: Implementation of a quadtree data structure, which groups data points into successively nested quadrants, which allows for fast access of elements in an area.
 
 js_scripts:

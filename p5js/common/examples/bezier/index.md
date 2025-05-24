@@ -5,6 +5,7 @@ categories: p5js/common/examples
 date: 2024-12-29
 modal: true
 viewport_noscale: true
+next_sketch: /sketchbook/p5js/common/examples/bezier-2/
 excerpt: Demonstrates the display and interaction of a Bezier curve modeled as an object, with draggable control points.
 
 js_scripts:

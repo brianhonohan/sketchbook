@@ -5,6 +5,8 @@ categories: p5js/common/examples
 date: 2018-12-23
 modal: true
 viewport_noscale: true
+prev_sketch: /sketchbook/p5js/common/examples/geometry-circle-line/
+
 excerpt: Demonstrates drawing tangents between two circles.
 
 js_scripts:
