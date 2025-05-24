@@ -5,6 +5,7 @@ categories: p5js
 date: 2019-07-06
 modal: true
 viewport_noscale: true
+prev_sketch: /sketchbook/p5js/forest-fires/
 excerpt: Adds interaction to the forest fire simulation sketch, with limits to amount of fire breaks that can be added, and ability to load different scenarios.
 
 js_scripts:

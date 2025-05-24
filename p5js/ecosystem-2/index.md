@@ -5,6 +5,7 @@ categories: p5js
 date: 2025-02-08
 modal: true
 viewport_noscale: true
+prev_sketch: /sketchbook/p5js/ecosystem/
 excerpt: An iteration on generated terrain, which adds in resources at different elevations.
 
 js_scripts:
