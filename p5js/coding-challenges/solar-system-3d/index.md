@@ -4,6 +4,8 @@ title:  "p5.js - Solar System 3D - Coding Challenge #8"
 categories: p5js/coding-challenges
 date: 2018-10-07
 modal: true
+prev_sketch: /sketchbook/p5js/coding-challenges/solar-system/
+next_sketch: /sketchbook/p5js/coding-challenges/solar-system-3d-texturized/
 excerpt: Added 3D support to the basic solar system sketch simulating gravity of n-bodies.
 
 js_scripts:

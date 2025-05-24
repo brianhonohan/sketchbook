@@ -5,6 +5,8 @@ categories: p5js/common/examples
 date: 2025-03-25
 modal: true
 viewport_noscale: true
+prev_sketch: /sketchbook/p5js/common/examples/geometry-point-to-line/
+next_sketch: /sketchbook/p5js/common/examples/geometry-circle-line/
 excerpt: Demonstrates determination of line-to-line intersection.
 
 js_scripts:

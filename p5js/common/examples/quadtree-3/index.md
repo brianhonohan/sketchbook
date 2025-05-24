@@ -4,6 +4,7 @@ title:  "p5.js - Common Examples - Quadtree 3"
 categories: p5js/common/examples
 date: 2025-03-27
 modal: true
+prev_sketch: /sketchbook/p5js/common/examples/quadtree-2/
 excerpt: Demonstrates storing line segments within a Quadtree structure, and querying by either rectangle or another line-segment.
 
 js_scripts:

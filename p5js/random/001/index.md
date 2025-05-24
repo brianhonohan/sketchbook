@@ -5,6 +5,7 @@ categories: p5js/random
 date: 2018-12-08
 modal: true
 viewport_noscale: true
+next_sketch: /sketchbook/p5js/random/002/
 excerpt: Click and drage to draw circles sized and colored based on speed of mouse.
 
 js_scripts:

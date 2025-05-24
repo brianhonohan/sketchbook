@@ -5,6 +5,8 @@ categories: p5js/random
 date: 2022-12-04
 modal: true
 viewport_noscale: true
+prev_sketch: /sketchbook/p5js/random/002/
+next_sketch: /sketchbook/p5js/random/004/
 excerpt: Perlin noise generated lines, similar to Joy Division's 'Unknown Pleasures' album cover.
 
 js_scripts:

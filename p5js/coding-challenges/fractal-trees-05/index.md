@@ -4,6 +4,7 @@ title:  "p5.js - Fractal Trees - Space Colonization"
 categories: p5js/coding-challenges
 date: 2018-11-20
 modal: true
+prev_sketch: /sketchbook/p5js/coding-challenges/fractal-trees-04/
 excerpt: Models root growth based on 'space colonization' algorithm, where roots grow in spurts in an attempt to secure resources.
 
 js_scripts:

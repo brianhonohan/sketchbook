@@ -5,6 +5,7 @@ categories: p5js
 date: 2025-02-01
 modal: true
 viewport_noscale: true
+prev_sketch: /sketchbook/p5js/friezes/
 excerpt: Allows you to draw a frieze, reflecting and translating the lines; with improved drawing features of undo/redo, stroke color and weight, and an animation to redraw the sketch.
 
 js_scripts:

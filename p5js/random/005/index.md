@@ -5,6 +5,8 @@ categories: p5js/random
 date: 2025-04-04
 modal: true
 viewport_noscale: true
+prev_sketch: /sketchbook/p5js/random/004/
+next_sketch: /sketchbook/p5js/random/006/
 excerpt: Perlin noise lines, but strokeWeight and color is based on the noise value.
 
 js_scripts:

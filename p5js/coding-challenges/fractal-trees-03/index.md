@@ -6,6 +6,8 @@ date: 2018-11-11
 modal: true
 bh_non_interactive: true
 viewport_noscale: true
+prev_sketch: /sketchbook/p5js/coding-challenges/fractal-trees-02/
+next_sketch: /sketchbook/p5js/coding-challenges/fractal-trees-04/
 excerpt: Simulates tree growth with apical meristem cells driving growth at the end of branches, which secrete auxin, a growth inhibitor (shown as pink) which prevents lateral growth for little while.
 
 js_scripts:

@@ -5,6 +5,8 @@ categories: p5js/random
 date: 2025-04-25
 modal: true
 viewport_noscale: true
+prev_sketch: /sketchbook/p5js/random/007/
+next_sketch: /sketchbook/p5js/random/009/
 excerpt: Perlin noise arcs, with size and color based on noise value.
 
 js_scripts:

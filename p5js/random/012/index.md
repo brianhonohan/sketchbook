@@ -5,6 +5,8 @@ categories: p5js/random
 date: 2025-05-01
 modal: true
 viewport_noscale: true
+prev_sketch: /sketchbook/p5js/random/011/
+next_sketch: /sketchbook/p5js/random/013/
 excerpt: Perlin noise curves via LINES, connecting noise values resulting in dashed lines (rather than vertical bars in 011).
 
 js_scripts:

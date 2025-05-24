@@ -4,6 +4,7 @@ title:  "p5.js - Forest Simulation"
 categories: p5js
 date: 2018-11-01
 modal: true
+next_sketch: /sketchbook/p5js/forest-02/
 excerpt: Simulates the life-cycle of individual trees in a small forest, as they compete over resources.
 
 js_scripts:

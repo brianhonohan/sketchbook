@@ -5,6 +5,7 @@ categories: p5js/common/examples
 date: 2025-02-05
 modal: true
 viewport_noscale: true
+prev_sketch: /sketchbook/p5js/common/examples/bezier/
 excerpt: Demonstrates the display and interaction of "PolyBezier" (aka Composite Bezier) which is a set of connected bezie-curves.
 
 js_scripts:

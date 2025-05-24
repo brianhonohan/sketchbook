@@ -5,6 +5,7 @@ categories: p5js/common/examples
 date: 2025-01-12
 modal: true
 viewport_noscale: true
+prev_sketch: /sketchbook/p5js/common/examples/voronoi-3/
 excerpt: Explores using the d3-delaunay library to generate the voronoi diagram.
 
 js_scripts:

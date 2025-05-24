@@ -5,6 +5,8 @@ categories: p5js/random
 date: 2025-04-30
 modal: true
 viewport_noscale: true
+prev_sketch: /sketchbook/p5js/random/010/
+next_sketch: /sketchbook/p5js/random/012/
 excerpt: Perlin noise curves via LINES.
 
 js_scripts:
