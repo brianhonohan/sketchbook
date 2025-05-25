@@ -9,7 +9,7 @@ layout: default
 
   {{ content }}
 
-  {% assign categories = "p5js, p5js/common/examples, p5js/scales, p5js/coding-challenges, p5js/random, p5js/shader-examples, paperjs, processing, pixijs, ruby" | split: ", " | sort: 'title', 'first' %}
+  {% assign categories = "p5js, p5js/common/examples, p5js/scales, p5js/coding-challenges, p5js/random, p5js/shader-examples, paperjs, processing, pixijs, threejs, ruby" | split: ", " | sort: 'title', 'first' %}
 
   {% assign all_filtered_pages = site.pages | where: 'bh_page_type', "sketch" %}
 
