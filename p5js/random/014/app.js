@@ -20,7 +20,7 @@ var systemParams = {
 
 function setup(){
   // canvas = createCanvas(500, 500);
-  canvas = createCanvas(windowWidth, windowHeight-determineVerticalMargin());
+  canvas = createAutosizedCanvas();
   colorMode(HSB);
 
   initBlendModeOptions();
@@ -58,13 +58,16 @@ function draw(){
   }
 }
 
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight - determineVerticalMargin());
+function createAutosizedCanvas(){
+  canvas = createCanvas();
+  windowResized(undefined, true);
+  return canvas;
 }
 
-function determineVerticalMargin(){
-  let fullUrl = window.location.href;
-  return (fullUrl.indexOf(".html") > 0) ? 0 : 37;
+function windowResized(event, noRedraw = false) {
+  resizeCanvas(innerWidth, 
+              innerHeight - drawingContext.canvas.getBoundingClientRect().top,
+              noRedraw);
 }
 
 function initBlendModeOptions(){

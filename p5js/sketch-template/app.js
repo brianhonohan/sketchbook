@@ -1,10 +1,10 @@
-var system;
-var canvas;
-var gui;
+let system;
+let canvas;
+let gui;
 
 function setup() {
   // canvas = createCanvas(500, 500); // for screenshots
-  canvas = createCanvas(windowWidth, windowHeight-vertMargin());
+  canvas = createAutosizedCanvas();
   P5JsSettings.init();
 
   let rect = new Rect(0, 0, width, height);
@@ -24,9 +24,16 @@ function draw(){
   system.render();
 }
 
-function vertMargin(){
-  let fullUrl = window.location.href;
-  return (fullUrl.indexOf(".html") > 0) ? 0 : 62;
+function createAutosizedCanvas(){
+  canvas = createCanvas();
+  windowResized(undefined, true);
+  return canvas;
+}
+
+function windowResized(event, noRedraw = false) {
+  resizeCanvas(innerWidth, 
+              innerHeight - drawingContext.canvas.getBoundingClientRect().top,
+              noRedraw);
 }
 
 function mousePressed(event){
