@@ -58,6 +58,10 @@ function draw(){
   }
 }
 
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight - determineVerticalMargin());
+}
+
 function determineVerticalMargin(){
   let fullUrl = window.location.href;
   return (fullUrl.indexOf(".html") > 0) ? 0 : 37;

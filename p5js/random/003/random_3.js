@@ -41,6 +41,10 @@ function determineVerticalMargin(){
   return (fullUrl.indexOf(".html") > 0) ? 0 : 37;
 }
 
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight - determineVerticalMargin());
+}
+
 function drawSimpleLine(y){
   stroke(250);
   line(0.1 * width, y, 0.9 * width, y);

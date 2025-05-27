@@ -61,6 +61,12 @@ function determineVerticalMargin(){
   return (fullUrl.indexOf(".html") > 0) ? 0 : 37;
 }
 
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight - determineVerticalMargin());
+  drawBackground();
+  particles.forEach(p => p.setDefaultBounds());
+}
+
 function drawLines(){
   beginShape();
   particles.forEach(p => vertex(p.x, p.y));

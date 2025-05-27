@@ -33,6 +33,8 @@ function setup(){
   gui.add(systemParams, 'hsbCycle');
   gui.hsbStart = gui.add(systemParams, 'hsbStart', 0, 360, 1);
   gui.hsbEnd = gui.add(systemParams, 'hsbEnd', 0, 360, 1);
+
+  console.log("Blend modes: " + blendModeOptions.join(", "));
 }
 
 function draw(){
@@ -59,6 +61,10 @@ function draw(){
 function determineVerticalMargin(){
   let fullUrl = window.location.href;
   return (fullUrl.indexOf(".html") > 0) ? 0 : 37;
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight - determineVerticalMargin());
 }
 
 function initBlendModeOptions(){

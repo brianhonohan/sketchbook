@@ -41,6 +41,17 @@ function determineVerticalMargin(){
   return (fullUrl.indexOf(".html") > 0) ? 0 : 37;
 }
 
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight - determineVerticalMargin());
+}
+
+function cullShapes(){
+  shapes = shapes.filter(s => s.size > 1);
+  if (shapes.length > 1000) {
+    shapes.splice(0, shapes.length - 1000); // keep only the last 1000 shapes
+  }
+}
+
 function mousePressed(){
   // currentShape = new Circle(mouseX, mouseY);
   // shapes.push(currentShape);
