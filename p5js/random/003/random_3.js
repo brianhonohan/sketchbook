@@ -11,7 +11,7 @@ var systemParams = {
 
 function setup(){
   // canvas = createCanvas(500, 500);
-  canvas = createCanvas(windowWidth, windowHeight-determineVerticalMargin());
+  canvas = createAutosizedCanvas();
 
   gui = P5JsSettings.addDatGui({autoPlace: false});
   gui.add(systemParams, 'xStepSize').min(0.001).max(0.1).step(0.001);
@@ -36,9 +36,16 @@ function draw(){
   }
 }
 
-function determineVerticalMargin(){
-  let fullUrl = window.location.href;
-  return (fullUrl.indexOf(".html") > 0) ? 0 : 37;
+function createAutosizedCanvas(){
+  canvas = createCanvas();
+  windowResized(undefined, true);
+  return canvas;
+}
+
+function windowResized(event, noRedraw = false) {
+  resizeCanvas(innerWidth, 
+              innerHeight - drawingContext.canvas.getBoundingClientRect().top,
+              noRedraw);
 }
 
 function drawSimpleLine(y){

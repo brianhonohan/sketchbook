@@ -9,6 +9,12 @@ class P5JsUtils {
   static get DOWN(){  return 2; }
   static get LEFT(){  return 3; }
 
+  static createAutosizedCanvas(){
+    let canvas = createCanvas();
+    resizeCanvas(innerWidth, innerHeight - canvas.getBoundingClientRect().top);
+    return canvas;
+  }
+
   static colorAt(x, y, width){ 
     return P5JsUtils.colorAtInPixels(x, y, width, pixels);
   }
