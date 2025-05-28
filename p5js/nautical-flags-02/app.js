@@ -36,7 +36,7 @@ function setup() {
 
 function determineVerticalMargin(){
   let fullUrl = window.location.href;
-  return (fullUrl.indexOf(".html") > 0) ? 0 : 37;
+  return (fullUrl.indexOf(".html") > 0) ? 0 : 62;
 }
 
 function draw(){
