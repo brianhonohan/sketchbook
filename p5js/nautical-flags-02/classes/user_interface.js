@@ -8,6 +8,7 @@ class UserInterface {
     this.scrollSpeed = UserInterface.SCROLL_SPEED_START;
 
     this.marginX = 15;
+    this.marginY = 15;
     this.initDefaultDialog();
     this.initKeyboardInput();
     this.initButtons();
@@ -41,7 +42,7 @@ class UserInterface {
   initButtons(){
     let layoutPos = createVector();
     layoutPos.x = this.x + this.marginX;
-    layoutPos.y = this.y + 5 + vertMargin;
+    layoutPos.y = this.y + this.marginY;
     this.shareButton = createButton("Share");
     this.shareButton.position(layoutPos.x, layoutPos.y);
     this.shareButton.mousePressed(this.handleShareButton);
@@ -209,7 +210,8 @@ class UserInterface {
     if (this.screen == UserInterface.SCREEN_INTRO){
       this.showIntroScreen();
     } else {
-      nfTypeset.textSize(0.1 * height);
+      let textSize = Math.min(width, height) * 0.1; 
+      nfTypeset.textSize(textSize);
       nfTypeset.requestFullRedraw();
     }
   }

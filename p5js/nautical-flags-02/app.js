@@ -20,7 +20,8 @@ function setup() {
 
   keyController.typeset = nfTypeset;
   nfTypeset.setFont(nauticalFlags);
-  nfTypeset.textSize(0.1 * height);
+  let textSize = Math.min(width, height) * 0.1; 
+  nfTypeset.textSize(textSize);
 
   ui.keyHandler = keyController;
 
@@ -37,6 +38,12 @@ function setup() {
 function determineVerticalMargin(){
   let fullUrl = window.location.href;
   return (fullUrl.indexOf(".html") > 0) ? 0 : 62;
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  ui.handleWindowResized();
+  // console.log(`New Window size: ${windowWidth} x ${windowHeight}`);
 }
 
 function draw(){
@@ -87,12 +94,6 @@ function keyReleased(){
 
 function mouseWheel(event){
   ui.handleMouseWheel(event);
-}
-
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
-  ui.handleWindowResized();
-  // console.log(`New Window size: ${windowWidth} x ${windowHeight}`);
 }
 
 function logMessage(message){
