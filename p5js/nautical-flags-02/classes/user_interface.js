@@ -39,49 +39,57 @@ class UserInterface {
   }
 
   initButtons(){
+    this.buttons = [];
+    this.shareButton = createButton("Share");
+    this.shareButton.mousePressed(this.handleShareButton);
+    this.shareButton.hide();
+    this.buttons.push(this.shareButton);
+
+    this.clearButton = createButton("Clear");
+    this.clearButton.mousePressed(this.handleClearButton);
+    this.clearButton.hide();
+    this.buttons.push(this.clearButton);
+
+    this.scrollUpButton = createButton("Up");
+    this.scrollUpButton.mousePressed(this.handleScrollUpButton);
+    this.scrollUpButton.touchStarted(this.handleScrollUpButton);
+    this.scrollUpButton.touchEnded(this.handleScrollEnded);
+    this.scrollUpButton.hide();
+    this.buttons.push(this.scrollUpButton);
+
+    this.scrollDownButton = createButton("Down");
+    this.scrollDownButton.mousePressed(this.handleScrollDownButton);
+    this.scrollDownButton.touchStarted(this.handleScrollDownButton);
+    this.scrollDownButton.touchEnded(this.handleScrollEnded);
+    this.scrollDownButton.hide();
+    this.buttons.push(this.scrollDownButton);
+
+    this.toggleFlagsButton = createButton("Toggle Flags");
+    this.toggleFlagsButton.mousePressed(this.handleToggleFlagsButton);
+    this.toggleFlagsButton.hide();
+    this.buttons.push(this.toggleFlagsButton);
+
+    this.dialogCloseButton = createButton("Close");
+    this.dialogCloseButton.mousePressed(this.handleDialogCloseButton);
+    this.dialogCloseButton.hide();
+    // don't add to main array of buttons, as it is only used in dialogs
+
+    this.layoutButtons();
+    this.disableSelectOnButtons();
+  }
+
+  layoutButtons(){
     this.canvasRect = drawingContext.canvas.getBoundingClientRect();
 
     let layoutPos = createVector();
     layoutPos.x = this.x + this.marginX;
     layoutPos.y = this.canvasRect.top + this.y + this.marginY;
-    this.shareButton = createButton("Share");
-    this.shareButton.position(layoutPos.x, layoutPos.y);
-    this.shareButton.mousePressed(this.handleShareButton);
-    this.shareButton.hide();
 
-    layoutPos.x += this.shareButton.width + this.marginX;
-    this.clearButton = createButton("Clear");
-    this.clearButton.position(layoutPos.x, layoutPos.y);
-    this.clearButton.mousePressed(this.handleClearButton);
-    this.clearButton.hide();
-
-    layoutPos.x += this.clearButton.width + this.marginX;
-    this.scrollUpButton = createButton("Up");
-    this.scrollUpButton.position(layoutPos.x, layoutPos.y);
-    this.scrollUpButton.mousePressed(this.handleScrollUpButton);
-    this.scrollUpButton.touchStarted(this.handleScrollUpButton);
-    this.scrollUpButton.touchEnded(this.handleScrollEnded);
-    this.scrollUpButton.hide();
-
-    layoutPos.x += this.scrollUpButton.width + this.marginX;
-    this.scrollDownButton = createButton("Down");
-    this.scrollDownButton.position(layoutPos.x, layoutPos.y);
-    this.scrollDownButton.mousePressed(this.handleScrollDownButton);
-    this.scrollDownButton.touchStarted(this.handleScrollDownButton);
-    this.scrollDownButton.touchEnded(this.handleScrollEnded);
-    this.scrollDownButton.hide();
-
-    layoutPos.x += this.scrollDownButton.width + this.marginX;
-    this.toggleFlagsButton = createButton("Toggle Flags");
-    this.toggleFlagsButton.position(layoutPos.x, layoutPos.y);
-    this.toggleFlagsButton.mousePressed(this.handleToggleFlagsButton);
-    this.toggleFlagsButton.hide();
-
-    this.dialogCloseButton = createButton("Close");
-    this.dialogCloseButton.mousePressed(this.handleDialogCloseButton);
-    this.dialogCloseButton.hide();
-
-    this.disableSelectOnButtons();
+    for (let i = 0; i < this.buttons.length; i++){
+      let button = this.buttons[i]; 
+      button.position(layoutPos.x, layoutPos.y);
+      layoutPos.x += button.width + this.marginX; 
+    }
   }
 
   disableSelectOnButtons(){
@@ -214,6 +222,7 @@ class UserInterface {
       let textSize = Math.min(width, height) * 0.1; 
       nfTypeset.textSize(textSize);
       nfTypeset.requestFullRedraw();
+      this.layoutButtons();
     }
   }
 
