@@ -35,14 +35,15 @@ class UserInterface {
 
   initKeyboardInput(){
     this.keyboardInput = createInput();
-    console.log('created input');
     this.keyboardInput.position(-500,-500);
   }
 
   initButtons(){
+    this.canvasRect = drawingContext.canvas.getBoundingClientRect();
+
     let layoutPos = createVector();
     layoutPos.x = this.x + this.marginX;
-    layoutPos.y = this.y + this.marginY;
+    layoutPos.y = this.canvasRect.top + this.y + this.marginY;
     this.shareButton = createButton("Share");
     this.shareButton.position(layoutPos.x, layoutPos.y);
     this.shareButton.mousePressed(this.handleShareButton);

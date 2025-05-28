@@ -3,10 +3,9 @@ var keyController;
 var nfTypeset;
 var ui;
 var canvas;
-var vertMargin = determineVerticalMargin();
 
 function setup() {
-  canvas = createCanvas(windowWidth, windowHeight-vertMargin);
+  canvas = createAutosizedCanvas();
   P5JsSettings.init();
 
   disableSelectOnElement(canvas.elt);
@@ -15,7 +14,7 @@ function setup() {
   keyController = new KeyboardController();
   nfTypeset = new NauticalFlagsTypeset();
 
-  let uiRect = new Rect(0, vertMargin, width, 30);
+  let uiRect = new Rect(0, 0, width, 30);
   ui = new UserInterface(uiRect);
 
   keyController.typeset = nfTypeset;
@@ -34,17 +33,22 @@ function setup() {
     ui.showIntroScreen();
   }
 }
-
-function determineVerticalMargin(){
-  let fullUrl = window.location.href;
-  return (fullUrl.indexOf(".html") > 0) ? 0 : 62;
+function createAutosizedCanvas(){
+  canvas = createCanvas();
+  windowResized(undefined, true);
+  return canvas;
 }
 
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
+function windowResized(event, noRedraw = false) {
+  resizeCanvas(innerWidth, 
+              innerHeight - drawingContext.canvas.getBoundingClientRect().top,
+              noRedraw);
+  if (noRedraw) {
+    return;
+  }
   ui.handleWindowResized();
-  // console.log(`New Window size: ${windowWidth} x ${windowHeight}`);
 }
+
 
 function draw(){
   ui.tick();
