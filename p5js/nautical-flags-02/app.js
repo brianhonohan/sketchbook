@@ -3,10 +3,9 @@ var keyController;
 var nfTypeset;
 var ui;
 var canvas;
-var vertMargin = determineVerticalMargin();
 
 function setup() {
-  canvas = createCanvas(windowWidth, windowHeight-vertMargin);
+  canvas = createAutosizedCanvas();
   P5JsSettings.init();
 
   disableSelectOnElement(canvas.elt);
@@ -15,12 +14,13 @@ function setup() {
   keyController = new KeyboardController();
   nfTypeset = new NauticalFlagsTypeset();
 
-  let uiRect = new Rect(0, vertMargin, width, 30);
+  let uiRect = new Rect(0, 0, width, 30);
   ui = new UserInterface(uiRect);
 
   keyController.typeset = nfTypeset;
   nfTypeset.setFont(nauticalFlags);
-  nfTypeset.textSize(0.1 * height);
+  let textSize = Math.min(width, height) * 0.1; 
+  nfTypeset.textSize(textSize);
 
   ui.keyHandler = keyController;
 
@@ -33,11 +33,22 @@ function setup() {
     ui.showIntroScreen();
   }
 }
-
-function determineVerticalMargin(){
-  let fullUrl = window.location.href;
-  return (fullUrl.indexOf(".html") > 0) ? 0 : 37;
+function createAutosizedCanvas(){
+  canvas = createCanvas();
+  windowResized(undefined, true);
+  return canvas;
 }
+
+function windowResized(event, noRedraw = false) {
+  resizeCanvas(innerWidth, 
+              innerHeight - drawingContext.canvas.getBoundingClientRect().top,
+              noRedraw);
+  if (noRedraw) {
+    return;
+  }
+  ui.handleWindowResized();
+}
+
 
 function draw(){
   ui.tick();
@@ -78,7 +89,7 @@ function touchEnded(event){
   if (!(event instanceof TouchEvent)){
     return;
   }
-  ui.handleTouchEnded(event);
+  return !ui.handleTouchEnded(event);
 }
 
 function keyReleased(){
@@ -87,12 +98,6 @@ function keyReleased(){
 
 function mouseWheel(event){
   ui.handleMouseWheel(event);
-}
-
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
-  ui.handleWindowResized();
-  // console.log(`New Window size: ${windowWidth} x ${windowHeight}`);
 }
 
 function logMessage(message){

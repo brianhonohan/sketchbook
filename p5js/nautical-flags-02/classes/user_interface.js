@@ -8,6 +8,7 @@ class UserInterface {
     this.scrollSpeed = UserInterface.SCROLL_SPEED_START;
 
     this.marginX = 15;
+    this.marginY = 15;
     this.initDefaultDialog();
     this.initKeyboardInput();
     this.initButtons();
@@ -34,52 +35,61 @@ class UserInterface {
 
   initKeyboardInput(){
     this.keyboardInput = createInput();
-    console.log('created input');
     this.keyboardInput.position(-500,-500);
   }
 
   initButtons(){
-    let layoutPos = createVector();
-    layoutPos.x = this.x + this.marginX;
-    layoutPos.y = this.y + 5 + vertMargin;
+    this.buttons = [];
     this.shareButton = createButton("Share");
-    this.shareButton.position(layoutPos.x, layoutPos.y);
     this.shareButton.mousePressed(this.handleShareButton);
     this.shareButton.hide();
+    this.buttons.push(this.shareButton);
 
-    layoutPos.x += this.shareButton.width + this.marginX;
     this.clearButton = createButton("Clear");
-    this.clearButton.position(layoutPos.x, layoutPos.y);
     this.clearButton.mousePressed(this.handleClearButton);
     this.clearButton.hide();
+    this.buttons.push(this.clearButton);
 
-    layoutPos.x += this.clearButton.width + this.marginX;
     this.scrollUpButton = createButton("Up");
-    this.scrollUpButton.position(layoutPos.x, layoutPos.y);
     this.scrollUpButton.mousePressed(this.handleScrollUpButton);
     this.scrollUpButton.touchStarted(this.handleScrollUpButton);
     this.scrollUpButton.touchEnded(this.handleScrollEnded);
     this.scrollUpButton.hide();
+    this.buttons.push(this.scrollUpButton);
 
-    layoutPos.x += this.scrollUpButton.width + this.marginX;
     this.scrollDownButton = createButton("Down");
-    this.scrollDownButton.position(layoutPos.x, layoutPos.y);
     this.scrollDownButton.mousePressed(this.handleScrollDownButton);
     this.scrollDownButton.touchStarted(this.handleScrollDownButton);
     this.scrollDownButton.touchEnded(this.handleScrollEnded);
     this.scrollDownButton.hide();
+    this.buttons.push(this.scrollDownButton);
 
-    layoutPos.x += this.scrollDownButton.width + this.marginX;
     this.toggleFlagsButton = createButton("Toggle Flags");
-    this.toggleFlagsButton.position(layoutPos.x, layoutPos.y);
     this.toggleFlagsButton.mousePressed(this.handleToggleFlagsButton);
     this.toggleFlagsButton.hide();
+    this.buttons.push(this.toggleFlagsButton);
 
     this.dialogCloseButton = createButton("Close");
     this.dialogCloseButton.mousePressed(this.handleDialogCloseButton);
     this.dialogCloseButton.hide();
+    // don't add to main array of buttons, as it is only used in dialogs
 
+    this.layoutButtons();
     this.disableSelectOnButtons();
+  }
+
+  layoutButtons(){
+    this.canvasRect = drawingContext.canvas.getBoundingClientRect();
+
+    let layoutPos = createVector();
+    layoutPos.x = this.x + this.marginX;
+    layoutPos.y = this.canvasRect.top + this.y + this.marginY;
+
+    for (let i = 0; i < this.buttons.length; i++){
+      let button = this.buttons[i]; 
+      button.position(layoutPos.x, layoutPos.y);
+      layoutPos.x += button.width + this.marginX; 
+    }
   }
 
   disableSelectOnButtons(){
@@ -183,23 +193,29 @@ class UserInterface {
 
 
 
-  handleTouchEnded(event){
+  handleTouchEnded(event){    
+    if (event.target.nodeName != "CANVAS") {
+      return false;
+    }
+
     if (this.isShowingDialog()){
       // do nothing
-    } else {
-      if (this.touchMovedSinceStart == false){
-        this.screen = UserInterface.SCREEN_INPUT;
-        nfTypeset.requestFullRedraw();
-        this.keyboardInput.elt.focus();
-      }
+      return false
+    }
 
-      if (event.changedTouches) {
-        let activeTouch = event.changedTouches.item(this.activeTouchId);
-        if (activeTouch){
-          this.activeTouchId == undefined;
-        }
+    if (this.touchMovedSinceStart == false){
+      this.screen = UserInterface.SCREEN_INPUT;
+      nfTypeset.requestFullRedraw();
+      this.keyboardInput.elt.focus();
+    }
+
+    if (event.changedTouches) {
+      let activeTouch = event.changedTouches.item(this.activeTouchId);
+      if (activeTouch){
+        this.activeTouchId == undefined;
       }
     }
+    return true;
   }
 
   handleWindowResized(){
@@ -207,14 +223,17 @@ class UserInterface {
     if (this.screen == UserInterface.SCREEN_INTRO){
       this.showIntroScreen();
     } else {
-      nfTypeset.textSize(0.1 * height);
+      let textSize = Math.min(width, height) * 0.1; 
+      nfTypeset.textSize(textSize);
       nfTypeset.requestFullRedraw();
+      this.layoutButtons();
     }
   }
 
   handleShareButton(){
     console.log('share button pressed');
     ui.showDialog(UserInterface.DIALOG_SHARE);
+    return false;
   }
 
   handleScrollUpButton(){
@@ -239,10 +258,12 @@ class UserInterface {
   handleToggleFlagsButton(){
     nfTypeset.toggleFlags();
     nfTypeset.requestFullRedraw();
+    return false;
   }
 
   handleClearButton(){
     nfTypeset.clearPrintBuffer();
+    return false;
   }
 
   handleDialogCloseButton(){

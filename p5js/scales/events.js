@@ -18,6 +18,8 @@ const touchEvents = [
 ]
 const touchEventStatuses = [];
 
+const eventCount = {};
+
 
 function setup() {
   canvas = createCanvas(windowWidth, windowHeight);
@@ -35,8 +37,10 @@ function draw(){
 
 function initEvents(events, eventStatuses){
   events.forEach(eventName => { 
+    eventCount[eventName] = 0;
     window[eventName] = function(eventData) {
       eventStatuses[eventName].status = true;
+      eventCount[eventName] += 1;
     };
     eventStatuses[eventName] = {name: eventName, status: false};
   });
@@ -75,7 +79,8 @@ function renderEventStatuses(eventStatuses, x, y) {
     blockPos = gridPosition(index, numCols, boxWidth, spacing);
     rect(blockPos.x, blockPos.y, boxWidth, boxHeight);
 
-    text(evt.name, blockPos.x + boxWidth + spacing, blockPos.y + boxHeight / 2);
+    text(evt.name, blockPos.x + boxWidth + spacing, blockPos.y + boxHeight / 3);
+    text(eventCount[evt.name], blockPos.x + boxWidth + spacing, blockPos.y + boxHeight / 3 + 20);
     evt.status = false;
     index += 1;
   }
