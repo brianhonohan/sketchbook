@@ -193,7 +193,11 @@ class UserInterface {
 
 
 
-  handleTouchEnded(event){
+  handleTouchEnded(event){    
+    if (event.target.nodeName != "CANVAS") {
+      return false;
+    }
+
     if (this.isShowingDialog()){
       // do nothing
       return false
@@ -229,6 +233,7 @@ class UserInterface {
   handleShareButton(){
     console.log('share button pressed');
     ui.showDialog(UserInterface.DIALOG_SHARE);
+    return false;
   }
 
   handleScrollUpButton(){
@@ -253,10 +258,12 @@ class UserInterface {
   handleToggleFlagsButton(){
     nfTypeset.toggleFlags();
     nfTypeset.requestFullRedraw();
+    return false;
   }
 
   handleClearButton(){
     nfTypeset.clearPrintBuffer();
+    return false;
   }
 
   handleDialogCloseButton(){
