@@ -186,20 +186,22 @@ class UserInterface {
   handleTouchEnded(event){
     if (this.isShowingDialog()){
       // do nothing
-    } else {
-      if (this.touchMovedSinceStart == false){
-        this.screen = UserInterface.SCREEN_INPUT;
-        nfTypeset.requestFullRedraw();
-        this.keyboardInput.elt.focus();
-      }
+      return false
+    }
 
-      if (event.changedTouches) {
-        let activeTouch = event.changedTouches.item(this.activeTouchId);
-        if (activeTouch){
-          this.activeTouchId == undefined;
-        }
+    if (this.touchMovedSinceStart == false){
+      this.screen = UserInterface.SCREEN_INPUT;
+      nfTypeset.requestFullRedraw();
+      this.keyboardInput.elt.focus();
+    }
+
+    if (event.changedTouches) {
+      let activeTouch = event.changedTouches.item(this.activeTouchId);
+      if (activeTouch){
+        this.activeTouchId == undefined;
       }
     }
+    return true;
   }
 
   handleWindowResized(){

@@ -78,7 +78,7 @@ function touchEnded(event){
   if (!(event instanceof TouchEvent)){
     return;
   }
-  ui.handleTouchEnded(event);
+  return !ui.handleTouchEnded(event);
 }
 
 function keyReleased(){
