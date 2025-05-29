@@ -79,6 +79,8 @@ function resetShapes(){
   halfCircleTD.fillColor = color(210, 210, 120);
   halfCircleTD.rotateAboutCenter(Math.PI);
   shapes.push(halfCircleTD);
+
+  attachTouchBehavior();
 }
 
 
@@ -97,8 +99,28 @@ function windowResized(event, noRedraw = false) {
   draw();
 }
 
+function attachTouchBehavior(){
+  shapes.forEach(s => {
+    s.dragEnabled = true;
+    s.handleMousePressed = function() {
+      if (s.containsXY(mouseX, mouseY)) {
+        s.isDragged = true;
+        return true;
+      }
+      return false;
+    };
+    s.handleMouseDragged = function() {
+      if (s.isDragged) {
+        s.move(mouseX - pmouseX, mouseY - pmouseY);
+      }
+    };
+    s.handleMouseReleased = function() {
+      s.isDragged = false;
+    };
+  });
+}
+
 function mousePressed(){
-  console.log(mouseX, mouseY);
   shapes.filter(s => s.dragEnabled == true)
         .find(s => s.handleMousePressed());
 }

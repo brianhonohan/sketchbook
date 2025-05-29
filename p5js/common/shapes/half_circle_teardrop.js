@@ -15,7 +15,7 @@ class HalfCircleTeardrop {
     this.quarterLength = p5.Vector.mult(this.direction, this.radius / 2);
     this.p1 = p5.Vector.add(this.start, this.quarterLength); // center of the void
     this.p2 = p5.Vector.add(this.p1, this.quarterLength);  // center of the teardrop
-    this.p3 = p5.Vector.add(this.end, this.quarterLength); // center of the bulb
+    this.p3 = p5.Vector.add(this.end, this.quarterLength); // the point opposite the start
 
     this.heading = this.direction.heading();
     this.rendered = false;
@@ -43,6 +43,28 @@ class HalfCircleTeardrop {
 
   get x() { return this.end.x; }
   get y() { return this.end.y; }
+
+  containsXY(x, y){
+    // Check if point (x, y) is within the teardrop shape
+    // distance to p2 needs to be less than radius, return false if not
+    if (dist(x, y, this.p2.x, this.p2.y) > this.radius) {
+      return false;
+    }
+
+    // return true if its within radius of p3 (bulb)
+    if (dist(x, y, this.end.x, this.end.y) <= (this.radius / 2 )) {
+      return true;
+    }
+
+    // return false if its within radius of p1 (void)
+    if (dist(x, y, this.p1.x, this.p1.y) <= (this.radius / 2)) {
+      return false;
+    }
+
+    let fromStartToXY = createVector(x - this.start.x, y - this.start.y);
+    let rotationDiff = P5JsUtils.rotationBetweenVectors(this.direction, fromStartToXY);
+    return (rotationDiff < 0);
+  }
 
   move(x, y){
     this.start.add(x, y);
