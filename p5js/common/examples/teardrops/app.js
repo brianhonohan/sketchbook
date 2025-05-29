@@ -1,9 +1,21 @@
 var system;
+let canvas;
 
 function setup() {
-  createCanvas(windowWidth, windowHeight-35);
+  canvas = createAutosizedCanvas();
   P5JsSettings.init();
+  resetShapes();
+}
 
+function draw(){
+  background(50);
+
+  noStroke();
+
+  shapes.forEach(s => s.draw());
+}
+
+function resetShapes_v0(){
   shapes = [];
 
   var halfCircleTD;
@@ -32,16 +44,83 @@ function setup() {
   shapes.push(halfCircleTD);
 }
 
-function draw(){
-  background(50);
 
-  noStroke();
+function resetShapes(){
+  shapes = [];
 
-  shapes.forEach(s => s.draw());
+  let halfWidth = width / 2;
+  let halfHeight = height / 2;
+  let maxDropRadius = Math.min(halfWidth, halfHeight) * 0.8;
+
+  var halfCircleTD;
+  halfCircleTD = HalfCircleTeardrop.createAt(halfWidth, halfHeight, maxDropRadius);
+  halfCircleTD.fillColor = color(180, 50, 50);
+  shapes.push(halfCircleTD);
+
+  halfCircleTD = HalfCircleTeardrop.createAt(halfWidth - 0.5 * maxDropRadius, halfHeight, maxDropRadius / 2);
+  halfCircleTD.fillColor = color(200, 120, 50);
+  shapes.push(halfCircleTD);
+
+  halfCircleTD = HalfCircleTeardrop.createAt(halfWidth - 0.75 * maxDropRadius, halfHeight, maxDropRadius / 4);
+  halfCircleTD.fillColor = color(180, 180, 70);
+  shapes.push(halfCircleTD);
+
+  halfCircleTD = HalfCircleTeardrop.createAt(halfWidth + 0.5 * maxDropRadius, halfHeight, maxDropRadius / 2.5);
+  halfCircleTD.fillColor = color(210, 80, 80);
+  halfCircleTD.rotateAboutCenter(Math.PI);
+  shapes.push(halfCircleTD);
+
+  halfCircleTD = HalfCircleTeardrop.createAt(halfWidth - 0.25 * maxDropRadius, halfHeight, 3 / 16 * maxDropRadius);
+  halfCircleTD.fillColor = color(230, 150, 80);
+  halfCircleTD.rotateAboutCenter(Math.PI);
+  shapes.push(halfCircleTD);
+
+  halfCircleTD = HalfCircleTeardrop.createAt(halfWidth - 0.625 * maxDropRadius, halfHeight, 5 / 64 * maxDropRadius);
+  halfCircleTD.fillColor = color(210, 210, 120);
+  halfCircleTD.rotateAboutCenter(Math.PI);
+  shapes.push(halfCircleTD);
+
+  attachTouchBehavior();
+}
+
+
+function createAutosizedCanvas(){
+  canvas = createCanvas();
+  windowResized(undefined, true);
+  return canvas;
+}
+
+function windowResized(event, noRedraw = false) {
+  resizeCanvas(innerWidth, 
+              innerHeight - drawingContext.canvas.getBoundingClientRect().top,
+              false);
+  if (noRedraw) { return ; }
+  resetShapes();
+  draw();
+}
+
+function attachTouchBehavior(){
+  shapes.forEach(s => {
+    s.dragEnabled = true;
+    s.handleMousePressed = function() {
+      if (s.containsXY(mouseX, mouseY)) {
+        s.isDragged = true;
+        return true;
+      }
+      return false;
+    };
+    s.handleMouseDragged = function() {
+      if (s.isDragged) {
+        s.move(mouseX - pmouseX, mouseY - pmouseY);
+      }
+    };
+    s.handleMouseReleased = function() {
+      s.isDragged = false;
+    };
+  });
 }
 
 function mousePressed(){
-  console.log(mouseX, mouseY);
   shapes.filter(s => s.dragEnabled == true)
         .find(s => s.handleMousePressed());
 }
