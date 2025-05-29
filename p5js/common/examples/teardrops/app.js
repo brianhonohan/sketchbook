@@ -1,9 +1,21 @@
 var system;
+let canvas;
 
 function setup() {
-  createCanvas(windowWidth, windowHeight-35);
+  canvas = createAutosizedCanvas();
   P5JsSettings.init();
+  resetShapes();
+}
 
+function draw(){
+  background(50);
+
+  noStroke();
+
+  shapes.forEach(s => s.draw());
+}
+
+function resetShapes(){
   shapes = [];
 
   var halfCircleTD;
@@ -32,12 +44,19 @@ function setup() {
   shapes.push(halfCircleTD);
 }
 
-function draw(){
-  background(50);
+function createAutosizedCanvas(){
+  canvas = createCanvas();
+  windowResized(undefined, true);
+  return canvas;
+}
 
-  noStroke();
-
-  shapes.forEach(s => s.draw());
+function windowResized(event, noRedraw = false) {
+  resizeCanvas(innerWidth, 
+              innerHeight - drawingContext.canvas.getBoundingClientRect().top,
+              false);
+  if (noRedraw) { return ; }
+  resetShapes();
+  draw();
 }
 
 function mousePressed(){

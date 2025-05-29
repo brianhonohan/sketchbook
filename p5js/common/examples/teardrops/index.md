@@ -8,7 +8,7 @@ viewport_noscale: true
 excerpt: Demonstrates the display and interaction of teardrop shapes.
 
 js_scripts:
-- https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.3.1/p5.js
+- https://cdn.jsdelivr.net/npm/p5@1.11.2/lib/p5.min.js
 - /sketchbook/p5js/common/p5js_settings.js
 - /sketchbook/p5js/common/p5js_utils.js
 - /sketchbook/js/util_functions.js
