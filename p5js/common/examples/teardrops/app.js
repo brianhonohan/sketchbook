@@ -15,7 +15,7 @@ function draw(){
   shapes.forEach(s => s.draw());
 }
 
-function resetShapes(){
+function resetShapes_v0(){
   shapes = [];
 
   var halfCircleTD;
@@ -43,6 +43,44 @@ function resetShapes(){
   halfCircleTD.fillColor = color(210, 210, 120);
   shapes.push(halfCircleTD);
 }
+
+
+function resetShapes(){
+  shapes = [];
+
+  let halfWidth = width / 2;
+  let halfHeight = height / 2;
+  let maxDropRadius = Math.min(halfWidth, halfHeight) * 0.8;
+
+  var halfCircleTD;
+  halfCircleTD = HalfCircleTeardrop.createAt(halfWidth, halfHeight, maxDropRadius);
+  halfCircleTD.fillColor = color(180, 50, 50);
+  shapes.push(halfCircleTD);
+
+  halfCircleTD = HalfCircleTeardrop.createAt(halfWidth - 0.5 * maxDropRadius, halfHeight, maxDropRadius / 2);
+  halfCircleTD.fillColor = color(200, 120, 50);
+  shapes.push(halfCircleTD);
+
+  halfCircleTD = HalfCircleTeardrop.createAt(halfWidth - 0.75 * maxDropRadius, halfHeight, maxDropRadius / 4);
+  halfCircleTD.fillColor = color(180, 180, 70);
+  shapes.push(halfCircleTD);
+
+  halfCircleTD = HalfCircleTeardrop.createAt(halfWidth + 0.5 * maxDropRadius, halfHeight, maxDropRadius / 2.5);
+  halfCircleTD.fillColor = color(210, 80, 80);
+  halfCircleTD.rotateAboutCenter(Math.PI);
+  shapes.push(halfCircleTD);
+
+  halfCircleTD = HalfCircleTeardrop.createAt(halfWidth - 0.25 * maxDropRadius, halfHeight, 3 / 16 * maxDropRadius);
+  halfCircleTD.fillColor = color(230, 150, 80);
+  halfCircleTD.rotateAboutCenter(Math.PI);
+  shapes.push(halfCircleTD);
+
+  halfCircleTD = HalfCircleTeardrop.createAt(halfWidth - 0.625 * maxDropRadius, halfHeight, 5 / 64 * maxDropRadius);
+  halfCircleTD.fillColor = color(210, 210, 120);
+  halfCircleTD.rotateAboutCenter(Math.PI);
+  shapes.push(halfCircleTD);
+}
+
 
 function createAutosizedCanvas(){
   canvas = createCanvas();

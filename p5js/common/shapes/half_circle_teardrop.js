@@ -13,12 +13,32 @@ class HalfCircleTeardrop {
     this.diameter = this.radius * 2;
 
     this.quarterLength = p5.Vector.mult(this.direction, this.radius / 2);
-    this.p1 = p5.Vector.add(this.start, this.quarterLength);
-    this.p2 = p5.Vector.add(this.p1, this.quarterLength);
-    this.p3 = p5.Vector.add(this.end, this.quarterLength);
+    this.p1 = p5.Vector.add(this.start, this.quarterLength); // center of the void
+    this.p2 = p5.Vector.add(this.p1, this.quarterLength);  // center of the teardrop
+    this.p3 = p5.Vector.add(this.end, this.quarterLength); // center of the bulb
 
     this.heading = this.direction.heading();
     this.rendered = false;
+  }
+
+  static createAt(centerX, centerY, radius){
+    let startX = centerX - radius;
+    let startY = centerY;
+    let endX = centerX + radius/2;
+    let endY = centerY;
+    return new HalfCircleTeardrop(startX, startY, endX, endY);
+  }
+
+  static util_rotateVectorAround(v, center, angle) {
+    let offset = p5.Vector.sub(v, center);
+    offset.rotate(angle);
+    return p5.Vector.add(center, offset);
+  }
+
+  rotateAboutCenter(angle){
+    this.start = HalfCircleTeardrop.util_rotateVectorAround(this.start, this.p2, angle);
+    this.end = HalfCircleTeardrop.util_rotateVectorAround(this.end, this.p2, angle);
+    this._calcDimensions();
   }
 
   get x() { return this.end.x; }
