@@ -111,7 +111,8 @@ function attachTouchBehavior(){
     };
     s.handleMouseDragged = function() {
       if (s.isDragged) {
-        s.move(mouseX - pmouseX, mouseY - pmouseY);
+        // HACK - unclear why /2 is needed, but it makes the dragging feel more natural
+        s.move( (mouseX - pmouseX)/2, (mouseY - pmouseY)/2);
       }
     };
     s.handleMouseReleased = function() {
@@ -121,8 +122,13 @@ function attachTouchBehavior(){
 }
 
 function mousePressed(){
-  shapes.filter(s => s.dragEnabled == true)
-        .find(s => s.handleMousePressed());
+  // check shapes in reverse order so that the last shape is on top
+  // and gets the first chance to handle the mouse press
+  for (let i = shapes.length - 1; i >= 0; i--) {
+    if (shapes[i].dragEnabled && shapes[i].handleMousePressed()) {
+      return;
+    }
+  }
 }
 
 function mouseDragged(){
