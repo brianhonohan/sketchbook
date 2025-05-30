@@ -111,7 +111,8 @@ function attachTouchBehavior(){
     };
     s.handleMouseDragged = function() {
       if (s.isDragged) {
-        s.move(mouseX - pmouseX, mouseY - pmouseY);
+        // HACK - unclear why /2 is needed, but it makes the dragging feel more natural
+        s.move( (mouseX - pmouseX)/2, (mouseY - pmouseY)/2);
       }
     };
     s.handleMouseReleased = function() {
