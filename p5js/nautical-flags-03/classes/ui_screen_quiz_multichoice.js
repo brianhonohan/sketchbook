@@ -68,6 +68,20 @@ class UiScreenQuizMultichoice extends UiScreenBase {
     this.needsRedraw = true;
   }
 
+  handleTouchStarted(){
+    if (touches.length > 0) {
+      return;
+    }
+    return this.handleMousePressed();
+  }
+
+  handleTouchEnded(){
+    if (touches.length > 0) {
+      return;
+    }
+    return this.handleMouseReleased();
+  }
+
   tick(){
   }
 

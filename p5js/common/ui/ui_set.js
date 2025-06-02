@@ -30,9 +30,9 @@ class UISet {
     return this.uiElements[idx];
   }
 
-  handleMousePressed(){
-    let relativeX = mouseX - this.x;
-    let relativeY = mouseY - this.y;
+  handleMousePressed(x, y){
+    let relativeX = (x || mouseX) - this.x;
+    let relativeY = (y || mouseY) - this.y;
     let pressedButton = this.uiElements.find(el => el.pressIfHit(relativeX, relativeY));
     if (pressedButton){
       return pressedButton;
@@ -40,9 +40,9 @@ class UISet {
     return false;
   }
 
-  handleMouseReleased(){
-    let relativeX = mouseX - this.x;
-    let relativeY = mouseY - this.y;
+  handleMouseReleased(x, y){
+    let relativeX = (x || mouseX) - this.x;
+    let relativeY = (y || mouseY) - this.y;
     this.uiElements.forEach((el) => el.releaseButton(relativeX, relativeY));
   }
 
