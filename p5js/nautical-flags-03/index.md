@@ -5,7 +5,7 @@ categories: p5js
 date: 2025-05-31
 modal: true
 viewport_noscale: true
-prev_sketch: /sketchbook/p5js/nautical-flags/
+prev_sketch: /sketchbook/p5js/nautical-flags-02/
 excerpt: Sketch that allows study the Nautical Flags via a flash-card interface.
 
 js_scripts:
