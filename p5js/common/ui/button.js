@@ -9,12 +9,21 @@ class Button{
 
     this.margin = 5;
     this._color = color(120);
+    this.fontSize = 16;
+
+    this.textAlignHorizMode = CENTER;
+    this.textAlignVertMode = CENTER;
   }
 
   get x() { return this.sizeAndPos.x; }
   get y() { return this.sizeAndPos.y; }
   get width() { return this.sizeAndPos.width; }
   get height() { return this.sizeAndPos.height; }
+
+  set x(value) { this.sizeAndPos.x = value; }
+  set y(value) { this.sizeAndPos.y = value; }
+  set width(value) { this.sizeAndPos.width = value; }
+  set height(value) { this.sizeAndPos.height = value; }
   
   static get STATE_PRESSED() { return 0; }
   static get STATE_UNPRESSED() { return 1; }
@@ -44,14 +53,35 @@ class Button{
     fill(this.backgroundColor());
     rect(0,0, this.width, this.height, 5);
     fill(this.labelColor());
-    textSize(16);
-    text(this.label, this.margin, this.margin + 12);
+    textSize(this.fontSize);
+
+    let textX;
+    if (this.textAlignHorizMode == CENTER) {
+      textX = this.width / 2;
+    } else if (this.textAlignHorizMode == RIGHT) {
+      textX = this.width - this.margin;
+    } else {
+      // ALIGN LEFT
+      textX = this.margin;
+    }
+    let textY;
+    if (this.textAlignVertMode == CENTER) {
+      textY = this.height / 2;
+    } else if (this.textAlignVertMode == TOP) {
+      textY = this.margin;
+    } else {
+      // ALIGN BOTTOM or BASELINE
+      textY = this.height - this.margin;
+    }
+
+    textAlign(this.textAlignHorizMode, this.textAlignVertMode);
+    text(this.label, textX, textY);
     pop();
   }
   
   releaseButton(x, y){
     if (this.isHit(x, y) && this.callback && this.callbackObj){
-      this.callback.call(this.callbackObj);
+      this.callback.call(this.callbackObj, {button: this});
     }
 
     this.state = Button.STATE_UNPRESSED;
