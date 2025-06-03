@@ -20,6 +20,10 @@ class UiScreenQuizMultichoice extends UiScreenBase {
                                 200,
                                 this.handleOptionPressed, this);
       this.buttonSet.add(button);
+      button.setStyle(Button.STATE_PRESSED, {
+        backgroundColor: color(200, 150, 100),
+        labelColor: color(255)
+      });
     }
   }
 
