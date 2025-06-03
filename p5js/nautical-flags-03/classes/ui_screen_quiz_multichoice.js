@@ -116,7 +116,11 @@ class UiScreenQuizMultichoice extends UiScreenBase {
   }
 
   pickNextFlag(){
-    this.flagShown = this.randomCharacter(); // For demonstration, using a random character
+    let newFlag = this.randomCharacter();
+    while (newFlag === this.flagShown) {
+      newFlag = this.randomCharacter();
+    }
+    this.flagShown = newFlag;
     this.guessCount = 0;
 
     // pick 3 other random characters
