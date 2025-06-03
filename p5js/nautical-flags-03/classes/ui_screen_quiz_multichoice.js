@@ -8,8 +8,18 @@ class UiScreenQuizMultichoice extends UiScreenBase {
     this.needsRedraw = true;
 
     this.initButtons();
+
+    this.blockIndex = 0;
+    this.blockSize = 10;
+    this.flagsToShow = [];
+
+    // this.sequenceStrategy = UiScreenQuizMultichoice.SEQ_STRAT_RANDOM_ONE_BY_ONE;
+    this.sequenceStrategy = UiScreenQuizMultichoice.SEQ_STRAT_RANDOM_BLOCKS;
   }
 
+  static get SEQ_STRAT_RANDOM_ONE_BY_ONE() { return 0; }
+  static get SEQ_STRAT_RANDOM_BLOCKS() { return 1; }
+  
   initButtons(){
     this.buttonSet = new UISet();
     const numOptions = 4; // Number of options for the quiz
@@ -126,11 +136,17 @@ class UiScreenQuizMultichoice extends UiScreenBase {
   }
 
   pickNextFlag(){
-    let newFlag = this.randomCharacter();
-    while (newFlag === this.flagShown) {
-      newFlag = this.randomCharacter();
+    switch (this.sequenceStrategy) {
+      case UiScreenQuizMultichoice.SEQ_STRAT_RANDOM_ONE_BY_ONE:
+        this.flagShown = this.pickRandomFlag();
+        break;
+      case UiScreenQuizMultichoice.SEQ_STRAT_RANDOM_BLOCKS:
+        this.flagShown = this.nextFromRandomBlock();
+        break;
+      default:
+        console.error('Unknown sequence strategy:', this.sequenceStrategy);
     }
-    this.flagShown = newFlag;
+
     this.guessCount = 0;
 
     // pick 3 other random characters
@@ -152,6 +168,34 @@ class UiScreenQuizMultichoice extends UiScreenBase {
       button.enable();
     }
   }
+
+  pickRandomFlag() {
+    let newFlag = this.randomCharacter();
+    while (newFlag === this.flagShown) {
+      newFlag = this.randomCharacter();
+    }
+    return newFlag;
+  }
+
+  nextFromRandomBlock(){
+    if (this.blockIndex < (this.flagsToShow.length - 1)) {
+      return this.flagsToShow[this.blockIndex++];
+    }
+
+    const nextFlagsToShow = [];
+    // IDEA: Select N flags at a time
+    // CHECK that they are not in the previously shown set of Flags
+    while (nextFlagsToShow.length < this.blockSize) {
+      const newFlag = this.randomCharacter();
+      if (!this.flagsToShow.includes(newFlag) && !nextFlagsToShow.includes(newFlag)) {
+        nextFlagsToShow.push(newFlag);
+      }
+    }
+    this.flagsToShow = nextFlagsToShow;
+    this.blockIndex = 0;
+    return this.flagsToShow[this.blockIndex++];
+  }
+  
 
   renderFlag(){
     push();
