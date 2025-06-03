@@ -8,8 +8,18 @@ class UiScreenQuizMultichoice extends UiScreenBase {
     this.needsRedraw = true;
 
     this.initButtons();
+
+    this.blockIndex = 0;
+    this.blockSize = 10;
+    this.flagsToShow = [];
+
+    // this.sequenceStrategy = UiScreenQuizMultichoice.SEQ_STRAT_RANDOM_ONE_BY_ONE;
+    this.sequenceStrategy = UiScreenQuizMultichoice.SEQ_STRAT_RANDOM_BLOCKS;
   }
 
+  static get SEQ_STRAT_RANDOM_ONE_BY_ONE() { return 0; }
+  static get SEQ_STRAT_RANDOM_BLOCKS() { return 1; }
+  
   initButtons(){
     this.buttonSet = new UISet();
     const numOptions = 4; // Number of options for the quiz
@@ -20,6 +30,10 @@ class UiScreenQuizMultichoice extends UiScreenBase {
                                 200,
                                 this.handleOptionPressed, this);
       this.buttonSet.add(button);
+      button.setStyle(Button.STATE_PRESSED, {
+        backgroundColor: color(200, 150, 100),
+        labelColor: color(255)
+      });
     }
   }
 
@@ -45,11 +59,17 @@ class UiScreenQuizMultichoice extends UiScreenBase {
       console.log(`Correct! You guessed the flag: ${this.flagShown}`);
       this.pickNextFlag();
       this.needsRedraw = true;
-      return;
+      return true;
+    }
+
+    let button = this.buttonSet.uiElements.find(b => b.flagCode === guess);
+    if (button) {
+      button.disable();
+      this.needsRedraw = true;
     }
 
     this.guessCount++;
-    if (this.guessCount >= 3) {
+    if (this.guessCount >= 4) {
       console.log(`Maximum guesses reached. The correct flag was: ${this.flagShown}`);
       this.pickNextFlag();
       this.needsRedraw = true;
@@ -116,14 +136,25 @@ class UiScreenQuizMultichoice extends UiScreenBase {
   }
 
   pickNextFlag(){
-    this.flagShown = this.randomCharacter(); // For demonstration, using a random character
+    let prevFlag = this.flagShown;
+    switch (this.sequenceStrategy) {
+      case UiScreenQuizMultichoice.SEQ_STRAT_RANDOM_ONE_BY_ONE:
+        this.flagShown = this.pickRandomFlag();
+        break;
+      case UiScreenQuizMultichoice.SEQ_STRAT_RANDOM_BLOCKS:
+        this.flagShown = this.nextFromRandomBlock();
+        break;
+      default:
+        console.error('Unknown sequence strategy:', this.sequenceStrategy);
+    }
+
     this.guessCount = 0;
 
     // pick 3 other random characters
     this.options = [this.flagShown];
     while (this.options.length < 4) {
       const char = this.randomCharacter();
-      if (!this.options.includes(char)) {
+      if (!this.options.includes(char) && char !== prevFlag) {
         this.options.push(char);
       }
     }
@@ -135,8 +166,37 @@ class UiScreenQuizMultichoice extends UiScreenBase {
       const button = this.buttonSet.uiElements[i];
       button.label = NauticalFlags.FLAG_CODE[this.options[i]];
       button.flagCode = this.options[i];
+      button.enable();
     }
   }
+
+  pickRandomFlag() {
+    let newFlag = this.randomCharacter();
+    while (newFlag === this.flagShown) {
+      newFlag = this.randomCharacter();
+    }
+    return newFlag;
+  }
+
+  nextFromRandomBlock(){
+    if (this.blockIndex < (this.flagsToShow.length - 1)) {
+      return this.flagsToShow[this.blockIndex++];
+    }
+
+    const nextFlagsToShow = [];
+    // IDEA: Select N flags at a time
+    // CHECK that they are not in the previously shown set of Flags
+    while (nextFlagsToShow.length < this.blockSize) {
+      const newFlag = this.randomCharacter();
+      if (!this.flagsToShow.includes(newFlag) && !nextFlagsToShow.includes(newFlag)) {
+        nextFlagsToShow.push(newFlag);
+      }
+    }
+    this.flagsToShow = nextFlagsToShow;
+    this.blockIndex = 0;
+    return this.flagsToShow[this.blockIndex++];
+  }
+  
 
   renderFlag(){
     push();
@@ -155,7 +215,7 @@ class UiScreenQuizMultichoice extends UiScreenBase {
       background(50);
       this.renderFlag();
       this.buttonSet.render();
+      this.needsRedraw = false;
     }
-    this.needsRedraw = false;
   }
 }
