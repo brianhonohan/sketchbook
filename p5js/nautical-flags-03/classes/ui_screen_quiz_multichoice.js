@@ -55,7 +55,7 @@ class UiScreenQuizMultichoice extends UiScreenBase {
     }
 
     this.guessCount++;
-    if (this.guessCount >= 3) {
+    if (this.guessCount >= 4) {
       console.log(`Maximum guesses reached. The correct flag was: ${this.flagShown}`);
       this.pickNextFlag();
       this.needsRedraw = true;
