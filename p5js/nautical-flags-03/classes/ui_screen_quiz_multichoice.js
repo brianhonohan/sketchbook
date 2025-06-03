@@ -45,7 +45,13 @@ class UiScreenQuizMultichoice extends UiScreenBase {
       console.log(`Correct! You guessed the flag: ${this.flagShown}`);
       this.pickNextFlag();
       this.needsRedraw = true;
-      return;
+      return true;
+    }
+
+    let button = this.buttonSet.uiElements.find(b => b.flagCode === guess);
+    if (button) {
+      button.disable();
+      this.needsRedraw = true;
     }
 
     this.guessCount++;
@@ -139,6 +145,7 @@ class UiScreenQuizMultichoice extends UiScreenBase {
       const button = this.buttonSet.uiElements[i];
       button.label = NauticalFlags.FLAG_CODE[this.options[i]];
       button.flagCode = this.options[i];
+      button.enable();
     }
   }
 
@@ -159,7 +166,7 @@ class UiScreenQuizMultichoice extends UiScreenBase {
       background(50);
       this.renderFlag();
       this.buttonSet.render();
+      this.needsRedraw = false;
     }
-    this.needsRedraw = false;
   }
 }
