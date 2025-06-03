@@ -136,6 +136,7 @@ class UiScreenQuizMultichoice extends UiScreenBase {
   }
 
   pickNextFlag(){
+    let prevFlag = this.flagShown;
     switch (this.sequenceStrategy) {
       case UiScreenQuizMultichoice.SEQ_STRAT_RANDOM_ONE_BY_ONE:
         this.flagShown = this.pickRandomFlag();
@@ -153,7 +154,7 @@ class UiScreenQuizMultichoice extends UiScreenBase {
     this.options = [this.flagShown];
     while (this.options.length < 4) {
       const char = this.randomCharacter();
-      if (!this.options.includes(char)) {
+      if (!this.options.includes(char) && char !== prevFlag) {
         this.options.push(char);
       }
     }
