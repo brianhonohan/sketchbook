@@ -196,7 +196,6 @@ class UiScreenQuizMultichoice extends UiScreenBase {
     this.blockIndex = 0;
     return this.flagsToShow[this.blockIndex++];
   }
-  
 
   renderFlag(){
     push();
