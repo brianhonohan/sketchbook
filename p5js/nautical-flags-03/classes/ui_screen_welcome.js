@@ -14,12 +14,12 @@ class UiScreenWelcome extends UiScreenBase {
     console.log('Welcome Screen activated');
   }
 
-  handleMousePressed(){
-    this.parentUI.activateScreen(UserInterface.SCREEN_QUIZ_MULTICHOICE);
+  handleMouseReleased(){
+    this.parentUI.activateScreen(UserInterface.SCREEN_FLASH_CARDS);
   }
   
   handleTouchEnded(){
-    this.parentUI.activateScreen(UserInterface.SCREEN_QUIZ_MULTICHOICE);
+    this.parentUI.activateScreen(UserInterface.SCREEN_FLASH_CARDS);
   }
 
   tick(){

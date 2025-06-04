@@ -13,6 +13,7 @@ class UserInterface {
     this.screens = [];
     this.screens[UserInterface.SCREEN_WELCOME] = new UiScreenWelcome(this);
     this.screens[UserInterface.SCREEN_QUIZ_MULTICHOICE] = new UiScreenQuizMultichoice(this);
+    this.screens[UserInterface.SCREEN_FLASH_CARDS] = new UiScreenFlashCards(this);
 
     this.activateScreen(UserInterface.SCREEN_WELCOME);
   }
@@ -24,6 +25,7 @@ class UserInterface {
 
   static get SCREEN_WELCOME() { return 0; }
   static get SCREEN_QUIZ_MULTICHOICE() { return 1; }
+  static get SCREEN_FLASH_CARDS() { return 2; }
 
   static get DIALOG_NONE() { return 0; }
 
@@ -34,6 +36,7 @@ class UserInterface {
 
   initButtons(){
     this.buttons = [];
+
     // this.shareButton = createButton("Quiz");
     // this.shareButton.mousePressed(this.handleShareButton);
     // this.shareButton.hide();

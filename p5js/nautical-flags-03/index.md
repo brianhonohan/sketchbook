@@ -22,6 +22,7 @@ js_scripts:
 - classes/nautical_flags_typeset.js
 - classes/nautical_flags.js
 - classes/ui_screen_base.js
+- classes/ui_screen_flash_cards.js
 - classes/ui_screen_quiz_multichoice.js
 - classes/ui_screen_welcome.js
 - classes/user_interface.js
