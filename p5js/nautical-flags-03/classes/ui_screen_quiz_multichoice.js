@@ -111,7 +111,7 @@ class UiScreenQuizMultichoice extends UiScreenBase {
   }
 
   recomputeSizes(){
-    this.flagWidth = Math.min(width, height) * 0.6;
+    this.flagWidth = Math.min(width, height) * 0.5;
     this.nauticalFlags = new NauticalFlags(this.flagWidth);
     this.marginX = (width - this.flagWidth) / 2;
     this.marginY = 100;
@@ -122,7 +122,7 @@ class UiScreenQuizMultichoice extends UiScreenBase {
   layoutButtons() {
     const buttonMarginX = Math.max(10, width * 0.1);
     
-    const buttonStartY = this.marginY * 3 + this.flagWidth;
+    const buttonStartY = this.marginY * 2 + this.flagWidth;
     let numCols = 2;
     const buttonWidth = (width - 3 * buttonMarginX) / numCols;
     const buttonHeight = 60;
