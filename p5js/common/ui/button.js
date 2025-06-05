@@ -111,11 +111,20 @@ class Button{
     text(this.label, textX, textY);
     pop();
   }
-  
-  releaseButton(x, y){
+
+  handleRelease(x, y){
+    if (this.state == Button.STATE_DISABLED){
+      return false;
+    }
+
     if (this.isHit(x, y) && this.callback && this.callbackObj){
       this.callback.call(this.callbackObj, {button: this});
+      return true;
     }
+    return false;
+  }
+  
+  releaseButton(x, y){
     if (this.state == Button.STATE_DISABLED){
       return;
     }

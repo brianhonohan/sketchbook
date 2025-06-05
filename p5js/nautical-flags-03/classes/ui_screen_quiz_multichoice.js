@@ -2,7 +2,7 @@ class UiScreenQuizMultichoice extends UiScreenBase {
   constructor(parentUI) {
     super(parentUI);
     this.name = 'quiz-multichoice';
-    this.title = 'Quiz - Multiple Choice';
+    this.title = 'Multiple Choice';
     this.description = 'Answer the questions by selecting the correct name from multiple choices.';
     this.isActive = false;
     this.needsRedraw = true;
@@ -111,27 +111,29 @@ class UiScreenQuizMultichoice extends UiScreenBase {
   }
 
   recomputeSizes(){
-    this.flagWidth = Math.min(width, height) * 0.4;
+    this.flagWidth = Math.min(width, height) * 0.6;
     this.nauticalFlags = new NauticalFlags(this.flagWidth);
     this.marginX = (width - this.flagWidth) / 2;
-    this.marginY = Math.max(40, height * 0.05);
+    this.marginY = 100;
 
     this.layoutButtons();
   }
 
   layoutButtons() {
     const buttonMarginX = Math.max(10, width * 0.1);
+    
     const buttonStartY = this.marginY * 3 + this.flagWidth;
     let numCols = 2;
     const buttonWidth = (width - 3 * buttonMarginX) / numCols;
-    const buttonHeight = 40;
+    const buttonHeight = 60;
+    const buttonMarginY = 0.7 * buttonHeight;
 
     for (let i = 0; i < this.buttonSet.uiElements.length; i++) {
       const button = this.buttonSet.uiElements[i];
       button.width = buttonWidth;
       button.height = buttonHeight;
       button.x = buttonMarginX + i % numCols * (buttonWidth + buttonMarginX);
-      button.y = buttonStartY + Math.floor(i / numCols) * (button.height + this.marginY);
+      button.y = buttonStartY + Math.floor(i / numCols) * (button.height + buttonMarginY);
     }
   }
 
@@ -215,6 +217,7 @@ class UiScreenQuizMultichoice extends UiScreenBase {
       this.renderFlag();
       this.buttonSet.render();
       this.needsRedraw = false;
+      return true;
     }
   }
 }

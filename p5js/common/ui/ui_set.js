@@ -43,7 +43,13 @@ class UISet {
   handleMouseReleased(x, y){
     let relativeX = (x || mouseX) - this.x;
     let relativeY = (y || mouseY) - this.y;
+    
+    let releasedButton = this.uiElements.find(el => el.handleRelease(relativeX, relativeY));
     this.uiElements.forEach((el) => el.releaseButton(relativeX, relativeY));
+    if (releasedButton){
+      return releasedButton;
+    }
+    return false;
   }
 
   draw(){
