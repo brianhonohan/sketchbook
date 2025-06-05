@@ -1,7 +1,7 @@
 class UiScreenFlashCards extends UiScreenBase {
   constructor(parentUI) {
     super(parentUI);
-    this.name = 'Flash Cards';
+    this.title = 'Flash Cards';
     this.description = 'Allows you to learn the flags via Flash Cards';
 
     
@@ -41,7 +41,7 @@ class UiScreenFlashCards extends UiScreenBase {
     this.nauticalFlags.size = this.flagWidth;
 
     this.marginX = (width - this.flagWidth) / 2;
-    this.marginY = Math.max(40, height * 0.1);
+    this.marginY = 100;
 
     this.fontSize = lerp(24, 48, this.flagWidth / 200);
   }
@@ -91,7 +91,7 @@ class UiScreenFlashCards extends UiScreenBase {
 
   render(){
     if (this.needsRedraw === false) {
-      return;
+      return false;
     }
 
     background(50);
@@ -101,5 +101,6 @@ class UiScreenFlashCards extends UiScreenBase {
       this.renderFlagAndName();
     }
     this.needsRedraw = false;
+    return true;
   }
 }

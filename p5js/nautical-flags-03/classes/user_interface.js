@@ -7,7 +7,6 @@ class UserInterface {
     this.marginX = 15;
     this.marginY = 15;
     this.initKeyboardInput();
-    this.initButtons();
     this.initTouchTracking();
 
     this.screens = [];
@@ -15,6 +14,7 @@ class UserInterface {
     this.screens[UserInterface.SCREEN_QUIZ_MULTICHOICE] = new UiScreenQuizMultichoice(this);
     this.screens[UserInterface.SCREEN_FLASH_CARDS] = new UiScreenFlashCards(this);
 
+    this.initButtons();
     this.activateScreen(UserInterface.SCREEN_WELCOME);
   }
 
@@ -27,6 +27,9 @@ class UserInterface {
   static get SCREEN_QUIZ_MULTICHOICE() { return 1; }
   static get SCREEN_FLASH_CARDS() { return 2; }
 
+  static get BUTTON_QUIZ_MULTICHOICE() { return 0; }
+  static get BUTTON_FLASH_CARDS() { return 1; }
+
   static get DIALOG_NONE() { return 0; }
 
   initKeyboardInput(){
@@ -35,62 +38,55 @@ class UserInterface {
   }
 
   initButtons(){
-    this.buttons = [];
+    this.interactiveScreens = [
+      UserInterface.SCREEN_FLASH_CARDS,
+      UserInterface.SCREEN_QUIZ_MULTICHOICE
+    ];
 
-    // this.shareButton = createButton("Quiz");
-    // this.shareButton.mousePressed(this.handleShareButton);
-    // this.shareButton.hide();
-    // this.buttons.push(this.shareButton);
+    this.screenSelectors = new UISet();
 
-    // this.clearButton = createButton("Clear");
-    // this.clearButton.mousePressed(this.handleClearButton);
-    // this.clearButton.hide();
-    // this.buttons.push(this.clearButton);
-
-    // this.toggleFlagsButton = createButton("Toggle Flags");
-    // this.toggleFlagsButton.mousePressed(this.handleToggleFlagsButton);
-    // this.toggleFlagsButton.hide();
-    // this.buttons.push(this.toggleFlagsButton);
-
-    // this.dialogCloseButton = createButton("Close");
-    // this.dialogCloseButton.mousePressed(this.handleDialogCloseButton);
-    // this.dialogCloseButton.hide();
-    // don't add to main array of buttons, as it is only used in dialogs
-
+    for (let i = 0; i < this.interactiveScreens.length; i++){
+      let screenId = this.interactiveScreens[i];
+      let button = new Button(screenId,
+        this.screens[screenId].title, 
+        0, 0, 200,
+        this.handleScreenButton, this);
+      button.screenId = screenId;
+      this.screenSelectors.add(button);
+    }
     this.layoutButtons();
-    this.disableSelectOnButtons();
   }
 
-  layoutButtons(){
-    this.canvasRect = drawingContext.canvas.getBoundingClientRect();
-
-    let layoutPos = createVector();
-    layoutPos.x = this.x + this.marginX;
-    layoutPos.y = this.canvasRect.top + this.y + this.marginY;
-
-    for (let i = 0; i < this.buttons.length; i++){
-      let button = this.buttons[i]; 
-      button.position(layoutPos.x, layoutPos.y);
-      layoutPos.x += button.width + this.marginX; 
+  handleScreenButton(event){
+    if (event.button.screenId !== this.screenId){
+      this.activateScreen(event.button.screenId);
     }
   }
 
-  disableSelectOnButtons(){
-    for (let i = 0; i < this.buttons.length; i++){
-      let button = this.buttons[i];
-      disableSelectOnElement(button.elt);
+  recomputeSizes(){
+    this.marginX = 15;
+    this.marginY = 15;
+  }
+
+  layoutButtons(){
+    let numButtons = this.screenSelectors.uiElements.length;
+    
+    const buttonMarginX = Math.max(10, width * 0.1);
+    const buttonWidth = (width - (2 + numButtons - 1) * buttonMarginX) / numButtons;
+    const buttonHeight = 40;
+
+    for (let i = 0; i < numButtons; i++) {
+      const button = this.screenSelectors.uiElements[i];
+      button.width = buttonWidth;
+      button.height = buttonHeight;
+      button.x = buttonMarginX + i * (buttonWidth + buttonMarginX);
+      button.y = this.marginY;
     }
   }
 
   initTouchTracking(){
     this.activeTouchPos = createVector(0, 0);
     this.activeTouchId = undefined;
-  }
-
-  showMainButtons(){
-    // this.shareButton.show();
-    // this.clearButton.show();
-    // this.toggleFlagsButton.show();
   }
 
   activateScreen(screenId){
@@ -105,6 +101,8 @@ class UserInterface {
   }
   
   handleWindowResized() {
+    this.recomputeSizes();
+    this.layoutButtons();
     this.screen.handleWindowResized();
   }
 
@@ -115,25 +113,37 @@ class UserInterface {
     this.screen.handleMouseClicked();
   }
   handleMousePressed() {
+    if (this.screenSelectors.handleMousePressed()) {
+      return true;
+    }
     this.screen.handleMousePressed();
   }
   handleMouseMoved() {
     this.screen.handleMouseMoved();
   }
   handleMouseReleased() {
+    if (this.screenSelectors.handleMouseReleased()) {
+      return true;
+    }
     this.screen.handleMouseReleased();
   }
   handleMouseDragged() {
     this.screen.handleMouseDragged();
   }
   handleTouchStarted() {
-    this.screen.handleTouchStarted();
+    if (touches.length > 0) {
+      return;
+    }
+    return this.handleMousePressed();
   }
   handleTouchMoved() {
     this.screen.handleTouchMoved();
   }
   handleTouchEnded() {
-    this.screen.handleTouchEnded();
+    if (touches.length > 0) {
+      return;
+    }
+    return this.handleMouseReleased();
   }
   handleKeyPressed() {
     this.screen.handleKeyPressed();
@@ -153,6 +163,8 @@ class UserInterface {
   }
 
   render(){
-    this.screen.render();
+    if (this.screen.render()){
+      this.screenSelectors.render();
+    }
   }
 }
