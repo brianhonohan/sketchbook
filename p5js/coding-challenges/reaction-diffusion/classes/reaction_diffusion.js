@@ -59,11 +59,11 @@ class ReactionDiffusion {
 
   optionsMetadata(){
     return [
-      { name: "diffRateA", type: "float", default: 1}, 
+      { name: "diffRateA", type: "float", default: 1.0}, 
       { name: "diffRateB", type: "float", default: 0.5}, 
       { name: "killRate", type: "float", default: 0.062}, 
       { name: "feedRate", type: "float", default: 0.055}, 
-      { name: "dt", type: "float", default: 0.05},
+      { name: "dt", type: "float", default: 0.9},
     ];
   }
 }
