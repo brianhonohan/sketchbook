@@ -9,8 +9,8 @@ class CellViewer {
     
     // From: https://editor.p5js.org/codingtrain/sketches/govdEW5aE
     //  results in more contrasting shades
-    let shade = floor((tmpCell.a - tmpCell.b) * 255);
-    shade = constrain(shade, 0, 255);
+    let shade = 255 - floor((tmpCell.a - tmpCell.b) * 255);
+    shade = constrain(shade, 50, 255);
     fill(shade);
 
     rect(tmpX, tmpY, cellWidth, cellHeight);

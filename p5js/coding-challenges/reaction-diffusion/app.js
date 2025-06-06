@@ -25,7 +25,7 @@ function setup() {
   reactDiffGui.add(reactDiff.settings, 'dt', 0.0, 0.99, 0.01).name('Delta Time');
   gui.add(guiProxy, 'resetDefaults').name('Reset Factors');
 
-  background(255);
+  background(50);
 }
 
 function draw(){
