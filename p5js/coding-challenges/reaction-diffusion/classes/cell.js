@@ -12,6 +12,8 @@ class Cell {
     this.b = 0; //random(1);
     this.nextA = 0;
     this.nextB = 0;
+
+    this.needsRender = true;
   }
 
   get cellAbove() { return this.grid.cellAbove(this._idx); }

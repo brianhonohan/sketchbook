@@ -14,8 +14,20 @@ class System {
     this.grid.initCells();
     noStroke();
 
-    this.addBAt(this.rect.x + this.rect._width/2,
-                this.rect.y + this.rect._height/2);
+    let numRand = 20;
+    for(let i=0; i<numRand; i++){
+      let x = this.rect.centerX + randomGaussian() * this.rect.width / 8;
+      let y = this.rect.centerY + randomGaussian() * this.rect.height / 8;
+      this.addBAt(x, y);
+
+      let nearbyPoints = 16;
+      for(let j=0; j<nearbyPoints; j++){
+        let angle = map(j, 0, nearbyPoints, 0, TWO_PI);
+        let xOffset = cos(angle) * random(0, this.settings.cellWidth);
+        let yOffset = sin(angle) * random(0, this.settings.cellWidth);
+        this.addBAt(x + xOffset, y + yOffset);
+      }
+    }
   }
 
   addBAt(x, y){
@@ -30,7 +42,7 @@ class System {
   // supported types: integer, float, string
   optionsMetadata(){
     return [
-      { name: "cellWidth", type: "integer", default: 20}, 
+      { name: "cellWidth", type: "integer", default: 5}, 
       // { name: "varname2", type: "string", default: 'Lorem Ipsum'}, 
       // { name: "varname3", type: "float", default: 0.6}
     ];
@@ -67,6 +79,10 @@ class System {
       }
 
       let tmpCell = this.grid.cells[i];
+
+      tmpCell.needsRender = (i % 180 == frameCount % 180)
+                            || Math.abs(tmpCell.nextA - tmpCell.a) > 0.0001
+                            || Math.abs(tmpCell.nextB - tmpCell.b) > 0.0001 ;
       tmpCell.a = tmpCell.nextA;
       tmpCell.b = tmpCell.nextB;
     }
@@ -75,7 +91,6 @@ class System {
 
 
   render(){
-    background(0);
     this.grid.renderViews();
   }
 }
