@@ -2,9 +2,8 @@
 layout: minimal
 title:  "p5.js - Reaction Diffusion"
 categories: p5js/coding-challenges
-date: 2018-10-21
+date: 2025-06-05
 modal: true
-bh_page_type: draft
 viewport_noscale: true
 excerpt: 
 
