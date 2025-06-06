@@ -9,8 +9,9 @@ viewport_noscale: true
 excerpt: 
 
 js_scripts:
- - https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js
- - /sketchbook/vendor/dat.gui/0.7.
+- /sketchbook/vendor/inobounce/0.2.0/inobounce.js
+- https://cdn.jsdelivr.net/npm/p5@1.11.2/lib/p5.min.js
+- https://cdn.jsdelivr.net/npm/lil-gui@0.20
  - /sketchbook/p5js/common/p5js_settings.js
  - /sketchbook/p5js/common/p5js_utils.js
  - /sketchbook/js/util_functions.js

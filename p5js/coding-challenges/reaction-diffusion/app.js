@@ -5,7 +5,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight-35);
   P5JsSettings.init();
 
-  gui = new dat.gui.GUI();
+  gui = P5JsSettings.addGui({autoPlace: false});
 
   let rect = new Rect(0, 0, width, height);
   system = new System(rect);
