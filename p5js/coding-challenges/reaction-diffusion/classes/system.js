@@ -30,6 +30,17 @@ class System {
     }
   }
 
+  clear(){
+    for(let i=0; i<this.grid.cells.length; i++){
+      let tmpCell = this.grid.cells[i];
+      tmpCell.a = 1;
+      tmpCell.b = 0;
+      tmpCell.nextA = 0;
+      tmpCell.nextB = 0;
+      tmpCell.needsRender = true;
+    }
+  }
+
   addBAt(x, y){
     let cell = this.grid.cellForXY(x, y);
     cell.b = 1;
@@ -80,7 +91,7 @@ class System {
 
       let tmpCell = this.grid.cells[i];
 
-      tmpCell.needsRender = (i % 180 == frameCount % 180)
+      tmpCell.needsRender |= (i % 180 == frameCount % 180)
                             || Math.abs(tmpCell.nextA - tmpCell.a) > 0.0001
                             || Math.abs(tmpCell.nextB - tmpCell.b) > 0.0001 ;
       tmpCell.a = tmpCell.nextA;

@@ -10,6 +10,8 @@ function setup() {
   let rect = new Rect(0, 0, width, height);
   system = new System(rect);
 
+  gui.add(system, 'clear').name('Clear');
+
   let reactDiffGui = gui.addFolder('Reaction Diffusion');
   let reactDiff = system.reactionDiff;
   reactDiffGui.add(reactDiff.settings, 'diffRateA', 0.0, 1.0, 0.01).name('Diffusion Rate A');
