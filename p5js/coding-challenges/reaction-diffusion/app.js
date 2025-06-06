@@ -1,6 +1,10 @@
 var gui;
 var system;
 
+let guiProxy = {
+  resetDefaults: resetDefaults
+};
+
 function setup() {
   createCanvas(windowWidth, windowHeight-35);
   P5JsSettings.init();
@@ -19,6 +23,7 @@ function setup() {
   reactDiffGui.add(reactDiff.settings, 'killRate', 0.0, 1.0, 0.001).name('Kill Rate');
   reactDiffGui.add(reactDiff.settings, 'feedRate', 0.0, 1.0, 0.001).name('Feed Rate');
   reactDiffGui.add(reactDiff.settings, 'dt', 0.0, 0.99, 0.01).name('Delta Time');
+  gui.add(guiProxy, 'resetDefaults').name('Reset Factors');
 
   background(255);
 }
@@ -33,4 +38,13 @@ function mouseDragged(event){
     return;
   }
   system.addBAt(mouseX, mouseY);
+}
+
+function resetDefaults() {
+  system.reactionDiff.resetDefaults();
+
+  let reactDiffGui = gui.folders.find(f => f._title === 'Reaction Diffusion');
+  reactDiffGui.controllers.forEach((controller) => {
+    controller.updateDisplay();
+  });
 }

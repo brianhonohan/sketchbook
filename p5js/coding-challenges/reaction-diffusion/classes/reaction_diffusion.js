@@ -1,7 +1,14 @@
 class ReactionDiffusion {
   constructor(){
     this.optionsSet = new OptionsSet(this.optionsMetadata());
-    this.settings = this.optionsSet.settings;
+    this.settings = {};
+    this.resetDefaults();
+  }
+
+  resetDefaults(){
+    for (let key in this.optionsSet.settings) {
+      this.settings[key] = this.optionsSet.settings[key];
+    }
   }
 
   get dA() { return this.settings.diffRateA; }
