@@ -14,8 +14,20 @@ class System {
     this.grid.initCells();
     noStroke();
 
-    this.addBAt(this.rect.x + this.rect._width/2,
-                this.rect.y + this.rect._height/2);
+    let numRand = 20;
+    for(let i=0; i<numRand; i++){
+      let x = this.rect.centerX + randomGaussian() * this.rect.width / 8;
+      let y = this.rect.centerY + randomGaussian() * this.rect.height / 8;
+      this.addBAt(x, y);
+
+      let nearbyPoints = 16;
+      for(let j=0; j<nearbyPoints; j++){
+        let angle = map(j, 0, nearbyPoints, 0, TWO_PI);
+        let xOffset = cos(angle) * random(0, this.settings.cellWidth);
+        let yOffset = sin(angle) * random(0, this.settings.cellWidth);
+        this.addBAt(x + xOffset, y + yOffset);
+      }
+    }
   }
 
   addBAt(x, y){
