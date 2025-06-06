@@ -67,6 +67,9 @@ class System {
       }
 
       let tmpCell = this.grid.cells[i];
+
+      tmpCell.needsRender = ( Math.abs(tmpCell.nextA - tmpCell.a) > 0.0001 ||
+                              Math.abs(tmpCell.nextB - tmpCell.b) > 0.0001 );
       tmpCell.a = tmpCell.nextA;
       tmpCell.b = tmpCell.nextB;
     }
@@ -75,7 +78,6 @@ class System {
 
 
   render(){
-    background(0);
     this.grid.renderViews();
   }
 }
