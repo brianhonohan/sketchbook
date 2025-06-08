@@ -3,6 +3,7 @@ class System {
     this.rect = p_xSizeAndPos;
     this.optionsSet = new OptionsSet(this.optionsMetadata());
     this.settings = this.optionsSet.settings;
+    this.chemical = 'b'; 
 
     this.reactionDiff = new ReactionDiffusion();
     this.cellViewer = new CellViewer();
@@ -18,16 +19,11 @@ class System {
     for(let i=0; i<numRand; i++){
       let x = this.rect.centerX + randomGaussian() * this.rect.width / 8;
       let y = this.rect.centerY + randomGaussian() * this.rect.height / 8;
-      this.addBAt(x, y);
+      this.addChemicalAt(x, y);
 
-      let nearbyPoints = 16;
-      for(let j=0; j<nearbyPoints; j++){
-        let angle = map(j, 0, nearbyPoints, 0, TWO_PI);
-        let xOffset = cos(angle) * random(0, this.settings.cellWidth);
-        let yOffset = sin(angle) * random(0, this.settings.cellWidth);
-        this.addBAt(x + xOffset, y + yOffset);
-      }
+      this.addChemicalNearby(x, y);
     }
+
   }
 
   clear(){
@@ -41,9 +37,33 @@ class System {
     }
   }
 
-  addBAt(x, y){
+  static get CHEMICAL_OPTIONS(){
+    return ['a', 'b'];
+  }
+
+  addChemicalAt(x, y, chemical = this.chemical){
     let cell = this.grid.cellForXY(x, y);
-    cell.b = 1;
+    if (!cell) {
+      console.warn("No cell found at", x, y);
+      return;
+    }
+    if (chemical == 'a'){
+      cell.a = 1;
+      cell.b = 0;
+    } else if (chemical == 'b'){
+      cell.b = 1;
+      cell.a = 0;
+    }
+  }
+
+  addChemicalNearby(x, y, chemical = this.chemical){
+    let nearbyPoints = 32;
+    for(let j=0; j<nearbyPoints; j++){
+      let angle = map(j, 0, nearbyPoints, 0, TWO_PI);
+      let xOffset = cos(angle) * random(0, this.settings.cellWidth);
+      let yOffset = sin(angle) * random(0, this.settings.cellWidth);
+      this.addChemicalAt(x + xOffset, y + yOffset, chemical);
+    }
   }
 
   // Return a list of Options, specific to this sketch,
