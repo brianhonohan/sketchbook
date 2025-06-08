@@ -15,6 +15,7 @@ function setup() {
   system = new System(rect);
 
   gui.add(system, 'clear').name('Clear');
+  gui.add(system, 'chemical', System.CHEMICAL_OPTIONS).name('Chemical');
 
   let reactDiffGui = gui.addFolder('Reaction Diffusion');
   let reactDiff = system.reactionDiff;
@@ -37,7 +38,7 @@ function mouseDragged(event){
   if (event.target.nodeName != "CANVAS") {
     return;
   }
-  system.addBAt(mouseX, mouseY);
+  system.addChemicalNearby(mouseX, mouseY);
 }
 
 function resetDefaults() {
