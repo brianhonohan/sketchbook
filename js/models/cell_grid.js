@@ -93,8 +93,8 @@ class CellGrid {
   }
 
   idxForXY(x, y){
-    let col = floor(x / this.cellWidth);
-    let row = floor(y / this.cellWidth);
+    let col = floor( (x - this._x) / this.cellWidth);
+    let row = floor( (y - this._y) / this.cellWidth);
     return this.idxForRowCol(row, col);
   }
 
