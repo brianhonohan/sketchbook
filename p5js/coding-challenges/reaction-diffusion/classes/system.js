@@ -7,7 +7,15 @@ class System {
 
     this.reactionDiff = new ReactionDiffusion();
     this.cellViewer = new CellViewer();
-    this.grid = new CellGrid(this.rect, 
+
+    this.bufferedRect = this.rect.copy();
+    this.gridOffset = this.settings.cellWidth * 15;
+    this.bufferedRect.x -= this.gridOffset;
+    this.bufferedRect.y -= this.gridOffset;
+    this.bufferedRect.width += this.gridOffset * 2;
+    this.bufferedRect.height += this.gridOffset * 2;
+
+    this.grid = new CellGrid(this.bufferedRect, 
                              this, 
                              this.settings.cellWidth,
                              this.cellViewer
