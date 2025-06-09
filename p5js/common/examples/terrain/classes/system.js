@@ -4,6 +4,9 @@ class System {
     this.optionsSet = new OptionsSet(this.optionsMetadata());
     this.settings = this.optionsSet.settings;
     this.redraw = true;
+    this.needRegeneration = false;
+    this.terrainViewerX = 0;
+    this.terrainViewerY = 0;
 
     this.init();
   }
@@ -41,7 +44,14 @@ class System {
   }
 
   init(){
-    this.field = new Terrain(this.sizeAndPosition, this.settings);
+    this.bufferedArea = this.sizeAndPosition.copy();
+    this.bufferSize = this.settings.cellWidth;
+    this.bufferedArea.x -= this.bufferSize;
+    this.bufferedArea.y -= this.bufferSize;
+    this.bufferedArea.width += 2 * this.bufferSize;
+    this.bufferedArea.height += 2 * this.bufferSize;
+
+    this.field = new Terrain(this.bufferedArea, this.settings);
     // TODO: Remove the need to regerate again
     // this is necessary bease of the dynamic injection of the p5.js noise()
     // ... which is only done after the object is created
@@ -70,27 +80,59 @@ class System {
   }
   
   regenerate(){
+    // console.log("Regenerating terrain with settings: ");
     this.applyNoiseSettings();
     this.field.regenerate();
     this.redraw = true;
+    this.needRegeneration = false;
   }
 
   tick(){
-    if (this.settings.xSpeed != 0 || this.settings.ySpeed != 0 || this.settings.zSpeed != 0) { 
-      this.settings.xOffset += this.settings.xSpeed;
-      this.settings.yOffset += this.settings.ySpeed;
-      this.settings.zOffset += this.settings.zSpeed;
-      this.field.regenerate();
-      this.redraw = true;
+    if (this.settings.xSpeed === 0 && this.settings.ySpeed === 0 && this.settings.zSpeed === 0) { 
+      return;
     }
+    this.redraw |= true;
+
+    let regenThreshold = 1; // this.bufferSize;
+    this.terrainViewerX += this.settings.xSpeed;
+    if ( Math.abs(this.terrainViewerX) >= regenThreshold) {
+      let remainder = this.terrainViewerX % regenThreshold;
+      this.settings.xOffset += (this.terrainViewerX - remainder);
+      this.terrainViewerX = remainder;
+      this.needRegeneration |= true;
+    }
+
+    this.terrainViewerY += this.settings.ySpeed;
+    if ( Math.abs(this.terrainViewerY) >= regenThreshold) {
+      let remainder = this.terrainViewerY % regenThreshold;
+      this.settings.yOffset += (this.terrainViewerY - remainder);
+      this.terrainViewerY = remainder;
+      this.needRegeneration |= true;
+    }
+
+    if (this.settings.zSpeed != 0) {
+      this.settings.zOffset += this.settings.zSpeed;
+      this.needRegeneration |= true;
+    }
+
+    if (this.needRegeneration) {
+      this.regenerate();
+    } 
+    // else {
+    //   console.log("No regeneration needed");
+    // }
   }
 
   render(){
-    if (this.redraw == false) {
+    if (this.redraw === false) {
       return;
     }
     background(50);
+    push();
+    translate( Math.round(0 - this.bufferSize - this.terrainViewerX),
+              Math.round(0 - this.bufferSize - this.terrainViewerY) );
     this.terrainViewer.renderField(this.field);
+    pop();
     this.redraw = false;
   }
 }

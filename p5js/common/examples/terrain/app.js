@@ -10,7 +10,9 @@ let scaleSettings = {
 let basicUI = {
   dragStartX: undefined,
   dragStartY: undefined,
-  isDragging: false
+  isDragging: false,
+  guiCtrlXSpeed: undefined,
+  guiCtrlYSpeed: undefined,
 }
 
 function setup() {
@@ -28,8 +30,8 @@ function setup() {
   terrainGui.add(system.settings, "cellWidth", 2, 40, 2).onChange(reinitSystem);
   terrainGui.add(scaleSettings, "scale_coarse", 0, 1, 0.01).onChange(updateScale);
   terrainGui.add(scaleSettings, "scale_fine", 0.000001, 0.01, 0.000001).onChange(updateScale);
-  terrainGui.add(system.settings, "xSpeed", -5, 5, 0.25).onChange(regenerateSystem);
-  terrainGui.add(system.settings, "ySpeed", -5, 5, 0.25).onChange(regenerateSystem);
+  guiCtrlXSpeed = terrainGui.add(system.settings, "xSpeed", -5, 5, 0.25).onChange(regenerateSystem);
+  guiCtrlYSpeed = terrainGui.add(system.settings, "ySpeed", -5, 5, 0.25).onChange(regenerateSystem);
   terrainGui.add(system.settings, "zSpeed", -0.005, 0.005, 0.0001).onChange(regenerateSystem);
   terrainGui.add(system.settings, "open_simplex_noise").onChange(regenerateSystem);
   
@@ -70,6 +72,13 @@ function updateRendering(){
 function draw(){
   system.tick();
   system.render();
+
+  updateXYSpeedGuiDisplay();
+}
+
+function updateXYSpeedGuiDisplay(){
+  guiCtrlYSpeed.updateDisplay();
+  guiCtrlXSpeed.updateDisplay();
 }
 
 function mousePressed(event){
