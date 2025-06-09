@@ -41,7 +41,14 @@ class System {
   }
 
   init(){
-    this.field = new Terrain(this.sizeAndPosition, this.settings);
+    this.bufferedArea = this.sizeAndPosition.copy();
+    this.bufferSize = this.settings.cellWidth;
+    this.bufferedArea.x -= this.bufferSize;
+    this.bufferedArea.y -= this.bufferSize;
+    this.bufferedArea.width += 2 * this.bufferSize;
+    this.bufferedArea.height += 2 * this.bufferSize;
+
+    this.field = new Terrain(this.bufferedArea, this.settings);
     // TODO: Remove the need to regerate again
     // this is necessary bease of the dynamic injection of the p5.js noise()
     // ... which is only done after the object is created
@@ -90,7 +97,10 @@ class System {
       return;
     }
     background(50);
+    push();
+    translate(0 - this.bufferSize, 0 - this.bufferSize);
     this.terrainViewer.renderField(this.field);
+    pop();
     this.redraw = false;
   }
 }

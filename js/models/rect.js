@@ -12,6 +12,9 @@ class Rect {
   set y(newVal){ this._y = newVal; }
   get width(){ return this._width; }
   get height(){ return this._height; }
+  set width(newVal){ this._width = newVal; }
+  set height(newVal){ this._height = newVal; }
+
   get minX(){ return this._x; }
   get minY(){ return this._y; }
   get maxX(){ return this._x + this._width; }
