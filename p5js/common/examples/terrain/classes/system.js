@@ -129,8 +129,11 @@ class System {
     }
     background(50);
     push();
-    translate( Math.round(0 - this.bufferSize - this.terrainViewerX),
-              Math.round(0 - this.bufferSize - this.terrainViewerY) );
+
+    let xOffset = Math.floor(0 - this.bufferedArea.x + this.terrainViewerX);
+    let yOffset = Math.floor(0 - this.bufferedArea.y + this.terrainViewerY);
+    translate(xOffset, yOffset);
+    
     this.terrainViewer.renderField(this.field);
     pop();
     this.redraw = false;
