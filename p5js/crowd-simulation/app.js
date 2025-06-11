@@ -6,14 +6,17 @@ function setup(){
   canvas = createAutosizedCanvas();
   P5JsSettings.init();
 
-  let rect = new Rect(0, 0, width, height);
+  colorMode(HSB);
+
+  let margin = Math.min(width, height) * 0.1;
+  let rect = new Rect(margin, margin, width - 2 * margin, height - 2 * margin);
   publicSpace = new System(rect);
 
   gui = P5JsSettings.addDatGui({autoPlace: false});
 }
 
 function draw(){
-  background(50);
+  background(0, 0, 20);
   publicSpace.tick();
   publicSpace.render();
 }

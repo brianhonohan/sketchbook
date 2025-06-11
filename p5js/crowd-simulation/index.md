@@ -21,6 +21,7 @@ js_scripts:
 - /sketchbook/js/models/rect.js
 - /sketchbook/js/models/rect.js
 
+- ./classes/doorway.js
 - ./classes/system.js
 - ./app.js
 
