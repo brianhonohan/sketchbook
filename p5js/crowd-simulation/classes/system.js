@@ -39,8 +39,30 @@ class System {
     ));
   }
 
+  initSpawnMatrices(){
+    // Initialize spawn matrices or other system-specific elements
+    for (let i = 0; i < this.doorways.length; i++) {
+
+      let matrix = [];
+      for (let j = 0; j < this.doorways.length; j++) {
+        if (i == j) continue;
+
+        let spawConfig = {
+          doorway: this.doorways[j],
+          frameDelay: Math.floor(10 + 30 * random())
+        };
+        matrix.push(spawConfig);
+        
+      }
+      this.doorways[i].spawnMatrix = matrix;
+    }
+  }
+
   regenerate(){
     this.initDoorways();
+    this.initSpawnMatrices();
+    this.crowd = [];
+    this.crowdMemberId = 0;
   }
 
   // Return a list of Options, specific to this sketch,
@@ -57,9 +79,33 @@ class System {
     ];
   }
 
+  addCrowdMember(x, y, doorwayStart, doorwayEnd){
+    let newCrowdMember = new CrowdMember(x, y, this);
+    newCrowdMember.setTarget(doorwayEnd.x, doorwayEnd.y);
+    newCrowdMember.color = doorwayEnd.color;
+    newCrowdMember.id = this.crowdMemberId++;
+    this.crowd.push(newCrowdMember);
+  }
+
+  removeCrowdMember(crowdMember){
+    // Remove a crowd member from the system
+    const index = this.crowd.indexOf(crowdMember);
+    if (index > -1) {
+      this.crowd.splice(index, 1);
+    } else {
+      console.warn("Crowd member not found in the system.");
+    }
+  }
+
 
   tick(){
-    console.log("tock");
+    for (let i = 0; i < this.doorways.length; i++) {
+      this.doorways[i].tick();
+    }
+
+    for (let i = 0; i < this.crowd.length; i++) {
+      this.crowd[i].tick();
+    }
   }
 
   render(){
@@ -67,6 +113,8 @@ class System {
     for (let i = 0; i < this.doorways.length; i++) {
       this.doorways[i].draw();
     }
-    
+    for (let i = 0; i < this.crowd.length; i++) {
+      this.crowd[i].draw();
+    }
   }
 }
