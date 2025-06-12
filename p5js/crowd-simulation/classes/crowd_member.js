@@ -33,6 +33,9 @@ class CrowdMember {
   static get size() { return 10; }
 
   tick(){
+    this.neighbors = this.publicSpace.crowdNearby(this.x, this.y);
+    this.publicSpace.defaultFlowBehavior.calcAccel(this, this.neighbors);
+
     this.velocity.add(this.accel);
     this.loc.add(this.velocity);
     this.accel.mult(0);

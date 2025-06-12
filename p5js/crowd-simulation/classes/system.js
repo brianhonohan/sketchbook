@@ -8,6 +8,7 @@ class System {
                                   this.defaultSearchHalfWidth * 2, 
                                   this.defaultSearchHalfWidth * 2);
     this.dynamicSearchRect = new Rect(0, 0, 100, 100);
+    this.defaultFlowBehavior = new CrowdFlowBehavior({});
     this.regenerate();
   }
 
@@ -101,6 +102,12 @@ class System {
     } else {
       console.warn("Crowd member not found in the system.");
     }
+  }
+  
+  crowdNearby(x, y){
+    this.defaultSearchRect.moveTo(x - this.defaultSearchHalfWidth,
+                                  y - this.defaultSearchHalfWidth);
+    return this.quadtree.find(this.defaultSearchRect);
   }
 
   crowdWithin(x, y, radius = 100){
