@@ -22,26 +22,28 @@ class System {
 
     this.doorways = [];
 
+    let baseHue = 360 * random();
+
     // one door per each side of the system
     this.doorways.push(new Doorway(
       this.x,
       this.y + (0.25 + 0.5 * random()) * this.height,
-      this, color(360 * random(), 90, 90)
+      this, color(baseHue, 90, 90)
     ));
     this.doorways.push(new Doorway(
       this.x + this.width,
       this.y + (0.25 + 0.5 * random()) * this.height,
-      this, color(360 * random(), 90, 90)
+      this, color( (baseHue + 90 * 1) % 360, 90, 90)
     ));
     this.doorways.push(new Doorway(
       this.x + (0.25 + 0.5 * random()) * this.width,
       this.y,
-      this, color(360 * random(), 90, 90)
+      this, color( (baseHue + 90 * 2) % 360, 90, 90)
     ));
     this.doorways.push(new Doorway(
       this.x + (0.25 + 0.5 * random()) * this.width,
       this.y + this.height,
-      this, color(360 * random(), 90, 90)
+      this, color( (baseHue + 90 * 3) % 360, 90, 90)
     ));
   }
 
