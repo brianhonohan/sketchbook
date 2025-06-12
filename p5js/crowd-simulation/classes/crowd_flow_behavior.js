@@ -25,9 +25,9 @@ class CrowdFlowBehavior {
 
   defaultSettings(){
     return {
-      separationFactor: 1.5,
-      alignFactor: 1.0,
-      cohesionFactor: 1.0,
+      separationFactor: 0.8,
+      alignFactor: 0.9,
+      cohesionFactor: 0.6,
       desiredSeparation: 20,
       maxSpeed: 3,
       maxForce: 0.05
