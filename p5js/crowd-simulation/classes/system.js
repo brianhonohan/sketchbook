@@ -1,8 +1,13 @@
 class System {
-  constructor(p_xSizeAndPos){
-    this.sizeAndPosition = p_xSizeAndPos;
+  constructor(sizeAndPosition){
+    this.sizeAndPosition = sizeAndPosition;
     this.optionsSet = new OptionsSet(this.optionsMetadata());
     this.settings = this.optionsSet.settings;
+    this.defaultSearchHalfWidth = 50;
+    this.defaultSearchRect = new Rect(0, 0, 
+                                  this.defaultSearchHalfWidth * 2, 
+                                  this.defaultSearchHalfWidth * 2);
+    this.dynamicSearchRect = new Rect(0, 0, 100, 100);
     this.regenerate();
   }
 
@@ -81,7 +86,8 @@ class System {
 
   addCrowdMember(x, y, doorwayStart, doorwayEnd){
     let newCrowdMember = new CrowdMember(x, y, this);
-    newCrowdMember.setTarget(doorwayEnd.x, doorwayEnd.y);
+    newCrowdMember.setStart(doorwayStart);
+    newCrowdMember.setTarget(doorwayEnd);
     newCrowdMember.color = doorwayEnd.color;
     newCrowdMember.id = this.crowdMemberId++;
     this.crowd.push(newCrowdMember);
@@ -97,14 +103,30 @@ class System {
     }
   }
 
+  crowdWithin(x, y, radius = 100){
+    this.dynamicSearchRect.width = radius * 2;
+    this.dynamicSearchRect.height = this.dynamicSearchRect.width;
+    this.dynamicSearchRect.moveTo(x - radius, y - radius);
+    return this.quadtree.find(this.dynamicSearchRect);
+  }
 
   tick(){
+    this.rebuildQuadSearchTree();
+
     for (let i = 0; i < this.doorways.length; i++) {
       this.doorways[i].tick();
     }
 
     for (let i = 0; i < this.crowd.length; i++) {
       this.crowd[i].tick();
+    }
+  }
+  
+  rebuildQuadSearchTree(){
+    // TODO: Avoid rebuilding the Quadtree every frame
+    this.quadtree = new Quadtree(this.sizeAndPosition, 10, true);
+    for (let i = 0; i < this.crowd.length; i++){
+      this.quadtree.add(this.crowd[i]);
     }
   }
 
