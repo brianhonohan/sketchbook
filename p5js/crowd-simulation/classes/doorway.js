@@ -1,14 +1,21 @@
 class Doorway {
   constructor(x, y, publicSpace, colorValue) {
-    this.x = x;
-    this.y = y;
+    this.position = createVector(x, y);
     this.radius = 10; // Radius for interaction
     this.publicSpace = publicSpace; // Reference to the public space
     this.color = colorValue;
     this.spawnMatrix = undefined;
   }
 
+  get x(){ return this.position.x; }
+  get y(){ return this.position.y; }
+
   tick(){
+    this.spawnNewCrowdMembers();
+    this.exitCrowdMembers();
+  }
+
+  spawnNewCrowdMembers(){
     for (let i = 0; i < this.spawnMatrix.length; i++) {
       let spawnConfig = this.spawnMatrix[i];
 
@@ -22,6 +29,17 @@ class Doorway {
         this,
         spawnConfig.doorway
       );
+    }
+  }
+
+  exitCrowdMembers() {
+    let nearbyCrowdMembers = this.publicSpace.crowdWithin(this.x, this.y, 10);
+    for (let i = 0; i < nearbyCrowdMembers.length; i++) {
+      let crowdMember = nearbyCrowdMembers[i];
+      if (crowdMember.startDoorway === this) {
+        continue; 
+      }
+      this.publicSpace.removeCrowdMember(crowdMember);
     }
   }
 

@@ -1,8 +1,14 @@
 class System {
-  constructor(p_xSizeAndPos){
-    this.sizeAndPosition = p_xSizeAndPos;
+  constructor(sizeAndPosition){
+    this.sizeAndPosition = sizeAndPosition;
     this.optionsSet = new OptionsSet(this.optionsMetadata());
     this.settings = this.optionsSet.settings;
+    this.defaultSearchHalfWidth = 50;
+    this.defaultSearchRect = new Rect(0, 0, 
+                                  this.defaultSearchHalfWidth * 2, 
+                                  this.defaultSearchHalfWidth * 2);
+    this.dynamicSearchRect = new Rect(0, 0, 100, 100);
+    this.defaultFlowBehavior = new CrowdFlowBehavior({});
     this.regenerate();
   }
 
@@ -16,26 +22,28 @@ class System {
 
     this.doorways = [];
 
+    let baseHue = 360 * random();
+
     // one door per each side of the system
     this.doorways.push(new Doorway(
       this.x,
       this.y + (0.25 + 0.5 * random()) * this.height,
-      this, color(360 * random(), 90, 90)
+      this, color(baseHue, 90, 90)
     ));
     this.doorways.push(new Doorway(
       this.x + this.width,
       this.y + (0.25 + 0.5 * random()) * this.height,
-      this, color(360 * random(), 90, 90)
+      this, color( (baseHue + 90 * 1) % 360, 90, 90)
     ));
     this.doorways.push(new Doorway(
       this.x + (0.25 + 0.5 * random()) * this.width,
       this.y,
-      this, color(360 * random(), 90, 90)
+      this, color( (baseHue + 90 * 2) % 360, 90, 90)
     ));
     this.doorways.push(new Doorway(
       this.x + (0.25 + 0.5 * random()) * this.width,
       this.y + this.height,
-      this, color(360 * random(), 90, 90)
+      this, color( (baseHue + 90 * 3) % 360, 90, 90)
     ));
   }
 
@@ -81,7 +89,8 @@ class System {
 
   addCrowdMember(x, y, doorwayStart, doorwayEnd){
     let newCrowdMember = new CrowdMember(x, y, this);
-    newCrowdMember.setTarget(doorwayEnd.x, doorwayEnd.y);
+    newCrowdMember.setStart(doorwayStart);
+    newCrowdMember.setTarget(doorwayEnd);
     newCrowdMember.color = doorwayEnd.color;
     newCrowdMember.id = this.crowdMemberId++;
     this.crowd.push(newCrowdMember);
@@ -96,15 +105,37 @@ class System {
       console.warn("Crowd member not found in the system.");
     }
   }
+  
+  crowdNearby(x, y){
+    this.defaultSearchRect.moveTo(x - this.defaultSearchHalfWidth,
+                                  y - this.defaultSearchHalfWidth);
+    return this.quadtree.find(this.defaultSearchRect);
+  }
 
+  crowdWithin(x, y, radius = 100){
+    this.dynamicSearchRect.width = radius * 2;
+    this.dynamicSearchRect.height = this.dynamicSearchRect.width;
+    this.dynamicSearchRect.moveTo(x - radius, y - radius);
+    return this.quadtree.find(this.dynamicSearchRect);
+  }
 
   tick(){
+    this.rebuildQuadSearchTree();
+
     for (let i = 0; i < this.doorways.length; i++) {
       this.doorways[i].tick();
     }
 
     for (let i = 0; i < this.crowd.length; i++) {
       this.crowd[i].tick();
+    }
+  }
+  
+  rebuildQuadSearchTree(){
+    // TODO: Avoid rebuilding the Quadtree every frame
+    this.quadtree = new Quadtree(this.sizeAndPosition, 10, true);
+    for (let i = 0; i < this.crowd.length; i++){
+      this.quadtree.add(this.crowd[i]);
     }
   }
 

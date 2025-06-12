@@ -19,8 +19,9 @@ js_scripts:
 - /sketchbook/js/util_functions.js
 - /sketchbook/js/options_set.js
 - /sketchbook/js/models/rect.js
-- /sketchbook/js/models/rect.js
+- /sketchbook/js/models/quadtree.js
 
+- ./classes/crowd_flow_behavior.js
 - ./classes/crowd_member.js
 - ./classes/doorway.js
 - ./classes/system.js
