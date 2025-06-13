@@ -13,6 +13,14 @@ function setup(){
   publicSpace = new System(rect);
 
   gui = P5JsSettings.addDatGui({autoPlace: false});
+
+  let flowGui = gui.addFolder('Flow');
+  flowGui.add(publicSpace.defaultFlowBehavior.config, 'separationFactor', 0, 3, 0.1);
+  flowGui.add(publicSpace.defaultFlowBehavior.config, 'alignFactor', 0, 3, 0.1);
+  flowGui.add(publicSpace.defaultFlowBehavior.config, 'cohesionFactor', 0, 3, 0.1);
+  flowGui.add(publicSpace.defaultFlowBehavior.config, 'desiredSeparation', 0, 100, 1);
+  flowGui.add(publicSpace.defaultFlowBehavior.config, 'maxSpeed', 0.5, 9, 0.5);
+  flowGui.add(publicSpace.defaultFlowBehavior.config, 'maxForce', 0.05, 1, 0.05);
 }
 
 function draw(){
