@@ -4,6 +4,9 @@ class Doorway {
     this.radius = 10; // Radius for interaction
     this.publicSpace = publicSpace; // Reference to the public space
     this.color = colorValue;
+
+    // slightly hacky; build object to support GUI color controls
+    this.rgbColor = {r: colorValue.levels[0], g: colorValue.levels[1], b: colorValue.levels[2]};
     this.spawnMatrix = undefined;
   }
 

@@ -40,6 +40,14 @@ function addGuiControlsForDoorwaySpawnMatrices(){
     let matrix = doorway.spawnMatrix;
 
     let folder = gui.addFolder(`Doorway ${i}`);
+    folder.addColor(doorway, 'rgbColor', 255)
+         .name('Color')
+         .onFinishChange((evt) => {
+           doorway.color.setRed(evt.r);
+           doorway.color.setGreen(evt.g);
+           doorway.color.setBlue(evt.b);
+         });
+
     for (let j = 0; j < matrix.length; j++) {
       let spawnConfig = matrix[j];
       let doorwayIndex = doorways.indexOf(spawnConfig.doorway);
