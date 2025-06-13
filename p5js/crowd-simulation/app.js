@@ -9,7 +9,8 @@ function setup(){
   colorMode(HSB);
 
   let margin = Math.min(width, height) * 0.1;
-  let rect = new Rect(margin, margin, width - 2 * margin, height - 2 * margin);
+  let rightMargin = 200;
+  let rect = new Rect(margin, margin, width - 2 * margin - rightMargin, height - 2 * margin);
   publicSpace = new System(rect);
 
   gui = P5JsSettings.addDatGui({autoPlace: false});
