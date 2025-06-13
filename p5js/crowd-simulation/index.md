@@ -2,9 +2,8 @@
 layout: minimal
 title:  "p5.js - Crowd Behavior"
 categories: p5js
-date: 2025-06-10
+date: 2025-06-12
 modal: true
-bh_page_type: draft
 viewport_noscale: true
 excerpt: Simulates a crowd trying to cross a public space in opposing directions.
 
