@@ -1,6 +1,10 @@
 let publicSpace;
 let gui;
 
+const guiOptions = {
+  fadeEffect: 0,
+};
+
 function setup(){
   // canvas = createCanvas(500, 500); // for screenshots
   canvas = createAutosizedCanvas();
@@ -14,6 +18,7 @@ function setup(){
   publicSpace = new System(rect);
 
   gui = P5JsSettings.addDatGui({autoPlace: false});
+  gui.add(guiOptions, 'fadeEffect', 0, 1, 0.01);
 
   let flowGui = gui.addFolder('Flow');
   flowGui.add(publicSpace.defaultFlowBehavior.config, 'separationFactor', 0, 3, 0.1);
@@ -27,7 +32,7 @@ function setup(){
 }
 
 function draw(){
-  background(0, 0, 20);
+  background(0, 0, 20, 1 - guiOptions.fadeEffect);
   publicSpace.tick();
   publicSpace.render();
 }
