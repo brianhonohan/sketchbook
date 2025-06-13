@@ -21,12 +21,35 @@ function setup(){
   flowGui.add(publicSpace.defaultFlowBehavior.config, 'desiredSeparation', 0, 100, 1);
   flowGui.add(publicSpace.defaultFlowBehavior.config, 'maxSpeed', 0.5, 9, 0.5);
   flowGui.add(publicSpace.defaultFlowBehavior.config, 'maxForce', 0.05, 1, 0.05);
+
+  addGuiControlsForDoorwaySpawnMatrices();
 }
 
 function draw(){
   background(0, 0, 20);
   publicSpace.tick();
   publicSpace.render();
+}
+
+function addGuiControlsForDoorwaySpawnMatrices(){
+  let doorways = publicSpace.doorways;
+
+  for (let i = 0; i < doorways.length; i++) {
+    
+    let doorway = doorways[i];
+    let matrix = doorway.spawnMatrix;
+
+    let folder = gui.addFolder(`Doorway ${i}`);
+    for (let j = 0; j < matrix.length; j++) {
+      let spawnConfig = matrix[j];
+      let doorwayIndex = doorways.indexOf(spawnConfig.doorway);
+
+      folder.add(spawnConfig, 'frameDelay', 1,100, 1)
+           .name(`Delay to Doorway ${doorwayIndex}`);
+    }
+
+    folder.open();
+  }
 }
 
 function createAutosizedCanvas(){
