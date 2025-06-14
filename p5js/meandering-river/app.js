@@ -9,6 +9,10 @@ var params = {
   source_heading: 0,
   smooth_curves: true,
 };
+
+const guiObj = {
+  clearFade: clearFade
+}
 var guiNumSegments, guiWaveAmplitude, guiWaveFrequency;
 
 function setup() {
@@ -17,8 +21,9 @@ function setup() {
   P5JsSettings.init();
 
   gui = P5JsSettings.addGui({autoPlace: false});
+  gui.add(guiObj, 'clearFade');
   guiNumSegments = gui.add(params, "num_segments", 1, 100, 1);
-  guiWaveAmplitude = gui.add(params, "wave_amplitude", -200, 200, 10);;
+  guiWaveAmplitude = gui.add(params, "wave_amplitude", -height/2.1, height/2.1, 10);;
   guiWaveFrequency = gui.add(params, "wave_frequency", 0.5, 5, 0.005);
   guiSourceHeading = gui.add(params, "source_heading", -0.75 * HALF_PI, 0.75 * HALF_PI, 0.01);
   guiSmoothCurves = gui.add(params, "smooth_curves");
@@ -33,6 +38,11 @@ function setup() {
 function draw(){
   background(0, 0, 20, 0.04);
   system.tick();
+  system.draw();
+}
+
+function clearFade(){
+  background(0, 0, 20);
   system.draw();
 }
 
