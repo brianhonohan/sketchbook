@@ -15,7 +15,7 @@ function setup() {
   canvas = createCanvas(500, 500);
   P5JsSettings.init();
 
-  gui = new dat.gui.GUI();
+  gui = P5JsSettings.addGui({autoPlace: false});
   guiNumSegments = gui.add(params, "num_segments", 1, 100, 1);
   guiWaveAmplitude = gui.add(params, "wave_amplitude", -200, 200, 10);;
   guiWaveFrequency = gui.add(params, "wave_frequency", 0.5, 5, 0.005);
