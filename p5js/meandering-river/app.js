@@ -12,7 +12,8 @@ var params = {
 var guiNumSegments, guiWaveAmplitude, guiWaveFrequency;
 
 function setup() {
-  canvas = createCanvas(500, 500);
+  // canvas = createCanvas(500, 500); // for screenshots
+  canvas = createAutosizedCanvas();
   P5JsSettings.init();
 
   gui = P5JsSettings.addGui({autoPlace: false});
@@ -33,6 +34,20 @@ function draw(){
   background(0, 0, 20, 0.04);
   system.tick();
   system.draw();
+}
+
+function createAutosizedCanvas(){
+  canvas = createCanvas();
+  windowResized(undefined, true);
+  return canvas;
+}
+
+function windowResized(event, noRedraw = false) {
+  resizeCanvas(innerWidth, 
+              innerHeight - drawingContext.canvas.getBoundingClientRect().top,
+              noRedraw);
+  background(0, 0, 20);
+  initSystem();
 }
  
 function initSystem(){
