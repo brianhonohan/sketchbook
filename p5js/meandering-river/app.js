@@ -16,20 +16,21 @@ function setup() {
   P5JsSettings.init();
 
   gui = new dat.gui.GUI();
-  guiNumSegments = gui.add(params, "num_segments").min(1).max(100).step(1);
-  guiWaveAmplitude = gui.add(params, "wave_amplitude").min(-200).max(200).step(10);
-  guiWaveFrequency = gui.add(params, "wave_frequency").min(0.5).max(5).step(0.25);
-  guiSourceHeading = gui.add(params, "source_heading").min(-0.75 * HALF_PI).max(0.75 * HALF_PI).step(0.01);
+  guiNumSegments = gui.add(params, "num_segments", 1, 100, 1);
+  guiWaveAmplitude = gui.add(params, "wave_amplitude", -200, 200, 10);;
+  guiWaveFrequency = gui.add(params, "wave_frequency", 0.5, 5, 0.005);
+  guiSourceHeading = gui.add(params, "source_heading", -0.75 * HALF_PI, 0.75 * HALF_PI, 0.01);
   guiSmoothCurves = gui.add(params, "smooth_curves");
   addGuiListeners();
   
   colorMode(HSB);
+  background(0, 0, 20);
   initSystem();
   frameRate(1);
 }
 
 function draw(){
-  background(0, 0, 20);
+  background(0, 0, 20, 0.04);
   system.tick();
   system.draw();
 }
@@ -42,17 +43,17 @@ function initSystem(){
 }
 
 function addGuiListeners(){
-  guiNumSegments.onFinishChange(function(value) {
+  guiNumSegments.onChange(function(value) {
     initSystem();
   });
-  guiWaveAmplitude.onFinishChange(function(value) {
+  guiWaveAmplitude.onChange(function(value) {
     initSystem();
   });
-  guiWaveFrequency.onFinishChange(function(value) {
+  guiWaveFrequency.onChange(function(value) {
     initSystem();
   });
-  guiSourceHeading.onFinishChange(_ =>  initSystem());
-  guiSmoothCurves.onFinishChange(_ => initSystem());
+  guiSourceHeading.onChange(_ =>  initSystem());
+  guiSmoothCurves.onChange(_ => initSystem());
 }
 
 function keyTyped(){
