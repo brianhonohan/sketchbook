@@ -17,7 +17,7 @@ class CrowdMember {
 
   setTarget(doorwayEnd){
     this.targetDoorway = doorwayEnd;
-    this.target = this.targetDoorway.position;
+    this.target = this.targetDoorway.exitPosition;
     this.velocity = p5.Vector.sub(this.target, this.loc);
     this.velocity.normalize();
     this.velocity.mult(0.5);
