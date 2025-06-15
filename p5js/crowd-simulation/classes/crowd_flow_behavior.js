@@ -25,11 +25,11 @@ class CrowdFlowBehavior {
 
   defaultSettings(){
     return {
-      separationFactor: 0.8,
+      separationFactor: 2.5,
       alignFactor: 0.9,
       cohesionFactor: 0.6,
       desiredSeparation: 20,
-      maxSpeed: 3,
+      maxSpeed: 2,
       maxForce: 0.05
     };
   }
@@ -102,11 +102,17 @@ class CrowdFlowBehavior {
     const steer = createVector(0, 0);
     let countTooClose = 0;
 
+    let desiredSeparation = this.config.desiredSeparation;
+    if (boid.loc.dist(boid.target) < desiredSeparation){
+      // 
+      desiredSeparation = boid.size;
+    }
+
     for (var i = 0; i < fovData.neighbors.length; i++){
       let other = fovData.neighbors[i];
 
       let dist = fovData.distances[i];
-      if (dist > this.config.desiredSeparation){
+      if (dist > desiredSeparation){
         continue;
       }
 
