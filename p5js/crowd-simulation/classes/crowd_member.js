@@ -11,6 +11,9 @@ class CrowdMember {
     this.targetDoorway = undefined;
   }
 
+  static get size() { return 10; }
+  get size() { return CrowdMember.size; }
+
   setStart(doorwayStart){
     this.startDoorway = doorwayStart;
   }
@@ -29,8 +32,6 @@ class CrowdMember {
   get minY(){ return this.loc.y - CrowdMember.size; }
   get maxX(){ return this.loc.x + CrowdMember.size; }
   get maxY(){ return this.loc.y + CrowdMember.size; }
-
-  static get size() { return 10; }
 
   tick(){
     this.neighbors = this.publicSpace.crowdNearby(this.x, this.y);
