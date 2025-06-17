@@ -5,6 +5,7 @@ categories: p5js/shader-examples
 date: 2025-05-25
 modal: true
 viewport_noscale: true
+prev_sketch: /sketchbook/p5js/thermal-cells/
 excerpt: A rudimentary heat-transfer shader.
 
 js_scripts:
