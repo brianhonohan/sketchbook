@@ -5,6 +5,7 @@ categories: p5js
 date: 2018-12-15
 modal: true
 viewport_noscale: true
+next_sketch: /sketchbook/p5js/shader-examples/heat-transfer/
 excerpt: Simulation of heat transfer across a grid of cells, where you can add heat sources, heat sinks, and thermal walls to see how the heat dissipates.
 
 js_scripts:
