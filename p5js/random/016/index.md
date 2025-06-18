@@ -1,13 +1,12 @@
 ---
 layout: minimal
-title:  "p5.js - Random 015"
+title:  "p5.js - Random 016"
 categories: p5js/random
-date: 2025-05-23
+date: 2025-06-17
 modal: true
 viewport_noscale: true
-prev_sketch: /sketchbook/p5js/random/014/
-prev_sketch: /sketchbook/p5js/random/016/
-excerpt: Perlin noise curves via quad(), resulting in wavy lines draw as bars formed by quadrangles.
+prev_sketch: /sketchbook/p5js/random/015/
+excerpt: Perlin noise curves via beginShape() to draw a solid, singular shape with noise plotted as top edge of each shape.
 
 js_scripts:
 - /sketchbook/vendor/inobounce/0.2.0/inobounce.js
