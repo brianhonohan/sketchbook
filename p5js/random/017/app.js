@@ -20,8 +20,8 @@ var systemParams = {
 };
 
 function setup(){
-  canvas = createCanvas(500, 500);
-  // canvas = createAutosizedCanvas();
+  // canvas = createCanvas(500, 500);
+  canvas = createAutosizedCanvas();
   colorMode(HSB);
 
   initBlendModeOptions();
