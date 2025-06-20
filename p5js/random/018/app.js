@@ -5,7 +5,7 @@ let blendModesDetails;
 let blendModeOptions;
 
 var systemParams = {
-  xStepSize: 0.002,
+  xStepSize: 0.01,
   yStepSize: 0.07,
   yWaveFactor: 0.35,
   useFrameCountInX: false,
@@ -141,22 +141,24 @@ function drawLine(y){
   }
   let prevY = yVal(xStart, 0);
   let tmpY = 0;
+  let altTmpY = 0;
 
   let strokeWeightVal = 10;
   noFill();
 
-  beginShape();
-  strokeWeight(2);
+  strokeWeight(5);
   
   const initialX = 0.1 * width;
   const finalX = 0.9 * width;
   for(let currentX = initialX; currentX < finalX; currentX += xIncrement){
     tmpY = yVal(currentX, 0);
+    altTmpY = yVal(currentX + 100000, 0);
 
     // incrementBlendMode();
 
     let proportion = Math.abs(tmpY - y) / yWaveHeight;
-    strokeWeightVal = lerp(0, 10,  proportion);
+    strokeWeightVal = lerp(3, 50,  proportion);
+  strokeWeight(strokeWeightVal);
     let lerpedCol = color( lerp(systemParams.hsbStart, systemParams.hsbEnd, proportion), 100, 100, 1);
     stroke(lerpedCol); 
     if (systemParams.fillShapes){
@@ -164,38 +166,13 @@ function drawLine(y){
     } else {
       noFill();
     }
-
-    // let prevYFraction = prevY + yIncrement * 0.3;
-    // let tmpYFraction = tmpY + yIncrement * 0.3;
-
-    // let endAngle = Math.PI * 2 * (proportion - 0.000001);
-    // let startAngle = endAngle - (Math.PI * proportion);
-    // let radius = 10 + proportion * yWaveHeight;
 
     vertex(currentX, tmpY);
-    prevY = tmpY;
-  }
-  for(let currentX = finalX; currentX > initialX; currentX -= xIncrement){
-    tmpY = yVal(currentX + 100000, 0);
-
-    // incrementBlendMode();
-
-    let proportion = Math.abs(tmpY - y) / yWaveHeight;
-    strokeWeightVal = lerp(0, 10,  proportion);
-    let lerpedCol = color( lerp(systemParams.hsbStart, systemParams.hsbEnd, proportion), 100, 100, 1);
-    stroke(lerpedCol); 
-    if (systemParams.fillShapes){
-      fill(lerpedCol);
-    } else {
-      noFill();
-    }
-
-
+    
     vertex(currentX, tmpY+ 0.05 * height);
+    line(currentX, tmpY, currentX, altTmpY);
+
     prevY = tmpY;
   }
-  // vertex(finalX, y);
-  // vertex(initialX, y);
-  endShape(CLOSE);
 }
 
