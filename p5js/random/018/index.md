@@ -1,13 +1,12 @@
 ---
 layout: minimal
-title:  "p5.js - Random 017"
+title:  "p5.js - Random 018"
 categories: p5js/random
-date: 2025-06-17
+date: 2025-06-19
 modal: true
 viewport_noscale: true
-next_sketch: /sketchbook/p5js/random/018/
-prev_sketch: /sketchbook/p5js/random/016/
-excerpt: Perlin noise curves via beginShape() to draw a solid, singular shape with noise plotted as top and bottom edge of each shape.
+prev_sketch: /sketchbook/p5js/random/017/
+excerpt: Perlin noise curves via vertical lines with varying widths, and noise determining top and bottom points of the line.
 
 js_scripts:
 - /sketchbook/vendor/inobounce/0.2.0/inobounce.js
