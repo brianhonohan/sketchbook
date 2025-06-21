@@ -6,7 +6,7 @@ date: 2025-05-23
 modal: true
 viewport_noscale: true
 prev_sketch: /sketchbook/p5js/random/014/
-prev_sketch: /sketchbook/p5js/random/016/
+next_sketch: /sketchbook/p5js/random/016/
 excerpt: Perlin noise curves via quad(), resulting in wavy lines draw as bars formed by quadrangles.
 
 js_scripts:
