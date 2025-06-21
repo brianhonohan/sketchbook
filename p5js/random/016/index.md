@@ -6,6 +6,7 @@ date: 2025-06-17
 modal: true
 viewport_noscale: true
 prev_sketch: /sketchbook/p5js/random/015/
+next_sketch: /sketchbook/p5js/random/017/
 excerpt: Perlin noise curves via beginShape() to draw a solid, singular shape with noise plotted as top edge of each shape.
 
 js_scripts:
