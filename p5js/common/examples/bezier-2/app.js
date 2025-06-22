@@ -41,6 +41,7 @@ function setup() {
   tangentGui.add(settings.tangent, "perpendicular_length", 5, 200, 5);
 
   drawIntermediatePoints();
+  P5JsSettings.collapseGuiIfNarrow(gui);
 }
 
 function draw(){

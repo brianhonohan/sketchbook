@@ -41,6 +41,7 @@ function setup() {
   gui.add(system.settings, "interpolate_lines").onChange(regenerateSystem);
   gui.add(system.settings, "fillRect");
   gui.add(system.settings, "drawGrid");
+  P5JsSettings.collapseGuiIfNarrow(gui);
 }
 
 function regenerateSystem(){

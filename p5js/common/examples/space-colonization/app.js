@@ -101,6 +101,7 @@ function setup() {
     system.addNewComponents();
 
   }
+  P5JsSettings.collapseGuiIfNarrow(gui);
 }
 
 function draw(){

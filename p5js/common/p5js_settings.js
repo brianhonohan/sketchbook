@@ -108,6 +108,12 @@ class P5JsSettings {
     return container;
   }
 
+  static collapseGuiIfNarrow(gui){
+    if (window.innerWidth < 500) {
+      gui.close();
+    }
+  }
+
   static setSeed(seed){
     this.optionsSet.settings.seed = seed;
     randomSeed(this.optionsSet.settings.seed);

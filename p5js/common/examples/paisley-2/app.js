@@ -80,6 +80,7 @@ function setup() {
   // TODO: enable basic layer stack of drawable objects
   // ... with send to back, bring to front, send to bottom, bring to top functions
   shapes.push(paisley);
+  P5JsSettings.collapseGuiIfNarrow(gui);
 }
 
 function draw(){

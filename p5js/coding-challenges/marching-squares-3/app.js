@@ -26,6 +26,8 @@ function setup() {
   gui.add(system.settings, "rectPercent", 0.05, 1, 0.01).onChange(updateRendering);
   gui.add(system.settings, "drawGrid");
   gui.add(system.settings, "num_levels", 2, 20, 1).onChange(updateRendering);
+  
+  P5JsSettings.collapseGuiIfNarrow(gui);
 }
 
 function regenerateSystem(){

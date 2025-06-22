@@ -14,7 +14,7 @@ var systemParams = {
 function setup(){
   createCanvas(windowWidth, windowHeight-35, WEBGL);
 
-  gui = new dat.gui.GUI();
+  gui = P5JsSettings.addGui({autoPlace: false});
   gui.add(systemParams, "rho").min(1).max(50).step(0.1);
   gui.add(systemParams, "sigma").min(1).max(30).step(0.1);
   gui.add(systemParams, "beta").min(1).max(30).step(0.1);
