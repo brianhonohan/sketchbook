@@ -29,6 +29,7 @@ function setup(){
   flowGui.add(publicSpace.defaultFlowBehavior.config, 'maxForce', 0.05, 1, 0.05);
 
   addGuiControlsForDoorwaySpawnMatrices();
+  P5JsSettings.collapseGuiIfNarrow(gui);
 }
 
 function draw(){

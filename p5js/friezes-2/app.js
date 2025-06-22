@@ -40,6 +40,7 @@ function setup() {
   gui.add(settings, "animationSpeed", 1, 10, 1).onChange(animatePen);
 
   drawBackground();
+  P5JsSettings.collapseGuiIfNarrow(gui);
 }
 
 function createPen(){

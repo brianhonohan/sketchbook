@@ -27,6 +27,7 @@ function setup() {
   gui.add(guiProxy, 'resetDefaults').name('Reset Factors');
 
   background(50);
+  P5JsSettings.collapseGuiIfNarrow(gui);
 }
 
 function draw(){

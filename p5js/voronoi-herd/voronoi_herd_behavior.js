@@ -61,6 +61,7 @@ function setup(){
   addGuiListeners();
 
   initSystem();
+  P5JsSettings.collapseGuiIfNarrow(gui);
 }
 
 function draw(){

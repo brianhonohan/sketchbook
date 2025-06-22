@@ -38,6 +38,8 @@ function setup() {
   addGuiForSpecies(system.forest.treeSpecies[0]);
   addGuiForSpecies(system.forest.treeSpecies[1]);
   addGuiForSpecies(system.forest.treeSpecies[2]);
+
+  P5JsSettings.collapseGuiIfNarrow(gui);
 }
 
 function addGuiForSpecies(species){
