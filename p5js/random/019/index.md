@@ -1,13 +1,12 @@
 ---
 layout: minimal
-title:  "p5.js - Random 018"
+title:  "p5.js - Random 019"
 categories: p5js/random
-date: 2025-06-19
+date: 2025-06-22
 modal: true
 viewport_noscale: true
-prev_sketch: /sketchbook/p5js/random/017/
-next_sketch: /sketchbook/p5js/random/019/
-excerpt: Perlin noise curves via vertical lines with varying widths, and noise determining top and bottom points of the line.
+prev_sketch: /sketchbook/p5js/random/018/
+excerpt: Perlin noise flow field, visualized via vectors.
 
 js_scripts:
 - /sketchbook/vendor/inobounce/0.2.0/inobounce.js
