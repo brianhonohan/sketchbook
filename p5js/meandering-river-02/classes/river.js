@@ -12,6 +12,9 @@ class River {
     if (this.params.smooth_curves){
       this.smooth();
     }
+    if (this.params.hobby_curves){
+      this.applyHobbyCurve();
+    }
   }
 
   get x(){ return this.source.pos.x; }
@@ -126,6 +129,22 @@ class River {
     }
   }
 
+  asArray(){
+    const points = this.segments.map(s => s.endAsArray());
+    points.unshift(this.source.positionAsArray());
+    return points;
+  }
+
+  applyHobbyCurve(){
+    const points = this.asArray();
+    const bezierPoints = hobby(points);
+
+    this.polyBez = new Polybezier();
+
+    const splinePtsAsXY = bezierPoints.map(pt => ({x: pt[0], y: pt[1]}) );
+    this.polyBez.setSplinePoints(splinePtsAsXY);
+  }
+
   debugSegments(message){
     console.log(message);
     console.log('Segment ids:');
@@ -137,6 +156,13 @@ class River {
   get nextId() { return this.maxId++;  }
 
   draw(){
+    if (this.params.hobby_curves){
+      stroke(255, 65, 90);
+      noFill();
+      this.polyBez.draw();
+      return;
+    }
+
     this.source.draw();
     let hue = 0;
     this.segments.forEach(s => {

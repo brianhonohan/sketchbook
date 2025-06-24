@@ -6,6 +6,10 @@ class RiverSource {
     this.id = 'source';
   }
 
+  positionAsArray(){
+    return [this.pos.x, this.pos.y];
+  }
+
   set heading(newHeading){
     this._heading = newHeading;
     this.directionalVector = createVector(20, 0).rotate(newHeading);

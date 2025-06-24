@@ -8,6 +8,7 @@ var params = {
   wave_frequency: 3,
   source_heading: 0,
   smooth_curves: true,
+  hobby_curves: true,
 };
 
 const guiObj = {
@@ -29,6 +30,7 @@ function setup() {
   guiWaveFrequency = gui.add(params, "wave_frequency", 0.5, 5, 0.005);
   guiSourceHeading = gui.add(params, "source_heading", -0.75 * HALF_PI, 0.75 * HALF_PI, 0.01);
   guiSmoothCurves = gui.add(params, "smooth_curves");
+  gui.add(params, "hobby_curves").onChange(initSystem)
   addGuiListeners();
   
   colorMode(HSB);

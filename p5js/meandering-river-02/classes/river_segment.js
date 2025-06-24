@@ -7,6 +7,15 @@ class RiverSegment {
 
   get start() { return this.parent.end; }
 
+  endAsArray() {
+    return [this.end.x, this.end.y];
+  }
+  
+  updateEndFromArray(arr){
+    this.end.x = arr[0];
+    this.end.y = arr[1];
+  }
+
   vectorFromParent(){
     return createVector(this.end.x - this.start.x, this.end.y - this.start.y);
   }
