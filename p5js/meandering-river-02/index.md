@@ -21,6 +21,12 @@ js_scripts:
 - classes/system.js
 - app.js
 
+js_modules:
+- from_path: /sketchbook/vendor/jakelow/hobby_curve.mjs
+  exports_to_import:
+    - hobby
+
+
 ---
 
 {% include_relative README.md %}

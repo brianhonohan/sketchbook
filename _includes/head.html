@@ -35,6 +35,19 @@
     {% endfor %}
     {% for js in page.js_scripts %}<script src="{{ js }}" charset="utf-8"></script>
     {% endfor %}
-    {% for mjs in page.js_modules %}<script type="module" src="{{ mjs }}" charset="utf-8"></script>
-    {% endfor %}
+    {% if page.js_modules %}
+        {% for module in page.js_modules %}
+            {% if module.exports_to_import %}
+    <script type="module" charset="utf-8">
+        import { {{ module.exports_to_import | join: ', ' }} } from "{{ module.from_path }}";
+        {% for exp in module.exports_to_import %}window.{{ exp }} = {{ exp }};
+        {% endfor %}
+    </script>
+            {% elsif module.from_path %}
+    <script type="module" src="{{ module.from_path }}" charset="utf-8"></script>
+            {% else %}
+    <script type="module" src="{{ module }}" charset="utf-8"></script>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
 </head>
