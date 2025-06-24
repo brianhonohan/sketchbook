@@ -11,6 +11,7 @@ var params = {
 };
 
 const guiObj = {
+  fadeEffect: true,
   clearFade: clearFade
 }
 var guiNumSegments, guiWaveAmplitude, guiWaveFrequency;
@@ -21,6 +22,7 @@ function setup() {
   P5JsSettings.init();
 
   gui = P5JsSettings.addGui({autoPlace: false});
+  gui.add(guiObj, 'fadeEffect');
   gui.add(guiObj, 'clearFade');
   guiNumSegments = gui.add(params, "num_segments", 1, 100, 1);
   guiWaveAmplitude = gui.add(params, "wave_amplitude", -height/2.1, height/2.1, 10);;
@@ -36,7 +38,11 @@ function setup() {
 }
 
 function draw(){
-  background(0, 0, 20, 0.04);
+  if (guiObj.fadeEffect){
+    background(0, 0, 20, 0.04);
+  } else {
+    background(0, 0, 20);
+  }
   system.tick();
   system.draw();
 }
