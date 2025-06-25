@@ -3,11 +3,11 @@ var canvas;
 
 var gui;
 var params = {
-  num_segments: 5,
-  wave_amplitude: 50,
-  wave_frequency: 3,
+  num_segments: 25,
+  wave_amplitude: 50, // overridden in setup
+  wave_frequency: 4,
   source_heading: 0,
-  smooth_curves: true,
+  smooth_curves: false,
   hobby_curves: true,
 };
 
@@ -21,6 +21,8 @@ function setup() {
   // canvas = createCanvas(500, 500); // for screenshots
   canvas = createAutosizedCanvas();
   P5JsSettings.init();
+
+  params.wave_amplitude = 0.3 * height;
 
   gui = P5JsSettings.addGui({autoPlace: false});
   gui.add(guiObj, 'fadeEffect');
