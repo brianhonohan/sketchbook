@@ -7,7 +7,7 @@ var params = {
   wave_amplitude: 50, // overridden in setup
   wave_frequency: 4,
   source_heading: 0,
-  smooth_curves: false,
+  smooth_curves: true,
   hobby_curves: true,
 };
 
