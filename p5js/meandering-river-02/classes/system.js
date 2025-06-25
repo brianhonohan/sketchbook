@@ -10,6 +10,7 @@ class System {
   }
 
   tick(){
+    this.river.tick();
   }
 
   draw(){

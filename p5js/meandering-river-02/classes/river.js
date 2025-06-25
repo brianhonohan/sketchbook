@@ -155,6 +155,24 @@ class River {
 
   get nextId() { return this.maxId++;  }
 
+  tick(){
+    // meander
+    for (let i = 1; i < this.segments.length - 1; i++){
+      let segment = this.segments[i];
+      let prevSeg = segment.parent;
+      let nextSeg = this.segments[i + 1]; 
+
+      let netForce = segment.vectorFromParent();
+      netForce.sub(nextSeg.vectorFromParent());
+      netForce.setMag(0.5);
+      segment.end.add(netForce);
+    }
+
+    if (this.params.hobby_curves){
+      this.applyHobbyCurve();
+    }
+  }
+
   draw(){
     if (this.params.hobby_curves){
       stroke(255, 65, 90);

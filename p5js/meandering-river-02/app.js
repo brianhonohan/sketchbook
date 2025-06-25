@@ -38,7 +38,6 @@ function setup() {
   colorMode(HSB);
   background(0, 0, 20);
   initSystem();
-  frameRate(1);
 }
 
 function draw(){
