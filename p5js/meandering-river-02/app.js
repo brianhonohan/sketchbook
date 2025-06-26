@@ -23,8 +23,8 @@ const guiObj = {
 var guiNumSegments, guiWaveAmplitude, guiWaveFrequency;
 
 function setup() {
-  canvas = createCanvas(500, 500); // for screenshots
-  // canvas = createAutosizedCanvas();
+  // canvas = createCanvas(500, 500); // for screenshots
+  canvas = createAutosizedCanvas();
   P5JsSettings.init();
 
   params.wave_amplitude = 0.3 * height;
