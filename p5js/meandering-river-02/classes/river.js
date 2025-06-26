@@ -171,7 +171,7 @@ class River {
 
       let netForce = segment.vectorFromParent();
       netForce.sub(nextSeg.vectorFromParent());
-      netForce.setMag(0.5);
+      netForce.setMag(0.1 * this.params.animation_speed);
       segment.end.add(netForce);
     }
 

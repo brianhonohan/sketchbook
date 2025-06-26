@@ -9,7 +9,8 @@ var params = {
   source_heading: 0,
   smooth_curves: true,
   hobby_curves: true,
-  reset_after_secs: 4
+  reset_after_secs: 4,
+  animation_speed: 5
 };
 
 const guiObj = {
@@ -35,6 +36,7 @@ function setup() {
   guiSmoothCurves = gui.add(params, "smooth_curves");
   gui.add(params, "hobby_curves").onChange(initSystem)
   gui.add(params, "reset_after_secs", 0, 10, 1);
+  gui.add(params, "animation_speed", 0, 10, 1);
   addGuiListeners();
   
   colorMode(HSB);
