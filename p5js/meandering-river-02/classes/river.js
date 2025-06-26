@@ -5,7 +5,10 @@ class River {
     this.end = end;
     this.plain = floodPlain;
     this.maxId = 0;
+    this.init();
+  }
 
+  init(){
     this.segments = [];
     this.numStartingSegments = this.params.num_segments;
     this.initWithSinuousSegments();
@@ -156,6 +159,10 @@ class River {
   get nextId() { return this.maxId++;  }
 
   tick(){
+    if (frameCount % (this.params.reset_after_secs * 60) === 0){
+      this.init();
+      return;
+    }
     // meander
     for (let i = 1; i < this.segments.length - 1; i++){
       let segment = this.segments[i];
