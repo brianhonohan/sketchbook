@@ -18,6 +18,7 @@ class River {
     if (this.params.hobby_curves){
       this.applyHobbyCurve();
     }
+    this.hueOffset = Math.floor( 360 * Math.random() );
   }
 
   get x(){ return this.source.pos.x; }
@@ -160,6 +161,7 @@ class River {
 
   tick(){
     if (frameCount % (this.params.reset_after_secs * 60) === 0){
+      redrawBackground();
       this.init();
       return;
     }
@@ -178,11 +180,20 @@ class River {
     if (this.params.hobby_curves){
       this.applyHobbyCurve();
     }
+
+    if (this.params.cycleColors){
+      let tenthOfReset = Math.floor(this.params.reset_after_secs * 60 / 10);
+      if (frameCount % tenthOfReset === 0){
+        let randomShiftDir = Math.random() < 0.5 ? -1 : 1;
+        let shiftMag = 90 + randomShiftDir * 60 * Math.random(); 
+        this.hueOffset = (this.hueOffset + randomShiftDir * shiftMag) % 360; 
+      }
+    }
   }
 
   draw(){
     if (this.params.hobby_curves){
-      stroke(255, 65, 90);
+      stroke(this.hueOffset, 40, 50);
       noFill();
       this.polyBez.draw();
       return;
