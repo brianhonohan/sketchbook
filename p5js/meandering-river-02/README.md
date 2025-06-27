@@ -12,7 +12,7 @@ I've since come across [Robert Hodgin's 'Meander' work](https://roberthodgin.com
 ## Controls
 
 ### Configuration: 
-(via the [lil-gui]https://lil-gui.georgealways.com/) control panel)
+(via the [lil-gui](https://lil-gui.georgealways.com/) control panel)
 
 * `num_segments` how many starting lines there are before smoothing takes place
 * `wave_amplitude` number of pixels above and below the centerline the sine wave used to place the points will swing.
@@ -25,13 +25,12 @@ I've since come across [Robert Hodgin's 'Meander' work](https://roberthodgin.com
 # References:
 * Wikipedia: [Meandering](https://en.wikipedia.org/wiki/Meander)
 * [Jake Low - implementation of Hobby Algorithm][jakelow-blog-hobby-curve]
-* [Robert Hodgin - Meander][]
+* [Robert Hodgin - Meander][roberthodgin-meander] - A very thorough article on his procedural generation of maps of fictitious rivers as they meander over a recreated landscape. 
 
 # Links: 
 
 * [Live View][live-view]
 * [Source on Github][source-code]
-* [Primary Implementation][main-pr]
 
 # Screenshot:
 
