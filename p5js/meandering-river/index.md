@@ -4,6 +4,7 @@ title:  "p5.js - Meandering River"
 categories: p5js
 date: 2018-12-02
 modal: true
+next_sketch: /sketchbook/p5js/meandering-river-02/
 excerpt: Preliminary sketch modeling the meandering of a river.
 
 js_scripts:

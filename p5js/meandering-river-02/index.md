@@ -2,10 +2,10 @@
 layout: minimal
 title:  "p5.js - Meandering River 02"
 categories: p5js
-date: 2025-06-23
+date: 2025-06-26
 modal: true
 prev_sketch: /sketchbook/p5js/meandering-river/
-excerpt: Follow up sketch, exploring bezier curves, including Hobby's algorithm.
+excerpt: Follow up sketch to have meandering rivers, exploring bezier curves, including Hobby's algorithm.
 
 js_scripts:
 - https://cdn.jsdelivr.net/npm/p5@1.11.2/lib/p5.min.js
@@ -28,7 +28,6 @@ js_modules:
 - from_path: /sketchbook/vendor/jakelow/hobby_curve.mjs
   exports_to_import:
     - hobby
-
 
 ---
 
