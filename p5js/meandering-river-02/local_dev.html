@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <title>P5.JS - Meandering River 02</title>
+    <meta name="viewport" content="user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width">
+
+    <script src="/sketchbook/vendor/inobounce/0.2.0/inobounce.js" charset="utf-8"></script>
+    <script src="/sketchbook/vendor/p5.js/1.11.2/p5.min.js"></script>
+    <script src="/sketchbook/vendor/lil-gui/0.20.0/lil-gui.min.js"></script>
+    <script src="/sketchbook/p5js/common/p5js_settings.js" charset="utf-8"></script>
+    <script src="/sketchbook/p5js/common/p5js_utils.js" charset="utf-8"></script>
+    <script src="/sketchbook/js/util_functions.js" charset="utf-8"></script>
+    <script src="/sketchbook/js/options_set.js" charset="utf-8"></script>
+    <script src="/sketchbook/js/models/rect.js" charset="utf-8"></script>
+    <script src="/sketchbook/p5js/common/shapes/point.js" charset="utf-8"></script>
+    <script src="/sketchbook/p5js/common/shapes/bezier_curve.js" charset="utf-8"></script>
+    <script src="/sketchbook/p5js/common/shapes/polybezier.js" charset="utf-8"></script>
+
+    <script type="module">
+        import { hobby } from "/sketchbook/vendor/jakelow/hobby_curve.mjs";
+        window.hobby = hobby;
+    </script>
+
+    <script src="classes/river_source.js" charset="utf-8"></script>
+    <script src="classes/river_segment.js" charset="utf-8"></script>
+    <script src="classes/river.js" charset="utf-8"></script>
+    <script src="classes/system.js" charset="utf-8"></script>
+    <script src="app.js" charset="utf-8"></script>
+
+<style>
+html, body {margin: 0; height: 100%; overflow: hidden}
+body { font-family: Sans-Serif; }
+</style>
+</head>
+<body>
+</body>
+</html>

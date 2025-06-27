@@ -94,6 +94,19 @@ class Polybezier {
     this.isDragged = false;
   }
 
+  setSplinePoints(points){
+    this.clear();
+    if (points.length < 4){
+      console.warn("Unable to create a Polybezier with less than 4 points.");
+      return;
+    }
+    let iterLimit = this.closed ? points.length : points.length - 3;
+    for (let i = 0; i < iterLimit; i += 3){
+      let curve = new BezierCurve(points[i], points[i + 1], points[i + 2], points[i + 3]);
+      this.append(curve);
+    }
+  }
+
   append(curve){
     if (this.closed){
       console.warn("Unable to append to a closed Polybezier.");
