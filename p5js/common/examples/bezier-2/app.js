@@ -5,6 +5,7 @@ let tangentLine;
 let perpendicularLine;
 
 let perpendicularOptions = ['inward', 'outward'];
+let perpendLengthOptions = ['scale to curvature', 'use slider'];
 
 const settings = {
   enable_drag: true,
@@ -13,6 +14,7 @@ const settings = {
     draw: true,
     percent: 0.25,
     perpendicular: true,
+    perpend_length_option: perpendLengthOptions[0],
     perpendicular_length: 50,
     perpendicular_direction: perpendicularOptions[0]
   },
@@ -41,6 +43,7 @@ function setup() {
   tangentGui.add(settings.tangent, "draw");
   tangentGui.add(settings.tangent, "percent", 0, 1, 0.02);
   tangentGui.add(settings.tangent, "perpendicular");
+  tangentGui.add(settings.tangent, "perpend_length_option", perpendLengthOptions).name("Scale Perpend. To:");
   tangentGui.add(settings.tangent, "perpendicular_length", 5, 200, 5);
   tangentGui.add(settings.tangent, "perpendicular_direction", perpendicularOptions).name("perpendicular dir");
 
@@ -82,7 +85,15 @@ function draw(){
       
       stroke(200, 50, 50);
       strokeWeight(3);
-      perpendicularLine.setLength(settings.tangent.perpendicular_length);
+      let length;
+      if (settings.tangent.perpend_length_option == perpendLengthOptions[0]){
+        // length = -1 / Math.log(bezierCurve.curvatureAt(settings.tangent.percent)) * 300;
+        length = bezierCurve.curvatureAt(settings.tangent.percent) * 10000;
+      } else {
+        length = settings.tangent.perpendicular_length;
+      }
+
+      perpendicularLine.setLength(length);
       perpendicularLine.draw();
     }
   }

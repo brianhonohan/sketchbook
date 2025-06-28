@@ -124,6 +124,36 @@ class BezierCurve {
     const tangentEnd = new Point(pointAtPercent.x + tx, pointAtPercent.y + ty);
     return new LineSegment(pointAtPercent, tangentEnd);
   }
+  
+  // See: https://en.wikipedia.org/wiki/Curvature#Curvature_of_plane_curves_defined_explicitly
+  curvatureAt(percent) {
+    const { p1, p2, p3, p4 } = this;
+
+    // First derivative
+    const dxdt =
+      3 * (1 - percent) ** 2 * (p2.x - p1.x) +
+      6 * (1 - percent) * percent * (p3.x - p2.x) +
+      3 * percent ** 2 * (p4.x - p3.x);
+
+    const dydt =
+      3 * (1 - percent) ** 2 * (p2.y - p1.y) +
+      6 * (1 - percent) * percent * (p3.y - p2.y) +
+      3 * percent ** 2 * (p4.y - p3.y);
+
+    // Second derivative
+    const d2xdt2 =
+      6 * (1 - percent) * (p3.x - 2 * p2.x + p1.x) +
+      6 * percent * (p4.x - 2 * p3.x + p2.x);
+
+    const d2ydt2 =
+      6 * (1 - percent) * (p3.y - 2 * p2.y + p1.y) +
+      6 * percent * (p4.y - 2 * p3.y + p2.y);
+
+    const numerator = Math.abs(dxdt * d2ydt2 - dydt * d2xdt2);
+    const denominator = Math.pow(dxdt ** 2 + dydt ** 2, 1.5);
+
+    return denominator === 0 ? 0 : numerator / denominator;
+  }
 
   toggleDragEnabled(){
     this.dragEnabled = !this.dragEnabled;
