@@ -67,6 +67,12 @@ class LineSegment {
     this.end.y = this.start.y + delta.y;
   }
 
+  rotationBetween(otherLineSegment){
+    let v1 = this.asVector();
+    let v2 = otherLineSegment.asVector();
+    return P5JsUtils.rotationBetweenVectors(v1, v2); 
+  }
+
   getLine(){
     let slope = this.slope;
     if (slope == Infinity || slope == -Infinity){
@@ -117,6 +123,15 @@ class LineSegment {
     this.end.y = this.start.y + deltaX;
   }
 
+  rotateNegative90AroundStart(){
+    let deltaX = this.dx();
+    let deltaY = this.dy();
+
+    this.end.x = this.start.x + deltaY;
+    this.end.y = this.start.y - deltaX; 
+  }
+
+   // Hmmm ... may have bug when line is very short
   rotate180(){
     const tempX = this.start.x;
     const tempY = this.start.y;

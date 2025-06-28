@@ -75,13 +75,84 @@ class BezierCurve {
     return lineSeg;
   }
 
-  tangentAt(percent){
+  outwardPerpendiculAt(percent, length = undefined){
+    let lineSeg = this.tangentAt(percent);
+    let pointAhead = this.pointAt(percent + 0.01);
+    let segToPointAhead = new LineSegment(lineSeg.start, pointAhead);
+    let rotation = lineSeg.rotationBetween(segToPointAhead);
+
+    if (rotation < 0){
+      lineSeg.rotate90AroundStart();
+    } else {
+      lineSeg.rotateNegative90AroundStart();
+    }
+
+    if (length != undefined){
+      lineSeg.setLength(length);
+    }
+    return lineSeg;
+  }
+
+  inwardPerpendiculAt(percent, length = undefined){
+    let lineSeg = this.outwardPerpendiculAt(percent, length);
+    // rotate18o() does not work for very short line segments
+    lineSeg.rotate90AroundStart();
+    lineSeg.rotate90AroundStart();
+    return lineSeg;
+  }
+
+  // Returns a LineSegment that is tangent to the curve at the given percent.
+  // The  midpoint of the line returned is at the point on the curve at that percent.
+  tangentAround(percent){
     //  consider shifting to bezierTangent(...)
     const delta = 0.0001;
     const pointJustBefore = this.pointAt(percent - delta);
     const pointJustAfter = this.pointAt(percent + delta);
 
     return new LineSegment(pointJustBefore, pointJustAfter);
+  }
+
+  // This implementaiton uses the bezierTangent function
+  // to calculate the tangent at a given percent along the curve.
+  //
+  // it is comparable to the tangentAt(percent) method,
+  // but returns a line segment that starts at the point on the curve 
+  tangentAt(percent){
+    const pointAtPercent = this.pointAt(percent);
+    let tx = bezierTangent(this.p1.x, this.p2.x, this.p3.x, this.p4.x, percent);
+    let ty = bezierTangent(this.p1.y, this.p2.y, this.p3.y, this.p4.y, percent);
+    const tangentEnd = new Point(pointAtPercent.x + tx, pointAtPercent.y + ty);
+    return new LineSegment(pointAtPercent, tangentEnd);
+  }
+  
+  // See: https://en.wikipedia.org/wiki/Curvature#Curvature_of_plane_curves_defined_explicitly
+  curvatureAt(percent) {
+    const { p1, p2, p3, p4 } = this;
+
+    // First derivative
+    const dxdt =
+      3 * (1 - percent) ** 2 * (p2.x - p1.x) +
+      6 * (1 - percent) * percent * (p3.x - p2.x) +
+      3 * percent ** 2 * (p4.x - p3.x);
+
+    const dydt =
+      3 * (1 - percent) ** 2 * (p2.y - p1.y) +
+      6 * (1 - percent) * percent * (p3.y - p2.y) +
+      3 * percent ** 2 * (p4.y - p3.y);
+
+    // Second derivative
+    const d2xdt2 =
+      6 * (1 - percent) * (p3.x - 2 * p2.x + p1.x) +
+      6 * percent * (p4.x - 2 * p3.x + p2.x);
+
+    const d2ydt2 =
+      6 * (1 - percent) * (p3.y - 2 * p2.y + p1.y) +
+      6 * percent * (p4.y - 2 * p3.y + p2.y);
+
+    const numerator = Math.abs(dxdt * d2ydt2 - dydt * d2xdt2);
+    const denominator = Math.pow(dxdt ** 2 + dydt ** 2, 1.5);
+
+    return denominator === 0 ? 0 : numerator / denominator;
   }
 
   toggleDragEnabled(){
