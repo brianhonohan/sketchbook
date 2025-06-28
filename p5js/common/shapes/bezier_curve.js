@@ -75,6 +75,32 @@ class BezierCurve {
     return lineSeg;
   }
 
+  outwardPerpendiculAt(percent, length = undefined){
+    let lineSeg = this.tangentAt(percent);
+    let pointAhead = this.pointAt(percent + 0.01);
+    let segToPointAhead = new LineSegment(lineSeg.start, pointAhead);
+    let rotation = lineSeg.rotationBetween(segToPointAhead);
+
+    if (rotation < 0){
+      lineSeg.rotate90AroundStart();
+    } else {
+      lineSeg.rotateNegative90AroundStart();
+    }
+
+    if (length != undefined){
+      lineSeg.setLength(length);
+    }
+    return lineSeg;
+  }
+
+  inwardPerpendiculAt(percent, length = undefined){
+    let lineSeg = this.outwardPerpendiculAt(percent, length);
+    // rotate18o() does not work for very short line segments
+    lineSeg.rotate90AroundStart();
+    lineSeg.rotate90AroundStart();
+    return lineSeg;
+  }
+
   // Returns a LineSegment that is tangent to the curve at the given percent.
   // The  midpoint of the line returned is at the point on the curve at that percent.
   tangentAround(percent){
