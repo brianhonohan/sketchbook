@@ -75,13 +75,28 @@ class BezierCurve {
     return lineSeg;
   }
 
-  tangentAt(percent){
+  // Returns a LineSegment that is tangent to the curve at the given percent.
+  // The  midpoint of the line returned is at the point on the curve at that percent.
+  tangentAround(percent){
     //  consider shifting to bezierTangent(...)
     const delta = 0.0001;
     const pointJustBefore = this.pointAt(percent - delta);
     const pointJustAfter = this.pointAt(percent + delta);
 
     return new LineSegment(pointJustBefore, pointJustAfter);
+  }
+
+  // This implementaiton uses the bezierTangent function
+  // to calculate the tangent at a given percent along the curve.
+  //
+  // it is comparable to the tangentAt(percent) method,
+  // but returns a line segment that starts at the point on the curve 
+  tangentAt(percent){
+    const pointAtPercent = this.pointAt(percent);
+    let tx = bezierTangent(this.p1.x, this.p2.x, this.p3.x, this.p4.x, percent);
+    let ty = bezierTangent(this.p1.y, this.p2.y, this.p3.y, this.p4.y, percent);
+    const tangentEnd = new Point(pointAtPercent.x + tx, pointAtPercent.y + ty);
+    return new LineSegment(pointAtPercent, tangentEnd);
   }
 
   toggleDragEnabled(){
