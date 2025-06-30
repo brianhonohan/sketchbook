@@ -8,8 +8,8 @@ const settings = {
 }
 
 function setup() {
-  canvas = createCanvas(500, 500); // for screenshots
-  // canvas = createAutosizedCanvas();
+  // canvas = createCanvas(500, 500); // for screenshots
+  canvas = createAutosizedCanvas();
   P5JsSettings.init();
   shapes = [];
 
@@ -66,16 +66,27 @@ function mousePressed(event){
   if (event.target.nodeName != "CANVAS") {
     return;
   }
-  // ...
+  shapes.filter(s => s.dragEnabled)
+        .find(s => s.handleMousePressed());
 }
 
 function mouseDragged(event){
   if (event.target.nodeName != "CANVAS") {
     return;
   }
-  // ...
+  shapes.filter(s => s.isDragged)
+        .forEach(s => s.handleMouseDragged());
 
 }
+
+function mouseReleased(event){
+  if (event.target.nodeName != "CANVAS") {
+    return;
+  }
+  shapes.filter(s => s.isDragged)
+        .forEach(s => s.handleMouseReleased());
+}
+
 
 function keyTyped(){
   switch (key) {

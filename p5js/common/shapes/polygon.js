@@ -10,6 +10,31 @@ class Polygon extends Polygon2D {
     }
   }
 
+
+  handleMousePressed(){
+    const pointPressed = this.points.find(p => p.containsXY(mouseX, mouseY));
+
+    if (pointPressed){
+      pointPressed.isBeingDragged = true;
+      this.isDragged = true;
+      return true;
+    }
+    return false;
+  }
+
+  handleMouseDragged(){
+    const pointDragged = this.points.find(p => p.isBeingDragged);
+
+    if (pointDragged) {
+      pointDragged.set(mouseX, mouseY);
+    }
+  }
+
+  handleMouseReleased(){
+    this.points.forEach(p => { p.isBeingDragged = false; });
+    this.isDragged = false;
+  }
+
   draw(){
     P5JsUtils.applyStyleSet(this);
     
