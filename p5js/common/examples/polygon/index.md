@@ -10,7 +10,7 @@ excerpt: Demonstrates the drawing of a Polygon
 js_scripts:
 - https://cdnjs.cloudflare.com/ajax/libs/inobounce/0.2.0/inobounce.js
 - https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.2/p5.min.js
-- "/sketchbook/vendor/lil-gui/0.20.0/lil-gui.min.js
+- https://cdn.jsdelivr.net/npm/lil-gui@0.20
 - /sketchbook/p5js/common/p5js_settings.js
 - /sketchbook/p5js/common/p5js_utils.js
 - /sketchbook/js/util_functions.js

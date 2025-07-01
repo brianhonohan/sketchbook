@@ -14,6 +14,33 @@ class Polygon2D {
     }
   }
 
+  containsXY(x, y){
+    // Ray-casting algorithm for point-in-polygon test
+    // FROM (DEFUNCT) https://github.com/substack/point-in-polygon
+    // Via gorhill voronoi: https://github.com/gorhill/Javascript-Voronoi
+    // 
+    // Refactored to have clear prevIndexWrapped label/code
+    let inside = false;
+    
+    for (let i = 0; i < this.points.length; i++) {
+      const xi = this.points[i].x; 
+      const yi = this.points[i].y;
+
+      let prevIndexWrapped = (this.points.length + i - 1) % this.points.length;
+      
+      let j = prevIndexWrapped;
+      const xj = this.points[j].x;
+      const yj = this.points[j].y;
+
+      const intersect = ((yi > y) !== (yj > y)) &&
+                        (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+      if (intersect) {
+        inside = !inside;
+      }
+    }
+    return inside;
+  }
+
   static generateIrregularPolygon(x, y, numSides, minRadius, maxRadius){
     let currentAng = Math.random() * Math.PI * 2;
 
