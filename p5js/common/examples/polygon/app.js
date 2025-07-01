@@ -25,6 +25,7 @@ function setup() {
 function regenerate(){
   shapes = [];
   shapes.push( generatePolygon() );
+  shapes.push( buildDraggablePoint() );
 }
 
 function generatePolygon(){
@@ -45,9 +46,19 @@ function generatePolygon(){
   return polygon;
 }
 
+function buildDraggablePoint(){
+  let x = Math.random() * width;
+  let y = Math.random() * height;
+  let point = new Point(x, y);
+  point.dragEnabled = true;
+  // point.strokeWeight = 2;
+  return point;
+}
+
 function draw(){
   background(50);
   shapes.forEach(s => s.draw());
+  highlightPointIfInPolygon();
 }
 
 function createAutosizedCanvas(){
@@ -60,6 +71,32 @@ function windowResized(event, noRedraw = false) {
   resizeCanvas(innerWidth, 
               innerHeight - drawingContext.canvas.getBoundingClientRect().top,
               noRedraw);
+}
+
+function detectIfPointInPolygon(){
+  if (shapes.length === 1) {
+    return;
+  }
+  let polygon = shapes[0];
+  let pointObj = shapes[1];
+  if (polygon instanceof Polygon && pointObj instanceof Point) {
+    pointObj.isInPolygon = polygon.containsXY(pointObj.x, pointObj.y);
+  }
+}
+
+
+function highlightPointIfInPolygon(){
+  let pointObj = shapes[1];
+
+  if (!(pointObj instanceof Point)) {
+    return;
+  }
+  if (!pointObj.isInPolygon) {
+    return;
+  }
+  noStroke();
+  fill(200, 100, 100);
+  ellipse(pointObj.x, pointObj.y, 10, 10);
 }
 
 function mousePressed(event){
@@ -77,6 +114,7 @@ function mouseDragged(event){
   shapes.filter(s => s.isDragged)
         .forEach(s => s.handleMouseDragged());
 
+  detectIfPointInPolygon();
 }
 
 function mouseReleased(event){
