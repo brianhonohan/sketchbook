@@ -3,6 +3,7 @@ class System {
     this.sizeAndPosition = p_xSizeAndPos;
     this.optionsSet = new OptionsSet(this.optionsMetadata());
     this.settings = this.optionsSet.settings;
+    this.plots = [];
     this.regenerate();
   }
 
@@ -16,6 +17,23 @@ class System {
 
     this.points = this.randomPointsWithin(this.settings.numCells, this.innerArea);
     this.voronoiDiag = createVoronoi(this.points, this.innerArea);
+
+    for(let i = 0; i < this.settings.numCells; i++){
+      const plot = this.getOrCreatePlot(i);
+      plot.setVoronoiCell(this.voronoiDiag.cells[i]);
+    }
+
+    // trim this.plots to the number of cells
+    this.plots = this.plots.slice(0, this.settings.numCells);
+  }
+
+  getOrCreatePlot(index){
+    if (index >= this.plots.length){
+      const plot = new CropFieldPlot(this);
+      this.plots.push(plot);
+      return plot;
+    }
+    return this.plots[index];
   }
 
   randomPointsWithin(number, bbox){
@@ -43,7 +61,10 @@ class System {
   }
 
   render(){
-    this.drawVoronoiDiagram();
+    // this.drawVoronoiDiagram();
+    this.plots.forEach(plot => {
+      plot.draw();
+    });
   }
 
   drawVoronoiDiagram(){
