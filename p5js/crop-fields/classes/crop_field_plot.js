@@ -1,0 +1,7 @@
+class CropFieldPlot {
+  constructor() {
+  }
+
+  draw() {
+  }
+}
