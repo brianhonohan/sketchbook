@@ -62,6 +62,7 @@ class System {
 
   render(){
     // this.drawVoronoiDiagram();
+    background(50);
     this.plots.forEach(plot => {
       plot.draw();
     });

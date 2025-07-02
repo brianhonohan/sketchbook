@@ -2,6 +2,7 @@
 let system;
 let canvas;
 let gui;
+let systemRebuildTimeout;
 
 
 function setup() {
@@ -34,6 +35,23 @@ function windowResized(event, noRedraw = false) {
   resizeCanvas(innerWidth, 
               innerHeight - drawingContext.canvas.getBoundingClientRect().top,
               noRedraw);
+
+  if (noRedraw) {
+    return;
+  }
+  
+  if (systemRebuildTimeout) {
+    clearTimeout(systemRebuildTimeout);
+  }
+  systemRebuildTimeout = setTimeout(rebuildSystem, 100);
+}
+
+function rebuildSystem(){
+  systemRebuildTimeout = undefined;
+  let rect = new Rect(0, 0, width, height);
+  system = new System(rect);
+  background(50);
+  system.regenerate();
 }
 
 function mousePressed(event){
