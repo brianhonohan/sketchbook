@@ -16,10 +16,10 @@ function setup() {
   gui.add(system.settings, 'numCells', 3, 30, 1).onChange(system.regenerate.bind(system));
 
   P5JsSettings.collapseGuiIfNarrow(gui);
+  background(50);
 }
 
 function draw(){
-  background(50);
   system.tick();
   system.render();
 }

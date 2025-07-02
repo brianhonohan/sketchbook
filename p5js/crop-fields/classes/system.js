@@ -43,12 +43,16 @@ class System {
   }
 
   render(){
+    this.drawVoronoiDiagram();
+  }
+
+  drawVoronoiDiagram(){
     voronoiSiteStrokeWeight(2);
     voronoiSiteStroke(color(50,230,50));
 
     fill(50);
     stroke(230);
     strokeWeight(0.5);
-    drawVoronoi(this.voronoiDiag, 0, 0);
+    drawVoronoi(this.voronoiDiag, 0, 0, {redrawAll: false});
   }
 }
