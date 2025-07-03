@@ -72,31 +72,29 @@ class LineSeg {
     line.offset = this.startY + slope * (0 - this.startX);
     return line;
   }
+  
+  boundingRectContainsXY(x, y){
+    return  Rect.pointsContainXY(this.startX, this.startY,
+                                        this.endX, this.endY, 
+                                        x, y);
+  }
 
   intersects(otherLineSegment){
     const coord = Line.intersectionPoint(this.getLine(), otherLineSegment.getLine());
     return !(coord == undefined);
   }
 
-  intersectionPoint(otherLineSegment){
+  intersectionPoint(otherLineSegment, onThisLineOnly = true, onOtherLineOnly = true){
     const coord = Line.intersectionPoint(this.getLine(), otherLineSegment.getLine());
     if (coord == undefined) {
       return undefined;
     }
 
-    // TODO: consider implemented lineSegment.containsXY() 
-    // only true if the line is along the segment (not beyond its bounds)
-    const inThisBounds = Rect.pointsContainXY(this.startX, this.startY,
-                                      this.endX, this.endY, 
-                                      coord.x, coord.y);
-    if (!inThisBounds){
+    if (onThisLineOnly && !this.boundingRectContainsXY(coord.x, coord.y)){
       return undefined;
     }
 
-    const inOtherBounds = Rect.pointsContainXY(otherLineSegment.startX, otherLineSegment.startY,
-                                      otherLineSegment.endX, otherLineSegment.endY, 
-                                      coord.x, coord.y);
-    if (!inOtherBounds){
+    if (onOtherLineOnly && !otherLineSegment.boundingRectContainsXY(coord.x, coord.y)){
       return undefined;
     }
     return coord;

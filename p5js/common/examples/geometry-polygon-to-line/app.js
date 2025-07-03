@@ -9,6 +9,7 @@ let intersectionPoints = []; // for future use
 
 const settings = {
   num_sides: 5,
+  on_the_line: false
 }
 
 function setup() {
@@ -19,6 +20,7 @@ function setup() {
 
   gui = P5JsSettings.addGui({autoPlace: false});
   gui.add(settings, 'num_sides', 3, 12, 1).onChange(regenerate);
+  gui.add(settings, 'on_the_line');
 
   regenerate();
   P5JsSettings.collapseGuiIfNarrow(gui);
@@ -90,7 +92,7 @@ function updateIntersectionPoints(){
   }
 
   intersectionPoints = [];
-  intersectionPoints = polygon.intersectionPointsWithLineSeg(lineSeg);
+  intersectionPoints = polygon.intersectionPointsWithLineSeg(lineSeg, settings.on_the_line);
   intersectionPoints = intersectionPoints.map(pt => {
     const newPoint = new Point(pt.x, pt.y);
     newPoint.strokeColor = color(200, 100, 100);

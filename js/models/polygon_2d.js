@@ -42,9 +42,10 @@ class Polygon2D {
     return inside;
   }
 
-  intersectionPointsWithLineSeg(lineSeg){
+  intersectionPointsWithLineSeg(lineSeg, onLineSeg = true){
     // Check if any edge of the polygon intersects with the line segment
     // Returns an array of intersection points
+    // If onLineSeg is false, don't enforce constraint that intersection must be on the provided line segment
 
     let edgeSeg = lineSeg.copy();
 
@@ -59,7 +60,7 @@ class Polygon2D {
       edgeSeg.endY = p2.y;
 
       // Check intersection with the provided line segment
-      const intersection = lineSeg.intersectionPoint(edgeSeg);
+      const intersection = lineSeg.intersectionPoint(edgeSeg, onLineSeg);
 
       if (intersection){
         intersections.push(intersection);
