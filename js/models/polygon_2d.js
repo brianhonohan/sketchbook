@@ -6,6 +6,7 @@ class Polygon2D {
 
   // Uses a BYO pattern - Bring Your Own (Object))
   // if input is a single object with x and y, use that
+  // Assumes points are in order (clockwise or counter-clockwise)
   addPoint(x, y){
     if (x.x && x.y){
       this.points.push(x);
@@ -39,6 +40,32 @@ class Polygon2D {
       }
     }
     return inside;
+  }
+
+  intersectionPointsWithLineSeg(lineSeg){
+    // Check if any edge of the polygon intersects with the line segment
+    // Returns an array of intersection points
+
+    let edgeSeg = lineSeg.copy();
+
+    const intersections = [];
+    for (let i = 0; i < this.points.length; i++) {
+      const p1 = this.points[i];
+      const p2 = this.points[(i + 1) % this.points.length];
+
+      edgeSeg.startX = p1.x;
+      edgeSeg.startY = p1.y;
+      edgeSeg.endX = p2.x;
+      edgeSeg.endY = p2.y;
+
+      // Check intersection with the provided line segment
+      const intersection = lineSeg.intersectionPoint(edgeSeg);
+
+      if (intersection){
+        intersections.push(intersection);
+      }
+    }
+    return intersections;
   }
 
   static generateIrregularPolygon(x, y, numSides, minRadius, maxRadius){

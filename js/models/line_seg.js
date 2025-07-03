@@ -9,6 +9,10 @@ class LineSeg {
     }
   }
 
+  copy(){
+    return new LineSeg(this.start.x, this.start.y, this.end.x, this.end.y);
+  }
+
   set startX(val) { this.start.x = val; }
   set startY(val) { this.start.y = val; }
   set endX(val) { this.end.x = val; }

@@ -102,6 +102,8 @@ class Point {
   }
 
   draw(){
+    P5JsUtils.applyStyleSet(this);
+
     if (this.dragEnabled) {
       P5JsUtils.drawControlPoints([this]);
     }
