@@ -14,7 +14,7 @@ function setup() {
   system = new System(rect);
 
   gui = P5JsSettings.addGui({autoPlace: false});
-  gui.add(system.settings, 'numCells', 3, 30, 1).onChange(system.regenerate.bind(system));
+  gui.add(system.settings, 'numCells', 2, 30, 1).onChange(system.regenerate.bind(system));
   gui.add(system.settings, 'cropSpacing', 3, 400, 1).onChange(system.replantRows.bind(system));
   gui.add(system.settings, 'cropWidth', 1, 100, 1).onChange(system.adjustCropWidth.bind(system));
   gui.add(system.settings, 'drawPlotBG');

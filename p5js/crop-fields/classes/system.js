@@ -66,9 +66,9 @@ class System {
   // supported types: integer, float, string, bool
   optionsMetadata(){
     return [
-      { name: "numCells", type: "integer", default: 2}, 
+      { name: "numCells", type: "integer", default: 10}, 
       { name: "cropSpacing", type: "integer", default: 50}, 
-      { name: "cropWidth", type: "integer", default: 74}, 
+      { name: "cropWidth", type: "integer", default: 35}, 
       { name: "drawPlotBG", type: "bool", default: false},
       { name: "drawBoundaries", type: "bool", default: false}
       // { name: "varname2", type: "string", default: 'Lorem Ipsum'}, 
