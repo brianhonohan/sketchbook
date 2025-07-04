@@ -96,7 +96,6 @@ class CropFieldPlot {
       attempts += 1;
       // Move the crop row to the next position
       cropRow = cropRow.copy();
-      cropRow.setLength(cropSpacing * 10); // Set length to cropSpacing for the next row
       cropRow.translate(offsetVec.x, offsetVec.y);
 
       cropRow.strokeColor = color(r, 0, b); // Gradient effect for visibility
@@ -121,7 +120,6 @@ class CropFieldPlot {
       attempts += 1;
       // Move the crop row to the next position
       cropRow = cropRow.copy();
-      cropRow.setLength(cropSpacing * 10); // Set length to cropSpacing for the next row
       cropRow.translate(offsetVec.x, offsetVec.y);
 
       cropRow.strokeColor = color(r, 0, b); // Gradient effect for visibility
