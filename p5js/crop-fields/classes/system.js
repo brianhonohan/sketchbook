@@ -45,6 +45,13 @@ class System {
             .map(() => ({x: random(bbox.xl, bbox.xr), y: random(bbox.yt, bbox.yb)}));
   }
 
+  replantRows(){
+    // Replant the crop rows for all plots
+    this.plots.forEach(plot => {
+      plot.plantCropRows();
+    });
+  }
+
   // Return a list of Options, specific to this sketch,
   // that can be tweaked via the URL parameters
   // separate from the default P5JsSettings that are supported
@@ -53,7 +60,7 @@ class System {
   optionsMetadata(){
     return [
       { name: "numCells", type: "integer", default: 2}, 
-      { name: "cropSpacing", type: "integer", default: 200}, 
+      { name: "cropSpacing", type: "integer", default: 50}, 
       // { name: "varname2", type: "string", default: 'Lorem Ipsum'}, 
       // { name: "varname3", type: "float", default: 0.6}
       // { name: "varname4", type: "bool", default: false}

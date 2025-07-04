@@ -19,8 +19,12 @@ class CropFieldPlot {
     // this.polygon.strokeColor = P5JsUtils.getRandomYellow();
     this.polygon.strokeColor = color(230);
     this.polygon.fillColor = P5JsUtils.getRandomGreen();
-
+    this.pickRandomHeading();
     this.plantCropRows();
+  }
+
+  pickRandomHeading() {
+    this.headingVec = createVector( random(-1, 1), random(-1, 1) );
   }
 
   extendTrimRowToPolygonEdges(cropRow) {
@@ -51,14 +55,12 @@ class CropFieldPlot {
     // repeat until the polygon is filled
     // Return to the centroi, repeat in the opposite direction
     this.cropRows = [];
+    this.headingVec.normalize(); // Normalize to get direction only
+    this.headingVec.mult(this.cropSpacing); // Scale to a reasonable length for the crop row
     
     let startPoint = this.polygon.getCentroid();
 
-    const headingVec = createVector( random(-1, 1), random(-1, 1) );
-    headingVec.normalize(); // Normalize to get direction only
-    headingVec.mult(this.cropSpacing); // Scale to a reasonable length for the crop row
-
-    let cropRow = this._prepCropRow(startPoint, headingVec);
+    let cropRow = this._prepCropRow(startPoint, this.headingVec);
     if( this.extendTrimRowToPolygonEdges(cropRow)) { 
       this.cropRows.push(cropRow);
     } else {
@@ -67,12 +69,12 @@ class CropFieldPlot {
 
     // Set offset as 90 degree rotation of the heading, towards the polygon centroid
     // This is to ensure that the crop rows are planted towards the center of the polygon
-    const offsetVec = createVector(-headingVec.y, headingVec.x); // Perpendicular vector
+    const offsetVec = createVector(-this.headingVec.y, this.headingVec.x); // Perpendicular vector
 
-    this._plantCropRowsToPolygonEdges(startPoint, headingVec, offsetVec);
+    this._plantCropRowsToPolygonEdges(startPoint, this.headingVec, offsetVec);
 
     offsetVec.rotate(Math.PI);
-    this._plantCropRowsToPolygonEdges(startPoint, headingVec, offsetVec);
+    this._plantCropRowsToPolygonEdges(startPoint, this.headingVec, offsetVec);
   }
 
   _prepCropRow(startPoint, headingVec) {
