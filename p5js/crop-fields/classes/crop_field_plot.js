@@ -121,6 +121,8 @@ class CropFieldPlot {
 
   draw() {
     strokeWeight(2);
+    this.polygon.noFill = !this.system.settings.drawPlotBG;
+    this.polygon.noStroke = !this.system.settings.drawBoundaries;
     this.polygon.draw();
 
     if (this.cropRows) {
