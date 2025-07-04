@@ -58,10 +58,7 @@ class CropFieldPlot {
     headingVec.normalize(); // Normalize to get direction only
     headingVec.mult(this.cropSpacing); // Scale to a reasonable length for the crop row
 
-    let cropRow = new LineSegment(startPoint.x, startPoint.y,
-                                    startPoint.x + headingVec.x,
-                                    startPoint.y + headingVec.y);
-
+    let cropRow = this._prepCropRow(startPoint, headingVec);
     if( this.extendTrimRowToPolygonEdges(cropRow)) { 
       this.cropRows.push(cropRow);
     } else {
@@ -78,10 +75,16 @@ class CropFieldPlot {
     this._plantCropRowsToPolygonEdges(startPoint, headingVec, offsetVec);
   }
 
-  _plantCropRowsToPolygonEdges(startPoint, headingVec, offsetVec) {
+  _prepCropRow(startPoint, headingVec) {
+    // Prepare a crop row starting from the given point and heading vector
     let cropRow = new LineSegment(startPoint.x, startPoint.y,
                                     startPoint.x + headingVec.x,
                                     startPoint.y + headingVec.y);
+    return cropRow;
+  }
+
+  _plantCropRowsToPolygonEdges(startPoint, headingVec, offsetVec) {
+    let cropRow = this._prepCropRow(startPoint, headingVec);
 
     const attempLimit = 1.5 * Math.max(this.system.width, this.system.height) / this.cropSpacing;
     let attempts = 0;
