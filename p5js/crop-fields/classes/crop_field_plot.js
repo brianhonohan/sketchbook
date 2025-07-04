@@ -61,6 +61,7 @@ class CropFieldPlot {
     let startPoint = this.polygon.getCentroid();
 
     let cropRow = this._prepCropRow(startPoint, this.headingVec);
+    cropRow.strokeColor = color(128, 0, 0); // Initial crop row for debugging
     if( this.extendTrimRowToPolygonEdges(cropRow)) { 
       this.cropRows.push(cropRow);
     } else {
