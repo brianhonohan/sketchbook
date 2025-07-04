@@ -7,6 +7,9 @@ class System {
     this.regenerate();
   }
 
+  get width(){ return this.sizeAndPosition.width; }
+  get height(){ return this.sizeAndPosition.height; }
+
   regenerate(){
     this.innerArea = {
       xl: this.sizeAndPosition.x + this.sizeAndPosition.width * 0.1,

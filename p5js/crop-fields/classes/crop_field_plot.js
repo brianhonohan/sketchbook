@@ -72,7 +72,7 @@ class CropFieldPlot {
     // This is to ensure that the crop rows are planted towards the center of the polygon
     const offsetVec = createVector(-headingVec.y, headingVec.x); // Perpendicular vector
 
-    const attempLimit = 20;
+    const attempLimit = 1.5 * Math.max(this.system.width, this.system.height) / cropSpacing;
     let attempts = 0;
 
     // Colors for debugging sequence of crop rows
@@ -89,8 +89,10 @@ class CropFieldPlot {
       r = (r + 10) % 255;
       b = (b + 10) % 255; 
 
-      if( this.extendTrimRowToPolygonEdges(cropRow)) { 
+      if(this.extendTrimRowToPolygonEdges(cropRow)) { 
         this.cropRows.push(cropRow);
+      } else {
+        break;
       }
     }
 
@@ -114,6 +116,8 @@ class CropFieldPlot {
 
       if( this.extendTrimRowToPolygonEdges(cropRow)) { 
         this.cropRows.push(cropRow);
+      } else {
+        break;
       }
     }
   }
