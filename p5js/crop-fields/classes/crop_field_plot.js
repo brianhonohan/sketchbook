@@ -51,6 +51,7 @@ class CropFieldPlot {
     // extend/clip the crop row to the polygon edges
     // repeat until the polygon is filled
     // Return to the centroi, repeat in the opposite direction
+    const cropSpacing = this.system.settings.cropSpacing;
     this.cropRows = [];
     
     const centroid = this.polygon.getCentroid();
@@ -62,11 +63,14 @@ class CropFieldPlot {
 
     // let startPoint = random(this.polygon.points);
     let startPoint = centroid;
-    const heading = random(TWO_PI);
+
+    const headingVec = createVector( random(-1, 1), random(-1, 1) );
+    headingVec.normalize(); // Normalize to get direction only
+    headingVec.mult(cropSpacing); // Scale to a reasonable length for the crop row
 
     let cropRow = new LineSegment(startPoint.x, startPoint.y,
-                                    startPoint.x + cos(heading) * 10,
-                                    startPoint.y + sin(heading) * 10);
+                                    startPoint.x + headingVec.x,
+                                    startPoint.y + headingVec.y);
 
     console.log(`Crop row start: (${cropRow.startX}, ${cropRow.startY})`);
     if( this.extendTrimRowToPolygonEdges(cropRow)) { 
@@ -78,16 +82,7 @@ class CropFieldPlot {
 
     // Set offset as 90 degree rotation of the heading, towards the polygon centroid
     // This is to ensure that the crop rows are planted towards the center of the polygon
-    const offsetX = centroid.x - startPoint.x;  
-    const offsetY = centroid.y - startPoint.y;
-    const offsetHeading = atan2(offsetY, offsetX);
-    const offsetAngle = offsetHeading + HALF_PI; // 90 degrees to the heading
-
-    const cropSpacing = this.system.settings.cropSpacing;
-
-    const offsetMagnitude = cropSpacing * 0.5; // half the spacing to center the crop row
-    const offsetXFinal = cos(offsetAngle) * offsetMagnitude;
-    const offsetYFinal = sin(offsetAngle) * offsetMagnitude;
+    const offsetVec = createVector(-headingVec.y, headingVec.x); // Perpendicular vector
 
     const attempLimit = 20;
     let attempts = 0;
@@ -102,7 +97,7 @@ class CropFieldPlot {
       // Move the crop row to the next position
       cropRow = cropRow.copy();
       cropRow.setLength(cropSpacing * 10); // Set length to cropSpacing for the next row
-      cropRow.translate(offsetXFinal, offsetYFinal);
+      cropRow.translate(offsetVec.x, offsetVec.y);
 
       cropRow.strokeColor = color(r, 0, b); // Gradient effect for visibility
       r = (r + 10) % 255;
@@ -113,14 +108,13 @@ class CropFieldPlot {
       }
     }
 
-    const offsetXReversed = 0 - offsetXFinal;
-    const offsetYReversed = 0 - offsetYFinal;
+    offsetVec.rotate(Math.PI);
     
     r = 255;
     b = 0;
     cropRow = new LineSegment(startPoint.x, startPoint.y,
-                                    startPoint.x + cos(heading) * 10,
-                                    startPoint.y + sin(heading) * 10);
+                                    startPoint.x + headingVec.x,
+                                    startPoint.y + headingVec.y);
 
     attempts = 0;
     while (attempts < attempLimit) {
@@ -128,7 +122,7 @@ class CropFieldPlot {
       // Move the crop row to the next position
       cropRow = cropRow.copy();
       cropRow.setLength(cropSpacing * 10); // Set length to cropSpacing for the next row
-      cropRow.translate(offsetXReversed, offsetYReversed);
+      cropRow.translate(offsetVec.x, offsetVec.y);
 
       cropRow.strokeColor = color(r, 0, b); // Gradient effect for visibility
       r = (r + 10) % 255;
