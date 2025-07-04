@@ -23,14 +23,11 @@ class CropFieldPlot {
 
   extendTrimRowToPolygonEdges(cropRow) {
     // Extend or trim the crop row to the polygon edges
-
     const intersectionPoints = this.polygon.intersectionPointsWithLineSeg(cropRow, false);
     if (intersectionPoints.length === 0) {
-      console.warn('Crop row is outside the polygon, skipping this row.');
       return null; // No intersection, crop row is outside the polygon
     }
     if (intersectionPoints.length != 2) {
-      console.warn(`Unexpected number of intersection points: ${intersectionPoints.length}`);
       return null; // Unexpected case, should not happen
     }
     // Set the crop row to the intersection points
@@ -38,7 +35,7 @@ class CropFieldPlot {
     cropRow.startY = intersectionPoints[0].y;
     cropRow.endX = intersectionPoints[1].x;
     cropRow.endY = intersectionPoints[1].y; 
-    return true; // Return the modified crop row
+    return true;
   }
 
   plantCropRows() {
@@ -55,13 +52,6 @@ class CropFieldPlot {
     this.cropRows = [];
     
     const centroid = this.polygon.getCentroid();
-    this.centroidPoint = new Point(centroid.x, centroid.y);
-    this.centroidPoint.strokeColor = color(255, 0, 0); // Red for visibility
-    this.centroidPoint.strokeWeight = 10;
-
-    console.log(`Polygon centroid: (${centroid.x}, ${centroid.y})`);
-
-    // let startPoint = random(this.polygon.points);
     let startPoint = centroid;
 
     const headingVec = createVector( random(-1, 1), random(-1, 1) );
@@ -72,13 +62,11 @@ class CropFieldPlot {
                                     startPoint.x + headingVec.x,
                                     startPoint.y + headingVec.y);
 
-    console.log(`Crop row start: (${cropRow.startX}, ${cropRow.startY})`);
     if( this.extendTrimRowToPolygonEdges(cropRow)) { 
       this.cropRows.push(cropRow);
     } else {
       this.failedCropRow = cropRow; // Store the failed crop row for debugging
     }
-    console.log(`Crop row after trimming: (${cropRow.startX}, ${cropRow.startY}) to (${cropRow.endX}, ${cropRow.endY})`);
 
     // Set offset as 90 degree rotation of the heading, towards the polygon centroid
     // This is to ensure that the crop rows are planted towards the center of the polygon
@@ -94,7 +82,6 @@ class CropFieldPlot {
     // for (let i = 0; i < 10; i++) {
     while (attempts < attempLimit) {
       attempts += 1;
-      // Move the crop row to the next position
       cropRow = cropRow.copy();
       cropRow.translate(offsetVec.x, offsetVec.y);
 
@@ -118,7 +105,6 @@ class CropFieldPlot {
     attempts = 0;
     while (attempts < attempLimit) {
       attempts += 1;
-      // Move the crop row to the next position
       cropRow = cropRow.copy();
       cropRow.translate(offsetVec.x, offsetVec.y);
 
