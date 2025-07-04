@@ -5,6 +5,8 @@ class CropFieldPlot {
     this.polygon = new Polygon();
   }
 
+  get cropSpacing() { return this.system.settings.cropSpacing; }
+
   setVoronoiCell(voronoiCell) {
     this.voronoiCell = voronoiCell;
     
@@ -48,15 +50,13 @@ class CropFieldPlot {
     // extend/clip the crop row to the polygon edges
     // repeat until the polygon is filled
     // Return to the centroi, repeat in the opposite direction
-    const cropSpacing = this.system.settings.cropSpacing;
     this.cropRows = [];
     
-    const centroid = this.polygon.getCentroid();
-    let startPoint = centroid;
+    let startPoint = this.polygon.getCentroid();
 
     const headingVec = createVector( random(-1, 1), random(-1, 1) );
     headingVec.normalize(); // Normalize to get direction only
-    headingVec.mult(cropSpacing); // Scale to a reasonable length for the crop row
+    headingVec.mult(this.cropSpacing); // Scale to a reasonable length for the crop row
 
     let cropRow = new LineSegment(startPoint.x, startPoint.y,
                                     startPoint.x + headingVec.x,
@@ -72,39 +72,24 @@ class CropFieldPlot {
     // This is to ensure that the crop rows are planted towards the center of the polygon
     const offsetVec = createVector(-headingVec.y, headingVec.x); // Perpendicular vector
 
-    const attempLimit = 1.5 * Math.max(this.system.width, this.system.height) / cropSpacing;
-    let attempts = 0;
-
-    // Colors for debugging sequence of crop rows
-    let r = 255;
-    let b = 0;
-
-    // for (let i = 0; i < 10; i++) {
-    while (attempts < attempLimit) {
-      attempts += 1;
-      cropRow = cropRow.copy();
-      cropRow.translate(offsetVec.x, offsetVec.y);
-
-      cropRow.strokeColor = color(r, 0, b); // Gradient effect for visibility
-      r = (r + 10) % 255;
-      b = (b + 10) % 255; 
-
-      if(this.extendTrimRowToPolygonEdges(cropRow)) { 
-        this.cropRows.push(cropRow);
-      } else {
-        break;
-      }
-    }
+    this._plantCropRowsToPolygonEdges(startPoint, headingVec, offsetVec);
 
     offsetVec.rotate(Math.PI);
-    
-    r = 255;
-    b = 0;
-    cropRow = new LineSegment(startPoint.x, startPoint.y,
+    this._plantCropRowsToPolygonEdges(startPoint, headingVec, offsetVec);
+  }
+
+  _plantCropRowsToPolygonEdges(startPoint, headingVec, offsetVec) {
+    let cropRow = new LineSegment(startPoint.x, startPoint.y,
                                     startPoint.x + headingVec.x,
                                     startPoint.y + headingVec.y);
 
-    attempts = 0;
+    const attempLimit = 1.5 * Math.max(this.system.width, this.system.height) / this.cropSpacing;
+    let attempts = 0;
+
+    // Colors for debugging sequence of crop rows
+    let r = 128;
+    let b = 0;
+
     while (attempts < attempLimit) {
       attempts += 1;
       cropRow = cropRow.copy();
