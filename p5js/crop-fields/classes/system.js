@@ -52,6 +52,13 @@ class System {
     });
   }
 
+  adjustCropWidth(){
+    // Adjust the crop width for all plots
+    this.plots.forEach(plot => {
+      plot.adjustCropWidth();
+    });
+  }
+
   // Return a list of Options, specific to this sketch,
   // that can be tweaked via the URL parameters
   // separate from the default P5JsSettings that are supported
@@ -61,6 +68,7 @@ class System {
     return [
       { name: "numCells", type: "integer", default: 2}, 
       { name: "cropSpacing", type: "integer", default: 50}, 
+      { name: "cropWidth", type: "integer", default: 74}
       // { name: "varname2", type: "string", default: 'Lorem Ipsum'}, 
       // { name: "varname3", type: "float", default: 0.6}
       // { name: "varname4", type: "bool", default: false}

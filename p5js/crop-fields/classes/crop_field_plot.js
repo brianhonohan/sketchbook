@@ -75,6 +75,7 @@ class CropFieldPlot {
 
     offsetVec.rotate(Math.PI);
     this._plantCropRowsToPolygonEdges(startPoint, this.headingVec, offsetVec);
+    this.adjustCropWidth();
   }
 
   _prepCropRow(startPoint, headingVec) {
@@ -112,11 +113,18 @@ class CropFieldPlot {
     }
   }
 
+  adjustCropWidth(){
+    this.cropRows.forEach(cropRow => {
+      cropRow.strokeWeight = this.system.settings.cropWidth;
+    });
+  }
+
   draw() {
     strokeWeight(2);
     this.polygon.draw();
 
     if (this.cropRows) {
+      strokeCap(SQUARE);
       stroke(230);
       strokeWeight(1);
       for (const cropRow of this.cropRows) {
