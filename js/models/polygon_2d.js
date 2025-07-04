@@ -6,7 +6,7 @@ class Polygon2D {
 
   // Uses a BYO pattern - Bring Your Own (Object))
   // if input is a single object with x and y, use that
-  // Assumes points are in order (clockwise or counter-clockwise)
+  // Assumes points are in order, counter-clockwise
   addPoint(x, y){
     if (x.x && x.y){
       this.points.push(x);

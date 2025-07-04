@@ -94,7 +94,10 @@ class Rect {
   }
 
   static pointsContainXY(p1x, p1y, p2x, p2y, x, y){
-    return Math.min(p1x, p2x) <= x && x <= Math.max(p1x, p2x)
-          && Math.min(p1y, p2y) <= y && y <= Math.max(p1y, p2y);
+    // applies an epsilon check for vertical or horizontal lines as search rectangles
+    return ( (Math.min(p1x, p2x) <= x && x <= Math.max(p1x, p2x) ) 
+              || (p1x === p2x  && Math.abs(p1x - x) < 0.000001))
+          && ( (Math.min(p1y, p2y) <= y && y <= Math.max(p1y, p2y))
+              || (p1y === p2y && Math.abs(p1y - y) < 0.000001));
   }
 }
