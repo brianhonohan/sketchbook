@@ -2,9 +2,11 @@
 let canvas;
 let gui;
 let shapes;
+let centroidPoint;
 
 const settings = {
   num_sides: 5,
+  show_centroid: true,
 }
 
 function setup() {
@@ -13,10 +15,13 @@ function setup() {
   P5JsSettings.init();
   shapes = [];
 
-  let rect = new Rect(0, 0, width, height);
+  centroidPoint = new Point(0, 0);
+  centroidPoint.strokeColor = color(50, 230, 230);
+  centroidPoint.strokeWeight = 10; 
 
   gui = P5JsSettings.addGui({autoPlace: false});
   gui.add(settings, 'num_sides', 3, 12, 1).onChange(regenerate);
+  gui.add(settings, 'show_centroid');
 
   regenerate();
   P5JsSettings.collapseGuiIfNarrow(gui);
@@ -26,6 +31,7 @@ function regenerate(){
   shapes = [];
   shapes.push( generatePolygon() );
   shapes.push( buildDraggablePoint() );
+  updateCentroidPoint();
 }
 
 function generatePolygon(){
@@ -55,10 +61,26 @@ function buildDraggablePoint(){
   return point;
 }
 
+function updateCentroidPoint(){
+  if (shapes.length === 0) {  
+    return;
+  }
+  let polygon = shapes[0];
+  if (!(polygon instanceof Polygon)) {
+    return;
+  }
+  let centroid = polygon.getCentroid();
+  centroidPoint.set(centroid.x, centroid.y);
+}
+
 function draw(){
   background(50);
   shapes.forEach(s => s.draw());
   highlightPointIfInPolygon();
+
+  if (settings.show_centroid) {
+    centroidPoint.draw();
+  }
 }
 
 function createAutosizedCanvas(){
@@ -115,6 +137,7 @@ function mouseDragged(event){
         .forEach(s => s.handleMouseDragged());
 
   detectIfPointInPolygon();
+  updateCentroidPoint();
 }
 
 function mouseReleased(event){

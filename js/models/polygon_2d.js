@@ -15,6 +15,45 @@ class Polygon2D {
     }
   }
 
+  // from: https://en.wikipedia.org/wiki/Centroid#Of_a_polygon
+  getCentroid(){
+    if (this.points.length < 3) {
+      return 0; // Not a polygon
+    }
+    let cx = 0;
+    let cy = 0;
+
+    for (let i = 0; i < this.points.length; i++) {
+      const wrappedIndex = (i + 1) % this.points.length;
+
+      const p1 = this.points[i];
+      const p2 = this.points[wrappedIndex];
+
+      const f = (p1.x * p2.y - p2.x * p1.y);
+      cx += (p1.x + p2.x) * f;
+      cy += (p1.y + p2.y) * f;
+    }
+
+    const thisArea = this.getArea();
+    return {
+      x: cx / (6 * thisArea),
+      y: cy / (6 * thisArea)
+    };
+  }
+
+  getArea(){
+    if (this.points.length < 3) {
+      return 0; // Not a polygon
+    }
+    let area = 0;
+    for (let i = 0; i < this.points.length; i++) {
+      const wrappedIndex = (i + 1) % this.points.length;
+      area += this.points[i].x * this.points[wrappedIndex].y;
+      area -= this.points[wrappedIndex].x * this.points[i].y;
+    }
+    return Math.abs(area / 2);
+  }
+
   containsXY(x, y){
     // Ray-casting algorithm for point-in-polygon test
     // FROM (DEFUNCT) https://github.com/substack/point-in-polygon
