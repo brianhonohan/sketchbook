@@ -50,7 +50,7 @@ class LineSeg {
   }
 
   getLength(){
-    return Math.sqrt( Math.pow(this.dx(), 2), Math.pow(this.dy(), 2));
+    return Math.sqrt( Math.pow(this.dx(), 2) + Math.pow(this.dy(), 2));
   }
 
   setLength(newValue){
