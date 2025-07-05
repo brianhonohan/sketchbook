@@ -23,8 +23,8 @@ This is highly inspired by [Jasper John's - Usuyuki series][jasper-johsn-usuyuki
 ![screenshot][screenshot-01]
 
 [p5js-home]: https://p5js.org/
-[source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/crop-fields/
-[live-view]: https://brianhonohan.com/sketchbook/p5js/common/examples/crop-fields/
+[source-code]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/crop-fields/
+[live-view]: https://brianhonohan.com/sketchbook/p5js/crop-fields/
 [screenshot-01]: ./screenshot-01.png
 
 [jasper-johsn-usuyuki]: https://www.metmuseum.org/art/collection/search/336773
