@@ -1,4 +1,3 @@
-
 let system;
 let canvas;
 let gui;
@@ -14,7 +13,7 @@ function setup() {
 
   gui = P5JsSettings.addGui({autoPlace: false});
   gui.add(system.settings, 'numCells', 2, 30, 1).onChange(system.regenerate.bind(system));
-  gui.add(system.settings, 'cropSpacing', 3, 400, 1).onChange(system.replantRows.bind(system));
+  gui.add(system.settings, 'cropSpacing', 3, 200, 1).onChange(system.replantRows.bind(system));
   gui.add(system.settings, 'cropWidth', 1, 100, 1).onChange(system.adjustCropWidth.bind(system));
   gui.add(system.settings, 'cropLengthScale', 1, 100, 1).onChange(system.adjustCropLengthScale.bind(system));
   gui.add(system.settings, 'drawPlotBG');

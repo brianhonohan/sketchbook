@@ -61,7 +61,7 @@ class CropFieldPlot {
     let startPoint = this.polygon.getCentroid();
 
     let cropRow = this._prepCropRow(startPoint, this.headingVec);
-    cropRow.strokeColor = color(128, 0, 0); // Initial crop row for debugging
+    cropRow.strokeColor = color(128, 180, 0); // Initial crop row for debugging
     if( !this._plantSingleCropRow(cropRow) ) { 
       this.failedCropRow = cropRow; // Store the failed crop row for debugging
     }
@@ -115,7 +115,7 @@ class CropFieldPlot {
     while (prevRowPlanted && attempts < attempLimit) {
       cropRow = cropRow.copy();
       cropRow.translate(offsetVec.x, offsetVec.y);
-      cropRow.strokeColor = color(r, 0, b); // Gradient effect for visibility
+      cropRow.strokeColor = color(r, 180, b); // Gradient effect for visibility
 
       prevRowPlanted = this._plantSingleCropRow(cropRow);
 
