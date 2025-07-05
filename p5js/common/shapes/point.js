@@ -30,6 +30,10 @@ class Point {
     this.y += point.y;
   }
 
+  copy(){
+    return new Point(this.x, this.y);
+  }
+
   // static get ALIGN_MODE_MOVE_1() { return 0; }
   // static get ALIGN_MODE_MOVE_2() { return 1; }
   static get ALIGN_MODE_MOVE_3() { return 2; }

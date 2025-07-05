@@ -75,6 +75,7 @@ class CropFieldPlot {
     offsetVec.rotate(Math.PI);
     this._plantCropRowsToPolygonEdges(startPoint, this.headingVec, offsetVec);
     this.adjustCropWidth();
+    this.adjustCropLengthScale();
   }
 
   _plantSingleCropRow(cropRow) {
@@ -86,7 +87,7 @@ class CropFieldPlot {
     }
 
     this.cropRows.push(cropRow);
-    cropRow.origLength = cropRow.getLength(); // Store the original length for debugging
+    cropRow.cacheOriginalPoints();
     return cropRow;
   }
 
@@ -125,6 +126,12 @@ class CropFieldPlot {
   adjustCropWidth(){
     this.cropRows.forEach(cropRow => {
       cropRow.strokeWeight = this.system.settings.cropWidth;
+    });
+  }
+
+  adjustCropLengthScale(){
+    this.cropRows.forEach(cropRow => {
+      cropRow.scaleAboutCenter(this.system.settings.cropLengthScale / 100.0, true);
     });
   }
 

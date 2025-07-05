@@ -37,6 +37,35 @@ class LineSeg {
   centerPoint() { return new Vector2D(this.centerX(), this.centerY()); }
   boundingRect(){ return new Rect(this.x, this.y, this.width, this.width); }
 
+  cacheOriginalPoints(){
+    // Cache the original points so that we can restore them if needed
+    this.originalStart = this.start.copy();
+    this.originalEnd = this.end.copy();
+  }
+
+  scaleAboutCenter(scaleFactor, useCache = false){
+    let center;
+    let deltaX, deltaY;
+
+    if (useCache) {
+      center = new Point(
+        (this.originalStart.x + this.originalEnd.x) / 2,
+        (this.originalStart.y + this.originalEnd.y) / 2
+      );
+      deltaX = Math.abs(this.originalEnd.x - center.x) * scaleFactor;
+      deltaY = Math.abs(this.originalEnd.y - center.y) * scaleFactor
+    } else {
+      center = this.centerPoint();
+      deltaX = Math.abs(this.endX - center.x) * scaleFactor;
+      deltaY = Math.abs(this.endY - center.y) * scaleFactor;
+    }
+
+    this.startX = center.x + deltaX * Math.sign(this.startX - center.x);
+    this.startY = center.y + deltaY * Math.sign(this.startY - center.y);
+    this.endX = center.x + deltaX * Math.sign(this.endX - center.x);
+    this.endY = center.y + deltaY * Math.sign(this.endY - center.y);
+  }
+
   get offset() {
     if (this.slope == Infinity) {
       return undefined;

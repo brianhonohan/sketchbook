@@ -59,6 +59,13 @@ class System {
     });
   }
 
+  adjustCropLengthScale(){
+    // Adjust the crop length for all plots
+    this.plots.forEach(plot => {
+      plot.adjustCropLengthScale();
+    });
+  }
+
   // Return a list of Options, specific to this sketch,
   // that can be tweaked via the URL parameters
   // separate from the default P5JsSettings that are supported
@@ -71,7 +78,8 @@ class System {
       { name: "cropWidth", type: "integer", default: 35}, 
       { name: "drawPlotBG", type: "bool", default: false},
       { name: "drawBoundaries", type: "bool", default: false},
-      { name: "cropRowStrokeCap", type: "string", default: 'SQUARE'}
+      { name: "cropRowStrokeCap", type: "string", default: 'SQUARE'},
+      { name: "cropLengthScale", type: "integer", default: 80}, 
       // { name: "varname2", type: "string", default: 'Lorem Ipsum'}, 
       // { name: "varname3", type: "float", default: 0.6}
       // { name: "varname4", type: "bool", default: false}
