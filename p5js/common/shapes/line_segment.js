@@ -15,6 +15,10 @@ class LineSegment {
     this.isDragged = true;
   }
 
+  copy(){
+    return new LineSegment(this.start.x, this.start.y, this.end.x, this.end.y);
+  }
+
   set startX(val) { this.start.x = val; }
   set startY(val) { this.start.y = val; }
   set endX(val) { this.end.x = val; }
@@ -44,6 +48,35 @@ class LineSegment {
   centerPoint() { return new Point(this.centerX(), this.centerY()); }
   boundingRect(){ return new Rect(this.x, this.y, this.width, this.width); }
 
+  cacheOriginalPoints(){
+    // Cache the original points so that we can restore them if needed
+    this.originalStart = this.start.copy();
+    this.originalEnd = this.end.copy();
+  }
+
+  scaleAboutCenter(scaleFactor, useCache = false){
+    let center;
+    let deltaX, deltaY;
+
+    if (useCache) {
+      center = new Point(
+        (this.originalStart.x + this.originalEnd.x) / 2,
+        (this.originalStart.y + this.originalEnd.y) / 2
+      );
+      deltaX = Math.abs(this.originalEnd.x - center.x) * scaleFactor;
+      deltaY = Math.abs(this.originalEnd.y - center.y) * scaleFactor
+    } else {
+      center = this.centerPoint();
+      deltaX = Math.abs(this.endX - center.x) * scaleFactor;
+      deltaY = Math.abs(this.endY - center.y) * scaleFactor;
+    }
+
+    this.startX = center.x + deltaX * Math.sign(this.startX - center.x);
+    this.startY = center.y + deltaY * Math.sign(this.startY - center.y);
+    this.endX = center.x + deltaX * Math.sign(this.endX - center.x);
+    this.endY = center.y + deltaY * Math.sign(this.endY - center.y);
+  }
+
   get offset() {
     if (this.slope == Infinity) {
       return undefined;
@@ -57,7 +90,7 @@ class LineSegment {
   }
 
   getLength(){
-    return Math.sqrt( Math.pow(this.dx(), 2), Math.pow(this.dy(), 2));
+    return Math.sqrt( Math.pow(this.dx(), 2) + Math.pow(this.dy(), 2));
   }
 
   setLength(newValue){
@@ -86,25 +119,23 @@ class LineSegment {
     return line;
   }
 
-  intersectionPoint(otherLineSegment){
+  boundingRectContainsXY(x, y){
+    return  Rect.pointsContainXY(this.startX, this.startY,
+                                        this.endX, this.endY, 
+                                        x, y);
+  }
+
+  intersectionPoint(otherLineSegment, onThisLineOnly = true, onOtherLineOnly = true){
     const coord = Line.intersectionPoint(this.getLine(), otherLineSegment.getLine());
     if (coord == undefined) {
       return undefined;
     }
 
-    // TODO: consider implemented lineSegment.containsXY() 
-    // only true if the line is along the segment (not beyond its bounds)
-    const inThisBounds = Rect.pointsContainXY(this.startX, this.startY,
-                                      this.endX, this.endY, 
-                                      coord.x, coord.y);
-    if (!inThisBounds){
+    if (onThisLineOnly && !this.boundingRectContainsXY(coord.x, coord.y)){
       return undefined;
     }
 
-    const inOtherBounds = Rect.pointsContainXY(otherLineSegment.startX, otherLineSegment.startY,
-                                      otherLineSegment.endX, otherLineSegment.endY, 
-                                      coord.x, coord.y);
-    if (!inOtherBounds){
+    if (onOtherLineOnly && !otherLineSegment.boundingRectContainsXY(coord.x, coord.y)){
       return undefined;
     }
     return coord;

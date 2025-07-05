@@ -10,7 +10,6 @@ class Polygon extends Polygon2D {
     }
   }
 
-
   handleMousePressed(){
     const pointPressed = this.points.find(p => p.containsXY(mouseX, mouseY));
 
