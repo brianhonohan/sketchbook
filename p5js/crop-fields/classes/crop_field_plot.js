@@ -62,9 +62,7 @@ class CropFieldPlot {
 
     let cropRow = this._prepCropRow(startPoint, this.headingVec);
     cropRow.strokeColor = color(128, 0, 0); // Initial crop row for debugging
-    if( this.extendTrimRowToPolygonEdges(cropRow)) { 
-      this.cropRows.push(cropRow);
-    } else {
+    if( !this._plantSingleCropRow(cropRow) ) { 
       this.failedCropRow = cropRow; // Store the failed crop row for debugging
     }
 
@@ -77,6 +75,19 @@ class CropFieldPlot {
     offsetVec.rotate(Math.PI);
     this._plantCropRowsToPolygonEdges(startPoint, this.headingVec, offsetVec);
     this.adjustCropWidth();
+  }
+
+  _plantSingleCropRow(cropRow) {
+    const succesfulllyExtended = this.extendTrimRowToPolygonEdges(cropRow);
+
+    if (!succesfulllyExtended) {
+      // If the crop row could not be extended to the polygon edges, we discard it
+      return null;
+    }
+
+    this.cropRows.push(cropRow);
+    cropRow.origLength = cropRow.getLength(); // Store the original length for debugging
+    return cropRow;
   }
 
   _prepCropRow(startPoint, headingVec) {
@@ -96,21 +107,18 @@ class CropFieldPlot {
     // Colors for debugging sequence of crop rows
     let r = 128;
     let b = 0;
+    let prevRowPlanted = true;
 
-    while (attempts < attempLimit) {
-      attempts += 1;
+    while (prevRowPlanted && attempts < attempLimit) {
       cropRow = cropRow.copy();
       cropRow.translate(offsetVec.x, offsetVec.y);
-
       cropRow.strokeColor = color(r, 0, b); // Gradient effect for visibility
-      r = (r + 10) % 255;
-      b = (b + 10) % 255; 
 
-      if( this.extendTrimRowToPolygonEdges(cropRow)) { 
-        this.cropRows.push(cropRow);
-      } else {
-        break;
-      }
+      prevRowPlanted = this._plantSingleCropRow(cropRow);
+
+      attempts += 1;
+      r = (r + 10) % 255;
+      b = (b + 10) % 255;
     }
   }
 
