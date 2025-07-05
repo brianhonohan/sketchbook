@@ -20,6 +20,9 @@ function setup() {
   gui.add(system.settings, 'drawPlotBG');
   gui.add(system.settings, 'drawBoundaries');
   gui.add(system.settings, 'cropRowStrokeCap', strokeCapNames);
+  gui.add(system.settings, 'cullShortRows');
+  gui.add(system.settings, 'cullThreshold', 1, 100, 1);
+  gui.add(system, 'regenerate').name('Regenerate').onChange(system.regenerate.bind(system));
 
   P5JsSettings.collapseGuiIfNarrow(gui);
   background(50);

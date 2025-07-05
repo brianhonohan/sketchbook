@@ -76,6 +76,8 @@ class CropFieldPlot {
     this._plantCropRowsToPolygonEdges(startPoint, this.headingVec, offsetVec);
     this.adjustCropWidth();
     this.adjustCropLengthScale();
+
+    this.cullShortCropRows();
   }
 
   _plantSingleCropRow(cropRow) {
@@ -132,6 +134,18 @@ class CropFieldPlot {
   adjustCropLengthScale(){
     this.cropRows.forEach(cropRow => {
       cropRow.scaleAboutCenter(this.system.settings.cropLengthScale / 100.0, true);
+    });
+  }
+
+  cullShortCropRows(){
+    if (!this.system.settings.cullShortRows) {
+      return; // No culling needed
+    }
+
+    const threshold = this.system.settings.cullThreshold;
+    this.cropRows = this.cropRows.filter(cropRow => {
+      const length = cropRow.getLength();
+      return length >= threshold;
     });
   }
 
