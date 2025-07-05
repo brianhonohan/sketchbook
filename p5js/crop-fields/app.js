@@ -4,7 +4,6 @@ let canvas;
 let gui;
 let systemRebuildTimeout;
 
-
 function setup() {
   // canvas = createCanvas(500, 500); // for screenshots
   canvas = createAutosizedCanvas();
@@ -19,6 +18,7 @@ function setup() {
   gui.add(system.settings, 'cropWidth', 1, 100, 1).onChange(system.adjustCropWidth.bind(system));
   gui.add(system.settings, 'drawPlotBG');
   gui.add(system.settings, 'drawBoundaries');
+  gui.add(system.settings, 'cropRowStrokeCap', strokeCapNames);
 
   P5JsSettings.collapseGuiIfNarrow(gui);
   background(50);

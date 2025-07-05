@@ -127,7 +127,7 @@ class CropFieldPlot {
     this.polygon.draw();
 
     if (this.cropRows) {
-      strokeCap(SQUARE);
+      strokeCapByName(system.settings.cropRowStrokeCap);
       stroke(230);
       strokeWeight(1);
       for (const cropRow of this.cropRows) {

@@ -13,6 +13,7 @@ js_scripts:
 - https://cdn.jsdelivr.net/npm/lil-gui@0.20
 - /sketchbook/p5js/common/p5js_settings.js
 - /sketchbook/p5js/common/p5js_utils.js
+- /sketchbook/p5js/common/p5.meta.js
 - /sketchbook/js/util_functions.js
 - /sketchbook/js/options_set.js
 - /sketchbook/js/models/line.js
