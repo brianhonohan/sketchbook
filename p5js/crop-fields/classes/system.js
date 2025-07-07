@@ -74,11 +74,11 @@ class System {
   optionsMetadata(){
     return [
       { name: "numCells", type: "integer", default: 10}, 
-      { name: "cropSpacing", type: "integer", default: 50}, 
-      { name: "cropWidth", type: "integer", default: 35}, 
+      { name: "cropSpacing", type: "integer", default: 18}, 
+      { name: "cropWidth", type: "integer", default: 14}, 
       { name: "drawPlotBG", type: "bool", default: false},
       { name: "drawBoundaries", type: "bool", default: false},
-      { name: "cropRowStrokeCap", type: "string", default: 'SQUARE'},
+      { name: "cropRowStrokeCap", type: "string", default: 'ROUND'},
       { name: "cropLengthScale", type: "integer", default: 80}, 
       { name: "cullShortRows", type: "bool", default: true}, 
       { name: "cullThreshold", type: "float", default: 10},

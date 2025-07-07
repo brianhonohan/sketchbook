@@ -12,9 +12,9 @@ function setup() {
   system = new System(rect);
 
   gui = P5JsSettings.addGui({autoPlace: false});
-  gui.add(system.settings, 'numCells', 2, 30, 1).onChange(system.regenerate.bind(system));
-  gui.add(system.settings, 'cropSpacing', 3, 200, 1).onChange(system.replantRows.bind(system));
-  gui.add(system.settings, 'cropWidth', 1, 100, 1).onChange(system.adjustCropWidth.bind(system));
+  gui.add(system.settings, 'numCells', 2, 20, 1).onChange(system.regenerate.bind(system));
+  gui.add(system.settings, 'cropSpacing', 3, 120, 1).onChange(system.replantRows.bind(system));
+  gui.add(system.settings, 'cropWidth', 1, 70, 1).onChange(system.adjustCropWidth.bind(system));
   gui.add(system.settings, 'cropLengthScale', 1, 100, 1).onChange(system.adjustCropLengthScale.bind(system));
   gui.add(system.settings, 'drawPlotBG');
   gui.add(system.settings, 'drawBoundaries');

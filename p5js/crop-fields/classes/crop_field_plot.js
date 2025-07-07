@@ -120,8 +120,8 @@ class CropFieldPlot {
       prevRowPlanted = this._plantSingleCropRow(cropRow);
 
       attempts += 1;
-      r = (r + 10) % 255;
-      b = (b + 10) % 255;
+      r = (r + 20) % 255;
+      b = (b + 20) % 255;
     }
   }
 
