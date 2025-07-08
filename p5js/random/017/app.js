@@ -14,6 +14,7 @@ var systemParams = {
   hsbStart: 0,
   hsbEnd: 150,
   hsbCycle: false,
+  blendModeCycle: false,
   blendMode: 'BLEND',
   blendModeIdx: 0,
   xStepFraction: 0.7
@@ -34,6 +35,7 @@ function setup(){
   gui.add(systemParams, 'useFrameCountInX');
   gui.add(systemParams, 'useFrameCountInY');
   gui.add(systemParams, 'fillShapes');
+  gui.add(systemParams, 'blendModeCycle');
   gui.add(systemParams, 'hsbCycle');
   gui.hsbStart = gui.add(systemParams, 'hsbStart', 0, 360, 1);
   gui.hsbEnd = gui.add(systemParams, 'hsbEnd', 0, 360, 1);
@@ -45,7 +47,9 @@ function draw(){
 
   let yIncrement = systemParams.yStepSize * height;
 
-  // setBlendModeByFrame();
+  if (systemParams.blendModeCycle) {
+    setBlendModeByFrame();
+  }
   if (systemParams.hsbCycle) {
     updateHSBStartEnd();
   }
