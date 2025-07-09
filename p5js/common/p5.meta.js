@@ -21,6 +21,18 @@ p5.prototype.metaBeforeSetup = function() {
   this.blendModeByName = function(name){
     blendMode(this.blendModeMeta[name].p5jsID);
   };
+
+  this.rectModeMeta = {
+        'CORNER': {p5jsID: CORNER, description: "first two parameters  are the x- and y-coordinates of the shape's upper left corner. The next parameters set the shape's width and height.", default: true},
+        'CORNERS': {p5jsID: CORNERS, description: 'also uses the first two parameters as the location of one of the corners. The next parameters are the location of the opposite corner.'},
+        'CENTER': {p5jsID: CENTER, description: "uses the first two parameters as the x- and y-coordinates of the shape's center. The next parameters are its width and height."},
+        'RADIUS': {p5jsID: RADIUS, description: "uses the first two parameters as the x- and y-coordinates of the shape's center. The next parameters are half of the shape's width and height."},
+      };
+  this.rectModeNames = Object.keys(this.rectModeMeta);
+  this.rectModeOptions = Object.keys(this.rectModeMeta).map(k => this.rectModeMeta[k].p5jsID );
+  this.rectModeByName = function(name){ 
+    rectMode(this.rectModeMeta[name].p5jsID);
+  };
   
   this.strokeCapMeta = {
         'ROUND': {p5jsID: ROUND, description: 'Rounds the end of the lines by putting a semi-circle at the end of the line.'},
