@@ -22,6 +22,18 @@ p5.prototype.metaBeforeSetup = function() {
     blendMode(this.blendModeMeta[name].p5jsID);
   };
 
+  this.ellipseModeMeta = {
+        'CENTER': {p5jsID: CENTER, description: "uses the first two parameters are the x- and y-coordinates of the shape's center. The next parameters set the shape's width and height.", default: true},
+        'CORNER': {p5jsID: CORNER, description: "uses the first two parameters as the upper-left corner of the shape. The next parameters are its width and height."},
+        'CORNERS': {p5jsID: CORNERS, description: "uses the first two parameters as the location of one corner of the ellipse's bounding box. The next parameters are the location of the opposite corner."},
+        'RADIUS': {p5jsID: RADIUS, description: "uses the first two parameters to set the x- and y-coordinates of the shape's center. The next parameters are half of the shapes's width and height."},
+      };
+  this.ellipseModeNames = Object.keys(this.ellipseModeMeta);
+  this.ellipseModeOptions = Object.keys(this.ellipseModeMeta).map(k => this.ellipseModeMeta[k].p5jsID );
+  this.ellipseModeByName = function(name){ 
+    ellipseMode(this.ellipseModeMeta[name].p5jsID);
+  };
+
   this.rectModeMeta = {
         'CORNER': {p5jsID: CORNER, description: "first two parameters  are the x- and y-coordinates of the shape's upper left corner. The next parameters set the shape's width and height.", default: true},
         'CORNERS': {p5jsID: CORNERS, description: 'also uses the first two parameters as the location of one of the corners. The next parameters are the location of the opposite corner.'},
