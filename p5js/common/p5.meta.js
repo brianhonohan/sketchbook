@@ -1,3 +1,5 @@
+// Note: the descriptions are from https://p5js.org/reference
+
 p5.prototype.metaBeforeSetup = function() {
   this.blendModeMeta = {
     'BLEND': {p5jsID: BLEND, description: 'color values from the source overwrite the canvas. This is the default mode.', default: true},
