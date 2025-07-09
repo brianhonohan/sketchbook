@@ -34,6 +34,17 @@ p5.prototype.metaBeforeSetup = function() {
     ellipseMode(this.ellipseModeMeta[name].p5jsID);
   };
 
+  this.imageModeMeta = {
+        'CENTER': {p5jsID: CENTER, description: "uses the first two parameters of image() as the x- and y-coordinates of the image's center. The next parameters are its width and height."},
+        'CORNER': {p5jsID: CORNER, description: "the first two parameters of image() are the x- and y-coordinates of the image's upper-left corner. The next parameters are its width and height.", default: true},
+        'CORNERS': {p5jsID: CORNERS, description: "uses the first two parameters of image() as the x- and y-coordinates of the image's top-left corner. The third and fourth parameters are the coordinates of its bottom-right corner."},
+      };
+  this.imageModeNames = Object.keys(this.imageModeMeta);
+  this.imageModeOptions = Object.keys(this.imageModeMeta).map(k => this.imageModeMeta[k].p5jsID );
+  this.imageModeByName = function(name){ 
+    imageMode(this.imageModeMeta[name].p5jsID);
+  };
+
   this.rectModeMeta = {
         'CORNER': {p5jsID: CORNER, description: "first two parameters  are the x- and y-coordinates of the shape's upper left corner. The next parameters set the shape's width and height.", default: true},
         'CORNERS': {p5jsID: CORNERS, description: 'also uses the first two parameters as the location of one of the corners. The next parameters are the location of the opposite corner.'},
