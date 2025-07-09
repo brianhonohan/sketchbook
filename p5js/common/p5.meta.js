@@ -1,6 +1,16 @@
 // Note: the descriptions are from https://p5js.org/reference
 
 p5.prototype.metaBeforeSetup = function() {
+  this.angleModeMeta = {
+        'RADIANS': {p5jsID: RADIANS, description: "alters the interpretation of rotate() and trigonometry functions to operate in radians, eg 0 to 2 * Math.PI.", default: true},
+        'DEGREES': {p5jsID: DEGREES, description: 'alters the interpretation of rotate() and trigonometry functions to operate in degrees, eg 0 to 360.'},
+      };
+  this.angleModeNames = Object.keys(this.angleModeMeta);
+  this.angleModeOptions = Object.keys(this.angleModeMeta).map(k => this.angleModeMeta[k].p5jsID );
+  this.angleModeByName = function(name){ 
+    angleMode(this.angleModeMeta[name].p5jsID);
+  };
+  
   this.blendModeMeta = {
     'BLEND': {p5jsID: BLEND, description: 'color values from the source overwrite the canvas. This is the default mode.', default: true},
     'ADD': {p5jsID: ADD, description: 'color values from the source are added to values from the canvas.'},
