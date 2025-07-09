@@ -1,15 +1,4 @@
 p5.prototype.metaBeforeSetup = function() {
-  this.strokeCapMeta = {
-        'ROUND': {p5jsID: ROUND, description: 'Rounds the end of the lines by putting a semi-circle at the end of the line.'},
-        'SQUARE': {p5jsID: SQUARE, description: 'Squares off the ends of the lines, stoping exact at the x,y coords.'},
-        'PROJECT': {p5jsID: PROJECT, description: 'Projects the end of lines so that connecting lines have continuity with sharp edges.'},
-      };
-  this.strokeCapNames = Object.keys(this.strokeCapMeta);
-  this.strokeCapOptions = Object.keys(this.strokeCapMeta).map(k => this.strokeCapMeta[k].p5jsID );
-  this.strokeCapByName = function(name){ 
-    strokeCap(this.strokeCapMeta[name].p5jsID);
-  };
-
   this.blendModeMeta = {
     'BLEND': {p5jsID: BLEND, description: 'color values from the source overwrite the canvas. This is the default mode.'},
     'ADD': {p5jsID: ADD, description: 'color values from the source are added to values from the canvas.'},
@@ -31,6 +20,17 @@ p5.prototype.metaBeforeSetup = function() {
   this.blendModeOptions = Object.keys(this.blendModeMeta).map(k => this.blendModeMeta[k].p5jsID );
   this.blendModeByName = function(name){
     blendMode(this.blendModeMeta[name].p5jsID);
+  };
+  
+  this.strokeCapMeta = {
+        'ROUND': {p5jsID: ROUND, description: 'Rounds the end of the lines by putting a semi-circle at the end of the line.'},
+        'SQUARE': {p5jsID: SQUARE, description: 'Squares off the ends of the lines, stoping exact at the x,y coords.'},
+        'PROJECT': {p5jsID: PROJECT, description: 'Projects the end of lines so that connecting lines have continuity with sharp edges.'},
+      };
+  this.strokeCapNames = Object.keys(this.strokeCapMeta);
+  this.strokeCapOptions = Object.keys(this.strokeCapMeta).map(k => this.strokeCapMeta[k].p5jsID );
+  this.strokeCapByName = function(name){ 
+    strokeCap(this.strokeCapMeta[name].p5jsID);
   };
 
 };
