@@ -1,6 +1,6 @@
 p5.prototype.metaBeforeSetup = function() {
   this.blendModeMeta = {
-    'BLEND': {p5jsID: BLEND, description: 'color values from the source overwrite the canvas. This is the default mode.'},
+    'BLEND': {p5jsID: BLEND, description: 'color values from the source overwrite the canvas. This is the default mode.', default: true},
     'ADD': {p5jsID: ADD, description: 'color values from the source are added to values from the canvas.'},
     'DARKEST': {p5jsID: DARKEST, description: 'keeps the darkest color value.'},
     'LIGHTEST': {p5jsID: LIGHTEST, description: 'keeps the lightest color value.'},
@@ -35,7 +35,7 @@ p5.prototype.metaBeforeSetup = function() {
   };
   
   this.strokeCapMeta = {
-        'ROUND': {p5jsID: ROUND, description: 'Rounds the end of the lines by putting a semi-circle at the end of the line.'},
+        'ROUND': {p5jsID: ROUND, description: 'Rounds the end of the lines by putting a semi-circle at the end of the line.', default: true},
         'SQUARE': {p5jsID: SQUARE, description: 'Squares off the ends of the lines, stoping exact at the x,y coords.'},
         'PROJECT': {p5jsID: PROJECT, description: 'Projects the end of lines so that connecting lines have continuity with sharp edges.'},
       };
