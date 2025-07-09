@@ -1,17 +1,29 @@
+// Note: the descriptions are from https://p5js.org/reference
+
 p5.prototype.metaBeforeSetup = function() {
-  this.strokeCapMeta = {
-        'ROUND': {p5jsID: ROUND, description: 'Rounds the end of the lines by putting a semi-circle at the end of the line.'},
-        'SQUARE': {p5jsID: SQUARE, description: 'Squares off the ends of the lines, stoping exact at the x,y coords.'},
-        'PROJECT': {p5jsID: PROJECT, description: 'Projects the end of lines so that connecting lines have continuity with sharp edges.'},
+  this.angleModeMeta = {
+        'RADIANS': {p5jsID: RADIANS, description: "alters the interpretation of rotate() and trigonometry functions to operate in radians, eg 0 to 2 * Math.PI.", default: true},
+        'DEGREES': {p5jsID: DEGREES, description: 'alters the interpretation of rotate() and trigonometry functions to operate in degrees, eg 0 to 360.'},
       };
-  this.strokeCapNames = Object.keys(this.strokeCapMeta);
-  this.strokeCapOptions = Object.keys(this.strokeCapMeta).map(k => this.strokeCapMeta[k].p5jsID );
-  this.strokeCapByName = function(name){ 
-    strokeCap(this.strokeCapMeta[name].p5jsID);
+  this.angleModeNames = Object.keys(this.angleModeMeta);
+  this.angleModeOptions = Object.keys(this.angleModeMeta).map(k => this.angleModeMeta[k].p5jsID );
+  this.angleModeByName = function(name){ 
+    angleMode(this.angleModeMeta[name].p5jsID);
   };
 
+  this.colorModeMeta = {
+        'RGB': {p5jsID: RGB, description: "alters the interpretation of color() to use red, green, and blue values. The default range is 0 to 255.", default: true},
+        'HSL': {p5jsID: HSL, description: 'alters the interpretation of color() to use hue, saturation, and lightness values.'},
+        'HSB': {p5jsID: HSB, description: 'alters the interpretation of color() to use hue, saturation, and brightness values. The default range is 0 to 255 for saturation and brightness, and 0 to 360 for hue.'},
+  }
+  this.colorModeNames = Object.keys(this.colorModeMeta);
+  this.colorModeOptions = Object.keys(this.colorModeMeta).map(k => this.colorModeMeta[k].p5jsID );
+  this.colorModeByName = function(name, max1, max2, max3, maxA){
+    colorMode(this.colorModeMeta[name].p5jsID, max1, max2, max3, maxA);
+  };
+  
   this.blendModeMeta = {
-    'BLEND': {p5jsID: BLEND, description: 'color values from the source overwrite the canvas. This is the default mode.'},
+    'BLEND': {p5jsID: BLEND, description: 'color values from the source overwrite the canvas. This is the default mode.', default: true},
     'ADD': {p5jsID: ADD, description: 'color values from the source are added to values from the canvas.'},
     'DARKEST': {p5jsID: DARKEST, description: 'keeps the darkest color value.'},
     'LIGHTEST': {p5jsID: LIGHTEST, description: 'keeps the lightest color value.'},
@@ -31,6 +43,52 @@ p5.prototype.metaBeforeSetup = function() {
   this.blendModeOptions = Object.keys(this.blendModeMeta).map(k => this.blendModeMeta[k].p5jsID );
   this.blendModeByName = function(name){
     blendMode(this.blendModeMeta[name].p5jsID);
+  };
+
+  this.ellipseModeMeta = {
+        'CENTER': {p5jsID: CENTER, description: "uses the first two parameters are the x- and y-coordinates of the shape's center. The next parameters set the shape's width and height.", default: true},
+        'CORNER': {p5jsID: CORNER, description: "uses the first two parameters as the upper-left corner of the shape. The next parameters are its width and height."},
+        'CORNERS': {p5jsID: CORNERS, description: "uses the first two parameters as the location of one corner of the ellipse's bounding box. The next parameters are the location of the opposite corner."},
+        'RADIUS': {p5jsID: RADIUS, description: "uses the first two parameters to set the x- and y-coordinates of the shape's center. The next parameters are half of the shapes's width and height."},
+      };
+  this.ellipseModeNames = Object.keys(this.ellipseModeMeta);
+  this.ellipseModeOptions = Object.keys(this.ellipseModeMeta).map(k => this.ellipseModeMeta[k].p5jsID );
+  this.ellipseModeByName = function(name){ 
+    ellipseMode(this.ellipseModeMeta[name].p5jsID);
+  };
+
+  this.imageModeMeta = {
+        'CENTER': {p5jsID: CENTER, description: "uses the first two parameters of image() as the x- and y-coordinates of the image's center. The next parameters are its width and height."},
+        'CORNER': {p5jsID: CORNER, description: "the first two parameters of image() are the x- and y-coordinates of the image's upper-left corner. The next parameters are its width and height.", default: true},
+        'CORNERS': {p5jsID: CORNERS, description: "uses the first two parameters of image() as the x- and y-coordinates of the image's top-left corner. The third and fourth parameters are the coordinates of its bottom-right corner."},
+      };
+  this.imageModeNames = Object.keys(this.imageModeMeta);
+  this.imageModeOptions = Object.keys(this.imageModeMeta).map(k => this.imageModeMeta[k].p5jsID );
+  this.imageModeByName = function(name){ 
+    imageMode(this.imageModeMeta[name].p5jsID);
+  };
+
+  this.rectModeMeta = {
+        'CORNER': {p5jsID: CORNER, description: "first two parameters  are the x- and y-coordinates of the shape's upper left corner. The next parameters set the shape's width and height.", default: true},
+        'CORNERS': {p5jsID: CORNERS, description: 'also uses the first two parameters as the location of one of the corners. The next parameters are the location of the opposite corner.'},
+        'CENTER': {p5jsID: CENTER, description: "uses the first two parameters as the x- and y-coordinates of the shape's center. The next parameters are its width and height."},
+        'RADIUS': {p5jsID: RADIUS, description: "uses the first two parameters as the x- and y-coordinates of the shape's center. The next parameters are half of the shape's width and height."},
+      };
+  this.rectModeNames = Object.keys(this.rectModeMeta);
+  this.rectModeOptions = Object.keys(this.rectModeMeta).map(k => this.rectModeMeta[k].p5jsID );
+  this.rectModeByName = function(name){ 
+    rectMode(this.rectModeMeta[name].p5jsID);
+  };
+  
+  this.strokeCapMeta = {
+        'ROUND': {p5jsID: ROUND, description: 'Rounds the end of the lines by putting a semi-circle at the end of the line.', default: true},
+        'SQUARE': {p5jsID: SQUARE, description: 'Squares off the ends of the lines, stoping exact at the x,y coords.'},
+        'PROJECT': {p5jsID: PROJECT, description: 'Projects the end of lines so that connecting lines have continuity with sharp edges.'},
+      };
+  this.strokeCapNames = Object.keys(this.strokeCapMeta);
+  this.strokeCapOptions = Object.keys(this.strokeCapMeta).map(k => this.strokeCapMeta[k].p5jsID );
+  this.strokeCapByName = function(name){ 
+    strokeCap(this.strokeCapMeta[name].p5jsID);
   };
 
 };
