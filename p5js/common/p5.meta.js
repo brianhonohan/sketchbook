@@ -10,6 +10,17 @@ p5.prototype.metaBeforeSetup = function() {
   this.angleModeByName = function(name){ 
     angleMode(this.angleModeMeta[name].p5jsID);
   };
+
+  this.colorModeMeta = {
+        'RGB': {p5jsID: RGB, description: "alters the interpretation of color() to use red, green, and blue values. The default range is 0 to 255.", default: true},
+        'HSL': {p5jsID: HSL, description: 'alters the interpretation of color() to use hue, saturation, and lightness values.'},
+        'HSB': {p5jsID: HSB, description: 'alters the interpretation of color() to use hue, saturation, and brightness values. The default range is 0 to 255 for saturation and brightness, and 0 to 360 for hue.'},
+  }
+  this.colorModeNames = Object.keys(this.colorModeMeta);
+  this.colorModeOptions = Object.keys(this.colorModeMeta).map(k => this.colorModeMeta[k].p5jsID );
+  this.colorModeByName = function(name, max1, max2, max3, maxA){
+    colorMode(this.colorModeMeta[name].p5jsID, max1, max2, max3, maxA);
+  };
   
   this.blendModeMeta = {
     'BLEND': {p5jsID: BLEND, description: 'color values from the source overwrite the canvas. This is the default mode.', default: true},
