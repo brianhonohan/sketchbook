@@ -79,6 +79,22 @@ p5.prototype.metaBeforeSetup = function() {
   this.rectModeByName = function(name){ 
     rectMode(this.rectModeMeta[name].p5jsID);
   };
+
+  this.beginShapeMeta = {
+        'POINTS': {p5jsID: POINTS, description: "to draw a series of points."},
+        'LINES': {p5jsID: LINES, description: "to draw a series of unconnected line segments."},
+        'TRIANGLES': {p5jsID: TRIANGLES, description: "to draw a series of separate triangles."},
+        'TRIANGLE_FAN': {p5jsID: TRIANGLE_FAN, description: "to draw a series of connected triangles sharing the first vertex in a fan-like fashion."},
+        'TRIANGLE_STRIP': {p5jsID: TRIANGLE_STRIP, description: "to draw a series of connected triangles in strip fashion."},
+        'QUADS': {p5jsID: QUADS, description: "to draw a series of separate quadrilaterals (quads)."},
+        'QUAD_STRIP': {p5jsID: QUAD_STRIP, description: "to draw quad strip using adjacent edges to form the next quad."},
+        'TESS': {p5jsID: TESS, description: "to create a filling curve by explicit tessellation (WebGL only)."}
+      };
+  this.beginShapeNames = Object.keys(this.beginShapeMeta);
+  this.beginShapeOptions = Object.keys(this.beginShapeMeta).map(k => this.beginShapeMeta[k].p5jsID );
+  this.beginShapeByName = function(name){ 
+    shape(this.beginShapeMeta[name].p5jsID);
+  };
   
   this.strokeCapMeta = {
         'ROUND': {p5jsID: ROUND, description: 'Rounds the end of the lines by putting a semi-circle at the end of the line.', default: true},
