@@ -100,6 +100,12 @@ Collection of sketches using the [p5.js][p5js] Javascript library, created witho
 [<img src="./p5js/random/011/screenshot-01.png" alt="random-011" width="150px" />][link-p5js-random-011]
 [<img src="./p5js/random/012/screenshot-01.png" alt="random-012" width="150px" />][link-p5js-random-012]
 [<img src="./p5js/random/013/screenshot-01.png" alt="random-013" width="150px" />][link-p5js-random-013]
+[<img src="./p5js/random/014/screenshot-01.png" alt="random-014" width="150px" />][link-p5js-random-014]
+[<img src="./p5js/random/015/screenshot-01.png" alt="random-015" width="150px" />][link-p5js-random-015]
+[<img src="./p5js/random/016/screenshot-01.png" alt="random-016" width="150px" />][link-p5js-random-016]
+[<img src="./p5js/random/017/screenshot-01.png" alt="random-017" width="150px" />][link-p5js-random-017]
+[<img src="./p5js/random/018/screenshot-01.png" alt="random-018" width="150px" />][link-p5js-random-018]
+[<img src="./p5js/random/019/screenshot-01.png" alt="random-019" width="150px" />][link-p5js-random-019]
 
 ## p5.js - Coding Challenges
 Collection of sketches using the [p5.js][p5js] Javascript library inspired by the [Coding Train's][coding-train] [Coding Challenges][coding-train-cc].
@@ -221,6 +227,12 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-p5js-random-011]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/011/
 [link-p5js-random-012]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/012/
 [link-p5js-random-013]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/013/
+[link-p5js-random-014]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/014/
+[link-p5js-random-015]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/015/
+[link-p5js-random-016]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/016/
+[link-p5js-random-017]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/017/
+[link-p5js-random-018]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/018/
+[link-p5js-random-019]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/019/
 
 [link-p5js-soccer-field]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/soccer-field/
 [link-p5js-scales-blendmode]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/scales/blendmode/
