@@ -28,11 +28,11 @@ Collection of sketches using the [p5.js][p5js] Javascript library which demonstr
 [<img src="./p5js/common/examples/bezier/screenshot-01.png" alt="bezier" width="150px" />][link-p5js-bezier]
 [<img src="./p5js/common/examples/bezier-2/screenshot-01.png" alt="bezier" width="150px" />][link-p5js-bezier-2]
 [<img src="./p5js/common/examples/bouncing/screenshot-01.png" alt="bouncing-ball" width="150px" />][link-p5js-bouncing]
-[<img src="./p5js/common/examples/draggable/screenshot-01.png" alt="draggable" width="150px" />][link-p5js-draggable]
 [<img src="./p5js/common/examples/color-ramp/screenshot-01.png" alt="draggable" width="150px" />][link-p5js-color-ramp]
+[<img src="./p5js/common/examples/draggable/screenshot-01.png" alt="draggable" width="150px" />][link-p5js-draggable]
 [<img src="./p5js/common/examples/geometry-circle-line/screenshot-01.png" alt="draggable" width="150px" />][link-p5js-geometry-circle-line]
-[<img src="./p5js/common/examples/geometry-point-to-line/screenshot-01.png" alt="draggable" width="150px" />][link-p5js-geometry-point-to-line]
 [<img src="./p5js/common/examples/geometry-line-to-line/screenshot-01.png" alt="line intersection" width="150px" />][link-p5js-geometry-line-to-line]
+[<img src="./p5js/common/examples/geometry-point-to-line/screenshot-01.png" alt="draggable" width="150px" />][link-p5js-geometry-point-to-line]
 [<img src="./p5js/common/examples/layout-options/screenshot-01.png" alt="layout-options" width="150px" />][link-p5js-layout-options]
 [<img src="./p5js/common/examples/paisley/screenshot-01.png" alt="paisley" width="150px" />][link-p5js-paisley]
 [<img src="./p5js/common/examples/paisley-2/screenshot-01.png" alt="paisley" width="150px" />][link-p5js-paisley-2]
@@ -53,19 +53,22 @@ Collection of sketches using the [p5.js][p5js] Javascript library which demonstr
 ## p5.js Scales
 Collection of sketches using the [p5.js][p5js] Javascript library, which are my way of learning about how built-in p5.js functions work, by practicing my 'scales' (like learning to play the piano).
 
-[<img src="./p5js/scales/blendmode/screenshot-01.png" alt="blendmode" width="150px" />][link-p5js-scales-blendmode]
 [<img src="./p5js/scales/palettelerp/screenshot-01.png" alt="palettelerp" width="150px" />][link-p5js-scales-palettelerp]
+[<img src="./p5js/scales/blendmode/screenshot-01.png" alt="blendmode" width="150px" />][link-p5js-scales-blendmode]
+[<img src="./p5js/scales/strokeweight/screenshot-01.png" alt="strokeweight" width="150px" />][link-p5js-scales-strokeweight]
 
 
 ## p5.js
 Collection of sketches using the [p5.js][p5js] Javascript library.
 
-[<img src="./p5js/ecosystem/screenshot-01.png" alt="ecosystem" width="150px" />][link-p5js-ecosystem]
+[<img src="./p5js/crop-fields/screenshot-01.png" alt="crop-fields" width="150px" />][link-p5js-crop-fields]
+[<img src="./p5js/crowd-simulation/screenshot-01.png" alt="crowd-simulation" width="150px" />][link-p5js-crowd-simulation]
 [<img src="./p5js/ecosystem-2/screenshot-01.png" alt="ecosystem" width="150px" />][link-p5js-ecosystem-2]
+[<img src="./p5js/ecosystem/screenshot-01.png" alt="ecosystem" width="150px" />][link-p5js-ecosystem]
 [<img src="./p5js/forest-01/screenshot-01.png" alt="forest-01" width="150px" />][link-p5js-forest-01]
 [<img src="./p5js/forest-02/screenshot-01.png" alt="forest-02" width="150px" />][link-p5js-forest-02]
-[<img src="./p5js/forest-fires-02/screenshot-01.png" alt="forest-fires-02" width="150px" />][link-p5js-forest-fires-02]
 [<img src="./p5js/forest-fires/screenshot-01.png" alt="forest-fires" width="150px" />][link-p5js-forest-fires]
+[<img src="./p5js/forest-fires-02/screenshot-01.png" alt="forest-fires-02" width="150px" />][link-p5js-forest-fires-02]
 [<img src="./p5js/friezes/screenshot-01.png" alt="friezes" width="150px" />][link-p5js-friezes]
 [<img src="./p5js/friezes-2/screenshot-01.png" alt="blue and orange lines, in repeated pattern" width="150px" />][link-p5js-friezes-2]
 [<img src="./p5js/grid-puzzle/screenshot-01.png" alt="colorful square tiles in grid" width="150px" />][link-p5js-grid-puzzle]
@@ -74,8 +77,10 @@ Collection of sketches using the [p5.js][p5js] Javascript library.
 [<img src="./p5js/keyviz/screenshot-01.png" alt="keyviz" width="150px" />][link-p5js-keyviz]
 [<img src="./p5js/logic-gates/screenshot-01.png" alt="logic-gates" width="150px" />][link-p5js-logic-gates]
 [<img src="./p5js/meandering-river/screenshot-01.png" alt="meandering-river" width="150px" />][link-p5js-meandering-river]
-[<img src="./p5js/nautical-flags-02/screenshot-01.png" alt="nautical-flags" width="150px" />][link-p5js-nautical-flags-02]
+[<img src="./p5js/meandering-river-02/screenshot-01.png" alt="meandering-river" width="150px" />][link-p5js-meandering-river-02]
 [<img src="./p5js/nautical-flags/screenshot-01.png" alt="nautical-flags" width="150px" />][link-p5js-nautical-flags]
+[<img src="./p5js/nautical-flags-02/screenshot-01.png" alt="nautical-flags" width="150px" />][link-p5js-nautical-flags-02]
+[<img src="./p5js/nautical-flags-03/screenshot-01.png" alt="nautical-flags" width="150px" />][link-p5js-nautical-flags-03]
 [<img src="./p5js/paisley-01/screenshot-01.png" alt="paisley-01" width="150px" />][link-p5js-paisley-01]
 [<img src="./p5js/slippy-map/screenshot-01.png" alt="slippy-map" width="150px" />][link-p5js-slippy-map]
 [<img src="./p5js/snowflake-pen/screenshot-01.png" alt="snowflake-pen" width="150px" />][link-p5js-snowflake-pen]
@@ -123,9 +128,9 @@ Collection of sketches using the [p5.js][p5js] Javascript library inspired by th
 [<img src="./p5js/coding-challenges/mitosis/screenshot-07.png" alt="mitosis" width="150px" />][link-p5js-cc-mitosis]
 [<img src="./p5js/coding-challenges/seven-segment-display/screenshot-01.png" alt="seven-segment-display" width="150px" />][link-p5js-cc-seven-segment-display]
 [<img src="./p5js/coding-challenges/snake/screenshot-01.png" alt="snake" width="150px" />][link-p5js-cc-snake]
-[<img src="./p5js/coding-challenges/solar-system-3d-texturized/screenshot-01.png" alt="solar-system-3d-texturized" width="150px" />][link-p5js-cc-solar-system-3d-texturized]
-[<img src="./p5js/coding-challenges/solar-system-3d/screenshot-01.png" alt="solar-system-3d" width="150px" />][link-p5js-cc-solar-system-3d]
 [<img src="./p5js/coding-challenges/solar-system/screenshot-01.png" alt="solar-system" width="150px" />][link-p5js-cc-solar-system]
+[<img src="./p5js/coding-challenges/solar-system-3d/screenshot-01.png" alt="solar-system-3d" width="150px" />][link-p5js-cc-solar-system-3d]
+[<img src="./p5js/coding-challenges/solar-system-3d-texturized/screenshot-01.png" alt="solar-system-3d-texturized" width="150px" />][link-p5js-cc-solar-system-3d-texturized]
 [<img src="./p5js/coding-challenges/space-invaders/screenshot-01.png" alt="space-invaders" width="150px" />][link-p5js-cc-space-invaders]
 [<img src="./p5js/coding-challenges/terrain-3d-flyover/screenshot-01.png" alt="terrain-3d-flyover" width="150px" />][link-p5js-cc-terrain-3d-flyover]
 
@@ -175,44 +180,48 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-paperjs-10-print]: https://github.com/brianhonohan/sketchbook/tree/master/paperjs/10-print
 [link-paperjs-drawing-app]: https://github.com/brianhonohan/sketchbook/tree/master/paperjs/drawing-app
 
-[link-p5js-bezier]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/bezier/
 [link-p5js-bezier-2]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/bezier-2/
+[link-p5js-bezier]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/bezier/
 [link-p5js-bouncing]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/bouncing/
 [link-p5js-color-ramp]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/color-ramp/
+[link-p5js-crop-fields]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/crop-fields/
+[link-p5js-crowd-simulation]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/crowd-simulation/
 [link-p5js-draggable]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/draggable/
-[link-p5js-geometry-circle-line]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/geometry-circle-line/
-[link-p5js-geometry-point-to-line]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/geometry-point-to-line/
-[link-p5js-geometry-line-to-line]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/geometry-line-to-line/
-[link-p5js-layout-options]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/layout-options/
-[link-p5js-ecosystem]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/ecosystem/
 [link-p5js-ecosystem-2]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/ecosystem-2/
+[link-p5js-ecosystem]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/ecosystem/
 [link-p5js-forest-01]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/forest-01/
 [link-p5js-forest-02]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/forest-02/
 [link-p5js-forest-fires-02]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/forest-fires-02/
 [link-p5js-forest-fires]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/forest-fires/
-[link-p5js-friezes]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/friezes/
 [link-p5js-friezes-2]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/friezes-2/
+[link-p5js-friezes]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/friezes/
+[link-p5js-geometry-circle-line]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/geometry-circle-line/
+[link-p5js-geometry-line-to-line]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/geometry-line-to-line/
+[link-p5js-geometry-point-to-line]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/geometry-point-to-line/
 [link-p5js-grid-puzzle]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/grid-puzzle/
 [link-p5js-hello_world]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/hello_world/
 [link-p5js-josef-albers-homage-to-a-square]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/josef-albers-homage-to-a-square/
 [link-p5js-keyviz]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/keyviz/
+[link-p5js-layout-options]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/layout-options/
 [link-p5js-logic-gates]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/logic-gates/
+[link-p5js-meandering-river-02]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/meandering-river-02/
 [link-p5js-meandering-river]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/meandering-river/
 [link-p5js-nautical-flags-02]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/nautical-flags-02/
+[link-p5js-nautical-flags-03]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/nautical-flags-03/
 [link-p5js-nautical-flags]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/nautical-flags/
-[link-p5js-paisley]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/paisley/
-[link-p5js-paisley-2]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/paisley-2/
 [link-p5js-paisley-01]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/paisley-01/
-[link-p5js-quadtree]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/quadtree/
+[link-p5js-paisley-2]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/paisley-2/
+[link-p5js-paisley]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/paisley/
 [link-p5js-quadtree-2]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/quadtree-2/
 [link-p5js-quadtree-3]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/quadtree-3/
+[link-p5js-quadtree]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/quadtree/
 [link-p5js-rotation-between-vectors]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/rotation-between-vectors/
 [link-p5js-shapes-tangents-between-circles]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/shapes-tangents-between-circles/
 [link-p5js-space-colonization]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/space-colonization/
-[link-p5js-voronoi]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/voronoi/
 [link-p5js-voronoi-2]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/voronoi-2/
 [link-p5js-voronoi-3]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/voronoi-3/
 [link-p5js-voronoi-4]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/voronoi-4/
+[link-p5js-voronoi]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/voronoi/
 
 [link-p5js-random-001]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/001/
 [link-p5js-random-002]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/random/002/
@@ -237,6 +246,7 @@ Collection of sketches using the [Processing (P3)][processing] environment.
 [link-p5js-soccer-field]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/soccer-field/
 [link-p5js-scales-blendmode]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/scales/blendmode/
 [link-p5js-scales-palettelerp]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/scales/palettelerp/
+[link-p5js-scales-strokeweight]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/scales/strokeweight/
 [link-p5js-slippy-map]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/slippy-map/
 [link-p5js-snowflake-pen]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/snowflake-pen/
 [link-p5js-teardrops]: https://github.com/brianhonohan/sketchbook/tree/master/p5js/common/examples/teardrops/
