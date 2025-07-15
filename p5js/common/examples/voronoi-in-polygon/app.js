@@ -2,9 +2,11 @@
 let canvas;
 let gui;
 let shapes;
+let polygonObj;
 
 const settings = {
   num_sides: 5,
+  show_bounding_box: true,
 }
 
 function setup() {
@@ -22,7 +24,9 @@ function setup() {
 
 function regenerate(){
   shapes = [];
-  shapes.push( generatePolygon() );
+
+  polygonObj = generatePolygon();
+  shapes.push(polygonObj);
   shapes.push( buildDraggablePoint() );
 }
 
@@ -57,6 +61,13 @@ function draw(){
   background(50);
   shapes.forEach(s => s.draw());
   highlightPointIfInPolygon();
+
+  if (settings.show_bounding_box) {
+    noFill();
+    stroke(50, 230, 230);
+    strokeWeight(1);
+    P5JsUtils.drawRect(polygonObj.getBoundingRect());
+  }
 }
 
 function createAutosizedCanvas(){

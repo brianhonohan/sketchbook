@@ -54,6 +54,27 @@ class Polygon2D {
     return Math.abs(area / 2);
   }
 
+  getBoundingRect(){
+    if (this.points.length === 0) {
+      return new Rect(0, 0, 0, 0);
+    }
+
+    let minX = this.points[0].x;
+    let maxX = this.points[0].x;
+    let minY = this.points[0].y;
+    let maxY = this.points[0].y;
+
+    for (let i = 1; i < this.points.length; i++) {
+      const p = this.points[i];
+      if (p.x < minX) minX = p.x;
+      if (p.x > maxX) maxX = p.x;
+      if (p.y < minY) minY = p.y;
+      if (p.y > maxY) maxY = p.y;
+    }
+
+    return new Rect(minX, minY, maxX - minX, maxY - minY);
+  }
+
   containsXY(x, y){
     // Ray-casting algorithm for point-in-polygon test
     // FROM (DEFUNCT) https://github.com/substack/point-in-polygon
