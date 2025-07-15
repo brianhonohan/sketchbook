@@ -3,10 +3,13 @@ let canvas;
 let gui;
 let shapes;
 let polygonObj;
+let voronoiSites;
 
 const settings = {
   num_sides: 5,
   show_bounding_box: true,
+  approx_points: 30,
+  show_points: true,
 }
 
 function setup() {
@@ -18,6 +21,8 @@ function setup() {
   gui = P5JsSettings.addGui({autoPlace: false});
   gui.add(settings, 'num_sides', 3, 12, 1).onChange(regenerate);
   gui.add(settings, 'show_bounding_box');
+  gui.add(settings, 'approx_points', 3, 50, 1).onChange(regenerate);
+  gui.add(settings, 'show_points');
 
   regenerate();
   P5JsSettings.collapseGuiIfNarrow(gui);
@@ -28,7 +33,8 @@ function regenerate(){
 
   polygonObj = generatePolygon();
   shapes.push(polygonObj);
-  shapes.push( buildDraggablePoint() );
+  // shapes.push( buildDraggablePoint() );
+  generatePointsInPolygon(polygonObj, settings.approx_points);
 }
 
 function generatePolygon(){
@@ -47,6 +53,26 @@ function generatePolygon(){
   polygon.strokeWeight = 2;
   polygon.dragEnabled = true;
   return polygon;
+}
+
+function generatePointsInPolygon(polygon, numPoints){
+  voronoiSites = [];
+  const boundingRect = polygon.getBoundingRect();
+  let x, y;
+  const tryLimit = 20;
+
+  for (let i = 0; i < numPoints; i++) {
+    // Try to find a point inside the polygon
+    for (let j = 0; j < tryLimit; j++) {  
+      x = boundingRect.minX + Math.random() * boundingRect.width;
+      y = boundingRect.minY + Math.random() * boundingRect.height;
+      if (polygon.containsXY(x, y)) {
+        voronoiSites.push(new Point(x, y));
+        break; // Found a valid point, exit the inner loop
+      }
+    }
+  }
+  return voronoiSites;
 }
 
 function buildDraggablePoint(){
@@ -68,6 +94,12 @@ function draw(){
     stroke(50, 230, 230);
     strokeWeight(1);
     P5JsUtils.drawRect(polygonObj.getBoundingRect());
+  }
+
+  if (settings.show_points && voronoiSites) {
+    noStroke();
+    fill(50, 230, 230);
+    voronoiSites.forEach(p => ellipse(p.x, p.y, 5, 5));
   }
 }
 
