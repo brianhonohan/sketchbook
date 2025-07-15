@@ -17,6 +17,7 @@ function setup() {
 
   gui = P5JsSettings.addGui({autoPlace: false});
   gui.add(settings, 'num_sides', 3, 12, 1).onChange(regenerate);
+  gui.add(settings, 'show_bounding_box');
 
   regenerate();
   P5JsSettings.collapseGuiIfNarrow(gui);
