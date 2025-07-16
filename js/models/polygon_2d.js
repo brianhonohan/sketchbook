@@ -129,6 +129,50 @@ class Polygon2D {
     return intersections;
   }
 
+  containsLineSeg(lineSeg){
+    // Returns true if both endpoints of the line segment are inside the polygon
+    return this.containsXY(lineSeg.start.x, lineSeg.start.y) && this.containsXY(lineSeg.end.x, lineSeg.end.y);
+  }
+
+  // Returns an array of LineSeg objects that represent the portions
+  // of the input lineSeg that lie inside (or outside) the polygon
+  clipLineSegment(lineSeg, keepInside = true){
+    const intersections = this.intersectionPointsWithLineSeg(lineSeg, true);
+
+    if (intersections.length === 0) {
+      if (keepInside && this.containsLineSeg(lineSeg)){
+        // The entire line segment is inside the polygon
+        return [lineSeg];
+      } else if (!keepInside && !this.containsLineSeg(lineSeg)){
+        // The entire line segment is outside the polygon
+        return [lineSeg];
+      }
+      return [];
+    }
+
+    // Sort intersection points along the line segment
+    intersections.sort((a, b) => {  
+      const da = Math.hypot(a.x - lineSeg.start.x, a.y - lineSeg.start.y);
+      const db = Math.hypot(b.x - lineSeg.start.x, b.y - lineSeg.start.y);
+      return da - db;
+    });
+
+    const clippedSegments = [];
+    let currentStart = {x: lineSeg.start.x, y: lineSeg.start.y};
+    let inside = this.containsXY(currentStart.x, currentStart.y);
+
+    for (const intersection of intersections) {
+      if ((inside && keepInside) || (!inside && !keepInside)) {
+        clippedSegments.push(new lineSeg.constructor(currentStart.x, currentStart.y, intersection.x, intersection.y));
+      }
+      currentStart = intersection;
+      inside = !inside;
+    }
+
+    return clippedSegments;
+  }
+
+
   static generateIrregularPolygon(x, y, numSides, minRadius, maxRadius){
     let currentAng = Math.random() * Math.PI * 2;
 

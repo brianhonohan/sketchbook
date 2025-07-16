@@ -19,6 +19,8 @@ js_scripts:
 - /sketchbook/vendor/gorhill/rhill-voronoi-core.js
 - /sketchbook/js/models/rect.js
 - /sketchbook/js/models/quadtree.js
+- /sketchbook/js/models/vector_2d.js
+- /sketchbook/js/models/line_seg.js
 - /sketchbook/js/models/voronoi_ext.js
 - /sketchbook/p5js/common/p5js_voronoi.js
 - /sketchbook/js/models/line.js

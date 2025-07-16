@@ -26,6 +26,8 @@ function setup() {
   gui.add(settings, 'approx_points', 3, 50, 1).onChange(regenerate);
   gui.add(settings, 'show_points');
   gui.add(settings, 'show_vornoi_vertices');
+  gui.add(window, 'regenerate');
+  gui.add(window, 'clipToPolygon');
 
   regenerate();
   P5JsSettings.collapseGuiIfNarrow(gui);
@@ -41,6 +43,10 @@ function regenerate(){
 
   let boundingRect = polygonObj.getBoundingRect();
   voronoiOne = createVoronoi(voronoiSites, Voronoi.bboxFromRect(boundingRect));
+}
+
+function clipToPolygon(){
+  voronoiOne.clipToPolygon(polygonObj);
 }
 
 function generatePolygon(){

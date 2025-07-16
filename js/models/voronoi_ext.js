@@ -157,4 +157,100 @@ if (typeof(Voronoi) === 'function'){
     }
     return neighborCells;
   }
+
+  Voronoi.prototype.Diagram.prototype.clipToPolygon = function(polygon){
+    if (polygon == undefined || polygon.points == undefined || polygon.points.length < 3){
+      console.warn("Voronoi Diagram: trimToPolygon() requires a polygon with at least 3 points");
+      return;
+    }
+
+    let edgeSeg = new LineSeg(0,0,0,0);
+    let newEdges = [];
+
+    // Iterator over all of the edges and clip them to the polygon
+    for (let i = 0; i < this.edges.length; i++){
+      let edge = this.edges[i];
+
+      edgeSeg.startX = edge.va.x;
+      edgeSeg.startY = edge.va.y;
+      edgeSeg.endX = edge.vb.x;
+      edgeSeg.endY = edge.vb.y;
+
+      let clippedSegs = polygon.clipLineSegment(edgeSeg, true);
+
+      if (clippedSegs.length == 0){
+        // The edge is fully outside the polygon, remove it
+        // and remove references to it from the sites
+        if (edge.lSite) {
+          this.cells[edge.lSite.voronoiId].removeEdge(edge);
+          this.cells[edge.lSite.voronoiId].closeMe = true;
+        }
+        if (edge.rSite) {
+          this.cells[edge.rSite.voronoiId].removeEdge(edge);
+          this.cells[edge.rSite.voronoiId].closeMe = true;
+        }
+
+        // remove references to vertices so they can be garbage collected
+        edge.va = null;
+        edge.vb = null;
+
+        // Mark the edge for removal
+        edge.__clipped = true;
+        continue;
+      }
+
+      if (clippedSegs.length > 1){
+        for (let j = 1; j < clippedSegs.length; j++){
+          let newEdge = {
+            lSite: edge.lSite,
+            rSite: edge.rSite,
+            va: new Voronoi.prototype.Vertex(clippedSegs[j].start.x, clippedSegs[j].start.y),
+            vb: new Voronoi.prototype.Vertex(clippedSegs[j].end.x, clippedSegs[j].end.y),
+          };
+          newEdges.push(newEdge);
+        }
+      }
+
+      // TBD: May need to determine which is va and which is vb
+      // based on the original edge direction
+      edge.va.x = clippedSegs[0].start.x;
+      edge.va.y = clippedSegs[0].start.y;
+      edge.vb.x = clippedSegs[0].end.x;
+      edge.vb.y = clippedSegs[0].end.y;
+    }
+
+    // Remove edges that were fully clipped away
+    this.edges = this.edges.filter( (e) => !e.__clipped );
+
+    // Add in any new edges that were created from splitting
+    this.edges = this.edges.concat(newEdges);
+
+    this.closeCellsToPolygon(polygon);
+  }
+
+  Voronoi.prototype.Diagram.prototype.closeCellsToPolygon = function(polygon){
+    if (polygon == undefined || polygon.points == undefined || polygon.points.length < 3){
+      console.warn("Voronoi Diagram: closeCellsToPolygon() requires a polygon with at least 3 points");
+      return;
+    }
+
+    for (let i = 0; i < this.cells.length; i++){
+      let cell = this.cells[i];
+      if (!cell.closeMe){
+        continue;
+      }
+      // Do magic to close the cell
+
+      cell.closeMe = false;
+    }
+  }
+
+  Voronoi.prototype.Cell.prototype.removeEdge = function(edgeToRemove){
+    for (let i = this.halfedges.length - 1; i >= 0; i--){
+      let halfedge = this.halfedges[i];
+      if (halfedge.edge === edgeToRemove){
+        this.halfedges.splice(i, 1);
+      }
+    }
+  }
 }
