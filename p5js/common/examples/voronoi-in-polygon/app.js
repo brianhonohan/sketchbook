@@ -4,6 +4,7 @@ let gui;
 let shapes;
 let polygonObj;
 let voronoiSites;
+let voronoiDiagram;
 
 const settings = {
   num_sides: 5,
@@ -35,6 +36,9 @@ function regenerate(){
   shapes.push(polygonObj);
   // shapes.push( buildDraggablePoint() );
   generatePointsInPolygon(polygonObj, settings.approx_points);
+
+  let boundingRect = polygonObj.getBoundingRect();
+  voronoiOne = createVoronoi(voronoiSites, Voronoi.bboxFromRect(boundingRect));
 }
 
 function generatePolygon(){
@@ -86,6 +90,14 @@ function buildDraggablePoint(){
 
 function draw(){
   background(50);
+
+  voronoiSiteStrokeWeight(2);
+  stroke(50);
+  strokeWeight(0.5);
+  voronoiSiteStroke(color(180,50, 50));
+  fill(30, 150, 30);
+  drawVoronoi(voronoiOne, 0, 0, { redrawAll: true });
+
   shapes.forEach(s => s.draw());
   highlightPointIfInPolygon();
 

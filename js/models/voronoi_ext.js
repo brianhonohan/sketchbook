@@ -59,6 +59,15 @@ if (typeof(Voronoi) === 'function'){
     this.bbox = bbox;
   }
 
+  // Static function to convert a Rect-like object to a Voronoi bbox
+  // Rect-like object is any object with x, y, width, height properties
+  Voronoi.bboxFromRect = function(rectObj){
+    return { xl: rectObj.x, 
+              xr: rectObj.x + rectObj.width, 
+              yt: rectObj.y, 
+              yb: rectObj.y + rectObj.height};
+  }
+
   // CREDIT: https://github.com/Dozed12/p5.voronoi
   // Refactored name from: voronoiGetSite,
   // Removed complexity of the jittered cells;
