@@ -13,6 +13,7 @@ const settings = {
   show_points: true, 
   voronoi_options: {
     show_vertices: true,
+    show_edges: true,
   }
 }
 
@@ -30,6 +31,7 @@ function setup() {
 
   let voronoiGui = gui.addFolder("Voronoi Options");
   voronoiGui.add(settings.voronoi_options, 'show_vertices');
+  voronoiGui.add(settings.voronoi_options, 'show_edges');
 
   gui.add(window, 'regenerate');
   gui.add(window, 'clipToPolygon');
@@ -132,6 +134,13 @@ function draw(){
     noStroke();
     fill(50, 230, 230);
     voronoiSites.forEach(p => ellipse(p.x, p.y, 5, 5));
+  }
+  
+  if (settings.voronoi_options.show_edges) {
+    for (let edge of voronoiOne.edges) {
+      stroke(200, 200, 100);
+      line(edge.va.x, edge.va.y, edge.vb.x, edge.vb.y);
+    }
   }
 }
 
