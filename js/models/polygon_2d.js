@@ -174,21 +174,21 @@ class Polygon2D {
 
 
   static generateIrregularPolygon(x, y, numSides, minRadius, maxRadius){
-    let currentAng = Math.random() * Math.PI * 2;
+    let currentAng = UtilFunctions.random() * Math.PI * 2;
 
     const newPoly = new Polygon2D();
     let rotationBudget = Math.PI * 2;
     const approxRotationPerSide = rotationBudget / numSides;
 
     for (let i = 0; i < numSides; i++) {
-      let radius = minRadius + (maxRadius - minRadius) * Math.random();
+      let radius = minRadius + (maxRadius - minRadius) * UtilFunctions.random();
       let ptX = x + radius * Math.cos(currentAng);
       let ptY = y + radius * Math.sin(currentAng);
       
       newPoly.addPoint(ptX, ptY);
 
       // Add some random rotation offset, but keep the total rotation to 2*PI
-      let percentRange = 0.9 + Math.random() * 0.2; // 0.9 to 1.1
+      let percentRange = 0.9 + UtilFunctions.random() * 0.2; // 0.9 to 1.1
       let rotation = approxRotationPerSide * percentRange;
       rotation = Math.min(rotation, rotationBudget);
       rotationBudget -= rotation;

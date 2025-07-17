@@ -21,6 +21,8 @@ function setup() {
   // canvas = createCanvas(500, 500); // for screenshots
   canvas = createAutosizedCanvas();
   P5JsSettings.init();
+  UtilFunctions.random = random; // monkey patch UtilFunctions to use p5's random
+  UtilFunctions.randomGaussian = randomGaussian; // monkey patch UtilFunctions to use p5's
   shapes = [];
 
   gui = P5JsSettings.addGui({autoPlace: false});
@@ -33,11 +35,17 @@ function setup() {
   voronoiGui.add(settings.voronoi_options, 'show_vertices');
   voronoiGui.add(settings.voronoi_options, 'show_edges');
 
+  gui.add(window, 'reset');
   gui.add(window, 'regenerate');
   gui.add(window, 'clipToPolygon');
 
   regenerate();
   P5JsSettings.collapseGuiIfNarrow(gui);
+}
+
+function reset(){
+  P5JsSettings.resetSeed();
+  regenerate();
 }
 
 function regenerate(){
@@ -57,8 +65,6 @@ function clipToPolygon(){
 }
 
 function generatePolygon(){
-  let currentAng = Math.random() * TWO_PI;
-
   const minRadius = Math.min(width, height) * 0.2;
   const maxRadius = Math.min(width, height) * 0.45; 
   
@@ -83,8 +89,8 @@ function generatePointsInPolygon(polygon, numPoints){
   for (let i = 0; i < numPoints; i++) {
     // Try to find a point inside the polygon
     for (let j = 0; j < tryLimit; j++) {  
-      x = boundingRect.minX + Math.random() * boundingRect.width;
-      y = boundingRect.minY + Math.random() * boundingRect.height;
+      x = boundingRect.minX + random() * boundingRect.width;
+      y = boundingRect.minY + random() * boundingRect.height;
       if (polygon.containsXY(x, y)) {
         voronoiSites.push(new Point(x, y));
         break; // Found a valid point, exit the inner loop
