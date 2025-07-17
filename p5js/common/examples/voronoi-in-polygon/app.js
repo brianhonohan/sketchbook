@@ -10,8 +10,10 @@ const settings = {
   num_sides: 5,
   show_bounding_box: true,
   approx_points: 30,
-  show_points: true,
-  show_vornoi_vertices: true
+  show_points: true, 
+  voronoi_options: {
+    show_vertices: true,
+  }
 }
 
 function setup() {
@@ -25,7 +27,10 @@ function setup() {
   gui.add(settings, 'show_bounding_box');
   gui.add(settings, 'approx_points', 3, 50, 1).onChange(regenerate);
   gui.add(settings, 'show_points');
-  gui.add(settings, 'show_vornoi_vertices');
+
+  let voronoiGui = gui.addFolder("Voronoi Options");
+  voronoiGui.add(settings.voronoi_options, 'show_vertices');
+
   gui.add(window, 'regenerate');
   gui.add(window, 'clipToPolygon');
 
@@ -106,7 +111,7 @@ function draw(){
   fill(30, 150, 30);
   drawVoronoi(voronoiOne, 0, 0, { redrawAll: true });
 
-  if (settings.show_vornoi_vertices) {
+  if (settings.voronoi_options.show_vertices) {
     for (let v of voronoiOne.vertices) {
       fill(200, 100, 100);
       ellipse(v.x, v.y, 5, 5);
