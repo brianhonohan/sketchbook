@@ -140,11 +140,10 @@ class Polygon2D {
     const intersections = this.intersectionPointsWithLineSeg(lineSeg, true);
 
     if (intersections.length === 0) {
-      if (keepInside && this.containsLineSeg(lineSeg)){
+      const containsLine = this.containsLineSeg(lineSeg);
+      if ((keepInside && containsLine) || (!keepInside && !containsLine)){
         // The entire line segment is inside the polygon
-        return [lineSeg];
-      } else if (!keepInside && !this.containsLineSeg(lineSeg)){
-        // The entire line segment is outside the polygon
+        // OR the entire line segment is outside the polygon
         return [lineSeg];
       }
       return [];
