@@ -156,10 +156,17 @@ class Polygon2D {
       return da - db;
     });
 
+    // add the end point as an end cap
+    // this ensures that we have N+1 segments for N intersections
+    intersections.push({x: lineSeg.end.x, y: lineSeg.end.y}); 
+
     const clippedSegments = [];
     let currentStart = {x: lineSeg.start.x, y: lineSeg.start.y};
     let inside = this.containsXY(currentStart.x, currentStart.y);
 
+    // GIST: walk through the intersections, toggling inside/outside state
+    // depending on whether we want to keepInside or not, add segments
+    // avoid adding segments that are too short (threshold)
     for (const intersection of intersections) {
       if ((inside && keepInside) || (!inside && !keepInside)) {
         if ( Math.abs(currentStart.x - intersection.x) > threshold && Math.abs(currentStart.y - intersection.y) > threshold) {
