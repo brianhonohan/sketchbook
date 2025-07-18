@@ -167,6 +167,9 @@ if (typeof(Voronoi) === 'function'){
     let edgeSeg = new LineSeg(0,0,0,0);
     let newEdges = [];
 
+    // Challenge: the Voronoi edges share Vertex objects, so modifying
+    // them in place will affect other edges. We need to be careful
+
     // Iterator over all of the edges and clip them to the polygon
     for (let i = 0; i < this.edges.length; i++){
       let edge = this.edges[i];
@@ -195,7 +198,7 @@ if (typeof(Voronoi) === 'function'){
         edge.vb = null;
 
         // Mark the edge for removal
-        edge.__clipped = true;
+        edge.__fullyClipped = true;
         continue;
       }
 
@@ -211,16 +214,28 @@ if (typeof(Voronoi) === 'function'){
         }
       }
 
-      // TBD: May need to determine which is va and which is vb
-      // based on the original edge direction
-      edge.va.x = clippedSegs[0].start.x;
-      edge.va.y = clippedSegs[0].start.y;
-      edge.vb.x = clippedSegs[0].end.x;
-      edge.vb.y = clippedSegs[0].end.y;
+      // Need to defer the actual modification of the edge until after the loop
+      // because other edges may share the same Vertex objects
+      edge.__clippedSegment = clippedSegs[0].copy();
     }
 
     // Remove edges that were fully clipped away
-    this.edges = this.edges.filter( (e) => !e.__clipped );
+    this.edges = this.edges.filter( (e) => !e.__fullyClipped );
+
+    for (let i = 0; i < this.edges.length; i++){
+      let edge = this.edges[i];
+      if (edge.__clippedSegment == undefined){
+        continue;
+      }
+      // TBD: May need to determine which is va and which is vb
+      // based on the original edge direction
+      edge.va.x = edge.__clippedSegment.start.x;
+      edge.va.y = edge.__clippedSegment.start.y;
+      edge.vb.x = edge.__clippedSegment.end.x;
+      edge.vb.y = edge.__clippedSegment.end.y;
+
+      edge.__clippedSegment = null; // free up memory
+    }
 
     // Add in any new edges that were created from splitting
     this.edges = this.edges.concat(newEdges);
