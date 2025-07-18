@@ -136,7 +136,7 @@ class Polygon2D {
 
   // Returns an array of LineSeg objects that represent the portions
   // of the input lineSeg that lie inside (or outside) the polygon
-  clipLineSegment(lineSeg, keepInside = true){
+  clipLineSegment(lineSeg, keepInside = true, threshold = 0.5){
     const intersections = this.intersectionPointsWithLineSeg(lineSeg, true);
 
     if (intersections.length === 0) {
@@ -162,7 +162,9 @@ class Polygon2D {
 
     for (const intersection of intersections) {
       if ((inside && keepInside) || (!inside && !keepInside)) {
-        clippedSegments.push(new lineSeg.constructor(currentStart.x, currentStart.y, intersection.x, intersection.y));
+        if ( Math.abs(currentStart.x - intersection.x) > threshold && Math.abs(currentStart.y - intersection.y) > threshold) {
+          clippedSegments.push(new lineSeg.constructor(currentStart.x, currentStart.y, intersection.x, intersection.y));
+        }
       }
       currentStart = intersection;
       inside = !inside;
