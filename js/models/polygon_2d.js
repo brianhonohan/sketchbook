@@ -2,6 +2,7 @@
 class Polygon2D {
   constructor(){
     this.points = [];
+    this._sideLineSegs = undefined;
   }
 
   // Uses a BYO pattern - Bring Your Own (Object))
@@ -13,6 +14,23 @@ class Polygon2D {
     } else {
       this.points.push({x: x, y: y});
     }
+    this._sideLineSegs = undefined;
+  }
+
+  getSides(rebuild = false){
+    if (!rebuild && this._sideLineSegs){
+      return this._sideLineSegs;
+    }
+
+    this._sideLineSegs = [];
+    for (let i = 0; i < this.points.length; i++){
+      const startPt = this.points[i];
+      const endPt = this.points[(i + 1) % this.points.length];
+      const newSideObj = new LineSeg(startPt.x, startPt.y, endPt.x, endPt.y);
+      newSideObj.idx = i;
+      this._sideLineSegs.push(newSideObj);
+    }
+    return this._sideLineSegs;
   }
 
   // from: https://en.wikipedia.org/wiki/Centroid#Of_a_polygon
@@ -180,6 +198,63 @@ class Polygon2D {
     return clippedSegments;
   }
 
+  // Given a point, find the side of the polygon 
+  sideViaPoint(pointObj, threshold = 0.1){
+    const sides = this.getSides();
+
+    for(let i = 0; i < sides.length; i++){
+      const side = sides[i];
+      if (side.containsXY(pointObj.x, pointObj.y, threshold)){
+        return side;
+      }
+    }
+    return undefined;
+  }
+
+  // Build an array of line segments along the perimeter of this polygon
+  // starting at the 'start' point, continuing to the 'end' 
+  // and proceed in either clockwise (default) or counterclockwise direction
+  lineSegmentsFromTo(start, end, clockwise = true, threshold = 0.1){
+    let firstSide = this.sideViaPoint(start, threshold);
+    let endSide = this.sideViaPoint(end, threshold);
+    if (firstSide == undefined){
+      // console.warn("Unexpected: requested lineSegmentsFromTo, but start point was not on the polygon");
+      return [];
+    }
+    if (endSide == undefined){
+      // console.warn("Unexpected: requested lineSegmentsFromTo, but end point was not on the polygon");
+      return [];
+    }
+
+    const lineSegsAlongPerim = [];
+    if (firstSide === endSide){
+      // TODO: handle the 'clockwise' direction setting
+      lineSegsAlongPerim.push(new LineSeg(start.x, start.y, end.x, end.y));
+      // console.log('same side');
+      return lineSegsAlongPerim;
+    }
+
+    const sides = this.getSides();
+    let currentSide = firstSide.idx;
+    let sideIncrement = clockwise ? 1 : -1;  // ASSUMPTION: sides are in clockwise order
+    let currentPoint = new Point(start.x, start.y);
+
+    while (currentSide !== endSide.idx) {
+      const side = sides[currentSide];
+
+      if (clockwise) {
+        lineSegsAlongPerim.push(new LineSeg(currentPoint.x, currentPoint.y, side.endX, side.endY));
+        currentPoint = new Point(side.endX, side.endY);
+      } else {
+        lineSegsAlongPerim.push(new LineSeg(currentPoint.x, currentPoint.y, side.startX, side.startY));
+        currentPoint = new Point(side.startX, side.startY);
+      }
+      currentSide = (currentSide + sideIncrement + sides.length) % sides.length;
+    }
+    // console.log('got here, so should be at least 2 sides of segs');
+    lineSegsAlongPerim.push(new LineSeg(currentPoint.x, currentPoint.y, end.x, end.y));
+    return lineSegsAlongPerim;
+  }
 
   static generateIrregularPolygon(x, y, numSides, minRadius, maxRadius){
     let currentAng = UtilFunctions.random() * Math.PI * 2;
