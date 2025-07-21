@@ -249,12 +249,96 @@ if (typeof(Voronoi) === 'function'){
       return;
     }
 
+    console.log('about to close cells');
+    // Gist:
+    // Go through all of the cells, skipping cells not marked with closeMe = true
+    // For each cell, go through all its (half)edges
+    // find the ones that don't connect to the next edge in the list
+    // reach out to the polygon to get the Line Segments that are along the
+    // polygon's perimeter that would fill the gap
+    // generate new edges, and mark the cell as closed
+
+    // From gorhill's implementation, we want to add 'HalfEdges' in  a counterclockwise
+    // order, rotating about the 'site' of the cell
     for (let i = 0; i < this.cells.length; i++){
       let cell = this.cells[i];
       if (!cell.closeMe){
         continue;
       }
+      console.log(`have to close this cell ${cell.closeMe}`);
+      console.log(cell);
+
       // Do magic to close the cell
+      for (let j = 0; j < cell.halfedges.length; j++){
+        let halfedge = cell.halfedges[j];
+        let nextHalfedge = cell.halfedges[(j + 1) % cell.halfedges.length];
+
+        // if connected, continue
+        const heEndPt = halfedge.getEndpoint();
+        const nextHeStartPt = nextHalfedge.getStartpoint();
+        if (heEndPt.x == nextHeStartPt.x && heEndPt.y == nextHeStartPt.y){
+          console.log('... edges are connected, skipping');
+          continue;
+        }
+        console.log(`... should add edge between:`);
+        console.log(heEndPt);
+        console.log(nextHeStartPt);
+        const lineSegsToAdd = polygon.lineSegmentsFromTo(heEndPt, nextHeStartPt, false);
+        if (lineSegsToAdd == undefined){
+          console.warn("... unable to find line segment on polygon between those points");
+          continue;
+        }
+        console.log(` have seg to add`);
+        console.log(lineSegsToAdd);
+
+        // Add to voronoi.edges AND to cell.halfEdges
+        // create Vertexes
+        // create edges pointing 'lsite' at this cell (because we're going CCW)
+        // re: CCW (counter-clockwise direction) - maybe assume halfEdges are already ordered CCW, 
+        // ... therefore, go from current heEndPt to nextHeStartPt
+        // and add to vertices?
+
+        let vertexA, vertexB;
+        let tmpLineSeg;
+        for (let k = 0; k < lineSegsToAdd.length; k++){
+          tmpLineSeg = lineSegsToAdd[k];
+          if (k === 0){
+            // reuse vertex from current Edge
+            vertexA = heEndPt;
+
+            if (lineSegsToAdd.length === 1){
+              vertexB = nextHeStartPt;
+            } else {
+              vertexB = new Voronoi.prototype.Vertex(tmpLineSeg.endX, tmpLineSeg.endY);
+              this.vertices.push(vertexB);
+            }
+            
+          } else if (k === lineSegsToAdd.length-1) {
+            // TODO: link back up with existing vertices, eg: vA = (prev iteration) vB;
+            vertexA = new Voronoi.prototype.Vertex(tmpLineSeg.startX, tmpLineSeg.startY);
+            this.vertices.push(vertexA);
+            vertexB = nextHeStartPt;
+          } else {
+            // TODO: link back up with existing vertices, eg: vA = (prev iteration) vB;
+            vertexA = new Voronoi.prototype.Vertex(tmpLineSeg.startX, tmpLineSeg.startY);
+            vertexB = new Voronoi.prototype.Vertex(tmpLineSeg.endX, tmpLineSeg.endY);
+            this.vertices.push(vertexA);
+            this.vertices.push(vertexB);
+          }
+
+          let newEdge = {
+            lSite: cell.site,
+            rSite: undefined,
+            va: vertexA,
+            vb: vertexB,
+          };
+          let newHalfEdge = new Voronoi.prototype.Halfedge(newEdge, cell.site, undefined);
+          cell.halfedges.splice(j + k + 1, 0, newHalfEdge);
+          
+          this.edges.push(newEdge);
+        }
+        // j += lineSegsToAdd.length; // ?? maybe because we're splicing new elements in.
+      }
 
       cell.closeMe = false;
     }
