@@ -237,6 +237,16 @@ if (typeof(Voronoi) === 'function'){
       edge.__clippedSegment = null; // free up memory
     }
 
+    // Remove vertices outside of the polygon
+    let vertIdx = this.vertices.length;
+    while (vertIdx--){
+      if (false == polygon.containsXY( this.vertices[vertIdx].x, this.vertices[vertIdx].y)
+        && undefined == polygon.sideViaPoint(this.vertices[vertIdx]))
+      {
+        this.vertices.splice(vertIdx, 1);
+      }
+    }
+
     // Add in any new edges that were created from splitting
     this.edges = this.edges.concat(newEdges);
 
