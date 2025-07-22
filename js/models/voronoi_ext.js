@@ -214,9 +214,14 @@ if (typeof(Voronoi) === 'function'){
         }
       }
 
+      if (edgeSeg == clippedSegs[0]){
+        continue;
+      }
       // Need to defer the actual modification of the edge until after the loop
       // because other edges may share the same Vertex objects
       edge.__clippedSegment = clippedSegs[0].copy();
+      edge.lSite && (this.cells[edge.lSite.voronoiId].closeMe = true);
+      edge.rSite && (this.cells[edge.rSite.voronoiId].closeMe = true);
     }
 
     // Remove edges that were fully clipped away
