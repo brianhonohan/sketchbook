@@ -229,10 +229,22 @@ if (typeof(Voronoi) === 'function'){
       }
       // TBD: May need to determine which is va and which is vb
       // based on the original edge direction
-      edge.va.x = edge.__clippedSegment.start.x;
-      edge.va.y = edge.__clippedSegment.start.y;
-      edge.vb.x = edge.__clippedSegment.end.x;
-      edge.vb.y = edge.__clippedSegment.end.y;
+      if (edge.va.__modified) {
+        // have to create a new Vertex, because this one was modified by clipping a different edge
+        edge.va = new Voronoi.prototype.Vertex(edge.__clippedSegment.start.x, edge.__clippedSegment.start.y);
+      } else {
+        edge.va.x = edge.__clippedSegment.start.x;
+        edge.va.y = edge.__clippedSegment.start.y;
+        edge.va.__modified = true;
+      }
+
+      if (edge.vb.__modified) {
+        edge.vb = new Voronoi.prototype.Vertex(edge.__clippedSegment.end.x, edge.__clippedSegment.end.y);
+      } else {
+        edge.vb.x = edge.__clippedSegment.end.x;
+        edge.vb.y = edge.__clippedSegment.end.y;
+        edge.vb.__modified = true;
+      }
 
       edge.__clippedSegment = null; // free up memory
     }
