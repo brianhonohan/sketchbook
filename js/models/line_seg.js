@@ -43,6 +43,10 @@ class LineSeg {
     this.originalEnd = this.end.copy();
   }
 
+  toString(){
+    return `{start: {x: ${(this.startX).toFixed(1)}, y: ${(this.startY).toFixed(1)}}, end: {x: ${(this.endX).toFixed(1)}, y: ${(this.endY).toFixed(1)}}}`;
+  }
+
   scaleAboutCenter(scaleFactor, useCache = false){
     let center;
     let deltaX, deltaY;

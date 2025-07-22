@@ -187,7 +187,7 @@ class Polygon2D {
     // avoid adding segments that are too short (threshold)
     for (const intersection of intersections) {
       if ((inside && keepInside) || (!inside && !keepInside)) {
-        if ( Math.abs(currentStart.x - intersection.x) > threshold && Math.abs(currentStart.y - intersection.y) > threshold) {
+        if ( threshold < Math.hypot(currentStart.x - intersection.x, currentStart.y - intersection.y)) {
           clippedSegments.push(new lineSeg.constructor(currentStart.x, currentStart.y, intersection.x, intersection.y));
         }
       }
