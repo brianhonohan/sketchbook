@@ -214,7 +214,7 @@ class Polygon2D {
   // Build an array of line segments along the perimeter of this polygon
   // starting at the 'start' point, continuing to the 'end' 
   // and proceed in either clockwise (default) or counterclockwise direction
-  lineSegmentsFromTo(start, end, clockwise = true, threshold = 0.1){
+  lineSegmentsFromTo(start, end, clockwise = true, threshold = 0.5){
     let firstSide = this.sideViaPoint(start, threshold);
     let endSide = this.sideViaPoint(end, threshold);
     if (firstSide == undefined){
