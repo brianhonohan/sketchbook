@@ -157,6 +157,17 @@ class Polygon2D {
   clipLineSegment(lineSeg, keepInside = true, threshold = 0.5){
     const intersections = this.intersectionPointsWithLineSeg(lineSeg, true);
 
+    let verboseLog = false;
+      if ( (10 > Math.abs(365 - lineSeg.startX) || 10 > Math.abs(365 - lineSeg.endX))
+        && (10 > Math.abs(331 - lineSeg.startY) || 10 > Math.abs(331 - lineSeg.endY))
+        && (10 > Math.abs(444 - lineSeg.startX) || 10 > Math.abs(444 - lineSeg.endX))
+        && (10 > Math.abs(472 - lineSeg.startY) || 10 > Math.abs(472 - lineSeg.endY))
+      
+      ){
+        console.log(`HELLLLOOO ... intersections.length: ${intersections.length}`);
+        verboseLog = true;
+      } 
+
     if (intersections.length === 0) {
       const containsLine = this.containsLineSeg(lineSeg);
       if ((keepInside && containsLine) || (!keepInside && !containsLine)){
@@ -177,16 +188,22 @@ class Polygon2D {
     // add the end point as an end cap
     // this ensures that we have N+1 segments for N intersections
     intersections.push({x: lineSeg.end.x, y: lineSeg.end.y}); 
+    verboseLog && console.log(`now intersections.length: ${intersections.length}`);
 
     const clippedSegments = [];
     let currentStart = {x: lineSeg.start.x, y: lineSeg.start.y};
     let inside = this.containsXY(currentStart.x, currentStart.y);
+    verboseLog && console.log(`now currentStart: ${currentStart.x}, ${currentStart.y}`);
+    verboseLog && console.log(`... intersections[0]: ${intersections[0].x}, ${intersections[0].y}`);
 
     // GIST: walk through the intersections, toggling inside/outside state
     // depending on whether we want to keepInside or not, add segments
     // avoid adding segments that are too short (threshold)
     for (const intersection of intersections) {
       if ((inside && keepInside) || (!inside && !keepInside)) {
+        
+        verboseLog && console.log(` ... xDiff: ${Math.abs(currentStart.x - intersection.x)}`);
+        verboseLog && console.log(` ... yDiff: ${Math.abs(currentStart.y - intersection.y)}`);
         if ( threshold < Math.hypot(currentStart.x - intersection.x, currentStart.y - intersection.y)) {
           clippedSegments.push(new lineSeg.constructor(currentStart.x, currentStart.y, intersection.x, intersection.y));
         }
@@ -195,6 +212,7 @@ class Polygon2D {
       inside = !inside;
     }
 
+    verboseLog && console.log(`now clippedSegments.length: ${clippedSegments.length}`);
     return clippedSegments;
   }
 
