@@ -185,35 +185,12 @@ if (typeof(Voronoi) === 'function'){
     for (let i = 0; i < this.edges.length; i++){
       let edge = this.edges[i];
 
-      let verboseLog = false;
-      if ( (10 > Math.abs(365 - edge.va.x) || 10 > Math.abs(365 - edge.vb.x))
-        && (10 > Math.abs(330 - edge.va.y) || 10 > Math.abs(330 - edge.vb.y))
-        && (10 > Math.abs(444 - edge.va.x) || 10 > Math.abs(444 - edge.vb.x))
-        && (10 > Math.abs(472 - edge.va.y) || 10 > Math.abs(472 - edge.vb.y))
-      
-      ){
-        console.log(`HELLLLOOO from ${i}`);
-        verboseLog = true;
-      }
-
-      verboseLog && console.log(`[${i}]`);
-      verboseLog && console.log(`[${i}] ... ${(edge.va.x).toFixed(1)}, ${(edge.va.y).toFixed(1)} ... to: ${(edge.vb.x).toFixed(1)}, ${(edge.vb.y).toFixed(1)}`);
-      verboseLog && console.log(edge);
-      verboseLog && console.log(edge.__fullyClipped);
-      verboseLog && console.log(edge.va);
-      verboseLog && console.log(edge.vb); 
-      verboseLog && console.log(edge);
-      verboseLog && console.log(`... that ^^^ was the ith edgeSeg`)
-
       edgeSeg.startX = edge.va.x;
       edgeSeg.startY = edge.va.y;
       edgeSeg.endX = edge.vb.x;
       edgeSeg.endY = edge.vb.y;
  
-      verboseLog && console.log(`... [${i}] ... ${edgeSeg.toString()}`);
-
       let clippedSegs = polygon.clipLineSegment(edgeSeg, true);
-      verboseLog && console.log(`clipSeg length: ${clippedSegs.length}`);
 
       if (clippedSegs.length == 0){
         // The edge is fully outside the polygon, remove it
@@ -228,18 +205,15 @@ if (typeof(Voronoi) === 'function'){
         }
 
         // remove references to vertices so they can be garbage collected
-        verboseLog && console.log(`in i[${i}] ... clearing out edge va/vb because removing entirely`);
         edge.va = null;
         edge.vb = null;
 
         // Mark the edge for removal
         edge.__fullyClipped = true;
-        if (verboseLog) { console.log('... clippedseg length 0')}
         continue;
       }
 
       if (clippedSegs.length > 1){
-        if (verboseLog) { console.log('... clippedseg length > 1')}
         for (let j = 1; j < clippedSegs.length; j++){
           let newEdge = {
             lSite: edge.lSite,
@@ -328,17 +302,6 @@ if (typeof(Voronoi) === 'function'){
       if (!cell.closeMe){
         continue;
       }
-      // console.log(`[${i}] closing cell`);
-      let verboseLog = false || i == 3;
-      if ( (10 > Math.abs(339 - cell.site.x))
-        && (10 > Math.abs(334 - cell.site.y))
-      ){
-        console.log(`HELLLLOOO from CELL ${i}`);
-        verboseLog = true;
-      }
-
-      verboseLog && console.log(`have to close this cell ${cell.closeMe}`);
-      verboseLog && console.log(cell);
 
       // Do magic to close the cell
       for (let j = 0; j < cell.halfedges.length; j++){
@@ -349,20 +312,15 @@ if (typeof(Voronoi) === 'function'){
         const heEndPt = halfedge.getEndpoint();
         const nextHeStartPt = nextHalfedge.getStartpoint();
         if (heEndPt.x == nextHeStartPt.x && heEndPt.y == nextHeStartPt.y){
-          verboseLog && console.log('... edges are connected, skipping');
           continue;
         }
-        verboseLog && console.log(`... should add edge between:`);
-        verboseLog && console.log(heEndPt);
-        verboseLog && console.log(nextHeStartPt);
+        
         const lineSegsToAdd = polygon.lineSegmentsFromTo(heEndPt, nextHeStartPt, false);
         if (lineSegsToAdd == undefined || lineSegsToAdd.length == 0){
-          console.warn("... unable to find line segment on polygon between those points");
+          console.warn("... unable to find line segment on polygon between those points; maybe need to tweak threshold.");
           continue;
         }
-        verboseLog && console.log(` have seg to add`);
-        verboseLog && console.log(lineSegsToAdd);
-
+        
         // Add to voronoi.edges AND to cell.halfEdges
         // create Vertexes
         // create edges pointing 'lsite' at this cell (because we're going CCW)
