@@ -2,9 +2,8 @@
 layout: minimal
 title:  "p5.js - Common Examples - Voronoi in Polygon"
 categories: p5js/common/examples
-date: 2025-06-29
+date: 2025-07-22
 modal: true
-bh_page_type: draft
 viewport_noscale: true
 excerpt: Demonstrates creating a Voronoi diagram with a non-overlapping polygon as the bounding container.
 

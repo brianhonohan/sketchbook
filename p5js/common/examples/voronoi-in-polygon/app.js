@@ -8,7 +8,7 @@ let voronoiDiagram;
 
 const settings = {
   num_sides: 5,
-  show_bounding_box: true,
+  show_bounding_box: false,
   approx_points: 30,
   show_points: true, 
   voronoi_options: {
@@ -26,9 +26,9 @@ function setup() {
   shapes = [];
 
   gui = P5JsSettings.addGui({autoPlace: false});
-  gui.add(settings, 'num_sides', 3, 12, 1).onChange(regenerate);
+  gui.add(settings, 'num_sides', 3, 100, 1).onChange(regenerate);
   gui.add(settings, 'show_bounding_box');
-  gui.add(settings, 'approx_points', 3, 50, 1).onChange(regenerate);
+  gui.add(settings, 'approx_points', 3, 500, 1).onChange(regenerate);
   gui.add(settings, 'show_points');
 
   let voronoiGui = gui.addFolder("Voronoi Options");
