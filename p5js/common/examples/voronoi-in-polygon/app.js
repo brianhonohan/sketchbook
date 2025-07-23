@@ -57,6 +57,10 @@ function regenerate(){
   generatePointsInPolygon(polygonObj, settings.approx_points);
 
   let boundingRect = polygonObj.getBoundingRect();
+  boundingRect.x -= 2;
+  boundingRect.y -= 2;
+  boundingRect.width += 4;
+  boundingRect.height += 4;
   voronoiOne = createVoronoi(voronoiSites, Voronoi.bboxFromRect(boundingRect));
 }
 
