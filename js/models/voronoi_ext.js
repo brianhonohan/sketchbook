@@ -158,6 +158,17 @@ if (typeof(Voronoi) === 'function'){
     return neighborCells;
   }
 
+  Voronoi.createDiagramInPolygon = function(sites, polygon){
+    let boundingRect = polygon.getBoundingRect();
+    boundingRect.x -= 2;
+    boundingRect.y -= 2;
+    boundingRect.width += 4;
+    boundingRect.height += 4;
+    let diagram = createVoronoi(sites, Voronoi.bboxFromRect(boundingRect));
+    diagram.clipToPolygon(polygon);
+    return diagram;
+  }
+
   Voronoi.prototype.Diagram.prototype.clipToPolygon = function(polygon){
     if (polygon == undefined || polygon.points == undefined || polygon.points.length < 3){
       console.warn("Voronoi Diagram: trimToPolygon() requires a polygon with at least 3 points");
