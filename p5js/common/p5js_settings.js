@@ -114,6 +114,11 @@ class P5JsSettings {
     }
   }
 
+  static resetSeed(){
+    randomSeed(this.optionsSet.settings.seed);
+    noiseSeed(this.optionsSet.settings.seed);
+  }
+
   static setSeed(seed){
     this.optionsSet.settings.seed = seed;
     randomSeed(this.optionsSet.settings.seed);

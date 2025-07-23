@@ -43,6 +43,10 @@ class LineSeg {
     this.originalEnd = this.end.copy();
   }
 
+  toString(){
+    return `{start: {x: ${(this.startX).toFixed(1)}, y: ${(this.startY).toFixed(1)}}, end: {x: ${(this.endX).toFixed(1)}, y: ${(this.endY).toFixed(1)}}}`;
+  }
+
   scaleAboutCenter(scaleFactor, useCache = false){
     let center;
     let deltaX, deltaY;
@@ -100,6 +104,28 @@ class LineSeg {
     let line = new Line(slope);
     line.offset = this.startY + slope * (0 - this.startX);
     return line;
+  }
+
+  // threshold is in pixel dimensions on same scale as x, y
+  containsXY(x, y, threshold = 0.1){
+    if (false == this.boundingRectContainsXY(x, y)){
+      return false;
+    }
+
+    if (this.slope == Infinity || this.slope == -Infinity) {
+      // already passed the 'rect' bounds check
+      return true;
+    } else if (Math.abs(this.slope) > 1) {
+      const diffX = x - (this.startX + (y - this.startY) / this.slope);
+      return Math.abs(diffX) < threshold;
+    }
+
+    const diffY = y - (this.startY + (x - this.startX) * this.slope);
+    return Math.abs(diffY) < threshold;
+
+    // Too precise, and doesn't lend itself to intuitive threshold
+    // const slopeToXY = (y - this.startY) / (x - this.startX);
+    // return (threshold > (Math.abs(slopeToXY - this.slope)));    
   }
   
   boundingRectContainsXY(x, y){
