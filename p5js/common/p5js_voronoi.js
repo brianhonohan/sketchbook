@@ -123,7 +123,19 @@ p5.prototype.createVoronoi = function(sites, boundingBox, useD3 = false) {
   }
 }
 
+p5.prototype.applyVoronoiStyles = function(diagram){
+  if (diagram.fillColor) { fill(diagram.fillColor); }
+  if (diagram.noFill) { noFill(); }
+  if (diagram.strokeColor) { stroke(diagram.strokeColor); }
+  if (diagram.noStroke) { noStroke(); }
+  if (diagram.strokeWeight) { strokeWeight(diagram.strokeWeight); }
+  if (diagram.voronoiSiteStrokeWeight) { voronoiSiteStrokeWeight(diagram.voronoiSiteStrokeWeight); }
+  if (diagram.voronoiSiteStroke) { voronoiSiteStroke(diagram.voronoiSiteStroke); }
+  if (diagram.voronoiSiteNoStroke) { voronoiSiteNoStroke(); }
+}
+
 p5.prototype.drawVoronoi = function(diagram, x, y, options = {}) {
+  applyVoronoiStyles(diagram);
   const drawOptions = { redrawAll: true, useD3: false, debug: false }
   for (var attrname in options) { drawOptions[attrname] = options[attrname]; }
 
