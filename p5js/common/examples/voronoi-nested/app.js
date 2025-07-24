@@ -36,13 +36,14 @@ function setup() {
   gui.add(settings, 'show_points');
 
   let voronoiGui = gui.addFolder("Voronoi Options");
-  voronoiGui.add(settings.voronoi_options, 'show_vertices');
-  voronoiGui.add(settings.voronoi_options, 'show_edges');
+  voronoiGui.add(settings.voronoi_options, 'show_vertices').onChange(draw);
+  voronoiGui.add(settings.voronoi_options, 'show_edges').onChange(draw);
 
   gui.add(window, 'reset');
   gui.add(window, 'regenerate');
 
   regenerate();
+
   P5JsSettings.collapseGuiIfNarrow(gui);
 }
 
@@ -64,7 +65,8 @@ function regenerate(){
   voronoiOne.strokeWeight = 1;
   voronoiOne.voronoiSiteStroke = color(180,50, 50);
   voronoiOne.fillColor = color(30, 150, 30);
-
+  draw();
+  noLoop();
   // for (let i = 0; i < (settings.num_levels - 1); i++){
 
   // }
