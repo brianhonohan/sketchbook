@@ -315,7 +315,8 @@ if (typeof(Voronoi) === 'function'){
           continue;
         }
         
-        const lineSegsToAdd = polygon.lineSegmentsFromTo(heEndPt, nextHeStartPt, false);
+        // TODO: Revisit the need for the threshold check, specificallly in underlying implementation
+        let lineSegsToAdd = polygon.lineSegmentsFromTo(heEndPt, nextHeStartPt, false, 2);
         if (lineSegsToAdd == undefined || lineSegsToAdd.length == 0){
           console.warn("... unable to find line segment on polygon between those points; maybe need to tweak threshold.");
           continue;
@@ -381,5 +382,10 @@ if (typeof(Voronoi) === 'function'){
         this.halfedges.splice(i, 1);
       }
     }
+  }
+
+  Voronoi.prototype.Cell.prototype.asPolygon = function(){
+    let pointPairs = this.halfedges.map(he => { return [he.edge.va, he.edge.vb]; });
+    return Polygon2D.buildFromPointPairs(pointPairs);
   }
 }

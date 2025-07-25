@@ -17,6 +17,76 @@ class Polygon2D {
     this._sideLineSegs = undefined;
   }
 
+  // Gist: expect an array of 'pointPairs'
+  // ... where points are objects with {x: #, y: #} attributes
+  // ... and a pointPair is an array [point, point], denoting a line
+  // ... they are in any order, but are assumed to connect
+  // ... and generally not overlap 
+  // ... nor have two points within 'threshold' of each other that should not connect
+  static buildFromPointPairs(pointPairs, threshold = 0.001){
+    // Algo:
+    // Grab the first pair; add its points
+    // loop over remaining unconnected lines
+    // which has an start or end point that matches currentPoint within threshold
+    // add its other point to the polygon, mark that pointPair as connected
+
+    let tmpPair = pointPairs[0];
+
+    const newPolygon = new Polygon2D();
+    newPolygon.addPoint(tmpPair[0]);
+    newPolygon.addPoint(tmpPair[1]);
+    tmpPair.__connectedViabuildFromPointPairs = true;
+    let currentPoint = tmpPair[1];
+    let tmpPoint;
+    let foundConnection;
+    const numConnectionsToMake = pointPairs.length-1;
+
+    for (let i = 1; i < numConnectionsToMake; i++){
+      foundConnection = false;
+      
+      for (let j = 0; j < pointPairs.length; j++){
+        tmpPair = pointPairs[j];
+        if (tmpPair.__connectedViabuildFromPointPairs) {
+          continue;
+        }
+
+        tmpPoint = tmpPair[0];
+        if (threshold > Math.abs(currentPoint.x - tmpPoint.x) 
+            && threshold > Math.abs(currentPoint.y - tmpPoint.y) 
+        ){
+          // found a match
+          newPolygon.addPoint(tmpPair[1]);
+          tmpPair.__connectedViabuildFromPointPairs = true;
+          currentPoint = tmpPair[1];
+          foundConnection = true;
+          break;
+        }
+        
+        tmpPoint = tmpPair[1];
+        if (threshold > Math.abs(currentPoint.x - tmpPoint.x) 
+            && threshold > Math.abs(currentPoint.y - tmpPoint.y) 
+        ){
+          // found a match
+          newPolygon.addPoint(tmpPair[0]);
+          tmpPair.__connectedViabuildFromPointPairs = true;
+          currentPoint = tmpPair[0];
+          foundConnection = true;
+          break;
+        }
+      }
+
+      if (foundConnection == false){
+        console.warn('Unable to find a connection, consider adjusting threshold or verifying input');
+        break;
+      }
+    }
+    
+    for (let i = 0; i < pointPairs.length; i++){
+      delete pointPairs[i].__connectedViabuildFromPointPairs;
+    }
+    return newPolygon;
+  }
+
   getSides(rebuild = false){
     if (!rebuild && this._sideLineSegs){
       return this._sideLineSegs;
