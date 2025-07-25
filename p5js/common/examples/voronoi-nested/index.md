@@ -2,7 +2,7 @@
 layout: minimal
 title:  "p5.js - Common Examples - Voronoi Nested"
 categories: p5js/common/examples
-date: 2025-07-23
+date: 2025-07-24
 modal: true
 viewport_noscale: true
 excerpt: Demonstrates creating a nested Voronoi diagram.

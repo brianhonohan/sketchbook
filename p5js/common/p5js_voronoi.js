@@ -188,6 +188,49 @@ p5.prototype.drawVoronoi = function(diagram, x, y, options = {}) {
   }
 }
 
+p5.prototype.drawVoronoiNested = function(diagram, x, y, options = {}) {
+  applyVoronoiStyles(diagram);
+  const drawOptions = { redrawAll: true, debug: false, nestedDiagram: 'nestedDiagram'}
+  for (var attrname in options) { drawOptions[attrname] = options[attrname]; }
+
+  push();
+  translate(x, y);
+
+  //Render Cells
+  var cells = diagram.cells;
+  for (var i = 0; i < cells.length; i++) {
+    // This draws all edges twice, but it's not a big deal; might overweight the line
+    // this is only of benefit if we want to fill the cells with diff colors
+    if (cells[i][drawOptions.nestedDiagram] != undefined){
+      drawVoronoiNested(cells[i][drawOptions.nestedDiagram], x, y, drawOptions);
+      continue;
+    }
+
+    if (drawOptions.redrawAll) {
+      drawVoronoiCell(cells[i], 0, 0, VOR_CELLDRAW_RELATIVE);
+    } else if (cells[i].needsRedraw == undefined || cells[i].needsRedraw) {
+      drawVoronoiCell(cells[i], 0, 0, VOR_CELLDRAW_RELATIVE);
+    }
+    cells[i].needsRedraw = false;
+  }
+
+  //Render Site
+  if(siteStroke != 0){
+    push();
+    strokeWeight(siteStrokeWeight);
+    stroke(siteStroke);
+    for (var i = 0; i < cells.length; i++) {
+      if (cells[i][drawOptions.nestedDiagram] != undefined){
+        continue;
+      }
+      point(cells[i].site.x,cells[i].site.y);
+    }
+    pop();
+  }
+
+  pop();
+}
+
 p5.prototype.voronoiCellMode = function(mode) {
   if (mode == VOR_CELLDRAW_BOUNDED 
     || mode == VOR_CELLDRAW_CENTER 

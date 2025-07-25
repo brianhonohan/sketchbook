@@ -383,4 +383,9 @@ if (typeof(Voronoi) === 'function'){
       }
     }
   }
+
+  Voronoi.prototype.Cell.prototype.asPolygon = function(){
+    let pointPairs = this.halfedges.map(he => { return [he.edge.va, he.edge.vb]; });
+    return Polygon2D.buildFromPointPairs(pointPairs);
+  }
 }

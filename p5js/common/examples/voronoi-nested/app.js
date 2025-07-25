@@ -4,12 +4,13 @@ let gui;
 let shapes;
 let voronoiSites;
 let voronoiDiagram;
+let sitesPerCellAtDepth;
 
 const settings = {
-  num_levels: 3,
-  level_0_pts: 5,
-  level_1_pts: 5,
-  level_2_pts: 5,
+  num_levels: 2,
+  level_0_pts: 3,
+  level_1_pts: 3,
+  level_2_pts: 3,
   level_3_pts: 5,
   show_points: true, 
   voronoi_options: {
@@ -19,8 +20,8 @@ const settings = {
 }
 
 function setup() {
-  // canvas = createCanvas(500, 500); // for screenshots
-  canvas = createAutosizedCanvas();
+  canvas = createCanvas(500, 500); // for screenshots
+  // canvas = createAutosizedCanvas();
   P5JsSettings.init();
   UtilFunctions.random = random; // monkey patch UtilFunctions to use p5's random
   UtilFunctions.randomGaussian = randomGaussian; // monkey patch UtilFunctions to use p5's
@@ -44,6 +45,7 @@ function setup() {
 
   regenerate();
 
+  gui.close();
   P5JsSettings.collapseGuiIfNarrow(gui);
 }
 
@@ -55,21 +57,45 @@ function reset(){
 function regenerate(){
   shapes = [];
 
+  sitesPerCellAtDepth = [];
+  sitesPerCellAtDepth.push(settings.level_0_pts);
+  sitesPerCellAtDepth.push(settings.level_1_pts);
+  sitesPerCellAtDepth.push(settings.level_2_pts);
+  sitesPerCellAtDepth.push(settings.level_3_pts);
+
   const mainBbox = getMainBoundingBox();
   const topLevelSites = generateRandomPoints(settings.level_0_pts, mainBbox);
   voronoiOne = createVoronoi(topLevelSites, mainBbox);
 
-  
-  voronoiOne.voronoiSiteStrokeWeight = 2;
-  voronoiOne.strokeColor = 50;
+  voronoiOne.strokeColor = color(200);
   voronoiOne.strokeWeight = 1;
-  voronoiOne.voronoiSiteStroke = color(180,50, 50);
+  
+  voronoiOne.voronoiSiteStrokeWeight = 5;
+  voronoiOne.voronoiSiteStroke = color(50,230, 230);
   voronoiOne.fillColor = color(30, 150, 30);
+
+  let currentDepth = 0;
+  nestVoronoiIn(voronoiOne, currentDepth+1, settings.num_levels);
+
   draw();
   noLoop();
-  // for (let i = 0; i < (settings.num_levels - 1); i++){
+}
 
-  // }
+function nestVoronoiIn(parentVoronoi, depth, depthLimit){
+  if (depth > (depthLimit-1)) {
+    return;
+  }
+
+  let sitesPerCell = sitesPerCellAtDepth[depth];
+  for(let i = 0; i < parentVoronoi.cells.length; i++){
+    let cell = parentVoronoi.cells[i];
+    let cellAsPolygon = cell.asPolygon();
+
+    let randPoints = generatePointsInPolygon(cellAsPolygon, sitesPerCell);
+    cell.nestedDiagram = Voronoi.createDiagramInPolygon(randPoints, cellAsPolygon);
+    cell.nestedDiagram.fillColor = P5JsUtils.getRandomBlue();
+    nestVoronoiIn(cell.nestedDiagram, depth+1, depthLimit);
+  }
 }
 
 function getMainBoundingBox(){
@@ -109,7 +135,8 @@ function generatePointsInPolygon(polygon, numPoints){
 function draw(){
   background(50);
 
-  drawVoronoi(voronoiOne, 0, 0, { redrawAll: true });
+  // drawVoronoi(voronoiOne, 0, 0, { redrawAll: true });
+  drawVoronoiNested(voronoiOne, 0, 0, {nestedDiagram: 'nestedDiagram'});
 
   if (settings.voronoi_options.show_vertices) {
     for (let v of voronoiOne.vertices) {
@@ -153,6 +180,8 @@ function mousePressed(event){
   }
   shapes.filter(s => s.dragEnabled)
         .find(s => s.handleMousePressed());
+
+  console.log(`Mouse pressed: ${mouseX}, ${mouseY}`);
 }
 
 function mouseDragged(event){
