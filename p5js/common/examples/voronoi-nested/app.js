@@ -20,8 +20,8 @@ const settings = {
 }
 
 function setup() {
-  canvas = createCanvas(500, 500); // for screenshots
-  // canvas = createAutosizedCanvas();
+  // canvas = createCanvas(500, 500); // for screenshots
+  canvas = createAutosizedCanvas();
   P5JsSettings.init();
   UtilFunctions.random = random; // monkey patch UtilFunctions to use p5's random
   UtilFunctions.randomGaussian = randomGaussian; // monkey patch UtilFunctions to use p5's
