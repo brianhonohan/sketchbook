@@ -84,7 +84,27 @@ class Polygon2D {
     for (let i = 0; i < pointPairs.length; i++){
       delete pointPairs[i].__connectedViabuildFromPointPairs;
     }
+    newPolygon.sortPointsClockwise();
     return newPolygon;
+  }
+
+  sortPointsClockwise(){
+    let avgPt = this.getAveragePoint();
+
+    let tmpVec = new Vector2D(0, 0);
+    for(let i = 0; i < this.points.length; i++){
+      tmpVec.x = this.points[i].x - avgPt.x;
+      tmpVec.y = this.points[i].y - avgPt.y;
+      this.points[i].thetaFromMiddle = tmpVec.theta;
+    }
+
+    this.points.sort(function(ptA, ptB) {
+      return ptA.thetaFromMiddle - ptB.thetaFromMiddle;
+    });
+
+    for(let i = 0; i < this.points.length; i++){
+      delete this.points[i].thetaFromMiddle;
+    }
   }
 
   getSides(rebuild = false){
@@ -101,6 +121,17 @@ class Polygon2D {
       this._sideLineSegs.push(newSideObj);
     }
     return this._sideLineSegs;
+  }
+
+  getAveragePoint(){
+    let avgX = 0;
+    let avgY = 0;
+    let numPoints = this.points.length;
+    for (let i = 0; i < numPoints; i++){
+      avgX += (this.points[i].x) / numPoints;
+      avgY += (this.points[i].y) / numPoints;
+    }
+    return {x: avgX, y: avgY};
   }
 
   // from: https://en.wikipedia.org/wiki/Centroid#Of_a_polygon
