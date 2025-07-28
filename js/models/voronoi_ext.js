@@ -357,12 +357,9 @@ if (typeof(Voronoi) === 'function'){
             this.vertices.push(vertexB);
           }
 
-          let newEdge = {
-            lSite: cell.site,
-            rSite: undefined,
-            va: vertexA,
-            vb: vertexB,
-          };
+          let newEdge = new Voronoi.prototype.Edge(cell.site, undefined);
+          newEdge.va = vertexA;
+          newEdge.vb = vertexB;
           let newHalfEdge = new Voronoi.prototype.Halfedge(newEdge, cell.site, undefined);
           cell.halfedges.splice(j + k + 1, 0, newHalfEdge);
           
