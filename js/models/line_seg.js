@@ -97,7 +97,7 @@ class LineSeg {
     let slope = this.slope;
     if (slope == Infinity || slope == -Infinity){
       return new VerticalLine(this.startX);
-    } else if (slope == 0){
+    } else if (Math.abs(slope) <= 0.0000000001 ){
       return new HorizontalLine(this.startY);
     }
 
