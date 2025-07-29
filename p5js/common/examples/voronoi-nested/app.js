@@ -30,10 +30,10 @@ function setup() {
   gui = P5JsSettings.addGui({autoPlace: false});
   gui.add(settings, 'num_levels',2, 4, 1).onChange(regenerate);
   
-  gui.add(settings, 'level_0_pts', 3, 30, 1).onChange(regenerate);
-  gui.add(settings, 'level_1_pts', 3, 30, 1).onChange(regenerate);
-  gui.add(settings, 'level_2_pts', 3, 30, 1).onChange(regenerate);
-  gui.add(settings, 'level_3_pts', 3, 30, 1).onChange(regenerate);
+  gui.add(settings, 'level_0_pts', 3, 30, 1).name('Level 1 - Num pts').onChange(regenerate);
+  gui.add(settings, 'level_1_pts', 3, 30, 1).name('Level 2 - Num pts').onChange(regenerate);
+  gui.add(settings, 'level_2_pts', 3, 30, 1).name('Level 3 - Num pts').onChange(regenerate);
+  gui.add(settings, 'level_3_pts', 3, 30, 1).name('Level 4 - Num pts').onChange(regenerate);
   gui.add(settings, 'show_points');
 
   let voronoiGui = gui.addFolder("Voronoi Options");
