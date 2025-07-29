@@ -7,12 +7,12 @@ let voronoiDiagram;
 let sitesPerCellAtDepth;
 
 const settings = {
-  num_levels: 2,
-  level_0_pts: 3,
-  level_1_pts: 3,
+  num_levels: 4,
+  level_0_pts: 6,
+  level_1_pts: 5,
   level_2_pts: 3,
-  level_3_pts: 5,
-  show_points: true, 
+  level_3_pts: 3,
+  show_points: false, 
   voronoi_options: {
     show_vertices: false,
     show_edges: true,
