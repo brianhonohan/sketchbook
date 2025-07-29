@@ -34,7 +34,7 @@ function setup() {
   gui.add(settings, 'level_1_pts', 3, 30, 1).name('Level 2 - Num pts').onChange(regenerate);
   gui.add(settings, 'level_2_pts', 3, 30, 1).name('Level 3 - Num pts').onChange(regenerate);
   gui.add(settings, 'level_3_pts', 3, 30, 1).name('Level 4 - Num pts').onChange(regenerate);
-  gui.add(settings, 'show_points');
+  gui.add(settings, 'show_points').onChange(draw);
 
   let voronoiGui = gui.addFolder("Voronoi Options");
   voronoiGui.add(settings.voronoi_options, 'show_vertices').onChange(draw);
@@ -135,6 +135,7 @@ function generatePointsInPolygon(polygon, numPoints){
 function draw(){
   background(50);
 
+  voronoiOne.voronoiSiteNoStroke = !(settings.show_points);
   // drawVoronoi(voronoiOne, 0, 0, { redrawAll: true });
   drawVoronoiNested(voronoiOne, 0, 0, {nestedDiagram: 'nestedDiagram'});
 
@@ -146,13 +147,6 @@ function draw(){
   }
 
   shapes.forEach(s => s.draw());
-
-
-  if (settings.show_points && voronoiSites) {
-    noStroke();
-    fill(50, 230, 230);
-    voronoiSites.forEach(p => ellipse(p.x, p.y, 5, 5));
-  }
   
   if (settings.voronoi_options.show_edges) {
     for (let edge of voronoiOne.edges) {
