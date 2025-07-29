@@ -3,6 +3,12 @@ class Polygon extends Polygon2D {
     super();
   }
 
+  static fromPolygon2D(polygon2D){
+    const newPolygon = new Polygon();
+    newPolygon.setPoints(polygon2D.points);
+    return newPolygon;
+  }
+
   setPoints(points){
     this.points = [];
     for (let p of points) {
