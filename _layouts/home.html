@@ -13,10 +13,24 @@ layout: default
 
   {% assign all_filtered_pages = site.pages | where: 'bh_page_type', "sketch" %}
 
+    {% assign recent_pages = all_filtered_pages | sort: 'date' | reverse %}
+    {%- if recent_pages.size > 0 -%}
+    <div class="section">
+      <h2 class="section-heading">Recent Sketches</h2>
+      <div class="thumbnail-grid">
+        {% assign item_limit = 4 %}
+        {%- for page in recent_pages limit: item_limit -%}
+        <div class="thumbnail"><a class="post-link" href="{{ page.url | relative_url }}">
+          <img src="{{ page.url | relative_url }}screenshot-01.png" class="img-thumbnail" />
+        </a></div>
+        {%- endfor -%}
+      </div>
+    </div>
+    {%- endif -%}
+
   {%- for category in categories -%}
     {% assign filtered_pages = all_filtered_pages | where: "categories", category | sort: 'date' | reverse %}
     {% assign category_path = category  %}
-    {% assign category_path2 = category | replace: "-", "/" %}
 
     {%- if filtered_pages.size > 0 -%}
     <div class="section">
