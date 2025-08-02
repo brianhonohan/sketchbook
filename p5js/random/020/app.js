@@ -18,7 +18,6 @@ function setup() {
   gui.add(system.settings, "num_points", 1, 3000, 1).onFinishChange(regenerate);
   gui.add(system.settings, "homing_points").onFinishChange(regenerate);
   handleModeChange();
-  system.regenerate();
 }
 
 // TODO: Move this dynamic UI mgmt into common GuiUtils
@@ -38,6 +37,11 @@ function handleModeChange(){
   for(let i = 0; i < optionsForMode.length; i++){
     let option = optionsForMode[i];
     modeOptions[option.name] = option.default;
+
+    if (option.name == 'separationAngle' && option.maxValue == 360){
+      // Fixes breaking issue with voronoi generation
+      option.maxValue = 359.9999;
+    }
     switch (option.type) {
       case 'list':
         folder.add(modeOptions, option.name, option.options).onFinishChange(regenerate);
@@ -85,7 +89,6 @@ function regenerate(){
 }
 
 function draw(){
-  background(50);
   system.tick();
   system.render();
 }
