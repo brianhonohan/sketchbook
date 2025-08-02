@@ -86,15 +86,6 @@ class System {
   }
 
   render(){
-    push();
-    translate(this.area.x, this.area.y);
-    stroke(180);
-    strokeWeight(6);
-    for (let i = 0; i < this.points.length; i++){
-      this.points[i].draw();
-    }
-    pop();
-
     drawVoronoi(this.voronoiDiag, this.x, this.y);
   }
 }
