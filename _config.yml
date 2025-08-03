@@ -64,3 +64,10 @@ defaults:
       path: "feed.xml"
     values:
       bh_page_type: feed
+
+# These should exclude the site base
+featured_pages:
+  - /p5js/forest-02/
+  - /p5js/forest-fires-02/
+  - /p5js/coding-challenges/fractal-trees-03/
+  - /p5js/common/examples/layout-options/

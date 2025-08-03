@@ -13,6 +13,21 @@ layout: default
 
   {% assign all_filtered_pages = site.pages | where: 'bh_page_type', "sketch" %}
 
+    {% assign featured = all_filtered_pages | where_exp: "page", "site.featured_pages contains page.url" %}
+    {%- if featured.size > 0 -%}
+    <div class="section">
+      <h2 class="section-heading">Featured Sketches</h2>
+      <div class="thumbnail-grid">
+        {% assign item_limit = 4 %}
+        {%- for page in featured limit: item_limit -%}
+        <div class="thumbnail"><a class="post-link" href="{{ page.url | relative_url }}">
+          <img src="{{ page.url | relative_url }}screenshot-01.png" class="img-thumbnail" />
+        </a></div>
+        {%- endfor -%}
+      </div>
+    </div>
+    {%- endif -%}
+
     {% assign recent_pages = all_filtered_pages | sort: 'date' | reverse %}
     {%- if recent_pages.size > 0 -%}
     <div class="section">
