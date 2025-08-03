@@ -37,6 +37,11 @@ function handleModeChange(){
   for(let i = 0; i < optionsForMode.length; i++){
     let option = optionsForMode[i];
     modeOptions[option.name] = option.default;
+
+    if (option.name == 'separationAngle' && option.maxValue == 360){
+      // Fixes breaking issue with voronoi generation
+      option.maxValue = 359.9999;
+    }
     switch (option.type) {
       case 'list':
         folder.add(modeOptions, option.name, option.options).onFinishChange(regenerate);
