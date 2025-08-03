@@ -82,7 +82,7 @@ class LayoutUtilFunctions {
             // In degrees (not radians)
             name:'separationAngle', type: 'float',
             minValue: 0.001,
-            maxValue: 360,
+            maxValue: 359.999,
             default: 137.508
           }
         ];
