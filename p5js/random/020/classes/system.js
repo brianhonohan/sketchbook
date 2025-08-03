@@ -36,8 +36,13 @@ class System {
 
     // this.boundingRect = {xl: this.x, xr: this.x + this.width, yt: this.y, yb: this.y + this.height};
     this.boundingRect = {xl: 0, xr: this.width, yt: 0, yb: this.height};
+    this.rebuildDiagram();
+  }
+
+  rebuildDiagram(){
     this.voronoiDiag = createVoronoi(this.points, this.boundingRect);
-    this.voronoiDiag.fillColor = P5JsUtils.getRandomBlue();
+    this.voronoiDiag.fillColor = color(230);
+    this.fullRedraw = true;
   }
 
   placePoints(locations){
@@ -77,15 +82,26 @@ class System {
   }
 
   tick(){
+    let movedOnePoint = false;
     if (this.settings.homing_points){
+      let tmpPointMoved = false;
       for (let i = 0; i < this.points.length; i++){
-        this.points[i].update();
+        tmpPointMoved = this.points[i].update();
+        movedOnePoint ||= tmpPointMoved;
       }
     }
-    this.voronoiDiag = createVoronoi(this.points, this.boundingRect);
+    if (movedOnePoint){
+      this.rebuildDiagram();
+    }
   }
 
   render(){
-    drawVoronoi(this.voronoiDiag, this.x, this.y);
+    if (this.fullRedraw){
+      background(50);
+      drawVoronoi(this.voronoiDiag, this.x, this.y);
+      this.fullRedraw = false;
+      return;
+    }
+    drawVoronoi(this.voronoiDiag, this.x, this.y, {redrawAll: false});
   }
 }

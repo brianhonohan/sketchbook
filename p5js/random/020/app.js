@@ -18,7 +18,6 @@ function setup() {
   gui.add(system.settings, "num_points", 1, 3000, 1).onFinishChange(regenerate);
   gui.add(system.settings, "homing_points").onFinishChange(regenerate);
   handleModeChange();
-  system.regenerate();
 }
 
 // TODO: Move this dynamic UI mgmt into common GuiUtils
@@ -85,7 +84,6 @@ function regenerate(){
 }
 
 function draw(){
-  background(50);
   system.tick();
   system.render();
 }

@@ -5,7 +5,7 @@ class HomingPoint extends Point {
 
   update(){
     if (this.targetPoint == undefined) {
-      return;
+      return false;
     }
 
     let vecToTarget = createVector(this.targetPoint.x - this.x, this.targetPoint.y - this.y);
@@ -14,10 +14,11 @@ class HomingPoint extends Point {
     if (distToTarget < 0.1) {
       this.set(this.targetPoint.x, this.targetPoint.y);
       this.targetPoint = undefined;
-      return;
+      return false;
     }
     
     vecToTarget.mult(0.1);
     this.add(vecToTarget);
+    return true;
   }
 }
