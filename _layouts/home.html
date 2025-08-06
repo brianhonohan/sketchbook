@@ -69,10 +69,11 @@ layout: default
   {%- endfor -%}
 
 
-  {%- if site.posts.size > 0 -%}
+  {% assign filtered_posts = site.posts | where_exp: "page", "page.layout != 'redirect'" | sort: 'date' | reverse %}
+  {%- if filtered_posts.size > 0 -%}
     <h2 class="post-list-heading">{{ page.list_title | default: "Posts" }}</h2>
     <ul class="post-list util-clear">
-      {%- for post in site.posts -%}
+      {%- for post in filtered_posts -%}
       <li class="util-clear">
         {% if post.thumbnail %}
         <div class="listing-thumbnail">
