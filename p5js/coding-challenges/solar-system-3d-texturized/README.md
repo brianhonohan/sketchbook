@@ -8,6 +8,14 @@ Key learnings:
 * The `preload()` p5.js function allows for easy preloading of assets (eg. image files) to make sure they are available by the time `setup()`` runs.
 * The `texture()` p5.js function allows for wrapping an image around the next 3D primitive drawn.
 
+## Sample Textures:
+
+Textures were downloaded from [solarsystemscope.com][solar-system-textures] which provides the images free of charge for use in 3D models like this sketch.
+
+[![texture-sample-sun][texture-sun]{:class="img-thumbnail"}][live-view]
+[![texture-sample-earth][texture-earth]{:class="img-thumbnail"}][live-view]
+[![texture-sample-jupiter][texture-jupiter]{:class="img-thumbnail"}][live-view]
+
 ## Controls
 
 (No interactivity implemented yet).
@@ -28,6 +36,10 @@ Key learnings:
 ![screenshot][screenshot-01]
 
 [screenshot-01]: ./screenshot-01.png
+[texture-sun]: /sketchbook/p5js/coding-challenges/solar-system-3d-texturized/textures/2k_sun.jpg
+[texture-earth]: /sketchbook/p5js/coding-challenges/solar-system-3d-texturized/textures/2k_earth_daymap.jpg
+[texture-jupiter]: /sketchbook/p5js/coding-challenges/solar-system-3d-texturized/textures/2k_jupiter.jpg
+
 [sketch-solar-system-3D]: https://brianhonohan.com/sketchbook/p5js/coding-challenges/2018/10/07/coding-challenge-8-solar-system-3d.html
 [p5js-home]: https://p5js.org/
 [p5js-preload]: https://p5js.org/reference/#/p5/preload
