@@ -10,12 +10,34 @@ An interesting implementation note is the treatment of the outer edges. The firs
 
 Another aspect to note is that `MazeCell` objects only directly own the walls to the right and downward from their center, and "delegate" the wall references for the ones to the left and upward to their respective neighbors.
 
+This was mostly an exercise having a shared concept (the Wall) be owned by one and only one other object.
+
+{% highlight javascript %}
+class MazeCell {
+  constructor(row, col, index, maze){
+    ...
+    this.rightWall = MazeCell.WALL_UNKNOWN;
+    this.bottomWall = MazeCell.WALL_UNKNOWN;
+  }
+
+  get cellAbove() { return this.grid.cellAbove(this._idx); }
+  get cellToLeft() { return this.grid.cellToLeft(this._idx); }
+
+  get leftWall() { return this.cellToLeft.rightWall; }
+  set leftWall(state) { this.cellToLeft.rightWall = state; }
+
+  get topWall() { return this.cellAbove.bottomWall; }
+  set topWall(state) { this.cellAbove.bottomWall = state; }
+{% endhighlight %}
+
+
 ## Controls
 
 (No interactivity implemented yet).
 
 # References:
 * [Wikipedia / Recursive Backtracker][wikipedia-recursive-backtracker]
+* [Wikipedia / Stack][wikipedia-stack-data-structure]
 
 # Links: 
 
@@ -43,3 +65,4 @@ Another aspect to note is that `MazeCell` objects only directly own the walls to
 [ct-challenge-10-p4]: https://www.youtube.com/watch?v=_p5IH0L63wo&index=13&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH
 
 [wikipedia-recursive-backtracker]: https://en.wikipedia.org/wiki/Maze_generation_algorithm#Depth-first_search
+[wikipedia-stack-data-structure]: https://simple.wikipedia.org/wiki/Stack_(data_structure)
