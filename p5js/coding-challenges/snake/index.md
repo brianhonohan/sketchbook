@@ -4,7 +4,6 @@ title:  "p5.js - Snake"
 categories: p5js/coding-challenges
 date: 2018-09-30
 modal: true
-bh_page_type: draft
 viewport_noscale: true
 excerpt: A basic implementation of the Snake game.
 
