@@ -21,7 +21,6 @@ Mouse:
 * [Source on Github](https://github.com/brianhonohan/sketchbook/tree/master/processing/coding-challenges/menger_sponge)
 
 [processing-home]: https://processing.org
-[sportsknowhow-hockey]: http://www.sportsknowhow.com/hockey/dimensions/hockey-rink-dimensions.html
 [coding-train]: https://thecodingtrain.com/
 [ct-challenge-2]: https://www.youtube.com/watch?v=LG8ZK-rRkXo&index=2&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH
 [wiki-menger-sponge]: https://en.wikipedia.org/wiki/Menger_sponge

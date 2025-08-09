@@ -3,6 +3,13 @@
 
 This is a [Processing][processing-home] sketch inspired by the [Coding Train's][coding-train] [Coding Challenge #1][ct-challenge-1] on creating a starfield simulation, similar to Star Trek's warp speed or the mid-90s Windows screensaver. 
 
+
+## Interactions
+
+* Clicking and dragging will add new stars where the mouse is.
+* Pressing `c` will reset the star count to 10.
+* Pressing `UP` or `DOWN` arrow will increase / decrease the speed.
+
 ## Links: 
 
 * [Live View](/sketchbook/processing/coding-challenges/starfield/)
