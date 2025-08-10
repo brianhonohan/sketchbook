@@ -21,12 +21,15 @@ Mouse:
 
 - `HOVER` / `CLICK` Highlight the hexagon below the mouse's current position.
 
-![image](preview.png)
 
 ## Links: 
 
 * [Live View](https://brianhonohan.com/sketchbook/processing/2016/03/15/processing-hexagonal-layout.html)
 * [Source on Github](https://github.com/brianhonohan/sketchbook/tree/master/processing/hexagonal)
+
+## Screenshot 
+
+![image](preview.png)
 
 [source-code]: https://github.com/brianhonohan/sketchbook/tree/master/processing/hexagonal
 [processing-home]: https://processing.org
