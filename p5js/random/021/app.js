@@ -17,9 +17,9 @@ function setup() {
   paletteColors = getSpectrumPalette();
 
   gui = P5JsSettings.addGui({autoPlace: false});
-  gui.add(system.settings, "mode", LayoutUtilFunctions.getPointModes()).onFinishChange(handleModeChange);
-  gui.add(system.settings, "num_points", 1, 3000, 1).onFinishChange(regenerate);
-  gui.add(system.settings, "homing_points").onFinishChange(regenerate);
+  gui.add(system.settings, "mode", LayoutUtilFunctions.getPointModes()).onChange(handleModeChange);
+  gui.add(system.settings, "num_points", 1, 3000, 1).onChange(regenerate);
+  gui.add(system.settings, "homing_points").onChange(regenerate);
   handleModeChange();
 }
 
