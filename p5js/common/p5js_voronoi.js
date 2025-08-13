@@ -267,6 +267,10 @@ p5.prototype.drawVoronoiCell = function(cell, x = 0, y = 0, mode = undefined, de
       translateY = y - cell.site.y; 
     }
   }
+
+  if (typeof voronoiStylesForCell === 'function') {
+    voronoiStylesForCell(cell, x, y);
+  }
   
   if (translateX != 0 || translateY != 0) {
     push();

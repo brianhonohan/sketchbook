@@ -4,6 +4,7 @@ let vertMargin = determineVerticalMargin();
 
 let gui;
 let modeOptions;
+let paletteColors;
 
 function setup() {
   // canvas = createCanvas(500, 500); // for screenshots
@@ -13,11 +14,27 @@ function setup() {
   let rect = new Rect(0.1 * width, 0.1 * height, 0.8 * width, 0.8 * height);
   system = new System(rect);
 
+  paletteColors = getSpectrumPalette();
+
   gui = P5JsSettings.addGui({autoPlace: false});
   gui.add(system.settings, "mode", LayoutUtilFunctions.getPointModes()).onFinishChange(handleModeChange);
   gui.add(system.settings, "num_points", 1, 3000, 1).onFinishChange(regenerate);
   gui.add(system.settings, "homing_points").onFinishChange(regenerate);
   handleModeChange();
+}
+
+function getSpectrumPalette(){
+  return [
+    [color(0,0,0), 380],
+    [color(200,0,200), 415],
+    [color(0,0,230), 466.5],
+    [color(0,230,230), 492],
+    [color(0,230,0), 532.5],
+    [color(230, 230, 0), 577.5],
+    [color(230, 115, 0), 607.5],
+    [color(220,0,0), 687.5],
+    [color(0,0,0), 750],
+  ];
 }
 
 // TODO: Move this dynamic UI mgmt into common GuiUtils
@@ -104,4 +121,13 @@ function keyTyped(){
       saveCanvas(canvas, 'screenshot', 'png');
       break;
   }
+}
+
+function voronoiStylesForCell(cell, x, y){
+  // console.log(cell);
+  // console.log(cell.site.voronoiId);
+  let c = paletteLerp(paletteColors,
+         380 + (750 - 380) * cell.site.voronoiId / system.settings.num_points );
+  // console.log(c);
+  fill(c);
 }

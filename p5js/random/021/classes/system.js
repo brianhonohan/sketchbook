@@ -72,7 +72,7 @@ class System {
   optionsMetadata(){
     return [
       { name: "num_points", type: "integer", default: 500},
-      { name: "mode", type: "String", default: 'spiral-fermat'},
+      { name: "mode", type: "String", default: 'random'},
       { name: "homing_points", type: "bool", default: true},
       
       // { name: "varname2", type: "string", default: 'Lorem Ipsum'}, 
