@@ -215,7 +215,7 @@ p5.prototype.drawVoronoiNested = function(diagram, x, y, options = {}) {
   }
 
   //Render Site
-  if(siteStroke != 0){
+  if(siteStrokeWeight != 0){
     push();
     strokeWeight(siteStrokeWeight);
     stroke(siteStroke);
@@ -266,6 +266,10 @@ p5.prototype.drawVoronoiCell = function(cell, x = 0, y = 0, mode = undefined, de
       translateX = x - cell.site.x;
       translateY = y - cell.site.y; 
     }
+  }
+
+  if (typeof voronoiStylesForCell === 'function') {
+    voronoiStylesForCell(cell, x, y);
   }
   
   if (translateX != 0 || translateY != 0) {
