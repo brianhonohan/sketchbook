@@ -215,7 +215,7 @@ p5.prototype.drawVoronoiNested = function(diagram, x, y, options = {}) {
   }
 
   //Render Site
-  if(siteStroke != 0){
+  if(siteStrokeWeight != 0){
     push();
     strokeWeight(siteStrokeWeight);
     stroke(siteStroke);

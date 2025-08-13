@@ -42,6 +42,7 @@ class System {
   rebuildDiagram(){
     this.voronoiDiag = createVoronoi(this.points, this.boundingRect);
     this.voronoiDiag.fillColor = color(230);
+    this.voronoiDiag.voronoiSiteNoStroke = true;
     this.fullRedraw = true;
   }
 
