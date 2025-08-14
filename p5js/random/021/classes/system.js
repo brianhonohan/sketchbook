@@ -72,7 +72,7 @@ class System {
   // supported types: integer, float, string, bool
   optionsMetadata(){
     return [
-      { name: "num_points", type: "integer", default: 500},
+      { name: "num_points", type: "integer", default: 2000},
       { name: "mode", type: "String", default: 'spiral-fermat'},
       { name: "homing_points", type: "bool", default: true},
       

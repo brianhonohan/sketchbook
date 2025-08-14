@@ -5,6 +5,7 @@ let vertMargin = determineVerticalMargin();
 let gui;
 let modeOptions;
 let paletteColors;
+let isFirstSetup = true;
 
 function setup() {
   // canvas = createCanvas(500, 500); // for screenshots
@@ -59,6 +60,11 @@ function handleModeChange(){
       // Fixes breaking issue with voronoi generation
       option.maxValue = 359.9999;
     }
+    if (isFirstSetup && option.name == 'scalingFactor'){
+      modeOptions[option.name] = 28.5;
+      isFirstSetup = false;
+    }
+
     switch (option.type) {
       case 'list':
         folder.add(modeOptions, option.name, option.options).onFinishChange(regenerate);
