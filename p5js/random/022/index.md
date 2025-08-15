@@ -5,6 +5,7 @@ categories: p5js/random
 date: 2025-08-14
 modal: true
 viewport_noscale: true
+prev_sketch: /sketchbook/p5js/random/021/
 excerpt: Iteration of Layout examples with Voronoi diagram, using the site-object to determine the color.
 
 js_scripts:

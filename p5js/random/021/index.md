@@ -5,6 +5,8 @@ categories: p5js/random
 date: 2025-08-12
 modal: true
 viewport_noscale: true
+prev_sketch: /sketchbook/p5js/random/020/
+next_sketch: /sketchbook/p5js/random/022/
 excerpt: Iteration of Layout examples with Voronoi diagram, adding in coloring individual cells.
 
 js_scripts:

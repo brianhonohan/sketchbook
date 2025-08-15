@@ -5,6 +5,7 @@ categories: p5js/random
 date: 2025-08-01
 modal: true
 viewport_noscale: true
+next_sketch: /sketchbook/p5js/random/021/
 excerpt: Integration of Layout examples with Voronoi diagram, to explore animated Voronoi diagrams.
 
 js_scripts:
