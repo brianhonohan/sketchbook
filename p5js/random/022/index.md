@@ -1,12 +1,12 @@
 ---
 layout: minimal
-title:  "p5.js - Random 020"
+title:  "p5.js - Random 022"
 categories: p5js/random
-date: 2025-08-01
+date: 2025-08-14
 modal: true
 viewport_noscale: true
-next_sketch: /sketchbook/p5js/random/021/
-excerpt: Integration of Layout examples with Voronoi diagram, to explore animated Voronoi diagrams.
+prev_sketch: /sketchbook/p5js/random/021/
+excerpt: Iteration of Layout examples with Voronoi diagram, using the site-object to determine the color.
 
 js_scripts:
 - /sketchbook/vendor/inobounce/0.2.0/inobounce.js
