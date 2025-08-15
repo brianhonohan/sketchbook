@@ -59,10 +59,12 @@ function handleModeChange(){
     if (option.name == 'separationAngle' && option.maxValue == 360){
       // Fixes breaking issue with voronoi generation
       option.maxValue = 359.9999;
+      if (isFirstSetup){
+        modeOptions[option.name] = 240.9;
+      }
     }
     if (isFirstSetup && option.name == 'scalingFactor'){
       modeOptions[option.name] = 28.5;
-      isFirstSetup = false;
     }
 
     switch (option.type) {
@@ -77,6 +79,7 @@ function handleModeChange(){
         break;
     }
   }
+  isFirstSetup = false;
   regenerate();
 }
 
@@ -133,7 +136,7 @@ function voronoiStylesForCell(cell, x, y){
   // console.log(cell);
   // console.log(cell.site.voronoiId);
   let c = paletteLerp(paletteColors,
-         380 + (750 - 380) * cell.site.voronoiId / system.settings.num_points );
+         380 + (750 - 380) * cell.site.__pointIdx / system.settings.num_points );
   // console.log(c);
   fill(c);
 }

@@ -59,6 +59,7 @@ class System {
       else{
         this.points.push(new HomingPoint(locations[i][0], locations[i][1]));
       }
+      this.points[i].__pointIdx = i;
     }
     if (this.points.length > locations.length){
       this.points = this.points.slice(0, locations.length);
@@ -72,7 +73,7 @@ class System {
   // supported types: integer, float, string, bool
   optionsMetadata(){
     return [
-      { name: "num_points", type: "integer", default: 2000},
+      { name: "num_points", type: "integer", default: 85},
       { name: "mode", type: "String", default: 'spiral-fermat'},
       { name: "homing_points", type: "bool", default: true},
       
