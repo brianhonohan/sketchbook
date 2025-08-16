@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+  {%- include head.html mode_split="true" -%}
+  <body class="layout-minimal">
+    {%- include header.html -%}
+    <main class="page-content" aria-label="Content">
+      <div class="split_view">
+        <div id="left-pane">
+          {{ content }}
+        </div>
+
+        <div id="right-pane">
+          <div class="tabs" id="tabs"></div>
+          <div class="tab-content" id="tab-content"></div>
+        </div>
+      </div>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.5/split.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+      <script>
+        Split(['.split_view #left-pane', '.split_view #right-pane'], {
+          sizes: [90, 10],
+          minSize: 200,
+          gutterSize: 5,
+        });
+
+        const scripts = Array.from(document.querySelectorAll('script[src]'));
+        const tabsEl = document.getElementById('tabs');
+        const contentEl = document.getElementById('tab-content');
+
+        async function loadAndDisplay(fileUrl, tab) {
+          try {
+            const res = await fetch(fileUrl);
+            const text = await res.text();
+            const pre = document.createElement('pre');
+            const code = document.createElement('code');
+            code.className = 'language-javascript';
+            code.textContent = text;
+            pre.appendChild(code);
+            hljs.highlightElement(code);
+            contentEl.innerHTML = '';
+            contentEl.appendChild(pre);
+          } catch (err) {
+            contentEl.innerHTML = `<p style="color:red;">Error loading ${fileUrl}</p>`;
+          }
+        }
+
+        const fileNameIgnoreList = [
+          'jquery.min.js',
+          'p5.min.js',
+          'lil-gui@0.20',
+          'inobounce.js',
+          'jquery-accessible-modal-window-aria.js'
+        ];
+
+        scripts.forEach((script, i) => {
+          const src = script.getAttribute('src');
+          const fileName = src.split('/').pop();
+          if (fileNameIgnoreList.includes(fileName)){
+            return;
+          }
+          const tab = document.createElement('div');
+          tab.className = 'tab';
+          tab.textContent = fileName;
+          tab.addEventListener('click', () => {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            loadAndDisplay(src, tab);
+          });
+          tabsEl.appendChild(tab);
+
+          // Load first tab by default
+          if (i === 0) {
+            tab.classList.add('active');
+            loadAndDisplay(src, tab);
+          }
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+          const leftPane = document.getElementById("left-pane");
+
+          function resizeToContainer() {
+            const canvas = document.getElementById("defaultCanvas0");
+            if (canvas && leftPane && window.p5 && window._renderer) {
+              const w = leftPane.clientWidth;
+              const h = leftPane.clientHeight;
+              resizeCanvas(w, h); // <-- p5.js global function
+            }
+          }
+
+          // MutationObserver: wait until p5.js creates the canvas
+          const observer = new MutationObserver(() => {
+            const canvas = document.getElementById("defaultCanvas0");
+            if (canvas) {
+              leftPane.appendChild(canvas);
+              resizeToContainer(); // initial resize
+              observer.disconnect();
+            }
+          });
+          observer.observe(document.body, { childList: true, subtree: true });
+
+          // Listen to Split.js dragging
+          window.addEventListener("resize", resizeToContainer);
+
+          // Optional: if we want immediate resize as gutter is dragged
+          // Split.js supports an "onDrag" callback:
+          Split(['.split_view #left-pane', '.split_view #right-pane'], {
+            sizes: [60, 40],
+            minSize: 200,
+            gutterSize: 5,
+            onDrag: resizeToContainer
+          });
+        });
+      </script>
+
+    </main>
+
+  </body>
+
+</html>
