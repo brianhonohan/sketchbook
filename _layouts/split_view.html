@@ -19,12 +19,6 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
       <script>
-        Split(['.split_view #left-pane', '.split_view #right-pane'], {
-          sizes: [90, 10],
-          minSize: 200,
-          gutterSize: 5,
-        });
-
         const scripts = Array.from(document.querySelectorAll('script[src]'));
         const tabsEl = document.getElementById('tabs');
         const contentEl = document.getElementById('tab-content');
