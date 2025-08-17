@@ -84,7 +84,7 @@
             const canvas = document.getElementById("defaultCanvas0");
             if (canvas && leftPane && window.p5 && window._renderer) {
               const w = leftPane.clientWidth;
-              const h = leftPane.clientHeight;
+              const h = innerHeight - leftPane.getBoundingClientRect().top;
               resizeCanvas(w, h); // <-- p5.js global function
             }
           }
