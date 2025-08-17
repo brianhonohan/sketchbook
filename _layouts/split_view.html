@@ -10,7 +10,11 @@
         </div>
 
         <div id="right-pane">
-          <div class="tabs" id="tabs"></div>
+          <div class="tabs-container">
+            <button class="scroll-btn left">&lt;</button>
+            <div class="tabs" id="tabs"></div>
+            <button class="scroll-btn right">&gt;</button>
+          </div>
           <div class="tab-content" id="tab-content"></div>
         </div>
       </div>
@@ -69,6 +73,14 @@
             tab.classList.add('active');
             loadAndDisplay(src, tab);
           }
+        });
+
+        // Add left/right buttons to scroll through the tabs
+        document.querySelector(".scroll-btn.left").addEventListener("click", () => {
+          tabsEl.scrollBy({ left: -150, behavior: "smooth" });
+        });
+        document.querySelector(".scroll-btn.right").addEventListener("click", () => {
+          tabsEl.scrollBy({ left: 150, behavior: "smooth" });
         });
 
         document.addEventListener("DOMContentLoaded", () => {

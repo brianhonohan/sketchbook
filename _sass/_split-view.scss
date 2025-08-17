@@ -16,8 +16,13 @@
   display: flex;
   background: #f5f5f5;
   border-bottom: 1px solid #ccc;
+  overflow-x: auto;     /* enable horizontal scrolling */
+  overflow-y: hidden;
+  white-space: nowrap;  /* keep tabs in a single row */
+  scrollbar-width: thin; /* nicer scrollbars in Firefox */
 }
 .split_view .tab {
+  flex: 0 0 auto;       /* prevent tabs from shrinking */
   padding: 0.5em 1em;
   cursor: pointer;
   border-right: 1px solid #ccc;
@@ -44,4 +49,33 @@
 .split_view .gutter.gutter-horizontal {
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
     cursor: col-resize;
+}
+.split_view .tabs-container {
+  display: flex;
+  align-items: center;
+  background: #f5f5f5;
+  border-bottom: 1px solid #ccc;
+}
+.split_view .scroll-btn {
+  flex: 0 0 auto;
+  border: none;
+  background: #eee;
+  padding: 0.5em;
+  cursor: pointer;
+  font-size: 1em;
+  user-select: none;
+}
+.split_view .scroll-btn:hover {
+  background: #ddd;
+}
+.split_view .tabs {
+  flex: 1;
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  scrollbar-width: none; /* hide scrollbar for cleaner look */
+}
+.split_view .tabs::-webkit-scrollbar {
+  display: none; /* hide scrollbar in Chrome/Safari */
 }
