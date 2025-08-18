@@ -53,6 +53,14 @@
 
     
     {% if include.mode_split == "true" %}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    {% comment %}
+        Other themes considered
+        panda-syntax-dark
+        obsidian
+        nord
+        night-owl
+    {% endcomment %}
+    {% assign highlightjs_theme = "nord" %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/{{highlightjs_theme}}.min.css">
     {% endif %}
 </head>
