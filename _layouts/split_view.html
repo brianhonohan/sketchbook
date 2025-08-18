@@ -26,6 +26,7 @@
         const scripts = Array.from(document.querySelectorAll('script[src]'));
         const tabsEl = document.getElementById('tabs');
         const contentEl = document.getElementById('tab-content');
+        const contentE1Height = (contentEl.getBoundingClientRect())['height'] - 15;
 
         async function loadAndDisplay(fileUrl, tab) {
           try {
@@ -36,9 +37,13 @@
             code.className = 'language-javascript';
             code.textContent = text;
             pre.appendChild(code);
+            pre.setAttribute("id", "pre_code_container");
             hljs.highlightElement(code);
             contentEl.innerHTML = '';
             contentEl.appendChild(pre);
+
+            // dynamically set the height, because I can't figure out the CSS
+            pre.style.height =  (contentE1Height) + "px";
           } catch (err) {
             contentEl.innerHTML = `<p style="color:red;">Error loading ${fileUrl}</p>`;
           }

@@ -1,6 +1,7 @@
 .split_view {
   height: 100%;
   display: flex;
+  flex: 1;
   flex-direction: row;
   font-family: sans-serif;
 }
@@ -10,7 +11,6 @@
 .split_view #right-pane {
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 }
 .split_view .tabs {
   display: flex;
@@ -40,6 +40,13 @@
 .split_view pre {
   margin: 0;
   padding: 0;
+  white-space: pre-wrap;       /* allow wrapping */
+  word-wrap: break-word;       /* break long lines */
+  overflow-x: auto;            /* keep horizontal scroll as fallback */
+  max-width: 100%;             /* fit inside container */
+}
+.split_view pre code {
+  overflow-y: auto;
 }
 .split_view .gutter {
     background-color: #eee;
