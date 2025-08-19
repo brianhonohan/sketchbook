@@ -57,9 +57,16 @@
           'jquery-accessible-modal-window-aria.js'
         ];
 
+        scripts.reverse();
+        // TODO: filter the array before iterating over it.
+        let firstNonSkipped = true;
+
         scripts.forEach((script, i) => {
           const src = script.getAttribute('src');
           const fileName = src.split('/').pop();
+          if (fileName.indexOf('.min.js') > 0){
+            return;
+          }
           if (fileNameIgnoreList.includes(fileName)){
             return;
           }
@@ -74,7 +81,8 @@
           tabsEl.appendChild(tab);
 
           // Load first tab by default
-          if (i === 0) {
+          if (firstNonSkipped) {
+            firstNonSkipped = false;
             tab.classList.add('active');
             loadAndDisplay(src, tab);
           }
