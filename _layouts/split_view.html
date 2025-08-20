@@ -4,11 +4,11 @@
   <body class="layout-minimal">
     {%- include header.html -%}
     <main class="page-content" aria-label="Content">
-      <div class="split_view">
+
+      <div class="split_view" id="splitView">
         <div id="left-pane">
           {{ content }}
         </div>
-
         <div id="right-pane">
           <div class="tabs-container">
             <button class="scroll-btn left">&lt;</button>
@@ -17,6 +17,7 @@
           </div>
           <div class="tab-content" id="tab-content"></div>
         </div>
+        <button class="sidebar-toggle" id="sidebarToggle">←</button>
       </div>
 
       <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.5/split.min.js"></script>
@@ -98,6 +99,9 @@
 
         document.addEventListener("DOMContentLoaded", () => {
           const leftPane = document.getElementById("left-pane");
+          const rightPane = document.getElementById("right-pane");
+          const splitView = document.getElementById("splitView");
+          const toggleBtn = document.getElementById("sidebarToggle");
 
           function resizeToContainer() {
             const canvas = document.getElementById("defaultCanvas0");
@@ -124,11 +128,37 @@
 
           // Optional: if we want immediate resize as gutter is dragged
           // Split.js supports an "onDrag" callback:
-          Split(['.split_view #left-pane', '.split_view #right-pane'], {
-            sizes: [60, 40],
-            minSize: 200,
+          const splitJsInstance = Split(['.split_view #left-pane', '.split_view #right-pane'], {
+            sizes: [100, 0],
             gutterSize: 5,
-            onDrag: resizeToContainer
+            onDrag: resizeToContainer // maybe: onDragEnd
+          });
+          const paneSizes = [40, 60];
+          window.splitJSInst = splitJsInstance;
+          splitJsInstance.collapse(1);
+
+          toggleBtn.addEventListener("click", () => {
+            console.log(splitJsInstance);
+            console.log(paneSizes);
+            splitView.classList.toggle("expanded");
+            if (splitView.classList.contains("expanded")) {
+              // It was collapsed, now we're expanding
+              toggleBtn.textContent = "→"; // collapse icon
+              splitJsInstance.setSizes(paneSizes);
+              console.log('setting pane sizes');
+              console.log(paneSizes);
+            } else {
+              // It was expands, now we're collapsing
+              toggleBtn.textContent = "←"; // expand icon
+              let sizes = splitJsInstance.getSizes();
+              console.log('caching pane sizes');
+              splitJsInstance.collapse(1);
+              console.log(paneSizes);
+              paneSizes[0] = sizes[0];
+              paneSizes[1] = sizes[1];
+              console.log("resizeToContainer in 3 sec" );
+              setTimeout(resizeToContainer, 3000);
+            }
           });
         });
       </script>
