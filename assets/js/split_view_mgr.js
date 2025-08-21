@@ -1,0 +1,152 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const scripts = Array.from(document.querySelectorAll('script[src]'));
+  const tabsEl = document.getElementById('tabs');
+  const contentEl = document.getElementById('tab-content');
+  const contentE1Height = (contentEl.getBoundingClientRect())['height'] - 15;
+
+  async function loadAndDisplay(fileUrl, tab) {
+    try {
+      const res = await fetch(fileUrl);
+      const text = await res.text();
+      const pre = document.createElement('pre');
+      const code = document.createElement('code');
+      code.className = 'language-javascript';
+      code.textContent = text;
+      pre.appendChild(code);
+      pre.setAttribute("id", "pre_code_container");
+      hljs.highlightElement(code);
+      contentEl.innerHTML = '';
+      contentEl.appendChild(pre);
+
+      // dynamically set the height, because I can't figure out the CSS
+      pre.style.height =  (contentE1Height) + "px";
+    } catch (err) {
+      contentEl.innerHTML = `<p style="color:red;">Error loading ${fileUrl}</p>`;
+    }
+  }
+
+  const fileNameIgnoreList = [
+    'jquery.min.js',
+    'p5.min.js',
+    'lil-gui@0.20',
+    'inobounce.js',
+    'jquery-accessible-modal-window-aria.js'
+  ];
+
+  scripts.reverse();
+  // TODO: filter the array before iterating over it.
+  let firstNonSkipped = true;
+
+  scripts.forEach((script, i) => {
+    const src = script.getAttribute('src');
+    const fileName = src.split('/').pop();
+    if (fileName.indexOf('.min.js') > 0){
+      return;
+    }
+    if (fileNameIgnoreList.includes(fileName)){
+      return;
+    }
+    const tab = document.createElement('div');
+    tab.className = 'tab';
+    tab.textContent = fileName;
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      loadAndDisplay(src, tab);
+    });
+    tabsEl.appendChild(tab);
+
+    // Load first tab by default
+    if (firstNonSkipped) {
+      firstNonSkipped = false;
+      tab.classList.add('active');
+      loadAndDisplay(src, tab);
+    }
+  });
+
+
+  // Add left/right buttons to scroll through the tabs
+  document.querySelector(".scroll-btn.left").addEventListener("click", () => {
+    tabsEl.scrollBy({ left: -150, behavior: "smooth" });
+  });
+  document.querySelector(".scroll-btn.right").addEventListener("click", () => {
+    tabsEl.scrollBy({ left: 150, behavior: "smooth" });
+  });
+
+
+  const leftPane = document.getElementById("left-pane");
+  const rightPane = document.getElementById("right-pane");
+  const splitView = document.getElementById("splitView");
+  const toggleBtn = document.getElementById("sidebarToggle");
+  let rightPaneTargetSize = -1;
+
+  function resizeToContainer() {
+    console.log(`resizeToContainer called`);
+    const canvas = document.getElementById("defaultCanvas0");
+    if (canvas && leftPane && window.p5 && window._renderer) {
+      const w = leftPane.clientWidth;
+      const h = innerHeight - leftPane.getBoundingClientRect().top;
+      resizeCanvas(w, h); // <-- p5.js global function
+    }
+  }
+
+  // MutationObserver: wait until p5.js creates the canvas
+  const observer = new MutationObserver(() => {
+    const canvas = document.getElementById("defaultCanvas0");
+    if (canvas) {
+      leftPane.appendChild(canvas);
+      resizeToContainer(); // initial resize
+      observer.disconnect();
+    }
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  const resizeObserver = new ResizeObserver((entries) => {
+    for (const entry of entries) {
+      if ( entry.contentRect.width == rightPaneTargetSize){
+        console.log("done observing");
+        resizeToContainer();
+      }
+    }
+  });
+  resizeObserver.observe(rightPane);
+
+  // Listen to Split.js dragging
+  window.addEventListener("resize", resizeToContainer);
+
+  // Optional: if we want immediate resize as gutter is dragged
+  // Split.js supports an "onDrag" callback:
+  const splitJsInstance = Split(['.split_view #left-pane', '.split_view #right-pane'], {
+    sizes: [100, 0],
+    gutterSize: 5,
+    onDrag: resizeToContainer // maybe: onDragEnd
+  });
+  const paneSizes = [40, 60];
+  window.splitJSInst = splitJsInstance;
+  rightPaneTargetSize = 0;
+  splitJsInstance.collapse(1);
+  
+  toggleBtn.addEventListener("click", () => {
+    console.log(splitJsInstance);
+    console.log(paneSizes);
+    splitView.classList.toggle("expanded");
+    if (splitView.classList.contains("expanded")) {
+      // It was collapsed, now we're expanding
+      toggleBtn.textContent = "→"; // collapse icon
+      rightPaneTargetSize = paneSizes[1] / 100.0 * innerWidth - 2.5;  // the 2.5px is because SplitView applies that; maybe for borders
+      splitJsInstance.setSizes(paneSizes);
+      console.log('setting pane sizes');
+      console.log(paneSizes);
+    } else {
+      // It was expands, now we're collapsing
+      toggleBtn.textContent = "←"; // expand icon
+      let sizes = splitJsInstance.getSizes();
+      console.log('caching pane sizes');
+      rightPaneTargetSize = 0;
+      splitJsInstance.collapse(1);
+      console.log(paneSizes);
+      paneSizes[0] = sizes[0];
+      paneSizes[1] = sizes[1];
+    }
+  });
+});
