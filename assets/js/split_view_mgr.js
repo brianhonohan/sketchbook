@@ -3,6 +3,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const tabsEl = document.getElementById('tabs');
   const contentEl = document.getElementById('tab-content');
   const contentE1Height = (contentEl.getBoundingClientRect())['height'] - 15;
+  const leftPane = document.getElementById("left-pane");
+  const rightPane = document.getElementById("right-pane");
+  const splitView = document.getElementById("splitView");
+  const toggleBtn = document.getElementById("sidebarToggle");
+  let rightPaneTargetSize = -1;
 
   async function loadAndDisplay(fileUrl, tab) {
     try {
@@ -73,15 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
     tabsEl.scrollBy({ left: 150, behavior: "smooth" });
   });
 
-
-  const leftPane = document.getElementById("left-pane");
-  const rightPane = document.getElementById("right-pane");
-  const splitView = document.getElementById("splitView");
-  const toggleBtn = document.getElementById("sidebarToggle");
-  let rightPaneTargetSize = -1;
-
   function resizeToContainer() {
-    console.log(`resizeToContainer called`);
     const canvas = document.getElementById("defaultCanvas0");
     if (canvas && leftPane && window.p5 && window._renderer) {
       const w = leftPane.clientWidth;
@@ -104,7 +101,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const resizeObserver = new ResizeObserver((entries) => {
     for (const entry of entries) {
       if ( entry.contentRect.width == rightPaneTargetSize){
-        console.log("done observing");
         resizeToContainer();
       }
     }
@@ -114,39 +110,31 @@ document.addEventListener("DOMContentLoaded", () => {
   // Listen to Split.js dragging
   window.addEventListener("resize", resizeToContainer);
 
-  // Optional: if we want immediate resize as gutter is dragged
-  // Split.js supports an "onDrag" callback:
-  const splitJsInstance = Split(['.split_view #left-pane', '.split_view #right-pane'], {
-    sizes: [100, 0],
-    gutterSize: 5,
-    onDrag: resizeToContainer // maybe: onDragEnd
-  });
-  const paneSizes = [40, 60];
-  window.splitJSInst = splitJsInstance;
-  rightPaneTargetSize = 0;
-  splitJsInstance.collapse(1);
-  
   toggleBtn.addEventListener("click", () => {
-    console.log(splitJsInstance);
-    console.log(paneSizes);
     splitView.classList.toggle("expanded");
     if (splitView.classList.contains("expanded")) {
       // It was collapsed, now we're expanding
       toggleBtn.textContent = "→"; // collapse icon
       rightPaneTargetSize = paneSizes[1] / 100.0 * innerWidth - 2.5;  // the 2.5px is because SplitView applies that; maybe for borders
       splitJsInstance.setSizes(paneSizes);
-      console.log('setting pane sizes');
-      console.log(paneSizes);
     } else {
       // It was expands, now we're collapsing
       toggleBtn.textContent = "←"; // expand icon
       let sizes = splitJsInstance.getSizes();
-      console.log('caching pane sizes');
       rightPaneTargetSize = 0;
       splitJsInstance.collapse(1);
-      console.log(paneSizes);
       paneSizes[0] = sizes[0];
       paneSizes[1] = sizes[1];
     }
   });
+
+  const splitJsInstance = Split(['.split_view #left-pane', '.split_view #right-pane'], {
+    sizes: [100, 0],
+    gutterSize: 5,
+    onDrag: resizeToContainer // maybe: onDragEnd
+  });
+  const paneSizes = [40, 60]; // Default on initial expansion
+  window.splitJSInst = splitJsInstance;
+  rightPaneTargetSize = 0;
+  splitJsInstance.collapse(1);
 });
