@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const splitView = document.getElementById("splitView");
   const toggleBtn = document.getElementById("sidebarToggle");
   let rightPaneTargetSize = -1;
-
+  let canvasResizeDisabled = true;
 
   class TabManager {
     constructor(){
@@ -77,6 +77,10 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   function resizeToContainer() {
+    if (canvasResizeDisabled){
+      return;
+    }
+
     const canvas = document.getElementById("defaultCanvas0");
     if (canvas && leftPane && window.p5 && window._renderer) {
       const w = leftPane.clientWidth;
@@ -96,6 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   observer.observe(document.body, { childList: true, subtree: true });
 
+  // Listen to Split.js dragging, to handle when it has reached the target size
   const resizeObserver = new ResizeObserver((entries) => {
     for (const entry of entries) {
       if ( entry.contentRect.width == rightPaneTargetSize){
@@ -104,9 +109,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
   resizeObserver.observe(rightPane);
-
-  // Listen to Split.js dragging
-  window.addEventListener("resize", resizeToContainer);
 
   toggleBtn.addEventListener("click", () => {
     splitView.classList.toggle("expanded");
