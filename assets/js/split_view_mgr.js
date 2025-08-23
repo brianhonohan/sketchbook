@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const scripts = Array.from(document.querySelectorAll('script[src]'));
   const tabsEl = document.getElementById('tabs');
   const contentEl = document.getElementById('tab-content');
   const contentE1Height = (contentEl.getBoundingClientRect())['height'] - 15;
@@ -30,27 +29,20 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  const fileNameIgnoreList = [
-    'jquery.min.js',
-    'p5.min.js',
-    'lil-gui@0.20',
-    'inobounce.js',
-    'jquery-accessible-modal-window-aria.js'
+  const excludePatterns = [
+    /^https:\/\/cdnjs\.cloudflare\.com\//,
+    /^https:\/\/cdn\.jsdelivr\.net\//,
+    /\/vendor\//,
+    /\.min\.js$/
   ];
-
+  
+  let scripts = Array.from(document.querySelectorAll('script[src]'));
   scripts.reverse();
-  // TODO: filter the array before iterating over it.
-  let firstNonSkipped = true;
+  scripts = scripts.filter(script => !excludePatterns.some(regex => regex.test(script.getAttribute('src'))) );
 
   scripts.forEach((script, i) => {
     const src = script.getAttribute('src');
     const fileName = src.split('/').pop();
-    if (fileName.indexOf('.min.js') > 0){
-      return;
-    }
-    if (fileNameIgnoreList.includes(fileName)){
-      return;
-    }
     const tab = document.createElement('div');
     tab.className = 'tab';
     tab.textContent = fileName;
@@ -62,8 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
     tabsEl.appendChild(tab);
 
     // Load first tab by default
-    if (firstNonSkipped) {
-      firstNonSkipped = false;
+    if (i == 0) {
       tab.classList.add('active');
       loadAndDisplay(src, tab);
     }
