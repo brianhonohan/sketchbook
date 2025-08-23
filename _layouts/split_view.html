@@ -6,6 +6,15 @@
     <main class="page-content" aria-label="Content">
       <div class="split_view" id="splitView">
         <div id="left-pane">
+          {% if page.modal %}
+            <div class="wrapper invisible" id="modal-content">
+              {{ content }}
+            </div>
+          {% else %}
+            <div class="wrapper">
+              {{ content }}
+            </div>
+          {% endif %}
         </div>
         <div id="right-pane">
           <div class="tabs-container">
