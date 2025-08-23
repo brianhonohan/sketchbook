@@ -2,7 +2,7 @@
 
   <div class="wrapper">
 
-    {% if page.layout == "minimal" %}
+    {% if page.layout == "minimal" or page.layout == "split_view" %}
       <a class="site-title" href="/"><img src="{{site.baseurl}}/assets/images/home.png" alt="Home" width="33px" /></a>
       <a class="site-title" href="/sketchbook/">/&nbsp;&nbsp;<img src="{{site.baseurl}}/assets/images/sketchbook.png" alt="Sketchbook" width="33px" /></a>
       {% if page.title %}
