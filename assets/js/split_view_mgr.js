@@ -1,33 +1,40 @@
 document.addEventListener("DOMContentLoaded", () => {
   const tabsEl = document.getElementById('tabs');
-  const contentEl = document.getElementById('tab-content');
-  const contentE1Height = (contentEl.getBoundingClientRect())['height'] - 15;
   const leftPane = document.getElementById("left-pane");
   const rightPane = document.getElementById("right-pane");
   const splitView = document.getElementById("splitView");
   const toggleBtn = document.getElementById("sidebarToggle");
   let rightPaneTargetSize = -1;
 
-  async function loadAndDisplay(fileUrl, tab) {
-    try {
-      const res = await fetch(fileUrl);
-      const text = await res.text();
-      const pre = document.createElement('pre');
-      const code = document.createElement('code');
-      code.className = 'language-javascript';
-      code.textContent = text;
-      pre.appendChild(code);
-      pre.setAttribute("id", "pre_code_container");
-      hljs.highlightElement(code);
-      contentEl.innerHTML = '';
-      contentEl.appendChild(pre);
 
-      // dynamically set the height, because I can't figure out the CSS
-      pre.style.height =  (contentE1Height) + "px";
-    } catch (err) {
-      contentEl.innerHTML = `<p style="color:red;">Error loading ${fileUrl}</p>`;
+  class TabManager {
+    constructor(){
+      this.contentEl = document.getElementById('tab-content');
+      this.contentE1Height = (this.contentEl.getBoundingClientRect())['height'] - 15;
+    }
+    
+    async loadAndDisplay(fileUrl) {
+      try {
+        const res = await fetch(fileUrl);
+        const text = await res.text();
+        const pre = document.createElement('pre');
+        const code = document.createElement('code');
+        code.className = 'language-javascript';
+        code.textContent = text;
+        pre.appendChild(code);
+        pre.setAttribute("id", "pre_code_container");
+        hljs.highlightElement(code);
+        this.contentEl.innerHTML = '';
+        this.contentEl.appendChild(pre);
+
+        // dynamically set the height, because I can't figure out the CSS
+        pre.style.height =  (this.contentE1Height) + "px";
+      } catch (err) {
+        this.contentEl.innerHTML = `<p style="color:red;">Error loading ${fileUrl}</p>`;
+      }
     }
   }
+  const tabMgr = new TabManager();
 
   const excludePatterns = [
     /^https:\/\/cdnjs\.cloudflare\.com\//,
@@ -49,14 +56,14 @@ document.addEventListener("DOMContentLoaded", () => {
     tab.addEventListener('click', () => {
       document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
-      loadAndDisplay(src, tab);
+      tabMgr.loadAndDisplay(src);
     });
     tabsEl.appendChild(tab);
 
     // Load first tab by default
     if (i == 0) {
       tab.classList.add('active');
-      loadAndDisplay(src, tab);
+      tabMgr.loadAndDisplay(src);
     }
   });
 
