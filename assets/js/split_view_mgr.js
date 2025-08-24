@@ -10,8 +10,14 @@ document.addEventListener("DOMContentLoaded", () => {
   class TabManager {
     constructor(){
       this.contentEl = document.getElementById('tab-content');
+      this.tabsContainerEl = document.getElementById('tabs-container');
       this.contentE1Height = (this.contentEl.getBoundingClientRect())['height'] - 15;
       this.tabsEl = document.getElementById('tabs');
+    }
+
+    completeInitialization(){
+      this.initializeTabs();
+      this.tabsContainerEl.classList.remove("hidden");
     }
 
     initializeTabs(){
@@ -98,7 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
       leftPane.appendChild(canvas);
       resizeToContainer(); // initial resize
       observer.disconnect();
-      tabMgr.initializeTabs();
+      tabMgr.completeInitialization();
     }
   });
   observer.observe(document.body, { childList: true, subtree: true });
