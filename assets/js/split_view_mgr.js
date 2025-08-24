@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
         /^https:\/\/cdnjs\.cloudflare\.com\//,
         /^https:\/\/cdn\.jsdelivr\.net\//,
         /\/vendor\//,
+        /\/assets\/js\//,
         /\.min\.js$/
       ];
       
