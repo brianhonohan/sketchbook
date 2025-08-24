@@ -11,6 +11,40 @@ document.addEventListener("DOMContentLoaded", () => {
     constructor(){
       this.contentEl = document.getElementById('tab-content');
       this.contentE1Height = (this.contentEl.getBoundingClientRect())['height'] - 15;
+      this.tabsEl = document.getElementById('tabs');
+    }
+
+    initializeTabs(){
+      this.excludePatterns = [
+        /^https:\/\/cdnjs\.cloudflare\.com\//,
+        /^https:\/\/cdn\.jsdelivr\.net\//,
+        /\/vendor\//,
+        /\.min\.js$/
+      ];
+      
+      this.scripts = Array.from(document.querySelectorAll('script[src]'));
+      this.scripts.reverse();
+      this.scripts = this.scripts.filter(script => !this.excludePatterns.some(regex => regex.test(script.getAttribute('src'))) );
+
+      this.scripts.forEach((script, i) => {
+        const src = script.getAttribute('src');
+        const fileName = src.split('/').pop();
+        const tab = document.createElement('div');
+        tab.className = 'tab';
+        tab.textContent = fileName;
+        tab.addEventListener('click', () => {
+          document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          tabMgr.loadAndDisplay(src);
+        });
+        this.tabsEl.appendChild(tab);
+
+        // Load first tab by default
+        if (i == 0) {
+          tab.classList.add('active');
+          this.loadAndDisplay(src);
+        }
+      });
     }
     
     async loadAndDisplay(fileUrl) {
@@ -35,38 +69,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
   const tabMgr = new TabManager();
-
-  const excludePatterns = [
-    /^https:\/\/cdnjs\.cloudflare\.com\//,
-    /^https:\/\/cdn\.jsdelivr\.net\//,
-    /\/vendor\//,
-    /\.min\.js$/
-  ];
-  
-  let scripts = Array.from(document.querySelectorAll('script[src]'));
-  scripts.reverse();
-  scripts = scripts.filter(script => !excludePatterns.some(regex => regex.test(script.getAttribute('src'))) );
-
-  scripts.forEach((script, i) => {
-    const src = script.getAttribute('src');
-    const fileName = src.split('/').pop();
-    const tab = document.createElement('div');
-    tab.className = 'tab';
-    tab.textContent = fileName;
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      tabMgr.loadAndDisplay(src);
-    });
-    tabsEl.appendChild(tab);
-
-    // Load first tab by default
-    if (i == 0) {
-      tab.classList.add('active');
-      tabMgr.loadAndDisplay(src);
-    }
-  });
-
 
   // Add left/right buttons to scroll through the tabs
   document.querySelector(".scroll-btn.left").addEventListener("click", () => {
@@ -96,6 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
       leftPane.appendChild(canvas);
       resizeToContainer(); // initial resize
       observer.disconnect();
+      tabMgr.initializeTabs();
     }
   });
   observer.observe(document.body, { childList: true, subtree: true });
