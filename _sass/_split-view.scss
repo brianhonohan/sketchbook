@@ -1,0 +1,117 @@
+.split_view {
+  height: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  font-family: sans-serif;
+}
+.split_view #left-pane {
+  flex: 1;
+  overflow: auto;
+}
+.split_view #right-pane {
+  display: flex;
+  flex-direction: column;
+  width: 0;
+  transition: width 0.3s ease;
+  overflow: hidden;
+}
+.split_view.expanded #right-pane {
+  width: 50%;
+}
+.split_view .tabs {
+  display: flex;
+  background: #f5f5f5;
+  border-bottom: 1px solid #ccc;
+  overflow-x: auto;     /* enable horizontal scrolling */
+  overflow-y: hidden;
+  white-space: nowrap;  /* keep tabs in a single row */
+  scrollbar-width: thin; /* nicer scrollbars in Firefox */
+}
+.split_view .tab {
+  flex: 0 0 auto;       /* prevent tabs from shrinking */
+  padding: 0.5em 1em;
+  cursor: pointer;
+  border-right: 1px solid #ccc;
+  user-select: none;
+}
+.split_view .tab.active {
+  background: #fff;
+  font-weight: bold;
+}
+.split_view .tab-content {
+  flex: 1;
+  overflow: auto;
+  background: #fff;
+}
+.split_view pre {
+  margin: 0;
+  padding: 0;
+  white-space: pre-wrap;       /* allow wrapping */
+  word-wrap: break-word;       /* break long lines */
+  overflow-x: auto;            /* keep horizontal scroll as fallback */
+  max-width: 100%;             /* fit inside container */
+}
+.split_view pre code {
+  overflow-y: auto;
+}
+.split_view .gutter {
+    background-color: #eee;
+    background-repeat: no-repeat;
+    background-position: 50%;
+}
+.split_view .gutter.gutter-horizontal {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
+    cursor: col-resize;
+}
+.split_view .tabs-container {
+  display: flex;
+  align-items: center;
+  background: #f5f5f5;
+  border-bottom: 1px solid #ccc;
+}
+.split_view .scroll-btn {
+  flex: 0 0 auto;
+  border: none;
+  background: #eee;
+  padding: 0.5em;
+  cursor: pointer;
+  font-size: 1em;
+  user-select: none;
+}
+.split_view .scroll-btn:hover {
+  background: #ddd;
+}
+.split_view .tabs {
+  flex: 1;
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  scrollbar-width: none; /* hide scrollbar for cleaner look */
+}
+.split_view .tabs::-webkit-scrollbar {
+  display: none; /* hide scrollbar in Chrome/Safari */
+}
+
+/* Toggle button */
+.sidebar-toggle {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-toggle:hover {
+  background: #555;
+}

@@ -3,7 +3,6 @@
   overflow: hidden;
 
   .site-header {
-    min-height: 0px;
 
     .wrapper {
       max-width: none;
@@ -29,7 +28,6 @@
 
   .page-content {
     padding: 0;
+    overflow: auto;
   }
-
-
 }

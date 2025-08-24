@@ -2,7 +2,7 @@
 
   <div class="wrapper">
 
-    {% if page.layout == "minimal" %}
+    {% if page.layout == "minimal" or page.layout == "split_view" %}
       <a class="site-title" href="/"><img src="{{site.baseurl}}/assets/images/home.png" alt="Home" width="33px" /></a>
       <a class="site-title" href="/sketchbook/">/&nbsp;&nbsp;<img src="{{site.baseurl}}/assets/images/sketchbook.png" alt="Sketchbook" width="33px" /></a>
       {% if page.title %}
@@ -17,20 +17,20 @@
       <input type="checkbox" id="tm">
       <ul class="main-menu clearfix">
         {% if page.modal %}
-        {% if page.bh_non_interactive %}
-          <li><a class="page-link" style="text-decoration: none;">(non-interactive)</a></li>
-        {% endif %}
-        {% if page.prev_sketch %}
-          <li><a class="page-link" href="{{page.prev_sketch}}" style="text-decoration: none;">< Prev</a></li>
-        {% endif %}
-        {% if page.next_sketch %}
-          <li><a class="page-link" href="{{page.next_sketch}}" style="text-decoration: none;">Next ></a></li>
-        {% endif %}
-        <li><a class="page-link js-modal" href="#"
-           data-modal-prefix-class="simple"
-           data-modal-content-id="modal-content"
-           data-modal-close-text="X"
-           data-modal-close-title="Close this window">Info</a></li>
+          {% if page.bh_non_interactive %}
+            <li><a class="page-link" style="text-decoration: none;">(non-interactive)</a></li>
+          {% endif %}
+          {% if page.prev_sketch %}
+            <li><a class="page-link" href="{{page.prev_sketch}}" style="text-decoration: none;">< Prev</a></li>
+          {% endif %}
+          {% if page.next_sketch %}
+            <li><a class="page-link" href="{{page.next_sketch}}" style="text-decoration: none;">Next ></a></li>
+          {% endif %}
+          <li><a class="page-link js-modal" href="#"
+            data-modal-prefix-class="simple"
+            data-modal-content-id="modal-content"
+            data-modal-close-text="X"
+            data-modal-close-title="Close this window">Info</a></li>
         {% else %}
           <li><a class="page-link" href="/about">About Me</a></li>
           <li><a class="page-link" href="/sketchbook/">Sketchbook</a></li>

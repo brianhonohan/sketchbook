@@ -29,10 +29,18 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="/sketchbook/vendor/jquery-accessible-modal-window-aria/jquery-accessible-modal-window-aria.js"></script>
     <link rel="stylesheet" href="/sketchbook/vendor/jquery-accessible-modal-window-aria/simple-modal.css">
-
     <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
     {% for css_file in page.css_files %}<link rel="stylesheet" href="{{ css_file }}">
     {% endfor %}
+
+    {% if include.mode_split == "true" %}
+    {% assign highlightjs_theme = "nord" %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.5/split.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="/sketchbook/assets/js/split_view_mgr.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/{{highlightjs_theme}}.min.css">
+    {% endif %}
+
     {% for js in page.js_scripts %}<script src="{{ js }}" charset="utf-8"></script>
     {% endfor %}
     {% if page.js_modules %}
@@ -50,4 +58,7 @@
             {% endif %}
         {% endfor %}
     {% endif %}
+
+    
+
 </head>
