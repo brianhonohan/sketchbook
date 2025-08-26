@@ -23,6 +23,13 @@
   border-style: solid;
   border-color: rgba(0, 0, 0, .05);
 }
+@media (prefers-color-scheme: dark) {
+  #menu li,
+  #toggle-menu,
+  #menu .sub-menu {
+    border-color: rgba(255, 255, 255, .15);
+  }
+}
 
 #menu li,
 #toggle-menu {
@@ -34,6 +41,11 @@
   border-width: 1px 1px 0;
   margin: 0 1em;
 }
+@media (prefers-color-scheme: dark) {
+  #menu .sub-menu {
+    background-color: #222;
+  }
+}
 
 #menu .sub-menu li:last-child {
   border-width: 0;
@@ -44,12 +56,25 @@
 #menu a {
   position: relative;
   display: block;
-  color: #111;
+  color: $text-color;
+}
+@media (prefers-color-scheme: dark) {
+  #menu li,
+  #toggle-menu,
+  #menu a {
+    color:  $text-color-darktheme;
+  }
 }
 
 #menu,
 #toggle-menu {
-  background-color: #fff;
+  background-color: $background-color;
+}
+@media (prefers-color-scheme: dark) {
+  #menu,
+  #toggle-menu {
+    background-color: $background-color-darktheme;
+  }
 }
 
 #toggle-menu,

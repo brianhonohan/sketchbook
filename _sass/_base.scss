@@ -25,7 +25,12 @@ body {
     -webkit-text-size-adjust: 100%;
 }
 
-
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: $background-color-darktheme;
+    color: $text-color-darktheme;
+  }
+}
 
 /**
  * Set `margin-bottom` to maintain vertical rhythm
@@ -104,7 +109,17 @@ a {
     }
 }
 
-
+@media (prefers-color-scheme: dark) {
+  a {
+    color: lighten($brand-color, 5%);
+    &:visited {
+        color: lighten($brand-color, 20%);
+    }
+    &:hover {
+        color: $text-color-darktheme;
+    }
+  }
+}
 
 /**
  * Blockquotes
@@ -133,6 +148,14 @@ code {
     border: 1px solid $grey-color-light;
     border-radius: 3px;
     background-color: #eef;
+}
+@media (prefers-color-scheme: dark) {
+  pre,
+  code {
+    border-color: $grey-color-dark;
+    background-color: #333;
+    color: #ddd;
+  }
 }
 
 code {

@@ -11,9 +11,12 @@ $base-line-height: 1.5;
 
 $spacing-unit:     30px;
 
-$text-color:       #111;
-$background-color: #fdfdfd;
+$text-color:       #202020;
+$background-color: #dddddd;
 $brand-color:      #2a7ae2;
+
+$text-color-darktheme:       #dddddd;
+$background-color-darktheme: #202020;
 
 $grey-color:       #828282;
 $grey-color-light: lighten($grey-color, 40%);
