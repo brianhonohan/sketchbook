@@ -3,8 +3,8 @@
   <div class="wrapper">
 
     {% if page.layout == "minimal" or page.layout == "split_view" %}
-      <a class="site-title" href="/"><img src="{{site.baseurl}}/assets/images/home.png" alt="Home" width="33px" /></a>
-      <a class="site-title" href="/sketchbook/">/&nbsp;&nbsp;<img src="{{site.baseurl}}/assets/images/sketchbook.png" alt="Sketchbook" width="33px" /></a>
+      <a class="site-title" href="/"><img src="{{site.baseurl}}/assets/images/home.png" class="img-header-icon" alt="Home" width="33px" /></a>
+      <a class="site-title" href="/sketchbook/">/&nbsp;&nbsp;<img src="{{site.baseurl}}/assets/images/sketchbook.png" class="img-header-icon" alt="Sketchbook" width="33px" /></a>
       {% if page.title %}
         <span class="site-title">/&nbsp;&nbsp;{{ page.title }}</span>
       {% endif %}

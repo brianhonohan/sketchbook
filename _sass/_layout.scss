@@ -16,6 +16,12 @@ html, body {
     // Positioning context for the mobile navigation icon
     position: relative;
 }
+@media (prefers-color-scheme: dark) {
+    .site-header {
+        border-top-color: $grey-color-light;
+        border-bottom-color: $grey-color-dark;
+    }
+}
 
 .site-title {
     font-size: 26px;
@@ -28,6 +34,12 @@ html, body {
     &:visited {
         color: $grey-color-dark;
     }
+}
+@media (prefers-color-scheme: dark) {
+  .site-title,
+  .site-title:visited {
+      color: $grey-color-light;
+  }
 }
 
 .site-nav {

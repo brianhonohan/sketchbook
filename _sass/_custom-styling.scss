@@ -1,3 +1,9 @@
+@media (prefers-color-scheme: dark) {
+  .img-header-icon {
+    -webkit-filter: invert(1);
+    filter: invert(1);
+  }
+}
 
 .img-thumbnail {
   width: 150px
@@ -14,6 +20,11 @@
   line-height: 1.25;
   padding-bottom: .3em;
   border-bottom: 1px solid #e8e8e8;
+}
+@media (prefers-color-scheme: dark) {
+  .home h2 {
+    border-bottom: 1px solid #444;
+  }
 }
 
 .post-list {
@@ -64,6 +75,27 @@
 
 
 // Override defaults of simple-modal-close
+@media (prefers-color-scheme: dark) {
+  .simple-modal {
+    background: $background-color-darktheme;
+    color: $text-color-darktheme;
+  }
+  .simple-modal-overlay {
+    background: rgba(0, 0, 0, 0.8);
+  }
+
+  .simple-modal-close {
+    background: $background-color-darktheme;
+    border: 1px solid $grey-color;
+    color: $text-color-darktheme;
+  }
+  .simple-modal-close:focus,
+  .simple-modal-close:hover,
+  .simple-modal-close:active {
+    background: #A93333;
+    color: #dddddd;
+  }
+}
 
 .simple-modal-close {
   background: #ffffff;
@@ -117,6 +149,11 @@
   font-size: 1rem;
   border-radius: 5px;
   overflow: hidden;
+}
+@media (prefers-color-scheme: dark) {
+  .thumbnail {
+    background-color: #444; /* Dark mode placeholder */
+  }
 }
 
 .thumbnail img {
