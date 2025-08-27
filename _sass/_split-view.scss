@@ -28,6 +28,12 @@
   white-space: nowrap;  /* keep tabs in a single row */
   scrollbar-width: thin; /* nicer scrollbars in Firefox */
 }
+@media (prefers-color-scheme: dark) {
+  .split_view .tabs {
+    background: #333;
+    border-bottom: 1px solid #555;
+  }
+}
 .split_view .tab {
   flex: 0 0 auto;       /* prevent tabs from shrinking */
   padding: 0.5em 1em;
@@ -39,10 +45,25 @@
   background: #fff;
   font-weight: bold;
 }
+@media (prefers-color-scheme: dark) {
+  .split_view .tab {
+    border-right: 1px solid #555;
+    color: #ddd;
+  }
+  .split_view .tab.active {
+    background: #222;
+  }
+}
 .split_view .tab-content {
   flex: 1;
   overflow: auto;
   background: #fff;
+}
+@media (prefers-color-scheme: dark) {
+  .split_view .tab-content {
+    background: #222;
+    color: #ddd;
+  }
 }
 .split_view pre {
   margin: 0;
@@ -60,6 +81,11 @@
     background-repeat: no-repeat;
     background-position: 50%;
 }
+@media (prefers-color-scheme: dark) {
+  .split_view .gutter {
+    background-color: #555;
+  }
+}
 .split_view .gutter.gutter-horizontal {
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
     cursor: col-resize;
@@ -70,6 +96,12 @@
   background: #f5f5f5;
   border-bottom: 1px solid #ccc;
 }
+@media (prefers-color-scheme: dark) {
+  .split_view .tabs-container {
+    background: #555;
+    border-bottom: 1px solid #555;
+  }
+}
 .split_view .scroll-btn {
   flex: 0 0 auto;
   border: none;
@@ -79,8 +111,19 @@
   font-size: 1em;
   user-select: none;
 }
+@media (prefers-color-scheme: dark) {
+  .split_view .scroll-btn {
+    background: #555;
+    color: #ddd;
+  }
+}
 .split_view .scroll-btn:hover {
   background: #ddd;
+}
+@media (prefers-color-scheme: dark) {
+  .split_view .scroll-btn:hover {
+    background: #777;
+  }
 }
 .split_view .tabs {
   flex: 1;
